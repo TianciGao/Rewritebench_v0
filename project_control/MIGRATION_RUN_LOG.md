@@ -456,3 +456,53 @@ Important raw URLs:
 
 Next safe action:
 - Review the committed `PORT_0025` pilot slice, then either apply the same evidence-mapping-only pattern to another approved simple PORT case or continue with approved pilot planning.
+
+### 2026-05-15 · pending · PORT_0024 formal sanitized evidence mapping pilot
+
+Mode: release-repo formal evidence-mapping pilot with result-check summary; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash recorded in the task final response and Git history
+Push: pending at write time; final result recorded in the task final response
+Scope: Promoted already validated Route B sanitized trial outputs for `PORT_0024` into a formal case-local evidence mapping pilot, including summarized Spark result-check evidence.
+
+Summary:
+- Created `cases/PORT/PORT_0024/MIGRATION_PILOT.md`.
+- Created `cases/PORT/PORT_0024/evidence/runs_retention.yaml`.
+- Created two sanitized retained Spark plan files from validated trial outputs.
+- Created one sanitized Spark result-check summary from validated trial output.
+- Created formal pilot audit report and validation CSV.
+- Full case migration: no.
+
+Validation:
+- YAML validation passed for `cases/PORT/PORT_0024/evidence/runs_retention.yaml`.
+- JSON validation passed for `cases/PORT/PORT_0024/evidence/retained_controls/spark_result_check.sanitized_summary.json`.
+- SHA256 match passed for both formal sanitized plan copies and the sanitized result-check summary against Route B trial artifacts.
+- Sanitized output scan passed for the required formal public files.
+- Raw legacy Spark plans and raw stdout/stderr logs were not copied into public retained evidence.
+
+Files created:
+- `cases/PORT/PORT_0024/MIGRATION_PILOT.md`
+- `cases/PORT/PORT_0024/evidence/runs_retention.yaml`
+- `cases/PORT/PORT_0024/evidence/retained_plans/rewrite_neg_01.sanitized.txt`
+- `cases/PORT/PORT_0024/evidence/retained_plans/rewrite_pos_01.sanitized.txt`
+- `cases/PORT/PORT_0024/evidence/retained_controls/spark_result_check.sanitized_summary.json`
+- `audits/port_manual_review_resolution/formal_pilots/PORT_0024_formal_mapping_pilot.md`
+- `audits/port_manual_review_resolution/formal_pilots/PORT_0024_formal_mapping_validation.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0024/MIGRATION_PILOT.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0024/evidence/runs_retention.yaml
+
+Next safe action:
+- Review the committed `PORT_0024` pilot slice, then close the blocked-PORT evidence-mapping pilot series or continue with approved full-case migration planning.

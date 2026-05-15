@@ -28,8 +28,8 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0025 formal sanitized evidence mapping pilot；
-当前下一步安全动作是 review PORT_0025 pilot slice, then either apply the same evidence-mapping-only pattern to another approved simple PORT case or continue with approved pilot planning。
+latest completed run is PORT_0024 formal sanitized evidence mapping pilot；
+当前下一步安全动作是 review PORT_0024 pilot slice, then either close the blocked-PORT evidence-mapping pilot series or continue with approved full-case migration planning。
 
 ## 2. 仓库 / 工作区状态
 
@@ -266,21 +266,23 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：PORT_0025 formal sanitized evidence mapping pilot
+## Last Codex run：PORT_0024 formal sanitized evidence mapping pilot
 
 Date：2026-05-15
 
-Task name：PORT_0025 formal sanitized evidence mapping pilot
+Task name：PORT_0024 formal sanitized evidence mapping pilot
 
-Mode：release-repo formal evidence-mapping pilot；legacy read-only
+Mode：release-repo formal evidence-mapping pilot with result-check summary；legacy read-only
 
 Legacy repo modified：no
 
 Actual legacy evidence sanitized/moved/deleted/copied：no
 
-Formal public sanitized copies created：yes
+Formal public sanitized plan copies created：yes
 
-Case-local `evidence/runs_retention.yaml` created for PORT_0025：yes
+Formal public sanitized result_check summary created：yes
+
+Case-local `evidence/runs_retention.yaml` created for PORT_0024：yes
 
 Full case package migrated：no
 
@@ -290,12 +292,14 @@ Paper results changed：no
 
 Validation summary：
 
-- YAML validation：passed；`cases/PORT/PORT_0025/evidence/runs_retention.yaml` parsed successfully.
-- SHA256 match：passed；both formal sanitized plan copies match the corresponding Route B trial artifacts.
-- Sanitized output scan：passed；formal public pilot files do not expose maintainer-local paths, local URI traces, host endpoints, platform traces, or credential-keyword traces covered by the required scan.
+- YAML validation：passed；`cases/PORT/PORT_0024/evidence/runs_retention.yaml` parsed successfully.
+- JSON validation：passed；`cases/PORT/PORT_0024/evidence/retained_controls/spark_result_check.sanitized_summary.json` parsed successfully.
+- SHA256 match：passed；both formal sanitized plan copies and the formal sanitized result-check summary match the corresponding Route B trial artifacts.
+- Sanitized output scan：passed；formal public pilot files do not expose maintainer-local paths, local URI traces, host endpoints, platform traces, credential-keyword traces, or raw stdout/stderr log paths covered by the required scan.
 - Raw legacy Spark plan copied into public retained evidence：no；formal retained plan files were copied from validated sanitized trial outputs only.
+- Raw stdout/stderr log copied into public retained evidence：no；only the validated sanitized result-check summary was copied.
 
-Next safe action：review the committed PORT_0025 pilot slice, then use the same evidence-mapping-only pattern for the next approved simple PORT manual-review case or continue with approved pilot planning.
+Next safe action：review the committed PORT_0024 pilot slice, then close the blocked-PORT evidence-mapping pilot series or continue with approved full-case migration planning.
 
 ## 6. Phase progress
 
