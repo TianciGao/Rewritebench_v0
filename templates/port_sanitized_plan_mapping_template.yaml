@@ -1,0 +1,47 @@
+case_id: TEMPLATE_PORT_CASE_ID
+original_plan_artifact:
+  path: cases/PORT/TEMPLATE_PORT_CASE_ID/runs/spark/plans/TEMPLATE_PLAN.txt
+  sha256_if_known: TBD
+  contains_local_path_trace: true
+sanitized_public_plan_artifact:
+  proposed_path: cases/PORT/TEMPLATE_PORT_CASE_ID/evidence/retained_plans/TEMPLATE_PLAN.sanitized.txt
+  exists_now: false
+  generation_status: not_generated_in_template_design
+original_archive_policy:
+  retain_original: true
+  proposed_archive_path: private_archive/PORT/TEMPLATE_PORT_CASE_ID/runs/spark/plans/TEMPLATE_PLAN.txt
+  public_release_should_expose_raw_original: false
+redaction_rules:
+  - category: maintainer local path
+    action: replace with "[REDACTED_LOCAL_PATH]"
+  - category: Spark temporary warehouse path
+    action: replace with "[REDACTED_SPARK_TEMP_WAREHOUSE]"
+  - category: WSL or host-specific path
+    action: replace with "[REDACTED_HOST_PATH]"
+  - category: stdout/stderr log path references
+    action: replace with "[REDACTED_LOG_PATH]"
+redaction_scope:
+  allowed_to_redact:
+    - local filesystem prefixes
+    - temporary warehouse directories
+    - host-specific paths
+    - raw stdout/stderr log paths
+  must_preserve:
+    - plan operator names
+    - join/filter/projection structure
+    - evidence-bearing plan text
+    - hard-negative failure or divergence observability
+preserved_content_guarantee: Sanitization must not change the evidence-bearing plan semantics or case outcome interpretation.
+evidence_role:
+  - plan_observability
+related_result_check:
+  path: cases/PORT/TEMPLATE_PORT_CASE_ID/runs/result_check.json
+  notes: Add case-specific engine result_check path if different.
+related_plan_check:
+  path: cases/PORT/TEMPLATE_PORT_CASE_ID/runs/plan_check.json
+human_approval:
+  required_before_publication: true
+  approval_scope: sanitized public plan copy and original archive mapping
+do_not_delete:
+  original_plan_artifact: true
+  reason: Original is evidence-bearing and must remain mapped until archive/public-copy migration is approved.

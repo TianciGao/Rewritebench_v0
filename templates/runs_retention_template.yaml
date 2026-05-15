@@ -1,0 +1,109 @@
+case_id: TEMPLATE_CASE_ID
+pool: TEMPLATE_POOL
+legacy_runs_root: cases/TEMPLATE_POOL/TEMPLATE_CASE_ID/runs
+policy_version: runs_retention_policy_v1
+generated_from_audit:
+  audit_name: TBD
+  audit_path: TBD
+  generated_date: TBD
+  preview_only: true
+retained_control_evidence:
+  - original_legacy_path: TBD
+    proposed_public_path: TBD
+    proposed_archive_path: null
+    original_sha256_if_known: TBD
+    evidence_role: control_validation
+    risk_categories: []
+    sanitized_fields: []
+    reason: TBD
+    public_safe: true
+    do_not_delete: true
+    notes: TBD
+retained_plan_evidence:
+  - original_legacy_path: TBD
+    proposed_public_path: TBD
+    proposed_archive_path: null
+    original_sha256_if_known: TBD
+    evidence_role: plan_observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: TBD
+    public_safe: true
+    do_not_delete: true
+    notes: TBD
+hard_negative_evidence:
+  - original_legacy_path: TBD
+    proposed_public_path: TBD
+    proposed_archive_path: null
+    original_sha256_if_known: TBD
+    evidence_role: hard_negative_closure
+    risk_categories: []
+    sanitized_fields: []
+    reason: TBD
+    public_safe: true
+    do_not_delete: true
+    notes: TBD
+method_or_baseline_output: []
+sanitizable_public_evidence:
+  - original_legacy_path: TBD
+    proposed_public_path: evidence/retained_plans/TBD.sanitized.txt
+    proposed_archive_path: private_archive/TEMPLATE_CASE_ID/TBD
+    original_sha256_if_known: TBD
+    evidence_role: plan_observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - maintainer_local_path
+    reason: Original evidence is evidence-bearing but not public-safe as-is.
+    public_safe: false
+    do_not_delete: true
+    notes: Sanitized public copy must be generated in a later approved migration step.
+sanitized_public_copies:
+  - original_legacy_path: TBD
+    proposed_public_path: evidence/retained_plans/TBD.sanitized.txt
+    proposed_archive_path: private_archive/TEMPLATE_CASE_ID/TBD
+    original_sha256_if_known: TBD
+    evidence_role: plan_observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - maintainer_local_path
+    reason: Public copy should preserve plan semantics while removing release-hygiene risk.
+    public_safe: true
+    do_not_delete: true
+    notes: Placeholder; no sanitized file exists until produced by an approved migration step.
+private_or_original_archive:
+  - original_legacy_path: TBD
+    proposed_public_path: null
+    proposed_archive_path: private_archive/TEMPLATE_CASE_ID/TBD
+    original_sha256_if_known: TBD
+    evidence_role: original_traceability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Preserve raw original separately from public retained evidence.
+    public_safe: false
+    do_not_delete: true
+    notes: TBD
+external_archive_references: []
+regenerable_run_output: []
+manual_review:
+  required: false
+  items: []
+do_not_delete:
+  - path: cases/TEMPLATE_POOL/TEMPLATE_CASE_ID/runs
+    reason: Legacy retained evidence root; deletion requires approved retention mapping.
+static_references:
+  - artifact_path: TBD
+    referenced_from: TBD
+    reference_type: TBD
+    risk_if_moved: reference traceability may break without mapping
+public_release_notes:
+  evidence_index_normalization_allowed: false
+  physical_pilot_blocked: true
+  notes: Fill from audit.
+human_approval:
+  required: false
+  approved_by: null
+  approved_date: null
+  approval_scope: null
+  notes: null

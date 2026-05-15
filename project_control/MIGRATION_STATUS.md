@@ -290,11 +290,11 @@ PORT_0025。
 
 ## 8. 当前安全下一步
 
-根据 2026-05-15 PORT manual-review read-only resolution，当前安全下一步是：
+根据 2026-05-15 runs-retention policy/template design，当前安全下一步是：
 
-1. 对 PORT_0008、PORT_0012、PORT_0013、PORT_0022、PORT_0024、PORT_0025 做人工决策：Spark plan evidence 中的本地路径 trace 应发布 sanitized public copy，还是只保留在 private/external archive。
-2. 对 PORT_0024 做人工决策：`runs/spark/result_check.json` 中引用的 stdout/stderr log path 是否保留为 private/archive，还是只在 `runs_retention.yaml` 中摘要说明。
-3. 在人工批准前，只允许继续做 evidence-index / runs-retention 设计；不要做 physical migration、删除、移动、清洗或重写证据文件。
+1. 选择一个 copy-first physical pilot 或 evidence-index pilot，优先使用 PORT_0004 或已清晰映射的非 PORT representative case。
+2. 对 PORT_0008、PORT_0012、PORT_0013、PORT_0022、PORT_0024、PORT_0025，下一步只能实现 sanitized public copy / private archive mapping 的批准迁移；不要公开 raw local-path Spark plan evidence。
+3. 在正式 physical migration 前，先把 preview mapping 转化为 case-local `evidence/runs_retention.yaml` 设计并确认实际 public/archive path。
 
 ## 9. Last Codex run
 
@@ -345,3 +345,39 @@ PORT_0025。
   - PORT_0024
   - PORT_0025
 - next safe action: resolve the sanitized-copy vs private/archive decision for the six blocked PORT cases, then draft evidence-index / `runs_retention.yaml` templates without moving case files.
+
+## 10. Last Codex run
+
+- task name: runs-retention policy and PORT sanitization template design
+- date: 2026-05-15
+- mode: policy/template design in release repo; no legacy evidence edits
+- legacy repo modified: no
+- release repo modified: yes, policy docs, templates, PORT preview mappings, `DECISION_LOG.md`, and `MIGRATION_STATUS.md`
+- actual evidence sanitized/moved/deleted/copied: no
+- D013 added: yes, `Sanitizable Spark plan evidence policy`
+- outputs created:
+  - `repository_spec/runs_retention_policy_v1.md`
+  - `repository_spec/case_package_contract_v1.md`
+  - `templates/runs_retention_template.yaml`
+  - `templates/port_sanitized_plan_mapping_template.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0004_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0008_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0012_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0013_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0022_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0024_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/previews/PORT_0025_runs_retention_preview.yaml`
+  - `audits/port_manual_review_resolution/port_runs_retention_preview_summary.md`
+- cases with proposed runs-retention previews:
+  - PORT_0004
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- evidence-index normalization status: all seven PORT cases have preview mappings and can proceed to evidence-index normalization design.
+- physical pilot status:
+  - PORT_0004 remains clear for copy-first physical pilot with runs-retention mapping.
+  - PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0024, and PORT_0025 remain blocked for physical pilot until sanitized public copies and/or private archive mappings are implemented.
+- next safe action: pick the first copy-first pilot package and implement case-local `evidence/runs_retention.yaml` plus sanitized/archive path mapping without changing denominators, paper results, or raw legacy evidence.

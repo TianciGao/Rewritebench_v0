@@ -1,0 +1,343 @@
+# Preview only. Do not copy into legacy cases. No evidence was sanitized, moved, deleted, rewritten, or copied in this task.
+case_id: PORT_0004
+pool: PORT
+legacy_runs_root: cases/PORT/PORT_0004/runs
+policy_version: runs_retention_policy_v1
+generated_from_audit:
+  audit_name: port_manual_review_resolution
+  audit_path: audits/port_manual_review_resolution
+  generated_date: '2026-05-15'
+  preview_only: true
+  no_evidence_copied_or_sanitized: true
+retained_control_evidence:
+- original_legacy_path: cases/PORT/PORT_0004/runs/result_check.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/result_check.json
+  proposed_archive_path: null
+  original_sha256_if_known: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
+  evidence_role: control validation
+  risk_categories: []
+  sanitized_fields: []
+  reason: Control-validation result should be retained and mapped.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+retained_plan_evidence:
+- original_legacy_path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
+  proposed_archive_path: null
+  original_sha256_if_known: c7b0082ac58b2f49c68b313d2aba5e2a423f21f86868cd954f696010c383a4c2
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  proposed_archive_path: null
+  original_sha256_if_known: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
+  proposed_archive_path: null
+  original_sha256_if_known: d6364a5754074ece5ca123417f92e07ddfa503a83f9bac2966c2644d0e1d5634
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/plan_check.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/plan_check.json
+  proposed_archive_path: null
+  original_sha256_if_known: ed79e9adf4788c8fa38d26fe6bb994cf57cf61bc7218a1561c6d92a4261b1553
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  proposed_public_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  proposed_archive_path: null
+  original_sha256_if_known: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  proposed_public_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  proposed_archive_path: null
+  original_sha256_if_known: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
+  proposed_public_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
+  proposed_archive_path: null
+  original_sha256_if_known: 0372e61b7a0df9cfd8d004f987c5332cc4541451eda539b4c1b023c9036ba261
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
+  proposed_public_path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
+  proposed_archive_path: null
+  original_sha256_if_known: d4a8d4de52bcce8ced8032033ed6b4b7915939dce1e320f337f388e8e8c337f4
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
+  proposed_public_path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
+  proposed_archive_path: null
+  original_sha256_if_known: 10a5df66b5892a6d2096e44b512674b2d627e35e98d5f00ef1a1a793f8a66916
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
+  proposed_public_path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
+  proposed_archive_path: null
+  original_sha256_if_known: e6e22fd341f109a9a4f3120b6fd932210018fe7f4cb8a61c1668905d587e6359
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
+  proposed_public_path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
+  proposed_archive_path: null
+  original_sha256_if_known: 2b64c0a2d802fbdc222d615a0be09f757ce9fbc8e412faa0e97446640250b8d7
+  evidence_role: plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Plan artifact supports plan/failure observability and should be retained with mapping.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+hard_negative_evidence:
+- original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  proposed_public_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  proposed_archive_path: null
+  original_sha256_if_known: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Artifact supports hard-negative closure or rejection evidence.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  proposed_public_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  proposed_archive_path: null
+  original_sha256_if_known: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+  risk_categories: []
+  sanitized_fields: []
+  reason: Artifact supports hard-negative closure or rejection evidence.
+  public_safe: true
+  do_not_delete: true
+  notes: null
+method_or_baseline_output: []
+sanitizable_public_evidence: []
+sanitized_public_copies: []
+private_or_original_archive: []
+external_archive_references: []
+regenerable_run_output: []
+manual_review:
+  required: false
+  items: []
+do_not_delete:
+- path: cases/PORT/PORT_0004/
+  reason: Case package root; migration must be copy-first and mapped.
+- path: cases/PORT/PORT_0004/runs/
+  reason: Legacy retained evidence root.
+- path: cases/PORT/PORT_0004/README.md
+  reason: notes/provenance/release metadata
+- path: cases/PORT/PORT_0004/data/README.md
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/data/witness_rows.yaml
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/manifest.yaml
+  reason: denominator-aware traceability metadata
+- path: cases/PORT/PORT_0004/provenance/parrot_source_record.json
+  reason: provenance
+- path: cases/PORT/PORT_0004/provenance/provenance_notes.txt
+  reason: provenance
+- path: cases/PORT/PORT_0004/rewrite_neg_01.sql
+  reason: hard-negative rejection evidence
+- path: cases/PORT/PORT_0004/rewrite_neg_02_spark.sql
+  reason: hard-negative rejection evidence
+- path: cases/PORT/PORT_0004/rewrite_pos_01.sql
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/rewrite_pos_02_spark.sql
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/risk_notes.md
+  reason: notes/provenance/release metadata
+- path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/runs/mysql/source.tsv
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  reason: hard-negative rejection evidence; plan/failure observability
+- path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/runs/pg/rewrite_neg_01.tsv
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/runs/pg/rewrite_pos_01.tsv
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/runs/plan_check.json
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/runs/result_check.json
+  reason: control validation
+- path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  reason: hard-negative rejection evidence; plan/failure observability
+- path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/runs/spark/rewrite_neg_02_spark.tsv
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/runs/spark/rewrite_pos_02_spark.tsv
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/schema/ddl_mysql.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/schema/ddl_pg.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/schema/ddl_spark.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/source.sql
+  reason: source / positive / negative execution evidence
+- path: cases/PORT/PORT_0004/taxonomy_trial_v0.3.yaml
+  reason: taxonomy tags
+- path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/validation/README.md
+  reason: validation scripts
+- path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/validation/check_results.py
+  reason: checker / normalization
+- path: cases/PORT/PORT_0004/validation/checker.yaml
+  reason: checker / normalization
+- path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
+  reason: plan/failure observability
+- path: cases/PORT/PORT_0004/validation/load_witness_mysql.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/validation/load_witness_pg.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/validation/load_witness_spark.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/validation/mysql_witness_data.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
+  reason: validation scripts
+- path: cases/PORT/PORT_0004/validation/run_pg_validation.sh
+  reason: validation scripts
+- path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
+  reason: validation scripts
+- path: cases/PORT/PORT_0004/validation/spark_witness_data.sql
+  reason: schema/data context
+- path: cases/PORT/PORT_0004/witness_design_notes.md
+  reason: schema/data context
+static_references:
+  reference_count: 682
+  reference_type_counts:
+    prior_audit: 180
+    reports: 315
+    docs: 127
+    benchmark_spec: 15
+    inventory_case_registry: 3
+    manifest: 11
+    validation_script: 31
+  sample_references:
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/common_core40_contract_fit_matrix.csv
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0004.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0008.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0024.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0025.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: reports/evaluation/common_core_v0/runs/sqlglot_full_per_case_timing_01/run_manual_sqlglot_full_per_case_timing.sh
+    reference_type: reports
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: docs/_scratch/PORT_0004_MYSQL_SPARK_FAILURE_DIAGNOSTIC_v1.md
+    reference_type: docs
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: docs/_scratch/PORT_0004_CLOSURE_ARTIFACT_BUNDLE_v1.md
+    reference_type: docs
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/README.md
+    referenced_from: benchmark_spec/reviews/COMMON_CORE_V0_SELECTION_REVIEW_DRAFT.md
+    reference_type: benchmark_spec
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/data/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/common_core40_contract_fit_matrix.csv
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/data/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0004.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+  - artifact_path: cases/PORT/PORT_0004/data/README.md
+    referenced_from: /home/tianci_gao/code/sql-rewrite-bench_common_core40_contract_audit/case_dossiers/PORT/PORT_0008.md
+    reference_type: prior_audit
+    risk_if_moved: reference traceability may break without mapping
+public_release_notes:
+  evidence_index_normalization_allowed: true
+  physical_pilot_blocked: false
+  physical_pilot_clearance: cleared_for_physical_pilot
+  public_release_action: keep_as_legacy_retained_evidence_with_mapping
+  notes: Current legacy source tree has no high-risk traces for this case; prior flagged warehouse residue was not present in this checkout.
+human_approval:
+  required: false
+  approved_by: null
+  approved_date: null
+  approval_scope: null
+  notes: No additional human approval required for preview mapping.

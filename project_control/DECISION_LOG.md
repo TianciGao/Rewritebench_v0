@@ -218,3 +218,33 @@ Impact:
 Codex 每次更新三个控制文件后必须 commit + push；
 ChatGPT Project Instructions 必须写明每轮先读这三个在线文件；
 如果在线文件不可用，ChatGPT 应要求用户上传或粘贴 MIGRATION_STATUS.md。
+
+## D013：Sanitizable Spark plan evidence policy
+
+Decision:
+
+Public release keeps sanitized public copies for Spark plan evidence with local path traces.
+
+Original legacy artifacts are retained through mapping and may stay in private/external archive.
+
+Raw local path traces must not appear in public retained evidence.
+
+PORT_0024-style stdout/stderr log references should be summarized or archived, not exposed raw by default.
+
+Reason:
+
+PORT manual-review audit found local-path traces in Spark plan evidence for six PORT cases.
+
+These files are evidence, not trash.
+
+Public release should be clean while preserving traceability.
+
+Impact:
+
+Draft runs_retention policy and templates.
+
+Do not sanitize or move files until later approved migration steps.
+
+Evidence-index normalization can proceed for all seven PORT cases using preview mappings.
+
+Physical migration remains blocked for the six cases until sanitized public copies or archive mappings are implemented.
