@@ -1,0 +1,73 @@
+case_id: PORT_0004
+primary_pool: portability
+source_family: PARROT
+source_id: SRC_009
+source_subset: BIRD
+source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/mysql_res.json[3]
+source_dialect: mysql_like_candidate
+target_engines:
+  - pg
+  - mysql
+  - spark
+official_case_status: draft_constructed
+registry_status: staged_registered
+validation_status: draft_cross_dialect_evidence_tracked
+admission_status: staged_not_yet_admitted
+package_engineering_status: draft_package_constructed_with_tracked_result_evidence_and_tracked_draft_plan_evidence
+validated_engines:
+  - mysql
+  - pg
+  - spark
+tri_engine_closure: yes
+tags:
+  sql_feature:
+    primary: [date_time_function, expression_complexity]
+    secondary: []
+  rewrite_opportunity:
+    primary: [dialect_adaptation]
+    secondary: [function_normalization, expression_simplification]
+  plan_operator:
+    present: [scan, filter, aggregate]
+    delta_relevant: []
+  workload_realism:
+    source_inherited: [realistic_query_style]
+    case_specific: [complex_expression_density]
+  portability:
+    confirmed: [identifier_quoting, datetime_semantics_gap, type_semantics_gap]
+    suspected: []
+expected_line: staged
+draft_origin: PORT_PARROT_DRAFT_0004
+artifacts:
+  source_sql: source.sql
+  rewrite_pos_pg_like: rewrite_pos_01.sql
+  rewrite_neg_pg_like: rewrite_neg_01.sql
+  rewrite_pos_spark_like: rewrite_pos_02_spark.sql
+  rewrite_neg_spark_like: rewrite_neg_02_spark.sql
+  provenance_record: provenance/parrot_source_record.json
+  provenance_notes: provenance/provenance_notes.txt
+  checker: validation/checker.yaml
+  taxonomy_trial: taxonomy_trial_v0.3.yaml
+  result_check: runs/result_check.json
+  plan_check: runs/plan_check.json
+positive_rewrites:
+  - id: rewrite_pos_01
+    path: rewrite_pos_01.sql
+    role: positive_rewrite
+    target_engine: pg
+  - id: rewrite_pos_02_spark
+    path: rewrite_pos_02_spark.sql
+    role: positive_rewrite
+    target_engine: spark
+hard_negatives:
+  - id: rewrite_neg_01
+    path: rewrite_neg_01.sql
+    role: hard_negative
+    target_engine: pg
+    expected_failure_mode: result_divergence_from_mysql_source_reference
+  - id: rewrite_neg_02_spark
+    path: rewrite_neg_02_spark.sql
+    role: hard_negative
+    target_engine: spark
+    expected_failure_mode: result_divergence_from_mysql_source_reference
+next_gap: human review, portability review-prep packet / later formal review, later admission decision, and plan semantics not formally reviewed
+artifact_warning: registry updated conservatively for tracked draft cross-dialect result evidence and tracked draft plan evidence only; this package is not admitted, not release-hardened, and not formal-review-finished

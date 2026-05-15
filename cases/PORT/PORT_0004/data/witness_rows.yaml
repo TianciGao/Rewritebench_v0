@@ -1,0 +1,30 @@
+status: draft_only
+not_loaded: true
+engine_neutral_intent: true
+tables:
+  patient:
+    columns:
+      - id
+      - sex
+      - diagnosis
+      - birthday
+    rows:
+      - id: 1
+        sex: F
+        diagnosis: RA
+        birthday: "1980-03-04"
+      - id: 2
+        sex: M
+        diagnosis: RA
+        birthday: "1980-11-21"
+      - id: 3
+        sex: F
+        diagnosis: RA
+        birthday: "1981-02-09"
+      - id: 4
+        sex: F
+        diagnosis: OA
+        birthday: "1980-07-15"
+notes:
+  - The 1980 RA subset should drive the source and positive percentage.
+  - The 1981 RA row should cause the hard negative year filter to diverge.

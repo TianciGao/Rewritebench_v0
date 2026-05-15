@@ -1,0 +1,17 @@
+{
+  "case_id": "PORT_0004",
+  "draft_id": "PORT_PARROT_DRAFT_0004",
+  "source_file_path": "datasets/raw/parrot/PARROT/benchmark/BIRD/mysql_res.json",
+  "source_record_index": 3,
+  "source_sql_field": "mysql",
+  "target_sql_field": "cracksql",
+  "source_record_subset": {
+    "mysql": "SELECT CAST( SUM( CASE WHEN `sex` = 'F' THEN 1 ELSE 0 END ) AS DOUBLE ) * 100 / COUNT( `id` ) FROM `patient` WHERE `diagnosis` = 'RA' AND DATE_FORMAT( CAST( `birthday` AS DATETIME ) , '%Y' ) = '1980' \n",
+    "cracksql": "SELECT CAST( SUM( CASE WHEN \"sex\" = 'F' THEN 1 ELSE 0 END ) AS DOUBLE PRECISION ) * 100 / COUNT( \"id\" ) FROM \"patient\" WHERE \"diagnosis\" = 'RA' AND EXTRACT(YEAR FROM CAST( \"birthday\" AS TIMESTAMP )) = '1980'",
+    "result_preview": [
+      {
+        "CAST( SUM( CASE WHEN `sex` = 'F' THEN 1 ELSE 0 END ) AS DOUBLE ) * 100 / COUNT( `id` )": 100.0
+      }
+    ]
+  }
+}

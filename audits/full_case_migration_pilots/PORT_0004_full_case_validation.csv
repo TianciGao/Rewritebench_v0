@@ -1,0 +1,10 @@
+check_name,status,details
+sha256_copy_validation,pass,45 copied files checked; mismatches=[]
+public_hygiene_scan,fail,runs/spark/plans/rewrite_neg_02_spark.txt:file:/tmp; runs/spark/plans/rewrite_pos_02_spark.txt:file:/tmp
+yaml_validation,pass,"manifest, runs_retention, and taxonomy YAML parsed"
+json_validation,pass,6 JSON files parsed
+file_inventory,pass,45 inventory rows for 45 copied files
+validator_v0_2_full_case,fail,validator v0.2 full-case failed due public hygiene scan hits in two copied Spark plan files
+evidence_pilot_regression,pass,six prior evidence-pilot slices passed 6/6
+py_compile,pass,scripts/dev/validate_case_package.py compiled successfully
+pilot_completion_status,fail,"copy-first package was created, but pilot is not complete because public hygiene and validator full-case checks failed"

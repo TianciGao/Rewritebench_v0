@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is static case-package validator v0.2 full-case mode；
+latest completed run is PORT_0004 copy-first full case migration pilot attempt；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
@@ -36,11 +36,13 @@ static validator v0.2 now exists with `full-case` mode for future copy-first ful
 all six blocked-PORT evidence-pilot slices pass validator v0.1；
 evidence-pilot regression passed 6/6 under validator v0.2；
 full-case advisory validation correctly reports the six current evidence-only pilot slices are not full migrated cases；
-full case migration has not started；
+PORT_0004 copy-first full case migration pilot was attempted but failed validation；
+full case migration is not completed for PORT_0004；
+Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 choose first copy-first full case migration pilot, preferably PORT_0004 for lower risk or PORT_0008 to test sanitized evidence integration。
+当前下一步安全动作是 fix PORT_0004 release-repo mapping/hygiene issues only, without touching legacy, then rerun validator v0.2 full-case mode。
 
 ## 2. 仓库 / 工作区状态
 
@@ -277,41 +279,47 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：static case-package validator v0.2 full-case mode
+## Last Codex run：PORT_0004 copy-first full case migration pilot
 
 Date：2026-05-15
 
-Task name：static case-package validator v0.2 full-case mode
+Task name：PORT_0004 copy-first full case migration pilot
 
-Mode：release-repo static validator enhancement；legacy read-only
+Mode：release-repo full case migration pilot；legacy read-only source copy
 
 Legacy repo modified：no
 
 Actual legacy evidence sanitized/moved/deleted/copied：no
 
-Validator v0.2 created：yes
+Release repo modified：yes
 
-Full-case mode implemented：yes
+PORT_0004 files copied from legacy source into release repo：yes
 
-Existing evidence-pilot mode preserved：yes
+Case-local `evidence/runs_retention.yaml` created：yes
 
-Target scope verified：`PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0025`, `PORT_0024`
+Pilot completion status：failed validation
 
-Full case package migrated：no
+Full case package migrated：attempted for `PORT_0004` only, not pilot-complete
 
 Denominator changed：no
 
 Paper results changed：no
 
+Common-core 40 migration started：no
+
+Raw legacy evidence changed：no
+
 Validation summary：
 
+- SHA256 copy validation passed for 45 copied files.
+- YAML validation passed for manifest, runs-retention, and taxonomy YAML.
+- JSON validation passed for 6 JSON files.
+- Public hygiene scan failed for two copied Spark plan files containing temporary local-path traces.
+- `validate_case_package.py --mode full-case --case cases/PORT/PORT_0004` failed due the public hygiene scan.
+- Evidence-pilot regression passed for the six prior evidence-pilot slices.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
-- `validate_case_package.py --mode evidence-pilot` regression passed for all six blocked-PORT evidence-pilot slices.
-- `validate_case_package.py --mode full-case --allow-failures` correctly failed all six current evidence-only pilot slices as not complete migrated case packages.
-- Full-case advisory output identified missing manifest, source SQL, positive rewrite, hard-negative declaration, schema, checker, validation, provenance, and taxonomy components.
-- Evidence mapping remained recognized as present and public-safe in advisory output.
 
-Next safe action：choose first copy-first full case migration pilot, preferably `PORT_0004` for lower risk or `PORT_0008` to test sanitized evidence integration. Run validator v0.2 in advisory mode while assembling the candidate package. Do not start full Common-core 40 migration yet.
+Next safe action：fix the `PORT_0004` release-repo mapping/hygiene issue only, likely by approving sanitized public copies or archive-only handling for the two affected Spark plan files, then rerun validator v0.2 full-case mode. Do not touch legacy and do not start full Common-core 40 migration yet.
 
 ## 6. Phase progress
 

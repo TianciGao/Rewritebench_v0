@@ -1,0 +1,46 @@
+== Physical Plan ==
+AdaptiveSparkPlan (7)
++- HashAggregate (6)
+   +- Exchange (5)
+      +- HashAggregate (4)
+         +- Project (3)
+            +- Filter (2)
+               +- Scan parquet spark_catalog.default.patient (1)
+
+
+(1) Scan parquet spark_catalog.default.patient
+Output [4]: [id#16, sex#17, diagnosis#18, birthday#19]
+Batched: true
+Location: InMemoryFileIndex [file:/tmp/port_0004_spark_plan_j5u5yuw8/patient]
+PushedFilters: [IsNotNull(diagnosis), IsNotNull(birthday), EqualTo(diagnosis,RA)]
+ReadSchema: struct<id:int,sex:string,diagnosis:string,birthday:timestamp>
+
+(2) Filter
+Input [4]: [id#16, sex#17, diagnosis#18, birthday#19]
+Condition : (((isnotnull(diagnosis#18) AND isnotnull(birthday#19)) AND (diagnosis#18 = RA)) AND (year(cast(birthday#19 as date)) = 1981))
+
+(3) Project
+Output [2]: [id#16, sex#17]
+Input [4]: [id#16, sex#17, diagnosis#18, birthday#19]
+
+(4) HashAggregate
+Input [2]: [id#16, sex#17]
+Keys: []
+Functions [2]: [partial_sum(CASE WHEN (sex#17 = F) THEN 1 ELSE 0 END), partial_count(id#16)]
+Aggregate Attributes [2]: [sum#31L, count#32L]
+Results [2]: [sum#33L, count#34L]
+
+(5) Exchange
+Input [2]: [sum#33L, count#34L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=50]
+
+(6) HashAggregate
+Input [2]: [sum#33L, count#34L]
+Keys: []
+Functions [2]: [sum(CASE WHEN (sex#17 = F) THEN 1 ELSE 0 END), count(id#16)]
+Aggregate Attributes [2]: [sum(CASE WHEN (sex#17 = F) THEN 1 ELSE 0 END)#28L, count(id#16)#29L]
+Results [1]: [((cast(sum(CASE WHEN (sex#17 = F) THEN 1 ELSE 0 END)#28L as double) * 100.0) / cast(count(id#16)#29L as double)) AS ((CAST(sum(CASE WHEN (sex = F) THEN 1 ELSE 0 END) AS DOUBLE) * 100) / count(id))#30]
+
+(7) AdaptiveSparkPlan
+Output [1]: [((CAST(sum(CASE WHEN (sex = F) THEN 1 ELSE 0 END) AS DOUBLE) * 100) / count(id))#30]
+Arguments: isFinalPlan=false

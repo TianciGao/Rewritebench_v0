@@ -651,3 +651,57 @@ Important raw URLs:
 
 Next safe action:
 - Choose first copy-first full case migration pilot, preferably `PORT_0004` for lower risk or `PORT_0008` to test sanitized evidence integration, and run validator v0.2 in advisory mode while assembling the candidate package.
+
+### 2026-05-15 · pending · PORT_0004 copy-first full case migration pilot
+
+Mode: release-repo full case migration pilot; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Attempted the first copy-first full case migration pilot for `PORT_0004`.
+
+Summary:
+- Copied the legacy `PORT_0004` case package into the release repo using the legacy-compatible layout.
+- Created `cases/PORT/PORT_0004/MIGRATION_PILOT.md`.
+- Created `cases/PORT/PORT_0004/evidence/runs_retention.yaml`.
+- Created full-case migration pilot audit report, file inventory, and validation CSV.
+- Ran validator v0.2 full-case mode.
+- Pilot completion status: failed validation.
+
+Validation:
+- SHA256 copy validation passed for 45 copied files.
+- Public hygiene scan failed for two copied Spark plan files containing temporary local-path traces.
+- YAML validation passed for manifest, runs-retention, and taxonomy YAML.
+- JSON validation passed for 6 JSON files.
+- `python scripts/dev/validate_case_package.py --mode full-case --case cases/PORT/PORT_0004 --out audits/full_case_migration_pilots/PORT_0004_validator_full_case_result.csv` failed due public hygiene scan hits.
+- Evidence-pilot regression passed for the six prior evidence-pilot slices.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/PORT/PORT_0004/`
+- `cases/PORT/PORT_0004/MIGRATION_PILOT.md`
+- `cases/PORT/PORT_0004/evidence/runs_retention.yaml`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_migration_pilot.md`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_file_inventory.csv`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_validation.csv`
+- `audits/full_case_migration_pilots/PORT_0004_validator_full_case_result.csv`
+- `audits/full_case_migration_pilots/PORT_0004_evidence_pilot_regression_result.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0004/MIGRATION_PILOT.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0004/evidence/runs_retention.yaml
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/full_case_migration_pilots/PORT_0004_full_case_migration_pilot.md
+
+Next safe action:
+- Fix the `PORT_0004` release-repo mapping/hygiene issue only, likely by approving sanitized public copies or archive-only handling for the two affected Spark plan files, then rerun validator v0.2 full-case mode. Do not touch legacy.
