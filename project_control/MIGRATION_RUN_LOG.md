@@ -760,3 +760,44 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the completed `PORT_0004` pilot, then decide whether to run a `PORT_0008` full copy-first pilot to test sanitized evidence integration. Do not start full Common-core 40 migration.
+
+### 2026-05-16 · pending · canonical case package layout lock
+
+Mode: release-repo specification/control update; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Locked the canonical public-release case package layout as target policy for future migrations.
+
+Summary:
+- Created `repository_spec/canonical_case_package_layout_v1.md`.
+- Created `templates/canonical_case_package_tree_v1.txt`.
+- Updated `repository_spec/case_package_contract_v1.md` to reference the canonical layout.
+- Added D015, the canonical case package layout policy, to `project_control/DECISION_LOG.md`.
+- Updated `project_control/MIGRATION_STATUS.md`.
+- No case files were moved, copied, deleted, sanitized, or regenerated.
+
+Validation:
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `git diff --check` passed.
+- Release repo status checked before commit.
+
+Files created:
+- `repository_spec/canonical_case_package_layout_v1.md`
+- `templates/canonical_case_package_tree_v1.txt`
+
+Files modified:
+- `repository_spec/case_package_contract_v1.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the completed `PORT_0004` pilot, then decide whether `PORT_0008` should be the canonical-layout full copy-first pilot. Do not start full Common-core 40 migration.

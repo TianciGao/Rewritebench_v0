@@ -282,3 +282,37 @@ Impact:
 - Every future Codex prompt must include MIGRATION_RUN_LOG.md in its final writeback requirements.
 - MIGRATION_STATUS.md should keep only the latest summary and point to MIGRATION_RUN_LOG.md for full history.
 - ChatGPT should consult MIGRATION_RUN_LOG.md when reconstructing prior execution history.
+
+## D015：Canonical case package layout policy
+
+Decision:
+
+Public release case packages should converge to the canonical layout defined in:
+
+repository_spec/canonical_case_package_layout_v1.md
+
+The layout is a target, not legacy current fact.
+
+Legacy-compatible pilots may exist, but they do not redefine the target layout.
+
+`runs/` remains legacy retained evidence and must be mapped through `evidence/runs_retention.yaml`.
+
+New run outputs must not be written into case-local `runs/`.
+
+`case_sets/` defines release membership and denominators.
+
+Reason:
+
+We need to prevent drift during subsequent Codex migrations.
+
+`PORT_0004` proved copy-first migration can work, but its legacy-compatible layout is not the final canonical structure.
+
+`PORT_0008` or another later pilot should test canonical layout explicitly.
+
+Impact:
+
+Future full-case migration prompts must reference `canonical_case_package_layout_v1.md`.
+
+Validator full-case mode should later be extended to check canonical layout conformance.
+
+No immediate case movement is authorized by this decision.

@@ -28,7 +28,10 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0004 full case pilot hygiene fix；
+latest completed run is canonical case package layout lock；
+canonical case package layout v1 is locked as the target policy；
+canonical layout is a migration target, not legacy current fact；
+no case files were moved or copied in the canonical-layout lock；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
@@ -43,7 +46,7 @@ Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 review the completed PORT_0004 pilot, then decide whether to run a PORT_0008 full copy-first pilot to test sanitized evidence integration。
+当前下一步安全动作是 review the completed PORT_0004 pilot, then decide whether PORT_0008 should be the canonical-layout full copy-first pilot。
 
 ## 2. 仓库 / 工作区状态
 
@@ -276,13 +279,13 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：PORT_0004 full case pilot hygiene fix
+## Last Codex run：canonical case package layout lock
 
 Date：2026-05-16
 
-Task name：PORT_0004 full case pilot hygiene fix
+Task name：canonical case package layout lock
 
-Mode：release-repo hygiene fix and full-case validator rerun；legacy read-only
+Mode：release-repo specification/control update；legacy read-only
 
 Legacy repo modified：no
 
@@ -290,34 +293,29 @@ Actual legacy evidence sanitized/moved/deleted/copied：no
 
 Release repo modified：yes
 
-PORT_0004 release-repo Spark plan copies sanitized in place：yes
+Case files moved or copied：no
 
-Canonical sanitized retained plan evidence created：yes
+Canonical case package layout v1 locked：yes
 
-Case-local `evidence/runs_retention.yaml` created：yes
+D015 added：yes
 
-Pilot completion status：pilot-complete for PORT_0004 only
+PORT_0004 pilot status：remains pilot-complete for PORT_0004 only
 
-Full case package migrated：yes, copy-first pilot scope `PORT_0004_only`
+Common-core 40 migration started：no
 
 Denominator changed：no
 
 Paper results changed：no
 
-Common-core 40 migration started：no
-
 Raw legacy evidence changed：no
 
 Validation summary：
 
-- Public hygiene scan passed after replacing the two release-repo Spark plan copies with sanitized content.
-- YAML validation passed for manifest, runs-retention, and taxonomy YAML.
-- JSON validation passed for 6 JSON files.
-- `validate_case_package.py --mode full-case --case cases/PORT/PORT_0004` passed.
-- Evidence-pilot regression passed for the six prior evidence-pilot slices.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `git diff --check` passed.
+- No case files were moved, copied, sanitized, or deleted.
 
-Next safe action：review the completed `PORT_0004` pilot, then decide whether to run a `PORT_0008` full copy-first pilot. Do not touch legacy and do not start full Common-core 40 migration yet.
+Next safe action：review the completed `PORT_0004` pilot, then decide whether `PORT_0008` should be the canonical-layout full copy-first pilot. Do not touch legacy and do not start full Common-core 40 migration yet.
 
 ## 6. Phase progress
 
@@ -326,7 +324,7 @@ Next safe action：review the completed `PORT_0004` pilot, then decide whether t
 | 0 | 确认旧仓库与发布仓工作区 | completed | release repo clone、branch、remote、status 已确认；control files 已 push | 进入 PORT manual-review read-only resolution |
 | 1 | 整体情况审计 | partial done | 已有初步审计 | 整理正式 summary |
 | 2 | 代表性 case 选择与模板设计 | pending | 已有建议 batch | 先设计模板 |
-| 3 | case package template v1 | pending | 目标结构已有草案 | 起草 contract |
+| 3 | case package template v1 | completed target lock | canonical case package layout v1 locked | extend validator later for canonical conformance |
 | 4 | pilot migration | PORT_0004 pilot complete | copy-first scope limited to one case | review pilot before selecting next case |
 | 5 | Common-core 40 migration | not started | 40 个都需要 evidence index | 先 pilot |
 | 6 | 整体 case universe 治理 | partial | 197 vs 190 差异已知 | 做 reconciliation |
@@ -351,10 +349,10 @@ Next safe action：review the completed `PORT_0004` pilot, then decide whether t
 
 ## 8. 当前安全下一步
 
-根据 2026-05-16 `PORT_0004` hygiene fix 和 validator v0.2 rerun，当前安全下一步是：
+根据 2026-05-16 canonical case package layout lock，当前安全下一步是：
 
 1. Review the completed `PORT_0004` copy-first full case migration pilot.
-2. Decide whether to run a `PORT_0008` full copy-first pilot to test sanitized evidence integration.
+2. Decide whether `PORT_0008` should be the first canonical-layout full copy-first pilot to test sanitized evidence integration.
 3. Do not start Common-core 40 migration and do not delete, move, or sanitize legacy originals.
 
 ## 9. Last Codex run

@@ -1,0 +1,68 @@
+Canonical public-release case package tree v1
+
+cases/<POOL>/<CASE_ID>/
+  README.md                                      [SHOULD] human-readable package overview
+  manifest.yaml                                  [MUST] primary machine-readable case index
+
+  sql/                                           [MUST] case SQL only, not method outputs
+    source.sql                                   [MUST] canonical source query
+    positives/                                   [MUST when positive rewrites exist]
+      pos_01.sql
+    negatives/                                   [MUST when hard negatives apply]
+      neg_01.sql
+    dialect_variants/                            [OPTIONAL] approved dialect variants only
+      postgres/
+      mysql/
+      spark/
+
+  schema/                                        [MUST] schema and load context
+    postgres/                                    [SHOULD when PostgreSQL is supported]
+      ddl.sql
+      load.sql
+    mysql/                                       [SHOULD when MySQL is supported]
+      ddl.sql
+      load.sql
+    spark/                                       [SHOULD when Spark is supported]
+      ddl.sql
+      load.sql
+    schema_profile.yaml                          [SHOULD] schema/data profile
+
+  data/                                          [SHOULD] public data descriptors and fixtures
+    data_profile.yaml                            [SHOULD]
+    witness_profile.yaml                         [SHOULD when witness data is used]
+    fixtures/                                    [OPTIONAL]
+
+  checker/                                       [MUST when result comparison is used]
+    checker.yaml
+    normalization.yaml
+    compare_config.yaml
+    expected_rejections.yaml                     [SHOULD when hard negatives apply]
+
+  validation/                                    [SHOULD] public validation entrypoints
+    run_postgres_validation.sh                   [SHOULD when PostgreSQL is supported]
+    run_mysql_validation.sh                      [SHOULD when MySQL is supported]
+    run_spark_validation.sh                      [SHOULD when Spark is supported]
+    run_postgres_plan_collection.sh              [OPTIONAL]
+    run_mysql_plan_collection.sh                 [OPTIONAL]
+    run_spark_plan_collection.sh                 [OPTIONAL]
+
+  evidence/                                      [MUST] retained-evidence index surface
+    runs_retention.yaml                          [MUST] legacy evidence retention mapping
+    retained_controls/                           [SHOULD]
+    retained_plans/                              [SHOULD]
+    hard_negative/                               [SHOULD when hard negatives apply]
+    package_validation_summary.json              [SHOULD]
+
+  metadata/                                      [MUST] stable case metadata
+    provenance.yaml                              [MUST]
+    taxonomy.yaml                                [MUST]
+    engine_support.yaml                          [MUST]
+    denominator_eligibility.yaml                 [MUST for frozen-set candidates]
+    artifact_paths.yaml                          [SHOULD]
+
+  notes/                                         [SHOULD] human-readable notes
+    witness_design_notes.md                      [OPTIONAL]
+    risk_notes.md                                [OPTIONAL]
+    migration_notes.md                           [SHOULD during migration]
+
+  runs/                                          [DEFER] legacy retained evidence only; not default output target

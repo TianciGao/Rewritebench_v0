@@ -40,6 +40,16 @@ cases/<POOL>/<CASE_ID>/
 
 The target layout may be reached gradually. Existing legacy paths must remain traceable through manifests and retention mappings during migration.
 
+### Canonical public-release layout
+
+The locked canonical public-release case package layout is defined in:
+
+`repository_spec/canonical_case_package_layout_v1.md`
+
+This canonical layout is the target for future migrated public cases. It is not a claim that the legacy repository already follows that structure. Legacy-compatible pilots, including `PORT_0004`, may exist during migration, but they do not redefine the target layout.
+
+Future full-case migration prompts should reference the canonical layout before copying or restructuring case packages. Validator full-case mode should later be extended to check canonical layout conformance.
+
 ## 4. Primary Index
 
 `manifest.yaml` is the primary case-local index. It should point to SQL artifacts, schema/data context, checker and validation assets, provenance, taxonomy, denominator/reporting metadata, and evidence indexes.
