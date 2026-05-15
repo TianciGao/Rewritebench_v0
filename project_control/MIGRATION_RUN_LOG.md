@@ -711,7 +711,7 @@ Next safe action:
 Mode: release-repo hygiene fix and full-case validator rerun; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: a351e6221d1ffb8758496a27f160ac8bab16d7e7
+Commit: a351e62206c366df858449a18487fefd8eb3a863
 Push: pushed to origin main successfully (9208971..a351e62)
 Scope: Fixed the release-repo public hygiene issue in the `PORT_0004` copy-first full case migration pilot by sanitizing two copied Spark plan files and adding canonical retained-plan evidence.
 
