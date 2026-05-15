@@ -705,3 +705,58 @@ Important raw URLs:
 
 Next safe action:
 - Fix the `PORT_0004` release-repo mapping/hygiene issue only, likely by approving sanitized public copies or archive-only handling for the two affected Spark plan files, then rerun validator v0.2 full-case mode. Do not touch legacy.
+
+### 2026-05-16 · pending · PORT_0004 full case pilot hygiene fix
+
+Mode: release-repo hygiene fix and full-case validator rerun; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Fixed the release-repo public hygiene issue in the `PORT_0004` copy-first full case migration pilot by sanitizing two copied Spark plan files and adding canonical retained-plan evidence.
+
+Summary:
+- Replaced two release-repo Spark plan copies in place with sanitized public-safe content.
+- Created canonical sanitized retained-plan copies under `cases/PORT/PORT_0004/evidence/retained_plans/`.
+- Updated `cases/PORT/PORT_0004/evidence/runs_retention.yaml` to map original legacy artifacts, sanitized release run-plan copies, and canonical sanitized retained evidence.
+- Updated full-case pilot audit outputs and validation summaries.
+- Added a hygiene-fix report and validation CSV.
+- Added `PORT_0004` formal mapping validation rows for the sanitized retained-plan evidence.
+- Pilot completion status: `PORT_0004` pilot-complete after validator v0.2 pass.
+
+Validation:
+- Public hygiene scan passed for `cases/PORT/PORT_0004`.
+- YAML validation passed for manifest, runs-retention, and taxonomy YAML.
+- JSON validation passed for JSON files under `provenance/` and `runs/`.
+- `python scripts/dev/validate_case_package.py --mode full-case --case cases/PORT/PORT_0004 --out audits/full_case_migration_pilots/PORT_0004_validator_full_case_result.csv` passed.
+- Evidence-pilot regression passed 6/6 for the six prior PORT evidence-pilot slices.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt`
+- `cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt`
+- `audits/full_case_migration_pilots/PORT_0004_hygiene_fix_report.md`
+- `audits/full_case_migration_pilots/PORT_0004_hygiene_fix_validation.csv`
+- `audits/port_manual_review_resolution/formal_pilots/PORT_0004_formal_mapping_validation.csv`
+
+Files modified:
+- `cases/PORT/PORT_0004/MIGRATION_PILOT.md`
+- `cases/PORT/PORT_0004/evidence/runs_retention.yaml`
+- `cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt`
+- `cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_migration_pilot.md`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_file_inventory.csv`
+- `audits/full_case_migration_pilots/PORT_0004_full_case_validation.csv`
+- `audits/full_case_migration_pilots/PORT_0004_validator_full_case_result.csv`
+- `audits/full_case_migration_pilots/PORT_0004_evidence_pilot_regression_result.csv`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the completed `PORT_0004` pilot, then decide whether to run a `PORT_0008` full copy-first pilot to test sanitized evidence integration. Do not start full Common-core 40 migration.

@@ -8,9 +8,9 @@ This task attempted the first copy-first full case migration pilot for `PORT_000
 
 This is one case only. It is not Common-core 40 migration, not batch migration, not evidence regeneration, not a DB rerun, and not authorization to delete or clean legacy files.
 
-Pilot completion status: failed validation.
+Pilot completion status: pilot-complete after release-repo hygiene fix.
 
-The release-repo case package was copied and mapped, but validator v0.2 full-case mode did not pass because two copied Spark plan files contain public hygiene scan hits. The copied case must not be treated as a completed public-safe full case migration until that release-repo-only issue is resolved through an approved sanitized/archive mapping decision.
+The initial release-repo case package was copied and mapped, but validator v0.2 full-case mode did not pass because two copied Spark plan files contained public hygiene scan hits. A follow-up release-repo-only hygiene fix sanitized those copied plan files in place and created canonical sanitized retained-plan evidence under `evidence/retained_plans/`. Validator v0.2 full-case mode now passes for `PORT_0004`.
 
 ## Why PORT_0004 Was Selected First
 
@@ -98,12 +98,19 @@ All copied run artifacts are mapped in `cases/PORT/PORT_0004/evidence/runs_reten
 - do-not-delete-original status;
 - public-safe status where the file passed hygiene scan.
 
-Two copied Spark plan files did not pass the public hygiene scan:
+Two copied Spark plan files did not pass the initial public hygiene scan:
 
 - `cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt`
 - `cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt`
 
-They are marked manual-review-required and not public-safe in `evidence/runs_retention.yaml`.
+They were sanitized in the release repo only. The current release-repo `runs/spark/plans/*.txt` copies are sanitized public release copies, not raw legacy artifacts.
+
+Canonical sanitized retained-plan evidence was also created:
+
+- `cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt`
+- `cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt`
+
+The raw legacy originals remain mapped, do-not-delete, and unchanged.
 
 ## Evidence Mapping
 
@@ -129,10 +136,14 @@ SHA256 copy validation: pass.
 - 45 copied files checked.
 - All copied files match the corresponding legacy source SHA256.
 
-Public hygiene scan: fail.
+Initial public hygiene scan: fail.
 
 - `runs/spark/plans/rewrite_neg_02_spark.txt` contains a temporary local-path trace.
 - `runs/spark/plans/rewrite_pos_02_spark.txt` contains a temporary local-path trace.
+
+Public hygiene scan after fix: pass.
+
+- No forbidden public hygiene patterns remain under `cases/PORT/PORT_0004`.
 
 YAML validation: pass.
 
@@ -144,9 +155,11 @@ JSON validation: pass.
 
 - 6 JSON files under `provenance/` and `runs/` parsed.
 
-Validator v0.2 full-case result: fail.
+Initial validator v0.2 full-case result: fail.
 
 - Failure reason: public hygiene scan hit in the two copied Spark plan files above.
+
+Validator v0.2 full-case result after fix: pass.
 
 Evidence-pilot regression: pass.
 
@@ -172,12 +185,12 @@ Python compile: pass.
 
 ## What Remains Before Expanding
 
-Before proceeding to another full case migration pilot, the release team should decide how to handle the two copied Spark plan files with local-path traces.
+Before proceeding to another full case migration pilot, the release team should review the completed `PORT_0004` pilot and confirm that the sanitized retained-plan mapping is acceptable.
 
 Safe next options:
 
-- create approved sanitized public copies for the two affected plan files and map raw originals as private/archive-only;
-- keep raw copied Spark plans out of public retained evidence through an explicit archive-only policy;
-- update validator/reporting expectations only after a policy decision, not by weakening the hygiene scan.
+- proceed to a `PORT_0008` full copy-first pilot to test integration with an already sanitized evidence-mapping case;
+- continue reviewing `PORT_0004` retained evidence and validator output before expanding;
+- do not weaken the public hygiene scan and do not rewrite legacy artifacts.
 
-Do not expand to another case or Common-core 40 migration until the failed `PORT_0004` hygiene issue is resolved in the release repo.
+Do not start full Common-core 40 migration yet.

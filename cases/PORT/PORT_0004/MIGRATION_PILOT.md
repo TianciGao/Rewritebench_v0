@@ -26,5 +26,7 @@ Claim boundaries:
 
 Completion status:
 
-- Full case migration status for this case is pilot-complete only after validator v0.2 passes.
-- If validator v0.2 or public hygiene checks fail, this remains a failed copy-first pilot attempt requiring release-repo-only remediation or an approved evidence mapping decision.
+- The initial copy-first attempt failed public hygiene on two copied Spark plan files.
+- The release-repo copies were sanitized in place and canonical sanitized retained-plan copies were added under `evidence/retained_plans/`.
+- Validator v0.2 full-case mode now passes for `PORT_0004`.
+- This pilot is complete for `PORT_0004` only.

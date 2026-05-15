@@ -4,7 +4,7 @@ SQL-RewriteBench 迁移当前状态
 旧仓库：sql-rewrite-bench-artifact-clean
 发布仓：Rewritebench_v0
 状态：当前进度表
-最后更新：2026-05-15
+最后更新：2026-05-16
 
 ## 1. 当前总状态
 
@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0004 copy-first full case migration pilot attempt；
+latest completed run is PORT_0004 full case pilot hygiene fix；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
@@ -36,13 +36,14 @@ static validator v0.2 now exists with `full-case` mode for future copy-first ful
 all six blocked-PORT evidence-pilot slices pass validator v0.1；
 evidence-pilot regression passed 6/6 under validator v0.2；
 full-case advisory validation correctly reports the six current evidence-only pilot slices are not full migrated cases；
-PORT_0004 copy-first full case migration pilot was attempted but failed validation；
-full case migration is not completed for PORT_0004；
+PORT_0004 copy-first full case migration pilot now passes validator v0.2 after release-repo hygiene fix；
+full case migration pilot is complete for PORT_0004 only；
+full case migration scope remains PORT_0004 only；
 Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 fix PORT_0004 release-repo mapping/hygiene issues only, without touching legacy, then rerun validator v0.2 full-case mode。
+当前下一步安全动作是 review the completed PORT_0004 pilot, then decide whether to run a PORT_0008 full copy-first pilot to test sanitized evidence integration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -257,11 +258,8 @@ evidence role 不明。
 
 Physical pilot candidates：
 
-PERF_0006；
-CONS_0005；
-PORT_0003；
-LONGTAIL_0011；
-LONGTAIL_0022。
+PORT_0004 completed one copy-first pilot；
+next candidate pending review, likely PORT_0008 if testing sanitized evidence integration is approved。
 
 Evidence-index 对照样本：
 
@@ -271,7 +269,6 @@ PORT_0005。
 
 暂缓：
 
-PORT_0004；
 PORT_0008；
 PORT_0012；
 PORT_0013；
@@ -279,13 +276,13 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：PORT_0004 copy-first full case migration pilot
+## Last Codex run：PORT_0004 full case pilot hygiene fix
 
-Date：2026-05-15
+Date：2026-05-16
 
-Task name：PORT_0004 copy-first full case migration pilot
+Task name：PORT_0004 full case pilot hygiene fix
 
-Mode：release-repo full case migration pilot；legacy read-only source copy
+Mode：release-repo hygiene fix and full-case validator rerun；legacy read-only
 
 Legacy repo modified：no
 
@@ -293,13 +290,15 @@ Actual legacy evidence sanitized/moved/deleted/copied：no
 
 Release repo modified：yes
 
-PORT_0004 files copied from legacy source into release repo：yes
+PORT_0004 release-repo Spark plan copies sanitized in place：yes
+
+Canonical sanitized retained plan evidence created：yes
 
 Case-local `evidence/runs_retention.yaml` created：yes
 
-Pilot completion status：failed validation
+Pilot completion status：pilot-complete for PORT_0004 only
 
-Full case package migrated：attempted for `PORT_0004` only, not pilot-complete
+Full case package migrated：yes, copy-first pilot scope `PORT_0004_only`
 
 Denominator changed：no
 
@@ -311,15 +310,14 @@ Raw legacy evidence changed：no
 
 Validation summary：
 
-- SHA256 copy validation passed for 45 copied files.
+- Public hygiene scan passed after replacing the two release-repo Spark plan copies with sanitized content.
 - YAML validation passed for manifest, runs-retention, and taxonomy YAML.
 - JSON validation passed for 6 JSON files.
-- Public hygiene scan failed for two copied Spark plan files containing temporary local-path traces.
-- `validate_case_package.py --mode full-case --case cases/PORT/PORT_0004` failed due the public hygiene scan.
+- `validate_case_package.py --mode full-case --case cases/PORT/PORT_0004` passed.
 - Evidence-pilot regression passed for the six prior evidence-pilot slices.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
 
-Next safe action：fix the `PORT_0004` release-repo mapping/hygiene issue only, likely by approving sanitized public copies or archive-only handling for the two affected Spark plan files, then rerun validator v0.2 full-case mode. Do not touch legacy and do not start full Common-core 40 migration yet.
+Next safe action：review the completed `PORT_0004` pilot, then decide whether to run a `PORT_0008` full copy-first pilot. Do not touch legacy and do not start full Common-core 40 migration yet.
 
 ## 6. Phase progress
 
@@ -329,12 +327,12 @@ Next safe action：fix the `PORT_0004` release-repo mapping/hygiene issue only, 
 | 1 | 整体情况审计 | partial done | 已有初步审计 | 整理正式 summary |
 | 2 | 代表性 case 选择与模板设计 | pending | 已有建议 batch | 先设计模板 |
 | 3 | case package template v1 | pending | 目标结构已有草案 | 起草 contract |
-| 4 | pilot migration | not started | 不应直接开始 | 等 contract + worktree |
+| 4 | pilot migration | PORT_0004 pilot complete | copy-first scope limited to one case | review pilot before selecting next case |
 | 5 | Common-core 40 migration | not started | 40 个都需要 evidence index | 先 pilot |
 | 6 | 整体 case universe 治理 | partial | 197 vs 190 差异已知 | 做 reconciliation |
 | 7 | 脚本与复现路径整理 | pending | 需 script inventory | 做脚本台账 |
 | 8 | 结果与论文表格闭环 | pending | reports 混合 | 做 retained evidence map |
-| 9 | public hygiene | pending | 风险已知 | 后期扫描 |
+| 9 | public hygiene | active | PORT_0004 hygiene fixed in release repo | keep validator gate before next pilot |
 | 10 | public release v0 | not started | 前序未完成 | 等 smoke pass |
 
 ## 7. 当前不能做的事
@@ -353,11 +351,11 @@ Next safe action：fix the `PORT_0004` release-repo mapping/hygiene issue only, 
 
 ## 8. 当前安全下一步
 
-根据 2026-05-15 Spark plan sanitization trial，当前安全下一步是：
+根据 2026-05-16 `PORT_0004` hygiene fix 和 validator v0.2 rerun，当前安全下一步是：
 
-1. 人工审阅 Route B trial sanitized artifacts，重点确认 Spark plan structure 是否保持证据含义、local path redaction 是否足够、PORT_0024 result-check summary 是否满足 public evidence 要求。
-2. 若人工批准，选择一个受影响 PORT case 将 trial mapping 转化为正式 case-local `evidence/runs_retention.yaml` 和 public retained evidence path 设计；仍不要修改 legacy repo。
-3. 在批准前，不要把 trial outputs 当作 final retained evidence，也不要删除、移动、清洗或替换 legacy originals。
+1. Review the completed `PORT_0004` copy-first full case migration pilot.
+2. Decide whether to run a `PORT_0008` full copy-first pilot to test sanitized evidence integration.
+3. Do not start Common-core 40 migration and do not delete, move, or sanitize legacy originals.
 
 ## 9. Last Codex run
 

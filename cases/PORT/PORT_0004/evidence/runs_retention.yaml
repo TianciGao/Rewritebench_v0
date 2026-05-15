@@ -164,31 +164,51 @@ retained_plan_evidence:
 - original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
   public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
   sha256_legacy_source: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  sha256_public_copy: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  sha256_matches_source: true
+  sha256_public_copy: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  sha256_matches_source: false
   evidence_role: hard-negative rejection evidence; plan/failure observability
-  risk_categories:
-  - public_hygiene_scan_failure
-  public_safe: false
-  manual_review_required: true
+  risk_categories: []
+  public_safe: true
+  manual_review_required: false
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied release artifact requires
-    approved sanitized/archive handling before public use
-  notes: manual_review_required_due_to_public_hygiene_scan
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    path
+  notes: Release-repo run-plan copy sanitized in place; canonical retained-plan copy
+    also created.
+  canonical_sanitized_public_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
+  release_copy_status: sanitized_public_release_copy
+  raw_release_copy_replaced_in_place: true
+  derived_from_release_copy: true
+  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  canonical_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  sanitized_fields:
+  - local temporary path URI
+  raw_legacy_evidence_changed: false
 - original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
   public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
   sha256_legacy_source: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  sha256_public_copy: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories:
-  - public_hygiene_scan_failure
-  public_safe: false
-  manual_review_required: true
+  sha256_public_copy: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  sha256_matches_source: false
+  evidence_role: positive rewrite plan evidence; plan/failure observability
+  risk_categories: []
+  public_safe: true
+  manual_review_required: false
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied release artifact requires
-    approved sanitized/archive handling before public use
-  notes: manual_review_required_due_to_public_hygiene_scan
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    path
+  notes: Release-repo run-plan copy sanitized in place; canonical retained-plan copy
+    also created.
+  canonical_sanitized_public_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
+  release_copy_status: sanitized_public_release_copy
+  raw_release_copy_replaced_in_place: true
+  derived_from_release_copy: true
+  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  canonical_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  sanitized_fields:
+  - local temporary path URI
+  raw_legacy_evidence_changed: false
 - original_legacy_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
   public_release_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
   sha256_legacy_source: 0372e61b7a0df9cfd8d004f987c5332cc4541451eda539b4c1b023c9036ba261
@@ -598,53 +618,53 @@ taxonomy:
   archive_policy: retain original in legacy repo; copied public-safe evidence in release
     repo
   notes: copied byte-for-byte from legacy source
-sanitizable_public_evidence:
+sanitizable_public_evidence: []
+sanitized_public_copies:
 - original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  sha256_legacy_source: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  sha256_public_copy: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  sha256_matches_source: true
+  source_release_copy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  public_copy_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
+  derived_from_release_copy: true
+  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  canonical_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
   evidence_role: hard-negative rejection evidence; plan/failure observability
   risk_categories:
-  - public_hygiene_scan_failure
-  public_safe: false
-  manual_review_required: true
+  - local temporary path trace removed
+  sanitized_fields:
+  - local temporary path URI
+  public_safe: true
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied release artifact requires
-    approved sanitized/archive handling before public use
-  notes: manual_review_required_due_to_public_hygiene_scan
+  raw_legacy_evidence_changed: false
+  archive_policy: retain original in legacy repo; publish sanitized retained plan
+    evidence only
+  notes: Canonical sanitized retained plan evidence created from the release-repo
+    copied artifact.
 - original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  sha256_legacy_source: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  sha256_public_copy: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
+  source_release_copy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  public_copy_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
+  derived_from_release_copy: true
+  original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  canonical_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  evidence_role: positive rewrite plan evidence; plan/failure observability
   risk_categories:
-  - public_hygiene_scan_failure
-  public_safe: false
-  manual_review_required: true
+  - local temporary path trace removed
+  sanitized_fields:
+  - local temporary path URI
+  public_safe: true
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied release artifact requires
-    approved sanitized/archive handling before public use
-  notes: manual_review_required_due_to_public_hygiene_scan
-sanitized_public_copies: []
+  raw_legacy_evidence_changed: false
+  archive_policy: retain original in legacy repo; publish sanitized retained plan
+    evidence only
+  notes: Canonical sanitized retained plan evidence created from the release-repo
+    copied artifact.
 private_or_original_archive: []
 external_archive_references: []
 manual_review:
-  required: true
-  items:
-  - public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-    reason: public_hygiene_scan_failed
-    risk_categories:
-    - local_or_temporary_path_trace
-    action_required: approved sanitized copy or archive-only decision before public-safe
-      status
-  - public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-    reason: public_hygiene_scan_failed
-    risk_categories:
-    - local_or_temporary_path_trace
-    action_required: approved sanitized copy or archive-only decision before public-safe
-      status
+  required: false
+  items: []
 do_not_delete:
 - path: cases/PORT/PORT_0004/
   reason: copy-first full case migration pilot case root
@@ -810,7 +830,7 @@ static_references:
 public_release_notes:
   full_case_package_migrated: true
   full_case_package_migration_scope: PORT_0004_only
-  pilot_validation_status: failed_public_hygiene_scan
+  pilot_validation_status: pilot_complete_validator_v0_2_passed_after_hygiene_fix
   denominator_changed: false
   paper_results_changed: false
   common_core_membership_changed: false
@@ -819,7 +839,52 @@ public_release_notes:
   no_global_leaderboard_introduced: true
   db_engines_run: false
   evidence_regenerated: false
+  public_hygiene_scan: passed_after_sanitizing_release_repo_spark_plan_copies
 human_approval:
-  formal_pilot: approved_for_copy_first_PORT_0004_attempt
-  full_case_migration: pilot_requires_validator_pass
-  manual_review_required_before_public_safe_completion: true
+  formal_pilot: approved_for_PORT_0004_hygiene_fix
+  full_case_migration: pilot_complete_validator_v0_2_passed
+  manual_review_required_before_public_safe_completion: false
+hygiene_fix:
+  status: completed_validator_v0_2_passed
+  date: '2026-05-16'
+  strategy: release_repo_spark_plan_copies_sanitized_in_place_and_canonical_retained_plan_copies_created
+  legacy_repo_modified: false
+  raw_legacy_evidence_changed: false
+original_legacy_artifacts:
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  do_not_delete_original: true
+  raw_legacy_evidence_changed: false
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    path
+  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  do_not_delete_original: true
+  raw_legacy_evidence_changed: false
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    path
+  original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  evidence_role: positive rewrite plan evidence; plan/failure observability
+release_repo_copied_artifacts:
+- public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  current_status: sanitized_public_release_copy
+  raw_release_copy_replaced_in_place: true
+  derived_from_release_copy: true
+  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  public_safe: true
+  sanitized_fields:
+  - local temporary path URI
+  notes: This release-repo run-plan copy is sanitized content, not the raw legacy
+    artifact.
+- public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  current_status: sanitized_public_release_copy
+  raw_release_copy_replaced_in_place: true
+  derived_from_release_copy: true
+  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  public_safe: true
+  sanitized_fields:
+  - local temporary path URI
+  notes: This release-repo run-plan copy is sanitized content, not the raw legacy
+    artifact.
