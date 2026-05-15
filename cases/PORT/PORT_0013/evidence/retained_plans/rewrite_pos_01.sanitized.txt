@@ -1,0 +1,76 @@
+== Physical Plan ==
+AdaptiveSparkPlan (12)
++- HashAggregate (11)
+   +- Exchange (10)
+      +- HashAggregate (9)
+         +- Project (8)
+            +- BroadcastHashJoin Inner BuildLeft (7)
+               :- BroadcastExchange (4)
+               :  +- Project (3)
+               :     +- Filter (2)
+               :        +- Scan parquet spark_catalog.port_0013_spark_plan_collection.district (1)
+               +- Filter (6)
+                  +- Scan parquet spark_catalog.port_0013_spark_plan_collection.client (5)
+
+
+(1) Scan parquet spark_catalog.port_0013_spark_plan_collection.district
+Output [2]: [district_id#20, a11#21]
+Batched: true
+Location: InMemoryFileIndex [<SPARK_PLAN_COLLECTION_WAREHOUSE>]
+PushedFilters: [IsNotNull(a11), GreaterThan(a11,10000.0), IsNotNull(district_id)]
+ReadSchema: struct<district_id:int,a11:double>
+
+(2) Filter
+Input [2]: [district_id#20, a11#21]
+Condition : ((isnotnull(a11#21) AND (a11#21 > 10000.0)) AND isnotnull(district_id#20))
+
+(3) Project
+Output [1]: [district_id#20]
+Input [2]: [district_id#20, a11#21]
+
+(4) BroadcastExchange
+Input [1]: [district_id#20]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=74]
+
+(5) Scan parquet spark_catalog.port_0013_spark_plan_collection.client
+Output [3]: [client_id#22, district_id#23, gender#24]
+Batched: true
+Location: InMemoryFileIndex [<SPARK_PLAN_COLLECTION_WAREHOUSE>]
+PushedFilters: [IsNotNull(district_id)]
+ReadSchema: struct<client_id:int,district_id:int,gender:string>
+
+(6) Filter
+Input [3]: [client_id#22, district_id#23, gender#24]
+Condition : isnotnull(district_id#23)
+
+(7) BroadcastHashJoin
+Left keys [1]: [district_id#20]
+Right keys [1]: [district_id#23]
+Join type: Inner
+Join condition: None
+
+(8) Project
+Output [2]: [client_id#22, gender#24]
+Input [4]: [district_id#20, client_id#22, district_id#23, gender#24]
+
+(9) HashAggregate
+Input [2]: [client_id#22, gender#24]
+Keys: []
+Functions [2]: [partial_count(CASE WHEN (gender#24 = F) THEN 1 END), partial_count(client_id#22)]
+Aggregate Attributes [2]: [count#30L, count#31L]
+Results [2]: [count#32L, count#33L]
+
+(10) Exchange
+Input [2]: [count#32L, count#33L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=79]
+
+(11) HashAggregate
+Input [2]: [count#32L, count#33L]
+Keys: []
+Functions [2]: [count(CASE WHEN (gender#24 = F) THEN 1 END), count(client_id#22)]
+Aggregate Attributes [2]: [count(CASE WHEN (gender#24 = F) THEN 1 END)#27L, count(client_id#22)#28L]
+Results [1]: [((cast(count(CASE WHEN (gender#24 = F) THEN 1 END)#27L as double) * 100.0) / cast(count(client_id#22)#28L as double)) AS ((CAST(count(CASE WHEN (gender = F) THEN 1 END) AS DOUBLE) * 100) / count(client_id))#29]
+
+(12) AdaptiveSparkPlan
+Output [1]: [((CAST(count(CASE WHEN (gender = F) THEN 1 END) AS DOUBLE) * 100) / count(client_id))#29]
+Arguments: isFinalPlan=false

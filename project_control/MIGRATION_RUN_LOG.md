@@ -267,13 +267,13 @@ Important raw URLs:
 Next safe action:
 - Review the committed `PORT_0008` pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning.
 
-### 2026-05-15 · pending · PORT_0012 formal sanitized evidence mapping pilot
+### 2026-05-15 · e7ca886 · PORT_0012 formal sanitized evidence mapping pilot
 
 Mode: release-repo formal evidence-mapping pilot; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash recorded in the task final response and Git history
-Push: pending at write time; final result recorded in the task final response
+Commit: e7ca886e532cd043b800e9d7316779c57c05af6e
+Push: pushed to origin main successfully (406a333..e7ca886)
 Scope: Promoted already validated Route B sanitized trial outputs for `PORT_0012` into a formal case-local evidence mapping pilot.
 
 Summary:
@@ -313,3 +313,51 @@ Important raw URLs:
 
 Next safe action:
 - Review the committed `PORT_0012` pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning.
+
+### 2026-05-15 · pending · PORT_0013 formal sanitized evidence mapping pilot
+
+Mode: release-repo formal evidence-mapping pilot; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending follow-up bookkeeping update in this task
+Push: pending follow-up bookkeeping update in this task
+Scope: Promoted already validated Route B sanitized trial outputs for `PORT_0013` into a formal case-local evidence mapping pilot.
+
+Summary:
+- Corrected the prior `PORT_0012` run-log entry with commit `e7ca886e532cd043b800e9d7316779c57c05af6e` and push result `406a333..e7ca886`.
+- Created `cases/PORT/PORT_0013/MIGRATION_PILOT.md`.
+- Created `cases/PORT/PORT_0013/evidence/runs_retention.yaml`.
+- Created two sanitized retained Spark plan files from validated trial outputs.
+- Created formal pilot audit report and validation CSV.
+- Full case migration: no.
+
+Validation:
+- YAML validation passed for `cases/PORT/PORT_0013/evidence/runs_retention.yaml`.
+- SHA256 match passed for both formal sanitized plan copies against Route B trial artifacts.
+- Sanitized output scan passed for the required formal public files.
+- Raw legacy Spark plans were not copied into public retained evidence.
+
+Files created:
+- `cases/PORT/PORT_0013/MIGRATION_PILOT.md`
+- `cases/PORT/PORT_0013/evidence/runs_retention.yaml`
+- `cases/PORT/PORT_0013/evidence/retained_plans/rewrite_neg_01.sanitized.txt`
+- `cases/PORT/PORT_0013/evidence/retained_plans/rewrite_pos_01.sanitized.txt`
+- `audits/port_manual_review_resolution/formal_pilots/PORT_0013_formal_mapping_pilot.md`
+- `audits/port_manual_review_resolution/formal_pilots/PORT_0013_formal_mapping_validation.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0013/MIGRATION_PILOT.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/cases/PORT/PORT_0013/evidence/runs_retention.yaml
+
+Next safe action:
+- Review the committed `PORT_0013` pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning.
