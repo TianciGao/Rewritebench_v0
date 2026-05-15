@@ -706,13 +706,13 @@ Important raw URLs:
 Next safe action:
 - Fix the `PORT_0004` release-repo mapping/hygiene issue only, likely by approving sanitized public copies or archive-only handling for the two affected Spark plan files, then rerun validator v0.2 full-case mode. Do not touch legacy.
 
-### 2026-05-16 · pending · PORT_0004 full case pilot hygiene fix
+### 2026-05-16 · a351e62 · PORT_0004 full case pilot hygiene fix
 
 Mode: release-repo hygiene fix and full-case validator rerun; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: a351e6221d1ffb8758496a27f160ac8bab16d7e7
+Push: pushed to origin main successfully (9208971..a351e62)
 Scope: Fixed the release-repo public hygiene issue in the `PORT_0004` copy-first full case migration pilot by sanitizing two copied Spark plan files and adding canonical retained-plan evidence.
 
 Summary:
