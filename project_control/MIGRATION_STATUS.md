@@ -28,8 +28,8 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0013 formal sanitized evidence mapping pilot；
-当前下一步安全动作是 review PORT_0013 pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning。
+latest completed run is PORT_0022 formal sanitized evidence mapping pilot；
+当前下一步安全动作是 review PORT_0022 pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning。
 
 ## 2. 仓库 / 工作区状态
 
@@ -266,11 +266,11 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：PORT_0013 formal sanitized evidence mapping pilot
+## Last Codex run：PORT_0022 formal sanitized evidence mapping pilot
 
 Date：2026-05-15
 
-Task name：PORT_0013 formal sanitized evidence mapping pilot
+Task name：PORT_0022 formal sanitized evidence mapping pilot
 
 Mode：release-repo formal evidence-mapping pilot；legacy read-only
 
@@ -280,7 +280,7 @@ Actual legacy evidence sanitized/moved/deleted/copied：no
 
 Formal public sanitized copies created：yes
 
-Case-local `evidence/runs_retention.yaml` created for PORT_0013：yes
+Case-local `evidence/runs_retention.yaml` created for PORT_0022：yes
 
 Full case package migrated：no
 
@@ -290,12 +290,12 @@ Paper results changed：no
 
 Validation summary：
 
-- YAML validation：passed；`cases/PORT/PORT_0013/evidence/runs_retention.yaml` parsed successfully.
+- YAML validation：passed；`cases/PORT/PORT_0022/evidence/runs_retention.yaml` parsed successfully.
 - SHA256 match：passed；both formal sanitized plan copies match the corresponding Route B trial artifacts.
 - Sanitized output scan：passed；formal public pilot files do not expose maintainer-local paths, local URI traces, host endpoints, platform traces, or credential-keyword traces covered by the required scan.
 - Raw legacy Spark plan copied into public retained evidence：no；formal retained plan files were copied from validated sanitized trial outputs only.
 
-Next safe action：review the committed PORT_0013 pilot slice, then use the same evidence-mapping-only pattern for the next approved simple PORT manual-review case or continue with approved pilot planning.
+Next safe action：review the committed PORT_0022 pilot slice, then use the same evidence-mapping-only pattern for the next approved simple PORT manual-review case or continue with approved pilot planning.
 
 ## 6. Phase progress
 
