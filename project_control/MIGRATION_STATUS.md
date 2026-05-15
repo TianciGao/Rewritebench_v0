@@ -290,26 +290,58 @@ PORT_0025。
 
 ## 8. 当前安全下一步
 
-对 7 个 Common-core PORT manual-review cases 做只读逐文件复核：
+根据 2026-05-15 PORT manual-review read-only resolution，当前安全下一步是：
 
-PORT_0004；
-PORT_0008；
-PORT_0012；
-PORT_0013；
-PORT_0022；
-PORT_0024；
-PORT_0025。
+1. 对 PORT_0008、PORT_0012、PORT_0013、PORT_0022、PORT_0024、PORT_0025 做人工决策：Spark plan evidence 中的本地路径 trace 应发布 sanitized public copy，还是只保留在 private/external archive。
+2. 对 PORT_0024 做人工决策：`runs/spark/result_check.json` 中引用的 stdout/stderr log path 是否保留为 private/archive，还是只在 `runs_retention.yaml` 中摘要说明。
+3. 在人工批准前，只允许继续做 evidence-index / runs-retention 设计；不要做 physical migration、删除、移动、清洗或重写证据文件。
 
-复核目标：
+## 9. Last Codex run
 
-分类 Spark warehouse residue、parquet / crc / _SUCCESS 文件、本地路径 / WSL / localhost、prompt / API / token / assistant traces、logs / stderr / debug residue，以及 evidence role 不明文件。
-
-复核边界：
-
-只读；
-不删除；
-不移动；
-不清洗；
-不修改 manifests；
-不改变 Common-core denominator；
-不改变 paper results。
+- task name: PORT manual-review read-only resolution
+- date: 2026-05-15
+- mode: read-only legacy inspection, release-repo audit outputs
+- legacy repo modified: no
+- release repo modified: yes, audit outputs and `MIGRATION_STATUS.md` only
+- outputs created:
+  - `audits/port_manual_review_resolution/port_case_clearance_summary.md`
+  - `audits/port_manual_review_resolution/port_manual_review_resolution.csv`
+  - `audits/port_manual_review_resolution/port_file_review_matrix.csv`
+  - `audits/port_manual_review_resolution/port_public_release_risk_table.md`
+  - `audits/port_manual_review_resolution/port_sanitize_or_archive_plan.md`
+  - `audits/port_manual_review_resolution/port_no_delete_list.txt`
+  - `audits/port_manual_review_resolution/port_static_reference_map.csv`
+  - `audits/port_manual_review_resolution/port_followup_questions.md`
+- cases inspected:
+  - PORT_0004
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- cases cleared for evidence-index normalization:
+  - PORT_0004
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- cases cleared for physical pilot:
+  - PORT_0004
+- cases still blocked for physical pilot:
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- cases needing human approval:
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- next safe action: resolve the sanitized-copy vs private/archive decision for the six blocked PORT cases, then draft evidence-index / `runs_retention.yaml` templates without moving case files.
