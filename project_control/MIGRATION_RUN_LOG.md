@@ -507,13 +507,13 @@ Important raw URLs:
 Next safe action:
 - Review the committed `PORT_0024` pilot slice, then close the blocked-PORT evidence-mapping pilot series or continue with approved full-case migration planning.
 
-### 2026-05-15 · pending · blocked-PORT evidence-mapping closeout
+### 2026-05-15 · 5c133ed · blocked-PORT evidence-mapping closeout
 
 Mode: release-repo closeout verification; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash recorded in the task final response and Git history
-Push: pending at write time; final result recorded in the task final response
+Commit: 5c133edc7aef4ef69bbe47bf843d88aa11c7aa98
+Push: pushed to origin main successfully (de21d5c..5c133ed)
 Scope: Verified and summarized the six blocked PORT formal sanitized evidence-mapping pilot slices.
 
 Summary:
