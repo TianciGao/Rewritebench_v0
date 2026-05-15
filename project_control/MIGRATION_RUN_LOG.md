@@ -457,13 +457,13 @@ Important raw URLs:
 Next safe action:
 - Review the committed `PORT_0025` pilot slice, then either apply the same evidence-mapping-only pattern to another approved simple PORT case or continue with approved pilot planning.
 
-### 2026-05-15 · pending · PORT_0024 formal sanitized evidence mapping pilot
+### 2026-05-15 · a55519f · PORT_0024 formal sanitized evidence mapping pilot
 
 Mode: release-repo formal evidence-mapping pilot with result-check summary; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash recorded in the task final response and Git history
-Push: pending at write time; final result recorded in the task final response
+Commit: a55519f5c8146276d1f10869bff215dca845ca57
+Push: pushed to origin main successfully (800d99f..a55519f)
 Scope: Promoted already validated Route B sanitized trial outputs for `PORT_0024` into a formal case-local evidence mapping pilot, including summarized Spark result-check evidence.
 
 Summary:
