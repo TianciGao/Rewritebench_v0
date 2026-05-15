@@ -258,6 +258,37 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
+## Last Codex run：PORT_0008 formal sanitized evidence mapping pilot
+
+Date：2026-05-15
+
+Task name：PORT_0008 formal sanitized evidence mapping pilot
+
+Mode：release-repo formal evidence-mapping pilot；legacy read-only
+
+Legacy repo modified：no
+
+Actual legacy evidence sanitized/moved/deleted/copied：no
+
+Formal public sanitized copies created：yes
+
+Case-local `evidence/runs_retention.yaml` created for PORT_0008：yes
+
+Full case package migrated：no
+
+Denominator changed：no
+
+Paper results changed：no
+
+Validation summary：
+
+- YAML validation：passed；`cases/PORT/PORT_0008/evidence/runs_retention.yaml` parsed successfully.
+- SHA256 match：passed；both formal sanitized plan copies match the corresponding Route B trial artifacts.
+- Sanitized output scan：passed；formal public pilot files do not expose maintainer-local paths, local URI traces, host endpoints, platform traces, or credential-keyword traces covered by the required scan.
+- Raw legacy Spark plan copied into public retained evidence：no；formal retained plan files were copied from validated sanitized trial outputs only.
+
+Next safe action：review the committed PORT_0008 pilot slice, then use the same evidence-mapping-only pattern for the next approved PORT manual-review case.
+
 ## 6. Phase progress
 
 | Phase | 名称 | 状态 | 当前判断 | 下一步 |
