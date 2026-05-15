@@ -248,3 +248,37 @@ Do not sanitize or move files until later approved migration steps.
 Evidence-index normalization can proceed for all seven PORT cases using preview mappings.
 
 Physical migration remains blocked for the six cases until sanitized public copies or archive mappings are implemented.
+
+## D014：每轮 Codex run 必须追加 MIGRATION_RUN_LOG
+
+Decision:
+
+Every Codex task that modifies the release repo or produces audit outputs must append one entry to:
+
+project_control/MIGRATION_RUN_LOG.md
+
+The entry must record:
+
+- task name;
+- mode;
+- whether legacy repo was modified;
+- files created/modified;
+- validation result;
+- commit hash;
+- push result;
+- denominator/paper-result impact;
+- next safe action.
+
+Reason:
+
+MIGRATION_STATUS.md is a current-state snapshot and should not become a long execution diary.
+
+DECISION_LOG.md records long-term decisions, not per-run details.
+
+A separate run log is needed for traceability and later audit/review.
+
+Impact:
+
+- Every future Codex prompt must include MIGRATION_RUN_LOG.md in its final writeback requirements.
+- MIGRATION_STATUS.md should keep only the latest summary and point to MIGRATION_RUN_LOG.md for full history.
+- ChatGPT should consult MIGRATION_RUN_LOG.md when reconstructing prior execution history.

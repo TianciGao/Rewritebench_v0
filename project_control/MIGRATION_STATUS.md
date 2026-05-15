@@ -22,11 +22,14 @@ public release layout 是迁移目标，不是旧仓库当前事实；
 已经完成若干只读审计；
 control-layer bootstrap 已完成；
 三个 project_control 文件已创建、提交并 push 到 GitHub；
+project_control/MIGRATION_RUN_LOG.md now exists as the execution ledger；
+full execution history should be recorded in MIGRATION_RUN_LOG.md, while this file remains a current status snapshot；
 runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-下一步安全动作是对 7 个 Common-core PORT manual-review cases 做只读逐文件复核。
+latest completed run is PORT_0008 formal sanitized evidence mapping pilot；
+当前下一步安全动作是 review PORT_0008 pilot slice, then either apply the same evidence-mapping-only pattern to another simple PORT case or continue with approved pilot planning。
 
 ## 2. 仓库 / 工作区状态
 
@@ -84,11 +87,16 @@ bootstrap 后 final status：
 
 project_control/MIGRATION_MASTER_PLAN.md；
 project_control/MIGRATION_STATUS.md；
-project_control/DECISION_LOG.md。
+project_control/DECISION_LOG.md；
+project_control/MIGRATION_RUN_LOG.md。
 
 bootstrap commit：
 
 1b7fab1 project: add migration control files
+
+Execution history:
+
+Use `project_control/MIGRATION_RUN_LOG.md` for the chronological Codex execution ledger. `MIGRATION_STATUS.md` should stay focused on current state, blockers, and next safe action.
 
 ### 2.4 clean worktree
 
