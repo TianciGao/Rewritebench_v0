@@ -553,3 +553,52 @@ Important raw URLs:
 
 Next safe action:
 - Choose between full copy-first case migration pilot, preferably `PORT_0004` or `PORT_0008`; case package validator design; or reports/results retained evidence map. Do not start full Common-core 40 migration yet.
+
+### 2026-05-15 · pending · static case-package validator v0.1 evidence-pilot
+
+Mode: release-repo static validator implementation and evidence-pilot verification; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Designed and implemented the first static release-repo validator for completed PORT evidence-pilot slices.
+
+Summary:
+- Created `scripts/dev/validate_case_package.py` with validator version `v0.1`.
+- Added initial mode `evidence-pilot`.
+- Added static checks for required evidence-pilot files, `runs_retention.yaml`, public-safe sanitized evidence, formal validation CSVs, and `PORT_0024` result-check summary handling.
+- Created validator specification and audit report.
+- Ran the validator across `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0025`, and `PORT_0024`.
+- Full case migration: no.
+
+Validation:
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `python scripts/dev/validate_case_package.py --mode evidence-pilot ...` passed for all six cases.
+- YAML checks passed for all six case-local `evidence/runs_retention.yaml` files.
+- Sanitized public evidence scans passed.
+- `PORT_0024` sanitized result-check summary JSON and log-reference checks passed.
+- Formal validation CSV checks passed.
+
+Files created:
+- `scripts/dev/validate_case_package.py`
+- `repository_spec/static_case_package_validator_v0_1.md`
+- `audits/port_manual_review_resolution/static_case_package_validator_v0_1_report.md`
+- `audits/port_manual_review_resolution/static_case_package_validator_v0_1_results.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/scripts/dev/validate_case_package.py
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/repository_spec/static_case_package_validator_v0_1.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/port_manual_review_resolution/static_case_package_validator_v0_1_report.md
+
+Next safe action:
+- Use validator v0.1 as the evidence-pilot gate, then design a copy-first full-case validator mode before starting a full case migration pilot, preferably `PORT_0004` or `PORT_0008`.

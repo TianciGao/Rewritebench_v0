@@ -28,14 +28,16 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is blocked-PORT evidence-mapping closeout；
+latest completed run is static case-package validator v0.1 evidence-pilot implementation；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
+static validator v0.1 now exists for evidence-pilot release-repo slices；
+all six blocked-PORT evidence-pilot slices pass validator v0.1；
 full case migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 choose between full copy-first case migration pilot, preferably PORT_0004 or PORT_0008; case package validator design; or reports/results retained evidence map。
+当前下一步安全动作是 use the static validator as a gate, then design the copy-first full-case validator mode before starting a full case migration pilot, preferably PORT_0004 or PORT_0008。
 
 ## 2. 仓库 / 工作区状态
 
@@ -272,23 +274,25 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：blocked-PORT evidence-mapping closeout
+## Last Codex run：static case-package validator v0.1 evidence-pilot
 
 Date：2026-05-15
 
-Task name：blocked-PORT evidence-mapping closeout
+Task name：static case-package validator v0.1 evidence-pilot
 
-Mode：release-repo closeout verification；legacy read-only
+Mode：release-repo static validator implementation and evidence-pilot verification；legacy read-only
 
 Legacy repo modified：no
 
 Actual legacy evidence sanitized/moved/deleted/copied：no
 
-Formal public sanitized plan copies created：already present and verified
+Validator implemented：yes
 
-Formal public sanitized result_check summary created：already present for PORT_0024 and verified
+Validator version：v0.1
 
-Case-local `evidence/runs_retention.yaml` created for closed cases：yes
+Initial mode：`evidence-pilot`
+
+Target scope verified：`PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0025`, `PORT_0024`
 
 Full case package migrated：no
 
@@ -298,16 +302,14 @@ Paper results changed：no
 
 Validation summary：
 
-- Closed cases：`PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0025`, `PORT_0024`.
-- YAML validation：passed for all six case-local `evidence/runs_retention.yaml` files.
-- JSON validation：passed for `PORT_0024` sanitized Spark result-check summary.
-- Sanitized output scan：passed for sanitized plan evidence and `PORT_0024` result-check summary.
-- Formal validation CSV review：passed; rows are public-safe and show no raw local path or prompt/API/token traces.
-- MIGRATION_RUN_LOG continuity：passed; all six pilot entries are present and finalized.
-- Raw legacy Spark plan copied into public retained evidence：no.
-- Raw stdout/stderr log copied into public retained evidence：no.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `validate_case_package.py --mode evidence-pilot` passed for all six blocked-PORT evidence-pilot slices.
+- YAML checks passed for all six case-local `evidence/runs_retention.yaml` files.
+- Sanitized public plan scans passed for all six cases.
+- `PORT_0024` sanitized result-check summary JSON and log-reference checks passed.
+- Formal validation CSV checks passed for public-safe rows and no raw local path or prompt/API/token traces.
 
-Next safe action：choose between full copy-first case migration pilot, preferably `PORT_0004` or `PORT_0008`; case package validator design; or reports/results retained evidence map. Do not start full Common-core 40 migration yet.
+Next safe action：use validator v0.1 as the evidence-pilot gate, then design a copy-first full-case validator mode before starting a full case migration pilot, preferably `PORT_0004` or `PORT_0008`. Do not start full Common-core 40 migration yet.
 
 ## 6. Phase progress
 
