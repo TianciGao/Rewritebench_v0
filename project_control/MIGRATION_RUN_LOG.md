@@ -554,13 +554,13 @@ Important raw URLs:
 Next safe action:
 - Choose between full copy-first case migration pilot, preferably `PORT_0004` or `PORT_0008`; case package validator design; or reports/results retained evidence map. Do not start full Common-core 40 migration yet.
 
-### 2026-05-15 · pending · static case-package validator v0.1 evidence-pilot
+### 2026-05-15 · 191a0c8 · static case-package validator v0.1 evidence-pilot
 
 Mode: release-repo static validator implementation and evidence-pilot verification; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: 191a0c88491a0916a8f67ee9494bf2a480ca187c
+Push: pushed to origin main successfully (495f268..191a0c8)
 Scope: Designed and implemented the first static release-repo validator for completed PORT evidence-pilot slices.
 
 Summary:
