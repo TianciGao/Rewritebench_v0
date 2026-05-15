@@ -761,13 +761,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `PORT_0004` pilot, then decide whether to run a `PORT_0008` full copy-first pilot to test sanitized evidence integration. Do not start full Common-core 40 migration.
 
-### 2026-05-16 · pending · canonical case package layout lock
+### 2026-05-16 · 0e4129e · canonical case package layout lock
 
 Mode: release-repo specification/control update; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: 0e4129ed795f24676b455478f2bf82c121de0505
+Push: pushed to origin main successfully (40d5fd1..0e4129e)
 Scope: Locked the canonical public-release case package layout as target policy for future migrations.
 
 Summary:
