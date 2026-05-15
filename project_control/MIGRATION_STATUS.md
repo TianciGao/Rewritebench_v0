@@ -290,11 +290,11 @@ PORT_0025。
 
 ## 8. 当前安全下一步
 
-根据 2026-05-15 runs-retention policy/template design，当前安全下一步是：
+根据 2026-05-15 Spark plan sanitization trial，当前安全下一步是：
 
-1. 选择一个 copy-first physical pilot 或 evidence-index pilot，优先使用 PORT_0004 或已清晰映射的非 PORT representative case。
-2. 对 PORT_0008、PORT_0012、PORT_0013、PORT_0022、PORT_0024、PORT_0025，下一步只能实现 sanitized public copy / private archive mapping 的批准迁移；不要公开 raw local-path Spark plan evidence。
-3. 在正式 physical migration 前，先把 preview mapping 转化为 case-local `evidence/runs_retention.yaml` 设计并确认实际 public/archive path。
+1. 人工审阅 Route B trial sanitized artifacts，重点确认 Spark plan structure 是否保持证据含义、local path redaction 是否足够、PORT_0024 result-check summary 是否满足 public evidence 要求。
+2. 若人工批准，选择一个受影响 PORT case 将 trial mapping 转化为正式 case-local `evidence/runs_retention.yaml` 和 public retained evidence path 设计；仍不要修改 legacy repo。
+3. 在批准前，不要把 trial outputs 当作 final retained evidence，也不要删除、移动、清洗或替换 legacy originals。
 
 ## 9. Last Codex run
 
@@ -381,3 +381,42 @@ PORT_0025。
   - PORT_0004 remains clear for copy-first physical pilot with runs-retention mapping.
   - PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0024, and PORT_0025 remain blocked for physical pilot until sanitized public copies and/or private archive mappings are implemented.
 - next safe action: pick the first copy-first pilot package and implement case-local `evidence/runs_retention.yaml` plus sanitized/archive path mapping without changing denominators, paper results, or raw legacy evidence.
+
+## 11. Last Codex run
+
+- task name: Spark plan sanitization trial for six blocked PORT cases
+- date: 2026-05-15
+- mode: release-repo sanitized trial; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes, sanitized trial outputs and `MIGRATION_STATUS.md`
+- actual legacy evidence sanitized/moved/deleted/copied: no
+- sanitized trial copies created: yes
+- cases covered:
+  - PORT_0008
+  - PORT_0012
+  - PORT_0013
+  - PORT_0022
+  - PORT_0024
+  - PORT_0025
+- outputs created:
+  - `audits/port_manual_review_resolution/sanitized_trial/README.md`
+  - `audits/port_manual_review_resolution/sanitized_trial/redaction_manifest.csv`
+  - `audits/port_manual_review_resolution/sanitized_trial/redaction_validation.csv`
+  - `audits/port_manual_review_resolution/sanitized_trial/original_to_sanitized_mapping.csv`
+  - `audits/port_manual_review_resolution/sanitized_trial/case_clearance_after_sanitization_trial.md`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0008/`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0012/`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0013/`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0022/`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0024/`
+  - `audits/port_manual_review_resolution/sanitized_trial/PORT_0025/`
+- validation result summary:
+  - 12 Spark plan sanitized trial files created and validated with no raw local path remaining.
+  - 1 PORT_0024 Spark result-check sanitized summary created and validated with stdout/stderr log references replaced by placeholders.
+  - YAML validation passed for all six per-case `mapping.yaml` files.
+  - Broad whole-tree substring scan has a known schema-label caveat because `redaction_validation.csv` is required to include a host-name validation column; artifact-content validation passed.
+- remaining blockers:
+  - human approval is still required before trial artifacts become final public retained evidence.
+  - original legacy artifacts remain do-not-delete and must stay mapped.
+  - this does not authorize physical case migration by itself.
+- next safe action: human review of Route B trial artifacts, then approve one formal sanitized evidence mapping pilot without modifying the legacy repository.

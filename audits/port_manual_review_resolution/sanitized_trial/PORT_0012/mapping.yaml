@@ -1,0 +1,59 @@
+case_id: PORT_0012
+trial_status: sanitized_public_copy_trial
+trial_output_root: audits/port_manual_review_resolution/sanitized_trial/PORT_0012
+original_plan_artifacts:
+- cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+- cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+sanitized_trial_artifacts:
+- audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_neg_01.sanitized.txt
+- audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_pos_01.sanitized.txt
+redaction_rules_applied:
+- category: maintainer_local_repo_path
+  replacement: <REWRITEBENCH_REPO_ROOT>
+- category: spark_temporary_plan_collection_warehouse
+  replacement: <SPARK_PLAN_COLLECTION_WAREHOUSE>
+- category: general_local_filesystem_path_or_uri
+  replacement: <LOCAL_PATH_REDACTED>
+- category: host_specific_value
+  replacement: <LOCAL_HOST_REDACTED>
+original_archive_policy:
+  retain_original: true
+  public_release_should_expose_raw_original: false
+  proposed_policy: private_or_external_archive_reference_later
+plan_mappings:
+- original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+  original_sha256: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+  sanitized_trial_path: audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_neg_01.sanitized.txt
+  sanitized_sha256: 27690fa27aae026bd753ae819a9f33bf94dbf044af89d10ff969bf921779dcff
+  proposed_future_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_neg_01.sanitized.txt
+  proposed_private_archive_policy: retain_original_private_or_external_archive_candidate
+  evidence_role: hard-negative rejection evidence; plan/failure observability
+  redaction_categories_applied:
+  - spark_temporary_warehouse_path
+  redaction_count: 1
+  validation_passed: true
+  do_not_delete_original: true
+- original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+  original_sha256: f919e498a14741bc34a19d1e259e6f1cd33ed954ba34a158400872a708639dfe
+  sanitized_trial_path: audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_pos_01.sanitized.txt
+  sanitized_sha256: d35497911d20b8234c873fa197968d2001cc98afc0066b2cde81fb5d823879ee
+  proposed_future_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_pos_01.sanitized.txt
+  proposed_private_archive_policy: retain_original_private_or_external_archive_candidate
+  evidence_role: plan/failure observability
+  redaction_categories_applied:
+  - spark_temporary_warehouse_path
+  redaction_count: 1
+  validation_passed: true
+  do_not_delete_original: true
+result_check_summary_mapping: null
+evidence_roles:
+- hard-negative rejection evidence; plan/failure observability
+- plan/failure observability
+human_approval_status:
+  required_before_final_publication: true
+  status: pending_human_approval
+  scope: Approve sanitized trial artifacts and original archive mappings before final case migration.
+do_not_delete_original: true
+physical_pilot_clearance_after_trial:
+  provisional: 'yes'
+  reason: All expected sanitized trial outputs validate cleanly; still requires human approval and final case-local mapping.
