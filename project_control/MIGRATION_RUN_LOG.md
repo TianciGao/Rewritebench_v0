@@ -603,13 +603,13 @@ Important raw URLs:
 Next safe action:
 - Use validator v0.1 as the evidence-pilot gate, then design a copy-first full-case validator mode before starting a full case migration pilot, preferably `PORT_0004` or `PORT_0008`.
 
-### 2026-05-15 · pending · static case-package validator v0.2 full-case mode
+### 2026-05-15 · ea119bc · static case-package validator v0.2 full-case mode
 
 Mode: release-repo static validator enhancement; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: ea119bc924abc598bed86831128eb59dafe6ccfd
+Push: pushed to origin main successfully (82c7d40..ea119bc)
 Scope: Extended `scripts/dev/validate_case_package.py` with validator `v0.2` and new `full-case` mode for future copy-first full case migration pilots.
 
 Summary:
