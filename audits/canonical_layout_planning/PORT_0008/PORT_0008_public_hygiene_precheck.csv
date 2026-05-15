@@ -1,0 +1,42 @@
+path,source_kind,scan_scope,public_safe_as_is,local_path_risk,prompt_api_token_risk,log_debug_risk,needs_sanitization,proposed_action,notes
+cases/PORT/PORT_0008/README.md,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/manifest.yaml,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/promotion_checklist.md,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/provenance/parrot_source_record.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/provenance/provenance_notes.txt,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/rewrite_neg_01.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/rewrite_pos_01.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/risk_notes.md,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/mysql/plans/rewrite_neg_01.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/mysql/plans/rewrite_pos_01.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/mysql/rewrite_neg_01.tsv,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/mysql/rewrite_pos_01.tsv,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/pg/plans/source.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/pg/source.tsv,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/plan_check.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/result_check.json,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/spark/plans/rewrite_neg_01.txt,legacy_file,future_migration_candidate,no,yes,no,no,yes,do_not_copy_raw_use_existing_sanitized_copy,raw Spark plan contains local path traces; use validated sanitized public copy
+cases/PORT/PORT_0008/runs/spark/plans/rewrite_pos_01.txt,legacy_file,future_migration_candidate,no,yes,no,no,yes,do_not_copy_raw_use_existing_sanitized_copy,raw Spark plan contains local path traces; use validated sanitized public copy
+cases/PORT/PORT_0008/runs/spark/rewrite_neg_01.tsv,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/runs/spark/rewrite_pos_01.tsv,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/schema/ddl_mysql.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/schema/ddl_pg.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/schema/ddl_spark.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/schema_notes.md,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/source.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/mysql_witness_data.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/pg_witness_data.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_mysql_plan_collection.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_mysql_validation.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_pg_plan_collection.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_pg_validation.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_spark_plan_collection.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/run_spark_validation.sh,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/validation/spark_witness_data.sql,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/witness_design_notes.md,legacy_file,future_migration_candidate,yes,no,no,no,no,copy_or_generate_as_mapped,no static public hygiene risk found
+cases/PORT/PORT_0008/MIGRATION_PILOT.md,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,no,no,no,reuse_or_reference,no static public hygiene risk found
+cases/PORT/PORT_0008/evidence/runs_retention.yaml,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,no,no,no,reuse_or_reference,no static public hygiene risk found
+cases/PORT/PORT_0008/evidence/retained_plans/rewrite_neg_01.sanitized.txt,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,no,no,no,reuse_or_reference,no static public hygiene risk found
+cases/PORT/PORT_0008/evidence/retained_plans/rewrite_pos_01.sanitized.txt,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,no,no,no,reuse_or_reference,no static public hygiene risk found
+audits/port_manual_review_resolution/formal_pilots/PORT_0008_formal_mapping_pilot.md,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,no,no,no,reuse_or_reference,no static public hygiene risk found
+audits/port_manual_review_resolution/formal_pilots/PORT_0008_formal_mapping_validation.csv,release_existing_pilot_file,existing_release_pilot_artifact,yes,no,schema_label_only,no,no,reference_only,CSV header contains the required prompt/api/token trace audit column; row values record no trace and this file is reference-only for future migration.

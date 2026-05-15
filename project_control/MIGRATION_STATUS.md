@@ -28,10 +28,12 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is canonical case package layout lock；
+latest completed run is PORT_0008 canonical-layout migration dry-run plan；
 canonical case package layout v1 is locked as the target policy；
 canonical layout is a migration target, not legacy current fact；
 no case files were moved or copied in the canonical-layout lock；
+PORT_0008 canonical-layout migration plan created；
+PORT_0008 actual migration not performed；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
@@ -46,7 +48,7 @@ Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 review the completed PORT_0004 pilot, then decide whether PORT_0008 should be the canonical-layout full copy-first pilot。
+当前下一步安全动作是 human review of the PORT_0008 canonical-layout plan, then decide whether to execute the future actual migration prompt。
 
 ## 2. 仓库 / 工作区状态
 
@@ -279,13 +281,13 @@ PORT_0022；
 PORT_0024；
 PORT_0025。
 
-## Last Codex run：canonical case package layout lock
+## Last Codex run：PORT_0008 canonical-layout migration dry-run plan
 
 Date：2026-05-16
 
-Task name：canonical case package layout lock
+Task name：PORT_0008 canonical-layout migration dry-run plan
 
-Mode：release-repo specification/control update；legacy read-only
+Mode：release-repo planning/audit output；legacy read-only
 
 Legacy repo modified：no
 
@@ -293,13 +295,15 @@ Actual legacy evidence sanitized/moved/deleted/copied：no
 
 Release repo modified：yes
 
+Actual case migration performed：no
+
+PORT_0008 canonical-layout migration plan created：yes
+
 Case files moved or copied：no
 
-Canonical case package layout v1 locked：yes
-
-D015 added：yes
-
 PORT_0004 pilot status：remains pilot-complete for PORT_0004 only
+
+Full case migration status：completed only for `PORT_0004` pilot scope
 
 Common-core 40 migration started：no
 
@@ -312,10 +316,14 @@ Raw legacy evidence changed：no
 Validation summary：
 
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `PORT_0008` evidence-pilot validator run passed.
+- `PORT_0008` full-case advisory run failed as expected because the current release slice is evidence-only.
+- Planning summary JSON parsed.
+- Manifest and runs-retention preview YAML parsed.
 - `git diff --check` passed.
 - No case files were moved, copied, sanitized, or deleted.
 
-Next safe action：review the completed `PORT_0004` pilot, then decide whether `PORT_0008` should be the canonical-layout full copy-first pilot. Do not touch legacy and do not start full Common-core 40 migration yet.
+Next safe action：human review of the `PORT_0008` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not touch legacy and do not start full Common-core 40 migration yet.
 
 ## 6. Phase progress
 
@@ -349,10 +357,10 @@ Next safe action：review the completed `PORT_0004` pilot, then decide whether `
 
 ## 8. 当前安全下一步
 
-根据 2026-05-16 canonical case package layout lock，当前安全下一步是：
+根据 2026-05-16 `PORT_0008` canonical-layout planning dry run，当前安全下一步是：
 
-1. Review the completed `PORT_0004` copy-first full case migration pilot.
-2. Decide whether `PORT_0008` should be the first canonical-layout full copy-first pilot to test sanitized evidence integration.
+1. Human review of `audits/canonical_layout_planning/PORT_0008/`.
+2. Decide whether to execute the drafted future actual migration prompt for `PORT_0008`.
 3. Do not start Common-core 40 migration and do not delete, move, or sanitize legacy originals.
 
 ## 9. Last Codex run

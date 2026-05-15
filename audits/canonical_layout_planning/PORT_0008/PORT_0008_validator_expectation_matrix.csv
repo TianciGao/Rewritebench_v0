@@ -1,0 +1,17 @@
+validator_check,current_evidence_pilot_status,expected_after_canonical_migration,required_action,notes
+manifest_exists,no,yes,generate canonical manifest.yaml,current evidence pilot intentionally lacks manifest
+source_sql_exists,no,yes,copy legacy source.sql to sql/source.sql,copy-first canonical path
+positive_rewrite_exists,no,yes,copy rewrite_pos_01.sql to sql/positives/pos_01.sql,preserve content
+hard_negative_status,missing,present,copy rewrite_neg_01.sql to sql/negatives/neg_01.sql and generate expected_rejections.yaml,negative is semantic drift control
+schema_context_exists,no,yes,map DDL and witness load SQL into schema/<engine>/,schema notes generate profile
+checker_exists,no,yes,generate checker/*.yaml from retained result evidence,no legacy checker file exists
+validation_path_exists,no,yes,copy validation scripts into canonical validation/,scripts must not be executed during migration
+provenance_exists,no,yes,generate metadata/provenance.yaml from provenance JSON/notes,preserve legacy provenance source
+taxonomy_exists,no,yes,generate metadata/taxonomy.yaml from manifest tags,no separate taxonomy file exists
+evidence_runs_retention_exists,yes,yes,evolve current evidence/runs_retention.yaml to full canonical mapping,current file is evidence-pilot only
+sanitized_evidence_scan_ok,yes,yes,reuse validated sanitized plan files,raw Spark plans must not be public
+no_denominator_change_claim_ok,yes,yes,preserve claim-boundary flags,no denominator change
+no_paper_result_change_claim_ok,yes,yes,preserve claim-boundary flags,no paper-result change
+no_global_leaderboard_claim_ok,yes,yes,include no_global_leaderboard flag,role-aware reporting only
+full_case_structure_ok,no,yes,create canonical root/sql/schema/checker/validation/evidence/metadata/notes,actual migration only
+evidence_mapping_ok,yes,yes,carry over current formal mapping and extend to all retained evidence,must include raw original do-not-delete mapping

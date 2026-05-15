@@ -1,0 +1,85 @@
+PORT_0008 proposed canonical target tree after future actual migration
+
+cases/PORT/PORT_0008/
+  README.md                                      [GENERATE]
+  manifest.yaml                                  [GENERATE]
+
+  sql/                                           [GENERATE]
+    source.sql                                   [COPY]
+    positives/
+      pos_01.sql                                 [COPY]
+    negatives/
+      neg_01.sql                                 [COPY]
+    dialect_variants/                            [DEFER]
+      postgres/                                  [DEFER]
+      mysql/                                     [DEFER]
+      spark/                                     [DEFER]
+
+  schema/
+    postgres/
+      ddl.sql                                    [COPY]
+      load.sql                                   [COPY]
+    mysql/
+      ddl.sql                                    [COPY]
+      load.sql                                   [COPY]
+    spark/
+      ddl.sql                                    [COPY]
+      load.sql                                   [COPY]
+    schema_profile.yaml                          [GENERATE]
+
+  data/
+    data_profile.yaml                            [GENERATE]
+    witness_profile.yaml                         [GENERATE]
+    fixtures/                                    [DEFER]
+
+  checker/
+    checker.yaml                                 [GENERATE]
+    normalization.yaml                           [GENERATE]
+    compare_config.yaml                          [GENERATE]
+    expected_rejections.yaml                     [GENERATE]
+
+  validation/
+    run_postgres_validation.sh                   [COPY]
+    run_mysql_validation.sh                      [COPY]
+    run_spark_validation.sh                      [COPY]
+    run_postgres_plan_collection.sh              [COPY]
+    run_mysql_plan_collection.sh                 [COPY]
+    run_spark_plan_collection.sh                 [COPY]
+
+  evidence/
+    runs_retention.yaml                          [GENERATE]
+    retained_controls/
+      result_check.json                          [COPY]
+      pg_source.tsv                              [COPY]
+      mysql_rewrite_pos_01.tsv                   [COPY]
+      spark_rewrite_pos_01.tsv                   [COPY]
+    retained_plans/
+      plan_check.json                            [COPY]
+      postgres/
+        source.json                              [COPY]
+      mysql/
+        rewrite_pos_01.json                      [COPY]
+        rewrite_neg_01.json                      [COPY]
+      rewrite_neg_01.sanitized.txt               [COPY_SANITIZED]
+      rewrite_pos_01.sanitized.txt               [COPY_SANITIZED]
+    hard_negative/
+      mysql_rewrite_neg_01.tsv                   [COPY]
+      spark_rewrite_neg_01.tsv                   [COPY]
+      hard_negative_summary.json                 [GENERATE]
+    package_validation_summary.json              [GENERATE]
+
+  metadata/
+    provenance.yaml                              [GENERATE]
+    taxonomy.yaml                                [GENERATE]
+    engine_support.yaml                          [GENERATE]
+    denominator_eligibility.yaml                 [GENERATE]
+    artifact_paths.yaml                          [GENERATE]
+
+  notes/
+    witness_design_notes.md                      [COPY]
+    risk_notes.md                                [COPY]
+    promotion_checklist.md                       [COPY]
+    migration_notes.md                           [GENERATE]
+
+  runs/                                          [REFERENCE_ONLY]
+    raw legacy runs remain do-not-delete and mapped through evidence/runs_retention.yaml [LEGACY_RETAINED]
