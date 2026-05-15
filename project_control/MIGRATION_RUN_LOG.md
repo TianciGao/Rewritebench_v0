@@ -506,3 +506,50 @@ Important raw URLs:
 
 Next safe action:
 - Review the committed `PORT_0024` pilot slice, then close the blocked-PORT evidence-mapping pilot series or continue with approved full-case migration planning.
+
+### 2026-05-15 · pending · blocked-PORT evidence-mapping closeout
+
+Mode: release-repo closeout verification; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash recorded in the task final response and Git history
+Push: pending at write time; final result recorded in the task final response
+Scope: Verified and summarized the six blocked PORT formal sanitized evidence-mapping pilot slices.
+
+Summary:
+- Verified closed evidence-mapping pilot slices for `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0025`, and `PORT_0024`.
+- Created human-readable closeout report.
+- Created closeout CSV and machine-readable checks JSON.
+- Created next-actions recommendation comparing validator, copy-first pilot, and reports/results retained-evidence map options.
+- Full case migration: no.
+
+Validation:
+- YAML validation passed for all six case-local `evidence/runs_retention.yaml` files.
+- JSON validation passed for `PORT_0024` sanitized Spark result-check summary.
+- Sanitized output scan passed for sanitized plan evidence and `PORT_0024` result-check summary.
+- Formal validation CSV review passed for public-safe rows and no raw local path or prompt/API/token traces.
+- `MIGRATION_RUN_LOG.md` continuity check passed for all six pilot entries.
+
+Files created:
+- `audits/port_manual_review_resolution/blocked_port_mapping_closeout.md`
+- `audits/port_manual_review_resolution/blocked_port_mapping_closeout.csv`
+- `audits/port_manual_review_resolution/blocked_port_mapping_next_actions.md`
+- `audits/port_manual_review_resolution/blocked_port_mapping_closeout_checks.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/port_manual_review_resolution/blocked_port_mapping_closeout.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/port_manual_review_resolution/blocked_port_mapping_closeout.csv
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/port_manual_review_resolution/blocked_port_mapping_next_actions.md
+
+Next safe action:
+- Choose between full copy-first case migration pilot, preferably `PORT_0004` or `PORT_0008`; case package validator design; or reports/results retained evidence map. Do not start full Common-core 40 migration yet.
