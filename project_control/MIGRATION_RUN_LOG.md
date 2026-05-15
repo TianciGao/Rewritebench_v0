@@ -652,13 +652,13 @@ Important raw URLs:
 Next safe action:
 - Choose first copy-first full case migration pilot, preferably `PORT_0004` for lower risk or `PORT_0008` to test sanitized evidence integration, and run validator v0.2 in advisory mode while assembling the candidate package.
 
-### 2026-05-15 · pending · PORT_0004 copy-first full case migration pilot
+### 2026-05-15 · 988b8fe · PORT_0004 copy-first full case migration pilot
 
 Mode: release-repo full case migration pilot; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: 988b8feb275cc8b92c5e730af72c95268d31a852
+Push: pushed to origin main successfully (99b68c2..988b8fe)
 Scope: Attempted the first copy-first full case migration pilot for `PORT_0004`.
 
 Summary:
