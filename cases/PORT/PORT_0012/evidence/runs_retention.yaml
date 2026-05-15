@@ -1,0 +1,323 @@
+case_id: PORT_0012
+pool: PORT
+policy_version: runs_retention_policy_v1
+status: formal_evidence_mapping_pilot
+physical_pilot_status: evidence_mapping_only_not_full_case_migration
+legacy_runs_root: cases/PORT/PORT_0012/runs/
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+generated_from_audit:
+  audit_name: port_manual_review_resolution
+  audit_path: audits/port_manual_review_resolution
+  generated_date: '2026-05-15'
+  preview_source: audits/port_manual_review_resolution/previews/PORT_0012_runs_retention_preview.yaml
+  trial_mapping_source: audits/port_manual_review_resolution/sanitized_trial/original_to_sanitized_mapping.csv
+  case_mapping_source: audits/port_manual_review_resolution/sanitized_trial/PORT_0012/mapping.yaml
+  pattern_source: cases/PORT/PORT_0008/evidence/runs_retention.yaml
+  preview_only: false
+  formal_pilot: true
+retained_control_evidence:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/result_check.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/result_check.json
+    proposed_archive_path: null
+    original_sha256_if_known: 05b37fed695665e45d46e08787190e10901c294dad77789bd9b812a0b989e8e6
+    evidence_role: control_validation
+    risk_categories: []
+    sanitized_fields: []
+    reason: Control-validation result remains mapped as retained evidence; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+retained_plan_evidence:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_neg_01.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_neg_01.json
+    proposed_archive_path: null
+    original_sha256_if_known: 0e35acb3169bb7325ef3cb101ca1ec573dc84a048822425c7b340cc15b046132
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan artifact remains mapped as retained evidence; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_pos_01.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_pos_01.json
+    proposed_archive_path: null
+    original_sha256_if_known: 94fb68b0dd88453e5600080f19dc5484953f9993fc6dc1d30c939e47ba976396
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan artifact remains mapped as retained evidence; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/pg/plans/source.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/pg/plans/source.json
+    proposed_archive_path: null
+    original_sha256_if_known: 348a06dffbfc9b7e1a520e25ed87a0ba7f9d25bc451dd205e16d27d5bc236933
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan artifact remains mapped as retained evidence; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/plan_check.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/plan_check.json
+    proposed_archive_path: null
+    original_sha256_if_known: bf4e213d2c2e7ce136dd5cc8c64640d229404b4dbc3852654a6ccf95c7dbf62d
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan-check record remains mapped as retained evidence; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/validation/check_plan_artifacts.py
+    proposed_public_path: cases/PORT/PORT_0012/validation/check_plan_artifacts.py
+    proposed_archive_path: null
+    original_sha256_if_known: b8364f7337ae87365c382f561246bfe24a4406c15e91a7d113e8a788c2a25df4
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan checker remains mapped for traceability; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/validation/run_mysql_plan_collection.sh
+    proposed_public_path: cases/PORT/PORT_0012/validation/run_mysql_plan_collection.sh
+    proposed_archive_path: null
+    original_sha256_if_known: 1e32f2e9be3c0fa7fb60971afafe7434d987224b1e5e42031f2c8afaaf3af8dc
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan collection script remains mapped for traceability; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/validation/run_pg_plan_collection.sh
+    proposed_public_path: cases/PORT/PORT_0012/validation/run_pg_plan_collection.sh
+    proposed_archive_path: null
+    original_sha256_if_known: 36c73b7d8049d2ca2ab6a6f019471ccecde831c53599d7c683a74e72115670bb
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan collection script remains mapped for traceability; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/validation/run_spark_plan_collection.sh
+    proposed_public_path: cases/PORT/PORT_0012/validation/run_spark_plan_collection.sh
+    proposed_archive_path: null
+    original_sha256_if_known: 43d09c5eaf3b2b0a40013a5a6d54fe2617fa6e4f16ad8b4c3e04dbbc53363be9
+    evidence_role: plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Plan collection script remains mapped for traceability; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_neg_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    original_sha256_if_known: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+    sanitized_sha256: 27690fa27aae026bd753ae819a9f33bf94dbf044af89d10ff969bf921779dcff
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    reason: Public copy preserves Spark plan evidence while removing release-hygiene-sensitive path traces.
+    public_safe: true
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Formal public sanitized copy promoted from validated Route B trial output.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    proposed_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_pos_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    original_sha256_if_known: f919e498a14741bc34a19d1e259e6f1cd33ed954ba34a158400872a708639dfe
+    sanitized_sha256: d35497911d20b8234c873fa197968d2001cc98afc0066b2cde81fb5d823879ee
+    evidence_role: plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    reason: Public copy preserves Spark plan evidence while removing release-hygiene-sensitive path traces.
+    public_safe: true
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Formal public sanitized copy promoted from validated Route B trial output.
+hard_negative_evidence:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_neg_01.json
+    proposed_public_path: cases/PORT/PORT_0012/runs/mysql/plans/rewrite_neg_01.json
+    proposed_archive_path: null
+    original_sha256_if_known: 0e35acb3169bb7325ef3cb101ca1ec573dc84a048822425c7b340cc15b046132
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories: []
+    sanitized_fields: []
+    reason: Artifact remains mapped for hard-negative closure; not copied in this pilot.
+    public_safe: true
+    do_not_delete: true
+    notes: Legacy artifact remains outside this pilot slice.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_neg_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    original_sha256_if_known: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+    sanitized_sha256: 27690fa27aae026bd753ae819a9f33bf94dbf044af89d10ff969bf921779dcff
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    reason: Sanitized public copy is retained for hard-negative plan observability.
+    public_safe: true
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Original remains mapped and do-not-delete.
+method_or_baseline_output: []
+sanitizable_public_evidence:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_neg_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    original_sha256_if_known: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+    sanitized_sha256: 27690fa27aae026bd753ae819a9f33bf94dbf044af89d10ff969bf921779dcff
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    reason: Original Spark plan is evidence-bearing but not public-safe as-is.
+    public_safe: false
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Formal sanitized public copy now exists at the proposed public path.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    proposed_public_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_pos_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    original_sha256_if_known: f919e498a14741bc34a19d1e259e6f1cd33ed954ba34a158400872a708639dfe
+    sanitized_sha256: d35497911d20b8234c873fa197968d2001cc98afc0066b2cde81fb5d823879ee
+    evidence_role: plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    reason: Original Spark plan is evidence-bearing but not public-safe as-is.
+    public_safe: false
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Formal sanitized public copy now exists at the proposed public path.
+sanitized_public_copies:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    public_copy_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_neg_01.sanitized.txt
+    source_trial_path: audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_neg_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    original_sha256: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+    sanitized_sha256: 27690fa27aae026bd753ae819a9f33bf94dbf044af89d10ff969bf921779dcff
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    public_safe: true
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: SHA256 matches validated Route B trial output.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    public_copy_path: cases/PORT/PORT_0012/evidence/retained_plans/rewrite_pos_01.sanitized.txt
+    source_trial_path: audits/port_manual_review_resolution/sanitized_trial/PORT_0012/spark/plans/rewrite_pos_01.sanitized.txt
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    original_sha256: f919e498a14741bc34a19d1e259e6f1cd33ed954ba34a158400872a708639dfe
+    sanitized_sha256: d35497911d20b8234c873fa197968d2001cc98afc0066b2cde81fb5d823879ee
+    evidence_role: plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields:
+      - spark_temporary_warehouse_path
+    public_safe: true
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: SHA256 matches validated Route B trial output.
+private_or_original_archive:
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: null
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    original_sha256_if_known: 4e433dfa12f87f328dae4f78dc657dbb069b90b362127a790dd02551204fdf44
+    evidence_role: hard-negative rejection evidence; plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields: []
+    reason: Preserve raw original separately from public retained evidence.
+    public_safe: false
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Original remains mapped and may stay in legacy or a private/external archive.
+  - original_legacy_path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    proposed_public_path: null
+    proposed_archive_path: private_archive/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    original_sha256_if_known: f919e498a14741bc34a19d1e259e6f1cd33ed954ba34a158400872a708639dfe
+    evidence_role: plan/failure observability
+    risk_categories:
+      - local_path
+    sanitized_fields: []
+    reason: Preserve raw original separately from public retained evidence.
+    public_safe: false
+    do_not_delete: true
+    do_not_delete_original: true
+    notes: Original remains mapped and may stay in legacy or a private/external archive.
+external_archive_references: []
+regenerable_run_output: []
+manual_review:
+  required: false
+  status: formal_pilot_approved
+  items: []
+do_not_delete:
+  - path: cases/PORT/PORT_0012/
+    reason: Case package root; full migration requires later approved steps.
+  - path: cases/PORT/PORT_0012/runs/
+    reason: Legacy retained evidence root.
+  - path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_neg_01.txt
+    reason: Original Spark plan remains mapped and do-not-delete.
+  - path: cases/PORT/PORT_0012/runs/spark/plans/rewrite_pos_01.txt
+    reason: Original Spark plan remains mapped and do-not-delete.
+  - path: cases/PORT/PORT_0012/source.sql
+    reason: Source SQL remains in legacy repo until full case migration.
+  - path: cases/PORT/PORT_0012/rewrite_pos_01.sql
+    reason: Positive rewrite remains in legacy repo until full case migration.
+  - path: cases/PORT/PORT_0012/rewrite_neg_01.sql
+    reason: Hard-negative SQL remains in legacy repo until full case migration.
+  - path: cases/PORT/PORT_0012/manifest.yaml
+    reason: Manifest remains in legacy repo until full case migration.
+  - path: cases/PORT/PORT_0012/provenance/
+    reason: Provenance remains in legacy repo until full case migration.
+  - path: cases/PORT/PORT_0012/validation/
+    reason: Checker and validation assets remain in legacy repo until full case migration.
+static_references:
+  reference_count_from_preview: 748
+  reference_type_counts:
+    prior_audit: 191
+    benchmark_spec: 13
+    reports: 419
+    inventory_case_registry: 3
+    docs: 81
+    manifest: 19
+    validation_script: 22
+  notes: Static reference inventory is summarized from the preview to avoid public local path traces.
+human_approval:
+  required: true
+  formal_pilot: approved
+  full_case_migration: required_later
+  approved_date: '2026-05-15'
+  approval_scope: Promote validated Route B sanitized PORT_0012 Spark plan trial outputs into formal case-local evidence mapping pilot.
+  notes: Approval covers this evidence mapping pilot only, not full case migration or deletion of originals.
+public_release_notes:
+  evidence_index_normalization_allowed: true
+  physical_pilot_blocked: true
+  formal_public_sanitized_copies_created: true
+  full_case_package_migrated: false
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  route_evidence_changed: false
+  case_admission_changed: false
+  benchmark_claims_changed: false
+  notes: This pilot realizes sanitized public Spark plan copies only; all other legacy case package artifacts remain future migration work.
