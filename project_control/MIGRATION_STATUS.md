@@ -4,13 +4,13 @@ SQL-RewriteBench 迁移当前状态
 旧仓库：sql-rewrite-bench-artifact-clean
 发布仓：Rewritebench_v0
 状态：当前进度表
-最后更新：TBD
+最后更新：2026-05-15
 
 ## 1. 当前总状态
 
 当前处于：
 
-control-layer bootstrap / planning stage
+post-bootstrap planning stage
 
 尚未进入大规模 case 物理迁移。
 
@@ -20,11 +20,13 @@ control-layer bootstrap / planning stage
 新发布仓是 Rewritebench_v0；
 public release layout 是迁移目标，不是旧仓库当前事实；
 已经完成若干只读审计；
+control-layer bootstrap 已完成；
+三个 project_control 文件已创建、提交并 push 到 GitHub；
 runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
-需要确认本地 clean worktree / 发布仓 clone；
-下一步应先创建项目控制文件和确认工作区，再做代表性 case 模板。
+本地发布仓 clone 已确认；
+下一步安全动作是对 7 个 Common-core PORT manual-review cases 做只读逐文件复核。
 
 ## 2. 仓库 / 工作区状态
 
@@ -32,7 +34,25 @@ Common-core 40 是 public v0 主范围；
 
 sql-rewrite-bench-artifact-clean
 
-状态：用户确认这是旧仓库。
+状态：用户确认这是旧仓库；control-layer bootstrap 未修改该仓库。
+
+本地路径：
+
+/home/tianci_gao/code/sql-rewrite-bench-artifact-clean
+
+分支：
+
+artifact/case-package-contract-alignment-clean
+
+当前已知状态：
+
+behind origin by 7；
+已有 dirty files under reports/evaluation/common_core_v0/...；
+bootstrap 未修改旧仓库。
+
+迁移 caution：
+
+在从 legacy repo 迁移任何文件前，必须先决定如何处理 behind-by-7 与 dirty reports/evaluation/common_core_v0 状态；不得在该状态下直接做大规模迁移或复制 evidence。
 
 ### 2.2 新发布仓
 
@@ -42,11 +62,33 @@ https://github.com/TianciGao/Rewritebench_v0
 
 ### 2.3 本地发布仓 clone
 
-状态：待 Codex 检查并填写。
+状态：已确认并完成 control-layer bootstrap。
 
-建议本地路径：
+本地路径：
 
-~/code/Rewritebench_v0
+/home/tianci_gao/code/Rewritebench_v0
+
+分支：
+
+main
+
+remote：
+
+git@github.com:TianciGao/Rewritebench_v0.git
+
+bootstrap 后 final status：
+
+## main...origin/main
+
+已创建并 push 的 control files：
+
+project_control/MIGRATION_MASTER_PLAN.md；
+project_control/MIGRATION_STATUS.md；
+project_control/DECISION_LOG.md。
+
+bootstrap commit：
+
+1b7fab1 project: add migration control files
 
 ### 2.4 clean worktree
 
@@ -126,15 +168,19 @@ PORT 7 个 manual-review case 是当前 blocker。
 
 ### B001：本地发布仓 / worktree 状态未确认
 
+状态：resolved。
+
 影响：
 
-不能确定在哪里做后续实际迁移；
-不能直接在旧仓库大规模重排。
+本 blocker 已解除；本地发布仓 clone、branch、remote、status 均已确认，三个 control files 已提交并 push。
 
 下一步：
 
-Codex 检查 pwd、branch、remote、git status、worktree list；
-确认或 clone Rewritebench_v0。
+后续迁移优先在 `/home/tianci_gao/code/Rewritebench_v0` 中推进 control-layer 和 clean public release 内容；不得修改旧仓库 case/evidence 文件。
+
+新增 caution：
+
+在从 legacy repo 迁移任何文件前，必须先决定如何处理旧仓库 behind-by-7 与 dirty `reports/evaluation/common_core_v0/...` 状态。
 
 ### B002：PORT manual-review 风险
 
@@ -216,7 +262,7 @@ PORT_0025。
 
 | Phase | 名称 | 状态 | 当前判断 | 下一步 |
 |---|---|---|---|---|
-| 0 | 确认旧仓库与发布仓工作区 | active | 旧仓库和发布仓已由用户说明，本地状态待查 | Codex 检查并 clone/pull |
+| 0 | 确认旧仓库与发布仓工作区 | completed | release repo clone、branch、remote、status 已确认；control files 已 push | 进入 PORT manual-review read-only resolution |
 | 1 | 整体情况审计 | partial done | 已有初步审计 | 整理正式 summary |
 | 2 | 代表性 case 选择与模板设计 | pending | 已有建议 batch | 先设计模板 |
 | 3 | case package template v1 | pending | 目标结构已有草案 | 起草 contract |
@@ -244,8 +290,26 @@ PORT_0025。
 
 ## 8. 当前安全下一步
 
-在 Rewritebench_v0 中创建三个控制文件；
-commit 并 push 到 GitHub；
-更新 ChatGPT Project Instructions，使其每轮先读 GitHub 上这三个文件；
-之后再做 PORT 7 个 manual-review read-only resolution；
-再起草 case package template v1。
+对 7 个 Common-core PORT manual-review cases 做只读逐文件复核：
+
+PORT_0004；
+PORT_0008；
+PORT_0012；
+PORT_0013；
+PORT_0022；
+PORT_0024；
+PORT_0025。
+
+复核目标：
+
+分类 Spark warehouse residue、parquet / crc / _SUCCESS 文件、本地路径 / WSL / localhost、prompt / API / token / assistant traces、logs / stderr / debug residue，以及 evidence role 不明文件。
+
+复核边界：
+
+只读；
+不删除；
+不移动；
+不清洗；
+不修改 manifests；
+不改变 Common-core denominator；
+不改变 paper results。
