@@ -602,3 +602,52 @@ Important raw URLs:
 
 Next safe action:
 - Use validator v0.1 as the evidence-pilot gate, then design a copy-first full-case validator mode before starting a full case migration pilot, preferably `PORT_0004` or `PORT_0008`.
+
+### 2026-05-15 · pending · static case-package validator v0.2 full-case mode
+
+Mode: release-repo static validator enhancement; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Extended `scripts/dev/validate_case_package.py` with validator `v0.2` and new `full-case` mode for future copy-first full case migration pilots.
+
+Summary:
+- Preserved existing `evidence-pilot` mode.
+- Added `full-case` mode for future complete migrated case packages.
+- Added CSV output with `--out`.
+- Added optional JSON output with `--json-out`, while preserving `--json-output`.
+- Added advisory expected-fail behavior through `--allow-failures` and `--advisory`.
+- Added v0.2 repository spec and validator trial report.
+- Full case migration: no.
+
+Validation:
+- `python scripts/dev/validate_case_package.py --mode evidence-pilot ... --out audits/validator_trials/evidence_pilot_regression_results.csv` passed 6/6.
+- `python scripts/dev/validate_case_package.py --mode full-case --allow-failures ... --out audits/validator_trials/full_case_mode_advisory_results.csv` exited successfully in advisory mode and correctly reported all six current evidence-only pilot slices as not full migrated cases.
+- Advisory full-case output identified missing manifest, source SQL, positive rewrite, hard-negative declaration, schema, checker, validation, provenance, and taxonomy components.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `repository_spec/static_case_package_validator_v0_2.md`
+- `audits/validator_trials/evidence_pilot_regression_results.csv`
+- `audits/validator_trials/full_case_mode_advisory_results.csv`
+- `audits/validator_trials/static_case_package_validator_v0_2_report.md`
+
+Files modified:
+- `scripts/dev/validate_case_package.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Important raw URLs:
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/scripts/dev/validate_case_package.py
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/repository_spec/static_case_package_validator_v0_2.md
+- https://raw.githubusercontent.com/TianciGao/Rewritebench_v0/main/audits/validator_trials/static_case_package_validator_v0_2_report.md
+
+Next safe action:
+- Choose first copy-first full case migration pilot, preferably `PORT_0004` for lower risk or `PORT_0008` to test sanitized evidence integration, and run validator v0.2 in advisory mode while assembling the candidate package.
