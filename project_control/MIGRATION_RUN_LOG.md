@@ -802,13 +802,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `PORT_0004` pilot, then decide whether `PORT_0008` should be the canonical-layout full copy-first pilot. Do not start full Common-core 40 migration.
 
-### 2026-05-16 · pending · PORT_0008 canonical-layout migration dry-run plan
+### 2026-05-16 · 29886bb · PORT_0008 canonical-layout migration dry-run plan
 
 Mode: release-repo planning/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: 29886bb498b794ea184e827e8a1ca802c888137d
+Push: pushed to origin main successfully (e5594c4..29886bb)
 Scope: Prepared a planning-only canonical-layout full case migration blueprint for `PORT_0008`.
 
 Summary:
