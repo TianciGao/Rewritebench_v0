@@ -1220,13 +1220,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review of the `LONGTAIL_0011` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · LONGTAIL_0011 canonical-layout full case migration pilot
+### 2026-05-16 · 53a969f · LONGTAIL_0011 canonical-layout full case migration pilot
 
 Mode: release-repo canonical full case migration pilot; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: 53a969f6c26425f0da17acbc377484bbf9743dff
+Push: pushed to origin main successfully (438d421..53a969f)
 Scope: Executed the approved one-case canonical-layout full case migration pilot for `LONGTAIL_0011`.
 
 Summary:
