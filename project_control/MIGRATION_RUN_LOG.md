@@ -2162,13 +2162,13 @@ Paper/denominator impact:
 Next safe action:
 - Review and approve ledger semantics, record-type policy, adapter row-grain policy, and remaining metric-finalization questions before any retained-evidence adapter, metrics computation, paper renderer, reproduction CLI, or public runner implementation.
 
-### 2026-05-17 · pending · Metrics finalization decision packet for SQL-RewriteBench public workbench
+### 2026-05-17 · 8572983 · Metrics finalization decision packet for SQL-RewriteBench public workbench
 
 Mode: release-repo metrics decision-packet output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `857298304faa8a54201b13e76b6f6b7ed129ea48`
+Push: `origin/main` updated `7ce3abf..8572983`
 
 Summary:
 - Created a maintainer/team-reviewable metrics decision packet under `audits/metrics_finalization_decision_packet/`.
@@ -2194,7 +2194,7 @@ Files modified:
 - `project_control/MIGRATION_RUN_LOG.md`
 
 Validation:
-- pending
+- JSON parse, CSV decision-table checks, denominator matrix checks, git diff check, and git status check: passed.
 
 Paper/denominator impact:
 - reports changed: no
