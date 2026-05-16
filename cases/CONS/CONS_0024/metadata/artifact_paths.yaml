@@ -1,0 +1,14 @@
+case_id: CONS_0024
+artifact_paths_version: canonical_case_package_layout_v1
+canonical_case_root: cases/CONS/CONS_0024
+legacy_case_root: cases/CONS/CONS_0024
+raw_legacy_runs_root: cases/CONS/CONS_0024/runs
+raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
+canonical_sections:
+  sql: sql/
+  schema: schema/
+  checker: checker/
+  validation: validation/
+  evidence: evidence/
+  metadata: metadata/
+  notes: notes/

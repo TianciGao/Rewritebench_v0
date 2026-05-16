@@ -1,0 +1,32 @@
+case_id: CONS_0036
+pool: CONS
+primary_pool: consistency
+consistency_focus:
+- aggregation_semantics
+- predicate_scope
+legacy_tags:
+  sql_feature:
+    primary: []
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - aggregation_rewrite
+    secondary:
+    - predicate_pushdown
+  plan_operator:
+    present:
+    - aggregate
+    - scan
+    delta_relevant: []
+  workload_realism:
+    source_inherited: []
+    case_specific: []
+  portability:
+    confirmed: []
+    suspected: []
+semantic_risk_type:
+- aggregate_filter_semantics
+- literal_predicate_boundary
+- grouped_result_semantics
+hard_negative_expected_rejection_reason: group_filter_literal_changed
+claim_boundary: taxonomy summarizes migrated structural and semantic tags only; no case membership or paper result changed

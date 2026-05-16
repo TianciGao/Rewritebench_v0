@@ -1,0 +1,43 @@
+case_id: CONS_0037
+pool: CONS
+expected_rejections_version: v1
+approval_status: maintainer_approved_for_migration
+approved_by: maintainer
+approval_scope: public_release_migration
+hard_negatives:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  positive_sql_path: sql/positives/pos_01.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: distinct_aggregate_multiplicity_changed
+  semantic_risk_type:
+  - distinct_aggregate_semantics
+  - duplicate_multiplicity
+  - left_join_multiplicity
+  checker_guard_role: source_positive_equal_and_negative_changes_distinct_aggregate_multiplicity
+  observed_static_basis:
+    source_positive_semantics: source and positive use COUNT(DISTINCT dept.name) under a LEFT JOIN
+    negative_semantics: negative uses COUNT(dept.name) without DISTINCT
+    witness_discriminator: retained negative output changes department 10 to count 2 while source and positive keep count 1
+  evidence_paths:
+    retained_controls:
+    - evidence/retained_controls/postgres/source.tsv
+    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+    - evidence/retained_controls/mysql/source.tsv
+    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/source.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    hard_negative:
+    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    result_checks:
+    - evidence/retained_controls/result_check.json
+    - evidence/retained_controls/postgres/result_check.json
+    - evidence/retained_controls/mysql/result_check.json
+    - evidence/retained_controls/spark/result_check.json
+    plan_evidence:
+    - evidence/retained_plans/plan_check.json
+  approval_status: maintainer_approved_for_migration
+  approved_by: maintainer
+  approval_scope: public_release_migration

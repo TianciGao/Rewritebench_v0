@@ -1,0 +1,11 @@
+case_id: CONS_0036
+pool: CONS
+source_family: VeriEQL
+source_workload: calcite_subset
+source_query_identity: Calcite-397/124 HAVING predicate pushdown on DEPT names
+source_path: datasets/raw/verieql/staged/VeriEQL/benchmarks/calcite/calcite2.jsonlines#index=124
+draft_origin: CONS_VERIEQL_DRAFT_0006
+legacy_manifest: cases/CONS/CONS_0036/manifest.yaml
+migration_basis: legacy manifest, approval sweep, retained evidence, and copy-first canonical migration
+db_validation_run: false
+evidence_regenerated: false

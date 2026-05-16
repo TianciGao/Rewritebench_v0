@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PERF wave-2 final sanitized-plan canonical migration batch；
+latest completed run is CONS hard-negative approved canonical migration batch 002；
 
 common-core 40 batch readiness audit completed；
 actual case migration performed: no；
@@ -892,3 +892,30 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - canonical-case regression result: PASS 23/23 including the four new CONS cases after migration
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review CONS batch 001; if accepted, consider approved CONS batch 002 for CONS_0012, CONS_0024, CONS_0036, and CONS_0037. Do not start blind full Common-core 40 migration.
+
+## 25. Last Codex run
+
+- task name: CONS hard-negative approved canonical migration batch 002
+- date: 2026-05-16
+- mode: release-repo bounded CONS canonical migration; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- cases attempted: CONS_0012, CONS_0024, CONS_0036, CONS_0037
+- cases completed: CONS_0012, CONS_0024, CONS_0036, CONS_0037
+- failed/deferred cases: none
+- CONS pool canonical migration complete: yes
+- actual case migration performed: yes, bounded four-case CONS batch only
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- expected rejection approvals recorded: yes, for CONS_0012, CONS_0024, CONS_0036, and CONS_0037
+- approved expected rejection reasons: `limit_offset_existence_threshold_lowered`, `outer_join_row_preservation_changed`, `group_filter_literal_changed`, and `distinct_aggregate_multiplicity_changed`
+- validator v0.3 full-case result: PASS 4/4 for CONS_0012, CONS_0024, CONS_0036, and CONS_0037
+- validator v0.3 canonical-case result: PASS 4/4 for CONS_0012, CONS_0024, CONS_0036, and CONS_0037
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 28/28 including the four new CONS batch 002 cases after migration
+- canonical-case regression result: PASS 27/27 including the four new CONS batch 002 cases after migration
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review CONS batch 002 and the completed CONS pool canonical migration. Do not start blind full Common-core 40 migration.

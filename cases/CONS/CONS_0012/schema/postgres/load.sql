@@ -1,0 +1,15 @@
+INSERT INTO dept (deptno, dname, loc) VALUES
+(10, 'ACCOUNTING', 'NEW YORK'),
+(20, 'RESEARCH', 'DALLAS'),
+(30, 'SALES', 'CHICAGO'),
+(40, 'OPERATIONS', 'BOSTON');
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+(1, 'A', 'CLERK', NULL, DATE '2020-01-01', 100.00, NULL, 10),
+(2, 'B', 'CLERK', NULL, DATE '2020-01-02', 100.00, NULL, 10),
+(3, 'C', 'CLERK', NULL, DATE '2020-01-03', 100.00, NULL, 10),
+(4, 'D', 'CLERK', NULL, DATE '2020-01-04', 100.00, NULL, 20),
+(5, 'E', 'CLERK', NULL, DATE '2020-01-05', 100.00, NULL, 20),
+(6, 'F', 'CLERK', NULL, DATE '2020-01-06', 100.00, NULL, 30),
+(7, 'G', 'CLERK', NULL, DATE '2020-01-07', 100.00, NULL, 30),
+(8, 'H', 'CLERK', NULL, DATE '2020-01-08', 100.00, NULL, 30),
+(9, 'I', 'CLERK', NULL, DATE '2020-01-09', 100.00, NULL, 30);

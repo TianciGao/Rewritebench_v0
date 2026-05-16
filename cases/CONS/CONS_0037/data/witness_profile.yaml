@@ -1,0 +1,10 @@
+case_id: CONS_0037
+hard_negative_id: neg_01
+approved_expected_rejection_reason: distinct_aggregate_multiplicity_changed
+source_positive_behavior: source and positive use COUNT(DISTINCT dept.name) under a LEFT JOIN
+negative_behavior: negative uses COUNT(dept.name) without DISTINCT
+witness_discriminator: retained negative output changes department 10 to count 2 while source and positive keep count 1
+retained_evidence_basis:
+- evidence/retained_controls/result_check.json
+- evidence/hard_negative/hard_negative_summary.json
+claim_boundary: witness profile summarizes retained evidence only; no DB rerun was performed

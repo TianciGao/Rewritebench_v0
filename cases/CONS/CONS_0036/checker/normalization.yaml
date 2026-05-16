@@ -1,0 +1,7 @@
+case_id: CONS_0036
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_numeric_format: true
+  normalize_null: true
+basis: legacy result-check normalization policy

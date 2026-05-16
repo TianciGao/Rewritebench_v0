@@ -1,0 +1,10 @@
+case_id: CONS_0012
+hard_negative_id: neg_01
+approved_expected_rejection_reason: limit_offset_existence_threshold_lowered
+source_positive_behavior: source and positive require at least three matching employee rows for a department
+negative_behavior: negative lowers the grouped threshold to at least two matching rows
+witness_discriminator: retained negative output adds department 20 while source and positive return departments 10 and 30
+retained_evidence_basis:
+- evidence/retained_controls/result_check.json
+- evidence/hard_negative/hard_negative_summary.json
+claim_boundary: witness profile summarizes retained evidence only; no DB rerun was performed

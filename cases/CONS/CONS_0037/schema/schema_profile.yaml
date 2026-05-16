@@ -1,0 +1,18 @@
+case_id: CONS_0037
+pool: CONS
+source_family: VeriEQL
+schema_tables:
+- DEPT
+- EMP
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+profile_basis: legacy schema and witness load files copied without DB rerun
+claim_boundary: schema profile summarizes retained case-local witness context only

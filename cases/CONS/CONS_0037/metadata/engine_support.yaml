@@ -1,0 +1,16 @@
+case_id: CONS_0037
+engines:
+  postgres:
+    supported_by_retained_evidence: true
+    retained_result_check: evidence/retained_controls/postgres/result_check.json
+    validation_asset: validation/run_postgres_validation.sh
+  mysql:
+    supported_by_retained_evidence: true
+    retained_result_check: evidence/retained_controls/mysql/result_check.json
+    validation_asset: validation/run_mysql_validation.sh
+  spark:
+    supported_by_retained_evidence: true
+    retained_result_check: evidence/retained_controls/spark/result_check.json
+    validation_asset: validation/run_spark_validation.sh
+    spark_plan_publication: sanitized_public_copy
+db_validation_run_during_migration: false

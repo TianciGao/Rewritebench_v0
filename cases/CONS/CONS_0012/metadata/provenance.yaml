@@ -1,0 +1,11 @@
+case_id: CONS_0012
+pool: CONS
+source_family: Calcite
+source_workload: core_sql_tests
+source_query_identity: sub-query.iq EXISTS LIMIT 1 OFFSET 2 threshold seed
+source_path: datasets/raw/calcite/calcite/core/src/test/resources/sql/sub-query.iq
+draft_origin: CONS_CALCITE_DRAFT_0024
+legacy_manifest: cases/CONS/CONS_0012/manifest.yaml
+migration_basis: legacy manifest, approval sweep, retained evidence, and copy-first canonical migration
+db_validation_run: false
+evidence_regenerated: false

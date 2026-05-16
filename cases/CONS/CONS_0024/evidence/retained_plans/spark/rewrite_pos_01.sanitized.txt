@@ -1,0 +1,13 @@
+== Physical Plan ==
+* ColumnarToRow (2)
++- Scan parquet spark_catalog.default.emp (1)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [1]: [empno#45]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<empno:int>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [1]: [empno#45]

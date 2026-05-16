@@ -1,0 +1,86 @@
+== Physical Plan ==
+AdaptiveSparkPlan (13)
++- HashAggregate (12)
+   +- Exchange (11)
+      +- HashAggregate (10)
+         +- HashAggregate (9)
+            +- Exchange (8)
+               +- HashAggregate (7)
+                  +- Project (6)
+                     +- BroadcastHashJoin LeftOuter BuildRight (5)
+                        :- Scan parquet spark_catalog.default.emp (1)
+                        +- BroadcastExchange (4)
+                           +- Filter (3)
+                              +- Scan parquet spark_catalog.default.dept (2)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [1]: [DEPTNO#12L]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<DEPTNO:bigint>
+
+(2) Scan parquet spark_catalog.default.dept
+Output [2]: [DEPTNO#13L, NAME#14]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(DEPTNO)]
+ReadSchema: struct<DEPTNO:bigint,NAME:string>
+
+(3) Filter
+Input [2]: [DEPTNO#13L, NAME#14]
+Condition : isnotnull(DEPTNO#13L)
+
+(4) BroadcastExchange
+Input [2]: [DEPTNO#13L, NAME#14]
+Arguments: HashedRelationBroadcastMode(List(input[0, bigint, false]),false), [plan_id=69]
+
+(5) BroadcastHashJoin
+Left keys [1]: [DEPTNO#12L]
+Right keys [1]: [DEPTNO#13L]
+Join type: LeftOuter
+Join condition: None
+
+(6) Project
+Output [2]: [DEPTNO#12L, NAME#14]
+Input [3]: [DEPTNO#12L, DEPTNO#13L, NAME#14]
+
+(7) HashAggregate
+Input [2]: [DEPTNO#12L, NAME#14]
+Keys [2]: [DEPTNO#12L, NAME#14]
+Functions: []
+Aggregate Attributes: []
+Results [2]: [DEPTNO#12L, NAME#14]
+
+(8) Exchange
+Input [2]: [DEPTNO#12L, NAME#14]
+Arguments: hashpartitioning(DEPTNO#12L, NAME#14, 1), ENSURE_REQUIREMENTS, [plan_id=74]
+
+(9) HashAggregate
+Input [2]: [DEPTNO#12L, NAME#14]
+Keys [2]: [DEPTNO#12L, NAME#14]
+Functions: []
+Aggregate Attributes: []
+Results [2]: [DEPTNO#12L, NAME#14]
+
+(10) HashAggregate
+Input [2]: [DEPTNO#12L, NAME#14]
+Keys [1]: [DEPTNO#12L]
+Functions [1]: [partial_count(distinct NAME#14)]
+Aggregate Attributes [1]: [count(NAME#14)#15L]
+Results [2]: [DEPTNO#12L, count#21L]
+
+(11) Exchange
+Input [2]: [DEPTNO#12L, count#21L]
+Arguments: hashpartitioning(DEPTNO#12L, 1), ENSURE_REQUIREMENTS, [plan_id=78]
+
+(12) HashAggregate
+Input [2]: [DEPTNO#12L, count#21L]
+Keys [1]: [DEPTNO#12L]
+Functions [1]: [count(distinct NAME#14)]
+Aggregate Attributes [1]: [count(NAME#14)#15L]
+Results [2]: [DEPTNO#12L, count(NAME#14)#15L AS count(DISTINCT NAME)#16L]
+
+(13) AdaptiveSparkPlan
+Output [2]: [DEPTNO#12L, count(DISTINCT NAME)#16L]
+Arguments: isFinalPlan=false

@@ -1,0 +1,10 @@
+case_id: CONS_0024
+data_scope: case_local_witness_data
+fixtures_directory: data/fixtures
+witness_load_files:
+- schema/postgres/load.sql
+- schema/mysql/load.sql
+- schema/spark/load.sql
+db_validation_run: false
+evidence_regenerated: false
+notes: Generated profile summarizes existing legacy witness scripts only.

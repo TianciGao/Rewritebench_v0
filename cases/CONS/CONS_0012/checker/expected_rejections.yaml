@@ -1,0 +1,43 @@
+case_id: CONS_0012
+pool: CONS
+expected_rejections_version: v1
+approval_status: maintainer_approved_for_migration
+approved_by: maintainer
+approval_scope: public_release_migration
+hard_negatives:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  positive_sql_path: sql/positives/pos_01.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: limit_offset_existence_threshold_lowered
+  semantic_risk_type:
+  - order_limit_semantics
+  - limit_offset_boundary
+  - existence_threshold_changed
+  checker_guard_role: source_positive_equal_and_negative_lowers_limit_offset_existence_threshold
+  observed_static_basis:
+    source_positive_semantics: source and positive require at least three matching employee rows for a department
+    negative_semantics: negative lowers the grouped threshold to at least two matching rows
+    witness_discriminator: retained negative output adds department 20 while source and positive return departments 10 and 30
+  evidence_paths:
+    retained_controls:
+    - evidence/retained_controls/postgres/source.tsv
+    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+    - evidence/retained_controls/mysql/source.tsv
+    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/source.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    hard_negative:
+    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    result_checks:
+    - evidence/retained_controls/result_check.json
+    - evidence/retained_controls/postgres/result_check.json
+    - evidence/retained_controls/mysql/result_check.json
+    - evidence/retained_controls/spark/result_check.json
+    plan_evidence:
+    - evidence/retained_plans/plan_check.json
+  approval_status: maintainer_approved_for_migration
+  approved_by: maintainer
+  approval_scope: public_release_migration

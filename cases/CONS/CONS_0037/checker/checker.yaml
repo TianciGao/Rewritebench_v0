@@ -1,0 +1,9 @@
+case_id: CONS_0037
+checker_type: value_normalized_result_equivalence_checker
+status: retained_legacy_witness_evidence_migrated
+source_sql: sql/source.sql
+positive_sql: sql/positives/pos_01.sql
+hard_negative_sql: sql/negatives/neg_01.sql
+expected_rejections: checker/expected_rejections.yaml
+comparison_policy: source_positive_equal_and_negative_rejected
+migration_note: Static checker configuration generated during public-release migration; no DB rerun performed.

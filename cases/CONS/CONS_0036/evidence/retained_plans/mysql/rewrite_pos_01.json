@@ -1,0 +1,28 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.55"
+    },
+    "grouping_operation": {
+      "using_filesort": false,
+      "table": {
+        "table_name": "DEPT",
+        "access_type": "ALL",
+        "rows_examined_per_scan": 3,
+        "rows_produced_per_join": 1,
+        "filtered": "33.33",
+        "cost_info": {
+          "read_cost": "0.45",
+          "eval_cost": "0.10",
+          "prefix_cost": "0.55",
+          "data_read_per_join": "136"
+        },
+        "used_columns": [
+          "NAME"
+        ],
+        "attached_condition": "(`bench`.`DEPT`.`NAME` = 'Charlie')"
+      }
+    }
+  }
+}

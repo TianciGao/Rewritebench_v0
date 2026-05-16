@@ -1,0 +1,65 @@
+== Physical Plan ==
+AdaptiveSparkPlan (10)
++- HashAggregate (9)
+   +- Exchange (8)
+      +- HashAggregate (7)
+         +- Project (6)
+            +- BroadcastHashJoin LeftOuter BuildRight (5)
+               :- Scan parquet spark_catalog.default.emp (1)
+               +- BroadcastExchange (4)
+                  +- Filter (3)
+                     +- Scan parquet spark_catalog.default.dept (2)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [1]: [DEPTNO#12L]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<DEPTNO:bigint>
+
+(2) Scan parquet spark_catalog.default.dept
+Output [2]: [DEPTNO#13L, NAME#14]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(DEPTNO)]
+ReadSchema: struct<DEPTNO:bigint,NAME:string>
+
+(3) Filter
+Input [2]: [DEPTNO#13L, NAME#14]
+Condition : isnotnull(DEPTNO#13L)
+
+(4) BroadcastExchange
+Input [2]: [DEPTNO#13L, NAME#14]
+Arguments: HashedRelationBroadcastMode(List(input[0, bigint, false]),false), [plan_id=161]
+
+(5) BroadcastHashJoin
+Left keys [1]: [DEPTNO#12L]
+Right keys [1]: [DEPTNO#13L]
+Join type: LeftOuter
+Join condition: None
+
+(6) Project
+Output [2]: [DEPTNO#12L, NAME#14]
+Input [3]: [DEPTNO#12L, DEPTNO#13L, NAME#14]
+
+(7) HashAggregate
+Input [2]: [DEPTNO#12L, NAME#14]
+Keys [1]: [DEPTNO#12L]
+Functions [1]: [partial_count(NAME#14)]
+Aggregate Attributes [1]: [count#31L]
+Results [2]: [DEPTNO#12L, count#32L]
+
+(8) Exchange
+Input [2]: [DEPTNO#12L, count#32L]
+Arguments: hashpartitioning(DEPTNO#12L, 1), ENSURE_REQUIREMENTS, [plan_id=166]
+
+(9) HashAggregate
+Input [2]: [DEPTNO#12L, count#32L]
+Keys [1]: [DEPTNO#12L]
+Functions [1]: [count(NAME#14)]
+Aggregate Attributes [1]: [count(NAME#14)#29L]
+Results [2]: [DEPTNO#12L, count(NAME#14)#29L AS count(NAME)#30L]
+
+(10) AdaptiveSparkPlan
+Output [2]: [DEPTNO#12L, count(NAME)#30L]
+Arguments: isFinalPlan=false

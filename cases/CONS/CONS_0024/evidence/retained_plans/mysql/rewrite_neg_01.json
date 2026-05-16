@@ -1,0 +1,83 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.80"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "e",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.35",
+            "data_read_per_join": "288"
+          },
+          "used_columns": [
+            "empno",
+            "deptno"
+          ]
+        }
+      },
+      {
+        "table": {
+          "table_name": "d",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 2,
+          "rows_produced_per_join": 1,
+          "filtered": "50.00",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.80",
+            "data_read_per_join": "264"
+          },
+          "used_columns": [
+            "deptno"
+          ],
+          "attached_condition": "((`bench`.`d`.`deptno` = `bench`.`e`.`deptno`) and exists(/* select#2 */ select 1 from `bench`.`emp` `e2` where (`bench`.`e2`.`deptno` = `bench`.`d`.`deptno`) group by `bench`.`e2`.`deptno` having (sum(`bench`.`e2`.`sal`) > 1000000)))",
+          "attached_subqueries": [
+            {
+              "dependent": true,
+              "cacheable": false,
+              "query_block": {
+                "select_id": 2,
+                "cost_info": {
+                  "query_cost": "0.35"
+                },
+                "grouping_operation": {
+                  "using_temporary_table": true,
+                  "using_filesort": false,
+                  "table": {
+                    "table_name": "e2",
+                    "access_type": "ALL",
+                    "rows_examined_per_scan": 1,
+                    "rows_produced_per_join": 1,
+                    "filtered": "100.00",
+                    "cost_info": {
+                      "read_cost": "0.25",
+                      "eval_cost": "0.10",
+                      "prefix_cost": "0.35",
+                      "data_read_per_join": "288"
+                    },
+                    "used_columns": [
+                      "sal",
+                      "deptno"
+                    ],
+                    "attached_condition": "(`bench`.`e2`.`deptno` = `bench`.`d`.`deptno`)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

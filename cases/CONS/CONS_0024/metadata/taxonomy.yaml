@@ -1,0 +1,35 @@
+case_id: CONS_0024
+pool: CONS
+primary_pool: consistency
+consistency_focus:
+- outer_join_semantics
+- aggregation_semantics
+legacy_tags:
+  sql_feature:
+    primary:
+    - correlated_subquery
+    - outer_join
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - subquery_decorrelation
+    secondary: []
+  plan_operator:
+    present:
+    - aggregate
+    - join
+    - scan
+    - subquery
+    delta_relevant: []
+  workload_realism:
+    source_inherited: []
+    case_specific: []
+  portability:
+    confirmed: []
+    suspected: []
+semantic_risk_type:
+- outer_join_semantics
+- row_preservation
+- aggregate_exists_having_semantics
+hard_negative_expected_rejection_reason: outer_join_row_preservation_changed
+claim_boundary: taxonomy summarizes migrated structural and semantic tags only; no case membership or paper result changed

@@ -1,0 +1,41 @@
+== Physical Plan ==
+AdaptiveSparkPlan (6)
++- HashAggregate (5)
+   +- Exchange (4)
+      +- HashAggregate (3)
+         +- Filter (2)
+            +- Scan parquet spark_catalog.default.dept (1)
+
+
+(1) Scan parquet spark_catalog.default.dept
+Output [1]: [NAME#7]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(NAME), EqualTo(NAME,Charlie)]
+ReadSchema: struct<NAME:string>
+
+(2) Filter
+Input [1]: [NAME#7]
+Condition : (isnotnull(NAME#7) AND (NAME#7 = Charlie))
+
+(3) HashAggregate
+Input [1]: [NAME#7]
+Keys [1]: [NAME#7]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#9L]
+Results [2]: [NAME#7, count#10L]
+
+(4) Exchange
+Input [2]: [NAME#7, count#10L]
+Arguments: hashpartitioning(NAME#7, 1), ENSURE_REQUIREMENTS, [plan_id=32]
+
+(5) HashAggregate
+Input [2]: [NAME#7, count#10L]
+Keys [1]: [NAME#7]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#6L]
+Results [2]: [NAME#7, count(1)#6L AS C#5L]
+
+(6) AdaptiveSparkPlan
+Output [2]: [NAME#7, C#5L]
+Arguments: isFinalPlan=false

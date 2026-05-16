@@ -1,0 +1,28 @@
+case_id: CONS_0024
+inputs:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+expected:
+  source_equals_positive: true
+  source_differs_from_negative: true
+retained_evidence:
+  retained_controls:
+  - evidence/retained_controls/postgres/source.tsv
+  - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+  - evidence/retained_controls/mysql/source.tsv
+  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  - evidence/retained_controls/spark/source.tsv
+  - evidence/retained_controls/spark/rewrite_pos_01.tsv
+  hard_negative:
+  - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_01.tsv
+  result_checks:
+  - evidence/retained_controls/result_check.json
+  - evidence/retained_controls/postgres/result_check.json
+  - evidence/retained_controls/mysql/result_check.json
+  - evidence/retained_controls/spark/result_check.json
+  plan_evidence:
+  - evidence/retained_plans/plan_check.json
+db_validation_run: false

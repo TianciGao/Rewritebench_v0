@@ -1,0 +1,2 @@
+CREATE TABLE dept (deptno INT, dname STRING, loc STRING) USING parquet;
+CREATE TABLE emp (empno INT, ename STRING, job STRING, mgr INT, hiredate DATE, sal DECIMAL(10,2), comm DECIMAL(10,2), deptno INT) USING parquet;
