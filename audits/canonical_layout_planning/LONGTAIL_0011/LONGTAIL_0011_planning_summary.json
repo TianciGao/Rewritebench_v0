@@ -1,0 +1,18 @@
+{
+  "case_id": "LONGTAIL_0011",
+  "pool": "LONGTAIL",
+  "planning_only": true,
+  "actual_migration_performed": false,
+  "recommended_next_action": "Human review of the LONGTAIL_0011 canonical-layout plan, then decide whether to execute the future actual migration prompt.",
+  "required_human_approval": [
+    "Approve exact hard-negative expected rejection reason for tie-handling collapse.",
+    "Approve Spark plan sanitization strategy before public retained evidence publication.",
+    "Approve validation script output-policy caveat for retained legacy validation assets."
+  ],
+  "target_layout": "repository_spec/canonical_case_package_layout_v1.md",
+  "highest_risk": "Spark plan text contains file:/tmp local temporary path traces and must be sanitized or archive-only before public package.",
+  "expected_validator_result_after_actual_migration": "PASS for full-case and canonical-case if canonical layout is created, Spark plan traces are sanitized or not published, raw runs are not copied wholesale, and claim boundaries remain unchanged.",
+  "longtail_structure_complexity": "high: CTE pipeline, window function, join, aggregate, order, and tie-sensitive rank semantics.",
+  "plan_evidence_complexity": "medium_high: PostgreSQL and MySQL JSON plans appear public-safe; Spark plan text requires sanitization.",
+  "hard_negative_complexity": "medium_high: rewrite_neg_01 changes DENSE_RANK to ROW_NUMBER and collapses tied worst-score rows; exact public checker reason should be reviewed."
+}

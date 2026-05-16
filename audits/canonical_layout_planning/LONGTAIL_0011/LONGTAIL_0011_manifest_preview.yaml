@@ -1,0 +1,135 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+status: canonical_full_case_migration_preview
+preview_only: true
+migration_scope: LONGTAIL_0011_only
+canonical_layout: true
+
+source_identity:
+  source_family: SQLStorm
+  source_workload: stackoverflow
+  source_query_identity: "6625.sql"
+  source_path_reference: datasets/raw/sqlstorm/SQLStorm/v1.0/stackoverflow/queries/6625.sql
+  draft_origin: LONGTAIL_DRAFT_0012
+  legacy_official_case_status: case_local_constructed_not_registry_admitted
+
+benchmark_scope:
+  common_core_v0_membership_reference: no_membership_change_by_migration
+  denominator_eligibility:
+    status: unchanged_by_migration
+    denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  no_global_leaderboard: true
+  db_validation_run: false
+  evidence_regenerated: false
+  workload_frequency_claim_created: false
+
+engine_support:
+  postgres:
+    retained_control_evidence: true
+    retained_plan_evidence: true
+  mysql:
+    retained_control_evidence: true
+    retained_plan_evidence: true
+  spark:
+    retained_control_evidence: true
+    retained_plan_evidence: sanitized_public_copy_required
+
+sql:
+  source: sql/source.sql
+  positives:
+    - id: pos_01
+      path: sql/positives/pos_01.sql
+      role: dense_rank_positive_rewrite
+  negatives:
+    - id: neg_01
+      path: sql/negatives/neg_01.sql
+      role: intentional_hard_negative
+      expected_rejection_ref: checker/expected_rejections.yaml#neg_01
+
+schema:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+  profile: schema/schema_profile.yaml
+
+data:
+  data_profile: data/data_profile.yaml
+  witness_profile: data/witness_profile.yaml
+  witness_summary:
+    tables:
+      - Users
+      - Posts
+    tie_discriminator: two Alice posts have equal worst score and must both be retained by dense-rank semantics
+
+checker:
+  checker: checker/checker.yaml
+  normalization: checker/normalization.yaml
+  compare_config: checker/compare_config.yaml
+  expected_rejections: checker/expected_rejections.yaml
+  hard_negative_boundary:
+    neg_01:
+      expected_rejection_reason: tie_handling_semantics_changed
+      approval_status: needs_human_review_before_actual_migration
+
+validation:
+  output_policy: retained_legacy_assets_not_final_public_runners
+  scripts_not_executed_by_migration: true
+  postgres_validation: validation/run_postgres_validation.sh
+  mysql_validation: validation/run_mysql_validation.sh
+  spark_validation: validation/run_spark_validation.sh
+  postgres_plan_collection: validation/run_postgres_plan_collection.sh
+  mysql_plan_collection: validation/run_mysql_plan_collection.sh
+  spark_plan_collection: validation/run_spark_plan_collection.sh
+
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  retained_controls: evidence/retained_controls/
+  retained_plans: evidence/retained_plans/
+  hard_negative: evidence/hard_negative/
+  package_validation_summary: evidence/package_validation_summary.json
+  raw_runs_policy: not_copied_wholesale
+  spark_plan_policy: sanitize_before_public_copy_or_archive_only
+
+metadata:
+  provenance: metadata/provenance.yaml
+  taxonomy: metadata/taxonomy.yaml
+  engine_support: metadata/engine_support.yaml
+  denominator_eligibility: metadata/denominator_eligibility.yaml
+  artifact_paths: metadata/artifact_paths.yaml
+
+notes:
+  witness_design_notes: notes/witness_design_notes.md
+  risk_notes: notes/risk_notes.md
+  schema_notes: notes/schema_notes.md
+  promotion_checklist: notes/promotion_checklist.md
+  migration_notes: notes/migration_notes.md
+
+longtail_structure:
+  structural_classification: long_tail_structure
+  sql_features:
+    - cte
+    - window_function
+    - join
+    - aggregate
+    - sort
+  semantic_risks:
+    - tie_handling
+    - rank_function_substitution
+  workload_frequency_claim_created: false
+
+claim_boundaries:
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  raw_legacy_evidence_changed: false
+  no_global_leaderboard: true
+  workload_frequency_claim_created: false
+  admission_or_promotion_claim_created: false

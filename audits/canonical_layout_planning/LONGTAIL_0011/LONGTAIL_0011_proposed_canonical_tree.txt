@@ -1,0 +1,103 @@
+cases/LONGTAIL/LONGTAIL_0011/
+  README.md [GENERATE]
+  manifest.yaml [GENERATE]
+
+  sql/
+    source.sql [COPY_RENAME]
+    positives/
+      pos_01.sql [COPY_RENAME]
+    negatives/
+      neg_01.sql [COPY_RENAME]
+
+  schema/
+    postgres/
+      ddl.sql [COPY_RENAME]
+      load.sql [COPY_RENAME]
+    mysql/
+      ddl.sql [COPY_RENAME]
+      load.sql [COPY_RENAME]
+    spark/
+      ddl.sql [COPY_RENAME]
+      load.sql [COPY_RENAME]
+    schema_profile.yaml [GENERATE]
+
+  data/
+    data_profile.yaml [GENERATE]
+    witness_profile.yaml [GENERATE]
+    fixtures/ [DEFER]
+
+  checker/
+    checker.yaml [GENERATE]
+    normalization.yaml [GENERATE]
+    compare_config.yaml [GENERATE]
+    expected_rejections.yaml [GENERATE]
+
+  validation/
+    run_postgres_validation.sh [COPY_RENAME]
+    run_mysql_validation.sh [COPY_RENAME]
+    run_spark_validation.sh [COPY_RENAME][REVIEW]
+    run_postgres_plan_collection.sh [COPY_RENAME]
+    run_mysql_plan_collection.sh [COPY_RENAME]
+    run_spark_plan_collection.sh [COPY_RENAME][REVIEW]
+
+  evidence/
+    runs_retention.yaml [GENERATE]
+    retained_controls/
+      postgres/
+        result_check.json [COPY]
+        source.tsv [COPY]
+        rewrite_pos_01.tsv [COPY]
+      mysql/
+        result_check.json [COPY]
+        source.tsv [COPY]
+        rewrite_pos_01.tsv [COPY]
+      spark/
+        result_check.json [COPY]
+        source.tsv [COPY]
+        rewrite_pos_01.tsv [COPY]
+    retained_plans/
+      postgres/
+        plan_check.json [COPY]
+        source.json [COPY]
+        rewrite_pos_01.json [COPY]
+        rewrite_neg_01.json [COPY]
+      mysql/
+        plan_check.json [COPY]
+        source.json [COPY]
+        rewrite_pos_01.json [COPY]
+        rewrite_neg_01.json [COPY]
+      spark/
+        plan_check.json [COPY]
+        source.sanitized.txt [COPY_SANITIZED]
+        rewrite_pos_01.sanitized.txt [COPY_SANITIZED]
+        rewrite_neg_01.sanitized.txt [COPY_SANITIZED]
+    hard_negative/
+      postgres/
+        rewrite_neg_01.tsv [COPY]
+      mysql/
+        rewrite_neg_01.tsv [COPY]
+      spark/
+        rewrite_neg_01.tsv [COPY]
+      hard_negative_summary.json [GENERATE]
+    package_validation_summary.json [GENERATE]
+
+  metadata/
+    provenance.yaml [GENERATE]
+    taxonomy.yaml [GENERATE]
+    engine_support.yaml [GENERATE]
+    denominator_eligibility.yaml [GENERATE]
+    artifact_paths.yaml [GENERATE]
+
+  notes/
+    witness_design_notes.md [COPY]
+    risk_notes.md [COPY]
+    schema_notes.md [COPY]
+    promotion_checklist.md [COPY]
+    migration_notes.md [GENERATE]
+
+  runs/
+    README.md [GENERATE][REFERENCE_ONLY]
+
+Original legacy runs:
+  cases/LONGTAIL/LONGTAIL_0011/runs/ [LEGACY_RETAINED]
+  Raw legacy run artifacts must be mapped through evidence/runs_retention.yaml and must not be copied wholesale.

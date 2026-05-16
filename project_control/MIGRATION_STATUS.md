@@ -640,3 +640,28 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - full-case regression result: PASS 3/3 for PORT_0004, PORT_0008, and CONS_0005
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: review the completed PERF_0006 canonical-layout pilot, then decide whether to run another bounded single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.
+
+## 17. Last Codex run
+
+- task name: LONGTAIL_0011 canonical-layout migration dry-run plan
+- date: 2026-05-16
+- mode: release-repo planning/audit output; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes
+- actual case migration performed: no
+- LONGTAIL_0011 release case package created or modified: no
+- full case migration currently completed only for: PORT_0004, PORT_0008, CONS_0005, and PERF_0006
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- planning outputs created under: `audits/canonical_layout_planning/LONGTAIL_0011/`
+- planning summary:
+  - LONGTAIL_0011 is proposed as a realistic / structurally complex / long-tail canonical-layout pilot candidate.
+  - Static inspection found CTE, window-function, join, aggregate, ordering, and tie-sensitive ranking structure.
+  - Static precheck found Spark plan `file:/tmp` traces that require future sanitization or private/archive mapping.
+  - Static precheck found WSL-local wording in Spark validation scripts that requires future adaptation/caveat.
+  - The future migration must preserve the no-workload-frequency-claim and no-global-leaderboard boundary.
+- validation summary: planning JSON parsed; preview YAML files parsed when PyYAML was available; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review of the LONGTAIL_0011 canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.

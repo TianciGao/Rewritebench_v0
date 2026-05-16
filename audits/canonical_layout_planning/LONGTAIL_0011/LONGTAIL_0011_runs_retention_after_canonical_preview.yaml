@@ -1,0 +1,170 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+policy_version: runs_retention_policy_v1
+status: canonical_full_case_migration_preview
+preview_only: true
+full_case_package_migrated_future_flag: true_after_successful_actual_migration
+full_case_package_migration_scope: LONGTAIL_0011_only
+
+claim_boundaries:
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  raw_legacy_evidence_changed: false
+  workload_frequency_claim_created: false
+  db_validation_run_during_migration: false
+  evidence_regenerated: false
+
+paths:
+  legacy_runs_root: cases/LONGTAIL/LONGTAIL_0011/runs/
+  original_legacy_case_path: cases/LONGTAIL/LONGTAIL_0011
+  public_release_case_path: cases/LONGTAIL/LONGTAIL_0011
+
+retained_control_evidence:
+  - engine: postgres
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/pg/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_controls/postgres/
+    artifacts:
+      - result_check.json
+      - source.tsv
+      - rewrite_pos_01.tsv
+    public_safe: true
+    do_not_delete_original: true
+    evidence_role: source_positive_equivalence
+  - engine: mysql
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/mysql/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_controls/mysql/
+    artifacts:
+      - result_check.json
+      - source.tsv
+      - rewrite_pos_01.tsv
+    public_safe: true
+    do_not_delete_original: true
+    evidence_role: source_positive_equivalence
+  - engine: spark
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_controls/spark/
+    artifacts:
+      - result_check.json
+      - source.tsv
+      - rewrite_pos_01.tsv
+    public_safe: true
+    do_not_delete_original: true
+    evidence_role: source_positive_equivalence
+
+hard_negative_evidence:
+  - hard_negative_id: neg_01
+    expected_rejection_reason: tie_handling_semantics_changed
+    review_status: needs_human_review_before_actual_migration
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/hard_negative/
+    original_legacy_paths:
+      - cases/LONGTAIL/LONGTAIL_0011/runs/pg/rewrite_neg_01.tsv
+      - cases/LONGTAIL/LONGTAIL_0011/runs/mysql/rewrite_neg_01.tsv
+      - cases/LONGTAIL/LONGTAIL_0011/runs/spark/rewrite_neg_01.tsv
+    do_not_delete_original: true
+    public_safe: true
+    evidence_role: hard_negative_rejection
+    notes: source and positive retain both tied Alice worst-score rows; negative collapses the tie to one row
+
+retained_plan_evidence:
+  postgres:
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/pg/plans/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/postgres/
+    public_safe: true
+    do_not_delete_original: true
+    artifacts:
+      - plan_check.json
+      - source.json
+      - rewrite_pos_01.json
+      - rewrite_neg_01.json
+  mysql:
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/mysql/plans/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/mysql/
+    public_safe: true
+    do_not_delete_original: true
+    artifacts:
+      - plan_check.json
+      - source.json
+      - rewrite_pos_01.json
+      - rewrite_neg_01.json
+  spark:
+    original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/
+    public_release_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/spark/
+    public_safe: partially_after_sanitization
+    do_not_delete_original: true
+    copied_public_safe_artifacts:
+      - plan_check.json
+    sanitized_public_copies:
+      - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/source.txt
+        sanitized_public_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/spark/source.sanitized.txt
+        sanitized_fields:
+          - file:/tmp local temporary path
+        public_safe: true_after_scan
+      - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/rewrite_pos_01.txt
+        sanitized_public_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+        sanitized_fields:
+          - file:/tmp local temporary path
+        public_safe: true_after_scan
+      - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/rewrite_neg_01.txt
+        sanitized_public_path: cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+        sanitized_fields:
+          - file:/tmp local temporary path
+        public_safe: true_after_scan
+
+checker_normalization:
+  public_release_paths:
+    - cases/LONGTAIL/LONGTAIL_0011/checker/checker.yaml
+    - cases/LONGTAIL/LONGTAIL_0011/checker/normalization.yaml
+    - cases/LONGTAIL/LONGTAIL_0011/checker/compare_config.yaml
+    - cases/LONGTAIL/LONGTAIL_0011/checker/expected_rejections.yaml
+  source: generated_from_retained_evidence_and_static_sql_review
+  public_safe: true
+
+schema_data_context:
+  public_release_paths:
+    - cases/LONGTAIL/LONGTAIL_0011/schema/
+    - cases/LONGTAIL/LONGTAIL_0011/data/
+  do_not_delete_original: true
+  public_safe: true
+
+validation_scripts:
+  policy: retained_legacy_validation_assets_not_final_public_runners
+  scripts_not_executed_during_migration: true
+  output_policy_caveat_required: true
+  future_public_runner_output_policy: write_outside_case_local_runs_by_default
+  manual_review_items:
+    - Spark script WSL-local wording must be adapted or caveated before public package
+
+provenance:
+  public_release_path: cases/LONGTAIL/LONGTAIL_0011/metadata/provenance.yaml
+  source: generated_from_legacy_manifest
+  public_safe: true
+
+taxonomy:
+  public_release_path: cases/LONGTAIL/LONGTAIL_0011/metadata/taxonomy.yaml
+  source: generated_from_legacy_manifest_tags_and_static_sql_review
+  public_safe: true
+  workload_frequency_claim_created: false
+
+do_not_delete:
+  - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/
+    archive_policy: retain original in legacy repo; do not delete or sanitize in place
+    do_not_delete_original: true
+  - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/source.txt
+    archive_policy: retain original in legacy repo; publish sanitized copy only if needed
+    do_not_delete_original: true
+    public_safe: false
+  - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/rewrite_pos_01.txt
+    archive_policy: retain original in legacy repo; publish sanitized copy only if needed
+    do_not_delete_original: true
+    public_safe: false
+  - original_legacy_path: cases/LONGTAIL/LONGTAIL_0011/runs/spark/plans/rewrite_neg_01.txt
+    archive_policy: retain original in legacy repo; publish sanitized copy only if needed
+    do_not_delete_original: true
+    public_safe: false
+
+manual_review_items:
+  - exact hard-negative expected rejection reason should be approved before actual migration
+  - Spark plan sanitization must pass public hygiene scan
+  - validation script output-policy caveat must be explicit
+  - canonical-case validator v0.3 must pass before marking pilot complete
