@@ -1,0 +1,55 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Hash Join",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Join Type": "Inner",
+      "Startup Cost": 22.41,
+      "Total Cost": 51.18,
+      "Plan Rows": 7,
+      "Plan Width": 64,
+      "Inner Unique": false,
+      "Hash Cond": "(t1.cdscode = t2.cdscode)",
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "frpm",
+          "Alias": "t1",
+          "Startup Cost": 0.00,
+          "Total Cost": 23.60,
+          "Plan Rows": 1360,
+          "Plan Width": 32
+        },
+        {
+          "Node Type": "Hash",
+          "Parent Relationship": "Inner",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 22.40,
+          "Total Cost": 22.40,
+          "Plan Rows": 1,
+          "Plan Width": 96,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "schools",
+              "Alias": "t2",
+              "Startup Cost": 0.00,
+              "Total Cost": 22.40,
+              "Plan Rows": 1,
+              "Plan Width": 96,
+              "Filter": "((county = 'San Bernardino'::text) AND (city = 'San Bernardino'::text) AND (EXTRACT(year FROM opendate) >= '2009'::numeric) AND (EXTRACT(year FROM opendate) <= '2010'::numeric) AND ((doc)::integer = 54) AND ((soc)::integer = 62))"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

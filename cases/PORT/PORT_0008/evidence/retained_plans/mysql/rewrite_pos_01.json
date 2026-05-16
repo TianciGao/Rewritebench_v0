@@ -1,0 +1,56 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.91"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "t2",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 2,
+          "rows_produced_per_join": 1,
+          "filtered": "50.00",
+          "cost_info": {
+            "read_cost": "0.35",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.45",
+            "data_read_per_join": "80"
+          },
+          "used_columns": [
+            "cdscode",
+            "county",
+            "city",
+            "doc",
+            "opendate",
+            "soc",
+            "admemail1",
+            "admemail2"
+          ],
+          "attached_condition": "((`bench`.`t2`.`city` = 'San Bernardino') and (`bench`.`t2`.`county` = 'San Bernardino') and ((`bench`.`t2`.`doc` * 1) = 54) and (year(cast(`bench`.`t2`.`opendate` as date)) between 2009 and 2010) and ((`bench`.`t2`.`soc` * 1) = 62))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "t1",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 2,
+          "rows_produced_per_join": 1,
+          "filtered": "50.00",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.26",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.91",
+            "data_read_per_join": "16"
+          },
+          "used_columns": [
+            "cdscode"
+          ],
+          "attached_condition": "(`bench`.`t1`.`cdscode` = `bench`.`t2`.`cdscode`)"
+        }
+      }
+    ]
+  }
+}

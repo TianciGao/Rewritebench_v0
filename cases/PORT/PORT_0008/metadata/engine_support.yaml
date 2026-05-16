@@ -1,0 +1,40 @@
+case_id: PORT_0008
+engine_support_version: v1
+engines:
+  postgres:
+    role: source_reference_engine
+    sql_assets:
+      source: sql/source.sql
+      ddl: schema/postgres/ddl.sql
+      load: schema/postgres/load.sql
+    retained_evidence:
+      output: evidence/retained_controls/pg_source.tsv
+      plan: evidence/retained_plans/postgres/source.json
+  mysql:
+    role: target_engine
+    sql_assets:
+      positive: sql/positives/pos_01.sql
+      negative: sql/negatives/neg_01.sql
+      ddl: schema/mysql/ddl.sql
+      load: schema/mysql/load.sql
+    retained_evidence:
+      positive_output: evidence/retained_controls/mysql_rewrite_pos_01.tsv
+      negative_output: evidence/hard_negative/mysql_rewrite_neg_01.tsv
+      positive_plan: evidence/retained_plans/mysql/rewrite_pos_01.json
+      negative_plan: evidence/retained_plans/mysql/rewrite_neg_01.json
+  spark:
+    role: target_engine
+    sql_assets:
+      positive: sql/positives/pos_01.sql
+      negative: sql/negatives/neg_01.sql
+      ddl: schema/spark/ddl.sql
+      load: schema/spark/load.sql
+    retained_evidence:
+      positive_output: evidence/retained_controls/spark_rewrite_pos_01.tsv
+      negative_output: evidence/hard_negative/spark_rewrite_neg_01.tsv
+      positive_plan: evidence/retained_plans/rewrite_pos_01.sanitized.txt
+      negative_plan: evidence/retained_plans/rewrite_neg_01.sanitized.txt
+validation_policy:
+  migration_ran_db_validation: false
+  copied_scripts_are_legacy_assets: true
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true

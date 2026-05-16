@@ -1,0 +1,14 @@
+check_name,status,details
+sha256_copy_validation,pass,28 copied legacy files matched source SHA256.
+sanitized_plan_sha256_validation,pass,2 sanitized Spark plan files matched the existing formal evidence-pilot artifacts.
+public_hygiene_scan,pass,"No forbidden local path, host, credential-keyword, or agent/debug terms found under cases/PORT/PORT_0008."
+yaml_validation,pass,"Parsed manifest, runs_retention, metadata, schema profile, data profiles, and checker YAML: 14 files."
+json_validation,pass,Parsed retained evidence JSON and package summaries: 7 files.
+raw_spark_plan_copy_check,pass,No raw legacy Spark plan text files were copied into public retained evidence or raw runs.
+validator_v0_2_full_case,pass,validate_case_package.py full-case passed for PORT_0008.
+evidence_pilot_regression,pass,"validate_case_package.py evidence-pilot passed for PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024."
+py_compile,pass,python -m py_compile scripts/dev/validate_case_package.py passed.
+denominator_changed,pass,No denominator change.
+paper_results_changed,pass,No paper-result change.
+case_membership_changed,pass,No case-membership change.
+raw_legacy_evidence_changed,pass,No raw legacy evidence changed.

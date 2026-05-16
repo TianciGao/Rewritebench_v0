@@ -854,3 +854,65 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review of the `PORT_0008` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · PORT_0008 canonical-layout full case migration pilot
+
+Mode: release-repo canonical full case migration pilot; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash recorded after commit
+Push: pending at write time; final result recorded after push
+Scope: Executed the approved one-case canonical-layout full case migration pilot for `PORT_0008`.
+
+Summary:
+- Created canonical `PORT_0008` package structure under `cases/PORT/PORT_0008/`.
+- Generated canonical manifest, README, checker metadata, schema/data profiles, stable metadata, package summary, migration notes, and full retention mapping.
+- Copied public-safe SQL, schema, witness load, legacy validation assets, notes, and retained JSON/TSV evidence from the legacy case.
+- Reused existing formal sanitized Spark plan evidence; raw Spark plan text files were not copied into public retained evidence.
+- Raw `runs/` was not copied wholesale.
+- Actual case migration performed: yes, for `PORT_0008` only.
+
+Validation:
+- SHA256 copy validation passed for 28 copied legacy files.
+- Sanitized Spark plan SHA validation passed for 2 reused files.
+- Public hygiene scan passed.
+- YAML validation passed for 14 files.
+- JSON validation passed for 7 files.
+- Validator v0.2 full-case mode passed for `PORT_0008`.
+- Evidence-pilot regression passed 6/6.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/PORT/PORT_0008/README.md`
+- `cases/PORT/PORT_0008/manifest.yaml`
+- `cases/PORT/PORT_0008/sql/`
+- `cases/PORT/PORT_0008/schema/`
+- `cases/PORT/PORT_0008/data/`
+- `cases/PORT/PORT_0008/checker/`
+- `cases/PORT/PORT_0008/validation/`
+- `cases/PORT/PORT_0008/evidence/retained_controls/`
+- `cases/PORT/PORT_0008/evidence/retained_plans/postgres/`
+- `cases/PORT/PORT_0008/evidence/retained_plans/mysql/`
+- `cases/PORT/PORT_0008/evidence/hard_negative/`
+- `cases/PORT/PORT_0008/evidence/package_validation_summary.json`
+- `cases/PORT/PORT_0008/metadata/`
+- `cases/PORT/PORT_0008/notes/`
+- `audits/full_case_migration_pilots/PORT_0008_canonical_full_case_migration_pilot.md`
+- `audits/full_case_migration_pilots/PORT_0008_canonical_full_case_file_inventory.csv`
+- `audits/full_case_migration_pilots/PORT_0008_canonical_full_case_validation.csv`
+- `audits/full_case_migration_pilots/PORT_0008_validator_full_case_result.csv`
+- `audits/full_case_migration_pilots/PORT_0008_evidence_pilot_regression_result.csv`
+
+Files modified:
+- `cases/PORT/PORT_0008/evidence/runs_retention.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the completed `PORT_0008` canonical-layout pilot, then decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot. Do not start Common-core 40 migration.

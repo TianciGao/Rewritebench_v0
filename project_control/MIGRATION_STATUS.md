@@ -28,12 +28,12 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0008 canonical-layout migration dry-run plan；
+latest completed run is PORT_0008 canonical-layout full case migration pilot；
 canonical case package layout v1 is locked as the target policy；
 canonical layout is a migration target, not legacy current fact；
 no case files were moved or copied in the canonical-layout lock；
-PORT_0008 canonical-layout migration plan created；
-PORT_0008 actual migration not performed；
+PORT_0008 canonical-layout full case migration pilot completed；
+canonical layout tested: yes；
 blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping level；
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
@@ -42,13 +42,13 @@ all six blocked-PORT evidence-pilot slices pass validator v0.1；
 evidence-pilot regression passed 6/6 under validator v0.2；
 full-case advisory validation correctly reports the six current evidence-only pilot slices are not full migrated cases；
 PORT_0004 copy-first full case migration pilot now passes validator v0.2 after release-repo hygiene fix；
-full case migration pilot is complete for PORT_0004 only；
-full case migration scope remains PORT_0004 only；
+full case migration pilots are complete for PORT_0004 and PORT_0008 only；
+full case migration scope remains PORT_0004 plus PORT_0008 only；
 Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 human review of the PORT_0008 canonical-layout plan, then decide whether to execute the future actual migration prompt。
+当前下一步安全动作是 review the completed PORT_0008 canonical-layout pilot, then decide whether to harden validator canonical-layout conformance or plan the next single-case pilot；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -333,7 +333,7 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 | 1 | 整体情况审计 | partial done | 已有初步审计 | 整理正式 summary |
 | 2 | 代表性 case 选择与模板设计 | pending | 已有建议 batch | 先设计模板 |
 | 3 | case package template v1 | completed target lock | canonical case package layout v1 locked | extend validator later for canonical conformance |
-| 4 | pilot migration | PORT_0004 pilot complete | copy-first scope limited to one case | review pilot before selecting next case |
+| 4 | pilot migration | PORT_0004 and PORT_0008 pilots complete | copy-first scope limited to two one-case pilots | review PORT_0008 before selecting next case |
 | 5 | Common-core 40 migration | not started | 40 个都需要 evidence index | 先 pilot |
 | 6 | 整体 case universe 治理 | partial | 197 vs 190 差异已知 | 做 reconciliation |
 | 7 | 脚本与复现路径整理 | pending | 需 script inventory | 做脚本台账 |
@@ -357,10 +357,10 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 
 ## 8. 当前安全下一步
 
-根据 2026-05-16 `PORT_0008` canonical-layout planning dry run，当前安全下一步是：
+根据 2026-05-16 `PORT_0008` canonical-layout full case migration pilot，当前安全下一步是：
 
-1. Human review of `audits/canonical_layout_planning/PORT_0008/`.
-2. Decide whether to execute the drafted future actual migration prompt for `PORT_0008`.
+1. Review the completed `PORT_0008` canonical-layout pilot and audit outputs.
+2. Decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot.
 3. Do not start Common-core 40 migration and do not delete, move, or sanitize legacy originals.
 
 ## 9. Last Codex run
@@ -487,3 +487,24 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
   - original legacy artifacts remain do-not-delete and must stay mapped.
   - this does not authorize physical case migration by itself.
 - next safe action: human review of Route B trial artifacts, then approve one formal sanitized evidence mapping pilot without modifying the legacy repository.
+
+## 12. Last Codex run
+
+- task name: PORT_0008 canonical-layout full case migration pilot
+- date: 2026-05-16
+- mode: release-repo canonical full case migration pilot; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- canonical layout tested: yes
+- full case migration scope: PORT_0004 plus PORT_0008 only
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- raw Spark plan copied into public retained evidence: no
+- validation scripts copied with output-policy caveat: yes
+- validator v0.2 full-case result: PASS for PORT_0008
+- evidence-pilot regression result: PASS 6/6
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed
+- next safe action: review the completed `PORT_0008` canonical-layout pilot, then decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot. Do not start Common-core 40 migration.
