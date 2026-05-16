@@ -1958,3 +1958,35 @@ Paper/denominator impact:
 
 Next safe action:
 - Start a separate bounded task for Common-core 40 case-set, inventory, and registry alignment, or for reports/results retained evidence mapping; do not touch case_sets, reports, results, denominator files, or paper tables without that explicit scope.
+
+### 2026-05-16 · pending · Common-core 40 case-set, inventory, and registry alignment
+
+Mode: release-repo membership and registry alignment; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Created `case_sets/common_core_v0/manifest.yaml` for fixed Common-core v0 release membership.
+- Created `case_sets/common_core_v0/cases.csv` with 40 fixed Common-core case rows.
+- Created `case_sets/common_core_v0/denominator_same_engine_120.csv` with 120 planned same-engine scaffold rows.
+- Created `case_sets/common_core_v0/controls_360.csv` with 360 planned source/positive/hard-negative control scaffold rows.
+- Created `inventory/case_registry.csv` with 40 Common-core public v0 registry rows.
+- Created `inventory/source_registry.csv` with source-family rows inferred from existing migrated case manifests and no new license claims.
+- Created registry alignment audit outputs under `audits/common_core40_registry_alignment/`.
+- Did not migrate cases, run DB engines, regenerate evidence, rerun timing, update reports/results, change denominator values, change paper results, alter paper tables, or mutate legacy evidence.
+
+Validation:
+- Python compile, JSON parse, YAML parse, CSV row counts, git diff check, and scope checks: passed.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- reports changed: no
+- results changed: no
+
+Next safe action:
+- Start a separate bounded reports/results retained evidence map using the aligned Common-core v0 membership and inventory files; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.

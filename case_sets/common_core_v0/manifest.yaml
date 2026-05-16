@@ -1,0 +1,31 @@
+release_id: common_core_v0
+case_count: 40
+pool_split:
+  PERF: 16
+  CONS: 9
+  PORT: 9
+  LONGTAIL: 6
+engines:
+- postgres
+- mysql
+- spark
+track_a_same_engine_planned_rows: 120
+denominator_changed: false
+paper_results_changed: false
+case_membership_changed: false
+no_global_leaderboard: true
+case_package_migration_status: canonical_complete_40_of_40
+validator_summary:
+  full_case_v0_3: pass_40_of_40
+  canonical_case_v0_3: pass_40_of_40
+reports_results_updated: false
+paper_tables_updated: false
+files:
+  cases: case_sets/common_core_v0/cases.csv
+  track_a_same_engine_denominator_scaffold: case_sets/common_core_v0/denominator_same_engine_120.csv
+  control_scaffold: case_sets/common_core_v0/controls_360.csv
+notes:
+- This manifest records fixed Common-core v0 release membership only.
+- The denominator scaffold records planned rows, not execution evidence or metrics.
+- Reports, results, paper tables, paper results, and raw legacy evidence were not
+  updated by this task.

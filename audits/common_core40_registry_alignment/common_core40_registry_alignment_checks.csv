@@ -1,0 +1,10 @@
+check_name,status,details
+cases.csv row count = 40,PASS,40 data rows
+denominator_same_engine_120.csv row count = 120,PASS,120 data rows
+controls_360.csv row count = 360,PASS,360 data rows
+case_registry includes 40 common-core cases,PASS,40 Common-core registry rows
+pool split matches 16/9/9/6,PASS,"{""CONS"": 9, ""LONGTAIL"": 6, ""PERF"": 16, ""PORT"": 9}"
+no report/result files touched,PASS,"Only case_sets/common_core_v0, inventory, audits/common_core40_registry_alignment, and project_control are in task scope"
+no denominator values changed,PASS,Created planned denominator scaffold only; denominator_changed=false
+no paper result changed,PASS,reports/results/paper tables not updated
+validator closeout references found,PASS,Final closeout validator CSVs read as PASS 40/40 in both modes

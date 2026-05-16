@@ -1,0 +1,20 @@
+{
+  "case_count": 40,
+  "case_membership_changed": false,
+  "case_sets_created_or_updated": true,
+  "controls_rows": 360,
+  "denominator_changed": false,
+  "denominator_same_engine_rows": 120,
+  "inventory_created_or_updated": true,
+  "next_safe_action": "reports_results_retained_evidence_map_using_aligned_common_core40_membership",
+  "paper_results_changed": false,
+  "pool_split": {
+    "CONS": 9,
+    "LONGTAIL": 6,
+    "PERF": 16,
+    "PORT": 9
+  },
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false
+}
