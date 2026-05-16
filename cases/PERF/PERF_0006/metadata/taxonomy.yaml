@@ -1,0 +1,31 @@
+case_id: PERF_0006
+taxonomy_version: canonical_case_package_layout_v1
+pool: PERF
+source_family: TPC-H
+rewrite_opportunity:
+  primary:
+    - predicate_pushdown
+  secondary:
+    - materialization_strategy
+plan_operator:
+  present:
+    - scan
+    - aggregate
+    - sort
+sql_feature:
+  primary:
+    - date_time_function
+  secondary:
+    - expression_complexity
+workload_realism:
+  source_inherited:
+    - classic_analytical_baseline
+hard_negative:
+  semantic_risk_type:
+    - predicate_boundary
+    - date_cutoff_boundary
+    - aggregation_input_change
+legacy_taxonomy_file: cases/PERF/PERF_0006/taxonomy_trial_v0.2.yaml
+claim_boundary:
+  conservative_normalization_from_manifest: true
+  no_case_membership_change: true

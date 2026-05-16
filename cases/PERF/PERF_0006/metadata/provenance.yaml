@@ -1,0 +1,20 @@
+case_id: PERF_0006
+provenance_version: canonical_case_package_layout_v1
+source_id: SRC_001
+source_name: TPC-H
+source_seed: TPC-H-Q1
+seed_query_title: Pricing Summary Report Query
+raw_source_path: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/1.sql
+materialization_method: manual_freeze_from_tpc_h_reference_substitution
+reference_substitution:
+  placeholder: ":1"
+  value: "96"
+  unit: days
+  frozen_cutoff_date: "1998-08-27"
+legacy_provenance_files:
+  - cases/PERF/PERF_0006/provenance/raw_record.json
+  - cases/PERF/PERF_0006/provenance/provenance_notes.txt
+claim_boundary:
+  generated_from_legacy_provenance: true
+  no_new_source_materialization: true
+  no_db_validation_run_during_migration: true

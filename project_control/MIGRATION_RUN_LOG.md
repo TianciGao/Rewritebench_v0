@@ -1116,3 +1116,56 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review of the `PERF_0006` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · PERF_0006 canonical-layout full case migration pilot
+
+Mode: release-repo canonical full case migration pilot; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+Scope: Executed the approved one-case canonical-layout full case migration pilot for `PERF_0006`.
+
+Summary:
+- Created canonical `PERF_0006` package structure under `cases/PERF/PERF_0006/`.
+- Generated canonical manifest, README, checker YAML, expected-rejection metadata, schema/data profiles, stable metadata, package summary, migration notes, and full retention mapping.
+- Copied public-safe SQL, schema, witness load, retained JSON/TSV evidence, and PostgreSQL/MySQL plan evidence from the legacy case.
+- Created sanitized public Spark plan evidence from legacy Spark plan text files; raw Spark plan text files were not copied into public retained evidence.
+- Preserved the correctness-gated performance boundary with `speedup_claim_created: false` and `timing_evidence_created: false`.
+- Raw `runs/` was not copied wholesale.
+- Actual case migration performed: yes, for `PERF_0006` only.
+
+Validation:
+- SHA256 copy validation passed for copied legacy files.
+- Public hygiene scan passed.
+- YAML validation passed for 14 files.
+- JSON validation passed for 7 files.
+- Validator v0.3 full-case mode passed for `PERF_0006`.
+- Validator v0.3 canonical-case mode passed for `PERF_0006`.
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 3/3 for `PORT_0004`, `PORT_0008`, and `CONS_0005`.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/PERF/PERF_0006/`
+- `audits/full_case_migration_pilots/PERF_0006_canonical_full_case_migration_pilot.md`
+- `audits/full_case_migration_pilots/PERF_0006_canonical_full_case_file_inventory.csv`
+- `audits/full_case_migration_pilots/PERF_0006_canonical_full_case_validation.csv`
+- `audits/full_case_migration_pilots/PERF_0006_validator_full_case_result.csv`
+- `audits/full_case_migration_pilots/PERF_0006_validator_canonical_case_result.csv`
+- `audits/full_case_migration_pilots/PERF_0006_evidence_pilot_regression_result.csv`
+- `audits/full_case_migration_pilots/PERF_0006_full_case_regression_result.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- speedup/timing claim created: no
+
+Next safe action:
+- Review the completed `PERF_0006` canonical-layout pilot, then decide whether to run another bounded single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.

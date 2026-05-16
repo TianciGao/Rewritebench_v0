@@ -1,0 +1,16 @@
+check_name,status,details
+sha256_copy_validation,pass,All copied legacy files match SHA256 sources
+public_hygiene_scan,pass,No forbidden public hygiene patterns under cases/PERF/PERF_0006
+spark_plan_sanitization,pass,Sanitized Spark plan copies contain no local temporary path traces
+yaml_validation,pass,PyYAML parsed 14 YAML files under cases/PERF/PERF_0006
+json_validation,pass,Parsed 7 JSON files under evidence/ and metadata/
+validator_v0_3_full_case,pass,PASS 1/1 for PERF_0006
+validator_v0_3_canonical_case,pass,PASS 1/1 for PERF_0006
+evidence_pilot_regression,pass,PASS 6/6 for blocked PORT evidence pilots
+full_case_regression,pass,"PASS 3/3 for PORT_0004, PORT_0008, CONS_0005"
+py_compile,pass,python -m py_compile scripts/dev/validate_case_package.py completed successfully
+denominator_changed,pass,false; no denominator files modified
+paper_results_changed,pass,false; no paper-result files modified
+case_membership_changed,pass,false; case_sets/ not modified
+raw_legacy_evidence_changed,pass,false; legacy repo remained read-only
+speedup_timing_claim_created,pass,false; no timing run or speedup claim created

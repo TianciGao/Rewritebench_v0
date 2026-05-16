@@ -1,0 +1,17 @@
+case_id: PERF_0006
+artifact_paths_version: canonical_case_package_layout_v1
+canonical_case_root: cases/PERF/PERF_0006
+legacy_case_root: cases/PERF/PERF_0006
+sql:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  package_validation_summary: evidence/package_validation_summary.json
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  legacy_runs_root: cases/PERF/PERF_0006/runs/
+  public_runs_placeholder: runs/README.md
+claim_boundary:
+  raw_legacy_evidence_changed: false
