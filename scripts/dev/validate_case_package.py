@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Static validator for SQL-RewriteBench release case packages.
 
-Version: v0.2
+Version: v0.3
 
 Supported modes:
 - evidence-pilot: validates completed sanitized evidence-mapping pilot slices.
 - full-case: validates the structure and claim boundaries expected from future
   copy-first full case migration pilots.
+- canonical-case: validates conformance with the canonical public-release case
+  package layout.
 
 This validator is intentionally static. It does not read the legacy repository,
 run database engines, execute validation scripts, regenerate evidence, or call
@@ -23,8 +25,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-VALIDATOR_VERSION = "v0.2"
-SUPPORTED_MODES = {"evidence-pilot", "full-case"}
+VALIDATOR_VERSION = "v0.3"
+SUPPORTED_MODES = {"evidence-pilot", "full-case", "canonical-case"}
 
 SANITIZED_SCAN_PATTERNS = [
     "/home/tianci_gao",
@@ -37,6 +39,13 @@ SANITIZED_SCAN_PATTERNS = [
     "WSL",
     "OPENAI_API_KEY",
     "api_key",
+]
+
+CANONICAL_SCAN_PATTERNS = SANITIZED_SCAN_PATTERNS + [
+    "/tmp/",
+    "assistant",
+    "prompt",
+    "token",
 ]
 
 RESULT_CHECK_SCAN_PATTERNS = [
@@ -77,6 +86,32 @@ CSV_COLUMNS = [
     "no_global_leaderboard_claim_ok",
     "full_case_structure_ok",
     "evidence_mapping_ok",
+    "overall_status",
+    "failure_reasons",
+    "warnings",
+]
+
+CANONICAL_CSV_COLUMNS = [
+    "case_id",
+    "case_path",
+    "mode",
+    "root_readme_ok",
+    "manifest_ok",
+    "sql_layout_ok",
+    "schema_layout_ok",
+    "data_layout_ok",
+    "checker_layout_ok",
+    "validation_layout_ok",
+    "evidence_layout_ok",
+    "metadata_layout_ok",
+    "notes_layout_ok",
+    "runs_policy_ok",
+    "manifest_semantics_ok",
+    "runs_retention_semantics_ok",
+    "public_hygiene_ok",
+    "claim_boundary_ok",
+    "raw_runs_not_wholesale_copied_ok",
+    "canonical_layout_ok",
     "overall_status",
     "failure_reasons",
     "warnings",
@@ -220,6 +255,30 @@ def nested_get(mapping: dict[str, Any], key: str) -> Any:
             return None
         mapping = mapping.get(part)
     return mapping
+
+
+def as_bool(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "yes"}:
+            return True
+        if lowered in {"false", "no"}:
+            return False
+    return None
+
+
+def value_is_false(value: Any) -> bool:
+    return as_bool(value) is False
+
+
+def value_is_true(value: Any) -> bool:
+    return as_bool(value) is True
+
+
+def strings_in_value(value: Any) -> list[str]:
+    return [str(item) for item in flatten_values(value) if isinstance(item, (str, Path))]
 
 
 def has_files(path: Path) -> bool:
@@ -833,6 +892,609 @@ def validate_full_case_evidence_mapping(result: CheckResult, repo_root: Path, ca
     result.checks["evidence_mapping_ok"] = mapping_ok
 
 
+def load_yaml_for_canonical(result: CheckResult, path: Path, label: str) -> dict[str, Any] | None:
+    if not path.exists():
+        result.fail(f"missing canonical {label}: {path.relative_to(Path.cwd()) if path.is_absolute() else path}")
+        return None
+    loaded = load_yaml_best_effort(path)
+    if loaded.error and loaded.parser == "text-fallback":
+        result.warn(f"{loaded.error}; using text-level checks for {path}")
+        return None
+    if loaded.error and loaded.parser == "pyyaml":
+        result.fail(f"{path} YAML parse failed: {loaded.error}")
+        return None
+    if not isinstance(loaded.data, dict):
+        result.fail(f"{path} must parse as a YAML mapping")
+        return None
+    return loaded.data
+
+
+def require_file(result: CheckResult, case_path: Path, rel_path: str, group: str) -> bool:
+    exists = (case_path / rel_path).is_file()
+    if not exists:
+        result.fail(f"{group}: missing required file {rel_path}")
+    return exists
+
+
+def require_dir_with_files(result: CheckResult, case_path: Path, rel_path: str, group: str) -> bool:
+    ok = has_files(case_path / rel_path)
+    if not ok:
+        result.fail(f"{group}: missing required directory with files {rel_path}")
+    return ok
+
+
+def validate_canonical_readme(result: CheckResult, case_path: Path) -> bool:
+    path = case_path / "README.md"
+    if not path.exists():
+        result.fail("canonical root: missing README.md")
+        result.checks["root_readme_ok"] = False
+        return False
+    text = read_text(path).lower()
+    checks = {
+        "purpose": "case" in text and ("portability" in text or "derived" in text or "package" in text),
+        "status": "canonical" in text and "package" in text,
+        "evidence": "evidence/" in text,
+        "raw_policy": "raw legacy" in text or "raw `runs/`" in text or "raw spark" in text,
+        "denominator": "denominator" in text and ("did not change" in text or "unchanged" in text),
+        "paper": "paper" in text and ("did not change" in text or "unchanged" in text),
+    }
+    missing = [name for name, ok in checks.items() if not ok]
+    ok = not missing
+    result.checks["root_readme_ok"] = ok
+    if not ok:
+        result.fail(f"README.md missing canonical public-release statements: {missing}")
+    return ok
+
+
+def validate_canonical_sql_layout(result: CheckResult, case_path: Path) -> bool:
+    required = [
+        "sql/source.sql",
+        "sql/positives/pos_01.sql",
+        "sql/negatives/neg_01.sql",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical SQL layout") for rel in required)
+    root_sql = [
+        path.name
+        for path in case_path.glob("*.sql")
+        if path.name == "source.sql" or path.name.startswith(("rewrite_pos_", "rewrite_neg_"))
+    ]
+    if root_sql:
+        ok = False
+        result.fail(f"canonical SQL layout: root-level primary SQL files are not canonical: {root_sql}")
+    result.checks["sql_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_schema_layout(result: CheckResult, case_path: Path) -> bool:
+    required = [
+        "schema/postgres/ddl.sql",
+        "schema/postgres/load.sql",
+        "schema/mysql/ddl.sql",
+        "schema/mysql/load.sql",
+        "schema/spark/ddl.sql",
+        "schema/spark/load.sql",
+        "schema/schema_profile.yaml",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical schema layout") for rel in required)
+    profile = load_yaml_for_canonical(result, case_path / "schema/schema_profile.yaml", "schema profile")
+    ok = ok and profile is not None
+    result.checks["schema_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_data_layout(result: CheckResult, case_path: Path) -> bool:
+    required = [
+        "data/data_profile.yaml",
+        "data/witness_profile.yaml",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical data layout") for rel in required)
+    for rel in required:
+        ok = (load_yaml_for_canonical(result, case_path / rel, rel) is not None) and ok
+    result.checks["data_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_checker_layout(result: CheckResult, case_path: Path) -> bool:
+    required = [
+        "checker/checker.yaml",
+        "checker/normalization.yaml",
+        "checker/compare_config.yaml",
+        "checker/expected_rejections.yaml",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical checker layout") for rel in required)
+    for rel in required:
+        ok = (load_yaml_for_canonical(result, case_path / rel, rel) is not None) and ok
+    result.checks["checker_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_validation_layout(result: CheckResult, case_path: Path, manifest: dict[str, Any] | None) -> bool:
+    required_groups = [
+        ("PostgreSQL validation", ["validation/run_postgres_validation.sh", "validation/run_pg_validation.sh"]),
+        ("MySQL validation", ["validation/run_mysql_validation.sh"]),
+        ("Spark validation", ["validation/run_spark_validation.sh"]),
+        ("PostgreSQL plan collection", ["validation/run_postgres_plan_collection.sh"]),
+        ("MySQL plan collection", ["validation/run_mysql_plan_collection.sh"]),
+        ("Spark plan collection", ["validation/run_spark_plan_collection.sh"]),
+    ]
+    ok = True
+    existing_scripts: list[str] = []
+    for label, alternatives in required_groups:
+        present = [rel for rel in alternatives if (case_path / rel).is_file()]
+        if not present:
+            ok = False
+            result.fail(f"canonical validation layout: missing required {label} script; expected one of {alternatives}")
+        else:
+            existing_scripts.append(present[0])
+            if "validation/run_pg_validation.sh" in present:
+                result.warn(
+                    "canonical validation layout: accepted transitional alias "
+                    "validation/run_pg_validation.sh for PostgreSQL validation"
+                )
+    case_text_parts: list[str] = []
+    for rel in [
+        "README.md",
+        "manifest.yaml",
+        "notes/migration_notes.md",
+        "evidence/runs_retention.yaml",
+    ]:
+        path = case_path / rel
+        if path.exists():
+            case_text_parts.append(read_text(path))
+    case_text = "\n".join(case_text_parts).lower()
+    has_caveat = (
+        "legacy validation asset" in case_text
+        and (
+            "future_public_runner_outputs_must_not_write_to_case_local_runs_by_default" in case_text
+            or "must not write to case-local `runs/`" in case_text
+            or "must not write to case-local runs/" in case_text
+        )
+    )
+    scripts_writing_runs = []
+    for rel in existing_scripts:
+        path = case_path / rel
+        if path.exists():
+            text = read_text(path)
+            if "runs/" in text or "/runs" in text:
+                scripts_writing_runs.append(rel)
+    if scripts_writing_runs and not has_caveat:
+        ok = False
+        result.fail(
+            "canonical validation layout: scripts appear to write to case-local runs/ "
+            f"without a legacy-output caveat: {scripts_writing_runs}"
+        )
+    if manifest:
+        execution_policy_ok = nested_get(manifest, "validation.execution_policy") == "not_run_during_migration"
+        output_policy = str(nested_get(manifest, "validation.output_policy") or "")
+        if not execution_policy_ok:
+            ok = False
+            result.fail("manifest validation.execution_policy must be not_run_during_migration")
+        if "case_local_runs" not in output_policy:
+            ok = False
+            result.fail("manifest validation.output_policy must prohibit case-local runs/ by default")
+    result.checks["validation_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_evidence_layout(result: CheckResult, case_path: Path, case_id: str) -> bool:
+    required_files = [
+        "evidence/runs_retention.yaml",
+        "evidence/package_validation_summary.json",
+    ]
+    required_dirs = [
+        "evidence/retained_controls",
+        "evidence/retained_plans",
+        "evidence/hard_negative",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical evidence layout") for rel in required_files)
+    ok = all(require_dir_with_files(result, case_path, rel, "canonical evidence layout") for rel in required_dirs) and ok
+    if case_id == "PORT_0008":
+        ok = require_file(
+            result,
+            case_path,
+            "evidence/retained_plans/rewrite_neg_01.sanitized.txt",
+            "canonical PORT_0008 evidence layout",
+        ) and ok
+        ok = require_file(
+            result,
+            case_path,
+            "evidence/retained_plans/rewrite_pos_01.sanitized.txt",
+            "canonical PORT_0008 evidence layout",
+        ) and ok
+    raw_plan_texts = [
+        str(path.relative_to(case_path))
+        for path in (case_path / "evidence/retained_plans").rglob("*.txt")
+        if not path.name.endswith(".sanitized.txt")
+    ] if (case_path / "evidence/retained_plans").exists() else []
+    if raw_plan_texts:
+        ok = False
+        result.fail(f"canonical evidence layout: raw plan text files in retained evidence: {raw_plan_texts}")
+    try:
+        json.loads(read_text(case_path / "evidence/package_validation_summary.json"))
+    except Exception as exc:
+        ok = False
+        result.fail(f"evidence/package_validation_summary.json JSON parse failed: {exc}")
+    result.checks["evidence_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_metadata_layout(
+    result: CheckResult,
+    case_path: Path,
+    manifest: dict[str, Any] | None,
+    case_id: str,
+) -> bool:
+    required = [
+        "metadata/provenance.yaml",
+        "metadata/taxonomy.yaml",
+        "metadata/engine_support.yaml",
+        "metadata/denominator_eligibility.yaml",
+        "metadata/artifact_paths.yaml",
+    ]
+    ok = all(require_file(result, case_path, rel, "canonical metadata layout") for rel in required)
+    parsed: dict[str, dict[str, Any]] = {}
+    for rel in required:
+        data = load_yaml_for_canonical(result, case_path / rel, rel)
+        if data is None:
+            ok = False
+        else:
+            parsed[rel] = data
+            if data.get("case_id") not in {None, case_id}:
+                ok = False
+                result.fail(f"{rel} case_id does not match {case_id}")
+    denominator = parsed.get("metadata/denominator_eligibility.yaml") or {}
+    if denominator and not value_is_false(denominator.get("denominator_changed")):
+        ok = False
+        result.fail("metadata/denominator_eligibility.yaml must record denominator_changed: false")
+    if denominator and not value_is_false(denominator.get("paper_results_changed")):
+        ok = False
+        result.fail("metadata/denominator_eligibility.yaml must record paper_results_changed: false")
+    artifact_paths = parsed.get("metadata/artifact_paths.yaml") or {}
+    if artifact_paths and artifact_paths.get("canonical_case_root") != f"cases/PORT/{case_id}":
+        ok = False
+        result.fail("metadata/artifact_paths.yaml canonical_case_root mismatch")
+    if manifest:
+        for key, rel in {
+            "metadata.provenance": "metadata/provenance.yaml",
+            "metadata.taxonomy": "metadata/taxonomy.yaml",
+            "metadata.engine_support": "metadata/engine_support.yaml",
+            "metadata.denominator_eligibility": "metadata/denominator_eligibility.yaml",
+            "metadata.artifact_paths": "metadata/artifact_paths.yaml",
+        }.items():
+            if nested_get(manifest, key) != rel:
+                ok = False
+                result.fail(f"manifest {key} must point to {rel}")
+    result.checks["metadata_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_notes_layout(result: CheckResult, case_path: Path) -> bool:
+    required = ["notes/migration_notes.md"]
+    recommended = ["notes/witness_design_notes.md", "notes/risk_notes.md"]
+    ok = all(require_file(result, case_path, rel, "canonical notes layout") for rel in required)
+    for rel in recommended:
+        if not (case_path / rel).is_file():
+            result.warn(f"canonical notes layout: recommended note missing: {rel}")
+    result.checks["notes_layout_ok"] = ok
+    return ok
+
+
+def validate_canonical_runs_policy(result: CheckResult, case_path: Path, retention: dict[str, Any] | None) -> bool:
+    runs_dir = case_path / "runs"
+    ok = True
+    if runs_dir.exists():
+        allowed = {"README.md", ".gitignore"}
+        disallowed = [
+            str(path.relative_to(runs_dir))
+            for path in runs_dir.rglob("*")
+            if path.is_file() and str(path.relative_to(runs_dir)) not in allowed
+        ]
+        if disallowed:
+            ok = False
+            result.fail(f"canonical runs policy: raw runs/ appears copied wholesale or populated: {disallowed}")
+    raw_policy = retention.get("raw_runs_policy") if isinstance(retention, dict) else None
+    if isinstance(raw_policy, dict):
+        if raw_policy.get("raw_runs_wholesale_copy") is not False:
+            ok = False
+            result.fail("runs_retention raw_runs_policy.raw_runs_wholesale_copy must be false")
+        if raw_policy.get("raw_spark_plan_files_copied_to_public_tree") is not False:
+            ok = False
+            result.fail("runs_retention must record raw_spark_plan_files_copied_to_public_tree: false")
+    result.checks["runs_policy_ok"] = ok
+    result.checks["raw_runs_not_wholesale_copied_ok"] = ok
+    return ok
+
+
+def validate_canonical_manifest_semantics(
+    result: CheckResult,
+    manifest: dict[str, Any] | None,
+    case_id: str,
+    pool: str,
+) -> bool:
+    ok = manifest is not None
+    if not manifest:
+        result.checks["manifest_ok"] = False
+        result.checks["manifest_semantics_ok"] = False
+        return False
+    if manifest.get("case_id") != case_id:
+        ok = False
+        result.fail(f"manifest case_id must be {case_id}")
+    if manifest.get("pool") != pool:
+        ok = False
+        result.fail(f"manifest pool must be {pool}")
+    scope = nested_get(manifest, "benchmark_scope.migration_scope")
+    if scope not in {f"{case_id}_only", case_id}:
+        ok = False
+        result.fail(f"manifest migration_scope must be scoped to {case_id} only")
+    required_false = {
+        "benchmark_scope.common_core_membership_changed": nested_get(
+            manifest, "benchmark_scope.common_core_membership_changed"
+        ),
+        "denominator_eligibility.denominator_changed": nested_get(
+            manifest, "denominator_eligibility.denominator_changed"
+        ),
+        "denominator_eligibility.paper_results_changed": nested_get(
+            manifest, "denominator_eligibility.paper_results_changed"
+        ),
+        "claim_boundaries.raw_legacy_evidence_changed": nested_get(
+            manifest, "claim_boundaries.raw_legacy_evidence_changed"
+        ),
+        "claim_boundaries.db_validation_run": nested_get(manifest, "claim_boundaries.db_validation_run"),
+        "claim_boundaries.evidence_regenerated": nested_get(manifest, "claim_boundaries.evidence_regenerated"),
+    }
+    for key, value in required_false.items():
+        if not value_is_false(value):
+            ok = False
+            result.fail(f"manifest {key} must be false")
+    no_global = nested_get(manifest, "denominator_eligibility.no_global_leaderboard")
+    no_global_claim = nested_get(manifest, "claim_boundaries.no_global_leaderboard")
+    if not (value_is_true(no_global) or value_is_true(no_global_claim)):
+        ok = False
+        result.fail("manifest must record no_global_leaderboard: true")
+
+    expected_paths = {
+        "sql.source": "sql/source.sql",
+        "schema.profile": "schema/schema_profile.yaml",
+        "checker.checker": "checker/checker.yaml",
+        "checker.normalization": "checker/normalization.yaml",
+        "checker.compare_config": "checker/compare_config.yaml",
+        "checker.expected_rejections": "checker/expected_rejections.yaml",
+        "evidence.runs_retention": "evidence/runs_retention.yaml",
+        "evidence.package_validation_summary": "evidence/package_validation_summary.json",
+        "metadata.provenance": "metadata/provenance.yaml",
+        "metadata.taxonomy": "metadata/taxonomy.yaml",
+        "metadata.engine_support": "metadata/engine_support.yaml",
+        "metadata.denominator_eligibility": "metadata/denominator_eligibility.yaml",
+        "metadata.artifact_paths": "metadata/artifact_paths.yaml",
+        "notes.migration_notes": "notes/migration_notes.md",
+    }
+    for key, expected in expected_paths.items():
+        if nested_get(manifest, key) != expected:
+            ok = False
+            result.fail(f"manifest {key} must point to {expected}")
+
+    for item in manifest.get("sql", {}).get("positives", []) if isinstance(manifest.get("sql"), dict) else []:
+        if isinstance(item, dict) and not str(item.get("path", "")).startswith("sql/positives/"):
+            ok = False
+            result.fail("manifest positive SQL paths must point into sql/positives/")
+    for item in manifest.get("sql", {}).get("negatives", []) if isinstance(manifest.get("sql"), dict) else []:
+        if isinstance(item, dict) and not str(item.get("path", "")).startswith("sql/negatives/"):
+            ok = False
+            result.fail("manifest negative SQL paths must point into sql/negatives/")
+    for key in ["postgres", "mysql", "spark"]:
+        schema_block = nested_get(manifest, f"schema.{key}")
+        if isinstance(schema_block, dict):
+            for field in ["ddl", "load"]:
+                if not str(schema_block.get(field, "")).startswith(f"schema/{key}/"):
+                    ok = False
+                    result.fail(f"manifest schema.{key}.{field} must point into schema/{key}/")
+    validation = manifest.get("validation") or {}
+    if isinstance(validation, dict):
+        for key, value in validation.items():
+            if key.endswith(("validation", "collection")) and not str(value).startswith("validation/"):
+                ok = False
+                result.fail(f"manifest validation.{key} must point into validation/")
+    result.checks["manifest_ok"] = ok
+    result.checks["manifest_semantics_ok"] = ok
+    return ok
+
+
+def validate_canonical_retention_semantics(
+    result: CheckResult,
+    retention: dict[str, Any] | None,
+    case_id: str,
+    pool: str,
+    canonical_structure_ok: bool,
+) -> bool:
+    ok = retention is not None
+    if not retention:
+        result.checks["runs_retention_semantics_ok"] = False
+        return False
+    required = {
+        "case_id": case_id,
+        "pool": pool,
+        "policy_version": "runs_retention_policy_v1",
+    }
+    for key, expected in required.items():
+        if retention.get(key) != expected:
+            ok = False
+            result.fail(f"runs_retention {key} must be {expected!r}")
+    for key in [
+        "denominator_changed",
+        "paper_results_changed",
+        "common_core_membership_changed",
+        "raw_legacy_evidence_changed",
+    ]:
+        if not value_is_false(retention.get(key)):
+            ok = False
+            result.fail(f"runs_retention {key} must be false")
+    entries = flatten_retention_entries(retention)
+    original_entries = [entry for entry in entries if entry.get("original_legacy_path")]
+    if not original_entries:
+        ok = False
+        result.fail("runs_retention must map original legacy artifacts")
+    missing_do_not_delete = [
+        entry.get("original_legacy_path")
+        for entry in original_entries
+        if entry.get("do_not_delete_original") is not True
+    ]
+    if missing_do_not_delete:
+        ok = False
+        result.fail(f"runs_retention retained originals missing do_not_delete_original: true: {missing_do_not_delete}")
+    sanitized = retention.get("sanitized_public_copies") or []
+    if isinstance(sanitized, list):
+        not_public_safe = [
+            entry.get("public_copy_path")
+            for entry in sanitized
+            if isinstance(entry, dict) and entry.get("public_safe") is not True
+        ]
+        if not_public_safe:
+            ok = False
+            result.fail(f"sanitized public copies not marked public_safe: true: {not_public_safe}")
+    canonical = retention.get("canonical_full_case_migration") or {}
+    canonical_full = canonical.get("full_case_package_migrated") if isinstance(canonical, dict) else None
+    public_notes = retention.get("public_release_notes") or {}
+    legacy_full = public_notes.get("full_case_package_migrated") if isinstance(public_notes, dict) else None
+    full_claim = canonical_full if canonical_full is not None else legacy_full
+    if full_claim is True and not canonical_structure_ok:
+        ok = False
+        result.fail("runs_retention claims full case migration while canonical checks are failing")
+    result.checks["runs_retention_semantics_ok"] = ok
+    return ok
+
+
+def scan_canonical_public_hygiene(result: CheckResult, case_path: Path) -> bool:
+    hits: list[str] = []
+    for path in case_public_files(case_path):
+        try:
+            text = read_text(path)
+        except UnicodeDecodeError:
+            continue
+        for pattern in CANONICAL_SCAN_PATTERNS:
+            if pattern in text:
+                hits.append(f"{path.relative_to(case_path)}:{pattern}")
+    ok = not hits
+    result.checks["public_hygiene_ok"] = ok
+    result.checks["no_raw_local_path_ok"] = ok
+    if hits:
+        result.fail(f"canonical public hygiene scan found forbidden patterns: {hits}")
+    return ok
+
+
+def scan_canonical_claim_boundaries(result: CheckResult, case_path: Path) -> bool:
+    hits: list[str] = []
+    patterns = {
+        "global_leaderboard": re.compile(r"global leaderboard", re.IGNORECASE),
+        "denominator_changed": re.compile(r"denominator(?:_changed| changed)?\s*[:=]\s*(true|yes)", re.IGNORECASE),
+        "paper_results_changed": re.compile(
+            r"paper(?:_results)?(?:_changed| results changed)?\s*[:=]\s*(true|yes)",
+            re.IGNORECASE,
+        ),
+        "case_membership_changed": re.compile(
+            r"(case_membership_changed|common-core membership changed)\s*[:=]\s*(true|yes)",
+            re.IGNORECASE,
+        ),
+        "raw_legacy_evidence_changed": re.compile(
+            r"raw legacy evidence changed\s*[:=]\s*(true|yes)",
+            re.IGNORECASE,
+        ),
+        "common_core_40_started": re.compile(r"common-core 40 migration (?:has )?started", re.IGNORECASE),
+        "speedup_transfer_rate": re.compile(r"SpeedupTransferRate", re.IGNORECASE),
+        "full_port9": re.compile(r"full PORT9", re.IGNORECASE),
+    }
+    allowed_global = [
+        "no global leaderboard",
+        "not establish global leaderboard",
+        "does not establish global leaderboard",
+        "must not establish global leaderboard",
+        "not a global leaderboard",
+    ]
+    for path in case_public_files(case_path):
+        try:
+            lines = read_text(path).splitlines()
+        except UnicodeDecodeError:
+            continue
+        rel = str(path.relative_to(case_path))
+        for line_no, line in enumerate(lines, start=1):
+            lowered = line.lower()
+            for name, pattern in patterns.items():
+                if not pattern.search(line):
+                    continue
+                if name == "global_leaderboard" and any(allowed in lowered for allowed in allowed_global):
+                    continue
+                if name == "common_core_40_started" and "not started" in lowered:
+                    continue
+                hits.append(f"{rel}:{line_no}:{name}")
+    ok = not hits
+    result.checks["claim_boundary_ok"] = ok
+    result.checks["no_denominator_change_claim_ok"] = not any("denominator_changed" in hit for hit in hits)
+    result.checks["no_paper_result_change_claim_ok"] = not any("paper_results_changed" in hit for hit in hits)
+    result.checks["no_global_leaderboard_claim_ok"] = not any("global_leaderboard" in hit for hit in hits)
+    if hits:
+        result.fail(f"canonical claim-boundary violations found: {hits}")
+    return ok
+
+
+def validate_canonical_case(repo_root: Path, case_arg: str) -> CheckResult:
+    case_path, rel_path, result = resolve_case(repo_root, case_arg, "canonical-case")
+    if result.status == "fail":
+        populate_canonical_csv_checks(result)
+        return result
+    if len(rel_path.parts) < 3 or rel_path.parts[0] != "cases":
+        result.fail("canonical-case mode expects cases/<POOL>/<CASE_ID> paths")
+
+    case_id = result.case_id
+    pool = rel_path.parts[1] if len(rel_path.parts) > 1 else ""
+    manifest = load_yaml_for_canonical(result, case_path / "manifest.yaml", "manifest")
+    retention = load_yaml_for_canonical(result, case_path / "evidence/runs_retention.yaml", "runs retention")
+
+    root_ok = validate_canonical_readme(result, case_path)
+    manifest_ok = validate_canonical_manifest_semantics(result, manifest, case_id, pool)
+    sql_ok = validate_canonical_sql_layout(result, case_path)
+    schema_ok = validate_canonical_schema_layout(result, case_path)
+    data_ok = validate_canonical_data_layout(result, case_path)
+    checker_ok = validate_canonical_checker_layout(result, case_path)
+    validation_ok = validate_canonical_validation_layout(result, case_path, manifest)
+    evidence_ok = validate_canonical_evidence_layout(result, case_path, case_id)
+    metadata_ok = validate_canonical_metadata_layout(result, case_path, manifest, case_id)
+    notes_ok = validate_canonical_notes_layout(result, case_path)
+    runs_ok = validate_canonical_runs_policy(result, case_path, retention)
+    public_hygiene_ok = scan_canonical_public_hygiene(result, case_path)
+    claim_ok = scan_canonical_claim_boundaries(result, case_path)
+    canonical_structure_ok = all(
+        [
+            root_ok,
+            manifest_ok,
+            sql_ok,
+            schema_ok,
+            data_ok,
+            checker_ok,
+            validation_ok,
+            evidence_ok,
+            metadata_ok,
+            notes_ok,
+            runs_ok,
+            public_hygiene_ok,
+            claim_ok,
+        ]
+    )
+    retention_ok = validate_canonical_retention_semantics(
+        result,
+        retention,
+        case_id,
+        pool,
+        canonical_structure_ok,
+    )
+    canonical_ok = canonical_structure_ok and retention_ok
+    result.checks["canonical_layout_ok"] = canonical_ok
+    result.checks["full_case_structure_ok"] = canonical_ok
+    result.checks["evidence_mapping_ok"] = retention_ok and evidence_ok
+    if not canonical_ok and result.status == "pass":
+        result.fail("canonical layout checks failed")
+    populate_canonical_csv_checks(result)
+    return result
+
+
 def validate_evidence_pilot_case(repo_root: Path, case_arg: str) -> CheckResult:
     case_path, rel_path, result = resolve_case(repo_root, case_arg, "evidence-pilot")
     if result.status == "fail":
@@ -930,7 +1592,27 @@ def populate_common_csv_checks(result: CheckResult) -> None:
     )
 
 
-def result_to_csv_row(result: CheckResult) -> dict[str, str]:
+def populate_canonical_csv_checks(result: CheckResult) -> None:
+    for key in CANONICAL_CSV_COLUMNS:
+        if key in {
+            "case_id",
+            "case_path",
+            "mode",
+            "overall_status",
+            "failure_reasons",
+            "warnings",
+        }:
+            continue
+        result.checks.setdefault(key, False)
+
+
+def csv_columns_for_results(results: list[CheckResult]) -> list[str]:
+    if any(result.mode == "canonical-case" for result in results):
+        return CANONICAL_CSV_COLUMNS
+    return CSV_COLUMNS
+
+
+def result_to_csv_row(result: CheckResult, columns: list[str]) -> dict[str, str]:
     row = {
         "case_id": result.case_id,
         "case_path": result.case_path,
@@ -939,7 +1621,7 @@ def result_to_csv_row(result: CheckResult) -> dict[str, str]:
         "failure_reasons": " | ".join(result.errors),
         "warnings": " | ".join(result.warnings),
     }
-    for column in CSV_COLUMNS:
+    for column in columns:
         if column in row:
             continue
         row[column] = yes_no(result.checks.get(column))
@@ -947,12 +1629,13 @@ def result_to_csv_row(result: CheckResult) -> dict[str, str]:
 
 
 def write_csv(path: Path, results: list[CheckResult]) -> None:
+    columns = csv_columns_for_results(results)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=CSV_COLUMNS, lineterminator="\n")
+        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         for result in results:
-            writer.writerow(result_to_csv_row(result))
+            writer.writerow(result_to_csv_row(result, columns))
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -1029,7 +1712,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     repo_root = Path(args.repo_root).resolve()
-    validator = validate_evidence_pilot_case if args.mode == "evidence-pilot" else validate_full_case
+    if args.mode == "evidence-pilot":
+        validator = validate_evidence_pilot_case
+    elif args.mode == "full-case":
+        validator = validate_full_case
+    else:
+        validator = validate_canonical_case
     results = [validator(repo_root, case_arg) for case_arg in args.cases]
     ok = all(result.status == "pass" for result in results)
     advisory = args.allow_failures or args.advisory

@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is PORT_0008 canonical-layout full case migration pilot；
+latest completed run is static case-package validator v0.3 canonical-layout mode；
 canonical case package layout v1 is locked as the target policy；
 canonical layout is a migration target, not legacy current fact；
 no case files were moved or copied in the canonical-layout lock；
@@ -38,9 +38,14 @@ blocked-PORT formal evidence-mapping pilot series is closed at evidence-mapping 
 closed cases are PORT_0008, PORT_0012, PORT_0013, PORT_0022, PORT_0025, and PORT_0024；
 static validator v0.1 now exists for evidence-pilot release-repo slices；
 static validator v0.2 now exists with `full-case` mode for future copy-first full case migration pilots；
+static validator v0.3 now exists with `canonical-case` mode for canonical-layout conformance checks；
 all six blocked-PORT evidence-pilot slices pass validator v0.1；
 evidence-pilot regression passed 6/6 under validator v0.2；
+evidence-pilot regression passed 6/6 under validator v0.3；
 full-case advisory validation correctly reports the six current evidence-only pilot slices are not full migrated cases；
+full-case regression passed 2/2 for PORT_0004 and PORT_0008 under validator v0.3；
+canonical-case validation passed for PORT_0008 under validator v0.3；
+canonical-case advisory validation expected-failed for PORT_0004 because it is legacy-compatible rather than canonical-layout；
 PORT_0004 copy-first full case migration pilot now passes validator v0.2 after release-repo hygiene fix；
 full case migration pilots are complete for PORT_0004 and PORT_0008 only；
 full case migration scope remains PORT_0004 plus PORT_0008 only；
@@ -48,7 +53,7 @@ Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 review the completed PORT_0008 canonical-layout pilot, then decide whether to harden validator canonical-layout conformance or plan the next single-case pilot；do not start Common-core 40 migration。
+当前下一步安全动作是 review validator v0.3 results, then decide the next single-case pilot or continue case-universe/report/script audits；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -338,7 +343,7 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 | 6 | 整体 case universe 治理 | partial | 197 vs 190 差异已知 | 做 reconciliation |
 | 7 | 脚本与复现路径整理 | pending | 需 script inventory | 做脚本台账 |
 | 8 | 结果与论文表格闭环 | pending | reports 混合 | 做 retained evidence map |
-| 9 | public hygiene | active | PORT_0004 hygiene fixed in release repo | keep validator gate before next pilot |
+| 9 | public hygiene | active | validator v0.3 canonical-case gate exists | keep validator gates before next pilot |
 | 10 | public release v0 | not started | 前序未完成 | 等 smoke pass |
 
 ## 7. 当前不能做的事
@@ -357,11 +362,33 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 
 ## 8. 当前安全下一步
 
-根据 2026-05-16 `PORT_0008` canonical-layout full case migration pilot，当前安全下一步是：
+根据 2026-05-16 static case-package validator v0.3 canonical-layout mode，当前安全下一步是：
 
-1. Review the completed `PORT_0008` canonical-layout pilot and audit outputs.
-2. Decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot.
+1. Review validator v0.3 results.
+2. Decide whether to plan the next single-case pilot across another pool or continue case-universe/report/script audits.
 3. Do not start Common-core 40 migration and do not delete, move, or sanitize legacy originals.
+
+## 13. Last Codex run
+
+- task name: static case-package validator v0.3 canonical-layout mode
+- date: 2026-05-16
+- mode: release-repo static validator enhancement; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes
+- validator v0.3 created: yes
+- canonical-case mode implemented: yes
+- evidence-pilot regression: PASS 6/6
+- full-case regression: PASS 2/2 for PORT_0004 and PORT_0008
+- canonical-case PORT_0008: PASS
+- canonical-case PORT_0004 advisory: expected failure because PORT_0004 remains legacy-compatible rather than canonical-layout
+- full case migration scope remains PORT_0004 plus PORT_0008 only
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- validation summary: all four required validator trials completed; `python -m py_compile scripts/dev/validate_case_package.py` passed
+- next safe action: review validator v0.3 results; then decide the next single-case pilot across another pool, or continue case-universe/report/script audits. Do not start Common-core 40 migration.
 
 ## 9. Last Codex run
 

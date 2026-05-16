@@ -916,3 +916,50 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the completed `PORT_0008` canonical-layout pilot, then decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · static case-package validator v0.3 canonical-layout mode
+
+Mode: release-repo static validator enhancement; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash recorded after commit
+Push: pending at write time; final result recorded after push
+Scope: Added static canonical-layout conformance validation after the completed `PORT_0008` canonical-layout pilot.
+
+Summary:
+- Upgraded `scripts/dev/validate_case_package.py` to validator v0.3.
+- Added `--mode canonical-case`.
+- Preserved `evidence-pilot` and `full-case` modes.
+- Added canonical checks for root files, `sql/`, `schema/`, `data/`, `checker/`, `validation/`, `evidence/`, `metadata/`, `notes/`, `runs/` policy, manifest semantics, retention semantics, public hygiene, and claim boundaries.
+- Documented v0.3 in `repository_spec/static_case_package_validator_v0_3.md`.
+- Generated v0.3 validator trial outputs and report.
+- No case migration was performed.
+
+Validation:
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 2/2 for `PORT_0004` and `PORT_0008`.
+- Canonical-case strict validation passed for `PORT_0008`.
+- Canonical-case advisory validation failed as expected for `PORT_0004`.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `repository_spec/static_case_package_validator_v0_3.md`
+- `audits/validator_trials/static_case_package_validator_v0_3_report.md`
+- `audits/validator_trials/v0_3_evidence_pilot_regression_results.csv`
+- `audits/validator_trials/v0_3_full_case_regression_results.csv`
+- `audits/validator_trials/v0_3_canonical_case_PORT_0008_results.csv`
+- `audits/validator_trials/v0_3_canonical_case_PORT_0004_advisory_results.csv`
+
+Files modified:
+- `scripts/dev/validate_case_package.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review validator v0.3 results; then decide the next single-case pilot across another pool, or continue case-universe/report/script audits. Do not start Common-core 40 migration.
