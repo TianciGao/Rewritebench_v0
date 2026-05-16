@@ -1539,13 +1539,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review the completed PERF pool canonical migration. Then choose the next reviewed non-PERF wave from the readiness audit; do not start blind full Common-core 40 migration.
 
-### 2026-05-16 · pending · CONS hard-negative expected-rejection approval sweep
+### 2026-05-16 · 1d02937 · CONS hard-negative expected-rejection approval sweep
 
 Mode: release-repo semantic review/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: 1d02937b3c81a2df4db8e3b978b3d78983921af2
+Push: pushed to origin main successfully (c4f246a..1d02937)
 Scope: Reviewed CONS Common-core hard-negative semantics for `CONS_0005`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, and `CONS_0037`; no case migration was performed.
 
 Summary:
@@ -1563,7 +1563,7 @@ Validation:
 - YAML parse passed for `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`.
 - CSV row-count check passed: `cons_hard_negative_approval_matrix.csv` has 9 data rows.
 - CSV evidence-map check passed: `cons_hard_negative_evidence_map.csv` has 55 data rows.
-- `git diff --check` result: pending.
+- `git diff --check` result: passed.
 
 Files created:
 - `audits/cons_hard_negative_approval/cons_hard_negative_approval_summary.md`
