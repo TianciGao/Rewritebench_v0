@@ -1,0 +1,45 @@
+{
+  "actual_case_migration_performed": false,
+  "already_piloted": [
+    "CONS_0005",
+    "LONGTAIL_0011",
+    "PERF_0006",
+    "PORT_0004",
+    "PORT_0008"
+  ],
+  "cases_by_pool": {
+    "CONS": 9,
+    "LONGTAIL": 6,
+    "PERF": 16,
+    "PORT": 9
+  },
+  "cases_by_wave": {
+    "wave_0_already_piloted": 5,
+    "wave_1_low_risk_direct_canonical": 0,
+    "wave_2_sanitized_plan_needed": 19,
+    "wave_3_checker_hard_negative_approval_needed": 8,
+    "wave_4_complex_longtail_or_structure_review": 5,
+    "wave_5_reports_results_dependency": 0,
+    "wave_6_defer_manual_review": 3
+  },
+  "common_core40_migration_started": false,
+  "denominator_changed": false,
+  "fallback_next_batch": [
+    "PERF_0007"
+  ],
+  "highest_risks": [
+    "Spark plan/local-path sanitization appears across remaining unmigrated cases and must be handled before public retained evidence publication.",
+    "CONS hard-negative expected rejection reasons require maintainer approval before checker-heavy batch migration.",
+    "LONGTAIL structure and hard-negative semantics require bounded review to avoid workload-frequency overclaim.",
+    "PORT_0022, PORT_0024, and PORT_0025 retain raw-log/prompt-token-like risk and should be manual-review/defer cases.",
+    "All 40 cases are referenced by reports/paper freeze artifacts, so migration must preserve denominator and paper-result boundaries."
+  ],
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_batch": [
+    "PERF_0007",
+    "PERF_0008",
+    "PERF_0013"
+  ],
+  "total_cases": 40
+}

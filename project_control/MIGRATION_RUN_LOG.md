@@ -1274,3 +1274,56 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the completed `LONGTAIL_0011` canonical-layout pilot and all four representative pool pilots, then decide whether to continue case-universe/report/script audits or plan the next bounded single-case pilot. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · Common-core 40 batch migration readiness audit
+
+Mode: release-repo audit/planning output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit completes
+Push: pending until push completes
+Scope: Produced a planning-only readiness audit and future migration wave plan for the fixed Common-core v0 40 cases. No actual case migration was performed.
+
+Summary:
+- Inspected all 40 fixed Common-core cases in the legacy repository read-only.
+- Classified each case by canonical layout fit, public hygiene risk, runs/evidence handling, pool-specific concerns, pilot pattern match, validator expectation, and migration wave.
+- Created future batch prompt drafts for low-risk, sanitized-plan, checker-heavy, and complex LONGTAIL migration waves.
+- Recommended the next actual migration as a small PERF sanitized-plan batch: `PERF_0007`, `PERF_0008`, and `PERF_0013`; fallback is `PERF_0007` only.
+- Actual case migration performed: no.
+- Common-core 40 migration started: no.
+
+Validation:
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- Readiness summary JSON parsed.
+- CSV row count checks passed for the 40-row readiness, runs-retention, and pattern-match matrices.
+- `git diff --check` passed.
+
+Files created:
+- `audits/common_core40_batch_readiness/common_core40_batch_readiness_summary.md`
+- `audits/common_core40_batch_readiness/common_core40_case_readiness_matrix.csv`
+- `audits/common_core40_batch_readiness/common_core40_wave_plan.md`
+- `audits/common_core40_batch_readiness/common_core40_risk_summary.md`
+- `audits/common_core40_batch_readiness/common_core40_required_human_approvals.md`
+- `audits/common_core40_batch_readiness/common_core40_runs_retention_needs.csv`
+- `audits/common_core40_batch_readiness/common_core40_public_hygiene_findings.csv`
+- `audits/common_core40_batch_readiness/common_core40_pattern_match.csv`
+- `audits/common_core40_batch_readiness/common_core40_next_batch_recommendation.md`
+- `audits/common_core40_batch_readiness/common_core40_batch_readiness_summary.json`
+- `audits/common_core40_batch_readiness/common_core40_batch_prompts/batch_01_low_risk_canonical_migration_prompt.md`
+- `audits/common_core40_batch_readiness/common_core40_batch_prompts/batch_02_sanitized_plan_migration_prompt.md`
+- `audits/common_core40_batch_readiness/common_core40_batch_prompts/batch_03_checker_heavy_migration_prompt.md`
+- `audits/common_core40_batch_readiness/common_core40_batch_prompts/batch_04_longtail_complex_migration_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- actual case migration performed: no
+
+Next safe action:
+- Review the Common-core 40 batch readiness audit, then decide whether to execute the recommended small PERF sanitized-plan batch (`PERF_0007`, `PERF_0008`, `PERF_0013`) or fallback to `PERF_0007` only. Do not start blind Common-core 40 migration.

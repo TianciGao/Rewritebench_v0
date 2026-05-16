@@ -28,7 +28,18 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is LONGTAIL_0011 canonical-layout full case migration pilot；
+latest completed run is Common-core 40 batch migration readiness audit；
+
+common-core 40 batch readiness audit completed；
+actual case migration performed: no；
+Common-core 40 migration still not started；
+recommended next batch: PERF_0007, PERF_0008, PERF_0013 as a small sanitized-plan PERF wave, with PERF_0007 as the fallback single-case batch；
+batch readiness wave counts: wave_0_already_piloted=5, wave_1_low_risk_direct_canonical=0, wave_2_sanitized_plan_needed=19, wave_3_checker_hard_negative_approval_needed=8, wave_4_complex_longtail_or_structure_review=5, wave_5_reports_results_dependency=0, wave_6_defer_manual_review=3；
+denominator unchanged；
+paper results unchanged；
+raw legacy evidence unchanged；
+当前下一步安全动作是 review the Common-core 40 batch readiness audit, then decide whether to execute the recommended small PERF sanitized-plan batch or fallback to PERF_0007 only；do not start blind Common-core 40 migration。
+
 LONGTAIL_0011 canonical-layout full case migration pilot completed；
 canonical layout tested for LONGTAIL pool: yes；
 all four pools now have representative full-case pilots: yes；
@@ -63,7 +74,6 @@ Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 review the completed LONGTAIL_0011 canonical-layout pilot and all four representative pool pilots, then decide whether to continue case-universe/report/script audits or plan the next bounded single-case pilot；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
