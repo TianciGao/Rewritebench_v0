@@ -1014,13 +1014,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review of the `CONS_0005` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · CONS_0005 canonical-layout full case migration pilot
+### 2026-05-16 · f779cb2 · CONS_0005 canonical-layout full case migration pilot
 
 Mode: release-repo canonical full case migration pilot; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: f779cb25c64c5c97f07848c8c88929697bbfb30e
+Push: pushed to origin main successfully (dbddf60..f779cb2)
 Scope: Executed the approved one-case canonical-layout full case migration pilot for `CONS_0005`.
 
 Summary:
