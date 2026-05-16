@@ -964,13 +964,13 @@ Paper/denominator impact:
 Next safe action:
 - Review validator v0.3 results; then decide the next single-case pilot across another pool, or continue case-universe/report/script audits. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · CONS_0005 canonical-layout migration dry-run plan
+### 2026-05-16 · d795660 · CONS_0005 canonical-layout migration dry-run plan
 
 Mode: release-repo planning/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: d795660705ae4974d3244fa4ecb10ce8786be355
+Push: pushed to origin main successfully (5b9187f..d795660)
 Scope: Created a planning-only canonical-layout migration blueprint for `CONS_0005` without creating or modifying the release case package.
 
 Summary:
