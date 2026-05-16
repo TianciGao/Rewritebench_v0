@@ -1,0 +1,8 @@
+case_id: PORT_0024
+pool: PORT
+witness_role: portability_boundary_and_hard_negative_discriminator
+required_tables:
+- cards
+source_positive_equivalence_retained: true
+negative_divergence_retained: true
+new_witness_created: false

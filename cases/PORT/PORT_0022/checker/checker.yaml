@@ -1,0 +1,15 @@
+case_id: PORT_0022
+pool: PORT
+checker_version: static_public_release_v1
+comparison_model: cross_dialect_reference_from_retained_outputs
+db_validation_run: false
+source_reference_engine: mysql
+positive_outputs:
+- evidence/retained_controls/postgres/rewrite_pos_01.tsv
+- evidence/retained_controls/spark/rewrite_pos_01.tsv
+negative_outputs:
+- evidence/hard_negative/postgres/rewrite_neg_01.tsv
+- evidence/hard_negative/spark/rewrite_neg_01.tsv
+normalization: checker/normalization.yaml
+compare_config: checker/compare_config.yaml
+expected_rejections: checker/expected_rejections.yaml

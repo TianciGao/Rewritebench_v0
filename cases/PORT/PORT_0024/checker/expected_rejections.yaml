@@ -1,0 +1,43 @@
+case_id: PORT_0024
+pool: PORT
+expected_rejections_version: v1
+approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
+hard_negatives:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  positive_sql_path: sql/positives/pos_01.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: boolean_filter_literal_changed
+  semantic_risk_type:
+  - boolean_semantics
+  - literal_predicate_boundary
+  - aggregate_expression_semantics
+  checker_guard_role: source_positive_equal_and_negative_differs_on_retained_portability_witness
+  observed_static_basis:
+    source_positive_semantics: MySQL-oriented source computes a percentage over cards
+      where istextless is false-like and isstoryspotlight is true-like; the positive
+      preserves the boolean predicate under dialect adaptation.
+    negative_semantics: The hard negative changes the isstoryspotlight predicate from
+      true-like value 1 to false-like value 0, changing the aggregate numerator.
+    witness_discriminator: retained result evidence records source/positive agreement
+      and hard-negative divergence
+  evidence_paths:
+    retained_controls:
+    - evidence/retained_controls/result_check.json
+    - evidence/retained_controls/mysql/source.tsv
+    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    hard_negative:
+    - evidence/hard_negative/hard_negative_summary.json
+    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    result_checks:
+    - evidence/retained_controls/result_check.json
+    plan_evidence:
+    - evidence/retained_plans/plan_check.json
+    - evidence/retained_plans/mysql/source.json
+    - evidence/retained_plans/postgres/rewrite_pos_01.json
+    - evidence/retained_plans/postgres/rewrite_neg_01.json
+    - evidence/retained_plans/rewrite_pos_01.sanitized.txt
+    - evidence/retained_plans/rewrite_neg_01.sanitized.txt
+  approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy

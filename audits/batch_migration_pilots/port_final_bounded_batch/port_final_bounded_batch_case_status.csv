@@ -1,0 +1,5 @@
+case_id,migration_attempted,migration_completed,full_case_validator_pass,canonical_case_validator_pass,public_hygiene_pass,yaml_pass,json_pass,sha256_pass,evidence_pilot_regression_pass,full_case_regression_pass,canonical_case_regression_pass,cross_engine_result_created,speedup_transfer_claim_created,full_port9_claim_created,denominator_changed,paper_results_changed,case_membership_changed,raw_legacy_evidence_changed,final_status,failure_reason,next_action
+PORT_0004,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,completed,,human review PORT final bounded batch output
+PORT_0022,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,completed,,human review PORT final bounded batch output
+PORT_0024,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,completed,,human review PORT final bounded batch output
+PORT_0025,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,no,no,completed,,human review PORT final bounded batch output

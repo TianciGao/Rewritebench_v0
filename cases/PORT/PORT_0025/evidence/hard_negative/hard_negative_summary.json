@@ -1,0 +1,8 @@
+{
+  "case_id": "PORT_0025",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "order_direction_boundary_changed",
+  "negative_summary": "The hard negative flips the amount ordering from descending to ascending, changing the selected top-1 account.",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "db_validation_run": false
+}

@@ -1,0 +1,6 @@
+case_id: PORT_0004
+pool: PORT
+data_scope: witness_only
+fixtures_public: true
+new_data_created: false
+db_validation_run: false

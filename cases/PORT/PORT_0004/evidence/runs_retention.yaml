@@ -1,890 +1,344 @@
 case_id: PORT_0004
 pool: PORT
 policy_version: runs_retention_policy_v1
-status: copy_first_full_case_migration_pilot
+status: canonical_full_case_migration_batch_pilot
+batch_id: port_final_bounded_batch
+canonical_full_case_migration:
+  status: canonical_full_case_migration_batch_pilot
+  batch_id: port_final_bounded_batch
+  full_case_package_migrated: true
+  full_case_package_migration_scope: PORT_0004_only
+  canonical_layout_tested: true
 full_case_package_migrated: true
 full_case_package_migration_scope: PORT_0004_only
+legacy_runs_root: cases/PORT/PORT_0004/runs/
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/PORT/PORT_0004
+public_release_case_path: cases/PORT/PORT_0004
 denominator_changed: false
 paper_results_changed: false
 common_core_membership_changed: false
 raw_legacy_evidence_changed: false
-legacy_runs_root: cases/PORT/PORT_0004/runs/
-original_legacy_case_path: cases/PORT/PORT_0004
-public_release_case_path: cases/PORT/PORT_0004
-generated_from_audit:
-  audit_name: PORT_0004_copy_first_full_case_migration_pilot
-  generated_date: '2026-05-15'
-  preview_source: audits/port_manual_review_resolution/previews/PORT_0004_runs_retention_preview.yaml
-  copy_policy: copy_first_legacy_compatible_layout
+cross_engine_result_created: false
+speedup_transfer_claim_created: false
+full_port9_claim_created: false
+db_validation_run: false
+evidence_regenerated: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: true
+  raw_spark_plan_files_copied_to_public_tree: false
+  raw_spark_plan_files_retained_through_mapping: true
+  raw_stdout_stderr_logs_copied_to_public_tree: false
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
 retained_control_evidence:
-- original_legacy_path: cases/PORT/PORT_0004/rewrite_pos_01.sql
-  public_release_path: cases/PORT/PORT_0004/rewrite_pos_01.sql
-  sha256_legacy_source: e7bdc52644b7f8ef9462576e828ca97514ba88763bae5522a1c3af88a7f01442
-  sha256_public_copy: e7bdc52644b7f8ef9462576e828ca97514ba88763bae5522a1c3af88a7f01442
-  sha256_matches_source: true
-  evidence_role: source / positive / negative SQL evidence
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
+- &id001
+  original_legacy_path: cases/PORT/PORT_0004/runs/result_check.json
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/rewrite_pos_02_spark.sql
-  public_release_path: cases/PORT/PORT_0004/rewrite_pos_02_spark.sql
-  sha256_legacy_source: 6212df44fe6d01d7d98afa7071f35767b789687899e30fb301843cf8cd14435b
-  sha256_public_copy: 6212df44fe6d01d7d98afa7071f35767b789687899e30fb301843cf8cd14435b
-  sha256_matches_source: true
-  evidence_role: source / positive / negative SQL evidence
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: control validation summary
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_controls/result_check.json
+  original_sha256: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
+  public_copy_sha256: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
+- &id002
+  original_legacy_path: cases/PORT/PORT_0004/runs/mysql/source.tsv
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/mysql/source.tsv
-  public_release_path: cases/PORT/PORT_0004/runs/mysql/source.tsv
-  sha256_legacy_source: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
-  sha256_public_copy: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
-  sha256_matches_source: true
-  evidence_role: source / positive / negative execution evidence
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: MySQL source/reference output
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_controls/mysql/source.tsv
+  original_sha256: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
+  public_copy_sha256: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
+- &id003
+  original_legacy_path: cases/PORT/PORT_0004/runs/pg/rewrite_pos_01.tsv
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/pg/rewrite_pos_01.tsv
-  public_release_path: cases/PORT/PORT_0004/runs/pg/rewrite_pos_01.tsv
-  sha256_legacy_source: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
-  sha256_public_copy: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
-  sha256_matches_source: true
-  evidence_role: source / positive / negative execution evidence
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: PostgreSQL positive rewrite output
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_controls/postgres/rewrite_pos_01.tsv
+  original_sha256: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
+  public_copy_sha256: 7ea9844ae84eccbf55e8330640865e36c43521e45a1baec24233327aab7e6595
+- &id004
+  original_legacy_path: cases/PORT/PORT_0004/runs/spark/rewrite_pos_02_spark.tsv
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/result_check.json
-  public_release_path: cases/PORT/PORT_0004/runs/result_check.json
-  sha256_legacy_source: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
-  sha256_public_copy: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
-  sha256_matches_source: true
-  evidence_role: control_validation
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/rewrite_pos_02_spark.tsv
-  public_release_path: cases/PORT/PORT_0004/runs/spark/rewrite_pos_02_spark.tsv
-  sha256_legacy_source: d6df3c6df1b1d214bd58952eea9efc77ce7d9855d5ceaeb6f37c7ba07e0fbdcc
-  sha256_public_copy: d6df3c6df1b1d214bd58952eea9efc77ce7d9855d5ceaeb6f37c7ba07e0fbdcc
-  sha256_matches_source: true
-  evidence_role: source / positive / negative execution evidence
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/source.sql
-  public_release_path: cases/PORT/PORT_0004/source.sql
-  sha256_legacy_source: 8eaee79c200631c489eda66c6aee80fe8b12cb249ba349281302940c7a62151f
-  sha256_public_copy: 8eaee79c200631c489eda66c6aee80fe8b12cb249ba349281302940c7a62151f
-  sha256_matches_source: true
-  evidence_role: source / positive / negative SQL evidence
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
+  evidence_role: Spark positive rewrite output
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+  original_sha256: d6df3c6df1b1d214bd58952eea9efc77ce7d9855d5ceaeb6f37c7ba07e0fbdcc
+  public_copy_sha256: d6df3c6df1b1d214bd58952eea9efc77ce7d9855d5ceaeb6f37c7ba07e0fbdcc
 retained_plan_evidence:
-- original_legacy_path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
-  public_release_path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
-  sha256_legacy_source: c7b0082ac58b2f49c68b313d2aba5e2a423f21f86868cd954f696010c383a4c2
-  sha256_public_copy: c7b0082ac58b2f49c68b313d2aba5e2a423f21f86868cd954f696010c383a4c2
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
+- &id005
+  original_legacy_path: cases/PORT/PORT_0004/runs/plan_check.json
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
-  public_release_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
-  sha256_legacy_source: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
-  sha256_public_copy: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
-  sha256_matches_source: true
-  evidence_role: hard-negative rejection evidence; plan/failure observability
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: plan artifact presence summary
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/plan_check.json
+  original_sha256: ed79e9adf4788c8fa38d26fe6bb994cf57cf61bc7218a1561c6d92a4261b1553
+  public_copy_sha256: ed79e9adf4788c8fa38d26fe6bb994cf57cf61bc7218a1561c6d92a4261b1553
+- &id006
+  original_legacy_path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
-  public_release_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
-  sha256_legacy_source: d6364a5754074ece5ca123417f92e07ddfa503a83f9bac2966c2644d0e1d5634
-  sha256_public_copy: d6364a5754074ece5ca123417f92e07ddfa503a83f9bac2966c2644d0e1d5634
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: MySQL source plan
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/mysql/source.json
+  original_sha256: c7b0082ac58b2f49c68b313d2aba5e2a423f21f86868cd954f696010c383a4c2
+  public_copy_sha256: c7b0082ac58b2f49c68b313d2aba5e2a423f21f86868cd954f696010c383a4c2
+- &id007
+  original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/plan_check.json
-  public_release_path: cases/PORT/PORT_0004/runs/plan_check.json
-  sha256_legacy_source: ed79e9adf4788c8fa38d26fe6bb994cf57cf61bc7218a1561c6d92a4261b1553
-  sha256_public_copy: ed79e9adf4788c8fa38d26fe6bb994cf57cf61bc7218a1561c6d92a4261b1553
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: PostgreSQL positive plan
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/postgres/rewrite_pos_01.json
+  original_sha256: d6364a5754074ece5ca123417f92e07ddfa503a83f9bac2966c2644d0e1d5634
+  public_copy_sha256: d6364a5754074ece5ca123417f92e07ddfa503a83f9bac2966c2644d0e1d5634
+- &id008
+  original_legacy_path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  sha256_legacy_source: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  sha256_public_copy: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  sha256_matches_source: false
-  evidence_role: hard-negative rejection evidence; plan/failure observability
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
+  evidence_role: PostgreSQL hard-negative plan
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/postgres/rewrite_neg_01.json
+  original_sha256: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
+  public_copy_sha256: 19a9621375881bd1b181775c6669ae0abae7d89510f4c55ab5dc3c1009d550cb
+- &id009
+  original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  archive_policy: retain original in legacy repo; do not publish raw local temporary
-    path
-  notes: Release-repo run-plan copy sanitized in place; canonical retained-plan copy
-    also created.
-  canonical_sanitized_public_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
-  release_copy_status: sanitized_public_release_copy
-  raw_release_copy_replaced_in_place: true
-  derived_from_release_copy: true
-  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  canonical_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  sanitized_fields:
-  - local temporary path URI
-  raw_legacy_evidence_changed: false
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  sha256_legacy_source: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  sha256_public_copy: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  sha256_matches_source: false
-  evidence_role: positive rewrite plan evidence; plan/failure observability
-  risk_categories: []
   public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; do not publish raw local temporary
-    path
-  notes: Release-repo run-plan copy sanitized in place; canonical retained-plan copy
-    also created.
-  canonical_sanitized_public_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
-  release_copy_status: sanitized_public_release_copy
-  raw_release_copy_replaced_in_place: true
-  derived_from_release_copy: true
-  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  canonical_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  sanitized_fields:
-  - local temporary path URI
-  raw_legacy_evidence_changed: false
-- original_legacy_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
-  public_release_path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
-  sha256_legacy_source: 0372e61b7a0df9cfd8d004f987c5332cc4541451eda539b4c1b023c9036ba261
-  sha256_public_copy: 0372e61b7a0df9cfd8d004f987c5332cc4541451eda539b4c1b023c9036ba261
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
-  public_release_path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
-  sha256_legacy_source: d4a8d4de52bcce8ced8032033ed6b4b7915939dce1e320f337f388e8e8c337f4
-  sha256_public_copy: d4a8d4de52bcce8ced8032033ed6b4b7915939dce1e320f337f388e8e8c337f4
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
-  public_release_path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
-  sha256_legacy_source: 10a5df66b5892a6d2096e44b512674b2d627e35e98d5f00ef1a1a793f8a66916
-  sha256_public_copy: 10a5df66b5892a6d2096e44b512674b2d627e35e98d5f00ef1a1a793f8a66916
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
-  public_release_path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
-  sha256_legacy_source: e6e22fd341f109a9a4f3120b6fd932210018fe7f4cb8a61c1668905d587e6359
-  sha256_public_copy: e6e22fd341f109a9a4f3120b6fd932210018fe7f4cb8a61c1668905d587e6359
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
-  public_release_path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
-  sha256_legacy_source: 2b64c0a2d802fbdc222d615a0be09f757ce9fbc8e412faa0e97446640250b8d7
-  sha256_public_copy: 2b64c0a2d802fbdc222d615a0be09f757ce9fbc8e412faa0e97446640250b8d7
-  sha256_matches_source: true
-  evidence_role: plan/failure observability
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-hard_negative_evidence:
-- original_legacy_path: cases/PORT/PORT_0004/rewrite_neg_01.sql
-  public_release_path: cases/PORT/PORT_0004/rewrite_neg_01.sql
-  sha256_legacy_source: 93ccf98e78feb2f4053298e51343e0fde1548bb189589cfabe6ca4a4ec9f62ef
-  sha256_public_copy: 93ccf98e78feb2f4053298e51343e0fde1548bb189589cfabe6ca4a4ec9f62ef
-  sha256_matches_source: true
-  evidence_role: hard-negative SQL control
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/rewrite_neg_02_spark.sql
-  public_release_path: cases/PORT/PORT_0004/rewrite_neg_02_spark.sql
-  sha256_legacy_source: 649c9e41978c2f9d197b216d99048416c9d189e3b78b2aec8aa4afdf1a397a7e
-  sha256_public_copy: 649c9e41978c2f9d197b216d99048416c9d189e3b78b2aec8aa4afdf1a397a7e
-  sha256_matches_source: true
-  evidence_role: hard-negative SQL control
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/pg/rewrite_neg_01.tsv
-  public_release_path: cases/PORT/PORT_0004/runs/pg/rewrite_neg_01.tsv
-  sha256_legacy_source: eea8254c7500ba3de996aa8ad6af399183f04e17d4a8102fde539dbc93a90012
-  sha256_public_copy: eea8254c7500ba3de996aa8ad6af399183f04e17d4a8102fde539dbc93a90012
-  sha256_matches_source: true
-  evidence_role: hard-negative execution evidence
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/rewrite_neg_02_spark.tsv
-  public_release_path: cases/PORT/PORT_0004/runs/spark/rewrite_neg_02_spark.tsv
-  sha256_legacy_source: a8497d5e57085a8a32f2d3a9ead03d410991504afc34159db97bb0c39c5d683a
-  sha256_public_copy: a8497d5e57085a8a32f2d3a9ead03d410991504afc34159db97bb0c39c5d683a
-  sha256_matches_source: true
-  evidence_role: hard-negative execution evidence
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-schema_data_context:
-- original_legacy_path: cases/PORT/PORT_0004/data/README.md
-  public_release_path: cases/PORT/PORT_0004/data/README.md
-  sha256_legacy_source: df669f756d2880544c7be3fa6c17ca3350a359668f8aeadd66b34418b4a0f004
-  sha256_public_copy: df669f756d2880544c7be3fa6c17ca3350a359668f8aeadd66b34418b4a0f004
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/data/witness_rows.yaml
-  public_release_path: cases/PORT/PORT_0004/data/witness_rows.yaml
-  sha256_legacy_source: 06f7645c88fad738c31be67b876b587e1f0acb30483ec33620feafc12f3a31b3
-  sha256_public_copy: 06f7645c88fad738c31be67b876b587e1f0acb30483ec33620feafc12f3a31b3
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/schema/ddl_mysql.sql
-  public_release_path: cases/PORT/PORT_0004/schema/ddl_mysql.sql
-  sha256_legacy_source: 8d7ecbee93528e6426c13571ce179cb51729d87d85f13125902c424b6a03604d
-  sha256_public_copy: 8d7ecbee93528e6426c13571ce179cb51729d87d85f13125902c424b6a03604d
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/schema/ddl_pg.sql
-  public_release_path: cases/PORT/PORT_0004/schema/ddl_pg.sql
-  sha256_legacy_source: d7be54e725f6608aced6470f8bee4fd607947934e8b12cdf5fd0cb2b12a778af
-  sha256_public_copy: d7be54e725f6608aced6470f8bee4fd607947934e8b12cdf5fd0cb2b12a778af
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/schema/ddl_spark.sql
-  public_release_path: cases/PORT/PORT_0004/schema/ddl_spark.sql
-  sha256_legacy_source: 934528de32ae0b529709b9f42eaa60454b1e37bac9d3b08577bcf8842a689adb
-  sha256_public_copy: 934528de32ae0b529709b9f42eaa60454b1e37bac9d3b08577bcf8842a689adb
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/load_witness_mysql.sql
-  public_release_path: cases/PORT/PORT_0004/validation/load_witness_mysql.sql
-  sha256_legacy_source: 986cd05cca59035fc7ee45575cd1558078532c8becc5d78e0c2a095ecdd7401f
-  sha256_public_copy: 986cd05cca59035fc7ee45575cd1558078532c8becc5d78e0c2a095ecdd7401f
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/load_witness_pg.sql
-  public_release_path: cases/PORT/PORT_0004/validation/load_witness_pg.sql
-  sha256_legacy_source: b965bca1accd9e7c06d8809c0eaa56ec6d1966a594e20b88552bd59e52e4f17f
-  sha256_public_copy: b965bca1accd9e7c06d8809c0eaa56ec6d1966a594e20b88552bd59e52e4f17f
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/load_witness_spark.sql
-  public_release_path: cases/PORT/PORT_0004/validation/load_witness_spark.sql
-  sha256_legacy_source: 3d9bb29a27f55398e943c837be4b010a2c7dc1eb99bdcab7b1d9ff0ab9f4cee2
-  sha256_public_copy: 3d9bb29a27f55398e943c837be4b010a2c7dc1eb99bdcab7b1d9ff0ab9f4cee2
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/mysql_witness_data.sql
-  public_release_path: cases/PORT/PORT_0004/validation/mysql_witness_data.sql
-  sha256_legacy_source: 44323af80c3fe93564b99342069d2ea8203515fc4cfeaf6337c073660c25f83a
-  sha256_public_copy: 44323af80c3fe93564b99342069d2ea8203515fc4cfeaf6337c073660c25f83a
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/spark_witness_data.sql
-  public_release_path: cases/PORT/PORT_0004/validation/spark_witness_data.sql
-  sha256_legacy_source: 388bfc70b5578516d24a2a0e8c64a1922e9cf72a0d6a842fc29048d71dd02b29
-  sha256_public_copy: 388bfc70b5578516d24a2a0e8c64a1922e9cf72a0d6a842fc29048d71dd02b29
-  sha256_matches_source: true
-  evidence_role: schema/data context
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-validation_scripts:
-- original_legacy_path: cases/PORT/PORT_0004/validation/README.md
-  public_release_path: cases/PORT/PORT_0004/validation/README.md
-  sha256_legacy_source: ce536f1cc820249c22b2a45915801a279802d9644172bb3581465f0dcbae7b3e
-  sha256_public_copy: ce536f1cc820249c22b2a45915801a279802d9644172bb3581465f0dcbae7b3e
-  sha256_matches_source: true
-  evidence_role: validation script or validation support
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
-  public_release_path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
-  sha256_legacy_source: 7fafb81eff9d572034c7cb72233f830f97a3def3a0dd19f1908a4ea9fd748496
-  sha256_public_copy: 7fafb81eff9d572034c7cb72233f830f97a3def3a0dd19f1908a4ea9fd748496
-  sha256_matches_source: true
-  evidence_role: validation script or validation support
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/run_pg_validation.sh
-  public_release_path: cases/PORT/PORT_0004/validation/run_pg_validation.sh
-  sha256_legacy_source: dd71b8352cb807a6f621c4094f03f1aa508273c01d9e171a8c75007120595767
-  sha256_public_copy: dd71b8352cb807a6f621c4094f03f1aa508273c01d9e171a8c75007120595767
-  sha256_matches_source: true
-  evidence_role: validation script or validation support
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
-  public_release_path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
-  sha256_legacy_source: 89775d2e594c0d1551ea717397835cf020f679600855dfaf5ef54916efbf4bac
-  sha256_public_copy: 89775d2e594c0d1551ea717397835cf020f679600855dfaf5ef54916efbf4bac
-  sha256_matches_source: true
-  evidence_role: validation script or validation support
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-checker_normalization:
-- original_legacy_path: cases/PORT/PORT_0004/validation/check_results.py
-  public_release_path: cases/PORT/PORT_0004/validation/check_results.py
-  sha256_legacy_source: 1ed82c0b7db0c5759cde26e2f09337bcb8fe06ee5e1a2179e63ef33d7e74f97c
-  sha256_public_copy: 1ed82c0b7db0c5759cde26e2f09337bcb8fe06ee5e1a2179e63ef33d7e74f97c
-  sha256_matches_source: true
-  evidence_role: checker / normalization
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/validation/checker.yaml
-  public_release_path: cases/PORT/PORT_0004/validation/checker.yaml
-  sha256_legacy_source: 5ef72e9981af50ead7e056f456e80531dd6d24c66be9a6208c82815901c3db44
-  sha256_public_copy: 5ef72e9981af50ead7e056f456e80531dd6d24c66be9a6208c82815901c3db44
-  sha256_matches_source: true
-  evidence_role: checker / normalization
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-provenance:
-- original_legacy_path: cases/PORT/PORT_0004/README.md
-  public_release_path: cases/PORT/PORT_0004/README.md
-  sha256_legacy_source: b2473799f62d359265eca46f3de5fae18278f9abb415aea49b7ab74ba45dd2a5
-  sha256_public_copy: b2473799f62d359265eca46f3de5fae18278f9abb415aea49b7ab74ba45dd2a5
-  sha256_matches_source: true
-  evidence_role: notes/provenance/release metadata
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/provenance/parrot_source_record.json
-  public_release_path: cases/PORT/PORT_0004/provenance/parrot_source_record.json
-  sha256_legacy_source: cb02f0c2a1cb6b8d86d8d9379978eec7762cef21c51131241c39086f5f090b4c
-  sha256_public_copy: cb02f0c2a1cb6b8d86d8d9379978eec7762cef21c51131241c39086f5f090b4c
-  sha256_matches_source: true
-  evidence_role: provenance
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/provenance/provenance_notes.txt
-  public_release_path: cases/PORT/PORT_0004/provenance/provenance_notes.txt
-  sha256_legacy_source: 28064ae985a37ffac19f5c2b420cc86d3bbca9ad7a76513fecc091de4000b449
-  sha256_public_copy: 28064ae985a37ffac19f5c2b420cc86d3bbca9ad7a76513fecc091de4000b449
-  sha256_matches_source: true
-  evidence_role: provenance
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/risk_notes.md
-  public_release_path: cases/PORT/PORT_0004/risk_notes.md
-  sha256_legacy_source: 0ae3f6df044dde4a5d36130f16c080b6cc8b6eed09058b08bcdcc969e5525764
-  sha256_public_copy: 0ae3f6df044dde4a5d36130f16c080b6cc8b6eed09058b08bcdcc969e5525764
-  sha256_matches_source: true
-  evidence_role: notes/provenance/release metadata
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-- original_legacy_path: cases/PORT/PORT_0004/witness_design_notes.md
-  public_release_path: cases/PORT/PORT_0004/witness_design_notes.md
-  sha256_legacy_source: 42429bac005fca60bbbd915d777efd21e383b530cc847c8677ee5f18bf57a440
-  sha256_public_copy: 42429bac005fca60bbbd915d777efd21e383b530cc847c8677ee5f18bf57a440
-  sha256_matches_source: true
-  evidence_role: notes/provenance/release metadata
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-taxonomy:
-- original_legacy_path: cases/PORT/PORT_0004/taxonomy_trial_v0.3.yaml
-  public_release_path: cases/PORT/PORT_0004/taxonomy_trial_v0.3.yaml
-  sha256_legacy_source: e330dacc2c41ca2da52f4633fecd7c4f5acdf303558cb008b4a3f01b727db7d9
-  sha256_public_copy: e330dacc2c41ca2da52f4633fecd7c4f5acdf303558cb008b4a3f01b727db7d9
-  sha256_matches_source: true
-  evidence_role: taxonomy tags
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
-sanitizable_public_evidence: []
-sanitized_public_copies:
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  source_release_copy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  public_copy_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
-  derived_from_release_copy: true
-  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  canonical_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  evidence_role: hard-negative rejection evidence; plan/failure observability
-  risk_categories:
-  - local temporary path trace removed
-  sanitized_fields:
-  - local temporary path URI
-  public_safe: true
-  do_not_delete_original: true
-  raw_legacy_evidence_changed: false
-  archive_policy: retain original in legacy repo; publish sanitized retained plan
-    evidence only
-  notes: Canonical sanitized retained plan evidence created from the release-repo
-    copied artifact.
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  source_release_copy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  public_copy_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
-  derived_from_release_copy: true
+  evidence_role: Spark positive plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
   original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  canonical_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  evidence_role: positive rewrite plan evidence; plan/failure observability
-  risk_categories:
-  - local temporary path trace removed
+  public_copy_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
   sanitized_fields:
-  - local temporary path URI
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+- &id010
+  original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
   public_safe: true
+  evidence_role: Spark hard-negative plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
+  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  public_copy_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+hard_negative_evidence:
+- original_legacy_path: cases/PORT/PORT_0004/runs/pg/rewrite_neg_01.tsv
+  archive_policy: do_not_delete_before_mapping_review
   do_not_delete_original: true
-  raw_legacy_evidence_changed: false
-  archive_policy: retain original in legacy repo; publish sanitized retained plan
-    evidence only
-  notes: Canonical sanitized retained plan evidence created from the release-repo
-    copied artifact.
-private_or_original_archive: []
-external_archive_references: []
-manual_review:
-  required: false
-  items: []
+  public_safe: true
+  evidence_role: PostgreSQL hard-negative output divergence evidence
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/hard_negative/postgres/rewrite_neg_01.tsv
+  original_sha256: eea8254c7500ba3de996aa8ad6af399183f04e17d4a8102fde539dbc93a90012
+  public_copy_sha256: eea8254c7500ba3de996aa8ad6af399183f04e17d4a8102fde539dbc93a90012
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/rewrite_neg_02_spark.tsv
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: Spark hard-negative output divergence evidence
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
+  original_sha256: a8497d5e57085a8a32f2d3a9ead03d410991504afc34159db97bb0c39c5d683a
+  public_copy_sha256: a8497d5e57085a8a32f2d3a9ead03d410991504afc34159db97bb0c39c5d683a
+- original_legacy_path: cases/PORT/PORT_0004/runs/result_check.json
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: hard-negative checker result summary
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_controls/result_check.json
+  original_sha256: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
+  public_copy_sha256: 3c8d6d91e02610de3e36d8712855f13bf9b1e1bdfba2af60bb37e0fde7b3b29f
+portability_evidence:
+- *id001
+- *id002
+- *id003
+- *id004
+- *id005
+- *id006
+- *id007
+- *id008
+- *id009
+- *id010
+checker_normalization:
+- public_release_path: cases/PORT/PORT_0004/checker/normalization.yaml
+  evidence_role: result normalization config
+  public_safe: true
+schema_data_context:
+- public_release_path: cases/PORT/PORT_0004/schema/schema_profile.yaml
+  evidence_role: schema/data context
+  public_safe: true
+validation_scripts:
+- original_legacy_path: cases/PORT/PORT_0004/validation/run_pg_validation.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained validation asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_postgres_validation.sh
+  original_sha256: dd71b8352cb807a6f621c4094f03f1aa508273c01d9e171a8c75007120595767
+  public_copy_sha256: 9a833df4e3fac5314fcb7c6181a5ecca0c4977c561570a20f292132869b328b4
+- original_legacy_path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained validation asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
+  original_sha256: 7fafb81eff9d572034c7cb72233f830f97a3def3a0dd19f1908a4ea9fd748496
+  public_copy_sha256: d267dd41f78b4af7d5fdfb9bf0dfd40cfe47520dbd44b8be6b69a819427b5e6c
+- original_legacy_path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained validation asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
+  original_sha256: 89775d2e594c0d1551ea717397835cf020f679600855dfaf5ef54916efbf4bac
+  public_copy_sha256: 0253070c451bdcd12294c7e277adedd956eb5b31ddfc035ebd57e055f3706a24
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained plan-collection asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_postgres_plan_collection.sh
+  original_sha256: e6e22fd341f109a9a4f3120b6fd932210018fe7f4cb8a61c1668905d587e6359
+  public_copy_sha256: a9bd50efbcf5cfce61aaadda86efea88560462f7c7232b8a1d02356edad49419
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained plan-collection asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_mysql_plan_collection.sh
+  original_sha256: 10a5df66b5892a6d2096e44b512674b2d627e35e98d5f00ef1a1a793f8a66916
+  public_copy_sha256: c482bc9644afe9775361e42e554cd9669c619f9e4615db4433055d604174fba6
+- original_legacy_path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: retained plan-collection asset
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/validation/run_spark_plan_collection.sh
+  original_sha256: 2b64c0a2d802fbdc222d615a0be09f757ce9fbc8e412faa0e97446640250b8d7
+  public_copy_sha256: 360b6f818097b8cb4795b441740cc969c58e6c0251e24748f03a77af0328eeb7
+provenance:
+- public_release_path: cases/PORT/PORT_0004/metadata/provenance.yaml
+  evidence_role: source provenance metadata
+  public_safe: true
+taxonomy:
+- public_release_path: cases/PORT/PORT_0004/metadata/taxonomy.yaml
+  evidence_role: case taxonomy metadata
+  public_safe: true
+sanitizable_public_evidence:
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: false
+  evidence_role: Spark positive plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
+  original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  public_copy_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: false
+  evidence_role: Spark hard-negative plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
+  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  public_copy_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+sanitized_public_copies:
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: Spark positive plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_pos_02_spark.sanitized.txt
+  original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
+  public_copy_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
+  sanitized_fields:
+  - local temporary path
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  archive_policy: do_not_delete_before_mapping_review
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: Spark hard-negative plan observability
+  notes: mapped retained evidence
+  public_release_path: cases/PORT/PORT_0004/evidence/retained_plans/rewrite_neg_02_spark.sanitized.txt
+  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
+  public_copy_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
+  sanitized_fields:
+  - local temporary path
+private_or_original_archive:
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  archive_policy: private_archive_only_or_legacy_do_not_delete
+  do_not_delete_original: true
+  public_safe: false
+  evidence_role: raw Spark positive plan original
+  notes: mapped retained evidence
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  archive_policy: private_archive_only_or_legacy_do_not_delete
+  do_not_delete_original: true
+  public_safe: false
+  evidence_role: raw Spark hard-negative plan original
+  notes: mapped retained evidence
 do_not_delete:
-- path: cases/PORT/PORT_0004/
-  reason: copy-first full case migration pilot case root
-- path: cases/PORT/PORT_0004/runs/
-  reason: legacy retained evidence root
-- path: cases/PORT/PORT_0004/README.md
-  reason: notes/provenance/release metadata
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
+  reason: raw original remains mapped outside public retained evidence
   do_not_delete_original: true
-- path: cases/PORT/PORT_0004/data/README.md
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/data/witness_rows.yaml
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/manifest.yaml
-  reason: case manifest and traceability metadata
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/provenance/parrot_source_record.json
-  reason: provenance
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/provenance/provenance_notes.txt
-  reason: provenance
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/rewrite_neg_01.sql
-  reason: hard-negative SQL control
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/rewrite_neg_02_spark.sql
-  reason: hard-negative SQL control
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/rewrite_pos_01.sql
-  reason: source / positive / negative SQL evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/rewrite_pos_02_spark.sql
-  reason: source / positive / negative SQL evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/risk_notes.md
-  reason: notes/provenance/release metadata
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/mysql/plans/source.json
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/mysql/source.tsv
-  reason: source / positive / negative execution evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_neg_01.json
-  reason: hard-negative rejection evidence; plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/pg/plans/rewrite_pos_01.json
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/pg/rewrite_neg_01.tsv
-  reason: hard-negative execution evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/pg/rewrite_pos_01.tsv
-  reason: source / positive / negative execution evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/plan_check.json
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/result_check.json
-  reason: control_validation
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  reason: hard-negative rejection evidence; plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/spark/rewrite_neg_02_spark.tsv
-  reason: hard-negative execution evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/runs/spark/rewrite_pos_02_spark.tsv
-  reason: source / positive / negative execution evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/schema/ddl_mysql.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/schema/ddl_pg.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/schema/ddl_spark.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/source.sql
-  reason: source / positive / negative SQL evidence
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/taxonomy_trial_v0.3.yaml
-  reason: taxonomy tags
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/PLAN_COLLECTION_README.md
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/README.md
-  reason: validation script or validation support
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/check_plan_artifacts.py
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/check_results.py
-  reason: checker / normalization
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/checker.yaml
-  reason: checker / normalization
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/collect_mysql_plans.sh
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/collect_pg_plans.sh
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/collect_spark_plans.sh
-  reason: plan/failure observability
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/load_witness_mysql.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/load_witness_pg.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/load_witness_spark.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/mysql_witness_data.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/run_mysql_validation.sh
-  reason: validation script or validation support
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/run_pg_validation.sh
-  reason: validation script or validation support
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/run_spark_validation.sh
-  reason: validation script or validation support
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/validation/spark_witness_data.sql
-  reason: schema/data context
-  do_not_delete_original: true
-- path: cases/PORT/PORT_0004/witness_design_notes.md
-  reason: notes/provenance/release metadata
+- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
+  reason: raw original remains mapped outside public retained evidence
   do_not_delete_original: true
 static_references:
-- artifact_path: cases/PORT/PORT_0004/manifest.yaml
-  referenced_from: case package root
-  reference_type: primary_case_index
-  risk_if_moved: case traceability would break without mapping
-- artifact_path: cases/PORT/PORT_0004/evidence/runs_retention.yaml
-  referenced_from: migration pilot
-  reference_type: evidence_retention_index
-  risk_if_moved: retained evidence mapping would be harder to audit
-- original_legacy_path: cases/PORT/PORT_0004/manifest.yaml
-  public_release_path: cases/PORT/PORT_0004/manifest.yaml
-  sha256_legacy_source: 71721862de5bda810f667b2b29c48a0ea253b303672936b250ea31f4aa4d8717
-  sha256_public_copy: 71721862de5bda810f667b2b29c48a0ea253b303672936b250ea31f4aa4d8717
-  sha256_matches_source: true
-  evidence_role: case manifest and traceability metadata
-  risk_categories: []
-  public_safe: true
-  manual_review_required: false
-  do_not_delete_original: true
-  archive_policy: retain original in legacy repo; copied public-safe evidence in release
-    repo
-  notes: copied byte-for-byte from legacy source
+  canonical_pattern: cases/PORT/PORT_0008
+  readiness_audit: audits/common_core40_batch_readiness/common_core40_case_readiness_matrix.csv
+  formal_evidence_pilot: audits/full_case_migration_pilots/PORT_0004_full_case_migration_pilot.md
 public_release_notes:
   full_case_package_migrated: true
-  full_case_package_migration_scope: PORT_0004_only
-  pilot_validation_status: pilot_complete_validator_v0_2_passed_after_hygiene_fix
+  canonical_full_case_package_migrated: true
+  canonical_layout_tested: true
   denominator_changed: false
   paper_results_changed: false
   common_core_membership_changed: false
   raw_legacy_evidence_changed: false
-  common_core_40_migration_started: false
-  no_global_leaderboard_introduced: true
-  db_engines_run: false
+  cross_engine_result_created: false
+  speedup_transfer_claim_created: false
+  full_port9_claim_created: false
+  db_validation_run: false
   evidence_regenerated: false
-  public_hygiene_scan: passed_after_sanitizing_release_repo_spark_plan_copies
+  no_global_leaderboard: true
+  notes: Historical evidence-pilot fields are retained where applicable so the evidence-pilot
+    regression gate remains stable after canonical migration.
 human_approval:
-  formal_pilot: approved_for_PORT_0004_hygiene_fix
-  full_case_migration: pilot_complete_validator_v0_2_passed
-  manual_review_required_before_public_safe_completion: false
-hygiene_fix:
-  status: completed_validator_v0_2_passed
-  date: '2026-05-16'
-  strategy: release_repo_spark_plan_copies_sanitized_in_place_and_canonical_retained_plan_copies_created
-  legacy_repo_modified: false
-  raw_legacy_evidence_changed: false
-original_legacy_artifacts:
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  do_not_delete_original: true
-  raw_legacy_evidence_changed: false
-  archive_policy: retain original in legacy repo; do not publish raw local temporary
-    path
-  original_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  evidence_role: hard-negative rejection evidence; plan/failure observability
-- original_legacy_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  do_not_delete_original: true
-  raw_legacy_evidence_changed: false
-  archive_policy: retain original in legacy repo; do not publish raw local temporary
-    path
-  original_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  evidence_role: positive rewrite plan evidence; plan/failure observability
-release_repo_copied_artifacts:
-- public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_neg_02_spark.txt
-  current_status: sanitized_public_release_copy
-  raw_release_copy_replaced_in_place: true
-  derived_from_release_copy: true
-  release_raw_before_sha256: 09579d82601b10ca6a3fd109efe1b053fa7ced9378543f3e3e8f7a309e4ece96
-  release_sanitized_sha256: 300a600e28245e0ad21d6e68c332f3c402d2a958fb70d38ab5d8cc09ea16c8cd
-  public_safe: true
-  sanitized_fields:
-  - local temporary path URI
-  notes: This release-repo run-plan copy is sanitized content, not the raw legacy
-    artifact.
-- public_release_path: cases/PORT/PORT_0004/runs/spark/plans/rewrite_pos_02_spark.txt
-  current_status: sanitized_public_release_copy
-  raw_release_copy_replaced_in_place: true
-  derived_from_release_copy: true
-  release_raw_before_sha256: e1f315df10a95eb21b61c205fec56f93d592a433830a09eaa82965e3e223aad1
-  release_sanitized_sha256: c55fd557bded085fe90695c1a6f49d28898b13f8f76c73a62ae19d9cddee9a04
-  public_safe: true
-  sanitized_fields:
-  - local temporary path URI
-  notes: This release-repo run-plan copy is sanitized content, not the raw legacy
-    artifact.
+  formal_pilot: not_applicable
+  full_case_migration: approved_for_bounded_canonical_batch
+  hard_negative_reason: static_inference_needs_review_if_not_explicit_in_legacy

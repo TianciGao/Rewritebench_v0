@@ -1,0 +1,6 @@
+case_id: PORT_0025
+pool: PORT
+source_reference_output: evidence/retained_controls/mysql/source.tsv
+positive_outputs_must_match_reference: true
+hard_negative_outputs_must_diverge: true
+db_validation_run: false

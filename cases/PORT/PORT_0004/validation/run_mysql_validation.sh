@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Retained legacy validation asset; not executed during public-release migration.
+# Future public runner outputs must not write to case-local runs/ by default.
 set -euo pipefail
 
 CASE_ID="PORT_0004"
@@ -33,8 +35,8 @@ mkdir -p "${RUN_DIR}"
 
 {
   printf 'use `%s`;\n' "${MYSQL_DATABASE}"
-  cat "${CASE_DIR}/schema/ddl_mysql.sql"
-  cat "${CASE_DIR}/validation/load_witness_mysql.sql"
+  cat "${CASE_DIR}/schema/mysql/ddl.sql"
+  cat "${CASE_DIR}/schema/mysql/load.sql"
 } | mysql_cmd --batch --raw --skip-column-names >/dev/null
 
 run_query() {
@@ -46,7 +48,7 @@ run_query() {
   } | mysql_cmd --batch --raw --skip-column-names > "${out_file}"
 }
 
-run_query "${CASE_DIR}/source.sql" "${RUN_DIR}/source.tsv"
+run_query "${CASE_DIR}/sql/source.sql" "${RUN_DIR}/source.tsv"
 
 # PORT_0004 treats MySQL as the source-reference engine. There is no
 # MySQL-target positive rewrite artifact in this case package, so the MySQL

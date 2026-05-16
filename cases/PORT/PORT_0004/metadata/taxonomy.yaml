@@ -1,0 +1,14 @@
+case_id: PORT_0004
+pool: PORT
+primary_pool: portability
+portability_focus:
+- identifier_quoting
+- datetime_semantics_gap
+- type_semantics_gap
+semantic_risk_type:
+- date_filter_semantics
+- literal_predicate_boundary
+- result_set_semantics
+rewrite_opportunity:
+- dialect_adaptation
+claim_boundary: no new cross-engine result created by migration

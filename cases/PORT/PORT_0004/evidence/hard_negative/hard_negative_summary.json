@@ -1,0 +1,8 @@
+{
+  "case_id": "PORT_0004",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "year_filter_literal_changed",
+  "negative_summary": "The hard negative changes the year literal from 1980 to 1981, changing the filtered patient cohort.",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "db_validation_run": false
+}

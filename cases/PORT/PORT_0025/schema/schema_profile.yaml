@@ -1,0 +1,15 @@
+case_id: PORT_0025
+pool: PORT
+engines:
+  postgres: schema/postgres/ddl.sql
+  mysql: schema/mysql/ddl.sql
+  spark: schema/spark/ddl.sql
+witness_loads:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+required_tables:
+- loan
+- account
+generated_from_existing_witness_assets_only: true
+db_validation_run: false

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Retained legacy validation asset; not executed during public-release migration.
+# Future public runner outputs must not write to case-local runs/ by default.
 set -euo pipefail
 
 CASE_ID="PORT_0004"
@@ -66,13 +68,13 @@ try:
     spark.sql(f"CREATE DATABASE {database_name}")
     spark.sql(f"USE {database_name}")
 
-    for stmt in read_statements(case_dir / "schema/ddl_spark.sql"):
+    for stmt in read_statements(case_dir / "schema/spark/ddl.sql"):
         spark.sql(stmt)
-    for stmt in read_statements(case_dir / "validation/load_witness_spark.sql"):
+    for stmt in read_statements(case_dir / "schema/spark/load.sql"):
         spark.sql(stmt)
 
-    positive = spark.sql(read_query(case_dir / "rewrite_pos_02_spark.sql")).collect()
-    negative = spark.sql(read_query(case_dir / "rewrite_neg_02_spark.sql")).collect()
+    positive = spark.sql(read_query(case_dir / "sql/dialect_variants/spark/pos_02_spark.sql")).collect()
+    negative = spark.sql(read_query(case_dir / "sql/dialect_variants/spark/neg_02_spark.sql")).collect()
 
     write_rows(run_dir / "rewrite_pos_02_spark.tsv", positive)
     write_rows(run_dir / "rewrite_neg_02_spark.tsv", negative)

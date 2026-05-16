@@ -947,3 +947,32 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - canonical-case regression result: PASS 31/31 including the four new PORT batch 001 cases after migration and excluding legacy-compatible PORT_0004
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review PORT wave-2 batch 001; if accepted, select the next bounded PORT wave from the readiness audit. Do not start blind full Common-core 40 migration.
+
+## 27. Last Codex run
+
+- task name: PORT final bounded canonical migration batch
+- date: 2026-05-16
+- mode: release-repo bounded PORT canonical migration and PORT_0004 canonical upgrade; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- cases attempted: PORT_0004, PORT_0022, PORT_0024, PORT_0025
+- cases completed: PORT_0004, PORT_0022, PORT_0024, PORT_0025
+- failed/deferred cases: none
+- PORT_0004 canonical upgrade status: completed
+- PORT pool canonical migration complete: yes, at case-package level
+- actual case migration/upgrades performed: yes, bounded final PORT batch only
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- cross_engine_result_created: false
+- speedup_transfer_claim_created: false
+- full_port9_claim_created: false
+- validator v0.3 full-case result: PASS 4/4 for PORT_0004, PORT_0022, PORT_0024, and PORT_0025
+- validator v0.3 canonical-case result: PASS 4/4 for PORT_0004, PORT_0022, PORT_0024, and PORT_0025
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 35/35 including all migrated PORT, PERF, CONS, and LONGTAIL packages
+- canonical-case regression result: PASS 35/35 including upgraded PORT_0004
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review PORT final bounded batch and completed PORT pool canonical case-package migration, then perform a Common-core case-package migration status audit/closeout before any case-set/report/result update.

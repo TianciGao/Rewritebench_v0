@@ -1,0 +1,41 @@
+case_id,check_name,status,details
+PORT_0004,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0004,public hygiene scan,PASS,no forbidden public patterns found in migrated case directories
+PORT_0004,YAML validation,PASS,all YAML parsed
+PORT_0004,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0004,validator v0.3 full-case,PASS,new/upgraded batch full-case validator passed 4/4
+PORT_0004,validator v0.3 canonical-case,PASS,new/upgraded batch canonical-case validator passed 4/4
+PORT_0004,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; formal pilot compatibility preserved
+PORT_0004,full-case regression,PASS,full-case regression passed 35/35 including all migrated packages
+PORT_0004,canonical-case regression,PASS,canonical-case regression passed 35/35 including upgraded PORT_0004
+PORT_0004,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PORT_0022,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0022,public hygiene scan,PASS,no forbidden public patterns found in migrated case directories
+PORT_0022,YAML validation,PASS,all YAML parsed
+PORT_0022,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0022,validator v0.3 full-case,PASS,new/upgraded batch full-case validator passed 4/4
+PORT_0022,validator v0.3 canonical-case,PASS,new/upgraded batch canonical-case validator passed 4/4
+PORT_0022,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; formal pilot compatibility preserved
+PORT_0022,full-case regression,PASS,full-case regression passed 35/35 including all migrated packages
+PORT_0022,canonical-case regression,PASS,canonical-case regression passed 35/35 including upgraded PORT_0004
+PORT_0022,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PORT_0024,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0024,public hygiene scan,PASS,no forbidden public patterns found in migrated case directories
+PORT_0024,YAML validation,PASS,all YAML parsed
+PORT_0024,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0024,validator v0.3 full-case,PASS,new/upgraded batch full-case validator passed 4/4
+PORT_0024,validator v0.3 canonical-case,PASS,new/upgraded batch canonical-case validator passed 4/4
+PORT_0024,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; formal pilot compatibility preserved
+PORT_0024,full-case regression,PASS,full-case regression passed 35/35 including all migrated packages
+PORT_0024,canonical-case regression,PASS,canonical-case regression passed 35/35 including upgraded PORT_0004
+PORT_0024,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PORT_0025,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0025,public hygiene scan,PASS,no forbidden public patterns found in migrated case directories
+PORT_0025,YAML validation,PASS,all YAML parsed
+PORT_0025,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0025,validator v0.3 full-case,PASS,new/upgraded batch full-case validator passed 4/4
+PORT_0025,validator v0.3 canonical-case,PASS,new/upgraded batch canonical-case validator passed 4/4
+PORT_0025,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; formal pilot compatibility preserved
+PORT_0025,full-case regression,PASS,full-case regression passed 35/35 including all migrated packages
+PORT_0025,canonical-case regression,PASS,canonical-case regression passed 35/35 including upgraded PORT_0004
+PORT_0025,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
