@@ -1328,13 +1328,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the Common-core 40 batch readiness audit, then decide whether to execute the recommended small PERF sanitized-plan batch (`PERF_0007`, `PERF_0008`, `PERF_0013`) or fallback to `PERF_0007` only. Do not start blind Common-core 40 migration.
 
-### 2026-05-16 · pending · PERF wave-2 sanitized-plan canonical migration batch 001
+### 2026-05-16 · f5ddf8e · PERF wave-2 sanitized-plan canonical migration batch 001
 
 Mode: release-repo bounded batch canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending before commit
-Push: pending before push
+Commit: f5ddf8e3f6a5c2b19d7b28de2f6155f80bc7d053
+Push: pushed to origin main successfully (434499a..f5ddf8e)
 Scope: Migrated exactly the bounded PERF wave-2 batch cases `PERF_0007`, `PERF_0008`, and `PERF_0013` into canonical public-release layout.
 
 Summary:
