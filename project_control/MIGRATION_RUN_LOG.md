@@ -2068,3 +2068,48 @@ Paper/denominator impact:
 
 Next safe action:
 - Resolve metric-contract and reproduction-interface open questions with the maintainer/team before implementing metrics computation, a unified reproduction CLI, paper table rendering, or public runner outputs.
+
+### 2026-05-16 · pending · Common-core retained evidence to ledger mapping audit
+
+Mode: release-repo retained-evidence to draft-ledger mapping audit; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Mapped the already-discovered Common-core retained evidence candidate groups to draft evidence ledger fields using `audits/reports_results_retained_evidence_map/retained_evidence_candidate_map.csv` as the primary input.
+- Processed 3,439 retained candidate rows as grouped audit input: 3,080 method output references, 276 paper-facing retained evidence rows, 69 paper summary table rows, and 14 denominator or membership reference rows.
+- Created ledger field coverage, source inventory, adapter gap, adapter module design, metric dependency, and implementation-blocker outputs under `audits/retained_evidence_ledger_mapping/`.
+- Updated `project_control/MIGRATION_STATUS.md` to record that retained evidence to ledger mapping is complete as an audit-only step.
+- Did not copy reports/results, create `results/retained`, create `reports/evaluation`, implement scripts, modify `scripts/`, implement `src/`, run DB engines, run validation scripts, run LLM calls, run timing workloads, regenerate evidence, compute metrics, render paper tables, update denominator values, change case membership, modify `case_sets/`, modify migrated case packages, or mutate raw legacy evidence.
+
+Files created:
+- `audits/retained_evidence_ledger_mapping/retained_evidence_ledger_mapping_summary.md`
+- `audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv`
+- `audits/retained_evidence_ledger_mapping/common_core_ledger_source_inventory.csv`
+- `audits/retained_evidence_ledger_mapping/ledger_field_coverage_matrix.csv`
+- `audits/retained_evidence_ledger_mapping/retained_evidence_adapter_gap_report.md`
+- `audits/retained_evidence_ledger_mapping/adapter_module_design.md`
+- `audits/retained_evidence_ledger_mapping/metrics_dependency_matrix.csv`
+- `audits/retained_evidence_ledger_mapping/implementation_blockers_before_metrics.md`
+- `audits/retained_evidence_ledger_mapping/retained_evidence_ledger_mapping_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV checks, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+
+Next safe action:
+- Review and approve evidence ledger field semantics plus adapter row-grain policy before implementing retained evidence adapters, metrics computation, a paper table renderer, unified reproduction CLI, or public runner output.

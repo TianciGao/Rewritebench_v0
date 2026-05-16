@@ -21,6 +21,8 @@ Common-core v0 release membership and inventory scaffolds are now aligned under 
 
 Reports/results retained-evidence mapping is complete under `audits/reports_results_retained_evidence_map/`. This is a reference map only; no release `reports/` or `results/` directories were updated.
 
+Common-core retained evidence to draft ledger mapping audit is complete under `audits/retained_evidence_ledger_mapping/`. This audit maps retained evidence candidate groups to ledger field coverage and future adapter needs only; it does not implement adapters, compute metrics, copy reports/results, or authorize the reproduction interface.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -51,6 +53,7 @@ Membership and scaffold snapshot:
 - `inventory/case_registry.csv`: 40 Common-core registry rows.
 - `inventory/source_registry.csv`: source-family registry inferred from existing migrated case manifests, with license/source notes marked `needs_later_review` where not governed.
 - `audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv`: legacy reports/results artifact map, with `copy_now=false` for all retained-evidence candidates.
+- `audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv`: grouped retained-evidence candidate to draft ledger field mapping.
 
 ## Explicit Boundaries
 
@@ -63,8 +66,11 @@ Membership and scaffold snapshot:
 - `reports/` not updated by case-package migration or final closeout.
 - `results/` not updated by case-package migration or final closeout.
 - Reports/results retained-evidence map completed; actual release reports/results files unchanged.
+- Retained evidence to ledger mapping audit completed; actual release reports/results files unchanged.
 - Denominator files and paper tables not updated by case-package migration or final closeout.
 - Raw legacy evidence unchanged.
+- Metrics implementation authorized: no.
+- Unified reproduction interface implementation authorized: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -82,6 +88,7 @@ Membership and scaffold snapshot:
 - Common-core 40 canonical case-package migration complete: 40/40.
 - Common-core v0 case-set, denominator scaffold, control scaffold, and public inventory registry alignment completed.
 - Reports/results retained-evidence map completed without copying reports/results or changing metrics.
+- Common-core retained evidence to draft ledger mapping audit completed without copying reports/results or implementing metrics.
 
 ## Remaining Non-Case-Package Blockers
 

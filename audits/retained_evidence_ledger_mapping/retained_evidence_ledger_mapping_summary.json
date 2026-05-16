@@ -1,0 +1,46 @@
+{
+  "retained_candidates_processed": 3439,
+  "ledger_fields_total": 28,
+  "high_coverage_fields": [
+    "case_set",
+    "method_role",
+    "evidence_source",
+    "retained_artifact_path",
+    "notes"
+  ],
+  "medium_coverage_fields": [
+    "case_id",
+    "pool",
+    "denominator_id",
+    "route",
+    "source_sql_path",
+    "generated",
+    "ready",
+    "executed",
+    "exact",
+    "result_status",
+    "checker_status",
+    "plan_available",
+    "plan_artifact_path"
+  ],
+  "low_or_missing_fields": [
+    "engine",
+    "candidate_id",
+    "candidate_sql_path",
+    "parse_status",
+    "timed",
+    "failure_stage",
+    "failure_type",
+    "latency_ms",
+    "speedup",
+    "timing_eligible"
+  ],
+  "metric_implementation_authorized": false,
+  "reproduction_interface_authorized": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "next_safe_action": "review_and_approve_evidence_ledger_field_semantics_and_adapter_row_grain_before_implementation"
+}
