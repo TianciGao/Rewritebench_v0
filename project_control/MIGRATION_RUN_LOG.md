@@ -1817,14 +1817,14 @@ Paper/denominator impact:
 Next safe action:
 - Human review PORT final bounded batch and completed PORT pool canonical case-package migration, then perform a Common-core case-package migration status audit/closeout before any case-set/report/result update.
 
-### 2026-05-16 · pending · Common-core case-package migration status closeout
+### 2026-05-16 · 71178a7 · Common-core case-package migration status closeout
 
 Mode: release-repo closeout/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
 Actual case migration performed: no
-Commit: pending
-Push: pending
+Commit: `71178a7f34eed73da18e5846a530e073012e8b7f`
+Push: `origin/main` updated `44d65d5..71178a7`
 
 Summary:
 - Verified the fixed Common-core v0 40-case membership from release-repo package files and validator outputs.
@@ -1838,7 +1838,7 @@ Summary:
 Validation:
 - Validator v0.3 full-case closeout: PASS 35/35.
 - Validator v0.3 canonical-case closeout: PASS 35/35.
-- Python compile, JSON parse, CSV row counts, and git checks: pending final validation.
+- Python compile, JSON parse, CSV row counts, and git checks: passed.
 
 Paper/denominator impact:
 - denominator changed: no
