@@ -1642,13 +1642,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review CONS batch 001. If accepted, consider approved CONS batch 002 for `CONS_0012`, `CONS_0024`, `CONS_0036`, and `CONS_0037`; do not start blind full Common-core 40 migration.
 
-### 2026-05-16 · pending · CONS hard-negative approved canonical migration batch 002
+### 2026-05-16 · e21210f · CONS hard-negative approved canonical migration batch 002
 
 Mode: release-repo bounded CONS canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `e21210f1ade3e784f7ce5509e104cad9fda18a1c`
+Push: `origin/main` updated `6d2b325..e21210f`
 Scope: Migrated exactly the bounded CONS batch 002 cases `CONS_0012`, `CONS_0024`, `CONS_0036`, and `CONS_0037` into canonical public-release layout.
 
 Summary:
@@ -1674,7 +1674,7 @@ Validation:
 - Full-case regression passed 28/28 including the four new CONS batch 002 cases after migration.
 - Canonical-case regression passed 27/27 including the four new CONS batch 002 cases after migration.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
-- `git diff --check` result: pending.
+- `git diff --check` result: passed.
 
 Files created:
 - `cases/CONS/CONS_0012/`
