@@ -2069,13 +2069,13 @@ Paper/denominator impact:
 Next safe action:
 - Resolve metric-contract and reproduction-interface open questions with the maintainer/team before implementing metrics computation, a unified reproduction CLI, paper table rendering, or public runner outputs.
 
-### 2026-05-16 · pending · Common-core retained evidence to ledger mapping audit
+### 2026-05-16 · 539a2ab · Common-core retained evidence to ledger mapping audit
 
 Mode: release-repo retained-evidence to draft-ledger mapping audit; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `539a2abebd6515785e066b6ec22e693285031c08`
+Push: `origin/main` updated `3707f0c..539a2ab`
 
 Summary:
 - Mapped the already-discovered Common-core retained evidence candidate groups to draft evidence ledger fields using `audits/reports_results_retained_evidence_map/retained_evidence_candidate_map.csv` as the primary input.
