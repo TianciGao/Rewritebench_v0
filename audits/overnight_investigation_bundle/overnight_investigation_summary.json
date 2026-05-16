@@ -1,0 +1,35 @@
+{
+  "actual_case_migration_performed": false,
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "non_common_core_cases_reviewed": 157,
+  "paper_results_changed": false,
+  "proposed_bucket_counts": {
+    "manual_review_required": 13,
+    "orphan_or_unregistered": 7,
+    "proposed_backlog_v0": 76,
+    "proposed_staged_v0": 61
+  },
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_task": "review overnight bundle, then run benchmark_spec/docs skeleton formalization or staged/backlog membership preview without migration",
+  "reports_changed": false,
+  "results_changed": false,
+  "script_classification_counts": {
+    "refactor_candidate": 27,
+    "reference_only": 68,
+    "wrap_candidate": 28
+  },
+  "scripts_reviewed": 123,
+  "skeleton_items_reviewed": 24,
+  "skeleton_priority_counts": {
+    "must_add_before_release_v0": 7,
+    "optional": 2,
+    "present_required": 5,
+    "should_add_before_release_v0": 10
+  },
+  "unregistered_directories_reviewed": 7,
+  "unregistered_disposition_counts": {
+    "register_later_as_backlog": 6,
+    "staged_review_candidate": 1
+  }
+}

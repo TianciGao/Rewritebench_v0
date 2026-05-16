@@ -2302,3 +2302,53 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the case universe governance audit, then run a separate staged/backlog membership planning task without changing Common-core v0 membership or denominator values.
+
+### 2026-05-17 · pending · Overnight governance and redevelopment investigation bundle
+
+Mode: release-repo read-only governance/redevelopment investigation output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Refined staged/backlog planning labels for all 157 non-Common-core cases using prior case-universe governance outputs.
+- Inspected the seven detected-but-unregistered legacy directories read-only and recorded registry/disposition recommendations.
+- Inventoried 123 legacy script/tool files as redevelopment references, not copy-forward architecture.
+- Audited 24 intended public release skeleton components and identified missing release/docs/spec/scripts/tests/report/result surfaces.
+- Drafted future prompts for staged/backlog membership preview, script redevelopment detailed design, release skeleton bootstrap, and reports/results retained-evidence triage.
+- Did not migrate cases, create official staged/backlog membership files, update `case_sets/`, update reports/results, implement scripts, create `src/`, compute metrics, render paper tables, run DB engines, run validation scripts, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, delete/move `runs/`, or modify raw legacy evidence.
+
+Files created:
+- `audits/overnight_investigation_bundle/overnight_investigation_summary.md`
+- `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`
+- `audits/overnight_investigation_bundle/unregistered_directory_reconciliation.csv`
+- `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`
+- `audits/overnight_investigation_bundle/legacy_script_redevelopment_recommendation.md`
+- `audits/overnight_investigation_bundle/public_release_skeleton_gap_audit.csv`
+- `audits/overnight_investigation_bundle/public_release_skeleton_gap_summary.md`
+- `audits/overnight_investigation_bundle/next_task_recommendation.md`
+- `audits/overnight_investigation_bundle/overnight_investigation_summary.json`
+- `audits/overnight_investigation_bundle/future_prompts/staged_backlog_official_membership_preview_prompt.md`
+- `audits/overnight_investigation_bundle/future_prompts/legacy_script_redevelopment_detailed_design_prompt.md`
+- `audits/overnight_investigation_bundle/future_prompts/public_release_skeleton_bootstrap_prompt.md`
+- `audits/overnight_investigation_bundle/future_prompts/reports_results_retained_evidence_triage_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV row-count checks, non-Common-core ID coverage check, local-path leakage check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- case_sets changed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the overnight investigation bundle, then run a bounded benchmark_spec/docs public skeleton formalization task or staged/backlog official membership preview without migration, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.

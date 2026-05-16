@@ -31,6 +31,8 @@ Metrics contract resolution draft completed under `repository_spec/metrics_contr
 
 Whole-case universe governance audit completed under `audits/case_universe_governance/`. The audit detected 197 legacy case-like directories, reconciled them against 190 legacy registry rows, identified seven detected-but-unregistered directories, and classified the 157 non-Common-core directories for future staged/backlog/manual-review planning. It did not migrate cases, create staged/backlog membership files, update `case_sets/`, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 
+Overnight governance and redevelopment investigation completed under `audits/overnight_investigation_bundle/`. The bundle refined planning labels for all 157 non-Common-core cases, inspected the seven unregistered legacy directories, inventoried 123 legacy script/tool files as redevelopment references, audited 24 public release skeleton components, and drafted future prompts for safe next tasks. It did not migrate cases, create official staged/backlog membership files, update `case_sets/`, update reports/results, implement scripts, compute metrics, change denominators, change paper results, or modify raw legacy evidence.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -66,6 +68,9 @@ Membership and scaffold snapshot:
 - `audits/metrics_finalization_decision_packet/metric_decision_table.csv`: 17 metric families reviewed for maintainer/team decision before implementation.
 - `audits/metrics_contract_resolution/resolved_metric_contract_table.csv`: 10 updated metric-scope rows aligned to the maintainer-provided paper scope.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
+- `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
+- `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
+- `audits/overnight_investigation_bundle/public_release_skeleton_gap_audit.csv`: 24 intended public release layout components reviewed.
 
 ## Explicit Boundaries
 
@@ -107,6 +112,7 @@ Membership and scaffold snapshot:
 - Evidence ledger semantics and adapter row-grain policy drafts completed without implementation.
 - Metrics finalization decision packet completed without implementing metrics, adapters, reproduction interfaces, public runners, or paper table rendering.
 - Metrics contract resolution draft completed without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, or paper table rendering.
+- Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 
 ## Remaining Non-Case-Package Blockers
 
@@ -117,9 +123,11 @@ Membership and scaffold snapshot:
 - Final metric definitions are not approved for implementation.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
+- Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
+- Public release skeleton gaps remain: README/docs/benchmark_spec, license/citation/contributing metadata, user/reproduction script namespaces, curated reports/results, tests, `src/`, and CI.
 - Paper tables/results were not regenerated or changed.
 - No release tag has been created.
 
 ## Current Next Safe Action
 
-Review the case universe governance audit and plan staged/backlog membership without changing Common-core v0 membership, denominator values, reports/results, paper tables, metrics implementation, adapters, reproduction CLI, public runner implementation, or raw legacy evidence.
+Review the overnight investigation bundle, then run a bounded benchmark_spec/docs public skeleton formalization task or staged/backlog official membership preview. Do not migrate non-Common-core cases, create official staged/backlog case sets, implement metrics/runners/adapters, update reports/results, change denominator values, or modify raw legacy evidence yet.

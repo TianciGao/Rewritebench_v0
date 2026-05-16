@@ -1,0 +1,25 @@
+path_or_component,expected_status,current_exists,priority,recommended_action,depends_on,notes
+README.md,top-level project overview,true,must_add_before_release_v0,create public-facing README after docs direction is approved,docs/README skeleton task,present in current release repo
+LICENSE,license file,false,must_add_before_release_v0,add explicit release license after maintainer confirmation,license decision,missing in current release repo; not created by this audit
+CITATION.cff,citation metadata,false,should_add_before_release_v0,add citation metadata before public tag,paper/publication metadata,missing in current release repo; not created by this audit
+CONTRIBUTING.md,contribution guide,false,should_add_before_release_v0,add lightweight contribution guide,public runner/output policy,missing in current release repo; not created by this audit
+pyproject.toml,package/build metadata,false,should_add_before_release_v0,create when src/scripts packaging starts,implementation design,missing in current release repo; not created by this audit
+Makefile,developer convenience entrypoints,false,optional,add only after stable commands exist,runner/reproduction CLI design,missing in current release repo; not created by this audit
+.gitignore,repository hygiene,false,must_add_before_release_v0,add/confirm ignores for local runs and generated outputs,output policy,missing in current release repo; not created by this audit
+repository_spec/,repository specs,true,present_required,retain current component,ongoing spec control,present in current release repo
+benchmark_spec/,benchmark protocol/spec docs,false,must_add_before_release_v0,formalize public benchmark_spec from current specs/decisions,benchmark_spec formalization,missing in current release repo; not created by this audit
+taxonomy/,taxonomy docs/data,false,should_add_before_release_v0,create or defer with explicit note,taxonomy governance,missing in current release repo; not created by this audit
+inventory/,public inventory,true,present_required,retain current component,registry maintenance,present in current release repo
+case_sets/,case-set membership/scaffolds,true,present_required,retain current component,membership governance,present in current release repo
+cases/,canonical case packages,true,present_required,retain current component,case-package governance,present in current release repo
+scripts/,script namespace,true,present_required,retain current component,script redevelopment design,present in current release repo
+scripts/user/,future user runner scripts,false,must_add_before_release_v0,create only during runner design/implementation task,metrics/output policy decisions,missing in current release repo; not created by this audit
+scripts/reproduce/,future reproduction scripts,false,must_add_before_release_v0,create only after ledger/metrics contract is ready,metrics/ledger adapter readiness,missing in current release repo; not created by this audit
+scripts/metrics/,future metrics scripts,false,should_add_before_release_v0,create only after metric implementation is authorized,final metric contract,missing in current release repo; not created by this audit
+docs/,public user docs,false,must_add_before_release_v0,"create docs map, quickstart, case-package guide, retained evidence notes",docs skeleton task,missing in current release repo; not created by this audit
+reports/,public reports namespace,false,should_add_before_release_v0,do not populate until retained evidence triage is approved,reports/results triage,missing in current release repo; not created by this audit
+results/,public results namespace,false,should_add_before_release_v0,do not populate until curated results migration is approved,reports/results triage,missing in current release repo; not created by this audit
+baselines/,baseline wrappers/references,false,optional,create only if public baseline wrappers are selected,script redevelopment design,missing in current release repo; not created by this audit
+tests/,tests and smoke checks,false,should_add_before_release_v0,add CI smoke after src/scripts interfaces exist,implementation design,missing in current release repo; not created by this audit
+src/,package implementation,false,should_add_before_release_v0,create when adapter/runner implementation is authorized,metrics/adapter approval,missing in current release repo; not created by this audit
+.github/workflows/,CI workflows,false,should_add_before_release_v0,add after tests and commands are stable,tests/CI smoke,missing in current release repo; not created by this audit
