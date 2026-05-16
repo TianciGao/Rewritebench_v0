@@ -1991,13 +1991,13 @@ Paper/denominator impact:
 Next safe action:
 - Start a separate bounded reports/results retained evidence map using the aligned Common-core v0 membership and inventory files; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
 
-### 2026-05-16 · pending · Common-core reports/results retained evidence map
+### 2026-05-16 · d837040 · Common-core reports/results retained evidence map
 
 Mode: release-repo reports/results retained-evidence mapping audit; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `d837040e18f5e6c3b5c11c7fdcb3072b067884e4`
+Push: `origin/main` updated `f09bfe1..d837040`
 
 Summary:
 - Inspected legacy `reports/`, `reports/evaluation/common_core_v0/`, `results/`, `results/retained`, `results/local`, and top-level `runs/` read-only.
