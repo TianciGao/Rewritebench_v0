@@ -1067,13 +1067,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `CONS_0005` canonical-layout pilot, then decide the next single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · PERF_0006 canonical-layout migration dry-run plan
+### 2026-05-16 · 0c91832 · PERF_0006 canonical-layout migration dry-run plan
 
 Mode: release-repo planning/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash to be recorded after commit
-Push: pending at write time; final result to be recorded after push
+Commit: 0c9183280b445c4ae1af37e9a5a9ab36b3c647b4
+Push: pushed to origin main successfully (ba6f51d..0c91832)
 Scope: Created a planning-only canonical-layout full case migration blueprint for `PERF_0006` without creating or modifying the release case package.
 
 Summary:
