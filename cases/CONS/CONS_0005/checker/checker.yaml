@@ -1,0 +1,17 @@
+case_id: CONS_0005
+checker_version: v1
+checker_model: engine_local_witness_guard
+comparison_config: checker/compare_config.yaml
+normalization: checker/normalization.yaml
+expected_rejections: checker/expected_rejections.yaml
+checks:
+  - id: source_positive_equal
+    description: Source and positive rewrite outputs must match on each retained engine witness.
+    expected: true
+  - id: source_negative_different
+    description: Hard-negative output must differ from source on each retained engine witness.
+    expected: true
+claim_boundary:
+  checker_controls_only: true
+  no_performance_claim: true
+  no_global_leaderboard: true

@@ -1,0 +1,28 @@
+case_id: CONS_0005
+schema_profile_version: v1
+tables:
+  - name: table1
+    columns:
+      - {name: i, logical_type: integer, nullable: true}
+      - {name: j, logical_type: integer, nullable: true}
+  - name: table2
+    columns:
+      - {name: i, logical_type: integer, nullable: true}
+      - {name: j, logical_type: integer, nullable: true}
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+witness_summary:
+  table1_rows: 2
+  table2_rows: 2
+  discriminator: table2.i contains NULL
+claim_boundary:
+  db_validation_run_during_migration: false
+  evidence_regenerated: false

@@ -1,0 +1,11 @@
+case_id: CONS_0005
+normalization_version: v1
+row_order: unordered
+field_separator: tab
+null_rendering: engine_retained_output
+numeric_tolerance: 0.000001
+empty_output_representation: empty_file
+comparison_scope:
+  - retained source outputs
+  - retained positive outputs
+  - retained hard-negative outputs

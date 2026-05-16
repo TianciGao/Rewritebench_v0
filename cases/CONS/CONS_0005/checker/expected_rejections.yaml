@@ -1,0 +1,36 @@
+case_id: CONS_0005
+pool: CONS
+expected_rejections_version: v1
+approval_status: maintainer_approved_for_migration
+hard_negatives:
+  - hard_negative_id: neg_01
+    source_sql_path: sql/source.sql
+    positive_sql_path: sql/positives/pos_01.sql
+    negative_sql_path: sql/negatives/neg_01.sql
+    expected_rejection_reason: null_semantics_not_preserved_for_correlated_not_in
+    semantic_risk_type:
+      - null_semantics
+      - anti_join_semantics
+      - correlated_subquery_decorrelation
+    checker_guard_role: source_positive_equal_and_negative_differs_on_null_bearing_witness
+    observed_static_basis:
+      source_and_positive_outputs: empty_for_retained_witness
+      negative_output: "1	3"
+      witness_discriminator: table2.i contains NULL
+    evidence_paths:
+      retained_controls:
+        - evidence/retained_controls/postgres/source.tsv
+        - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+        - evidence/retained_controls/mysql/source.tsv
+        - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+        - evidence/retained_controls/spark/source.tsv
+        - evidence/retained_controls/spark/rewrite_pos_01.tsv
+      hard_negative:
+        - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+        - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+        - evidence/hard_negative/spark/rewrite_neg_01.tsv
+      result_checks:
+        - evidence/retained_controls/result_check.json
+        - evidence/retained_controls/postgres/result_check.json
+        - evidence/retained_controls/mysql/result_check.json
+        - evidence/retained_controls/spark/result_check.json

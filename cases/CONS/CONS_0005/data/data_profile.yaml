@@ -1,0 +1,16 @@
+case_id: CONS_0005
+data_profile_version: v1
+data_kind: small_case_local_witness
+fixtures_committed: false
+witness_load_paths:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+tables:
+  table1:
+    row_count: 2
+  table2:
+    row_count: 2
+claim_boundary:
+  no_new_data_claims: true
+  db_validation_run_during_migration: false

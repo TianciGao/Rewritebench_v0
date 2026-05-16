@@ -1,0 +1,13 @@
+check_name,status,details
+sha256_copy_validation,pass,33 copied legacy files matched SHA256; 3 Spark plan files were generated sanitized public copies with raw local paths removed.
+public_hygiene_scan,pass,No forbidden public-hygiene patterns found under cases/CONS/CONS_0005.
+yaml_validation,pass,Parsed 14 YAML files under cases/CONS/CONS_0005.
+json_validation,pass,Parsed 13 JSON evidence files under cases/CONS/CONS_0005/evidence.
+validator_v0_3_full_case,pass,CONS_0005 passed full-case mode 1/1.
+validator_v0_3_canonical_case,pass,CONS_0005 passed canonical-case mode 1/1.
+evidence_pilot_regression,pass,Blocked PORT evidence-pilot regression passed 6/6.
+full_case_regression,pass,PORT_0004 and PORT_0008 full-case regression passed 2/2.
+denominator_changed,pass,false
+paper_results_changed,pass,false
+case_membership_changed,pass,false
+raw_legacy_evidence_changed,pass,false

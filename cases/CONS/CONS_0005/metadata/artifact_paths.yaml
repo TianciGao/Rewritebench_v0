@@ -1,0 +1,16 @@
+case_id: CONS_0005
+artifact_paths_version: v1
+canonical_case_root: cases/CONS/CONS_0005
+legacy_case_root: cases/CONS/CONS_0005
+raw_legacy_runs_root: cases/CONS/CONS_0005/runs
+manifest: manifest.yaml
+runs_retention: evidence/runs_retention.yaml
+sql:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+evidence:
+  retained_controls: evidence/retained_controls/
+  retained_plans: evidence/retained_plans/
+  hard_negative: evidence/hard_negative/
+raw_runs_policy: do_not_copy_raw_runs_wholesale

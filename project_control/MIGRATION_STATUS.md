@@ -28,9 +28,10 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is CONS_0005 canonical-layout migration dry-run plan；
-CONS_0005 canonical-layout migration plan created；
-CONS_0005 remains planning-only; no actual migration performed；
+latest completed run is CONS_0005 canonical-layout full case migration pilot；
+CONS_0005 canonical-layout full case migration pilot completed；
+canonical layout tested for CONS pool: yes；
+checker expected rejection approved for CONS_0005；
 canonical case package layout v1 is locked as the target policy；
 canonical layout is a migration target, not legacy current fact；
 no case files were moved or copied in the canonical-layout lock；
@@ -49,13 +50,13 @@ full-case regression passed 2/2 for PORT_0004 and PORT_0008 under validator v0.3
 canonical-case validation passed for PORT_0008 under validator v0.3；
 canonical-case advisory validation expected-failed for PORT_0004 because it is legacy-compatible rather than canonical-layout；
 PORT_0004 copy-first full case migration pilot now passes validator v0.2 after release-repo hygiene fix；
-full case migration pilots are complete for PORT_0004 and PORT_0008 only；
-full case migration scope remains PORT_0004 plus PORT_0008 only；
+full case migration pilots are complete for PORT_0004, PORT_0008, and CONS_0005 only；
+full case migration scope remains PORT_0004 plus PORT_0008 plus CONS_0005 only；
 Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 human review of the CONS_0005 canonical-layout plan, then decide whether to execute the future actual migration prompt；do not start Common-core 40 migration。
+当前下一步安全动作是 review the completed CONS_0005 canonical-layout pilot, then decide the next single-case pilot or continue case-universe/report/script audits；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -561,3 +562,28 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
   - Checker expected-rejection semantics need human review before actual migration.
 - validation summary: planning JSON parsed; preview YAML files parsed when PyYAML was available; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review of the CONS_0005 canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
+
+## 14. Last Codex run
+
+- task name: CONS_0005 canonical-layout full case migration pilot
+- date: 2026-05-16
+- mode: release-repo canonical full case migration pilot; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- canonical layout tested for CONS pool: yes
+- full case migration scope: PORT_0004 plus PORT_0008 plus CONS_0005 only
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- hard-negative expected rejection approved for CONS_0005: yes
+- Spark plan copied raw into public retained evidence: no
+- Spark plan sanitization: three sanitized public Spark plan copies created under `cases/CONS/CONS_0005/evidence/retained_plans/spark/`
+- validation scripts copied/adapted with output-policy caveat: yes
+- validator v0.3 full-case result: PASS for CONS_0005
+- validator v0.3 canonical-case result: PASS for CONS_0005
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 2/2 for PORT_0004 and PORT_0008
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: review the completed CONS_0005 canonical-layout pilot, then decide the next single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.

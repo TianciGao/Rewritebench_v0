@@ -1123,6 +1123,7 @@ def validate_canonical_metadata_layout(
     case_path: Path,
     manifest: dict[str, Any] | None,
     case_id: str,
+    pool: str,
 ) -> bool:
     required = [
         "metadata/provenance.yaml",
@@ -1150,7 +1151,7 @@ def validate_canonical_metadata_layout(
         ok = False
         result.fail("metadata/denominator_eligibility.yaml must record paper_results_changed: false")
     artifact_paths = parsed.get("metadata/artifact_paths.yaml") or {}
-    if artifact_paths and artifact_paths.get("canonical_case_root") != f"cases/PORT/{case_id}":
+    if artifact_paths and artifact_paths.get("canonical_case_root") != f"cases/{pool}/{case_id}":
         ok = False
         result.fail("metadata/artifact_paths.yaml canonical_case_root mismatch")
     if manifest:
@@ -1456,7 +1457,7 @@ def validate_canonical_case(repo_root: Path, case_arg: str) -> CheckResult:
     checker_ok = validate_canonical_checker_layout(result, case_path)
     validation_ok = validate_canonical_validation_layout(result, case_path, manifest)
     evidence_ok = validate_canonical_evidence_layout(result, case_path, case_id)
-    metadata_ok = validate_canonical_metadata_layout(result, case_path, manifest, case_id)
+    metadata_ok = validate_canonical_metadata_layout(result, case_path, manifest, case_id, pool)
     notes_ok = validate_canonical_notes_layout(result, case_path)
     runs_ok = validate_canonical_runs_policy(result, case_path, retention)
     public_hygiene_ok = scan_canonical_public_hygiene(result, case_path)
