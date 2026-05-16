@@ -17,6 +17,8 @@ This status snapshot is based on release-repo file inspection and validator v0.3
 
 Common-core 40 blind/bulk migration is still not started. Completed migration work remains bounded, explicit, and case-package scoped.
 
+Latest planning update: LONGTAIL final readiness/planning completed. Actual case migration performed: no. Recommended next migration batch, after maintainer approval of expected rejection wording, is the bounded final LONGTAIL batch: `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`. Fallback batch is `LONGTAIL_0012` and `LONGTAIL_0013`.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -79,4 +81,4 @@ The remaining not-yet-canonical Common-core cases are:
 
 ## Current Next Safe Action
 
-Review the closeout under `audits/common_core40_case_package_closeout/`, then plan the remaining LONGTAIL bounded wave. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables yet.
+Review the LONGTAIL readiness outputs under `audits/longtail_final_readiness/`. If the expected rejection wording is approved, run the bounded final LONGTAIL canonical migration prompt; otherwise use the fallback SQLStorm pair prompt. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables yet.

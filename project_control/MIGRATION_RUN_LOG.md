@@ -1848,3 +1848,31 @@ Paper/denominator impact:
 
 Next safe action:
 - Review this closeout, then plan the remaining LONGTAIL bounded wave; do not touch case_sets, reports, results, denominator files, or paper tables yet.
+
+### 2026-05-16 · pending · LONGTAIL final readiness and canonical migration planning wave
+
+Mode: release-repo readiness/planning output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Actual case migration performed: no
+Commit: pending
+Push: pending
+
+Summary:
+- Reviewed remaining LONGTAIL Common-core cases `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` from legacy files read-only.
+- Prepared hard-negative expected-rejection previews, structural boundary review, public hygiene findings, and future bounded migration prompts under `audits/longtail_final_readiness/`.
+- Confirmed Common-core case-package migration remains 35/40; PERF, CONS, and PORT remain canonical complete; `LONGTAIL_0011` remains the completed LONGTAIL canonical reference.
+- Recommended a bounded final LONGTAIL batch after maintainer approval, with `LONGTAIL_0012` and `LONGTAIL_0013` as fallback first batch.
+- Did not create canonical case packages, copy case files into release cases, update case_sets, update reports/results, change denominator, change paper results, or mutate legacy evidence.
+
+Validation:
+- Python compile, JSON parse, YAML parse, CSV row count, and git checks: passed.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Maintainer review/approve expected rejection wording in `audits/longtail_final_readiness/longtail_expected_rejections_preview.yaml`, then run the bounded final LONGTAIL canonical migration prompt; do not touch case_sets, reports, results, denominator files, or paper tables yet.

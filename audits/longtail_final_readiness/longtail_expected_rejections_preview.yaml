@@ -1,0 +1,96 @@
+cases:
+  LONGTAIL_0012:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: optional_vote_count_left_join_changed_to_inner_join
+        semantic_risk_type:
+          - outer_join_row_preservation
+          - optional_vote_enrichment_semantics
+          - aggregation_input_boundary
+        checker_guard_role: source_positive_equal_and_negative_drops_posts_without_vote_count_rows
+        observed_static_basis: "rewrite_neg_01 changes the optional vote-count LEFT JOIN to an INNER JOIN, so posts without matching vote rows are removed before grouping."
+        evidence_paths:
+          - cases/LONGTAIL/LONGTAIL_0012/runs/pg/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0012/runs/mysql/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0012/runs/spark/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0012/runs/pg/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0012/runs/mysql/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0012/runs/spark/rewrite_neg_01.tsv
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 because rewrite_neg_01 changes the optional vote-count LEFT JOIN to an INNER JOIN. This drops posts/users that should be preserved when no vote-count row exists, changing row preservation and aggregate inputs. Therefore neg_01 is an intentional hard negative and should be rejected by the checker."
+  LONGTAIL_0013:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: best_question_attachment_left_join_changed_to_inner_join
+        semantic_risk_type:
+          - outer_join_row_preservation
+          - window_attachment_semantics
+          - null_preservation
+        checker_guard_role: source_positive_equal_and_negative_drops_users_without_ranked_question_attachment
+        observed_static_basis: "rewrite_neg_01 changes the RankedPosts attachment from LEFT JOIN to JOIN, so users without a qualifying best-question row are removed."
+        evidence_paths:
+          - cases/LONGTAIL/LONGTAIL_0013/runs/pg/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0013/runs/mysql/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0013/runs/spark/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0013/runs/pg/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0013/runs/mysql/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0013/runs/spark/rewrite_neg_01.tsv
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 because rewrite_neg_01 changes the best-question RankedPosts attachment from a LEFT JOIN to an INNER JOIN. This drops users whose answer summary should be preserved even when no qualifying question attachment exists, changing null-preserving outer-join semantics. Therefore neg_01 is an intentional hard negative and should be rejected by the checker."
+  LONGTAIL_0022:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: comment_aggregation_grouping_fragmented_by_commenter
+        semantic_risk_type:
+          - aggregation_grouping_changed
+          - duplicate_multiplicity
+          - row_cardinality_changed
+        checker_guard_role: source_positive_equal_and_negative_fragments_post_comment_counts_by_commenter
+        observed_static_basis: "rewrite_neg_01 groups by c.UserId as well as post fields, fragmenting per-post comment counts into per-commenter groups."
+        evidence_paths:
+          - cases/LONGTAIL/LONGTAIL_0022/runs/pg/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0022/runs/mysql/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0022/runs/spark/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0022/runs/pg/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0022/runs/mysql/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0022/runs/spark/rewrite_neg_01.tsv
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 because rewrite_neg_01 groups by commenter as well as post fields. This fragments the intended per-post comment aggregation, changes row cardinality and comment counts, and can alter the threshold filter. Therefore neg_01 is an intentional hard negative and should be rejected by the checker."
+  LONGTAIL_0023:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: directed_postlink_inbound_outbound_semantics_collapsed
+        semantic_risk_type:
+          - set_relation_direction_changed
+          - aggregation_input_boundary
+          - row_preservation
+        checker_guard_role: source_positive_equal_and_negative_collapses_inbound_and_outbound_link_counts
+        observed_static_basis: "rewrite_neg_01 only joins PostLinks by PostId, uses RelatedPostId for both inbound and outbound counts, and filters out inbound-only posts."
+        evidence_paths:
+          - cases/LONGTAIL/LONGTAIL_0023/runs/pg/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0023/runs/mysql/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0023/runs/spark/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0023/runs/pg/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0023/runs/mysql/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0023/runs/spark/rewrite_neg_01.tsv
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 because rewrite_neg_01 collapses directed post-link semantics by counting only rows joined through PostId and using that same count for inbound and outbound links. This loses inbound-only links and changes total link counts. Therefore neg_01 is an intentional hard negative and should be rejected by the checker."
+  LONGTAIL_0024:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: posthistory_revision_aggregation_fragmented_by_editor
+        semantic_risk_type:
+          - aggregation_grouping_changed
+          - temporal_aggregation_semantics
+          - row_cardinality_changed
+        checker_guard_role: source_positive_equal_and_negative_fragments_revision_counts_by_editor
+        observed_static_basis: "rewrite_neg_01 groups by ph.UserId, fragmenting per-post revision counts and first/last revision timestamps by editor."
+        evidence_paths:
+          - cases/LONGTAIL/LONGTAIL_0024/runs/pg/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0024/runs/mysql/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0024/runs/spark/result_check.json
+          - cases/LONGTAIL/LONGTAIL_0024/runs/pg/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0024/runs/mysql/rewrite_neg_01.tsv
+          - cases/LONGTAIL/LONGTAIL_0024/runs/spark/rewrite_neg_01.tsv
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 because rewrite_neg_01 groups PostHistory rows by editor as well as post. This fragments the intended per-post revision aggregation, changes revision counts and first/last revision timestamps, and can alter the threshold filter. Therefore neg_01 is an intentional hard negative and should be rejected by the checker."

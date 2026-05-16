@@ -1,0 +1,32 @@
+{
+  "date": "2026-05-16",
+  "cases_reviewed": [
+    "LONGTAIL_0012",
+    "LONGTAIL_0013",
+    "LONGTAIL_0022",
+    "LONGTAIL_0023",
+    "LONGTAIL_0024"
+  ],
+  "ready_count": 5,
+  "approval_required_count": 5,
+  "defer_count": 0,
+  "recommended_batch": [
+    "LONGTAIL_0012",
+    "LONGTAIL_0013",
+    "LONGTAIL_0022",
+    "LONGTAIL_0023",
+    "LONGTAIL_0024"
+  ],
+  "fallback_batch": [
+    "LONGTAIL_0012",
+    "LONGTAIL_0013"
+  ],
+  "actual_case_migration_performed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "case_sets_reports_results_denominator_touched": false,
+  "common_core_case_package_migration_status": "35/40 canonical complete; remaining five LONGTAIL cases planned but not migrated",
+  "next_safe_action": "Maintainer approve expected rejection wording, then run the bounded LONGTAIL final canonical migration prompt; do not touch case_sets, reports, results, denominator files, or paper tables yet."
+}
