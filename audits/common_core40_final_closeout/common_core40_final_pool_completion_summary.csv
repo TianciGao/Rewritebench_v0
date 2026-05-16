@@ -1,0 +1,5 @@
+pool,common_core_case_count,canonical_complete_count,percent_canonical_complete,status,next_action
+PERF,16,16,100.0%,complete,no remaining case-package migration for this pool
+CONS,9,9,100.0%,complete,no remaining case-package migration for this pool
+PORT,9,9,100.0%,complete,no remaining case-package migration for this pool
+LONGTAIL,6,6,100.0%,complete,no remaining case-package migration for this pool

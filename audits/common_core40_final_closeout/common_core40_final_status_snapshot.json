@@ -1,0 +1,41 @@
+{
+  "actual_case_migration_performed": false,
+  "canonical_case_validator_pass_count": 40,
+  "canonical_complete_count": 40,
+  "case_membership_changed": false,
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "full_case_validator_pass_count": 40,
+  "paper_results_changed": false,
+  "pool_counts": {
+    "CONS": {
+      "canonical_complete_count": 9,
+      "common_core_case_count": 9,
+      "percent_canonical_complete": "100.0%",
+      "status": "complete"
+    },
+    "LONGTAIL": {
+      "canonical_complete_count": 6,
+      "common_core_case_count": 6,
+      "percent_canonical_complete": "100.0%",
+      "status": "complete"
+    },
+    "PERF": {
+      "canonical_complete_count": 16,
+      "common_core_case_count": 16,
+      "percent_canonical_complete": "100.0%",
+      "status": "complete"
+    },
+    "PORT": {
+      "canonical_complete_count": 9,
+      "common_core_case_count": 9,
+      "percent_canonical_complete": "100.0%",
+      "status": "complete"
+    }
+  },
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_phase": "case_sets_inventory_registry_alignment_for_common_core40",
+  "reports_changed": false,
+  "results_changed": false,
+  "total_cases": 40
+}

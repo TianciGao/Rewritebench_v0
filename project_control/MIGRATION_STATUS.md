@@ -11,11 +11,11 @@ Date: 2026-05-16
 
 ## Current Status Summary
 
-Common-core case-package migration is complete at canonical-layout package level: 40/40 Common-core cases now have canonical public-release case packages.
+Common-core 40 canonical case-package migration is complete: 40/40 fixed Common-core cases now have canonical public-release case packages.
 
-This status is based on release-repo files and validator v0.3 outputs, including the LONGTAIL final bounded canonical migration audit under `audits/longtail_final_bounded_migration/`.
+This status is verified by the final closeout audit under `audits/common_core40_final_closeout/` and fresh validator v0.3 outputs over the fixed Common-core 40 case list.
 
-Common-core 40 blind/bulk migration was not started. Completed work remained bounded, explicit, and case-package scoped.
+No case migration was performed by the final closeout task. It only verified release-repo package state and wrote closeout audit outputs.
 
 ## Common-core Case-Package Counts
 
@@ -29,10 +29,9 @@ Common-core 40 blind/bulk migration was not started. Completed work remained bou
 
 Validator snapshot:
 
-- Full-case validator v0.3: PASS 40/40 over all canonical Common-core case packages.
-- Canonical-case validator v0.3: PASS 40/40 over all canonical Common-core case packages.
-- `PORT_0004` is canonical after the PORT final bounded batch.
-- `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` are canonical after the LONGTAIL final bounded batch.
+- Full-case validator v0.3: PASS 40/40 over all fixed Common-core cases.
+- Canonical-case validator v0.3: PASS 40/40 over all fixed Common-core cases.
+- Canonical-case warnings are limited to the accepted transitional PostgreSQL validation alias on `PORT_0004` and `PORT_0008`.
 
 ## Explicit Boundaries
 
@@ -40,11 +39,13 @@ Validator snapshot:
 - Track A 120 planned rows unchanged.
 - Paper results unchanged.
 - Case membership unchanged.
-- `case_sets/` not updated by migration batches.
-- `reports/` and `results/` not updated by migration batches.
+- `case_sets/` not updated by case-package migration or final closeout.
+- `reports/` not updated by case-package migration or final closeout.
+- `results/` not updated by case-package migration or final closeout.
+- Denominator files and paper tables not updated by case-package migration or final closeout.
 - Raw legacy evidence unchanged.
 - No global leaderboard.
-- No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration.
+- No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
 ## Completed Major Milestones
 
@@ -57,16 +58,19 @@ Validator snapshot:
 - CONS pool canonical case-package migration complete: 9/9.
 - PORT pool canonical case-package migration complete: 9/9.
 - LONGTAIL pool canonical case-package migration complete: 6/6.
-- Common-core case-package migration complete: 40/40 canonical packages.
+- Common-core 40 canonical case-package migration complete: 40/40.
 
-## Current Blockers
+## Remaining Non-Case-Package Blockers
 
-- Validation scripts are retained legacy assets, not final public user runners.
+- `case_sets/` membership files are not yet updated or generated for the release view.
 - Reports/results retained evidence map is not done.
-- Script inventory and public runner path are not done.
+- Validation scripts are retained legacy assets, not final public user runners.
+- Public runner and output policy are not done.
+- Script inventory and reproduction path are not done.
 - Case universe 197 vs 190 governance reconciliation is still pending.
-- No case-set, report, result, denominator, or paper-table update should occur without a separate approved task.
+- Paper tables/results were not regenerated or changed.
+- No release tag has been created.
 
 ## Current Next Safe Action
 
-Review the final LONGTAIL migration audit under `audits/longtail_final_bounded_migration/`, then perform a separate Common-core 40 case-package completion closeout if desired. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables yet.
+Start a separate bounded task for Common-core 40 case-set, inventory, and registry alignment, or for the reports/results retained evidence map. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables without that explicit task scope.

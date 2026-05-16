@@ -1925,3 +1925,36 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the final LONGTAIL migration audit, then perform a separate Common-core 40 case-package completion closeout if desired; do not touch case_sets, reports, results, denominator files, or paper tables yet.
+
+### 2026-05-16 · pending · Common-core 40 canonical case-package final closeout
+
+Mode: release-repo final closeout/audit output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Actual case migration performed: no
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Verified the fixed Common-core v0 40-case membership from release-repo package files and fresh validator v0.3 outputs.
+- Confirmed canonical case-package completion counts: PERF 16/16, CONS 9/9, PORT 9/9, LONGTAIL 6/6, total 40/40.
+- Created final closeout audit outputs under `audits/common_core40_final_closeout/`.
+- Updated `project_control/MIGRATION_STATUS.md` as the concise 40/40 current-state snapshot.
+- Did not migrate cases, create evidence, run DB engines, run timing workloads, update case sets, update reports/results, change denominator, change paper results, alter paper tables, or mutate legacy evidence.
+
+Validation:
+- Validator v0.3 full-case final closeout: PASS 40/40.
+- Validator v0.3 canonical-case final closeout: PASS 40/40.
+- Python compile, JSON parse, CSV row counts, and git checks: passed.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- case_sets changed: no
+- reports changed: no
+- results changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Start a separate bounded task for Common-core 40 case-set, inventory, and registry alignment, or for reports/results retained evidence mapping; do not touch case_sets, reports, results, denominator files, or paper tables without that explicit scope.
