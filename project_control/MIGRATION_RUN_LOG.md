@@ -1275,13 +1275,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `LONGTAIL_0011` canonical-layout pilot and all four representative pool pilots, then decide whether to continue case-universe/report/script audits or plan the next bounded single-case pilot. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · Common-core 40 batch migration readiness audit
+### 2026-05-16 · ed6ad71 · Common-core 40 batch migration readiness audit
 
 Mode: release-repo audit/planning output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit completes
-Push: pending until push completes
+Commit: ed6ad717f334b40bdd20e0230140bf3be16758fc
+Push: pushed to origin main successfully (16abb75..ed6ad71)
 Scope: Produced a planning-only readiness audit and future migration wave plan for the fixed Common-core v0 40 cases. No actual case migration was performed.
 
 Summary:
