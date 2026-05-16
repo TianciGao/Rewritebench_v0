@@ -1431,13 +1431,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review the bounded PERF wave-2 batch 002. If accepted, choose the next small reviewed wave from the readiness audit; do not start blind full Common-core 40 migration.
 
-### 2026-05-16 · pending · PERF wave-2 sanitized-plan canonical migration batch 003
+### 2026-05-16 · 79c2465 · PERF wave-2 sanitized-plan canonical migration batch 003
 
 Mode: release-repo bounded batch canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until push completes
+Commit: 79c2465e3ee0aa756ab4b0c96baf76e8feceafcb
+Push: pushed to origin main successfully (8fef68b..79c2465)
 Scope: Migrated exactly the bounded PERF wave-2 batch 003 cases `PERF_0033`, `PERF_0034`, and `PERF_0035` into canonical public-release layout.
 
 Summary:
