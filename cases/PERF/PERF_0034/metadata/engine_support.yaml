@@ -1,0 +1,21 @@
+case_id: PERF_0034
+engine_support_version: canonical_case_package_layout_v1
+engines:
+  postgres:
+    supported: true
+    role: source_reference_engine
+    retained_evidence: evidence/retained_controls/postgres/source.tsv
+  mysql:
+    supported: true
+    role: target_positive_and_negative_engine
+    retained_positive_evidence: evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    retained_negative_evidence: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  spark:
+    supported: true
+    role: target_positive_and_negative_engine
+    retained_positive_evidence: evidence/retained_controls/spark/rewrite_pos_01.tsv
+    retained_negative_evidence: evidence/hard_negative/spark/rewrite_neg_01.tsv
+    retained_plan_evidence: evidence/retained_plans/spark/
+validation_policy:
+  scripts_retained_as_legacy_assets: true
+  not_run_during_migration: true

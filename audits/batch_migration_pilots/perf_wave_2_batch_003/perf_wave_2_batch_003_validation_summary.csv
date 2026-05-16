@@ -1,0 +1,25 @@
+case_id,check_name,status,details
+PERF_0033,sha256_copy_validation,pass,copied legacy files match source hashes
+PERF_0033,public_hygiene_scan,pass,no forbidden public hygiene patterns found
+PERF_0033,yaml_validation,pass,all case YAML files parse with PyYAML
+PERF_0033,json_validation,pass,all case evidence/metadata JSON files parse
+PERF_0033,spark_plan_sanitization,pass,sanitized Spark positive and hard-negative plans; item/date/store_sales local temp paths redacted
+PERF_0033,validator_v0_3_full_case,pass,PASS
+PERF_0033,validator_v0_3_canonical_case,pass,PASS
+PERF_0033,performance_boundary,pass,"no timing rerun; no speedup, latency, timing, ranking, leaderboard, or paper-result claim created"
+PERF_0034,sha256_copy_validation,pass,copied legacy files match source hashes
+PERF_0034,public_hygiene_scan,pass,no forbidden public hygiene patterns found
+PERF_0034,yaml_validation,pass,all case YAML files parse with PyYAML
+PERF_0034,json_validation,pass,all case evidence/metadata JSON files parse
+PERF_0034,spark_plan_sanitization,pass,"sanitized Spark positive and hard-negative plans; store/catalog/web sales, item, date_dim, and customer_address local temp paths redacted"
+PERF_0034,validator_v0_3_full_case,pass,PASS
+PERF_0034,validator_v0_3_canonical_case,pass,PASS
+PERF_0034,performance_boundary,pass,"no timing rerun; no speedup, latency, timing, ranking, leaderboard, or paper-result claim created"
+PERF_0035,sha256_copy_validation,pass,copied legacy files match source hashes
+PERF_0035,public_hygiene_scan,pass,no forbidden public hygiene patterns found
+PERF_0035,yaml_validation,pass,all case YAML files parse with PyYAML
+PERF_0035,json_validation,pass,all case evidence/metadata JSON files parse
+PERF_0035,spark_plan_sanitization,pass,"sanitized Spark positive and hard-negative plans; catalog_sales, item, date_dim, and call_center local temp paths redacted"
+PERF_0035,validator_v0_3_full_case,pass,PASS
+PERF_0035,validator_v0_3_canonical_case,pass,PASS
+PERF_0035,performance_boundary,pass,"no timing rerun; no speedup, latency, timing, ranking, leaderboard, or paper-result claim created"

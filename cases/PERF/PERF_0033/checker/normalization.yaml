@@ -1,0 +1,9 @@
+case_id: PERF_0033
+normalization_version: canonical_case_package_layout_v1
+sort_rows: true
+trim_whitespace: true
+normalize_numeric_format: true
+normalize_null: true
+source_basis: cases/PERF/PERF_0033/validation/check_results.py and validation/checker.yaml
+claim_boundary:
+  summary_only: true

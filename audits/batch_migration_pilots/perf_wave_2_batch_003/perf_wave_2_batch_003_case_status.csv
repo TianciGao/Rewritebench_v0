@@ -1,0 +1,4 @@
+case_id,migration_attempted,migration_completed,full_case_validator_pass,canonical_case_validator_pass,public_hygiene_pass,yaml_pass,json_pass,sha256_pass,evidence_pilot_regression_pass,full_case_regression_pass,canonical_case_regression_pass,speedup_claim_created,denominator_changed,paper_results_changed,case_membership_changed,raw_legacy_evidence_changed,final_status,failure_reason,next_action
+PERF_0033,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,pass,,human review bounded PERF wave-2 batch 003 before selecting the next small reviewed wave
+PERF_0034,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,pass,,human review bounded PERF wave-2 batch 003 before selecting the next small reviewed wave
+PERF_0035,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,no,no,no,no,no,pass,,human review bounded PERF wave-2 batch 003 before selecting the next small reviewed wave

@@ -1,0 +1,18 @@
+case_id: PERF_0033
+provenance_version: canonical_case_package_layout_v1
+source:
+  source_id: SRC_002
+  source_name: TPC-DS
+  seed_id: TPCDS_QUERY55_DSQGEN_COUNT1_SCALE1_ANSI_V0
+  source_template: query55.tpl
+  source_entry: datasets/raw/tpcds/DSGen-software-code-4.0.0/query_templates/query55.tpl
+  materialized_instance: provenance/query55_instance_raw.sql
+legacy_provenance_references:
+  raw_record: cases/PERF/PERF_0033/provenance/raw_record.json
+  source_instance: cases/PERF/PERF_0033/provenance/query55_instance_raw.sql
+  generation_notes: cases/PERF/PERF_0033/provenance/provenance_notes.txt
+migration:
+  copy_first: true
+  legacy_repo_modified: false
+  db_validation_run: false
+  evidence_regenerated: false

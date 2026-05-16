@@ -1,0 +1,96 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1.15"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": false,
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "date_dim",
+              "access_type": "ALL",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.35",
+                "data_read_per_join": "16"
+              },
+              "used_columns": [
+                "d_date_sk",
+                "d_moy",
+                "d_year"
+              ],
+              "attached_condition": "((`bench`.`date_dim`.`d_year` = 2001) and (`bench`.`date_dim`.`d_moy` = 12))"
+            }
+          },
+          {
+            "table": {
+              "table_name": "ss",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 2,
+              "rows_produced_per_join": 1,
+              "filtered": "50.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.80",
+                "data_read_per_join": "16"
+              },
+              "used_columns": [
+                "ss_sold_date_sk",
+                "ss_item_sk",
+                "ss_ext_sales_price"
+              ],
+              "attached_condition": "((`bench`.`ss`.`ss_sold_date_sk` = `bench`.`date_dim`.`d_date_sk`) and (`bench`.`ss`.`ss_item_sk` is not null))"
+            }
+          },
+          {
+            "table": {
+              "table_name": "item",
+              "access_type": "eq_ref",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "key": "PRIMARY",
+              "used_key_parts": [
+                "i_item_sk"
+              ],
+              "key_length": "4",
+              "ref": [
+                "bench.ss.ss_item_sk"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 0,
+              "filtered": "50.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.05",
+                "prefix_cost": "1.15",
+                "data_read_per_join": "108"
+              },
+              "used_columns": [
+                "i_item_sk",
+                "i_manager_id",
+                "i_brand_id",
+                "i_brand"
+              ],
+              "attached_condition": "(`bench`.`item`.`i_manager_id` = 36)"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

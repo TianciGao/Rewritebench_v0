@@ -1,0 +1,19 @@
+{
+  "case_id": "PERF_0033",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "manager_id_predicate_changed",
+  "status": "retained_static_evidence_summary",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "retained_outputs": {
+    "mysql_negative": "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "spark_negative": "evidence/hard_negative/spark/rewrite_neg_01.tsv"
+  },
+  "observed_static_basis": {
+    "source_positive_semantics": "source and positive aggregate store sales for manager 36 items in December 2001",
+    "negative_semantics": "negative aggregates manager 37 items instead",
+    "witness_discriminator": "retained witness has distinct manager 36 and manager 37 item rows producing different aggregate outputs"
+  },
+  "claim_boundary": {
+    "not_rerun_during_migration": true
+  }
+}

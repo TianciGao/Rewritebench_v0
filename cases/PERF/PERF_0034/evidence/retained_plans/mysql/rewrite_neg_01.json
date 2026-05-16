@@ -1,0 +1,436 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "3.17"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": false,
+        "table": {
+          "table_name": "channel_sales",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 6,
+          "rows_produced_per_join": 6,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.58",
+            "eval_cost": "0.60",
+            "prefix_cost": "3.18",
+            "data_read_per_join": "1K"
+          },
+          "used_columns": [
+            "i_item_id",
+            "total_sales"
+          ],
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "dependent": false,
+            "cacheable": true,
+            "query_block": {
+              "union_result": {
+                "using_temporary_table": false,
+                "query_specifications": [
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 2,
+                      "cost_info": {
+                        "query_cost": "1.32"
+                      },
+                      "grouping_operation": {
+                        "using_temporary_table": true,
+                        "using_filesort": false,
+                        "nested_loop": [
+                          {
+                            "table": {
+                              "table_name": "date_dim",
+                              "access_type": "ALL",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.35",
+                                "data_read_per_join": "16"
+                              },
+                              "used_columns": [
+                                "d_date_sk",
+                                "d_year",
+                                "d_moy"
+                              ],
+                              "attached_condition": "((`bench`.`date_dim`.`d_moy` = 1) and (`bench`.`date_dim`.`d_year` = 2000))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "ss",
+                              "access_type": "ALL",
+                              "rows_examined_per_scan": 2,
+                              "rows_produced_per_join": 1,
+                              "filtered": "50.00",
+                              "using_join_buffer": "hash join",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.80",
+                                "data_read_per_join": "24"
+                              },
+                              "used_columns": [
+                                "ss_item_sk",
+                                "ss_sold_date_sk",
+                                "ss_addr_sk",
+                                "ss_ext_sales_price"
+                              ],
+                              "attached_condition": "((`bench`.`ss`.`ss_sold_date_sk` = `bench`.`date_dim`.`d_date_sk`) and ((`bench`.`ss`.`ss_item_sk` is not null) and (`bench`.`ss`.`ss_addr_sk` is not null)))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "item",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "i_item_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.ss.ss_item_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.05",
+                                "prefix_cost": "1.15",
+                                "data_read_per_join": "204"
+                              },
+                              "used_columns": [
+                                "i_item_sk",
+                                "i_item_id",
+                                "i_color"
+                              ],
+                              "attached_condition": "(`bench`.`item`.`i_color` in ('orchid','chiffon','lace'))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "customer_address",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "ca_address_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.ss.ss_addr_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.12",
+                                "eval_cost": "0.03",
+                                "prefix_cost": "1.33",
+                                "data_read_per_join": "4"
+                              },
+                              "used_columns": [
+                                "ca_address_sk",
+                                "ca_gmt_offset"
+                              ],
+                              "attached_condition": "(`bench`.`customer_address`.`ca_gmt_offset` = <cache>(-(7)))"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 6,
+                      "cost_info": {
+                        "query_cost": "1.22"
+                      },
+                      "grouping_operation": {
+                        "using_temporary_table": true,
+                        "using_filesort": false,
+                        "nested_loop": [
+                          {
+                            "table": {
+                              "table_name": "cs",
+                              "access_type": "ALL",
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.35",
+                                "data_read_per_join": "24"
+                              },
+                              "used_columns": [
+                                "cs_item_sk",
+                                "cs_sold_date_sk",
+                                "cs_bill_addr_sk",
+                                "cs_ext_sales_price"
+                              ],
+                              "attached_condition": "(((`bench`.`cs`.`cs_sold_date_sk` is not null) and (`bench`.`cs`.`cs_item_sk` is not null)) and (`bench`.`cs`.`cs_bill_addr_sk` is not null))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "date_dim",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "d_date_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.cs.cs_sold_date_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.70",
+                                "data_read_per_join": "16"
+                              },
+                              "used_columns": [
+                                "d_date_sk",
+                                "d_year",
+                                "d_moy"
+                              ],
+                              "attached_condition": "((`bench`.`date_dim`.`d_moy` = 1) and (`bench`.`date_dim`.`d_year` = 2000))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "item",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "i_item_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.cs.cs_item_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.05",
+                                "prefix_cost": "1.05",
+                                "data_read_per_join": "204"
+                              },
+                              "used_columns": [
+                                "i_item_sk",
+                                "i_item_id",
+                                "i_color"
+                              ],
+                              "attached_condition": "(`bench`.`item`.`i_color` in ('orchid','chiffon','lace'))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "customer_address",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "ca_address_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.cs.cs_bill_addr_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.12",
+                                "eval_cost": "0.03",
+                                "prefix_cost": "1.23",
+                                "data_read_per_join": "4"
+                              },
+                              "used_columns": [
+                                "ca_address_sk",
+                                "ca_gmt_offset"
+                              ],
+                              "attached_condition": "(`bench`.`customer_address`.`ca_gmt_offset` = <cache>(-(7)))"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 10,
+                      "cost_info": {
+                        "query_cost": "1.22"
+                      },
+                      "grouping_operation": {
+                        "using_temporary_table": true,
+                        "using_filesort": false,
+                        "nested_loop": [
+                          {
+                            "table": {
+                              "table_name": "ws",
+                              "access_type": "ALL",
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.35",
+                                "data_read_per_join": "24"
+                              },
+                              "used_columns": [
+                                "ws_item_sk",
+                                "ws_sold_date_sk",
+                                "ws_bill_addr_sk",
+                                "ws_ext_sales_price"
+                              ],
+                              "attached_condition": "(((`bench`.`ws`.`ws_sold_date_sk` is not null) and (`bench`.`ws`.`ws_item_sk` is not null)) and (`bench`.`ws`.`ws_bill_addr_sk` is not null))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "date_dim",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "d_date_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.ws.ws_sold_date_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.70",
+                                "data_read_per_join": "16"
+                              },
+                              "used_columns": [
+                                "d_date_sk",
+                                "d_year",
+                                "d_moy"
+                              ],
+                              "attached_condition": "((`bench`.`date_dim`.`d_moy` = 1) and (`bench`.`date_dim`.`d_year` = 2000))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "item",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "i_item_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.ws.ws_item_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.05",
+                                "prefix_cost": "1.05",
+                                "data_read_per_join": "204"
+                              },
+                              "used_columns": [
+                                "i_item_sk",
+                                "i_item_id",
+                                "i_color"
+                              ],
+                              "attached_condition": "(`bench`.`item`.`i_color` in ('orchid','chiffon','lace'))"
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "customer_address",
+                              "access_type": "eq_ref",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "key": "PRIMARY",
+                              "used_key_parts": [
+                                "ca_address_sk"
+                              ],
+                              "key_length": "4",
+                              "ref": [
+                                "bench.ws.ws_bill_addr_sk"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 0,
+                              "filtered": "50.00",
+                              "cost_info": {
+                                "read_cost": "0.12",
+                                "eval_cost": "0.03",
+                                "prefix_cost": "1.23",
+                                "data_read_per_join": "4"
+                              },
+                              "used_columns": [
+                                "ca_address_sk",
+                                "ca_gmt_offset"
+                              ],
+                              "attached_condition": "(`bench`.`customer_address`.`ca_gmt_offset` = <cache>(-(7)))"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

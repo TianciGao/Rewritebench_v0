@@ -1,0 +1,19 @@
+{
+  "case_id": "PERF_0034",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "gmt_offset_predicate_changed",
+  "status": "retained_static_evidence_summary",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "retained_outputs": {
+    "mysql_negative": "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "spark_negative": "evidence/hard_negative/spark/rewrite_neg_01.tsv"
+  },
+  "observed_static_basis": {
+    "source_positive_semantics": "source and positive retain channel sales for customer addresses with ca_gmt_offset = -8",
+    "negative_semantics": "negative selects ca_gmt_offset = -7 instead",
+    "witness_discriminator": "retained witness has sales under the -8 address offset and no matching retained negative output"
+  },
+  "claim_boundary": {
+    "not_rerun_during_migration": true
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "4.82"
+    },
+    "ordering_operation": {
+      "using_temporary_table": true,
+      "using_filesort": true,
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "cur",
+            "access_type": "ALL",
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 1,
+            "filtered": "50.00",
+            "cost_info": {
+              "read_cost": "2.62",
+              "eval_cost": "0.10",
+              "prefix_cost": "2.73",
+              "data_read_per_join": "656"
+            },
+            "used_columns": [
+              "i_category",
+              "i_brand",
+              "cc_name",
+              "d_year",
+              "d_moy",
+              "sum_sales",
+              "avg_monthly_sales",
+              "rn"
+            ],
+            "attached_condition": "(((`cur`.`d_year` = 1999) and (`cur`.`avg_monthly_sales` > 0.000000) and ((abs((`cur`.`sum_sales` - `cur`.`avg_monthly_sales`)) / `cur`.`avg_monthly_sales`) > 0.1)) and (((`cur`.`i_category` is not null) and (`cur`.`i_brand` is not null)) and (`cur`.`cc_name` is not null)))",
+            "materialized_from_subquery": {
+              "using_temporary_table": true,
+              "dependent": false,
+              "cacheable": true,
+              "query_block": {
+                "select_id": 3,
+                "cost_info": {
+                  "query_cost": "2.38"
+                },
+                "windowing": {
+                  "windows": [
+                    {
+                      "name": "<unnamed window>",
+                      "definition_position": 1,
+                      "using_temporary_table": true,
+                      "using_filesort": true,
+                      "filesort_key": [
+                        "`i_category`",
+                        "`i_brand`",
+                        "`cc_name`",
+                        "`d_year`"
+                      ],
+                      "frame_buffer": {
+                        "using_temporary_table": true,
+                        "optimized_frame_evaluation": true
+                      },
+                      "functions": [
+                        "avg"
+                      ]
+                    },
+                    {
+                      "name": "<unnamed window>",
+                      "definition_position": 2,
+                      "last_executed_window": true,
+                      "using_filesort": true,
+                      "filesort_key": [
+                        "`i_category`",
+                        "`i_brand`",
+                        "`cc_name`",
+                        "`d_year`",
+                        "`d_moy`"
+                      ],
+                      "functions": [
+                        "rank"
+                      ]
+                    }
+                  ],
+                  "cost_info": {
+                    "sort_cost": "0.68"
+                  },
+                  "grouping_operation": {
+                    "using_temporary_table": true,
+                    "using_filesort": false,
+                    "nested_loop": [
+                      {
+                        "table": {
+                          "table_name": "i",
+                          "access_type": "ALL",
+                          "possible_keys": [
+                            "PRIMARY"
+                          ],
+                          "rows_examined_per_scan": 1,
+                          "rows_produced_per_join": 1,
+                          "filtered": "100.00",
+                          "cost_info": {
+                            "read_cost": "0.25",
+                            "eval_cost": "0.10",
+                            "prefix_cost": "0.35",
+                            "data_read_per_join": "408"
+                          },
+                          "used_columns": [
+                            "i_item_sk",
+                            "i_category",
+                            "i_brand"
+                          ]
+                        }
+                      },
+                      {
+                        "table": {
+                          "table_name": "cc",
+                          "access_type": "ALL",
+                          "possible_keys": [
+                            "PRIMARY"
+                          ],
+                          "rows_examined_per_scan": 1,
+                          "rows_produced_per_join": 1,
+                          "filtered": "100.00",
+                          "using_join_buffer": "hash join",
+                          "cost_info": {
+                            "read_cost": "0.25",
+                            "eval_cost": "0.10",
+                            "prefix_cost": "0.70",
+                            "data_read_per_join": "208"
+                          },
+                          "used_columns": [
+                            "cc_call_center_sk",
+                            "cc_name"
+                          ]
+                        }
+                      },
+                      {
+                        "table": {
+                          "table_name": "cs",
+                          "access_type": "ALL",
+                          "rows_examined_per_scan": 4,
+                          "rows_produced_per_join": 1,
+                          "filtered": "25.00",
+                          "using_join_buffer": "hash join",
+                          "cost_info": {
+                            "read_cost": "0.25",
+                            "eval_cost": "0.10",
+                            "prefix_cost": "1.35",
+                            "data_read_per_join": "24"
+                          },
+                          "used_columns": [
+                            "cs_item_sk",
+                            "cs_sold_date_sk",
+                            "cs_call_center_sk",
+                            "cs_sales_price"
+                          ],
+                          "attached_condition": "(((`bench`.`cs`.`cs_item_sk` = `bench`.`i`.`i_item_sk`) and (`bench`.`cs`.`cs_call_center_sk` = `bench`.`cc`.`cc_call_center_sk`)) and (`bench`.`cs`.`cs_sold_date_sk` is not null))"
+                        }
+                      },
+                      {
+                        "table": {
+                          "table_name": "d",
+                          "access_type": "eq_ref",
+                          "possible_keys": [
+                            "PRIMARY"
+                          ],
+                          "key": "PRIMARY",
+                          "used_key_parts": [
+                            "d_date_sk"
+                          ],
+                          "key_length": "4",
+                          "ref": [
+                            "bench.cs.cs_sold_date_sk"
+                          ],
+                          "rows_examined_per_scan": 1,
+                          "rows_produced_per_join": 0,
+                          "filtered": "34.08",
+                          "cost_info": {
+                            "read_cost": "0.25",
+                            "eval_cost": "0.03",
+                            "prefix_cost": "1.70",
+                            "data_read_per_join": "5"
+                          },
+                          "used_columns": [
+                            "d_date_sk",
+                            "d_year",
+                            "d_moy"
+                          ],
+                          "attached_condition": "((`bench`.`d`.`d_year` = 2000) or ((`bench`.`d`.`d_moy` = 12) and (`bench`.`d`.`d_year` = 1999)) or ((`bench`.`d`.`d_moy` = 1) and (`bench`.`d`.`d_year` = 2001)))"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "table": {
+            "table_name": "prev",
+            "access_type": "ref",
+            "possible_keys": [
+              "<auto_key0>"
+            ],
+            "key": "<auto_key0>",
+            "used_key_parts": [
+              "i_category",
+              "i_brand",
+              "cc_name"
+            ],
+            "key_length": "609",
+            "ref": [
+              "cur.i_category",
+              "cur.i_brand",
+              "cur.cc_name"
+            ],
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 2,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "0.50",
+              "eval_cost": "0.20",
+              "prefix_cost": "3.43",
+              "data_read_per_join": "1K"
+            },
+            "used_columns": [
+              "i_category",
+              "i_brand",
+              "cc_name",
+              "d_year",
+              "d_moy",
+              "sum_sales",
+              "avg_monthly_sales",
+              "rn"
+            ],
+            "attached_condition": "(`cur`.`rn` = (`prev`.`rn` + 1))",
+            "materialized_from_subquery": {
+              "sharing_temporary_table_with": {
+                "select_id": 3
+              }
+            }
+          }
+        },
+        {
+          "table": {
+            "table_name": "next_row",
+            "access_type": "ref",
+            "possible_keys": [
+              "<auto_key0>"
+            ],
+            "key": "<auto_key0>",
+            "used_key_parts": [
+              "i_category",
+              "i_brand",
+              "cc_name"
+            ],
+            "key_length": "609",
+            "ref": [
+              "cur.i_category",
+              "cur.i_brand",
+              "cur.cc_name"
+            ],
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 4,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "1.00",
+              "eval_cost": "0.40",
+              "prefix_cost": "4.83",
+              "data_read_per_join": "2K"
+            },
+            "used_columns": [
+              "i_category",
+              "i_brand",
+              "cc_name",
+              "d_year",
+              "d_moy",
+              "sum_sales",
+              "avg_monthly_sales",
+              "rn"
+            ],
+            "attached_condition": "(`cur`.`rn` = (`next_row`.`rn` - 1))",
+            "materialized_from_subquery": {
+              "sharing_temporary_table_with": {
+                "select_id": 3
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

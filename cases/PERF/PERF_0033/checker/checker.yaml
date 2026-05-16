@@ -1,0 +1,22 @@
+case_id: PERF_0033
+checker_version: canonical_case_package_layout_v1
+checker_type: value_normalized_result_equivalence_checker
+status: retained_static_evidence_summary
+inputs:
+  source: sql/source.sql
+  positive_rewrite: sql/positives/pos_01.sql
+  negative_rewrite: sql/negatives/neg_01.sql
+expectations:
+  equal:
+  - source
+  - pos_01
+  not_equal:
+  - source
+  - neg_01
+retained_evidence:
+  result_check: evidence/retained_controls/result_check.json
+  expected_rejections: checker/expected_rejections.yaml
+  hard_negative_summary: evidence/hard_negative/hard_negative_summary.json
+claim_boundary:
+  not_executed_during_migration: true
+  does_not_create_new_validation_claim: true
