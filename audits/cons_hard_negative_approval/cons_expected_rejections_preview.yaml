@@ -1,0 +1,173 @@
+cases:
+  CONS_0007:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: correlated_exists_predicate_boundary_changed
+        semantic_risk_type:
+          - correlated_subquery_semantics_changed
+          - predicate_boundary_changed
+          - exists_semantics
+        checker_guard_role: source_positive_equal_and_negative_admits_same_commission_without_different_dept_guard
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark outputs return Theodore rows from departments 10 and 30 for source and positive."
+          negative_semantics: "Negative drops the required different-department predicate (`deptno <> e1.deptno`) from the correlated EXISTS condition, so any same-commission row can qualify."
+          witness_discriminator: "Retained negative outputs add Bill and Eric because the different-department guard was removed."
+        evidence_paths:
+          - cases/CONS/CONS_0007/runs/result_check.json
+          - cases/CONS/CONS_0007/runs/pg/source.tsv
+          - cases/CONS/CONS_0007/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0007/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0007/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0007 as an intentional hard negative: rewrite_neg_01 removes the correlated different-department predicate, changing EXISTS semantics from same commission in another department to any same-commission row; the checker should reject it."
+  CONS_0009:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: correlated_union_all_join_key_changed
+        semantic_risk_type:
+          - correlated_subquery_semantics_changed
+          - set_operation_semantics_changed
+          - aggregation_input_boundary_changed
+          - predicate_boundary_changed
+        checker_guard_role: source_positive_equal_and_negative_uses_wrong_correlated_union_all_key
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain row `1 1`."
+          negative_semantics: "Negative preaggregates the second UNION ALL input by `t2a` and joins it to `t0a`, while source/positive use `t2b = t0b`; this changes the correlated input to SUM."
+          witness_discriminator: "Retained negative outputs contain rows `1 1` and `2 0`, adding a row because the second correlated key is wrong."
+        evidence_paths:
+          - cases/CONS/CONS_0009/runs/result_check.json
+          - cases/CONS/CONS_0009/runs/pg/source.tsv
+          - cases/CONS/CONS_0009/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0009/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0009/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0009 as an intentional hard negative: rewrite_neg_01 changes the correlation key for the second UNION ALL aggregate input from `t2b = t0b` to `t2a = t0a`, changing the scalar SUM predicate; the checker should reject it."
+  CONS_0010:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: self_row_exclusion_removed
+        semantic_risk_type:
+          - correlated_subquery_semantics_changed
+          - duplicate_multiplicity_changed
+          - predicate_boundary_changed
+          - anti_join_semantics
+        checker_guard_role: source_positive_equal_and_negative_allows_self_row_in_duplicate_salary_guard
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain CAROL and DAVE."
+          negative_semantics: "Negative removes `e2.empno <> e1.empno`, so the current employee row can satisfy the duplicate-salary EXISTS guard."
+          witness_discriminator: "Retained negative output keeps only DAVE, dropping CAROL because self-matching changes the NOT EXISTS guard."
+        evidence_paths:
+          - cases/CONS/CONS_0010/runs/result_check.json
+          - cases/CONS/CONS_0010/runs/pg/source.tsv
+          - cases/CONS/CONS_0010/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0010/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0010/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0010 as an intentional hard negative: rewrite_neg_01 removes the self-row exclusion from the duplicate-salary correlated EXISTS condition, changing the NOT EXISTS/anti-join semantics; the checker should reject it."
+  CONS_0011:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: outer_join_null_preservation_changed
+        semantic_risk_type:
+          - outer_join_null_preservation_changed
+          - null_semantics_not_preserved
+          - correlated_subquery_semantics_changed
+        checker_guard_role: source_positive_equal_and_negative_changes_outer_join_null_preservation
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain ALICE and BOB."
+          negative_semantics: "Negative changes the LEFT JOIN plus `b.ename IS NULL` existence condition into an INNER JOIN count of matching bonus rows."
+          witness_discriminator: "Retained negative output contains only ALICE, losing the row that depends on null-preserving outer join behavior."
+        evidence_paths:
+          - cases/CONS/CONS_0011/runs/result_check.json
+          - cases/CONS/CONS_0011/runs/pg/source.tsv
+          - cases/CONS/CONS_0011/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0011/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0011/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0011 as an intentional hard negative: rewrite_neg_01 replaces the null-preserving LEFT JOIN/IS NULL existence test with an INNER JOIN match test, changing outer-join NULL semantics; the checker should reject it."
+  CONS_0012:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: limit_offset_threshold_changed
+        semantic_risk_type:
+          - order_limit_boundary_changed
+          - aggregation_grouping_changed
+          - predicate_boundary_changed
+          - correlated_subquery_semantics_changed
+        checker_guard_role: source_positive_equal_and_negative_lowers_limit_offset_threshold
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain departments 10 and 30."
+          negative_semantics: "Source EXISTS with `LIMIT 1 OFFSET 2` requires at least three matching employee rows; negative lowers the grouped threshold from `COUNT(*) >= 3` to `COUNT(*) >= 2`."
+          witness_discriminator: "Retained negative output additionally includes department 20 because the threshold is lowered."
+        evidence_paths:
+          - cases/CONS/CONS_0012/runs/result_check.json
+          - cases/CONS/CONS_0012/runs/pg/source.tsv
+          - cases/CONS/CONS_0012/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0012/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0012/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0012 as an intentional hard negative: rewrite_neg_01 lowers the LIMIT/OFFSET-derived existence threshold from at least three matching rows to at least two, changing the order/limit boundary; the checker should reject it."
+  CONS_0024:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: outer_join_row_preservation_changed
+        semantic_risk_type:
+          - outer_join_null_preservation_changed
+          - aggregation_input_boundary_changed
+          - predicate_boundary_changed
+        checker_guard_role: source_positive_equal_and_negative_filters_row_preserving_left_join
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain employee `1`."
+          negative_semantics: "Source projects only the preserved left-side employee key from a LEFT JOIN; positive collapses to all employees, while negative changes the join to INNER JOIN with the HAVING filter and can filter employees out."
+          witness_discriminator: "Retained negative outputs are empty because the INNER JOIN/HAVING filter removes the preserved employee row."
+        evidence_paths:
+          - cases/CONS/CONS_0024/runs/result_check.json
+          - cases/CONS/CONS_0024/runs/pg/source.tsv
+          - cases/CONS/CONS_0024/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0024/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0024/validation/checker.yaml
+          - cases/CONS/CONS_0024/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0024 as an intentional hard negative: rewrite_neg_01 changes a row-preserving LEFT JOIN into an INNER JOIN guarded by the aggregate EXISTS/HAVING condition, so preserved employee rows can be filtered out; the checker should reject it."
+  CONS_0036:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: group_filter_literal_changed
+        semantic_risk_type:
+          - predicate_boundary_changed
+          - aggregation_grouping_changed
+          - aggregation_input_boundary_changed
+        checker_guard_role: source_positive_equal_and_negative_changes_group_filter_literal
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain `Charlie 2`."
+          negative_semantics: "Negative changes the pushed aggregate filter literal from `Charlie` to `Alice`."
+          witness_discriminator: "Retained negative output contains `Alice 1`, proving the grouped predicate target changed."
+        evidence_paths:
+          - cases/CONS/CONS_0036/runs/result_check.json
+          - cases/CONS/CONS_0036/runs/pg/source.tsv
+          - cases/CONS/CONS_0036/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0036/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0036/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0036 as an intentional hard negative: rewrite_neg_01 changes the aggregate filter predicate literal from `Charlie` to `Alice`, changing the grouped result; the checker should reject it."
+  CONS_0037:
+    hard_negatives:
+      - hard_negative_id: neg_01
+        expected_rejection_reason: aggregation_distinct_semantics_changed
+        semantic_risk_type:
+          - duplicate_multiplicity_changed
+          - aggregation_grouping_changed
+          - outer_join_semantics
+        checker_guard_role: source_positive_equal_and_negative_changes_distinct_aggregate_multiplicity
+        observed_static_basis:
+          source_positive_semantics: "Retained pg/mysql/spark source and positive outputs contain `10 1` and `20 1`."
+          negative_semantics: "Negative removes DISTINCT from `COUNT(DISTINCT dept.name)`, so duplicate joined department-name rows change the aggregate."
+          witness_discriminator: "Retained negative output changes department 10 to count 2 while department 20 remains 1."
+        evidence_paths:
+          - cases/CONS/CONS_0037/runs/result_check.json
+          - cases/CONS/CONS_0037/runs/pg/source.tsv
+          - cases/CONS/CONS_0037/runs/pg/rewrite_pos_01.tsv
+          - cases/CONS/CONS_0037/runs/pg/rewrite_neg_01.tsv
+          - cases/CONS/CONS_0037/runs/plan_check.json
+        approval_status: needs_maintainer_approval
+        suggested_approval_wording: "Approve neg_01 for CONS_0037 as an intentional hard negative: rewrite_neg_01 removes DISTINCT from the joined-name aggregate, changing duplicate multiplicity under the LEFT JOIN; the checker should reject it."

@@ -1538,3 +1538,53 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review the completed PERF pool canonical migration. Then choose the next reviewed non-PERF wave from the readiness audit; do not start blind full Common-core 40 migration.
+
+### 2026-05-16 · pending · CONS hard-negative expected-rejection approval sweep
+
+Mode: release-repo semantic review/audit output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+Scope: Reviewed CONS Common-core hard-negative semantics for `CONS_0005`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, and `CONS_0037`; no case migration was performed.
+
+Summary:
+- Used `CONS_0005` as the already migrated and maintainer-approved reference row.
+- Prepared approval wording for the eight non-pilot CONS Common-core cases.
+- Generated an approval matrix, expected-rejections YAML preview, evidence map, review dossiers, CONS batch recommendation, summary JSON, and two future migration prompt drafts.
+- Recommended primary next CONS batch after approval: `CONS_0007`, `CONS_0009`, `CONS_0010`, and `CONS_0011`.
+- Recommended fallback batch after approval: `CONS_0007`, `CONS_0009`, and `CONS_0010`.
+- Actual case migration performed: no.
+- Common-core 40 blind/bulk migration started: no.
+
+Validation:
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- JSON parse passed for `audits/cons_hard_negative_approval/cons_hard_negative_approval_summary.json`.
+- YAML parse passed for `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`.
+- CSV row-count check passed: `cons_hard_negative_approval_matrix.csv` has 9 data rows.
+- CSV evidence-map check passed: `cons_hard_negative_evidence_map.csv` has 55 data rows.
+- `git diff --check` result: pending.
+
+Files created:
+- `audits/cons_hard_negative_approval/cons_hard_negative_approval_summary.md`
+- `audits/cons_hard_negative_approval/cons_hard_negative_approval_matrix.csv`
+- `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`
+- `audits/cons_hard_negative_approval/cons_hard_negative_evidence_map.csv`
+- `audits/cons_hard_negative_approval/cons_hard_negative_review_dossiers.md`
+- `audits/cons_hard_negative_approval/cons_migration_batch_recommendation.md`
+- `audits/cons_hard_negative_approval/cons_hard_negative_approval_summary.json`
+- `audits/cons_hard_negative_approval/future_prompts/cons_batch_001_canonical_migration_prompt.md`
+- `audits/cons_hard_negative_approval/future_prompts/cons_batch_002_canonical_migration_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Maintainer review and approve the expected-rejection wording in `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`; if approved, run the future CONS batch 001 prompt. Do not start blind full Common-core 40 migration.

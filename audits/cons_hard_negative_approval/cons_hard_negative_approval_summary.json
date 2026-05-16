@@ -1,0 +1,41 @@
+{
+  "total_cons_cases": 9,
+  "approved_reference_cases": [
+    "CONS_0005"
+  ],
+  "non_pilot_cases_reviewed": [
+    "CONS_0007",
+    "CONS_0009",
+    "CONS_0010",
+    "CONS_0011",
+    "CONS_0012",
+    "CONS_0024",
+    "CONS_0036",
+    "CONS_0037"
+  ],
+  "ready_after_approval_count": 8,
+  "needs_human_review_count": 8,
+  "defer_count": 0,
+  "recommended_next_batch": [
+    "CONS_0007",
+    "CONS_0009",
+    "CONS_0010",
+    "CONS_0011"
+  ],
+  "fallback_next_batch": [
+    "CONS_0007",
+    "CONS_0009",
+    "CONS_0010"
+  ],
+  "actual_case_migration_performed": false,
+  "common_core40_blind_bulk_migration_started": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "highest_risks": [
+    "expected rejection wording requires maintainer approval before marking approved",
+    "Spark plan local-path sanitization needed during actual migration",
+    "validation scripts must remain retained legacy assets with output-policy caveat"
+  ]
+}

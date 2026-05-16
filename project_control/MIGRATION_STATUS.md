@@ -843,3 +843,26 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - canonical-case regression result: PASS 19/19 including the six new final PERF cases after migration
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review the completed PERF pool canonical migration, then choose the next reviewed non-PERF wave from the readiness audit. Do not start blind full Common-core 40 migration.
+
+## 23. Last Codex run
+
+- task name: CONS hard-negative expected-rejection approval sweep
+- date: 2026-05-16
+- mode: release-repo semantic review/audit output; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes
+- actual case migration performed: no
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- cases reviewed: CONS_0005 reference plus CONS_0007, CONS_0009, CONS_0010, CONS_0011, CONS_0012, CONS_0024, CONS_0036, and CONS_0037
+- CONS hard-negative approval sweep: completed
+- approved reference cases: CONS_0005
+- non-pilot cases needing maintainer approval: 8
+- cases ready for migration after approval: CONS_0007, CONS_0009, CONS_0010, CONS_0011, CONS_0012, CONS_0024, CONS_0036, CONS_0037
+- defer cases: none identified by this read-only review
+- recommended CONS batch after approval: CONS_0007, CONS_0009, CONS_0010, CONS_0011
+- validation result: PASS for `py_compile`, JSON parse, YAML parse, approval-matrix row count, and evidence-map row count checks
+- next safe action: maintainer review and approve the expected-rejection wording in `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`, then run the future CONS batch 001 prompt if approved. Do not start blind full Common-core 40 migration.

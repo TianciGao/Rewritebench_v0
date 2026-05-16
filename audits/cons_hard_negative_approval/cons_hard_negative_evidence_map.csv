@@ -1,0 +1,56 @@
+case_id,artifact_path,artifact_type,evidence_role,public_safe_likely,supports_source_positive_equivalence,supports_negative_rejection,local_path_or_hygiene_risk,notes
+CONS_0005,cases/CONS/CONS_0005/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0005,cases/CONS/CONS_0005/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0005,cases/CONS/CONS_0005/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0005,cases/CONS/CONS_0005/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0005,cases/CONS/CONS_0005/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0005,cases/CONS/CONS_0005/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0007,cases/CONS/CONS_0007/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0007,cases/CONS/CONS_0007/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0007,cases/CONS/CONS_0007/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0007,cases/CONS/CONS_0007/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0007,cases/CONS/CONS_0007/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0007,cases/CONS/CONS_0007/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0009,cases/CONS/CONS_0009/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0009,cases/CONS/CONS_0009/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0009,cases/CONS/CONS_0009/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0009,cases/CONS/CONS_0009/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0009,cases/CONS/CONS_0009/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0009,cases/CONS/CONS_0009/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0010,cases/CONS/CONS_0010/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0010,cases/CONS/CONS_0010/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0010,cases/CONS/CONS_0010/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0010,cases/CONS/CONS_0010/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0010,cases/CONS/CONS_0010/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0010,cases/CONS/CONS_0010/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0011,cases/CONS/CONS_0011/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0011,cases/CONS/CONS_0011/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0011,cases/CONS/CONS_0011/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0011,cases/CONS/CONS_0011/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0011,cases/CONS/CONS_0011/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0011,cases/CONS/CONS_0011/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0012,cases/CONS/CONS_0012/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0012,cases/CONS/CONS_0012/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0012,cases/CONS/CONS_0012/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0012,cases/CONS/CONS_0012/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0012,cases/CONS/CONS_0012/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0012,cases/CONS/CONS_0012/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0024,cases/CONS/CONS_0024/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0024,cases/CONS/CONS_0024/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0024,cases/CONS/CONS_0024/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0024,cases/CONS/CONS_0024/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0024,cases/CONS/CONS_0024/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0024,cases/CONS/CONS_0024/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0024,cases/CONS/CONS_0024/validation/checker.yaml,checker_config,checker_normalization,yes,yes,yes,no,Legacy checker config explicitly records source-positive equality and negative rejection basis.
+CONS_0036,cases/CONS/CONS_0036/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0036,cases/CONS/CONS_0036/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0036,cases/CONS/CONS_0036/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0036,cases/CONS/CONS_0036/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0036,cases/CONS/CONS_0036/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0036,cases/CONS/CONS_0036/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
+CONS_0037,cases/CONS/CONS_0037/runs/result_check.json,result_check,tri_engine_result_summary,yes,yes,yes,no,Retained checker summary reports source=positive and source!=negative for pg/mysql/spark.
+CONS_0037,cases/CONS/CONS_0037/runs/plan_check.json,plan_check,plan_observability,yes,no,no,no,Confirms retained plan artifact completeness; not used as semantic proof.
+CONS_0037,cases/CONS/CONS_0037/runs/pg/source.tsv,retained_output,source_output,yes,yes,no,no,Representative retained source output used for behavior summary.
+CONS_0037,cases/CONS/CONS_0037/runs/pg/rewrite_pos_01.tsv,retained_output,positive_output,yes,yes,no,no,Representative retained positive output used for behavior summary.
+CONS_0037,cases/CONS/CONS_0037/runs/pg/rewrite_neg_01.tsv,retained_output,negative_output,yes,no,yes,no,Representative retained negative output used for behavior summary.
+CONS_0037,cases/CONS/CONS_0037/runs/spark/plans/source.txt,plan_text,spark_plan_observability,needs_sanitization,no,no,yes,Spark plan text likely needs local-path sanitization before public retained evidence packaging.
