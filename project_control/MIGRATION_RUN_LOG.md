@@ -1170,13 +1170,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `PERF_0006` canonical-layout pilot, then decide whether to run another bounded single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · LONGTAIL_0011 canonical-layout migration dry-run plan
+### 2026-05-16 · 8aedf22 · LONGTAIL_0011 canonical-layout migration dry-run plan
 
 Mode: release-repo planning/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: 8aedf22cf5d1829eebfb575186e52f90a7e05ff1
+Push: pushed to origin main successfully (acf3986..8aedf22)
 Scope: Created a planning-only canonical-layout full case migration blueprint for `LONGTAIL_0011` without creating or modifying the release case package.
 
 Summary:
