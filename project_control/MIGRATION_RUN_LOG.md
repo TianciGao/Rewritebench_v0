@@ -2019,3 +2019,52 @@ Paper/denominator impact:
 
 Next safe action:
 - Start a separate bounded public reports/results retained-evidence migration planning task that selects a minimal reviewed subset from the retained-evidence map; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
+
+### 2026-05-16 · pending · Workbench redevelopment strategy alignment
+
+Mode: release-repo planning/spec output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Actual case migration performed: no
+Commit: pending
+Push: pending
+
+Summary:
+- Recorded decision `D016` in `project_control/DECISION_LOG.md`, shifting the public release project from migration-first work to redevelopment-led public workbench construction.
+- Drafted future-facing repository specs for the evidence ledger schema, metrics contract, public runner output policy, and workbench redevelopment plan.
+- Created strategy-alignment audit outputs under `audits/workbench_redevelopment_alignment/`.
+- Reclassified legacy scripts, reports, results, runs, paper tables, and non-common-core cases as reference inputs, retained evidence sources, adapter targets, comparison targets, or governed backlog rather than architecture to copy wholesale.
+- Updated `project_control/MIGRATION_STATUS.md` to mark the current phase as workbench redevelopment.
+- Did not migrate cases, copy reports/results, implement scripts, run DB engines, compute metrics, regenerate evidence, update case sets, change denominator values, change paper results, or mutate raw legacy evidence.
+
+Files created:
+- `repository_spec/evidence_ledger_schema_v1_draft.md`
+- `repository_spec/metrics_contract_v1_draft.md`
+- `repository_spec/public_runner_output_policy_v1_draft.md`
+- `repository_spec/workbench_redevelopment_plan_v1.md`
+- `audits/workbench_redevelopment_alignment/redevelopment_alignment_summary.md`
+- `audits/workbench_redevelopment_alignment/legacy_artifact_role_reclassification.md`
+- `audits/workbench_redevelopment_alignment/script_redevelopment_roadmap.md`
+- `audits/workbench_redevelopment_alignment/retained_evidence_adapter_plan.md`
+- `audits/workbench_redevelopment_alignment/open_questions_before_reproduction_interface.md`
+- `audits/workbench_redevelopment_alignment/redevelopment_alignment_summary.json`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse and git diff check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+- metrics finalized: no
+- reproduction interface implementation authorized: no
+
+Next safe action:
+- Resolve metric-contract and reproduction-interface open questions with the maintainer/team before implementing metrics computation, a unified reproduction CLI, paper table rendering, or public runner outputs.

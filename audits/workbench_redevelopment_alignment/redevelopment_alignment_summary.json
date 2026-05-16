@@ -1,0 +1,12 @@
+{
+  "case_sets_aligned": true,
+  "common_core_packages_complete": true,
+  "denominator_changed": false,
+  "metrics_finalized": false,
+  "next_safe_action": "resolve_metrics_and_reproduction_interface_open_questions_before_implementation",
+  "paper_results_changed": false,
+  "phase": "workbench_redevelopment",
+  "raw_legacy_evidence_changed": false,
+  "reports_results_map_complete": true,
+  "reproduction_interface_allowed_to_implement": false
+}

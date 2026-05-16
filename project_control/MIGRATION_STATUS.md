@@ -21,6 +21,12 @@ Common-core v0 release membership and inventory scaffolds are now aligned under 
 
 Reports/results retained-evidence mapping is complete under `audits/reports_results_retained_evidence_map/`. This is a reference map only; no release `reports/` or `results/` directories were updated.
 
+Current phase: Workbench redevelopment phase.
+
+The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
+
+Important blocker: before implementing a unified reproduction CLI, paper table renderer, or metrics computation, the maintainer/team must confirm final metric definitions after team discussion.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -82,6 +88,8 @@ Membership and scaffold snapshot:
 - Public reports/results retained-evidence migration has not copied approved artifacts yet.
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
+- Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
+- Final metric definitions are not approved for implementation.
 - Script inventory and reproduction path are not done.
 - Case universe 197 vs 190 governance reconciliation is still pending.
 - Paper tables/results were not regenerated or changed.
@@ -89,4 +97,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Start a separate bounded public reports/results retained-evidence migration planning task that selects a minimal reviewed subset from the retained-evidence map. Do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
+Review the redevelopment draft specs and resolve the open metric/reproduction-interface questions with the maintainer/team. Do not implement metrics computation, a unified reproduction CLI, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes until those definitions are confirmed.

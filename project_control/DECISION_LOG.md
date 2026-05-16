@@ -316,3 +316,33 @@ Future full-case migration prompts must reference `canonical_case_package_layout
 Validator full-case mode should later be extended to check canonical layout conformance.
 
 No immediate case movement is authorized by this decision.
+
+## D016：Redevelopment-led public workbench phase after Common-core 40 canonical migration
+
+Decision:
+
+After completing Common-core 40 canonical case-package migration and membership/denominator scaffolding, the project shifts from migration-first work to redevelopment-led public workbench construction.
+
+The public workbench should be built around:
+
+- canonical case packages;
+- evidence ledger schema;
+- metrics contract;
+- runner/output policy;
+- retained evidence adapter;
+- reproduction/report renderer;
+- user-facing candidate runner.
+
+Legacy scripts, reports, and results should be treated as retained evidence sources, reference implementations, or adapter inputs, not as the architecture to copy wholesale.
+
+Reason:
+
+Legacy scripts and reports/results mix DB runners, LLM runners, local paths, scratch outputs, logs, timing artifacts, and paper renderers. Copying them wholesale would preserve legacy complexity and make future metric adjustments harder.
+
+Impact:
+
+- Future scripts should be designed against canonical case packages and evidence ledger.
+- Legacy reports/results should be mapped into a new ledger, not blindly copied.
+- User-facing outputs must not write into case-local `runs/`.
+- Final metric changes must be confirmed by maintainer/team before implementing the unified reproduction interface.
+- Common-core 40 remains the public v0 benchmark line; non-common-core cases remain governed backlog/universe, not v0 denominator.
