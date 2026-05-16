@@ -2256,13 +2256,13 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer/team review and approve the aligned metrics contract draft before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.
 
-### 2026-05-17 · pending · Whole-case universe governance and non-common-core package readiness audit
+### 2026-05-17 · f8f409f · Whole-case universe governance and non-common-core package readiness audit
 
 Mode: release-repo governance/readiness audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `f8f409fb6666f14c0e3d3d6f80a20cb8067d7467`
+Push: `origin/main` updated `85dac0d..f8f409f`
 
 Summary:
 - Indexed the whole legacy case universe under `cases/PERF`, `cases/CONS`, `cases/PORT`, and `cases/LONGTAIL`.
