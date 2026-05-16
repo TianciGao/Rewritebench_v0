@@ -1926,14 +1926,14 @@ Paper/denominator impact:
 Next safe action:
 - Review the final LONGTAIL migration audit, then perform a separate Common-core 40 case-package completion closeout if desired; do not touch case_sets, reports, results, denominator files, or paper tables yet.
 
-### 2026-05-16 · pending · Common-core 40 canonical case-package final closeout
+### 2026-05-16 · 8ce8dd7 · Common-core 40 canonical case-package final closeout
 
 Mode: release-repo final closeout/audit output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
 Actual case migration performed: no
-Commit: `pending`
-Push: `pending`
+Commit: `8ce8dd7855201a2cf863a49eb6d1f2ca2393b85d`
+Push: `origin/main` updated `65810c3..8ce8dd7`
 
 Summary:
 - Verified the fixed Common-core v0 40-case membership from release-repo package files and fresh validator v0.3 outputs.
