@@ -1696,13 +1696,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review CONS batch 002 and the completed CONS pool canonical migration. Do not start blind full Common-core 40 migration.
 
-### 2026-05-16 · pending · PORT wave-2 canonical migration batch 001
+### 2026-05-16 · 47b83ad · PORT wave-2 canonical migration batch 001
 
 Mode: release-repo bounded PORT canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until push completes
+Commit: `47b83ad1a1594b0ca84b4009f163f11dc3abfa46`
+Push: `origin/main` updated `f091824..47b83ad`
 Scope: Migrated exactly the bounded PORT wave-2 batch 001 cases `PORT_0003`, `PORT_0005`, `PORT_0012`, and `PORT_0013` into canonical public-release layout.
 
 Summary:
@@ -1728,7 +1728,7 @@ Validation:
 - Full-case regression passed 32/32 including the four new PORT batch 001 cases after migration.
 - Canonical-case regression passed 31/31 including the four new PORT batch 001 cases after migration and excluding legacy-compatible `PORT_0004`.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
-- `git diff --check` result: pending final git check.
+- `git diff --check` result: passed.
 
 Files created:
 - `cases/PORT/PORT_0003/`
