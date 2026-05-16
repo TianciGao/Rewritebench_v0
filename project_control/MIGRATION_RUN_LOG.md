@@ -1877,14 +1877,14 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer review/approve expected rejection wording in `audits/longtail_final_readiness/longtail_expected_rejections_preview.yaml`, then run the bounded final LONGTAIL canonical migration prompt; do not touch case_sets, reports, results, denominator files, or paper tables yet.
 
-### 2026-05-16 · pending · LONGTAIL final bounded canonical migration batch
+### 2026-05-16 · 6792fd2 · LONGTAIL final bounded canonical migration batch
 
 Mode: release-repo bounded LONGTAIL canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
 Actual case migration performed: yes
-Commit: pending
-Push: pending
+Commit: `6792fd2bb542460fe7dd434c2aa181d71f3eb716`
+Push: `origin/main` updated `66db267..6792fd2`
 
 Summary:
 - Migrated `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` into canonical public-release layout.
