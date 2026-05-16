@@ -1,0 +1,50 @@
+{
+  "artifacts_scanned": 13190,
+  "category_counts": {
+    "denominator_or_membership_reference": 14,
+    "local_run_workspace": 4885,
+    "method_output_retained_reference": 3080,
+    "paper_facing_retained_evidence": 276,
+    "paper_summary_table": 69,
+    "raw_log_or_debug_output": 4094,
+    "scratch_or_dev_output": 12,
+    "sensitive_or_hygiene_review_required": 5,
+    "timing_raw_or_timing_log": 522,
+    "unknown_manual_review_required": 233
+  },
+  "copy_now_count": 0,
+  "denominator_changed": false,
+  "manual_review_count": 6762,
+  "paper_results_changed": false,
+  "path_status": {
+    "reports": {
+      "exists": true,
+      "file_count": 13186
+    },
+    "reports/evaluation/common_core_v0": {
+      "exists": true,
+      "file_count": 13156
+    },
+    "results": {
+      "exists": false,
+      "file_count": 0
+    },
+    "results/local": {
+      "exists": false,
+      "file_count": 0
+    },
+    "results/retained": {
+      "exists": false,
+      "file_count": 0
+    },
+    "runs": {
+      "exists": false,
+      "file_count": 0
+    }
+  },
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_action": "bounded_public_reports_results_retained_evidence_migration_planning_with_manual_review",
+  "reports_changed": false,
+  "results_changed": false,
+  "retained_candidates_count": 3439
+}

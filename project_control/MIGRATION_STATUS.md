@@ -19,6 +19,8 @@ No case migration was performed by the final closeout task. It only verified rel
 
 Common-core v0 release membership and inventory scaffolds are now aligned under `case_sets/common_core_v0/` and `inventory/`.
 
+Reports/results retained-evidence mapping is complete under `audits/reports_results_retained_evidence_map/`. This is a reference map only; no release `reports/` or `results/` directories were updated.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -42,6 +44,7 @@ Membership and scaffold snapshot:
 - `case_sets/common_core_v0/controls_360.csv`: 360 planned control scaffold rows.
 - `inventory/case_registry.csv`: 40 Common-core registry rows.
 - `inventory/source_registry.csv`: source-family registry inferred from existing migrated case manifests, with license/source notes marked `needs_later_review` where not governed.
+- `audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv`: legacy reports/results artifact map, with `copy_now=false` for all retained-evidence candidates.
 
 ## Explicit Boundaries
 
@@ -53,6 +56,7 @@ Membership and scaffold snapshot:
 - `inventory/` aligned for fixed Common-core v0 scope.
 - `reports/` not updated by case-package migration or final closeout.
 - `results/` not updated by case-package migration or final closeout.
+- Reports/results retained-evidence map completed; actual release reports/results files unchanged.
 - Denominator files and paper tables not updated by case-package migration or final closeout.
 - Raw legacy evidence unchanged.
 - No global leaderboard.
@@ -71,10 +75,11 @@ Membership and scaffold snapshot:
 - LONGTAIL pool canonical case-package migration complete: 6/6.
 - Common-core 40 canonical case-package migration complete: 40/40.
 - Common-core v0 case-set, denominator scaffold, control scaffold, and public inventory registry alignment completed.
+- Reports/results retained-evidence map completed without copying reports/results or changing metrics.
 
 ## Remaining Non-Case-Package Blockers
 
-- Reports/results retained evidence map is not done.
+- Public reports/results retained-evidence migration has not copied approved artifacts yet.
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Script inventory and reproduction path are not done.
@@ -84,4 +89,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Start a separate bounded task for the reports/results retained evidence map using the aligned Common-core v0 membership files as inputs. Do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
+Start a separate bounded public reports/results retained-evidence migration planning task that selects a minimal reviewed subset from the retained-evidence map. Do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.

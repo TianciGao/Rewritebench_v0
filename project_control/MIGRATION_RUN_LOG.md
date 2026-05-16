@@ -1990,3 +1990,32 @@ Paper/denominator impact:
 
 Next safe action:
 - Start a separate bounded reports/results retained evidence map using the aligned Common-core v0 membership and inventory files; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
+
+### 2026-05-16 · pending · Common-core reports/results retained evidence map
+
+Mode: release-repo reports/results retained-evidence mapping audit; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Inspected legacy `reports/`, `reports/evaluation/common_core_v0/`, `results/`, `results/retained`, `results/local`, and top-level `runs/` read-only.
+- Confirmed legacy `results/`, `results/retained`, `results/local`, and top-level `runs/` are absent in the inspected legacy snapshot.
+- Created `audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv` with static classifications for discovered relevant report artifacts and explicit missing-path records.
+- Created `audits/reports_results_retained_evidence_map/retained_evidence_candidate_map.csv` with `copy_now=false` for every retained-evidence candidate.
+- Created manual-review, boundary, and future public migration planning notes under `audits/reports_results_retained_evidence_map/`.
+- Did not copy reports/results, update release reports/results, recompute metrics, regenerate paper tables, change denominator values, change case membership, or mutate raw legacy evidence.
+
+Validation:
+- Python compile, JSON parse, CSV header/row checks, `copy_now=false` check, and git diff check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Start a separate bounded public reports/results retained-evidence migration planning task that selects a minimal reviewed subset from the retained-evidence map; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
