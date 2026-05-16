@@ -1488,7 +1488,7 @@ Next safe action:
 Mode: release-repo bounded batch canonical migration; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: 98fafa46f2c9c98f2381f2299704af533bf59964
+Commit: 98fafa41ac40ce766dcb3d26bc9eab98c9ff3890
 Push: pushed to origin main successfully (2391de3..98fafa4)
 Scope: Migrated exactly the bounded PERF wave-2 final batch cases `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, and `PERF_0082` into canonical public-release layout.
 
