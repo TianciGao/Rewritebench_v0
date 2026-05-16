@@ -917,13 +917,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the completed `PORT_0008` canonical-layout pilot, then decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · static case-package validator v0.3 canonical-layout mode
+### 2026-05-16 · 5c797e1 · static case-package validator v0.3 canonical-layout mode
 
 Mode: release-repo static validator enhancement; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash recorded after commit
-Push: pending at write time; final result recorded after push
+Commit: 5c797e1d0b4b423a4347864751176c0190a6c11e
+Push: pushed to origin main successfully (f86fc3d..5c797e1)
 Scope: Added static canonical-layout conformance validation after the completed `PORT_0008` canonical-layout pilot.
 
 Summary:
