@@ -23,6 +23,8 @@ Reports/results retained-evidence mapping is complete under `audits/reports_resu
 
 Common-core retained evidence to draft ledger mapping audit is complete under `audits/retained_evidence_ledger_mapping/`. This audit maps retained evidence candidate groups to ledger field coverage and future adapter needs only; it does not implement adapters, compute metrics, copy reports/results, or authorize the reproduction interface.
 
+Evidence ledger semantics and adapter row-grain policy drafts are complete under `repository_spec/` and `audits/ledger_semantics_row_grain_policy/`. This policy layer defines typed ledger record types, field semantics, row-grain rules, and denominator boundaries only; it does not authorize adapters, metrics, runner implementation, reproduction CLI implementation, or paper rendering.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -54,6 +56,7 @@ Membership and scaffold snapshot:
 - `inventory/source_registry.csv`: source-family registry inferred from existing migrated case manifests, with license/source notes marked `needs_later_review` where not governed.
 - `audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv`: legacy reports/results artifact map, with `copy_now=false` for all retained-evidence candidates.
 - `audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv`: grouped retained-evidence candidate to draft ledger field mapping.
+- `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`: 28 draft ledger fields reviewed against record types and denominator boundaries.
 
 ## Explicit Boundaries
 
@@ -70,6 +73,7 @@ Membership and scaffold snapshot:
 - Denominator files and paper tables not updated by case-package migration or final closeout.
 - Raw legacy evidence unchanged.
 - Metrics implementation authorized: no.
+- Retained-evidence adapter implementation authorized: no.
 - Unified reproduction interface implementation authorized: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
@@ -89,6 +93,7 @@ Membership and scaffold snapshot:
 - Common-core v0 case-set, denominator scaffold, control scaffold, and public inventory registry alignment completed.
 - Reports/results retained-evidence map completed without copying reports/results or changing metrics.
 - Common-core retained evidence to draft ledger mapping audit completed without copying reports/results or implementing metrics.
+- Evidence ledger semantics and adapter row-grain policy drafts completed without implementation.
 
 ## Remaining Non-Case-Package Blockers
 
@@ -104,4 +109,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review the redevelopment draft specs and resolve the open metric/reproduction-interface questions with the maintainer/team. Do not implement metrics computation, a unified reproduction CLI, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes until those definitions are confirmed.
+Review and approve the ledger semantics, record-type policy, adapter row-grain policy, and remaining metric questions before implementing retained-evidence adapters, metrics computation, a unified reproduction CLI, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes.

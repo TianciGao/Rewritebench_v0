@@ -2113,3 +2113,51 @@ Paper/denominator impact:
 
 Next safe action:
 - Review and approve evidence ledger field semantics plus adapter row-grain policy before implementing retained evidence adapters, metrics computation, a paper table renderer, unified reproduction CLI, or public runner output.
+
+### 2026-05-16 · pending · Evidence ledger field semantics and adapter row-grain policy lock
+
+Mode: release-repo ledger semantics and row-grain policy output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created draft policy specs for evidence ledger field semantics, adapter row grain, and record-type boundaries under `repository_spec/`.
+- Defined seven draft ledger record types: `control_cell`, `rewrite_candidate_cell`, `plan_observability_artifact`, `portability_candidate_cell`, `verifier_support_pair`, `retained_summary_artifact`, and `user_run_candidate_cell`.
+- Reviewed all 28 draft evidence ledger fields in `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`.
+- Added concrete row-grain examples, denominator role boundary notes, adapter row-grain decisions, and open metric-finalization questions under `audits/ledger_semantics_row_grain_policy/`.
+- Updated `project_control/MIGRATION_STATUS.md` to record the policy-only completion.
+- Did not implement retained-evidence adapters, metrics computation, runner or reproduction CLI, scripts, source modules, report rendering, reports/results migration, DB validation, timing reruns, evidence regeneration, denominator updates, case membership changes, migrated case package changes, or raw legacy evidence changes.
+
+Files created:
+- `repository_spec/evidence_ledger_semantics_v1_draft.md`
+- `repository_spec/adapter_row_grain_policy_v1_draft.md`
+- `repository_spec/evidence_record_type_policy_v1_draft.md`
+- `audits/ledger_semantics_row_grain_policy/ledger_row_grain_policy_summary.md`
+- `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`
+- `audits/ledger_semantics_row_grain_policy/record_type_examples.csv`
+- `audits/ledger_semantics_row_grain_policy/denominator_role_boundary_notes.md`
+- `audits/ledger_semantics_row_grain_policy/adapter_row_grain_decision_table.csv`
+- `audits/ledger_semantics_row_grain_policy/open_questions_for_metric_finalization.md`
+- `audits/ledger_semantics_row_grain_policy/ledger_semantics_row_grain_policy_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV row/coverage checks, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+- metrics implementation authorized: no
+- adapter implementation authorized: no
+- reproduction interface implementation authorized: no
+
+Next safe action:
+- Review and approve ledger semantics, record-type policy, adapter row-grain policy, and remaining metric-finalization questions before any retained-evidence adapter, metrics computation, paper renderer, reproduction CLI, or public runner implementation.

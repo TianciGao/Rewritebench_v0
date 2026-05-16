@@ -1,0 +1,21 @@
+{
+  "record_types_defined": [
+    "control_cell",
+    "rewrite_candidate_cell",
+    "plan_observability_artifact",
+    "portability_candidate_cell",
+    "verifier_support_pair",
+    "retained_summary_artifact",
+    "user_run_candidate_cell"
+  ],
+  "ledger_fields_reviewed": 28,
+  "metrics_implementation_authorized": false,
+  "adapter_implementation_authorized": false,
+  "reproduction_interface_authorized": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "next_safe_action": "review_and_approve_ledger_semantics_record_type_policy_and_adapter_row_grain_before_any_adapter_or_metrics_implementation"
+}
