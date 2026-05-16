@@ -28,7 +28,9 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is CONS_0005 canonical-layout full case migration pilot；
+latest completed run is PERF_0006 canonical-layout migration dry-run plan；
+PERF_0006 canonical-layout migration plan created；
+PERF_0006 actual migration performed: no；
 CONS_0005 canonical-layout full case migration pilot completed；
 canonical layout tested for CONS pool: yes；
 checker expected rejection approved for CONS_0005；
@@ -57,6 +59,7 @@ denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
 当前下一步安全动作是 review the completed CONS_0005 canonical-layout pilot, then decide the next single-case pilot or continue case-universe/report/script audits；do not start Common-core 40 migration。
+当前下一步安全动作更新为 human review of the PERF_0006 canonical-layout plan, then decide whether to execute the future actual migration prompt；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -587,3 +590,27 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - full-case regression result: PASS 2/2 for PORT_0004 and PORT_0008
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: review the completed CONS_0005 canonical-layout pilot, then decide the next single-case pilot or continue case-universe/report/script audits. Do not start Common-core 40 migration.
+
+## 15. Last Codex run
+
+- task name: PERF_0006 canonical-layout migration dry-run plan
+- date: 2026-05-16
+- mode: release-repo planning/audit output; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes
+- actual case migration performed: no
+- PERF_0006 release case package created or modified: no
+- full case migration currently completed only for: PORT_0004, PORT_0008, and CONS_0005
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- planning outputs created under: `audits/canonical_layout_planning/PERF_0006/`
+- planning summary:
+  - PERF_0006 is proposed as a performance-sensitive analytical canonical-layout pilot candidate.
+  - Static inspection found no timing/speedup artifacts under the legacy case directory.
+  - Static precheck found Spark plan `file:/tmp` traces that require future sanitization or private/archive mapping.
+  - The future migration must preserve the no-new-speedup and no-global-leaderboard boundary.
+- validation summary: planning JSON parsed; preview YAML files parsed when PyYAML was available; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review of the PERF_0006 canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.

@@ -1,0 +1,22 @@
+validator_check,current_legacy_status,expected_after_canonical_migration,required_action,notes
+manifest_exists,legacy manifest exists,canonical manifest.yaml generated,generate canonical manifest from legacy manifest plus preview,must not byte-copy legacy manifest
+source_sql_exists,root source.sql exists,sql/source.sql exists,copy_and_rename,case SQL only under sql/
+positive_rewrite_exists,root rewrite_pos_01.sql exists,sql/positives/pos_01.sql exists,copy_and_rename,derived-relation filter rewrite
+hard_negative_status,rewrite_neg_01.sql exists,sql/negatives/neg_01.sql and checker/expected_rejections.yaml exist,copy_and_generate,negative excludes cutoff-date row and should be rejected
+schema_context_exists,schema DDL and witness SQL exist,schema/<engine>/ddl.sql and load.sql plus schema_profile.yaml exist,copy_and_generate,all three engines have DDL and witness loads
+checker_exists,legacy checker.yaml and check_results.py exist,checker/*.yaml generated,generate_from_audit,cross-dialect checker should be explicit
+validation_path_exists,legacy validation scripts exist except Spark plan collection,canonical validation scripts exist; Spark plan collection generated/deferred,copy_or_defer,scripts must be legacy assets with output-policy caveat
+provenance_exists,provenance/raw_record.json and notes exist,metadata/provenance.yaml exists,generate_from_manifest,preserve TPC-H Q1 freeze provenance
+taxonomy_exists,taxonomy_trial_v0.2.yaml is TODO,metadata/taxonomy.yaml exists with human-review caveat,generate_from_manifest,do not overclaim taxonomy
+evidence_runs_retention_exists,legacy runs/ exists,evidence/runs_retention.yaml exists,generate_from_audit,raw runs mapped not wholesale copied
+retained_plan_evidence_mapped,plan_check and JSON/Spark text plans exist,retained_plans mapped; Spark text sanitized,copy_public_safe_and_sanitize_spark,Spark local path traces block raw publication
+retained_control_evidence_mapped,result_check and TSV outputs exist,retained_controls and hard_negative evidence promoted,copy_public_safe,source reference plus target outputs retained
+timing_evidence_boundary_clear,no timing files found by static inspection,no timing evidence packaged; no speedup claim,record_boundary,migration must not create timing/speedup claim
+sanitized_evidence_scan_ok,Spark plans fail raw public hygiene,future public tree passes hygiene after sanitization,sanitize_or_archive,file:/tmp traces must be redacted
+no_denominator_change_claim_ok,legacy does not authorize denominator change,denominator_changed false,preserve_boundary,case_sets control membership
+no_paper_result_change_claim_ok,legacy draft evidence only,paper_results_changed false,preserve_boundary,migration is not paper recomputation
+no_speedup_claim_created_ok,no timing/speedup artifact found,speedup_claim_created false,preserve_boundary,PERF pool does not imply new performance result
+no_global_leaderboard_claim_ok,no leaderboard claim observed,no_global_leaderboard true,preserve_boundary,role-aware reporting only
+full_case_structure_ok,legacy layout is non-canonical,canonical layout complete,copy_generate_validate,expected after actual migration
+evidence_mapping_ok,legacy runs evidence unmapped in release,retention mapping complete,generate_runs_retention,all originals do-not-delete
+canonical_case_validator_expected_result,no release case currently exists,PASS after actual migration,run validator v0.3,expected only after files are actually created

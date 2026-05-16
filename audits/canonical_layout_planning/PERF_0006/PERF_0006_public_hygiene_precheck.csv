@@ -1,0 +1,44 @@
+path,source_kind,scan_scope,public_safe_as_is,local_path_risk,prompt_api_token_risk,log_debug_risk,temporary_path_risk,needs_sanitization,proposed_action,notes
+cases/PERF/PERF_0006/manifest.yaml,legacy_file,root,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/source.sql,legacy_file,sql,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/rewrite_pos_01.sql,legacy_file,sql,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/rewrite_neg_01.sql,legacy_file,sql,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/schema/ddl_pg.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/schema/ddl_mysql.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/schema/ddl_spark.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/pg_witness_data.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/mysql_witness_data.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/spark_witness_data.sql,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/data_profile.json,legacy_file,schema,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/data_profile.json,legacy_file,data,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/witness_dataset.yaml,legacy_file,data,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/checker.yaml,legacy_file,checker,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/check_results.py,legacy_file,checker,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/check_results.py,legacy_file,checker,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/rewrite_neg_01.sql,legacy_file,checker,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/run_pg_validation.sh,legacy_file,validation,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/run_mysql_validation.sh,legacy_file,validation,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/run_spark_validation.sh,legacy_file,validation,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/run_pg_plan_collection.sh,legacy_file,validation,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/validation/run_mysql_plan_collection.sh,legacy_file,validation,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/result_check.json,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/pg/source.tsv,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/mysql/rewrite_pos_01.tsv,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/spark/rewrite_pos_01.tsv,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/mysql/rewrite_neg_01.tsv,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/spark/rewrite_neg_01.tsv,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/plan_check.json,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/pg/plans/source.json,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/mysql/plans/rewrite_pos_01.json,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/mysql/plans/rewrite_neg_01.json,legacy_file,evidence,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/runs/spark/plans/rewrite_pos_01.txt,legacy_file,evidence,false,false,false,false,true,true,sanitize_before_public_copy,temporary path trace detected
+cases/PERF/PERF_0006/runs/spark/plans/rewrite_neg_01.txt,legacy_file,evidence,false,false,false,false,true,true,sanitize_before_public_copy,temporary path trace detected
+cases/PERF/PERF_0006/provenance/raw_record.json,legacy_file,metadata,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/taxonomy_trial_v0.2.yaml,legacy_file,metadata,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/metadata/engine_metadata.yaml,legacy_file,metadata,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/manifest.yaml,legacy_file,metadata,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/manifest.yaml,legacy_file,metadata,true,false,false,false,false,false,copy_or_generate_as_planned,no configured hygiene risk detected
+cases/PERF/PERF_0006/analysis/canonical_ast.json,legacy_file,metadata,true,false,false,false,false,false,reference_only,no configured hygiene risk detected
+cases/PERF/PERF_0006/analysis/logical_ir.json,legacy_file,metadata,true,false,false,false,false,false,reference_only,no configured hygiene risk detected
+cases/PERF/PERF_0006/analysis/logical_physical_map.json,legacy_file,metadata,true,false,false,false,false,false,reference_only,no configured hygiene risk detected
+cases/PERF/PERF_0006/analysis/sql_span_logical_map.json,legacy_file,metadata,true,false,false,false,false,false,reference_only,no configured hygiene risk detected

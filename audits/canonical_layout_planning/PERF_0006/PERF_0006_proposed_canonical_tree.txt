@@ -1,0 +1,86 @@
+Proposed canonical target tree for PERF_0006 after a future actual migration
+
+cases/PERF/PERF_0006/
+  README.md                                      [GENERATE]
+  manifest.yaml                                  [GENERATE]
+
+  sql/
+    source.sql                                   [COPY_RENAME]
+    positives/
+      pos_01.sql                                 [COPY_RENAME]
+    negatives/
+      neg_01.sql                                 [COPY_RENAME]
+
+  schema/
+    postgres/
+      ddl.sql                                    [COPY_RENAME]
+      load.sql                                   [COPY_RENAME]
+    mysql/
+      ddl.sql                                    [COPY_RENAME]
+      load.sql                                   [COPY_RENAME]
+    spark/
+      ddl.sql                                    [COPY_RENAME]
+      load.sql                                   [COPY_RENAME]
+    schema_profile.yaml                          [GENERATE]
+
+  data/
+    data_profile.yaml                            [GENERATE]
+    witness_profile.yaml                         [GENERATE]
+    fixtures/                                    [DEFER]
+
+  checker/
+    checker.yaml                                 [GENERATE]
+    normalization.yaml                           [GENERATE]
+    compare_config.yaml                          [GENERATE]
+    expected_rejections.yaml                     [GENERATE]
+
+  validation/
+    run_postgres_validation.sh                   [COPY_RENAME]
+    run_mysql_validation.sh                      [COPY]
+    run_spark_validation.sh                      [COPY]
+    run_postgres_plan_collection.sh              [COPY_RENAME]
+    run_mysql_plan_collection.sh                 [COPY]
+    run_spark_plan_collection.sh                 [DEFER]
+
+  evidence/
+    runs_retention.yaml                          [GENERATE]
+    retained_controls/
+      result_check.json                          [COPY]
+      postgres/source.tsv                        [COPY]
+      mysql/rewrite_pos_01.tsv                   [COPY]
+      spark/rewrite_pos_01.tsv                   [COPY]
+    retained_plans/
+      plan_check.json                            [COPY]
+      postgres/source.json                       [COPY]
+      mysql/rewrite_pos_01.json                  [COPY]
+      mysql/rewrite_neg_01.json                  [COPY]
+      spark/rewrite_pos_01.sanitized.txt         [COPY_SANITIZED]
+      spark/rewrite_neg_01.sanitized.txt         [COPY_SANITIZED]
+    hard_negative/
+      mysql/rewrite_neg_01.tsv                   [COPY]
+      spark/rewrite_neg_01.tsv                   [COPY]
+      hard_negative_summary.json                 [GENERATE]
+    package_validation_summary.json              [GENERATE]
+
+  metadata/
+    provenance.yaml                              [GENERATE]
+    taxonomy.yaml                                [GENERATE]
+    engine_support.yaml                          [GENERATE]
+    denominator_eligibility.yaml                 [GENERATE]
+    artifact_paths.yaml                          [GENERATE]
+    analysis_canonical_ast.json                  [REFERENCE_ONLY]
+    analysis_logical_ir.json                     [REFERENCE_ONLY]
+    analysis_logical_physical_map.json           [REFERENCE_ONLY]
+    analysis_sql_span_logical_map.json           [REFERENCE_ONLY]
+
+  notes/
+    witness_design_notes.md                      [GENERATE]
+    risk_notes.md                                [GENERATE]
+    migration_notes.md                           [GENERATE]
+
+  runs/
+    README.md                                    [REFERENCE_ONLY]
+
+Legacy retained only:
+  cases/PERF/PERF_0006/runs/                     [LEGACY_RETAINED]
+  raw Spark plan text files with file:/tmp traces [LEGACY_RETAINED]

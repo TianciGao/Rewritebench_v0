@@ -1,0 +1,117 @@
+case_id: PERF_0006
+pool: PERF
+policy_version: runs_retention_policy_v1
+status: canonical_full_case_migration_preview
+preview_only: true
+full_case_package_migrated_future_flag: true_after_actual_migration_and_validator_pass
+full_case_package_migration_scope: PERF_0006_only
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+raw_legacy_evidence_changed: false
+speedup_claim_created: false
+legacy_runs_root: cases/PERF/PERF_0006/runs/
+original_legacy_case_path: cases/PERF/PERF_0006
+public_release_case_path: cases/PERF/PERF_0006
+retained_control_evidence:
+  - original_legacy_path: cases/PERF/PERF_0006/runs/result_check.json
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_controls/result_check.json
+    evidence_role: cross_dialect_control_validation
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/pg/source.tsv
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_controls/postgres/source.tsv
+    evidence_role: postgres_source_reference_output
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/mysql/rewrite_pos_01.tsv
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    evidence_role: mysql_positive_control_output
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/rewrite_pos_01.tsv
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_controls/spark/rewrite_pos_01.tsv
+    evidence_role: spark_positive_control_output
+    public_safe: true
+    do_not_delete_original: true
+retained_plan_evidence:
+  - original_legacy_path: cases/PERF/PERF_0006/runs/plan_check.json
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/plan_check.json
+    evidence_role: plan_presence_check
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/pg/plans/source.json
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/postgres/source.json
+    evidence_role: postgres_source_plan_observability
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/mysql/plans/rewrite_pos_01.json
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/mysql/rewrite_pos_01.json
+    evidence_role: mysql_positive_plan_observability
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/mysql/plans/rewrite_neg_01.json
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/mysql/rewrite_neg_01.json
+    evidence_role: mysql_negative_plan_observability
+    public_safe: true
+    do_not_delete_original: true
+sanitized_public_copies:
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/plans/rewrite_pos_01.txt
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+    evidence_role: spark_positive_plan_observability
+    sanitized_fields:
+      - file:/tmp local temporary path
+    public_safe: true_after_sanitization
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: cases/PERF/PERF_0006/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+    evidence_role: spark_negative_plan_observability
+    sanitized_fields:
+      - file:/tmp local temporary path
+    public_safe: true_after_sanitization
+    do_not_delete_original: true
+hard_negative_evidence:
+  - original_legacy_path: cases/PERF/PERF_0006/runs/mysql/rewrite_neg_01.tsv
+    proposed_public_path: cases/PERF/PERF_0006/evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    evidence_role: hard_negative_rejection_output
+    public_safe: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/rewrite_neg_01.tsv
+    proposed_public_path: cases/PERF/PERF_0006/evidence/hard_negative/spark/rewrite_neg_01.tsv
+    evidence_role: hard_negative_rejection_output
+    public_safe: true
+    do_not_delete_original: true
+timing_evidence:
+  present_in_static_inspection: false
+  proposed_public_path: null
+  retention_class: not_applicable
+  notes: No timing or speedup artifact was found under the legacy case directory by static inspection.
+checker_normalization:
+  - original_legacy_path: cases/PERF/PERF_0006/validation/check_results.py
+    proposed_public_path: cases/PERF/PERF_0006/checker/normalization.yaml
+    evidence_role: checker_normalization
+    public_safe: true
+    do_not_delete_original: true
+private_or_original_archive:
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/plans/rewrite_pos_01.txt
+    reason: Raw Spark plan contains local temporary path trace; retain original through mapping and publish only sanitized derivative.
+    public_safe: false
+    do_not_delete_original: true
+  - original_legacy_path: cases/PERF/PERF_0006/runs/spark/plans/rewrite_neg_01.txt
+    reason: Raw Spark plan contains local temporary path trace; retain original through mapping and publish only sanitized derivative.
+    public_safe: false
+    do_not_delete_original: true
+manual_review_items:
+  - taxonomy_trial_v0.2.yaml is TODO and should be normalized conservatively.
+  - metadata/engine_metadata.yaml is TODO and should not overclaim validation.
+  - Spark plan sanitization must preserve plan operators and predicates.
+do_not_delete:
+  - path: cases/PERF/PERF_0006/runs/
+    reason: Legacy retained evidence root; no deletion authorized.
+public_release_notes:
+  raw_runs_copied_wholesale: false
+  timing_claim_created: false
+  speedup_claim_created: false
+human_approval:
+  required_before_actual_migration: true
+  approval_scope: canonical-layout copy plan, Spark plan sanitization, hard-negative expected rejection mapping, and performance evidence boundary

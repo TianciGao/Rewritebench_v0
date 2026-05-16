@@ -1,0 +1,22 @@
+{
+  "case_id": "PERF_0006",
+  "pool": "PERF",
+  "planning_only": true,
+  "actual_migration_performed": false,
+  "recommended_next_action": "Human review of the PERF_0006 canonical-layout plan, then decide whether to execute the future actual migration prompt.",
+  "required_human_approval": [
+    "canonical copy-first migration scope",
+    "Spark plan sanitization/archive mapping",
+    "hard-negative cutoff-date expected rejection mapping",
+    "performance evidence boundary"
+  ],
+  "target_layout": "canonical_case_package_layout_v1",
+  "highest_risk": "performance/timing evidence being misread as a new speedup or leaderboard claim",
+  "expected_validator_result_after_actual_migration": "full-case PASS and canonical-case PASS if Spark plan hygiene and retention mapping are implemented",
+  "performance_boundary_complexity": "medium: PERF pool and plan observability exist, but no timing artifacts were found and no speedup claim may be created",
+  "plan_evidence_complexity": "medium: PostgreSQL/MySQL JSON plans are public-safe candidates; Spark text plans require sanitization or archive mapping",
+  "legacy_case_exists": true,
+  "release_case_exists_at_planning_time": false,
+  "spark_plan_hygiene_risk": true,
+  "timing_artifacts_found": false
+}
