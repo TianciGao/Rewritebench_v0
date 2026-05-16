@@ -1849,14 +1849,14 @@ Paper/denominator impact:
 Next safe action:
 - Review this closeout, then plan the remaining LONGTAIL bounded wave; do not touch case_sets, reports, results, denominator files, or paper tables yet.
 
-### 2026-05-16 · pending · LONGTAIL final readiness and canonical migration planning wave
+### 2026-05-16 · 5cd2674 · LONGTAIL final readiness and canonical migration planning wave
 
 Mode: release-repo readiness/planning output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
 Actual case migration performed: no
-Commit: pending
-Push: pending
+Commit: `5cd26741526ace757538b0479ebb9a2e470fba0b`
+Push: `origin/main` updated `e6828e9..5cd2674`
 
 Summary:
 - Reviewed remaining LONGTAIL Common-core cases `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` from legacy files read-only.
