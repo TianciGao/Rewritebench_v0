@@ -1959,13 +1959,13 @@ Paper/denominator impact:
 Next safe action:
 - Start a separate bounded task for Common-core 40 case-set, inventory, and registry alignment, or for reports/results retained evidence mapping; do not touch case_sets, reports, results, denominator files, or paper tables without that explicit scope.
 
-### 2026-05-16 · pending · Common-core 40 case-set, inventory, and registry alignment
+### 2026-05-16 · b0f710d · Common-core 40 case-set, inventory, and registry alignment
 
 Mode: release-repo membership and registry alignment; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `b0f710d492add1738bc360a980231938870f5863`
+Push: `origin/main` updated `b60e3a4..b0f710d`
 
 Summary:
 - Created `case_sets/common_core_v0/manifest.yaml` for fixed Common-core v0 release membership.
