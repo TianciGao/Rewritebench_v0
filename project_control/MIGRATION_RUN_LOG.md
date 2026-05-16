@@ -2209,3 +2209,49 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer/team review of the metric decision packet before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.
+
+### 2026-05-17 · pending · Resolve metrics contract against updated paper scope
+
+Mode: release-repo metrics contract alignment output; legacy untouched
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Updated `repository_spec/metrics_contract_v1_draft.md` to align with the maintainer-provided updated paper metric scope.
+- Created the metrics contract resolution audit under `audits/metrics_contract_resolution/`.
+- Recorded the updated metric suite: Generation Rate, Execution Coverage Rate, Result Consistency Rate, Semantic Equivalence Rate, GM_Speedup, Speedup Ratio Percentiles, Attribution Coverage, Cross-Engine Execution, Cross-Engine Consistency, and Speedup Retention.
+- Demoted or removed prior primary candidates: Candidate Failure Rate is diagnostic-only via failure buckets, Regression@20 is not primary, extraction/readiness variants are not primary Generation Rate variants, broad observability/PlanFrontier is folded into Attribution Coverage, and Support Layer is folded into correctness/verifier discussion.
+- Did not implement metrics computation, retained-evidence adapters, runner or reproduction CLI, report rendering, scripts, source modules, reports/results migration, DB validation, timing workloads, evidence regeneration, denominator updates, case membership changes, migrated case package changes, paper table updates, or raw legacy evidence changes.
+
+Files created:
+- `audits/metrics_contract_resolution/metrics_contract_resolution_summary.md`
+- `audits/metrics_contract_resolution/resolved_metric_contract_table.csv`
+- `audits/metrics_contract_resolution/metric_name_change_log.csv`
+- `audits/metrics_contract_resolution/deferred_or_not_computable_metrics.md`
+- `audits/metrics_contract_resolution/metrics_contract_patch_notes.md`
+- `audits/metrics_contract_resolution/metrics_contract_resolution_summary.json`
+
+Files modified:
+- `repository_spec/metrics_contract_v1_draft.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV updated-metric checks, metric change-log checks, implementation-authorization checks, and git diff check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- metrics implementation authorized: no
+- adapter implementation authorized: no
+- reproduction interface implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Maintainer/team review and approve the aligned metrics contract draft before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.

@@ -1,0 +1,14 @@
+{
+  "metrics_implementation_authorized": false,
+  "adapter_implementation_authorized": false,
+  "reproduction_interface_authorized": false,
+  "paper_table_rendering_authorized": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "updated_metric_count": 10,
+  "deferred_metric_count": 3,
+  "next_safe_action": "maintainer_team_review_and_approve_aligned_metrics_contract_before_adapter_metrics_or_renderer_implementation"
+}

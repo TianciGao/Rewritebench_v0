@@ -27,6 +27,8 @@ Evidence ledger semantics and adapter row-grain policy drafts are complete under
 
 Metrics finalization decision packet completed under `audits/metrics_finalization_decision_packet/`. This packet organizes maintainer/team decisions for metric naming, denominator use, performance regression reporting, observability, parseability/extractability/runnable SQL status, failure buckets, and future user-output format. It does not finalize or implement metrics, authorize retained-evidence adapters, authorize the reproduction interface, authorize public runner implementation, render paper tables, or change paper results.
 
+Metrics contract resolution draft completed under `repository_spec/metrics_contract_v1_draft.md` and `audits/metrics_contract_resolution/`. The aligned draft reflects the maintainer-provided updated paper scope: Generation Rate, Execution Coverage Rate, Result Consistency Rate, Semantic Equivalence Rate, GM_Speedup, Speedup Ratio Percentiles, Attribution Coverage, Cross-Engine Execution, Cross-Engine Consistency, and Speedup Retention. It remains draft-only and does not authorize metrics implementation, adapters, reproduction interfaces, public runners, paper table rendering, reports/results migration, denominator changes, or paper result changes.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -60,6 +62,7 @@ Membership and scaffold snapshot:
 - `audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv`: grouped retained-evidence candidate to draft ledger field mapping.
 - `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`: 28 draft ledger fields reviewed against record types and denominator boundaries.
 - `audits/metrics_finalization_decision_packet/metric_decision_table.csv`: 17 metric families reviewed for maintainer/team decision before implementation.
+- `audits/metrics_contract_resolution/resolved_metric_contract_table.csv`: 10 updated metric-scope rows aligned to the maintainer-provided paper scope.
 
 ## Explicit Boundaries
 
@@ -100,6 +103,7 @@ Membership and scaffold snapshot:
 - Common-core retained evidence to draft ledger mapping audit completed without copying reports/results or implementing metrics.
 - Evidence ledger semantics and adapter row-grain policy drafts completed without implementation.
 - Metrics finalization decision packet completed without implementing metrics, adapters, reproduction interfaces, public runners, or paper table rendering.
+- Metrics contract resolution draft completed without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, or paper table rendering.
 
 ## Remaining Non-Case-Package Blockers
 
@@ -115,4 +119,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Maintainer/team review of the metrics finalization decision packet, especially Regression@20 versus distribution summaries, observability wording, parseability/extractability/runnable SQL definitions, failure buckets, user submission format, and exact public table names, before implementing retained-evidence adapters, metrics computation, a unified reproduction CLI, public runner, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes.
+Review and approve the aligned metrics contract draft, especially Attribution Coverage schema/denominator, Semantic Equivalence verifier policy, Speedup Retention paired-timing policy, and paper/public table names, before any retained-evidence adapter, metrics computation, paper renderer, reproduction CLI, public runner implementation, reports/results migration, denominator change, paper table change, or raw evidence change.
