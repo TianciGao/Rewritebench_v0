@@ -1,6 +1,6 @@
 # SQL-RewriteBench Migration Status Snapshot
 
-Date: 2026-05-16
+Date: 2026-05-17
 
 ## Repository Roles
 
@@ -24,6 +24,8 @@ Reports/results retained-evidence mapping is complete under `audits/reports_resu
 Common-core retained evidence to draft ledger mapping audit is complete under `audits/retained_evidence_ledger_mapping/`. This audit maps retained evidence candidate groups to ledger field coverage and future adapter needs only; it does not implement adapters, compute metrics, copy reports/results, or authorize the reproduction interface.
 
 Evidence ledger semantics and adapter row-grain policy drafts are complete under `repository_spec/` and `audits/ledger_semantics_row_grain_policy/`. This policy layer defines typed ledger record types, field semantics, row-grain rules, and denominator boundaries only; it does not authorize adapters, metrics, runner implementation, reproduction CLI implementation, or paper rendering.
+
+Metrics finalization decision packet completed under `audits/metrics_finalization_decision_packet/`. This packet organizes maintainer/team decisions for metric naming, denominator use, performance regression reporting, observability, parseability/extractability/runnable SQL status, failure buckets, and future user-output format. It does not finalize or implement metrics, authorize retained-evidence adapters, authorize the reproduction interface, authorize public runner implementation, render paper tables, or change paper results.
 
 Current phase: Workbench redevelopment phase.
 
@@ -57,6 +59,7 @@ Membership and scaffold snapshot:
 - `audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv`: legacy reports/results artifact map, with `copy_now=false` for all retained-evidence candidates.
 - `audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv`: grouped retained-evidence candidate to draft ledger field mapping.
 - `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`: 28 draft ledger fields reviewed against record types and denominator boundaries.
+- `audits/metrics_finalization_decision_packet/metric_decision_table.csv`: 17 metric families reviewed for maintainer/team decision before implementation.
 
 ## Explicit Boundaries
 
@@ -75,6 +78,8 @@ Membership and scaffold snapshot:
 - Metrics implementation authorized: no.
 - Retained-evidence adapter implementation authorized: no.
 - Unified reproduction interface implementation authorized: no.
+- Public runner implementation authorized: no.
+- Paper table rendering authorized: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -94,6 +99,7 @@ Membership and scaffold snapshot:
 - Reports/results retained-evidence map completed without copying reports/results or changing metrics.
 - Common-core retained evidence to draft ledger mapping audit completed without copying reports/results or implementing metrics.
 - Evidence ledger semantics and adapter row-grain policy drafts completed without implementation.
+- Metrics finalization decision packet completed without implementing metrics, adapters, reproduction interfaces, public runners, or paper table rendering.
 
 ## Remaining Non-Case-Package Blockers
 
@@ -109,4 +115,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review and approve the ledger semantics, record-type policy, adapter row-grain policy, and remaining metric questions before implementing retained-evidence adapters, metrics computation, a unified reproduction CLI, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes.
+Maintainer/team review of the metrics finalization decision packet, especially Regression@20 versus distribution summaries, observability wording, parseability/extractability/runnable SQL definitions, failure buckets, user submission format, and exact public table names, before implementing retained-evidence adapters, metrics computation, a unified reproduction CLI, public runner, paper table renderer, reports/results migration, denominator changes, paper table changes, or raw evidence changes.

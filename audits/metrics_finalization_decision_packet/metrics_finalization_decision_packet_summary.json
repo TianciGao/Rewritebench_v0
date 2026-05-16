@@ -1,0 +1,25 @@
+{
+  "metrics_implementation_authorized": false,
+  "adapter_implementation_authorized": false,
+  "reproduction_interface_authorized": false,
+  "paper_table_rendering_authorized": false,
+  "total_metric_families_reviewed": 17,
+  "stable_metric_count": 4,
+  "decision_required_count": 13,
+  "support_only_count": 1,
+  "high_priority_decisions": [
+    "Regression@20 versus distribution_or_quartile_reporting",
+    "parseability_extractability_runnable_sql_definitions",
+    "PlanAvailability_versus_PlanFrontier_split",
+    "failure_bucket_taxonomy",
+    "user_submission_candidate_id_and_output_format",
+    "retained_LLM_evidence_frozen_only_or_rerunnable_scope",
+    "ValidRewriteYield_retain_rename_or_drop"
+  ],
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "next_safe_action": "maintainer_team_review_metric_decisions_before_any_metrics_adapter_reproduction_or_renderer_implementation"
+}

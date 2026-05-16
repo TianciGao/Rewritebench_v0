@@ -2161,3 +2161,51 @@ Paper/denominator impact:
 
 Next safe action:
 - Review and approve ledger semantics, record-type policy, adapter row-grain policy, and remaining metric-finalization questions before any retained-evidence adapter, metrics computation, paper renderer, reproduction CLI, or public runner implementation.
+
+### 2026-05-17 · pending · Metrics finalization decision packet for SQL-RewriteBench public workbench
+
+Mode: release-repo metrics decision-packet output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created a maintainer/team-reviewable metrics decision packet under `audits/metrics_finalization_decision_packet/`.
+- Reviewed 17 metric families across stable, clarification-needed, candidate-addition, candidate-change, support-only, and diagnostic roles.
+- Organized denominator impact, performance metric options, observability options, parseability/runnable SQL options, failure bucket policy options, and a future metrics contract patch plan.
+- Updated `project_control/MIGRATION_STATUS.md` to record that metrics implementation, retained-evidence adapter implementation, unified reproduction interface implementation, public runner implementation, and paper table rendering remain unauthorized.
+- Did not implement metrics computation, retained-evidence adapters, runner or reproduction CLI, report rendering, scripts, source modules, reports/results migration, DB validation, LLM calls, timing workloads, evidence regeneration, denominator updates, case membership changes, migrated case package changes, paper table updates, or raw legacy evidence changes.
+
+Files created:
+- `audits/metrics_finalization_decision_packet/metrics_finalization_summary.md`
+- `audits/metrics_finalization_decision_packet/metric_decision_table.csv`
+- `audits/metrics_finalization_decision_packet/denominator_impact_matrix.csv`
+- `audits/metrics_finalization_decision_packet/performance_metric_options.md`
+- `audits/metrics_finalization_decision_packet/observability_metric_options.md`
+- `audits/metrics_finalization_decision_packet/parseability_runnable_sql_options.md`
+- `audits/metrics_finalization_decision_packet/failure_bucket_policy_options.md`
+- `audits/metrics_finalization_decision_packet/proposed_metrics_contract_patch_plan.md`
+- `audits/metrics_finalization_decision_packet/decisions_needed_before_implementation.md`
+- `audits/metrics_finalization_decision_packet/metrics_finalization_decision_packet_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- pending
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+- metrics implementation authorized: no
+- adapter implementation authorized: no
+- reproduction interface implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Maintainer/team review of the metric decision packet before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.
