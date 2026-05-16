@@ -2020,14 +2020,14 @@ Paper/denominator impact:
 Next safe action:
 - Start a separate bounded public reports/results retained-evidence migration planning task that selects a minimal reviewed subset from the retained-evidence map; do not update result metrics, denominator values, paper tables, or raw legacy evidence without explicit scope.
 
-### 2026-05-16 · pending · Workbench redevelopment strategy alignment
+### 2026-05-16 · c150b2b · Workbench redevelopment strategy alignment
 
 Mode: release-repo planning/spec output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
 Actual case migration performed: no
-Commit: pending
-Push: pending
+Commit: `c150b2b90c27a6d02440e92a156fc093c70f1e28`
+Push: `origin/main` updated `fe7a43e..c150b2b`
 
 Summary:
 - Recorded decision `D016` in `project_control/DECISION_LOG.md`, shifting the public release project from migration-first work to redevelopment-led public workbench construction.
