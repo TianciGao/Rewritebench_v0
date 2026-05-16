@@ -1,0 +1,199 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "6.20"
+    },
+    "ordering_operation": {
+      "using_temporary_table": true,
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "4.00"
+      },
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "store",
+            "access_type": "ALL",
+            "rows_examined_per_scan": 1,
+            "rows_produced_per_join": 1,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "0.25",
+              "eval_cost": "0.10",
+              "prefix_cost": "0.35",
+              "data_read_per_join": "88"
+            },
+            "used_columns": [
+              "s_store_sk",
+              "s_state"
+            ],
+            "attached_condition": "((`bench`.`store`.`s_state` = 'TN') and (`bench`.`store`.`s_store_sk` is not null))"
+          }
+        },
+        {
+          "table": {
+            "table_name": "customer",
+            "access_type": "ALL",
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 2,
+            "filtered": "100.00",
+            "using_join_buffer": "hash join",
+            "cost_info": {
+              "read_cost": "0.25",
+              "eval_cost": "0.20",
+              "prefix_cost": "0.80",
+              "data_read_per_join": "2K"
+            },
+            "used_columns": [
+              "c_customer_sk",
+              "c_customer_id"
+            ],
+            "attached_condition": "(`bench`.`customer`.`c_customer_sk` is not null)"
+          }
+        },
+        {
+          "table": {
+            "table_name": "ctr1",
+            "access_type": "ref",
+            "possible_keys": [
+              "<auto_key0>"
+            ],
+            "key": "<auto_key0>",
+            "used_key_parts": [
+              "ctr_customer_sk",
+              "ctr_store_sk"
+            ],
+            "key_length": "10",
+            "ref": [
+              "bench.customer.c_customer_sk",
+              "bench.store.s_store_sk"
+            ],
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 4,
+            "filtered": "100.00",
+            "using_index": true,
+            "cost_info": {
+              "read_cost": "1.00",
+              "eval_cost": "0.40",
+              "prefix_cost": "2.20",
+              "data_read_per_join": "128"
+            },
+            "used_columns": [
+              "ctr_customer_sk",
+              "ctr_store_sk",
+              "ctr_total_return"
+            ],
+            "attached_condition": "(`ctr1`.`ctr_total_return` > (/* select#3 */ select (avg(`ctr2`.`ctr_total_return`) * 1.2) from `customer_total_return` `ctr2` where (`ctr1`.`ctr_store_sk` = `ctr2`.`ctr_store_sk`)))",
+            "attached_subqueries": [
+              {
+                "dependent": true,
+                "cacheable": false,
+                "query_block": {
+                  "select_id": 3,
+                  "cost_info": {
+                    "query_cost": "0.70"
+                  },
+                  "table": {
+                    "table_name": "ctr2",
+                    "access_type": "ref",
+                    "possible_keys": [
+                      "<auto_key1>"
+                    ],
+                    "key": "<auto_key1>",
+                    "used_key_parts": [
+                      "ctr_store_sk"
+                    ],
+                    "key_length": "5",
+                    "ref": [
+                      "ctr1.ctr_store_sk"
+                    ],
+                    "rows_examined_per_scan": 2,
+                    "rows_produced_per_join": 2,
+                    "filtered": "100.00",
+                    "cost_info": {
+                      "read_cost": "0.50",
+                      "eval_cost": "0.20",
+                      "prefix_cost": "0.70",
+                      "data_read_per_join": "64"
+                    },
+                    "used_columns": [
+                      "ctr_customer_sk",
+                      "ctr_store_sk",
+                      "ctr_total_return"
+                    ],
+                    "materialized_from_subquery": {
+                      "sharing_temporary_table_with": {
+                        "select_id": 2
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "materialized_from_subquery": {
+              "using_temporary_table": true,
+              "dependent": false,
+              "cacheable": true,
+              "query_block": {
+                "select_id": 2,
+                "cost_info": {
+                  "query_cost": "0.80"
+                },
+                "grouping_operation": {
+                  "using_temporary_table": true,
+                  "using_filesort": false,
+                  "nested_loop": [
+                    {
+                      "table": {
+                        "table_name": "date_dim",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "16"
+                        },
+                        "used_columns": [
+                          "d_date_sk",
+                          "d_year"
+                        ],
+                        "attached_condition": "(`bench`.`date_dim`.`d_year` = 2000)"
+                      }
+                    },
+                    {
+                      "table": {
+                        "table_name": "store_returns",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 2,
+                        "rows_produced_per_join": 1,
+                        "filtered": "50.00",
+                        "using_join_buffer": "hash join",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.80",
+                          "data_read_per_join": "24"
+                        },
+                        "used_columns": [
+                          "sr_customer_sk",
+                          "sr_store_sk",
+                          "sr_returned_date_sk",
+                          "sr_fee"
+                        ],
+                        "attached_condition": "(`bench`.`store_returns`.`sr_returned_date_sk` = `bench`.`date_dim`.`d_date_sk`)"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

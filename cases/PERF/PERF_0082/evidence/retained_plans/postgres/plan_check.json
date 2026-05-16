@@ -1,0 +1,28 @@
+{
+  "case_id": "PERF_0082",
+  "engine": "postgres",
+  "status": "collected",
+  "ok": true,
+  "schema": "perf_0082_plan_collection",
+  "inputs": {
+    "source": "source.sql",
+    "positive_rewrite": "rewrite_pos_01.sql",
+    "negative_rewrite": "rewrite_neg_01.sql",
+    "witness_data": "validation/pg_witness_data.sql"
+  },
+  "outputs": {
+    "source_plan": "runs/pg/plans/source.json",
+    "positive_rewrite_plan": "runs/pg/plans/rewrite_pos_01.json",
+    "negative_rewrite_plan": "runs/pg/plans/rewrite_neg_01.json"
+  },
+  "checks": {
+    "source_plan_present": true,
+    "positive_plan_present": true,
+    "negative_plan_present": true
+  },
+  "notes": [
+    "PostgreSQL-only EXPLAIN (FORMAT JSON) plan collection for PERF_0082.",
+    "No MySQL or Spark validation is implied.",
+    "No admission, promotion, common-core, extended, or tri-engine-closure claim is made."
+  ]
+}

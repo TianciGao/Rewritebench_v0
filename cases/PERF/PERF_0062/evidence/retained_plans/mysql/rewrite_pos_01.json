@@ -1,0 +1,194 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "2.10"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "store_sales",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.35",
+            "data_read_per_join": "48"
+          },
+          "used_columns": [
+            "ss_store_sk",
+            "ss_sold_date_sk",
+            "ss_cdemo_sk",
+            "ss_hdemo_sk",
+            "ss_addr_sk",
+            "ss_quantity",
+            "ss_ext_sales_price",
+            "ss_ext_wholesale_cost",
+            "ss_sales_price",
+            "ss_net_profit"
+          ],
+          "attached_condition": "((((`bench`.`store_sales`.`ss_sales_price` between 100.00 and 150.00) or (`bench`.`store_sales`.`ss_sales_price` between 50.00 and 100.00) or (`bench`.`store_sales`.`ss_sales_price` between 150.00 and 200.00)) and ((`bench`.`store_sales`.`ss_net_profit` between 100 and 200) or (`bench`.`store_sales`.`ss_net_profit` between 150 and 300) or (`bench`.`store_sales`.`ss_net_profit` between 50 and 250))) and (((((`bench`.`store_sales`.`ss_store_sk` is not null) and (`bench`.`store_sales`.`ss_sold_date_sk` is not null)) and (`bench`.`store_sales`.`ss_hdemo_sk` is not null)) and (`bench`.`store_sales`.`ss_cdemo_sk` is not null)) and (`bench`.`store_sales`.`ss_addr_sk` is not null)))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "store",
+          "access_type": "eq_ref",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "s_store_sk"
+          ],
+          "key_length": "4",
+          "ref": [
+            "bench.store_sales.ss_store_sk"
+          ],
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "using_index": true,
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.70",
+            "data_read_per_join": "8"
+          },
+          "used_columns": [
+            "s_store_sk"
+          ]
+        }
+      },
+      {
+        "table": {
+          "table_name": "date_dim",
+          "access_type": "eq_ref",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "d_date_sk"
+          ],
+          "key_length": "4",
+          "ref": [
+            "bench.store_sales.ss_sold_date_sk"
+          ],
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "1.05",
+            "data_read_per_join": "16"
+          },
+          "used_columns": [
+            "d_date_sk",
+            "d_year"
+          ],
+          "attached_condition": "(`bench`.`date_dim`.`d_year` = 2001)"
+        }
+      },
+      {
+        "table": {
+          "table_name": "household_demographics",
+          "access_type": "eq_ref",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "hd_demo_sk"
+          ],
+          "key_length": "4",
+          "ref": [
+            "bench.store_sales.ss_hdemo_sk"
+          ],
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "1.40",
+            "data_read_per_join": "16"
+          },
+          "used_columns": [
+            "hd_demo_sk",
+            "hd_dep_count"
+          ],
+          "attached_condition": "(((`bench`.`household_demographics`.`hd_dep_count` = 3) and (`bench`.`store_sales`.`ss_sales_price` between 100.00 and 150.00)) or ((`bench`.`household_demographics`.`hd_dep_count` = 1) and (`bench`.`store_sales`.`ss_sales_price` between 50.00 and 100.00)) or ((`bench`.`household_demographics`.`hd_dep_count` = 1) and (`bench`.`store_sales`.`ss_sales_price` between 150.00 and 200.00)))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "customer_demographics",
+          "access_type": "eq_ref",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "cd_demo_sk"
+          ],
+          "key_length": "4",
+          "ref": [
+            "bench.store_sales.ss_cdemo_sk"
+          ],
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "1.75",
+            "data_read_per_join": "288"
+          },
+          "used_columns": [
+            "cd_demo_sk",
+            "cd_marital_status",
+            "cd_education_status"
+          ],
+          "attached_condition": "(((`bench`.`household_demographics`.`hd_dep_count` = 3) and (`bench`.`customer_demographics`.`cd_education_status` = '2 yr Degree') and (`bench`.`customer_demographics`.`cd_marital_status` = 'D') and (`bench`.`store_sales`.`ss_sales_price` between 100.00 and 150.00)) or ((`bench`.`household_demographics`.`hd_dep_count` = 1) and (`bench`.`customer_demographics`.`cd_education_status` = 'Secondary') and (`bench`.`customer_demographics`.`cd_marital_status` = 'S') and (`bench`.`store_sales`.`ss_sales_price` between 50.00 and 100.00)) or ((`bench`.`household_demographics`.`hd_dep_count` = 1) and (`bench`.`customer_demographics`.`cd_education_status` = 'Advanced Degree') and (`bench`.`customer_demographics`.`cd_marital_status` = 'W') and (`bench`.`store_sales`.`ss_sales_price` between 150.00 and 200.00)))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "customer_address",
+          "access_type": "eq_ref",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "ca_address_sk"
+          ],
+          "key_length": "4",
+          "ref": [
+            "bench.store_sales.ss_addr_sk"
+          ],
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "2.10",
+            "data_read_per_join": "288"
+          },
+          "used_columns": [
+            "ca_address_sk",
+            "ca_country",
+            "ca_state"
+          ],
+          "attached_condition": "((`bench`.`customer_address`.`ca_country` = 'United States') and (((`bench`.`customer_address`.`ca_state` in ('CO','IL','MN')) and (`bench`.`store_sales`.`ss_net_profit` between 100 and 200)) or ((`bench`.`customer_address`.`ca_state` in ('OH','MT','NM')) and (`bench`.`store_sales`.`ss_net_profit` between 150 and 300)) or ((`bench`.`customer_address`.`ca_state` in ('TX','MO','MI')) and (`bench`.`store_sales`.`ss_net_profit` between 50 and 250))))"
+        }
+      }
+    ]
+  }
+}

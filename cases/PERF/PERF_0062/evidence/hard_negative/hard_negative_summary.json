@@ -1,0 +1,19 @@
+{
+  "case_id": "PERF_0062",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "year_filter_predicate_changed",
+  "static_basis": {
+    "positive_summary": "rewrites comma joins as explicit joins while preserving the year, demographic, country/state, and range predicates.",
+    "negative_summary": "changes the date predicate from d_year = 2001 to d_year = 2002.",
+    "witness_discriminator": "retained witness includes year-sensitive rows so the negative output diverges"
+  },
+  "retained_evidence": [
+    "cases/PERF/PERF_0062/evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "cases/PERF/PERF_0062/evidence/hard_negative/spark/rewrite_neg_01.tsv"
+  ],
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "claim_boundary": {
+    "db_validation_run_during_migration": false,
+    "new_semantic_claim_created": false
+  }
+}

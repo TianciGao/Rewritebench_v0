@@ -1,0 +1,61 @@
+case_id,check_name,status,details
+PERF_0052,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0052,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0054,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0054,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0056,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0056,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0062,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0062,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0077,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0077,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0082,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; adapted/generated/sanitized files recorded separately
+PERF_0082,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0052,yaml_validation,PASS,14 YAML files parsed
+PERF_0052,json_validation,PASS,12 JSON files parsed
+PERF_0054,yaml_validation,PASS,14 YAML files parsed
+PERF_0054,json_validation,PASS,12 JSON files parsed
+PERF_0056,yaml_validation,PASS,14 YAML files parsed
+PERF_0056,json_validation,PASS,12 JSON files parsed
+PERF_0062,yaml_validation,PASS,14 YAML files parsed
+PERF_0062,json_validation,PASS,12 JSON files parsed
+PERF_0077,yaml_validation,PASS,14 YAML files parsed
+PERF_0077,json_validation,PASS,16 JSON files parsed
+PERF_0082,yaml_validation,PASS,14 YAML files parsed
+PERF_0082,json_validation,PASS,16 JSON files parsed
+PERF_0052,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0052,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0052,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0052,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0052,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0052,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PERF_0054,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0054,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0054,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0054,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0054,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0054,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PERF_0056,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0056,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0056,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0056,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0056,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0056,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PERF_0062,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0062,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0062,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0062,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0062,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0062,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PERF_0077,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0077,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0077,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0077,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0077,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0077,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+PERF_0082,validator_v0_3_full_case,PASS,new final PERF batch validator full-case passed 6/6
+PERF_0082,validator_v0_3_canonical_case,PASS,new final PERF batch validator canonical-case passed 6/6
+PERF_0082,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0082,full_case_regression,PASS,full-case regression included the six new cases after migration and passed 20/20
+PERF_0082,canonical_case_regression,PASS,canonical-case regression included the six new cases after migration and passed 19/19
+PERF_0082,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed

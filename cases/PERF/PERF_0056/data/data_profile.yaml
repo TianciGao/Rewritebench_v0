@@ -1,0 +1,22 @@
+case_id: PERF_0056
+profile_version: canonical_case_package_layout_v1
+source_kind: generated_from_legacy_data_profile_and_witness_sql
+dataset_role: minimal retained witness data for correctness-gated comparison
+source_family: TPC-DS
+required_tables:
+- customer_address
+- customer
+- store_sales
+- date_dim
+- item
+row_counts:
+  customer_address: 10
+  customer: 10
+  store_sales: 10
+  date_dim: 1
+  item: 2
+legacy_data_profile: cases/PERF/PERF_0056/data_profile.json
+claim_boundary:
+  not_scale_dataset: true
+  db_validation_run_during_migration: false
+  evidence_regenerated: false

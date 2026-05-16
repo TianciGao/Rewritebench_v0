@@ -1,0 +1,26 @@
+case_id: PERF_0082
+expected_rejections_version: canonical_case_package_layout_v1
+hard_negatives:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: company_type_predicate_changed
+  semantic_risk_type:
+  - predicate_boundary
+  - company_type_filter_change
+  - aggregation_input_change
+  checker_guard_role: source_positive_equal_and_negative_differs_on_company_type_witness
+  observed_static_basis:
+    source_positive_semantics: source and positive restrict company_type rows to production
+      companies
+    negative_semantics: negative restricts company_type rows to distributors instead
+    witness_discriminator: retained witness isolates production-company and distributor
+      rows so the negative output diverges
+  evidence_paths:
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_01.tsv
+  - evidence/hard_negative/hard_negative_summary.json
+  approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
+claim_boundary:
+  no_db_validation_run_during_migration: true
+  no_new_semantic_claim_beyond_static_evidence: true

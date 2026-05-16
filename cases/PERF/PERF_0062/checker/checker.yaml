@@ -1,0 +1,13 @@
+case_id: PERF_0062
+checker_version: canonical_case_package_layout_v1
+validation_type: retained_witness_result_comparison
+inputs:
+  source: sql/source.sql
+  positive_rewrite: sql/positives/pos_01.sql
+  negative_rewrite: sql/negatives/neg_01.sql
+expected:
+  source_positive_equal: true
+  source_negative_different: true
+execution_policy:
+  db_validation_run_during_migration: false
+  retained_evidence_only: true

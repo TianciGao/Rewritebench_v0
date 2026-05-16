@@ -1,0 +1,16 @@
+case_id: PERF_0056
+provenance_version: canonical_case_package_layout_v1
+source_family: TPC-DS
+source_id: SRC_002
+source_query_identity: TPC-DS query6
+source_seed: TPCDS_QUERY6_DSQGEN_COUNT1_SCALE1_ANSI_V0
+source_template: query6.tpl
+source_entry: datasets/raw/tpcds/DSGen-software-code-4.0.0/query_templates/query6.tpl
+source_materialization: postgres_normalized_from_tpcds_ansi
+legacy_manifest: cases/PERF/PERF_0056/manifest.yaml
+legacy_provenance_directory: cases/PERF/PERF_0056/provenance
+legacy_public_hygiene_notes: legacy provenance or source comments may contain local
+  paths and are mapped, not copied raw, where needed
+claim_boundary:
+  no_new_source_claim_created: true
+  db_validation_run_during_migration: false

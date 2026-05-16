@@ -1,0 +1,28 @@
+{
+  "case_id": "PERF_0082",
+  "engine": "spark",
+  "status": "collected",
+  "ok": true,
+  "schema": "spark_catalog.default",
+  "inputs": {
+    "source": "source.sql",
+    "positive_rewrite": "rewrite_pos_01.sql",
+    "negative_rewrite": "rewrite_neg_01.sql",
+    "witness_data": "validation/spark_witness_data.sql"
+  },
+  "outputs": {
+    "source_plan": "runs/spark/plans/source.txt",
+    "positive_rewrite_plan": "runs/spark/plans/rewrite_pos_01.txt",
+    "negative_rewrite_plan": "runs/spark/plans/rewrite_neg_01.txt"
+  },
+  "checks": {
+    "source_plan_present": true,
+    "positive_plan_present": true,
+    "negative_plan_present": true
+  },
+  "notes": [
+    "Spark-only explain-formatted plan collection for PERF_0082.",
+    "No PostgreSQL or MySQL validation is implied.",
+    "No admission, promotion, common-core, extended, or tri-engine-closure claim is made."
+  ]
+}

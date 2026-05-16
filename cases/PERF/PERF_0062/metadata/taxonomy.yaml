@@ -1,0 +1,21 @@
+case_id: PERF_0062
+taxonomy_version: canonical_case_package_layout_v1
+pool: PERF
+source_family: TPC-DS
+sql_features:
+- aggregate
+- join
+- disjunction
+- range_predicate
+rewrite_opportunity:
+- predicate_pushdown
+- join_reorder
+hard_negative_reason: year_filter_predicate_changed
+performance_boundary:
+  performance_sensitive_case: true
+  speedup_claim_created: false
+  timing_evidence_created: false
+claim_boundary:
+  denominator_changed: false
+  paper_results_changed: false
+  no_global_leaderboard: true

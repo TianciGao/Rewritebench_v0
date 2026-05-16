@@ -1,0 +1,19 @@
+{
+  "case_id": "PERF_0056",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "having_count_threshold_changed",
+  "static_basis": {
+    "positive_summary": "converts comma joins to explicit joins while preserving date and item-price subqueries and the HAVING threshold.",
+    "negative_summary": "changes HAVING count(*) >= 10 to HAVING count(*) >= 11.",
+    "witness_discriminator": "retained witness includes a group at the count boundary so the negative output diverges"
+  },
+  "retained_evidence": [
+    "cases/PERF/PERF_0056/evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "cases/PERF/PERF_0056/evidence/hard_negative/spark/rewrite_neg_01.tsv"
+  ],
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "claim_boundary": {
+    "db_validation_run_during_migration": false,
+    "new_semantic_claim_created": false
+  }
+}

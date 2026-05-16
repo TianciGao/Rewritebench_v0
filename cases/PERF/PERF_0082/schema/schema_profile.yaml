@@ -1,0 +1,28 @@
+case_id: PERF_0082
+profile_version: canonical_case_package_layout_v1
+source_kind: generated_from_legacy_schema_and_witness
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+required_tables:
+- company_type
+- info_type
+- movie_companies
+- movie_info
+- title
+row_counts_from_legacy_witness:
+  company_type: 2
+  info_type: 1
+  movie_companies: 3
+  movie_info: 3
+  title: 3
+claim_boundary:
+  db_validation_run_during_migration: false
+  new_experimental_claim_created: false

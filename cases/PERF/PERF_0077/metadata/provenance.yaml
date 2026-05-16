@@ -1,0 +1,16 @@
+case_id: PERF_0077
+provenance_version: canonical_case_package_layout_v1
+source_family: JOB/IMDB
+source_id: JOB/IMDB
+source_query_identity: JOB 3a.sql
+source_seed: JOB 3a.sql
+source_template: JOB 3a.sql
+source_entry: ''
+source_materialization: legacy case-local source.sql
+legacy_manifest: cases/PERF/PERF_0077/manifest.yaml
+legacy_provenance_directory: not_present
+legacy_public_hygiene_notes: legacy provenance or source comments may contain local
+  paths and are mapped, not copied raw, where needed
+claim_boundary:
+  no_new_source_claim_created: true
+  db_validation_run_during_migration: false

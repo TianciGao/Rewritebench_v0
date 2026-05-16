@@ -1,0 +1,149 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Limit",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 87.15,
+      "Total Cost": 87.25,
+      "Plan Rows": 2,
+      "Plan Width": 72,
+      "Plans": [
+        {
+          "Node Type": "Incremental Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 87.15,
+          "Total Cost": 87.25,
+          "Plan Rows": 2,
+          "Plan Width": 72,
+          "Sort Key": ["dt.d_year", "(sum(store_sales.ss_ext_sales_price)) DESC", "item.i_brand_id"],
+          "Presorted Key": ["dt.d_year"],
+          "Plans": [
+            {
+              "Node Type": "Aggregate",
+              "Strategy": "Sorted",
+              "Partial Mode": "Simple",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Startup Cost": 87.12,
+              "Total Cost": 87.16,
+              "Plan Rows": 2,
+              "Plan Width": 72,
+              "Group Key": ["dt.d_year", "item.i_brand", "item.i_brand_id"],
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Startup Cost": 87.12,
+                  "Total Cost": 87.12,
+                  "Plan Rows": 2,
+                  "Plan Width": 72,
+                  "Sort Key": ["dt.d_year", "item.i_brand", "item.i_brand_id"],
+                  "Plans": [
+                    {
+                      "Node Type": "Hash Join",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 51.51,
+                      "Total Cost": 87.11,
+                      "Plan Rows": 2,
+                      "Plan Width": 72,
+                      "Inner Unique": false,
+                      "Hash Cond": "(dt.d_date_sk = store_sales.ss_sold_date_sk)",
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Relation Name": "date_dim",
+                          "Alias": "dt",
+                          "Startup Cost": 0.00,
+                          "Total Cost": 35.50,
+                          "Plan Rows": 10,
+                          "Plan Width": 8,
+                          "Filter": "(d_moy = 12)"
+                        },
+                        {
+                          "Node Type": "Hash",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Startup Cost": 51.06,
+                          "Total Cost": 51.06,
+                          "Plan Rows": 36,
+                          "Plan Width": 72,
+                          "Plans": [
+                            {
+                              "Node Type": "Hash Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Inner",
+                              "Startup Cost": 24.20,
+                              "Total Cost": 51.06,
+                              "Plan Rows": 36,
+                              "Plan Width": 72,
+                              "Inner Unique": false,
+                              "Hash Cond": "(store_sales.ss_item_sk = item.i_item_sk)",
+                              "Plans": [
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Relation Name": "store_sales",
+                                  "Alias": "store_sales",
+                                  "Startup Cost": 0.00,
+                                  "Total Cost": 22.00,
+                                  "Plan Rows": 1200,
+                                  "Plan Width": 40
+                                },
+                                {
+                                  "Node Type": "Hash",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Startup Cost": 24.12,
+                                  "Total Cost": 24.12,
+                                  "Plan Rows": 6,
+                                  "Plan Width": 40,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Relation Name": "item",
+                                      "Alias": "item",
+                                      "Startup Cost": 0.00,
+                                      "Total Cost": 24.12,
+                                      "Plan Rows": 6,
+                                      "Plan Width": 40,
+                                      "Filter": "(i_manufact_id = 436)"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

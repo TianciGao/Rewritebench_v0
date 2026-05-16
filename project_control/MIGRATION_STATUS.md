@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is Common-core 40 batch migration readiness audit；
+latest completed run is PERF wave-2 final sanitized-plan canonical migration batch；
 
 common-core 40 batch readiness audit completed；
 actual case migration performed: no；
@@ -39,6 +39,26 @@ denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
 当前下一步安全动作是 review the Common-core 40 batch readiness audit, then decide whether to execute the recommended small PERF sanitized-plan batch or fallback to PERF_0007 only；do not start blind Common-core 40 migration。
+
+
+PERF wave-2 final batch completed；
+cases attempted: PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, PERF_0082；
+cases completed: PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, PERF_0082；
+failed/deferred cases: none；
+PERF pool canonical migration complete: yes；
+Common-core 40 blind/bulk migration still not started；
+denominator unchanged；
+paper results unchanged；
+case membership unchanged；
+raw legacy evidence unchanged；
+speedup_claim_created: false；
+timing_evidence_created: false；
+validator v0.3 full-case result: PASS 6/6 for PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, and PERF_0082；
+validator v0.3 canonical-case result: PASS 6/6 for PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, and PERF_0082；
+evidence-pilot regression result: PASS 6/6；
+full-case regression result: PASS 20/20 including the six new final PERF cases after migration；
+canonical-case regression result: PASS 19/19 including the six new final PERF cases after migration；
+current next safe action: human review the completed PERF pool canonical migration, then choose the next reviewed non-PERF wave from the readiness audit；do not start blind Common-core 40 migration。
 
 LONGTAIL_0011 canonical-layout full case migration pilot completed；
 canonical layout tested for LONGTAIL pool: yes；
@@ -793,3 +813,33 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - canonical-case regression result: PASS 10/10 for PORT_0008, CONS_0005, PERF_0006, LONGTAIL_0011, PERF_0007, PERF_0008, PERF_0013, PERF_0017, PERF_0019, and PERF_0024
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review of the bounded PERF wave-2 batch 003; if accepted, choose the next small reviewed wave from the readiness audit. Do not start blind full Common-core 40 migration.
+
+## 22. Last Codex run
+
+- task name: PERF wave-2 final sanitized-plan canonical migration batch
+- date: 2026-05-16
+- mode: release-repo bounded batch canonical migration; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- cases attempted: PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, PERF_0082
+- cases completed: PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, PERF_0082
+- failed/deferred cases: none
+- PERF pool canonical migration complete: yes
+- actual case migration performed: yes, bounded six-case final PERF wave only
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- speedup_claim_created: false
+- timing_evidence_created: false
+- Spark plan copied raw into public retained evidence: no
+- Spark plan sanitization: sanitized public Spark plan copies created under each migrated case's `evidence/retained_plans/spark/`
+- validation scripts copied/adapted with output-policy caveat: yes
+- validator v0.3 full-case result: PASS 6/6 for PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, and PERF_0082
+- validator v0.3 canonical-case result: PASS 6/6 for PERF_0052, PERF_0054, PERF_0056, PERF_0062, PERF_0077, and PERF_0082
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 20/20 including the six new final PERF cases after migration
+- canonical-case regression result: PASS 19/19 including the six new final PERF cases after migration
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review the completed PERF pool canonical migration, then choose the next reviewed non-PERF wave from the readiness audit. Do not start blind full Common-core 40 migration.

@@ -1,0 +1,115 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "2.52"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "it",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 1,
+          "rows_produced_per_join": 1,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.35",
+            "data_read_per_join": "8"
+          },
+          "used_columns": [
+            "id"
+          ]
+        }
+      },
+      {
+        "table": {
+          "table_name": "ct",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 2,
+          "rows_produced_per_join": 1,
+          "filtered": "50.00",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.35",
+            "eval_cost": "0.10",
+            "prefix_cost": "0.80",
+            "data_read_per_join": "16"
+          },
+          "used_columns": [
+            "id",
+            "kind"
+          ],
+          "attached_condition": "(`bench`.`ct`.`kind` = 'distributors')"
+        }
+      },
+      {
+        "table": {
+          "table_name": "mc",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 3,
+          "rows_produced_per_join": 1,
+          "filtered": "33.33",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.46",
+            "eval_cost": "0.10",
+            "prefix_cost": "1.36",
+            "data_read_per_join": "24"
+          },
+          "used_columns": [
+            "company_type_id",
+            "movie_id",
+            "note"
+          ],
+          "attached_condition": "((`bench`.`mc`.`company_type_id` = `bench`.`ct`.`id`) and (`bench`.`mc`.`note` like '%(theatrical)%') and (`bench`.`mc`.`note` like '%(France)%'))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "mi",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 3,
+          "rows_produced_per_join": 1,
+          "filtered": "33.33",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.42",
+            "eval_cost": "0.10",
+            "prefix_cost": "1.93",
+            "data_read_per_join": "24"
+          },
+          "used_columns": [
+            "info_type_id",
+            "info",
+            "movie_id"
+          ],
+          "attached_condition": "((`bench`.`mi`.`movie_id` = `bench`.`mc`.`movie_id`) and (`bench`.`mi`.`info_type_id` = `bench`.`it`.`id`) and (`bench`.`mi`.`info` in ('Sweden','Norway','Germany','Denmark','Swedish','Denish','Norwegian','German')))"
+        }
+      },
+      {
+        "table": {
+          "table_name": "t",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 3,
+          "rows_produced_per_join": 1,
+          "filtered": "33.33",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "0.48",
+            "eval_cost": "0.10",
+            "prefix_cost": "2.52",
+            "data_read_per_join": "24"
+          },
+          "used_columns": [
+            "id",
+            "production_year",
+            "title"
+          ],
+          "attached_condition": "((`bench`.`t`.`id` = `bench`.`mc`.`movie_id`) and (`bench`.`t`.`production_year` > 2005))"
+        }
+      }
+    ]
+  }
+}

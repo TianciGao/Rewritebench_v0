@@ -1,0 +1,62 @@
+case_id: PERF_0052
+artifact_paths_version: canonical_case_package_layout_v1
+sql:
+  source: sql/source.sql
+  positives:
+  - id: pos_01
+    path: sql/positives/pos_01.sql
+    role: positive_rewrite
+    rewrite_pressure:
+    - subquery_decorrelation
+    - cte_strategy
+    - join_normalization
+  negatives:
+  - id: neg_01
+    path: sql/negatives/neg_01.sql
+    role: hard_negative
+    expected_rejection: checker/expected_rejections.yaml
+schema:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+  profile: schema/schema_profile.yaml
+checker:
+  checker: checker/checker.yaml
+  normalization: checker/normalization.yaml
+  compare_config: checker/compare_config.yaml
+  expected_rejections: checker/expected_rejections.yaml
+validation:
+  postgres_validation: validation/run_postgres_validation.sh
+  mysql_validation: validation/run_mysql_validation.sh
+  spark_validation: validation/run_spark_validation.sh
+  postgres_plan_collection: validation/run_postgres_plan_collection.sh
+  mysql_plan_collection: validation/run_mysql_plan_collection.sh
+  spark_plan_collection: validation/run_spark_plan_collection.sh
+  execution_policy: not_run_during_migration
+  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  package_validation_summary: evidence/package_validation_summary.json
+metadata:
+  provenance: metadata/provenance.yaml
+  taxonomy: metadata/taxonomy.yaml
+  engine_support: metadata/engine_support.yaml
+  denominator_eligibility: metadata/denominator_eligibility.yaml
+  artifact_paths: metadata/artifact_paths.yaml
+notes:
+  witness_design_notes: notes/witness_design_notes.md
+  risk_notes: notes/risk_notes.md
+  schema_notes: notes/schema_notes.md
+  promotion_checklist: notes/promotion_checklist.md
+  migration_notes: notes/migration_notes.md
+legacy_reference:
+  case_root: cases/PERF/PERF_0052
+  runs_root: cases/PERF/PERF_0052/runs
+  raw_runs_wholesale_copy: false
+canonical_case_root: cases/PERF/PERF_0052

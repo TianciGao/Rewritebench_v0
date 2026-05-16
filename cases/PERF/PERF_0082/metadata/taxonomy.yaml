@@ -1,0 +1,22 @@
+case_id: PERF_0082
+taxonomy_version: canonical_case_package_layout_v1
+pool: PERF
+source_family: JOB/IMDB
+sql_features:
+- aggregate
+- filter
+- join
+- text_like_predicate
+- materialize
+rewrite_opportunity:
+- join_reorder
+- predicate_pushdown
+hard_negative_reason: company_type_predicate_changed
+performance_boundary:
+  performance_sensitive_case: true
+  speedup_claim_created: false
+  timing_evidence_created: false
+claim_boundary:
+  denominator_changed: false
+  paper_results_changed: false
+  no_global_leaderboard: true

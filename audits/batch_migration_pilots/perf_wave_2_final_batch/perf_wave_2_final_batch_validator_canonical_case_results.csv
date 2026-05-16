@@ -1,0 +1,7 @@
+case_id,case_path,mode,root_readme_ok,manifest_ok,sql_layout_ok,schema_layout_ok,data_layout_ok,checker_layout_ok,validation_layout_ok,evidence_layout_ok,metadata_layout_ok,notes_layout_ok,runs_policy_ok,manifest_semantics_ok,runs_retention_semantics_ok,public_hygiene_ok,claim_boundary_ok,raw_runs_not_wholesale_copied_ok,canonical_layout_ok,overall_status,failure_reasons,warnings
+PERF_0052,cases/PERF/PERF_0052,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0054,cases/PERF/PERF_0054,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0056,cases/PERF/PERF_0056,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0062,cases/PERF/PERF_0062,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0077,cases/PERF/PERF_0077,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0082,cases/PERF/PERF_0082,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,

@@ -1,0 +1,188 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "4.55"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": false,
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "d",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.35",
+                "data_read_per_join": "24"
+              },
+              "used_columns": [
+                "d_date_sk",
+                "d_month_seq"
+              ],
+              "attached_condition": "(`bench`.`d`.`d_month_seq` = (/* select#2 */ select distinct `bench`.`date_dim`.`d_month_seq` from `bench`.`date_dim` where ((`bench`.`date_dim`.`d_moy` = 2) and (`bench`.`date_dim`.`d_year` = 2000))))",
+              "attached_subqueries": [
+                {
+                  "dependent": false,
+                  "cacheable": true,
+                  "query_block": {
+                    "select_id": 2,
+                    "cost_info": {
+                      "query_cost": "0.35"
+                    },
+                    "duplicates_removal": {
+                      "using_temporary_table": true,
+                      "using_filesort": false,
+                      "table": {
+                        "table_name": "date_dim",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "24"
+                        },
+                        "used_columns": [
+                          "d_year",
+                          "d_moy",
+                          "d_month_seq"
+                        ],
+                        "attached_condition": "((`bench`.`date_dim`.`d_moy` = 2) and (`bench`.`date_dim`.`d_year` = 2000))"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "i",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 2,
+              "rows_produced_per_join": 1,
+              "filtered": "50.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.80",
+                "data_read_per_join": "1K"
+              },
+              "used_columns": [
+                "i_item_sk",
+                "i_current_price",
+                "i_category"
+              ],
+              "attached_condition": "(`bench`.`i`.`i_current_price` > (1.2 * (/* select#3 */ select avg(`bench`.`j`.`i_current_price`) from `bench`.`item` `j` where (`bench`.`j`.`i_category` = `bench`.`i`.`i_category`))))",
+              "attached_subqueries": [
+                {
+                  "dependent": true,
+                  "cacheable": false,
+                  "query_block": {
+                    "select_id": 3,
+                    "cost_info": {
+                      "query_cost": "0.45"
+                    },
+                    "table": {
+                      "table_name": "j",
+                      "access_type": "ALL",
+                      "rows_examined_per_scan": 2,
+                      "rows_produced_per_join": 1,
+                      "filtered": "50.00",
+                      "cost_info": {
+                        "read_cost": "0.25",
+                        "eval_cost": "0.10",
+                        "prefix_cost": "0.45",
+                        "data_read_per_join": "1K"
+                      },
+                      "used_columns": [
+                        "i_current_price",
+                        "i_category"
+                      ],
+                      "attached_condition": "(`bench`.`j`.`i_category` = `bench`.`i`.`i_category`)"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "s",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 10,
+              "rows_produced_per_join": 1,
+              "filtered": "10.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "2.05",
+                "data_read_per_join": "16"
+              },
+              "used_columns": [
+                "ss_customer_sk",
+                "ss_sold_date_sk",
+                "ss_item_sk"
+              ],
+              "attached_condition": "((`bench`.`s`.`ss_sold_date_sk` = `bench`.`d`.`d_date_sk`) and (`bench`.`s`.`ss_item_sk` = `bench`.`i`.`i_item_sk`))"
+            }
+          },
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 10,
+              "rows_produced_per_join": 1,
+              "filtered": "10.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "3.30",
+                "data_read_per_join": "16"
+              },
+              "used_columns": [
+                "c_customer_sk",
+                "c_current_addr_sk"
+              ],
+              "attached_condition": "(`bench`.`c`.`c_customer_sk` = `bench`.`s`.`ss_customer_sk`)"
+            }
+          },
+          {
+            "table": {
+              "table_name": "a",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 10,
+              "rows_produced_per_join": 1,
+              "filtered": "10.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "4.55",
+                "data_read_per_join": "88"
+              },
+              "used_columns": [
+                "ca_address_sk",
+                "ca_state"
+              ],
+              "attached_condition": "(`bench`.`a`.`ca_address_sk` = `bench`.`c`.`c_current_addr_sk`)"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

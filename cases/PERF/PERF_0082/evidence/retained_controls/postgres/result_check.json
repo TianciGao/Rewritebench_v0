@@ -1,0 +1,27 @@
+{
+  "case_id": "PERF_0082",
+  "engine": "postgres",
+  "status": "validated",
+  "ok": true,
+  "schema": "perf_0082_validation",
+  "inputs": {
+    "source": "source.sql",
+    "positive_rewrite": "rewrite_pos_01.sql",
+    "negative_rewrite": "rewrite_neg_01.sql",
+    "witness_data": "validation/pg_witness_data.sql"
+  },
+  "outputs": {
+    "source": "runs/pg/source.tsv",
+    "positive_rewrite": "runs/pg/rewrite_pos_01.tsv",
+    "negative_rewrite": "runs/pg/rewrite_neg_01.tsv"
+  },
+  "checks": {
+    "source_positive_equal": true,
+    "source_negative_different": true
+  },
+  "notes": [
+    "PostgreSQL-only witness validation for PERF_0082.",
+    "No MySQL or Spark validation is implied.",
+    "No admission, promotion, common-core, extended, or tri-engine-closure claim is made."
+  ]
+}

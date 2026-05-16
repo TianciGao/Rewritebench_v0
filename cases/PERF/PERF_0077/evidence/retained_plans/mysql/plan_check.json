@@ -1,0 +1,29 @@
+{
+  "case_id": "PERF_0077",
+  "engine": "mysql",
+  "status": "collected",
+  "ok": true,
+  "schema": "bench",
+  "inputs": {
+    "source": "source.sql",
+    "positive_rewrite": "rewrite_pos_01.sql",
+    "negative_rewrite": "rewrite_neg_01.sql",
+    "witness_data": "validation/mysql_witness_data.sql"
+  },
+  "outputs": {
+    "source_plan": "runs/mysql/plans/source.json",
+    "positive_rewrite_plan": "runs/mysql/plans/rewrite_pos_01.json",
+    "negative_rewrite_plan": "runs/mysql/plans/rewrite_neg_01.json"
+  },
+  "checks": {
+    "source_plan_present": true,
+    "positive_plan_present": true,
+    "negative_plan_present": true
+  },
+  "notes": [
+    "MySQL-only EXPLAIN FORMAT=JSON plan collection for PERF_0077.",
+    "This script is provided for future use and was not executed in the construction task.",
+    "No PostgreSQL or Spark validation is implied.",
+    "No admission, promotion, common-core, extended, or tri-engine-closure claim is made."
+  ]
+}

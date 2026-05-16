@@ -1,0 +1,28 @@
+case_id: PERF_0056
+profile_version: canonical_case_package_layout_v1
+source_kind: generated_from_legacy_schema_and_witness
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+required_tables:
+- customer_address
+- customer
+- store_sales
+- date_dim
+- item
+row_counts_from_legacy_witness:
+  customer_address: 10
+  customer: 10
+  store_sales: 10
+  date_dim: 1
+  item: 2
+claim_boundary:
+  db_validation_run_during_migration: false
+  new_experimental_claim_created: false

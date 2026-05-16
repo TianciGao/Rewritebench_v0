@@ -1482,3 +1482,59 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review the bounded PERF wave-2 batch 003. If accepted, choose the next small reviewed wave from the readiness audit; do not start blind full Common-core 40 migration.
+
+### 2026-05-16 · pending · PERF wave-2 final sanitized-plan canonical migration batch
+
+Mode: release-repo bounded batch canonical migration; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until push completes
+Scope: Migrated exactly the bounded PERF wave-2 final batch cases `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, and `PERF_0082` into canonical public-release layout.
+
+Summary:
+- Created canonical case packages under `cases/PERF/PERF_0052/`, `cases/PERF/PERF_0054/`, `cases/PERF/PERF_0056/`, `cases/PERF/PERF_0062/`, `cases/PERF/PERF_0077/`, and `cases/PERF/PERF_0082/`.
+- Used the completed `PERF_0006` canonical PERF pattern and successful PERF wave-2 batch 001/002/003 patterns for README, manifest, SQL layout, schema/load layout, checker files, evidence layout, metadata, notes, and runs-retention mapping.
+- Copied public-safe SQL, schema, witness load scripts, retained controls, hard-negative outputs, PostgreSQL plan evidence, and MySQL plan evidence.
+- Adapted validation scripts as retained legacy validation assets with output-policy caveats; they were not executed.
+- Created sanitized public Spark plan evidence under each case's `evidence/retained_plans/spark/`; raw Spark plan text files were not copied into public retained evidence.
+- Recorded static-inferred hard-negative reasons: `store_state_predicate_changed`, `manufacturer_id_predicate_changed`, `having_count_threshold_changed`, `year_filter_predicate_changed`, `keyword_like_predicate_narrowed`, and `company_type_predicate_changed`.
+- Raw `runs/` was not copied wholesale.
+- Actual case migration performed: yes, for the six selected final PERF cases only.
+- PERF pool canonical migration complete: yes at case-package level.
+- Common-core 40 blind/bulk migration started: no.
+
+Validation:
+- SHA256 copy validation passed for byte-for-byte copied legacy files; generated, adapted, and sanitized derivatives are recorded separately.
+- Public hygiene scan passed for all six migrated case directories.
+- YAML validation passed for migrated case YAML files.
+- JSON validation passed for migrated case evidence/metadata JSON files.
+- Validator v0.3 full-case mode passed 6/6 for `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, and `PERF_0082`.
+- Validator v0.3 canonical-case mode passed 6/6 for `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, and `PERF_0082`.
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 20/20 including the six new final PERF cases after migration.
+- Canonical-case regression passed 19/19 including the six new final PERF cases after migration.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/PERF/PERF_0052/`
+- `cases/PERF/PERF_0054/`
+- `cases/PERF/PERF_0056/`
+- `cases/PERF/PERF_0062/`
+- `cases/PERF/PERF_0077/`
+- `cases/PERF/PERF_0082/`
+- `audits/batch_migration_pilots/perf_wave_2_final_batch/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- speedup/timing claim created: no
+
+Next safe action:
+- Human review the completed PERF pool canonical migration. Then choose the next reviewed non-PERF wave from the readiness audit; do not start blind full Common-core 40 migration.

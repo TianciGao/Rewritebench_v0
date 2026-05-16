@@ -1,0 +1,516 @@
+case_id: PERF_0052
+pool: PERF
+policy_version: runs_retention_policy_v1
+status: canonical_full_case_migration_batch_pilot
+batch_id: perf_wave_2_final_batch
+canonical_full_case_migration:
+  status: copy_first_canonical_layout_batch_migration
+  full_case_package_migrated: true
+  full_case_package_migration_scope: PERF_0052_only
+  canonical_layout_tested: true
+full_case_package_migrated: true
+full_case_package_migration_scope: PERF_0052_only
+legacy_runs_root: cases/PERF/PERF_0052/runs/
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/PERF/PERF_0052
+public_release_case_path: cases/PERF/PERF_0052
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+case_membership_changed: false
+raw_legacy_evidence_changed: false
+db_validation_run: false
+evidence_regenerated: false
+speedup_claim_created: false
+timing_evidence_created: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: true
+  raw_spark_plan_files_copied_to_public_tree: false
+  raw_spark_plan_files_retained_through_mapping: true
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
+retained_control_evidence:
+- original_legacy_path: cases/PERF/PERF_0052/runs/result_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/result_check.json
+  sha256_legacy_source: 74e9f6e09cbd7f131ee3654cdbcc26edd61033c1aabb8867b1850142cad36aad
+  sha256_public_copy: 74e9f6e09cbd7f131ee3654cdbcc26edd61033c1aabb8867b1850142cad36aad
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: aggregate result check
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/result_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/mysql/result_check.json
+  sha256_legacy_source: 5f40c9698e9bad993c772be353afc46e0e7b7cf9b3ea17e685c65599de528397
+  sha256_public_copy: 5f40c9698e9bad993c772be353afc46e0e7b7cf9b3ea17e685c65599de528397
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: MySQL result check
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/result_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/spark/result_check.json
+  sha256_legacy_source: 6cd2f0997b1c258016dc3bfe8a1b8a61a3b75d932422e551ad3f35ddbc53f2c3
+  sha256_public_copy: 6cd2f0997b1c258016dc3bfe8a1b8a61a3b75d932422e551ad3f35ddbc53f2c3
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: Spark result check
+- original_legacy_path: cases/PERF/PERF_0052/runs/pg/source.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/postgres/source.tsv
+  sha256_legacy_source: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_public_copy: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres source output
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/source.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/mysql/source.tsv
+  sha256_legacy_source: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_public_copy: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql source output
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/rewrite_pos_01.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  sha256_legacy_source: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_public_copy: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql positive output
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/source.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/spark/source.tsv
+  sha256_legacy_source: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_public_copy: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark source output
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/rewrite_pos_01.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_controls/spark/rewrite_pos_01.tsv
+  sha256_legacy_source: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_public_copy: 736efda25af31ee18e49bc87e238eda6ba58f845499e98e1ccb1e483869b6962
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark positive output
+retained_plan_evidence:
+- original_legacy_path: cases/PERF/PERF_0052/runs/plan_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/plan_check.json
+  sha256_legacy_source: aa35b59a53f6488f862df45e1d45828089c43432643ca190622bff57b1945175
+  sha256_public_copy: aa35b59a53f6488f862df45e1d45828089c43432643ca190622bff57b1945175
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: aggregate plan artifact presence
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/plan_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/mysql/plan_check.json
+  sha256_legacy_source: fbf08a41960f6882b40b03bdcb53e91ede519d0b32ca87e9084553f6fdad410c
+  sha256_public_copy: fbf08a41960f6882b40b03bdcb53e91ede519d0b32ca87e9084553f6fdad410c
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: MySQL plan check
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/plan_check.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/spark/plan_check.json
+  sha256_legacy_source: 2cf15f845c6a3df1dd50c8f81e0dc1910b14d149cff5c8d4cd155162b6c8c920
+  sha256_public_copy: 2cf15f845c6a3df1dd50c8f81e0dc1910b14d149cff5c8d4cd155162b6c8c920
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: Spark plan check
+- original_legacy_path: cases/PERF/PERF_0052/runs/pg/plans/source.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/postgres/source.json
+  sha256_legacy_source: 23326ddb9af316ca1030180cc8ef32f12022d7c96c77e7c84cb1d8da81d7cbc5
+  sha256_public_copy: 23326ddb9af316ca1030180cc8ef32f12022d7c96c77e7c84cb1d8da81d7cbc5
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres source.json plan
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/source.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/mysql/source.json
+  sha256_legacy_source: 48028f77d6982b800162935cc38b0216804a34e7816e5ce0678ab2805bf212e7
+  sha256_public_copy: 48028f77d6982b800162935cc38b0216804a34e7816e5ce0678ab2805bf212e7
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql source.json plan
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/rewrite_pos_01.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/mysql/rewrite_pos_01.json
+  sha256_legacy_source: 48028f77d6982b800162935cc38b0216804a34e7816e5ce0678ab2805bf212e7
+  sha256_public_copy: 48028f77d6982b800162935cc38b0216804a34e7816e5ce0678ab2805bf212e7
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql rewrite_pos_01.json plan
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/rewrite_neg_01.json
+  public_release_path: cases/PERF/PERF_0052/evidence/retained_plans/mysql/rewrite_neg_01.json
+  sha256_legacy_source: 6f3b98148c8631dbe6d19614a0b72a04735fca869f7492d4b5e1612791c7c031
+  sha256_public_copy: 6f3b98148c8631dbe6d19614a0b72a04735fca869f7492d4b5e1612791c7c031
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql rewrite_neg_01.json plan
+- &id001
+  original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/source.txt
+  sanitized_public_path: cases/PERF/PERF_0052/evidence/retained_plans/spark/source.sanitized.txt
+  original_sha256: 9a0ec023b289f5ed8029d1fd7c8eaf006bfb41a1115e0501ca3174eadf5120d7
+  sanitized_sha256: 6339a9ec4f32683aed5b7ad12ca0d106b6bddb3361db84851e6f6c53b9f9aeb5
+  evidence_role: Spark source plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    Spark path
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+- &id002
+  original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/rewrite_pos_01.txt
+  sanitized_public_path: cases/PERF/PERF_0052/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+  original_sha256: 29bf99f99beaff9791d93236d9ef51b00997d05d598b730f29f36cf50a0823fa
+  sanitized_sha256: 83fe78f82d4652be30b5050df63f9d6256066aadd3ee06d06d7ba1bfa6882f32
+  evidence_role: Spark positive plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    Spark path
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+- &id003
+  original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/rewrite_neg_01.txt
+  sanitized_public_path: cases/PERF/PERF_0052/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+  original_sha256: 27a6fafcda44010c048f4ba7b95543b223576c2c7c4ee0e2903a7ae9572ed098
+  sanitized_sha256: 5cdc27ccc3f7e6403472ea4ede46bebf8722e212fe03bf5d3927c6f96a6f5ca9
+  evidence_role: Spark hard-negative plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; do not publish raw local temporary
+    Spark path
+  sanitized_fields:
+  - local temporary path
+  raw_public_policy: do_not_publish_raw
+sanitized_public_copies:
+- *id001
+- *id002
+- *id003
+hard_negative_evidence:
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/rewrite_neg_01.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  sha256_legacy_source: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  sha256_public_copy: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql hard-negative rejection output
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/rewrite_neg_01.tsv
+  public_release_path: cases/PERF/PERF_0052/evidence/hard_negative/spark/rewrite_neg_01.tsv
+  sha256_legacy_source: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  sha256_public_copy: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark hard-negative rejection output
+- public_release_path: cases/PERF/PERF_0052/evidence/hard_negative/hard_negative_summary.json
+  public_safe: true
+  evidence_role: hard-negative static summary
+  archive_policy: generated release summary
+  do_not_delete_original: false
+timing_evidence_absent:
+  present_in_static_inspection: false
+  timing_evidence_created: false
+  speedup_claim_created: false
+  retention_class: not_applicable
+checker_normalization:
+- original_legacy_path: cases/PERF/PERF_0052/validation/check_results.py
+  public_release_path: cases/PERF/PERF_0052/checker/normalization.yaml
+  evidence_role: checker normalization summary
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original checker in legacy repo; generated canonical summary
+    in release repo
+schema_data_context:
+- original_legacy_path: cases/PERF/PERF_0052/schema/ddl_pg.sql
+  public_release_path: cases/PERF/PERF_0052/schema/postgres/ddl.sql
+  sha256_legacy_source: 5f5d2c287d09c532bab86b18baa80d2d0119199805c2393ad759b4cd6d5d27a0
+  sha256_public_copy: 5f5d2c287d09c532bab86b18baa80d2d0119199805c2393ad759b4cd6d5d27a0
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres_schema_context
+- original_legacy_path: cases/PERF/PERF_0052/schema/ddl_mysql.sql
+  public_release_path: cases/PERF/PERF_0052/schema/mysql/ddl.sql
+  sha256_legacy_source: 820f73bc928ec285a56aa5799ee177ef2499f80cb6ee6f63772201a64c036193
+  sha256_public_copy: 820f73bc928ec285a56aa5799ee177ef2499f80cb6ee6f63772201a64c036193
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql_schema_context
+- original_legacy_path: cases/PERF/PERF_0052/schema/ddl_spark.sql
+  public_release_path: cases/PERF/PERF_0052/schema/spark/ddl.sql
+  sha256_legacy_source: 9e7f8eacb421eb8269b58d0b2e70b4b1c3f28118bcaa56327fad48423b75ad69
+  sha256_public_copy: 9e7f8eacb421eb8269b58d0b2e70b4b1c3f28118bcaa56327fad48423b75ad69
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark_schema_context
+- original_legacy_path: cases/PERF/PERF_0052/validation/pg_witness_data.sql
+  public_release_path: cases/PERF/PERF_0052/schema/postgres/load.sql
+  sha256_legacy_source: 6d0b986ea78d472ff1ca57ecfff72e64625f14bdb32de7cdfce679e02176a4e0
+  sha256_public_copy: 6d0b986ea78d472ff1ca57ecfff72e64625f14bdb32de7cdfce679e02176a4e0
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres_witness_load
+- original_legacy_path: cases/PERF/PERF_0052/validation/mysql_witness_data.sql
+  public_release_path: cases/PERF/PERF_0052/schema/mysql/load.sql
+  sha256_legacy_source: 7e3048be69cc7fa5ebbc2370946f9991bc62889570c36a4130fec6e48863746d
+  sha256_public_copy: 7e3048be69cc7fa5ebbc2370946f9991bc62889570c36a4130fec6e48863746d
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql_witness_load
+- original_legacy_path: cases/PERF/PERF_0052/validation/spark_witness_data.sql
+  public_release_path: cases/PERF/PERF_0052/schema/spark/load.sql
+  sha256_legacy_source: 4746fc35741952ce64ec8adcde773e13dff3121b64338e6a11a8c3b830d478a3
+  sha256_public_copy: 4746fc35741952ce64ec8adcde773e13dff3121b64338e6a11a8c3b830d478a3
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark_witness_load
+validation_scripts:
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_pg_validation.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_postgres_validation.sh
+  original_sha256: e440bff5d65b9644dde17c81095aab051beca9ea1524cd7335c1203f9a736925
+  public_sha256: 237f86abe8dd1f92b9bc46a9815d8a06f480f4b10712d1b1fe6aa850133f4d44
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_mysql_validation.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_mysql_validation.sh
+  original_sha256: 9e704f9929d0b9387a3d331fa6f3036835e2a89cef2f03ddac4248b8a45aa9a9
+  public_sha256: 3b818faedbdaf8fc0adf8851ff80aae2ffd96074885fc2e3601c484d41436ca2
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_spark_validation.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_spark_validation.sh
+  original_sha256: a650f425604eb961c2881d10de1fd52ca886d0ee0c208e098ec25f2f1a684a54
+  public_sha256: ef58d243960551691ab0eaa62e7cd6d338a23c8f3110a2012820186c72940266
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_pg_plan_collection.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_postgres_plan_collection.sh
+  original_sha256: 88db3ed32e4d5b3cae56aa1b18bd76f58aa724416bfba47de9ecd8a2a427f080
+  public_sha256: 790aea7adffe19200b63658d866f5dea77a8ab20c503fed4d09eac04782e966e
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_mysql_plan_collection.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_mysql_plan_collection.sh
+  original_sha256: 93b9db28a160dcacdd19a5552f24a9eee2c02ea17f3ffc62bc550910ca3d2eec
+  public_sha256: 29c2314fc5b4b90d3c842b9efca0513d146fe7ff7e84ef143ccb0d603aa2f839
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+- original_legacy_path: cases/PERF/PERF_0052/validation/run_spark_plan_collection.sh
+  public_release_path: cases/PERF/PERF_0052/validation/run_spark_plan_collection.sh
+  original_sha256: 93084c7b853c02349fd835e66e4c6f64368b51edfb75cc1ef79586a5b7779882
+  public_sha256: 258ff5729b3eba6ddbfa5ac5646dd67db26343daa16c15476510d65ee2913c2c
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; adapted public copy uses canonical
+    paths and caveat
+  evidence_role: retained legacy validation asset
+provenance:
+- original_legacy_path: cases/PERF/PERF_0052/manifest.yaml
+  public_release_path: cases/PERF/PERF_0052/metadata/provenance.yaml
+  public_safe: true
+  do_not_delete_original: true
+  evidence_role: provenance summary
+taxonomy:
+- original_legacy_path: cases/PERF/PERF_0052/manifest.yaml
+  public_release_path: cases/PERF/PERF_0052/metadata/taxonomy.yaml
+  public_safe: true
+  do_not_delete_original: true
+  evidence_role: taxonomy summary
+do_not_delete:
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/plan_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/rewrite_neg_01.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/rewrite_pos_01.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/plans/source.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/result_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/rewrite_neg_01.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/rewrite_pos_01.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/mysql/source.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/pg/plans/source.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/pg/source.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/plan_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/result_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/plan_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/rewrite_neg_01.txt
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/rewrite_pos_01.txt
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/plans/source.txt
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/result_check.json
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/rewrite_neg_01.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/rewrite_pos_01.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+- original_legacy_path: cases/PERF/PERF_0052/runs/spark/source.tsv
+  do_not_delete_original: true
+  archive_policy: retain in legacy repo; not copied wholesale into public release
+static_references:
+- original_legacy_path: cases/PERF/PERF_0052/manifest.yaml
+  public_release_path: generated canonical summary
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: static reference
+- original_legacy_path: cases/PERF/PERF_0052/data_profile.json
+  public_release_path: generated canonical summary
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: static reference
+- original_legacy_path: cases/PERF/PERF_0052/validation/checker.yaml
+  public_release_path: generated canonical summary
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: static reference
+- original_legacy_path: cases/PERF/PERF_0052/validation/witness_dataset.yaml
+  public_release_path: generated canonical summary
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: static reference
+- original_legacy_path: cases/PERF/PERF_0052/provenance/dsqgen_command.txt
+  public_release_path: metadata/provenance.yaml summary only
+  do_not_delete_original: true
+  public_safe: false
+  evidence_role: provenance reference
+- original_legacy_path: cases/PERF/PERF_0052/provenance/provenance_notes.txt
+  public_release_path: metadata/provenance.yaml summary only
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: provenance reference
+- original_legacy_path: cases/PERF/PERF_0052/provenance/query1_instance_raw.sql
+  public_release_path: metadata/provenance.yaml summary only
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: provenance reference
+- original_legacy_path: cases/PERF/PERF_0052/provenance/raw_record.json
+  public_release_path: metadata/provenance.yaml summary only
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: provenance reference
+public_release_notes:
+  full_case_package_migrated: true
+  denominator_changed: false
+  paper_results_changed: false
+  case_membership_changed: false
+  raw_legacy_evidence_changed: false
+  raw_runs_wholesale_copied: false
+  raw_spark_plan_files_copied: false
+  sanitized_spark_plan_files_created: true
+  validation_scripts_not_executed: true
+  no_speedup_or_timing_claim: true
+human_approval:
+  full_case_migration: approved_for_bounded_perf_wave_2_final_batch_by_task_scope
+  hard_negative_reason: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
