@@ -1,0 +1,22 @@
+{
+  "case_id": "CONS_0011",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "outer_join_null_preservation_changed",
+  "approval_status": "maintainer_approved_for_migration",
+  "approved_by": "maintainer",
+  "semantic_risk_type": [
+    "outer_join_semantics",
+    "null_preservation",
+    "existence_test_semantics"
+  ],
+  "observed_behavior": {
+    "source_positive": "source and positive output ALICE and BOB",
+    "negative": "negative outputs only ALICE"
+  },
+  "evidence_paths": [
+    "evidence/hard_negative/postgres/rewrite_neg_01.tsv",
+    "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "evidence/hard_negative/spark/rewrite_neg_01.tsv",
+    "evidence/retained_controls/result_check.json"
+  ]
+}

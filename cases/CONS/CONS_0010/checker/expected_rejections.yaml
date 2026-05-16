@@ -1,0 +1,43 @@
+case_id: CONS_0010
+pool: CONS
+expected_rejections_version: v1
+approval_status: maintainer_approved_for_migration
+approved_by: maintainer
+approval_scope: public_release_migration
+hard_negatives:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  positive_sql_path: sql/positives/pos_01.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: self_row_exclusion_removed
+  semantic_risk_type:
+  - anti_join_semantics
+  - not_exists_semantics
+  - self_match_semantics
+  checker_guard_role: source_positive_equal_and_negative_allows_self_row_in_not_exists_guard
+  observed_static_basis:
+    source_positive_semantics: source and positive require another employee with the same salary before applying the bonus job guard
+    negative_semantics: negative allows the current employee row to satisfy the same-salary EXISTS guard
+    witness_discriminator: retained negative output drops CAROL while source and positive return CAROL and DAVE
+  evidence_paths:
+    retained_controls:
+    - evidence/retained_controls/postgres/source.tsv
+    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+    - evidence/retained_controls/mysql/source.tsv
+    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/source.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    hard_negative:
+    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    result_checks:
+    - evidence/retained_controls/result_check.json
+    - evidence/retained_controls/postgres/result_check.json
+    - evidence/retained_controls/mysql/result_check.json
+    - evidence/retained_controls/spark/result_check.json
+    plan_evidence:
+    - evidence/retained_plans/plan_check.json
+  approval_status: maintainer_approved_for_migration
+  approved_by: maintainer
+  approval_scope: public_release_migration

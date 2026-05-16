@@ -1,0 +1,122 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "0.45"
+    },
+    "table": {
+      "table_name": "t0",
+      "access_type": "ALL",
+      "rows_examined_per_scan": 2,
+      "rows_produced_per_join": 2,
+      "filtered": "100.00",
+      "cost_info": {
+        "read_cost": "0.25",
+        "eval_cost": "0.20",
+        "prefix_cost": "0.45",
+        "data_read_per_join": "32"
+      },
+      "used_columns": [
+        "t0a",
+        "t0b"
+      ],
+      "attached_condition": "(`bench`.`t0`.`t0a` < (/* select#2 */ select sum(`tmp`.`c`) from (/* select#3 */ select `bench`.`t1`.`t1c` AS `c` from `bench`.`t1` where (`bench`.`t1`.`t1a` = `bench`.`t0`.`t0a`) union all /* select#4 */ select `bench`.`t2`.`t2c` AS `c` from `bench`.`t2` where (`bench`.`t2`.`t2b` = `bench`.`t0`.`t0b`)) `tmp`))",
+      "attached_subqueries": [
+        {
+          "dependent": true,
+          "cacheable": false,
+          "query_block": {
+            "select_id": 2,
+            "cost_info": {
+              "query_cost": "2.95"
+            },
+            "table": {
+              "table_name": "tmp",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 4,
+              "rows_produced_per_join": 4,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "2.55",
+                "eval_cost": "0.40",
+                "prefix_cost": "2.95",
+                "data_read_per_join": "64"
+              },
+              "used_columns": [
+                "c"
+              ],
+              "materialized_from_subquery": {
+                "using_temporary_table": true,
+                "dependent": true,
+                "cacheable": true,
+                "query_block": {
+                  "union_result": {
+                    "using_temporary_table": false,
+                    "query_specifications": [
+                      {
+                        "dependent": true,
+                        "cacheable": true,
+                        "query_block": {
+                          "select_id": 3,
+                          "cost_info": {
+                            "query_cost": "0.35"
+                          },
+                          "table": {
+                            "table_name": "t1",
+                            "access_type": "ALL",
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "0.35",
+                              "data_read_per_join": "16"
+                            },
+                            "used_columns": [
+                              "t1a",
+                              "t1c"
+                            ],
+                            "attached_condition": "(`bench`.`t1`.`t1a` = `bench`.`t0`.`t0a`)"
+                          }
+                        }
+                      },
+                      {
+                        "dependent": true,
+                        "cacheable": false,
+                        "query_block": {
+                          "select_id": 4,
+                          "cost_info": {
+                            "query_cost": "0.45"
+                          },
+                          "table": {
+                            "table_name": "t2",
+                            "access_type": "ALL",
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 1,
+                            "filtered": "50.00",
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "0.45",
+                              "data_read_per_join": "16"
+                            },
+                            "used_columns": [
+                              "t2b",
+                              "t2c"
+                            ],
+                            "attached_condition": "(`bench`.`t2`.`t2b` = `bench`.`t0`.`t0b`)"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

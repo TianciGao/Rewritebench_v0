@@ -1,0 +1,66 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "3.90"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "e1",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 6,
+          "rows_produced_per_join": 6,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "0.25",
+            "eval_cost": "0.60",
+            "prefix_cost": "0.85",
+            "data_read_per_join": "912"
+          },
+          "used_columns": [
+            "empid",
+            "deptno",
+            "name",
+            "salary",
+            "commission"
+          ],
+          "attached_condition": "(`bench`.`e1`.`commission` is not null)"
+        }
+      },
+      {
+        "table": {
+          "table_name": "<subquery2>",
+          "access_type": "eq_ref",
+          "key": "<auto_distinct_key>",
+          "key_length": "5",
+          "ref": [
+            "bench.e1.commission"
+          ],
+          "rows_examined_per_scan": 1,
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "query_block": {
+              "table": {
+                "table_name": "e2",
+                "access_type": "ALL",
+                "rows_examined_per_scan": 6,
+                "rows_produced_per_join": 6,
+                "filtered": "100.00",
+                "cost_info": {
+                  "read_cost": "0.25",
+                  "eval_cost": "0.60",
+                  "prefix_cost": "0.85",
+                  "data_read_per_join": "912"
+                },
+                "used_columns": [
+                  "commission"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

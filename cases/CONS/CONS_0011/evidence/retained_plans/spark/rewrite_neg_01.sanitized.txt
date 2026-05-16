@@ -1,0 +1,111 @@
+== Physical Plan ==
+AdaptiveSparkPlan (18)
++- Project (17)
+   +- BroadcastHashJoin Inner BuildLeft (16)
+      :- BroadcastExchange (3)
+      :  +- Filter (2)
+      :     +- Scan parquet spark_catalog.default.emp (1)
+      +- Project (15)
+         +- Filter (14)
+            +- HashAggregate (13)
+               +- Exchange (12)
+                  +- HashAggregate (11)
+                     +- Project (10)
+                        +- BroadcastHashJoin Inner BuildRight (9)
+                           :- Filter (5)
+                           :  +- Scan parquet spark_catalog.default.dept (4)
+                           +- BroadcastExchange (8)
+                              +- Filter (7)
+                                 +- Scan parquet spark_catalog.default.bonus (6)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [2]: [ename#62, job#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(job)]
+ReadSchema: struct<ename:string,job:string>
+
+(2) Filter
+Input [2]: [ename#62, job#63]
+Condition : isnotnull(job#63)
+
+(3) BroadcastExchange
+Input [2]: [ename#62, job#63]
+Arguments: HashedRelationBroadcastMode(List(input[1, string, false]),false), [plan_id=285]
+
+(4) Scan parquet spark_catalog.default.dept
+Output [1]: [dname#70]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(dname)]
+ReadSchema: struct<dname:string>
+
+(5) Filter
+Input [1]: [dname#70]
+Condition : isnotnull(dname#70)
+
+(6) Scan parquet spark_catalog.default.bonus
+Output [2]: [ename#72, job#73]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(job), IsNotNull(ename)]
+ReadSchema: struct<ename:string,job:string>
+
+(7) Filter
+Input [2]: [ename#72, job#73]
+Condition : (isnotnull(job#73) AND isnotnull(ename#72))
+
+(8) BroadcastExchange
+Input [2]: [ename#72, job#73]
+Arguments: HashedRelationBroadcastMode(List(input[0, string, false]),false), [plan_id=275]
+
+(9) BroadcastHashJoin
+Left keys [1]: [dname#70]
+Right keys [1]: [ename#72]
+Join type: Inner
+Join condition: None
+
+(10) Project
+Output [1]: [job#73]
+Input [3]: [dname#70, ename#72, job#73]
+
+(11) HashAggregate
+Input [1]: [job#73]
+Keys [1]: [job#73]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#94L]
+Results [2]: [job#73, count#95L]
+
+(12) Exchange
+Input [2]: [job#73, count#95L]
+Arguments: hashpartitioning(job#73, 1), ENSURE_REQUIREMENTS, [plan_id=280]
+
+(13) HashAggregate
+Input [2]: [job#73, count#95L]
+Keys [1]: [job#73]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#90L]
+Results [2]: [count(1)#90L AS count(1)#91L, job#73]
+
+(14) Filter
+Input [2]: [count(1)#91L, job#73]
+Condition : (count(1)#91L > 0)
+
+(15) Project
+Output [1]: [job#73]
+Input [2]: [count(1)#91L, job#73]
+
+(16) BroadcastHashJoin
+Left keys [1]: [job#63]
+Right keys [1]: [job#73]
+Join type: Inner
+Join condition: None
+
+(17) Project
+Output [1]: [ename#62]
+Input [3]: [ename#62, job#63, job#73]
+
+(18) AdaptiveSparkPlan
+Output [1]: [ename#62]
+Arguments: isFinalPlan=false

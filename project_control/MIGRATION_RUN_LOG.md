@@ -1588,3 +1588,56 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer review and approve the expected-rejection wording in `audits/cons_hard_negative_approval/cons_expected_rejections_preview.yaml`; if approved, run the future CONS batch 001 prompt. Do not start blind full Common-core 40 migration.
+
+### 2026-05-16 · pending · CONS hard-negative approved canonical migration batch 001
+
+Mode: release-repo bounded CONS canonical migration; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+Scope: Migrated exactly the bounded CONS batch 001 cases `CONS_0007`, `CONS_0009`, `CONS_0010`, and `CONS_0011` into canonical public-release layout.
+
+Summary:
+- Used the completed `CONS_0005` canonical checker/hard-negative pattern and the CONS approval sweep outputs.
+- Recorded maintainer-approved expected rejection reasons in `checker/expected_rejections.yaml`, README files, migration notes, and the batch audit report.
+- Created canonical case packages under `cases/CONS/CONS_0007/`, `cases/CONS/CONS_0009/`, `cases/CONS/CONS_0010/`, and `cases/CONS/CONS_0011/`.
+- Copied public-safe SQL, schema, witness load scripts, retained controls, hard-negative outputs, PostgreSQL plan evidence, and MySQL plan evidence.
+- Adapted validation scripts as retained legacy validation assets with output-policy caveats; they were not executed.
+- Created sanitized public Spark plan evidence under each case's `evidence/retained_plans/spark/`; raw Spark plan text files were not copied into public retained evidence.
+- Raw `runs/` was not copied wholesale.
+- Actual case migration performed: yes, for `CONS_0007`, `CONS_0009`, `CONS_0010`, and `CONS_0011` only.
+- Common-core 40 blind/bulk migration started: no.
+
+Validation:
+- SHA256 copy validation passed for byte-for-byte copied legacy files; generated, adapted, and sanitized derivatives are recorded separately.
+- Public hygiene scan passed for all four migrated case directories.
+- YAML validation passed for migrated case YAML files.
+- JSON validation passed for migrated case evidence/metadata JSON files.
+- Validator v0.3 full-case mode passed 4/4 for `CONS_0007`, `CONS_0009`, `CONS_0010`, and `CONS_0011`.
+- Validator v0.3 canonical-case mode passed 4/4 for `CONS_0007`, `CONS_0009`, `CONS_0010`, and `CONS_0011`.
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 24/24 including the four new CONS cases after migration.
+- Canonical-case regression passed 23/23 including the four new CONS cases after migration.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `git diff --check` result: pending.
+
+Files created:
+- `cases/CONS/CONS_0007/`
+- `cases/CONS/CONS_0009/`
+- `cases/CONS/CONS_0010/`
+- `cases/CONS/CONS_0011/`
+- `audits/batch_migration_pilots/cons_batch_001/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Human review CONS batch 001. If accepted, consider approved CONS batch 002 for `CONS_0012`, `CONS_0024`, `CONS_0036`, and `CONS_0037`; do not start blind full Common-core 40 migration.

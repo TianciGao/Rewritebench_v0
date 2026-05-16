@@ -1,0 +1,9 @@
+case_id: CONS_0010
+denominator_version: canonical_case_package_layout_v1
+common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+track_a_same_engine_candidate: review_existing_case_set_membership_only
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+case_admission_status_changed: false
+no_global_leaderboard: true

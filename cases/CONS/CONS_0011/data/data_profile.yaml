@@ -1,0 +1,16 @@
+case_id: CONS_0011
+profile_version: canonical_case_package_layout_v1
+source_kind: generated_from_legacy_witness_sql
+dataset_role: minimal retained witness data for semantic-guard comparison
+required_tables:
+- emp
+- dept
+- bonus
+row_counts:
+  emp: 2
+  dept: 2
+  bonus: 1
+claim_boundary:
+  not_scale_dataset: true
+  db_validation_run_during_migration: false
+  evidence_regenerated: false

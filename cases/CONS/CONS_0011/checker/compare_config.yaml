@@ -1,0 +1,14 @@
+case_id: CONS_0011
+compare_config_version: canonical_case_package_layout_v1
+source_reference: evidence/retained_controls/postgres/source.tsv
+positive_evidence:
+- evidence/retained_controls/postgres/rewrite_pos_01.tsv
+- evidence/retained_controls/mysql/rewrite_pos_01.tsv
+- evidence/retained_controls/spark/rewrite_pos_01.tsv
+negative_evidence:
+- evidence/hard_negative/postgres/rewrite_neg_01.tsv
+- evidence/hard_negative/mysql/rewrite_neg_01.tsv
+- evidence/hard_negative/spark/rewrite_neg_01.tsv
+expected:
+  source_positive_equal: true
+  source_negative_different: true

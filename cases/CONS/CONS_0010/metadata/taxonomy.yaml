@@ -1,0 +1,19 @@
+case_id: CONS_0010
+taxonomy_version: canonical_case_package_layout_v1
+pool: CONS
+source_family: Calcite
+consistency_focus:
+- subquery_semantics
+sql_features:
+- correlated_subquery
+rewrite_opportunity:
+- subquery_decorrelation
+hard_negative_reason: self_row_exclusion_removed
+semantic_risk_type:
+- anti_join_semantics
+- not_exists_semantics
+- self_match_semantics
+claim_boundary:
+  denominator_changed: false
+  paper_results_changed: false
+  no_global_leaderboard: true

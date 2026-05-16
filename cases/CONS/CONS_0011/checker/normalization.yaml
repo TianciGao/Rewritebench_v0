@@ -1,0 +1,9 @@
+case_id: CONS_0011
+normalization_version: canonical_case_package_layout_v1
+comparison_model: tabular_result_set_equivalence
+rules:
+- compare retained TSV outputs as captured
+- do not infer performance from result equality
+- hard negative must differ from source on retained witness evidence
+null_handling: retained output representation
+ordering: retained output ordering as captured unless checker summary states sorted comparison

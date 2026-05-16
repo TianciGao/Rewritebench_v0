@@ -1,0 +1,126 @@
+== Physical Plan ==
+AdaptiveSparkPlan (21)
++- Project (20)
+   +- SortMergeJoin LeftSemi (19)
+      :- Sort (3)
+      :  +- Exchange (2)
+      :     +- Scan parquet spark_catalog.default.emp (1)
+      +- Sort (18)
+         +- Exchange (17)
+            +- Project (16)
+               +- Filter (15)
+                  +- BroadcastHashJoin LeftOuter BuildRight (14)
+                     :- BroadcastNestedLoopJoin Inner BuildRight (10)
+                     :  :- HashAggregate (7)
+                     :  :  +- Exchange (6)
+                     :  :     +- HashAggregate (5)
+                     :  :        +- Scan parquet spark_catalog.default.emp (4)
+                     :  +- BroadcastExchange (9)
+                     :     +- Scan parquet spark_catalog.default.dept (8)
+                     +- BroadcastExchange (13)
+                        +- Filter (12)
+                           +- Scan parquet spark_catalog.default.bonus (11)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [2]: [ename#62, job#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<ename:string,job:string>
+
+(2) Exchange
+Input [2]: [ename#62, job#63]
+Arguments: hashpartitioning(coalesce(JOB#63, ), isnull(JOB#63), 1), ENSURE_REQUIREMENTS, [plan_id=113]
+
+(3) Sort
+Input [2]: [ename#62, job#63]
+Arguments: [coalesce(JOB#63, ) ASC NULLS FIRST, isnull(JOB#63) ASC NULLS FIRST], false, 0
+
+(4) Scan parquet spark_catalog.default.emp
+Output [1]: [job#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<job:string>
+
+(5) HashAggregate
+Input [1]: [job#63]
+Keys [1]: [JOB#63]
+Functions: []
+Aggregate Attributes: []
+Results [1]: [JOB#63]
+
+(6) Exchange
+Input [1]: [JOB#63]
+Arguments: hashpartitioning(JOB#63, 1), ENSURE_REQUIREMENTS, [plan_id=101]
+
+(7) HashAggregate
+Input [1]: [JOB#63]
+Keys [1]: [JOB#63]
+Functions: []
+Aggregate Attributes: []
+Results [1]: [JOB#63 AS JOB#80]
+
+(8) Scan parquet spark_catalog.default.dept
+Output [1]: [dname#70]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<dname:string>
+
+(9) BroadcastExchange
+Input [1]: [dname#70]
+Arguments: IdentityBroadcastMode, [plan_id=104]
+
+(10) BroadcastNestedLoopJoin
+Join type: Inner
+Join condition: None
+
+(11) Scan parquet spark_catalog.default.bonus
+Output [2]: [ename#72, job#73]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(job), IsNotNull(ename)]
+ReadSchema: struct<ename:string,job:string>
+
+(12) Filter
+Input [2]: [ename#72, job#73]
+Condition : (isnotnull(JOB#73) AND isnotnull(ENAME#72))
+
+(13) BroadcastExchange
+Input [2]: [ename#72, job#73]
+Arguments: HashedRelationBroadcastMode(List(input[1, string, false], input[0, string, false]),false), [plan_id=107]
+
+(14) BroadcastHashJoin
+Left keys [2]: [JOB#80, DNAME#70]
+Right keys [2]: [JOB#73, ENAME#72]
+Join type: LeftOuter
+Join condition: None
+
+(15) Filter
+Input [4]: [JOB#80, dname#70, ename#72, job#73]
+Condition : isnull(ENAME#72)
+
+(16) Project
+Output [1]: [JOB#80]
+Input [4]: [JOB#80, dname#70, ename#72, job#73]
+
+(17) Exchange
+Input [1]: [JOB#80]
+Arguments: hashpartitioning(coalesce(JOB#80, ), isnull(JOB#80), 1), ENSURE_REQUIREMENTS, [plan_id=114]
+
+(18) Sort
+Input [1]: [JOB#80]
+Arguments: [coalesce(JOB#80, ) ASC NULLS FIRST, isnull(JOB#80) ASC NULLS FIRST], false, 0
+
+(19) SortMergeJoin
+Left keys [2]: [coalesce(JOB#63, ), isnull(JOB#63)]
+Right keys [2]: [coalesce(JOB#80, ), isnull(JOB#80)]
+Join type: LeftSemi
+Join condition: None
+
+(20) Project
+Output [1]: [ENAME#62]
+Input [2]: [ename#62, job#63]
+
+(21) AdaptiveSparkPlan
+Output [1]: [ENAME#62]
+Arguments: isFinalPlan=false

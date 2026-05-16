@@ -1,0 +1,137 @@
+== Physical Plan ==
+AdaptiveSparkPlan (22)
++- Project (21)
+   +- BroadcastHashJoin Inner BuildLeft (20)
+      :- BroadcastExchange (2)
+      :  +- Scan parquet spark_catalog.default.emp (1)
+      +- Project (19)
+         +- Filter (18)
+            +- HashAggregate (17)
+               +- HashAggregate (16)
+                  +- Project (15)
+                     +- Filter (14)
+                        +- BroadcastHashJoin LeftOuter BuildRight (13)
+                           :- BroadcastNestedLoopJoin Inner BuildRight (9)
+                           :  :- HashAggregate (6)
+                           :  :  +- Exchange (5)
+                           :  :     +- HashAggregate (4)
+                           :  :        +- Scan parquet spark_catalog.default.emp (3)
+                           :  +- BroadcastExchange (8)
+                           :     +- Scan parquet spark_catalog.default.dept (7)
+                           +- BroadcastExchange (12)
+                              +- Filter (11)
+                                 +- Scan parquet spark_catalog.default.bonus (10)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [2]: [ename#62, job#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<ename:string,job:string>
+
+(2) BroadcastExchange
+Input [2]: [ename#62, job#63]
+Arguments: HashedRelationBroadcastMode(List(coalesce(input[1, string, true], ), isnull(input[1, string, true])),false), [plan_id=209]
+
+(3) Scan parquet spark_catalog.default.emp
+Output [1]: [job#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<job:string>
+
+(4) HashAggregate
+Input [1]: [job#63]
+Keys [1]: [job#63]
+Functions: []
+Aggregate Attributes: []
+Results [1]: [job#63]
+
+(5) Exchange
+Input [1]: [job#63]
+Arguments: hashpartitioning(job#63, 1), ENSURE_REQUIREMENTS, [plan_id=194]
+
+(6) HashAggregate
+Input [1]: [job#63]
+Keys [1]: [job#63]
+Functions: []
+Aggregate Attributes: []
+Results [1]: [job#63 AS job#84]
+
+(7) Scan parquet spark_catalog.default.dept
+Output [1]: [dname#70]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<dname:string>
+
+(8) BroadcastExchange
+Input [1]: [dname#70]
+Arguments: IdentityBroadcastMode, [plan_id=197]
+
+(9) BroadcastNestedLoopJoin
+Join type: Inner
+Join condition: None
+
+(10) Scan parquet spark_catalog.default.bonus
+Output [2]: [ename#72, job#73]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(job), IsNotNull(ename)]
+ReadSchema: struct<ename:string,job:string>
+
+(11) Filter
+Input [2]: [ename#72, job#73]
+Condition : (isnotnull(job#73) AND isnotnull(ename#72))
+
+(12) BroadcastExchange
+Input [2]: [ename#72, job#73]
+Arguments: HashedRelationBroadcastMode(List(input[1, string, false], input[0, string, false]),false), [plan_id=200]
+
+(13) BroadcastHashJoin
+Left keys [2]: [job#84, dname#70]
+Right keys [2]: [job#73, ename#72]
+Join type: LeftOuter
+Join condition: None
+
+(14) Filter
+Input [4]: [job#84, dname#70, ename#72, job#73]
+Condition : isnull(ename#72)
+
+(15) Project
+Output [1]: [job#84]
+Input [4]: [job#84, dname#70, ename#72, job#73]
+
+(16) HashAggregate
+Input [1]: [job#84]
+Keys [1]: [job#84]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#87L]
+Results [2]: [job#84, count#88L]
+
+(17) HashAggregate
+Input [2]: [job#84, count#88L]
+Keys [1]: [job#84]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#82L]
+Results [2]: [count(1)#82L AS count(1)#83L, job#84]
+
+(18) Filter
+Input [2]: [count(1)#83L, job#84]
+Condition : (count(1)#83L > 0)
+
+(19) Project
+Output [1]: [job#84]
+Input [2]: [count(1)#83L, job#84]
+
+(20) BroadcastHashJoin
+Left keys [2]: [coalesce(job#63, ), isnull(job#63)]
+Right keys [2]: [coalesce(job#84, ), isnull(job#84)]
+Join type: Inner
+Join condition: None
+
+(21) Project
+Output [1]: [ename#62]
+Input [3]: [ename#62, job#63, job#84]
+
+(22) AdaptiveSparkPlan
+Output [1]: [ename#62]
+Arguments: isFinalPlan=false

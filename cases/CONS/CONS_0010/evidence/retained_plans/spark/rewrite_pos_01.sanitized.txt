@@ -1,0 +1,62 @@
+== Physical Plan ==
+AdaptiveSparkPlan (10)
++- Project (9)
+   +- Filter (8)
+      +- BroadcastHashJoin ExistenceJoin(exists#85) BuildRight (7)
+         :- BroadcastHashJoin ExistenceJoin(exists#84) BuildRight (4)
+         :  :- Scan parquet spark_catalog.default.emp (1)
+         :  +- BroadcastExchange (3)
+         :     +- Scan parquet spark_catalog.default.emp (2)
+         +- BroadcastExchange (6)
+            +- Scan parquet spark_catalog.default.bonus (5)
+
+
+(1) Scan parquet spark_catalog.default.emp
+Output [8]: [empno#49, ename#50, job#51, mgr#52, hiredate#53, sal#54, comm#55, deptno#56]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<empno:int,ename:string,job:string,mgr:int,hiredate:date,sal:decimal(10,2),comm:decimal(10,2),deptno:int>
+
+(2) Scan parquet spark_catalog.default.emp
+Output [2]: [empno#76, sal#81]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<empno:int,sal:decimal(10,2)>
+
+(3) BroadcastExchange
+Input [2]: [empno#76, sal#81]
+Arguments: HashedRelationBroadcastMode(List(input[1, decimal(10,2), true]),false), [plan_id=107]
+
+(4) BroadcastHashJoin
+Left keys [1]: [sal#54]
+Right keys [1]: [sal#81]
+Join type: ExistenceJoin(exists#84)
+Join condition: NOT (empno#76 = empno#49)
+
+(5) Scan parquet spark_catalog.default.bonus
+Output [1]: [job#58]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+ReadSchema: struct<job:string>
+
+(6) BroadcastExchange
+Input [1]: [job#58]
+Arguments: HashedRelationBroadcastMode(List(input[0, string, true]),false), [plan_id=110]
+
+(7) BroadcastHashJoin
+Left keys [1]: [job#51]
+Right keys [1]: [job#58]
+Join type: ExistenceJoin(exists#85)
+Join condition: None
+
+(8) Filter
+Input [10]: [empno#49, ename#50, job#51, mgr#52, hiredate#53, sal#54, comm#55, deptno#56, exists#84, exists#85]
+Condition : (NOT exists#84 OR NOT exists#85)
+
+(9) Project
+Output [8]: [empno#49, ename#50, job#51, mgr#52, hiredate#53, sal#54, comm#55, deptno#56]
+Input [10]: [empno#49, ename#50, job#51, mgr#52, hiredate#53, sal#54, comm#55, deptno#56, exists#84, exists#85]
+
+(10) AdaptiveSparkPlan
+Output [8]: [empno#49, ename#50, job#51, mgr#52, hiredate#53, sal#54, comm#55, deptno#56]
+Arguments: isFinalPlan=false

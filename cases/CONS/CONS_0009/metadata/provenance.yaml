@@ -1,0 +1,11 @@
+case_id: CONS_0009
+provenance_version: canonical_case_package_layout_v1
+source_family: Calcite
+source_workload: core_sql_tests
+source_query_identity: sub-query.iq UNION ALL scalar predicate
+source_path: datasets/raw/calcite/calcite/core/src/test/resources/sql/sub-query.iq
+draft_origin: CONS_CALCITE_DRAFT_0014
+legacy_manifest: cases/CONS/CONS_0009/manifest.yaml
+claim_boundary:
+  no_new_source_claim_created: true
+  db_validation_run_during_migration: false

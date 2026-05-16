@@ -1,0 +1,1 @@
+CREATE TABLE tmp_emps (empid INTEGER NOT NULL, deptno INTEGER NOT NULL, name VARCHAR(32) NOT NULL, salary DECIMAL(10,2) NOT NULL, commission INTEGER);

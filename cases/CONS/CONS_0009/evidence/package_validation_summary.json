@@ -1,0 +1,17 @@
+{
+  "case_id": "CONS_0009",
+  "status": "canonical_full_case_migration_batch_pilot",
+  "batch_id": "cons_hard_negative_approved_batch_001",
+  "migration_date": "2026-05-16",
+  "db_validation_run": false,
+  "evidence_regenerated": false,
+  "expected_rejection_approval_recorded": true,
+  "retained_evidence_summary": {
+    "control_files": 13,
+    "plan_files_public": 10,
+    "hard_negative_files": 3,
+    "raw_runs_wholesale_copied": false,
+    "raw_spark_plans_copied": false,
+    "sanitized_spark_plans": 3
+  }
+}

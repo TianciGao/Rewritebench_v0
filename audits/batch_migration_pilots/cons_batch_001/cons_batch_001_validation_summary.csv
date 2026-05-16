@@ -1,0 +1,49 @@
+case_id,check_name,status,details
+CONS_0007,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+CONS_0007,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+CONS_0007,yaml_validation,PASS,14 YAML files parsed
+CONS_0007,json_validation,PASS,13 JSON files parsed
+CONS_0007,spark_plan_sanitization,PASS,sanitized Spark plans have raw local paths removed
+CONS_0007,expected_rejection_approval_recorded,PASS,correlated_exists_department_predicate_removed recorded as maintainer_approved_for_migration
+CONS_0009,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+CONS_0009,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+CONS_0009,yaml_validation,PASS,14 YAML files parsed
+CONS_0009,json_validation,PASS,13 JSON files parsed
+CONS_0009,spark_plan_sanitization,PASS,sanitized Spark plans have raw local paths removed
+CONS_0009,expected_rejection_approval_recorded,PASS,union_all_correlation_key_changed recorded as maintainer_approved_for_migration
+CONS_0010,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+CONS_0010,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+CONS_0010,yaml_validation,PASS,14 YAML files parsed
+CONS_0010,json_validation,PASS,13 JSON files parsed
+CONS_0010,spark_plan_sanitization,PASS,sanitized Spark plans have raw local paths removed
+CONS_0010,expected_rejection_approval_recorded,PASS,self_row_exclusion_removed recorded as maintainer_approved_for_migration
+CONS_0011,sha256_copy_validation,PASS,byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+CONS_0011,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+CONS_0011,yaml_validation,PASS,14 YAML files parsed
+CONS_0011,json_validation,PASS,13 JSON files parsed
+CONS_0011,spark_plan_sanitization,PASS,sanitized Spark plans have raw local paths removed
+CONS_0011,expected_rejection_approval_recorded,PASS,outer_join_null_preservation_changed recorded as maintainer_approved_for_migration
+CONS_0007,validator_v0_3_full_case,PASS,PASS in combined new-batch full-case validation 4/4
+CONS_0007,validator_v0_3_canonical_case,PASS,PASS in combined new-batch canonical-case validation 4/4
+CONS_0007,evidence_pilot_regression,PASS,PASS 6/6 for retained PORT evidence-pilot regression
+CONS_0007,full_case_regression,PASS,PASS 24/24; regression included the four new CONS cases after migration
+CONS_0007,canonical_case_regression,PASS,PASS 23/23; regression included the four new CONS cases after migration
+CONS_0007,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+CONS_0009,validator_v0_3_full_case,PASS,PASS in combined new-batch full-case validation 4/4
+CONS_0009,validator_v0_3_canonical_case,PASS,PASS in combined new-batch canonical-case validation 4/4
+CONS_0009,evidence_pilot_regression,PASS,PASS 6/6 for retained PORT evidence-pilot regression
+CONS_0009,full_case_regression,PASS,PASS 24/24; regression included the four new CONS cases after migration
+CONS_0009,canonical_case_regression,PASS,PASS 23/23; regression included the four new CONS cases after migration
+CONS_0009,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+CONS_0010,validator_v0_3_full_case,PASS,PASS in combined new-batch full-case validation 4/4
+CONS_0010,validator_v0_3_canonical_case,PASS,PASS in combined new-batch canonical-case validation 4/4
+CONS_0010,evidence_pilot_regression,PASS,PASS 6/6 for retained PORT evidence-pilot regression
+CONS_0010,full_case_regression,PASS,PASS 24/24; regression included the four new CONS cases after migration
+CONS_0010,canonical_case_regression,PASS,PASS 23/23; regression included the four new CONS cases after migration
+CONS_0010,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
+CONS_0011,validator_v0_3_full_case,PASS,PASS in combined new-batch full-case validation 4/4
+CONS_0011,validator_v0_3_canonical_case,PASS,PASS in combined new-batch canonical-case validation 4/4
+CONS_0011,evidence_pilot_regression,PASS,PASS 6/6 for retained PORT evidence-pilot regression
+CONS_0011,full_case_regression,PASS,PASS 24/24; regression included the four new CONS cases after migration
+CONS_0011,canonical_case_regression,PASS,PASS 23/23; regression included the four new CONS cases after migration
+CONS_0011,py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed
