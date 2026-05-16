@@ -1,0 +1,13 @@
+case_id: PERF_0007
+normalization_version: canonical_case_package_layout_v1
+row_format: tab_separated_values
+sort_rows: true
+trim_whitespace: true
+normalize_numeric_format: true
+normalize_null: true
+numeric_tolerance:
+  mode: exact_after_existing_text_normalization
+  migration_did_not_recompute_outputs: true
+claim_boundary:
+  derived_from_legacy_checker: cases/PERF/PERF_0007/validation/check_results.py
+  no_new_result_claim: true

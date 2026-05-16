@@ -1,0 +1,21 @@
+{
+  "case_id": "PERF_0013",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "region_predicate_changed",
+  "source_positive_boundary": "source and positive filter region to MIDDLE EAST",
+  "negative_boundary": "negative filters region to EUROPE",
+  "witness_discriminator": "region-discriminator rows distinguish the intended regional slice from the negative slice",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "retained_evidence": {
+    "mysql_negative": "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "spark_negative": "evidence/hard_negative/spark/rewrite_neg_01.tsv",
+    "source_reference": "evidence/retained_controls/postgres/source.tsv",
+    "mysql_positive": "evidence/retained_controls/mysql/rewrite_pos_01.tsv",
+    "spark_positive": "evidence/retained_controls/spark/rewrite_pos_01.tsv"
+  },
+  "migration_claim_boundary": {
+    "db_validation_run": false,
+    "evidence_regenerated": false,
+    "speedup_claim_created": false
+  }
+}

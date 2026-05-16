@@ -1,0 +1,27 @@
+case_id: PERF_0008
+witness_profile_version: canonical_case_package_layout_v1
+source_legacy_file: cases/PERF/PERF_0008/validation/witness_dataset.yaml
+dataset_id: pg_minimal_witness_v1
+status: TODO
+required_tables:
+- customer
+- orders
+- lineitem
+row_counts:
+  customer: 3
+  orders: 3
+  lineitem: 3
+witness_design:
+  purpose:
+  - source_positive_equivalence_and_hard_negative_exposure
+  discriminator: segment-discriminator rows distinguish the intended customer slice
+    from the negative slice
+retained_outputs:
+  source_reference: evidence/retained_controls/postgres/source.tsv
+  mysql_positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  spark_positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
+  mysql_negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  spark_negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
+claim_boundary:
+  summarizes_existing_retained_witness_only: true
+  no_db_validation_run_during_migration: true

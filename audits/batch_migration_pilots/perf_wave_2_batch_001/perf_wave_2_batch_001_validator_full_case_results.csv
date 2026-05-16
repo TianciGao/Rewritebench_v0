@@ -1,0 +1,4 @@
+case_id,case_path,mode,manifest_exists,source_sql_exists,positive_rewrite_exists,hard_negative_status,schema_context_exists,checker_exists,validation_path_exists,provenance_exists,taxonomy_exists,evidence_runs_retention_exists,runs_retention_parse_ok,sanitized_evidence_scan_ok,no_raw_local_path_ok,no_denominator_change_claim_ok,no_paper_result_change_claim_ok,no_global_leaderboard_claim_ok,full_case_structure_ok,evidence_mapping_ok,overall_status,failure_reasons,warnings
+PERF_0007,cases/PERF/PERF_0007,full-case,yes,yes,yes,present,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0008,cases/PERF/PERF_0008,full-case,yes,yes,yes,present,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0013,cases/PERF/PERF_0013,full-case,yes,yes,yes,present,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,

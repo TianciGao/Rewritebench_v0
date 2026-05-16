@@ -1,0 +1,29 @@
+case_id: PERF_0007
+schema_profile_version: canonical_case_package_layout_v1
+source_legacy_files:
+  postgres: cases/PERF/PERF_0007/schema/ddl_pg.sql
+  mysql: cases/PERF/PERF_0007/schema/ddl_mysql.sql
+  spark: cases/PERF/PERF_0007/schema/ddl_spark.sql
+required_tables:
+- lineitem
+required_columns:
+  lineitem:
+  - l_shipdate
+  - l_discount
+  - l_quantity
+  - l_extendedprice
+engine_paths:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+witness_row_count:
+  lineitem: 5
+claim_boundary:
+  summarizes_existing_witness_context_only: true
+  db_validation_run_during_migration: false

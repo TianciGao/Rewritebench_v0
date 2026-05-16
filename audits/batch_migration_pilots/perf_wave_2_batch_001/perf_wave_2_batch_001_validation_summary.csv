@@ -1,0 +1,34 @@
+case_id,check_name,status,details
+PERF_0007,migration_generation,PASS,canonical release package generated for bounded PERF batch
+PERF_0007,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0007,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0007,yaml_validation,PASS,parsed 14 YAML files
+PERF_0007,json_validation,PASS,parsed 7 JSON files
+PERF_0007,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0007,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0007,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0007,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0007,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0007,full_case_regression,PASS,full-case regression passed 5/5
+PERF_0008,migration_generation,PASS,canonical release package generated for bounded PERF batch
+PERF_0008,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0008,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0008,yaml_validation,PASS,parsed 14 YAML files
+PERF_0008,json_validation,PASS,parsed 7 JSON files
+PERF_0008,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0008,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0008,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0008,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0008,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0008,full_case_regression,PASS,full-case regression passed 5/5
+PERF_0013,migration_generation,PASS,canonical release package generated for bounded PERF batch
+PERF_0013,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0013,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0013,yaml_validation,PASS,parsed 14 YAML files
+PERF_0013,json_validation,PASS,parsed 7 JSON files
+PERF_0013,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0013,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0013,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0013,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0013,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0013,full_case_regression,PASS,full-case regression passed 5/5

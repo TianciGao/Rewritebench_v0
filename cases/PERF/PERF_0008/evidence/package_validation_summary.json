@@ -1,0 +1,25 @@
+{
+  "case_id": "PERF_0008",
+  "package_type": "canonical_full_case_migration_batch_pilot",
+  "batch_id": "perf_wave_2_sanitized_plan_batch_001",
+  "canonical_layout": true,
+  "migration_date": "2026-05-16",
+  "validation_scope": "static_release_repo_validation_only",
+  "retained_evidence_summary": {
+    "control_outputs": 4,
+    "hard_negative_outputs": 2,
+    "json_plan_files": 4,
+    "sanitized_spark_plan_files": 2,
+    "timing_artifacts_present": false
+  },
+  "claim_boundaries": {
+    "db_validation_run": false,
+    "evidence_regenerated": false,
+    "denominator_changed": false,
+    "paper_results_changed": false,
+    "common_core_membership_changed": false,
+    "raw_legacy_evidence_changed": false,
+    "speedup_claim_created": false,
+    "timing_evidence_created": false
+  }
+}

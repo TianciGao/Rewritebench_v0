@@ -707,3 +707,31 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - full-case regression result: PASS 4/4 for PORT_0004, PORT_0008, CONS_0005, and PERF_0006
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: review the completed LONGTAIL_0011 canonical-layout pilot and all four representative pool pilots, then decide whether to continue case-universe/report/script audits or plan the next bounded single-case pilot. Do not start Common-core 40 migration.
+
+## 19. Last Codex run
+
+- task name: PERF wave-2 sanitized-plan canonical migration batch 001
+- date: 2026-05-16
+- mode: release-repo bounded batch canonical migration; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- cases attempted: PERF_0007, PERF_0008, PERF_0013
+- cases completed: PERF_0007, PERF_0008, PERF_0013
+- failed/deferred cases: none
+- actual case migration performed: yes, bounded 3-case PERF batch only
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- speedup_claim_created: false
+- timing_evidence_created: false
+- Spark plan copied raw into public retained evidence: no
+- Spark plan sanitization: sanitized public Spark plan copies created under each migrated case's `evidence/retained_plans/spark/`
+- validation scripts copied/adapted with output-policy caveat: yes
+- validator v0.3 full-case result: PASS 3/3 for PERF_0007, PERF_0008, and PERF_0013
+- validator v0.3 canonical-case result: PASS 3/3 for PERF_0007, PERF_0008, and PERF_0013
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 5/5 for PORT_0004, PORT_0008, CONS_0005, PERF_0006, and LONGTAIL_0011
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review of the bounded PERF wave-2 batch; if accepted, choose the next small reviewed wave from the readiness audit. Do not start blind full Common-core 40 migration.

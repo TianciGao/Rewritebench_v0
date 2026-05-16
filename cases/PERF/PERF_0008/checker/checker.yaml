@@ -1,0 +1,27 @@
+case_id: PERF_0008
+checker_version: canonical_case_package_layout_v1
+checker_type: value_normalized_result_equivalence_checker
+status: retained_evidence_mapping
+inputs:
+  source: sql/source.sql
+  positive_rewrite: sql/positives/pos_01.sql
+  negative_rewrite: sql/negatives/neg_01.sql
+expectations:
+  equal:
+  - source
+  - pos_01
+  not_equal:
+  - source
+  - neg_01
+retained_evidence:
+  source_reference: evidence/retained_controls/postgres/source.tsv
+  mysql_positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  spark_positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
+  mysql_negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  spark_negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
+normalization: checker/normalization.yaml
+compare_config: checker/compare_config.yaml
+expected_rejections: checker/expected_rejections.yaml
+claim_boundary:
+  checker_config_generated_from_retained_evidence: true
+  db_validation_run_during_migration: false

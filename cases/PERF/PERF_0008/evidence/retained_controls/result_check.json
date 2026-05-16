@@ -1,0 +1,31 @@
+{
+  "case_id": "PERF_0008",
+  "validation_model": "cross_dialect_reference",
+  "source_reference_engine": "pg",
+  "target_engines": [
+    "mysql",
+    "spark"
+  ],
+  "status": "validated",
+  "ok": true,
+  "draft_only": true,
+  "compared_existing_outputs": true,
+  "expected_future_inputs": [
+    "runs/pg/source.tsv",
+    "runs/mysql/rewrite_pos_01.tsv",
+    "runs/mysql/rewrite_neg_01.tsv",
+    "runs/spark/rewrite_pos_01.tsv",
+    "runs/spark/rewrite_neg_01.tsv"
+  ],
+  "checks": {
+    "mysql_positive_equals_pg_source": true,
+    "mysql_negative_differs_from_pg_source": true,
+    "spark_positive_equals_pg_source": true,
+    "spark_negative_differs_from_pg_source": true
+  },
+  "notes": [
+    "Existing local outputs compared only.",
+    "No database execution was performed by this checker.",
+    "No registry validation, admission, formal-review completion, or release-grade claim is implied."
+  ]
+}

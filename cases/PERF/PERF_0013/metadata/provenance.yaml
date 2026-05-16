@@ -1,0 +1,13 @@
+case_id: PERF_0013
+provenance_version: canonical_case_package_layout_v1
+source_family: TPC-H
+legacy_manifest_path: cases/PERF/PERF_0013/manifest.yaml
+source_id: SRC_001
+seed_id: TPC-H-Q5
+source_name: TPC-H
+source_entry: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/5.sql
+materialization_method: null
+raw_record_legacy_path: cases/PERF/PERF_0013/provenance/raw_record.json
+claim_boundary:
+  generated_from_legacy_manifest: true
+  no_new_provenance_claim: true
