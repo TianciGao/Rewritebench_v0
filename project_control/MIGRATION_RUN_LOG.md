@@ -855,13 +855,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review of the `PORT_0008` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · PORT_0008 canonical-layout full case migration pilot
+### 2026-05-16 · 66a1fb9 · PORT_0008 canonical-layout full case migration pilot
 
 Mode: release-repo canonical full case migration pilot; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending at write time; final hash recorded after commit
-Push: pending at write time; final result recorded after push
+Commit: 66a1fb9acb2696d1e5d1c08ece15fd14263c8830
+Push: pushed to origin main successfully (ed75446..66a1fb9)
 Scope: Executed the approved one-case canonical-layout full case migration pilot for `PORT_0008`.
 
 Summary:
