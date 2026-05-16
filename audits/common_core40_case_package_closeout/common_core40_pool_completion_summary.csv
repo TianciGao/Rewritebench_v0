@@ -1,0 +1,5 @@
+pool,common_core_case_count,canonical_complete_count,full_case_legacy_compatible_count,evidence_mapping_only_count,planned_not_migrated_count,failed_or_defer_count,percent_canonical_complete,next_action
+PERF,16,16,0,0,0,0,100.0,retain as regression baseline; do not remigrate
+CONS,9,9,0,0,0,0,100.0,retain as regression baseline; do not remigrate
+PORT,9,9,0,0,0,0,100.0,retain as regression baseline; do not remigrate
+LONGTAIL,6,1,0,0,5,0,16.7,plan remaining LONGTAIL bounded wave; do not touch case_sets/reports/results/denominator

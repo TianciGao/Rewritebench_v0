@@ -1816,3 +1816,35 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review PORT final bounded batch and completed PORT pool canonical case-package migration, then perform a Common-core case-package migration status audit/closeout before any case-set/report/result update.
+
+### 2026-05-16 · pending · Common-core case-package migration status closeout
+
+Mode: release-repo closeout/audit output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Actual case migration performed: no
+Commit: pending
+Push: pending
+
+Summary:
+- Verified the fixed Common-core v0 40-case membership from release-repo package files and validator outputs.
+- Confirmed canonical case-package completion counts: PERF 16/16, CONS 9/9, PORT 9/9, LONGTAIL 1/6, total 35/40.
+- Confirmed remaining not-yet-canonical cases: LONGTAIL_0012, LONGTAIL_0013, LONGTAIL_0022, LONGTAIL_0023, and LONGTAIL_0024.
+- Confirmed Common-core 40 blind/bulk migration is still not started.
+- Created closeout audit outputs under `audits/common_core40_case_package_closeout/`.
+- Cleaned `project_control/MIGRATION_STATUS.md` into a concise current-state snapshot.
+- Did not modify migrated case packages, case sets, reports, results, denominator files, or legacy evidence.
+
+Validation:
+- Validator v0.3 full-case closeout: PASS 35/35.
+- Validator v0.3 canonical-case closeout: PASS 35/35.
+- Python compile, JSON parse, CSV row counts, and git checks: pending final validation.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review this closeout, then plan the remaining LONGTAIL bounded wave; do not touch case_sets, reports, results, denominator files, or paper tables yet.
