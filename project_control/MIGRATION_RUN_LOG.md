@@ -963,3 +963,53 @@ Paper/denominator impact:
 
 Next safe action:
 - Review validator v0.3 results; then decide the next single-case pilot across another pool, or continue case-universe/report/script audits. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · CONS_0005 canonical-layout migration dry-run plan
+
+Mode: release-repo planning/audit output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending at write time; final hash to be recorded after commit
+Push: pending at write time; final result to be recorded after push
+Scope: Created a planning-only canonical-layout migration blueprint for `CONS_0005` without creating or modifying the release case package.
+
+Summary:
+- Inspected legacy `cases/CONS/CONS_0005` read-only.
+- Created a canonical-layout migration plan for a checker-heavy / hard-negative-heavy CONS case.
+- Created source-to-target mapping, proposed canonical tree, manifest preview, runs-retention preview, checker expected-rejections preview, validator expectation matrix, public hygiene precheck, risk register, abort conditions, future actual migration prompt, and planning summary JSON.
+- No actual case migration was performed.
+- No `cases/CONS/CONS_0005/` release package files were created or modified.
+
+Validation:
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- Planning summary JSON parsed.
+- Preview YAML files parsed when PyYAML was available.
+- `git diff --check` passed.
+
+Files created:
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_canonical_layout_plan.md`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_canonical_file_mapping.csv`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_proposed_canonical_tree.txt`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_manifest_preview.yaml`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_runs_retention_after_canonical_preview.yaml`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_checker_expected_rejections_preview.yaml`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_validator_expectation_matrix.csv`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_public_hygiene_precheck.csv`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_canonical_migration_risk_register.md`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_abort_conditions.md`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_future_actual_migration_prompt.md`
+- `audits/canonical_layout_planning/CONS_0005/CONS_0005_planning_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- actual case migration performed: no
+
+Next safe action:
+- Human review of the `CONS_0005` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.

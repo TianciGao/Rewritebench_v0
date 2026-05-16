@@ -28,7 +28,9 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is static case-package validator v0.3 canonical-layout mode；
+latest completed run is CONS_0005 canonical-layout migration dry-run plan；
+CONS_0005 canonical-layout migration plan created；
+CONS_0005 remains planning-only; no actual migration performed；
 canonical case package layout v1 is locked as the target policy；
 canonical layout is a migration target, not legacy current fact；
 no case files were moved or copied in the canonical-layout lock；
@@ -53,7 +55,7 @@ Common-core 40 migration has not started；
 denominator unchanged；
 paper results unchanged；
 raw legacy evidence unchanged；
-当前下一步安全动作是 review validator v0.3 results, then decide the next single-case pilot or continue case-universe/report/script audits；do not start Common-core 40 migration。
+当前下一步安全动作是 human review of the CONS_0005 canonical-layout plan, then decide whether to execute the future actual migration prompt；do not start Common-core 40 migration。
 
 ## 2. 仓库 / 工作区状态
 
@@ -535,3 +537,27 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - evidence-pilot regression result: PASS 6/6
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed
 - next safe action: review the completed `PORT_0008` canonical-layout pilot, then decide whether to extend validator canonical-layout conformance checks or plan the next single-case pilot. Do not start Common-core 40 migration.
+
+## 13. Last Codex run
+
+- task name: CONS_0005 canonical-layout migration dry-run plan
+- date: 2026-05-16
+- mode: release-repo planning/audit output; legacy read-only
+- legacy repo modified: no
+- release repo modified: yes
+- actual case migration performed: no
+- CONS_0005 release case package created or modified: no
+- full case migration still only completed for: PORT_0004 and PORT_0008
+- Common-core 40 migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- planning outputs created under: `audits/canonical_layout_planning/CONS_0005/`
+- planning summary:
+  - CONS_0005 is proposed as a checker-heavy / hard-negative-heavy CONS canonical-layout pilot candidate.
+  - Static precheck found Spark plan `file:/tmp` traces that require future sanitization or private/archive mapping.
+  - Static precheck found WSL-local wording in Spark validation scripts that requires future review/caveat.
+  - Checker expected-rejection semantics need human review before actual migration.
+- validation summary: planning JSON parsed; preview YAML files parsed when PyYAML was available; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review of the CONS_0005 canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.

@@ -1,0 +1,20 @@
+validator_check,current_legacy_status,expected_after_canonical_migration,required_action,notes
+manifest_exists,legacy manifest.yaml exists,pass,generate canonical manifest,Do not byte-copy legacy manifest as final canonical index
+source_sql_exists,root source.sql exists,pass,copy to sql/source.sql,Canonical-case mode requires sql/
+positive_rewrite_exists,root rewrite_pos_01.sql exists,pass,copy to sql/positives/pos_01.sql,Positive preserves NULL suppression
+hard_negative_status,root rewrite_neg_01.sql exists,pass with expected rejection,copy to sql/negatives/neg_01.sql and generate checker expected_rejections,Expected reason needs human review
+schema_context_exists,engine DDL and witness SQL exist,pass,copy DDL/load into schema/<engine>/,Generate schema_profile.yaml
+checker_exists,legacy Python checkers exist but no checker YAML,pass,generate checker YAML files,Checker-heavy risk area
+validation_path_exists,legacy validation scripts exist,pass with caveat,generate or adapt canonical validation scripts,Must not write new public output to case-local runs by default
+provenance_exists,manifest provenance fields exist,pass,generate metadata/provenance.yaml,No new source claim
+taxonomy_exists,manifest tags exist but review incomplete,pass after review,generate conservative metadata/taxonomy.yaml,No admission claim
+evidence_runs_retention_exists,missing in legacy,pass,generate evidence/runs_retention.yaml,Must map all runs evidence and do-not-delete originals
+hard_negative_evidence_mapped,negative TSV evidence exists for all engines,pass,copy public-safe TSVs into evidence/hard_negative,Source/positive empty and negative yields one row
+expected_rejections_present,missing as YAML,pass,generate checker/expected_rejections.yaml,Approval required before actual migration
+sanitized_evidence_scan_ok,Spark plans contain file:/tmp traces,pass after sanitization,sanitize Spark plan text or keep private/archive-only,Do not publish raw Spark plans
+no_denominator_change_claim_ok,legacy manifest does not claim denominator change,pass,preserve false flags,No Common-core 40 migration
+no_paper_result_change_claim_ok,legacy manifest does not claim paper-result change,pass,preserve false flags,No paper result update
+no_global_leaderboard_claim_ok,no leaderboard claim observed,pass,preserve no_global_leaderboard true,CONS hard negatives are checker controls
+full_case_structure_ok,legacy layout is not canonical,pass,create canonical directories and generated metadata,Future task only
+evidence_mapping_ok,no runs_retention yet,pass,generate full evidence mapping,Do not copy raw runs wholesale
+canonical_case_validator_expected_result,no release case exists,pass after actual migration,run validator v0.3 canonical-case,Planning only now

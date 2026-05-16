@@ -1,0 +1,47 @@
+path,source_kind,scan_scope,public_safe_as_is,local_path_risk,prompt_api_token_risk,log_debug_risk,temporary_path_risk,needs_sanitization,proposed_action,notes
+cases/CONS/CONS_0005/README.md,legacy_file,copy_candidate,true,false,false,false,false,false,generate canonical README,No risk pattern found
+cases/CONS/CONS_0005/manifest.yaml,legacy_file,manifest_source,true,false,false,false,false,false,generate canonical manifest,No risk pattern found
+cases/CONS/CONS_0005/source.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/rewrite_pos_01.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/rewrite_neg_01.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/schema/ddl_pg.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/schema/ddl_mysql.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/schema/ddl_spark.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/validation/pg_witness_data.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/validation/mysql_witness_data.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/validation/spark_witness_data.sql,legacy_file,copy_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/validation/check_results.py,legacy_file,checker_source,true,false,false,false,false,false,generate checker YAML,No risk pattern found
+cases/CONS/CONS_0005/validation/check_plan_artifacts.py,legacy_file,checker_source,true,false,false,false,false,false,generate checker YAML,No risk pattern found
+cases/CONS/CONS_0005/validation/run_pg_validation.sh,legacy_file,validation_asset,true,false,false,false,false,false,generate canonical wrapper,No risk pattern found
+cases/CONS/CONS_0005/validation/run_mysql_validation.sh,legacy_file,validation_asset,true,false,false,false,false,false,generate canonical wrapper,No risk pattern found
+cases/CONS/CONS_0005/validation/run_spark_validation.sh,legacy_file,validation_asset,false,true,false,false,false,true,review and caveat,Contains WSL-local execution wording
+cases/CONS/CONS_0005/validation/run_pg_plan_collection.sh,legacy_file,validation_asset,true,false,false,false,false,false,generate canonical wrapper,No risk pattern found
+cases/CONS/CONS_0005/validation/run_mysql_plan_collection.sh,legacy_file,validation_asset,true,false,false,false,false,false,generate canonical wrapper,No risk pattern found
+cases/CONS/CONS_0005/validation/run_spark_plan_collection.sh,legacy_file,validation_asset,false,true,false,false,false,true,review and caveat,Contains WSL-local execution wording
+cases/CONS/CONS_0005/runs/result_check.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/plan_check.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/result_check.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/result_check.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/spark/result_check.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/source.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/rewrite_pos_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/rewrite_neg_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/source.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/rewrite_pos_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/rewrite_neg_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/spark/source.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/spark/rewrite_pos_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/spark/rewrite_neg_01.tsv,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/plans/source.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/plans/rewrite_pos_01.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/pg/plans/rewrite_neg_01.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/plans/source.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/plans/rewrite_pos_01.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/mysql/plans/rewrite_neg_01.json,legacy_file,evidence_candidate,true,false,false,false,false,false,copy_as_is,No risk pattern found
+cases/CONS/CONS_0005/runs/spark/plans/source.txt,legacy_file,evidence_candidate,false,true,false,false,true,true,sanitize_or_archive,Contains file:/tmp Spark warehouse path trace
+cases/CONS/CONS_0005/runs/spark/plans/rewrite_pos_01.txt,legacy_file,evidence_candidate,false,true,false,false,true,true,sanitize_or_archive,Contains file:/tmp Spark warehouse path trace
+cases/CONS/CONS_0005/runs/spark/plans/rewrite_neg_01.txt,legacy_file,evidence_candidate,false,true,false,false,true,true,sanitize_or_archive,Contains file:/tmp Spark warehouse path trace
+cases/CONS/CONS_0005/risk_notes.md,legacy_file,note_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/witness_design_notes.md,legacy_file,note_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/schema_notes.md,legacy_file,note_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found
+cases/CONS/CONS_0005/promotion_checklist.md,legacy_file,note_candidate,true,false,false,false,false,false,copy_and_rename,No risk pattern found

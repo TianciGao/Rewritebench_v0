@@ -1,0 +1,29 @@
+{
+  "case_id": "CONS_0005",
+  "pool": "CONS",
+  "planning_only": true,
+  "actual_migration_performed": false,
+  "recommended_next_action": "Human review of the CONS_0005 canonical-layout plan, especially checker expected-rejection semantics and Spark plan sanitization, then decide whether to execute the future actual migration prompt.",
+  "required_human_approval": [
+    "expected rejection reason for rewrite_neg_01",
+    "Spark plan sanitization or archive-only treatment",
+    "validation script output-policy caveat"
+  ],
+  "target_layout": "repository_spec/canonical_case_package_layout_v1.md",
+  "highest_risk": "checker semantics and hard-negative expected rejection must be approved before actual migration",
+  "expected_validator_result_after_actual_migration": {
+    "full_case": "pass if mapping and hygiene checks are implemented",
+    "canonical_case": "pass if Spark plans are sanitized or excluded and canonical checker files are generated"
+  },
+  "hard_negative_complexity": "high",
+  "checker_complexity": "high",
+  "public_hygiene_findings": {
+    "spark_plan_file_tmp_traces": true,
+    "spark_validation_wsl_wording": true,
+    "prompt_api_token_risk": false
+  },
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false
+}

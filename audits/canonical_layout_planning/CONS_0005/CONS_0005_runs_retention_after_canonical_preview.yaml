@@ -1,0 +1,163 @@
+case_id: CONS_0005
+pool: CONS
+policy_version: runs_retention_policy_v1
+status: planned_canonical_full_case_migration_preview
+planning_only: true
+actual_migration_performed: false
+legacy_runs_root: cases/CONS/CONS_0005/runs/
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/CONS/CONS_0005
+public_release_case_path: cases/CONS/CONS_0005
+full_case_package_migrated_future_flag: true_only_after_actual_migration_and_validator_pass
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+raw_legacy_evidence_changed: false
+db_validation_run: false
+evidence_regenerated: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: true
+  spark_text_plans_require_sanitized_public_copies: true
+  original_raw_runs_retained_through_mapping: true
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
+retained_control_evidence:
+  - original_legacy_path: cases/CONS/CONS_0005/runs/result_check.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_controls/result_check.json
+    evidence_role: aggregate control validation
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/pg/result_check.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_controls/postgres/result_check.json
+    evidence_role: PostgreSQL control validation
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/mysql/result_check.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_controls/mysql/result_check.json
+    evidence_role: MySQL control validation
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/result_check.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_controls/spark/result_check.json
+    evidence_role: Spark control validation
+    public_safe_expected: true
+    do_not_delete_original: true
+retained_plan_evidence:
+  - original_legacy_path: cases/CONS/CONS_0005/runs/plan_check.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/plan_check.json
+    evidence_role: aggregate plan artifact presence
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/pg/plans/source.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/postgres/source.json
+    evidence_role: PostgreSQL source plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/pg/plans/rewrite_pos_01.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/postgres/rewrite_pos_01.json
+    evidence_role: PostgreSQL positive rewrite plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/pg/plans/rewrite_neg_01.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/postgres/rewrite_neg_01.json
+    evidence_role: PostgreSQL hard-negative plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/mysql/plans/source.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/mysql/source.json
+    evidence_role: MySQL source plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/mysql/plans/rewrite_pos_01.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/mysql/rewrite_pos_01.json
+    evidence_role: MySQL positive rewrite plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/mysql/plans/rewrite_neg_01.json
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/mysql/rewrite_neg_01.json
+    evidence_role: MySQL hard-negative plan
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/source.txt
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/spark/source.sanitized.txt
+    evidence_role: Spark source plan observability
+    public_safe_expected: true_after_sanitization
+    requires_sanitization: true
+    risk_categories: [local_tmp_path]
+    sanitized_fields: [file_tmp_path]
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/rewrite_pos_01.txt
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+    evidence_role: Spark positive rewrite plan observability
+    public_safe_expected: true_after_sanitization
+    requires_sanitization: true
+    risk_categories: [local_tmp_path]
+    sanitized_fields: [file_tmp_path]
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/rewrite_neg_01.txt
+    proposed_public_path: cases/CONS/CONS_0005/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+    evidence_role: Spark hard-negative plan observability
+    public_safe_expected: true_after_sanitization
+    requires_sanitization: true
+    risk_categories: [local_tmp_path]
+    sanitized_fields: [file_tmp_path]
+    do_not_delete_original: true
+hard_negative_evidence:
+  - original_legacy_path: cases/CONS/CONS_0005/runs/pg/rewrite_neg_01.tsv
+    proposed_public_path: cases/CONS/CONS_0005/evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    evidence_role: PostgreSQL hard-negative rejection evidence
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/mysql/rewrite_neg_01.tsv
+    proposed_public_path: cases/CONS/CONS_0005/evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    evidence_role: MySQL hard-negative rejection evidence
+    public_safe_expected: true
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/rewrite_neg_01.tsv
+    proposed_public_path: cases/CONS/CONS_0005/evidence/hard_negative/spark/rewrite_neg_01.tsv
+    evidence_role: Spark hard-negative rejection evidence
+    public_safe_expected: true
+    do_not_delete_original: true
+checker_normalization_evidence:
+  source_legacy_files:
+    - cases/CONS/CONS_0005/validation/check_results.py
+    - cases/CONS/CONS_0005/validation/check_plan_artifacts.py
+  proposed_public_paths:
+    - cases/CONS/CONS_0005/checker/checker.yaml
+    - cases/CONS/CONS_0005/checker/normalization.yaml
+    - cases/CONS/CONS_0005/checker/compare_config.yaml
+    - cases/CONS/CONS_0005/checker/expected_rejections.yaml
+  public_safe_expected: true
+  human_review_required: true
+private_or_original_archive:
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/source.txt
+    reason: raw Spark plan contains local temporary path trace
+    raw_public_policy: do_not_publish_raw
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/rewrite_pos_01.txt
+    reason: raw Spark plan contains local temporary path trace
+    raw_public_policy: do_not_publish_raw
+    do_not_delete_original: true
+  - original_legacy_path: cases/CONS/CONS_0005/runs/spark/plans/rewrite_neg_01.txt
+    reason: raw Spark plan contains local temporary path trace
+    raw_public_policy: do_not_publish_raw
+    do_not_delete_original: true
+manual_review_items:
+  - item: checker_expected_rejection_reason
+    reason: static files imply NULL-semantics guard but human approval should confirm before actual migration
+  - item: spark_validation_scripts
+    reason: WSL-local execution wording should be removed or caveated in public canonical package
+  - item: spark_plan_sanitization
+    reason: sanitized copies must preserve plan content while redacting local tmp paths
+do_not_delete:
+  - original_legacy_path: cases/CONS/CONS_0005/runs/
+    reason: legacy retained evidence root remains mapped
+    do_not_delete_original: true
+public_release_notes:
+  full_case_package_migrated: future_true_after_actual_migration_and_validator_pass
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  raw_legacy_evidence_changed: false
+  no_global_leaderboard: true
