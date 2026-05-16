@@ -1,0 +1,8 @@
+case_id,case_path,mode,root_readme_ok,manifest_ok,sql_layout_ok,schema_layout_ok,data_layout_ok,checker_layout_ok,validation_layout_ok,evidence_layout_ok,metadata_layout_ok,notes_layout_ok,runs_policy_ok,manifest_semantics_ok,runs_retention_semantics_ok,public_hygiene_ok,claim_boundary_ok,raw_runs_not_wholesale_copied_ok,canonical_layout_ok,overall_status,failure_reasons,warnings
+PORT_0008,cases/PORT/PORT_0008,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,canonical validation layout: accepted transitional alias validation/run_pg_validation.sh for PostgreSQL validation
+CONS_0005,cases/CONS/CONS_0005,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0006,cases/PERF/PERF_0006,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0007,cases/PERF/PERF_0007,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0008,cases/PERF/PERF_0008,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,
+PERF_0013,cases/PERF/PERF_0013,canonical-case,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,,

@@ -1,0 +1,11 @@
+case_id: PERF_0019
+provenance_version: canonical_case_package_layout_v1
+source_id: SRC_001
+source_name: TPC-H
+seed_id: TPC-H-Q13
+legacy_raw_record: cases/PERF/PERF_0019/provenance/raw_record.json
+legacy_provenance_notes: cases/PERF/PERF_0019/provenance/provenance_notes.txt
+migration_source: legacy manifest and provenance notes
+claim_boundary:
+  summary_only: true
+  no_new_source_claim: true

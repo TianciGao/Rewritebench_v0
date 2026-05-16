@@ -1,0 +1,45 @@
+case_id: PERF_0017
+schema_profile_version: canonical_case_package_layout_v1
+source_schema_basis: legacy DDL copied from case schema directory
+required_tables:
+- customer
+- orders
+- lineitem
+- nation
+required_columns:
+  customer:
+  - c_custkey
+  - c_name
+  - c_address
+  - c_nationkey
+  - c_phone
+  - c_acctbal
+  - c_comment
+  orders:
+  - o_orderkey
+  - o_custkey
+  - o_orderdate
+  lineitem:
+  - l_orderkey
+  - l_extendedprice
+  - l_discount
+  - l_returnflag
+  nation:
+  - n_nationkey
+  - n_name
+row_counts:
+  customer: 2
+  orders: 3
+  lineitem: 3
+  nation: 2
+engine_schema_paths:
+  postgres: schema/postgres/ddl.sql
+  mysql: schema/mysql/ddl.sql
+  spark: schema/spark/ddl.sql
+engine_load_paths:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+claim_boundary:
+  generated_from_existing_case_files: true
+  no_db_validation_run_during_migration: true

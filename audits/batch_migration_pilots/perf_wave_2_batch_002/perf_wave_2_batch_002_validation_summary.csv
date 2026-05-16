@@ -1,0 +1,37 @@
+case_id,check_name,status,details
+PERF_0017,migration_generation,PASS,canonical release package generated for bounded PERF batch 002
+PERF_0017,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0017,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0017,yaml_validation,PASS,parsed 14 YAML files
+PERF_0017,json_validation,PASS,parsed 7 JSON files
+PERF_0017,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0017,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0017,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0017,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0017,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0017,full_case_regression,PASS,full-case regression passed 8/8
+PERF_0017,canonical_case_regression,PASS,canonical-case regression passed 7/7
+PERF_0019,migration_generation,PASS,canonical release package generated for bounded PERF batch 002
+PERF_0019,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0019,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0019,yaml_validation,PASS,parsed 14 YAML files
+PERF_0019,json_validation,PASS,parsed 7 JSON files
+PERF_0019,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0019,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0019,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0019,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0019,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0019,full_case_regression,PASS,full-case regression passed 8/8
+PERF_0019,canonical_case_regression,PASS,canonical-case regression passed 7/7
+PERF_0024,migration_generation,PASS,canonical release package generated for bounded PERF batch 002
+PERF_0024,sha256_copy_validation,PASS,all byte-for-byte copied legacy files match source; generated/adapted/sanitized files recorded separately
+PERF_0024,public_hygiene_scan,PASS,no forbidden public hygiene patterns found
+PERF_0024,yaml_validation,PASS,parsed 14 YAML files
+PERF_0024,json_validation,PASS,parsed 7 JSON files
+PERF_0024,spark_plan_sanitization,PASS,raw Spark plan files not copied; sanitized public copies generated under evidence/retained_plans/spark
+PERF_0024,performance_boundary,PASS,speedup_claim_created=false and timing_evidence_created=false recorded
+PERF_0024,validator_v0_3_full_case,PASS,validator full-case passed
+PERF_0024,validator_v0_3_canonical_case,PASS,validator canonical-case passed
+PERF_0024,evidence_pilot_regression,PASS,evidence-pilot regression passed 6/6
+PERF_0024,full_case_regression,PASS,full-case regression passed 8/8
+PERF_0024,canonical_case_regression,PASS,canonical-case regression passed 7/7

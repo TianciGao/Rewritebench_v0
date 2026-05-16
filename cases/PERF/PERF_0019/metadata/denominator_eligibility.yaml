@@ -1,0 +1,14 @@
+case_id: PERF_0019
+denominator_eligibility_version: canonical_case_package_layout_v1
+common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+track_a_same_engine_candidate: true
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+case_membership_changed: false
+no_global_leaderboard: true
+speedup_claim_created: false
+timing_evidence_created: false
+claim_boundary:
+  migration_is_packaging_only: true
+  no_denominator_or_paper_result_update: true

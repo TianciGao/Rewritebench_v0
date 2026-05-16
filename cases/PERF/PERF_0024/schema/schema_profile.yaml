@@ -1,0 +1,47 @@
+case_id: PERF_0024
+schema_profile_version: canonical_case_package_layout_v1
+source_schema_basis: legacy DDL copied from case schema directory
+required_tables:
+- supplier
+- nation
+- partsupp
+- part
+- lineitem
+required_columns:
+  supplier:
+  - s_suppkey
+  - s_name
+  - s_address
+  - s_nationkey
+  nation:
+  - n_nationkey
+  - n_name
+  partsupp:
+  - ps_partkey
+  - ps_suppkey
+  - ps_availqty
+  part:
+  - p_partkey
+  - p_name
+  lineitem:
+  - l_partkey
+  - l_suppkey
+  - l_quantity
+  - l_shipdate
+row_counts:
+  supplier: 2
+  nation: 2
+  partsupp: 2
+  part: 2
+  lineitem: 2
+engine_schema_paths:
+  postgres: schema/postgres/ddl.sql
+  mysql: schema/mysql/ddl.sql
+  spark: schema/spark/ddl.sql
+engine_load_paths:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+claim_boundary:
+  generated_from_existing_case_files: true
+  no_db_validation_run_during_migration: true

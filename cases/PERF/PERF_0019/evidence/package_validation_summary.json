@@ -1,0 +1,18 @@
+{
+  "case_id": "PERF_0019",
+  "status": "canonical_full_case_migration_batch_pilot",
+  "batch_id": "perf_wave_2_sanitized_plan_batch_002",
+  "migration_date": "2026-05-16",
+  "db_validation_run": false,
+  "evidence_regenerated": false,
+  "speedup_claim_created": false,
+  "timing_evidence_created": false,
+  "retained_evidence_summary": {
+    "control_files": 4,
+    "plan_files_public": 6,
+    "hard_negative_files": 3,
+    "raw_runs_wholesale_copied": false,
+    "raw_spark_plans_copied": false,
+    "sanitized_spark_plans": 2
+  }
+}

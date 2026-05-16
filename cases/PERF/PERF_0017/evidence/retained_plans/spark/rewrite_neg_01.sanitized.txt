@@ -1,0 +1,146 @@
+== Physical Plan ==
+AdaptiveSparkPlan (24)
++- TakeOrderedAndProject (23)
+   +- HashAggregate (22)
+      +- Exchange (21)
+         +- HashAggregate (20)
+            +- Project (19)
+               +- BroadcastHashJoin Inner BuildRight (18)
+                  :- Project (14)
+                  :  +- BroadcastHashJoin Inner BuildRight (13)
+                  :     :- Project (8)
+                  :     :  +- BroadcastHashJoin Inner BuildRight (7)
+                  :     :     :- Filter (2)
+                  :     :     :  +- Scan parquet spark_catalog.default.customer (1)
+                  :     :     +- BroadcastExchange (6)
+                  :     :        +- Project (5)
+                  :     :           +- Filter (4)
+                  :     :              +- Scan parquet spark_catalog.default.orders (3)
+                  :     +- BroadcastExchange (12)
+                  :        +- Project (11)
+                  :           +- Filter (10)
+                  :              +- Scan parquet spark_catalog.default.lineitem (9)
+                  +- BroadcastExchange (17)
+                     +- Filter (16)
+                        +- Scan parquet spark_catalog.default.nation (15)
+
+
+(1) Scan parquet spark_catalog.default.customer
+Output [7]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87]
+Batched: true
+Location: InMemoryFileIndex [file:<LOCAL_TMP_PATH_REDACTED>/customer]
+PushedFilters: [IsNotNull(c_custkey), IsNotNull(c_nationkey)]
+ReadSchema: struct<c_custkey:int,c_name:string,c_address:string,c_nationkey:int,c_phone:string,c_acctbal:decimal(15,2),c_comment:string>
+
+(2) Filter
+Input [7]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87]
+Condition : (isnotnull(c_custkey#81) AND isnotnull(c_nationkey#84))
+
+(3) Scan parquet spark_catalog.default.orders
+Output [3]: [o_orderkey#88, o_custkey#89, o_orderdate#90]
+Batched: true
+Location: InMemoryFileIndex [file:<LOCAL_TMP_PATH_REDACTED>/orders]
+PushedFilters: [IsNotNull(o_orderdate), GreaterThanOrEqual(o_orderdate,1993-11-01), LessThan(o_orderdate,1994-02-01), IsNotNull(o_custkey), IsNotNull(o_orderkey)]
+ReadSchema: struct<o_orderkey:int,o_custkey:int,o_orderdate:date>
+
+(4) Filter
+Input [3]: [o_orderkey#88, o_custkey#89, o_orderdate#90]
+Condition : ((((isnotnull(o_orderdate#90) AND (o_orderdate#90 >= 1993-11-01)) AND (o_orderdate#90 < 1994-02-01)) AND isnotnull(o_custkey#89)) AND isnotnull(o_orderkey#88))
+
+(5) Project
+Output [2]: [o_orderkey#88, o_custkey#89]
+Input [3]: [o_orderkey#88, o_custkey#89, o_orderdate#90]
+
+(6) BroadcastExchange
+Input [2]: [o_orderkey#88, o_custkey#89]
+Arguments: HashedRelationBroadcastMode(List(cast(input[1, int, true] as bigint)),false), [plan_id=317]
+
+(7) BroadcastHashJoin
+Left keys [1]: [c_custkey#81]
+Right keys [1]: [o_custkey#89]
+Join type: Inner
+Join condition: None
+
+(8) Project
+Output [8]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87, o_orderkey#88]
+Input [9]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87, o_orderkey#88, o_custkey#89]
+
+(9) Scan parquet spark_catalog.default.lineitem
+Output [4]: [l_orderkey#91, l_extendedprice#92, l_discount#93, l_returnflag#94]
+Batched: true
+Location: InMemoryFileIndex [file:<LOCAL_TMP_PATH_REDACTED>/lineitem]
+PushedFilters: [IsNotNull(l_returnflag), EqualTo(l_returnflag,A), IsNotNull(l_orderkey)]
+ReadSchema: struct<l_orderkey:int,l_extendedprice:decimal(15,2),l_discount:decimal(15,2),l_returnflag:string>
+
+(10) Filter
+Input [4]: [l_orderkey#91, l_extendedprice#92, l_discount#93, l_returnflag#94]
+Condition : ((isnotnull(l_returnflag#94) AND (l_returnflag#94 = A)) AND isnotnull(l_orderkey#91))
+
+(11) Project
+Output [3]: [l_orderkey#91, l_extendedprice#92, l_discount#93]
+Input [4]: [l_orderkey#91, l_extendedprice#92, l_discount#93, l_returnflag#94]
+
+(12) BroadcastExchange
+Input [3]: [l_orderkey#91, l_extendedprice#92, l_discount#93]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=321]
+
+(13) BroadcastHashJoin
+Left keys [1]: [o_orderkey#88]
+Right keys [1]: [l_orderkey#91]
+Join type: Inner
+Join condition: None
+
+(14) Project
+Output [9]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87, l_extendedprice#92, l_discount#93]
+Input [11]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87, o_orderkey#88, l_orderkey#91, l_extendedprice#92, l_discount#93]
+
+(15) Scan parquet spark_catalog.default.nation
+Output [2]: [n_nationkey#95, n_name#96]
+Batched: true
+Location: InMemoryFileIndex [file:<LOCAL_TMP_PATH_REDACTED>/nation]
+PushedFilters: [IsNotNull(n_nationkey)]
+ReadSchema: struct<n_nationkey:int,n_name:string>
+
+(16) Filter
+Input [2]: [n_nationkey#95, n_name#96]
+Condition : isnotnull(n_nationkey#95)
+
+(17) BroadcastExchange
+Input [2]: [n_nationkey#95, n_name#96]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=325]
+
+(18) BroadcastHashJoin
+Left keys [1]: [c_nationkey#84]
+Right keys [1]: [n_nationkey#95]
+Join type: Inner
+Join condition: None
+
+(19) Project
+Output [9]: [c_custkey#81, c_name#82, c_address#83, c_phone#85, c_acctbal#86, c_comment#87, l_extendedprice#92, l_discount#93, n_name#96]
+Input [11]: [c_custkey#81, c_name#82, c_address#83, c_nationkey#84, c_phone#85, c_acctbal#86, c_comment#87, l_extendedprice#92, l_discount#93, n_nationkey#95, n_name#96]
+
+(20) HashAggregate
+Input [9]: [c_custkey#81, c_name#82, c_address#83, c_phone#85, c_acctbal#86, c_comment#87, l_extendedprice#92, l_discount#93, n_name#96]
+Keys [7]: [c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87]
+Functions [1]: [partial_sum((l_extendedprice#92 * (1 - l_discount#93)))]
+Aggregate Attributes [2]: [sum#114, isEmpty#115]
+Results [9]: [c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87, sum#116, isEmpty#117]
+
+(21) Exchange
+Input [9]: [c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87, sum#116, isEmpty#117]
+Arguments: hashpartitioning(c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87, 1), ENSURE_REQUIREMENTS, [plan_id=330]
+
+(22) HashAggregate
+Input [9]: [c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87, sum#116, isEmpty#117]
+Keys [7]: [c_custkey#81, c_name#82, c_acctbal#86, c_phone#85, n_name#96, c_address#83, c_comment#87]
+Functions [1]: [sum((l_extendedprice#92 * (1 - l_discount#93)))]
+Aggregate Attributes [1]: [sum((l_extendedprice#92 * (1 - l_discount#93)))#113]
+Results [8]: [c_custkey#81, c_name#82, sum((l_extendedprice#92 * (1 - l_discount#93)))#113 AS revenue#112, c_acctbal#86, n_name#96, c_address#83, c_phone#85, c_comment#87]
+
+(23) TakeOrderedAndProject
+Input [8]: [c_custkey#81, c_name#82, revenue#112, c_acctbal#86, n_name#96, c_address#83, c_phone#85, c_comment#87]
+Arguments: 20, [revenue#112 DESC NULLS LAST], [c_custkey#81, c_name#82, revenue#112, c_acctbal#86, n_name#96, c_address#83, c_phone#85, c_comment#87]
+
+(24) AdaptiveSparkPlan
+Output [8]: [c_custkey#81, c_name#82, revenue#112, c_acctbal#86, n_name#96, c_address#83, c_phone#85, c_comment#87]
+Arguments: isFinalPlan=false

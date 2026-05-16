@@ -1,0 +1,19 @@
+case_id: PERF_0024
+data_profile_version: canonical_case_package_layout_v1
+source_data_profile: cases/PERF/PERF_0024/data_profile.json
+dataset_line: TPC-H
+seed: TPC-H-Q20
+dataset_id: minimal_witness_dataset
+row_counts:
+  supplier: 2
+  nation: 2
+  partsupp: 2
+  part: 2
+  lineitem: 2
+witness_load_paths:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+claim_boundary:
+  summarizes_existing_witness_only: true
+  no_new_timing_or_speedup_claim: true

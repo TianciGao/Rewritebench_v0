@@ -1,0 +1,26 @@
+case_id: PERF_0019
+artifact_paths_version: canonical_case_package_layout_v1
+canonical_case_root: cases/PERF/PERF_0019
+legacy_case_root: cases/PERF/PERF_0019
+sql:
+- sql/source.sql
+- sql/positives/pos_01.sql
+- sql/negatives/neg_01.sql
+schema:
+- schema/postgres/ddl.sql
+- schema/postgres/load.sql
+- schema/mysql/ddl.sql
+- schema/mysql/load.sql
+- schema/spark/ddl.sql
+- schema/spark/load.sql
+checker:
+- checker/checker.yaml
+- checker/normalization.yaml
+- checker/compare_config.yaml
+- checker/expected_rejections.yaml
+evidence:
+- evidence/runs_retention.yaml
+- evidence/package_validation_summary.json
+notes:
+- notes/migration_notes.md
+raw_runs_publication_policy: do_not_copy_raw_runs_wholesale

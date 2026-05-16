@@ -1,0 +1,22 @@
+case_id: PERF_0024
+witness_profile_version: canonical_case_package_layout_v1
+legacy_witness_file: cases/PERF/PERF_0024/validation/witness_dataset.yaml
+legacy_witness_status: TODO
+retained_witness_behavior:
+  source_reference_output: evidence/retained_controls/postgres/source.tsv
+  positive_outputs:
+  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  - evidence/retained_controls/spark/rewrite_pos_01.tsv
+  negative_outputs:
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_01.tsv
+  source_positive_equal: true
+  negative_differs_from_source: true
+hard_negative_static_basis:
+  source_positive_semantics: source and positive require part names matching 'pale%'
+  negative_semantics: negative requires part names matching 'blue%' instead
+  witness_discriminator: retained witness includes a pale part supplier result that
+    is absent under the negative
+claim_boundary:
+  existing_retained_outputs_only: true
+  no_db_validation_run_during_migration: true
