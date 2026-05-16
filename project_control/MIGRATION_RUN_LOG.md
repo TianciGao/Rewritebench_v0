@@ -2303,13 +2303,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the case universe governance audit, then run a separate staged/backlog membership planning task without changing Common-core v0 membership or denominator values.
 
-### 2026-05-17 · pending · Overnight governance and redevelopment investigation bundle
+### 2026-05-17 · 819e26b · Overnight governance and redevelopment investigation bundle
 
 Mode: release-repo read-only governance/redevelopment investigation output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `819e26bb5a2c6f12a1829112bc2f1df954468e91`
+Push: `origin/main` updated `2212b8c..819e26b`
 
 Summary:
 - Refined staged/backlog planning labels for all 157 non-Common-core cases using prior case-universe governance outputs.
