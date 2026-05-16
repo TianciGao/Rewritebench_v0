@@ -1755,13 +1755,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review PORT wave-2 batch 001. If accepted, select the next bounded PORT wave from the readiness audit; do not start blind full Common-core 40 migration.
 
-### 2026-05-16 · pending · PORT final bounded canonical migration batch
+### 2026-05-16 · d96a589 · PORT final bounded canonical migration batch
 
 Mode: release-repo bounded PORT canonical migration and PORT_0004 canonical upgrade; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `d96a5891296dade425898b3f4d8964f0af9c9737`
+Push: `origin/main` updated `3790971..d96a589`
 Scope: Upgraded `PORT_0004` from a legacy-compatible full-case pilot to canonical layout and migrated `PORT_0022`, `PORT_0024`, and `PORT_0025` from formal evidence-mapping pilot slices to canonical public-release layout.
 
 Summary:
@@ -1788,7 +1788,7 @@ Validation:
 - Full-case regression passed 35/35.
 - Canonical-case regression passed 35/35.
 - `python -m py_compile scripts/dev/validate_case_package.py` passed.
-- `git diff --check` result: pending.
+- `git diff --check` result: passed after CSV line-ending normalization.
 
 Files created:
 - canonical package files under `cases/PORT/PORT_0004/`
