@@ -1117,13 +1117,13 @@ Paper/denominator impact:
 Next safe action:
 - Human review of the `PERF_0006` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
 
-### 2026-05-16 · pending · PERF_0006 canonical-layout full case migration pilot
+### 2026-05-16 · e332fc4 · PERF_0006 canonical-layout full case migration pilot
 
 Mode: release-repo canonical full case migration pilot; legacy read-only source copy
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: e332fc479add0fb8f7908ebc965a9e0fef006f0d
+Push: pushed to origin main successfully (343acb5..e332fc4)
 Scope: Executed the approved one-case canonical-layout full case migration pilot for `PERF_0006`.
 
 Summary:
