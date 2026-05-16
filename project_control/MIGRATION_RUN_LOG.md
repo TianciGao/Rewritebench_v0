@@ -2210,13 +2210,13 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer/team review of the metric decision packet before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.
 
-### 2026-05-17 · pending · Resolve metrics contract against updated paper scope
+### 2026-05-17 · bd56ca9 · Resolve metrics contract against updated paper scope
 
 Mode: release-repo metrics contract alignment output; legacy untouched
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `bd56ca9372fa374ca40b84b549b60c17840e6b5e`
+Push: `origin/main` updated `941bdef..bd56ca9`
 
 Summary:
 - Updated `repository_spec/metrics_contract_v1_draft.md` to align with the maintainer-provided updated paper metric scope.
