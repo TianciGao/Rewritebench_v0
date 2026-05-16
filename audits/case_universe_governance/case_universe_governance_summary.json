@@ -1,0 +1,26 @@
+{
+  "detected_case_like_dirs": 197,
+  "common_core_count": 40,
+  "non_common_core_count": 157,
+  "counts_by_pool": {
+    "CONS": 40,
+    "LONGTAIL": 24,
+    "PERF": 105,
+    "PORT": 28
+  },
+  "counts_by_bucket": {
+    "backlog_candidate": 76,
+    "common_core_v0": 40,
+    "manual_review_required": 13,
+    "orphan_or_unregistered": 7,
+    "staged_candidate": 61
+  },
+  "actual_case_migration_performed": false,
+  "case_sets_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "next_safe_action": "review_case_universe_governance_and_plan_staged_backlog_membership_without_changing_common_core_v0"
+}

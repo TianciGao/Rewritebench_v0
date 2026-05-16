@@ -29,6 +29,8 @@ Metrics finalization decision packet completed under `audits/metrics_finalizatio
 
 Metrics contract resolution draft completed under `repository_spec/metrics_contract_v1_draft.md` and `audits/metrics_contract_resolution/`. The aligned draft reflects the maintainer-provided updated paper scope: Generation Rate, Execution Coverage Rate, Result Consistency Rate, Semantic Equivalence Rate, GM_Speedup, Speedup Ratio Percentiles, Attribution Coverage, Cross-Engine Execution, Cross-Engine Consistency, and Speedup Retention. It remains draft-only and does not authorize metrics implementation, adapters, reproduction interfaces, public runners, paper table rendering, reports/results migration, denominator changes, or paper result changes.
 
+Whole-case universe governance audit completed under `audits/case_universe_governance/`. The audit detected 197 legacy case-like directories, reconciled them against 190 legacy registry rows, identified seven detected-but-unregistered directories, and classified the 157 non-Common-core directories for future staged/backlog/manual-review planning. It did not migrate cases, create staged/backlog membership files, update `case_sets/`, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -63,6 +65,7 @@ Membership and scaffold snapshot:
 - `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`: 28 draft ledger fields reviewed against record types and denominator boundaries.
 - `audits/metrics_finalization_decision_packet/metric_decision_table.csv`: 17 metric families reviewed for maintainer/team decision before implementation.
 - `audits/metrics_contract_resolution/resolved_metric_contract_table.csv`: 10 updated metric-scope rows aligned to the maintainer-provided paper scope.
+- `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 
 ## Explicit Boundaries
 
@@ -113,10 +116,10 @@ Membership and scaffold snapshot:
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
 - Final metric definitions are not approved for implementation.
 - Script inventory and reproduction path are not done.
-- Case universe 197 vs 190 governance reconciliation is still pending.
+- Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Paper tables/results were not regenerated or changed.
 - No release tag has been created.
 
 ## Current Next Safe Action
 
-Review and approve the aligned metrics contract draft, especially Attribution Coverage schema/denominator, Semantic Equivalence verifier policy, Speedup Retention paired-timing policy, and paper/public table names, before any retained-evidence adapter, metrics computation, paper renderer, reproduction CLI, public runner implementation, reports/results migration, denominator change, paper table change, or raw evidence change.
+Review the case universe governance audit and plan staged/backlog membership without changing Common-core v0 membership, denominator values, reports/results, paper tables, metrics implementation, adapters, reproduction CLI, public runner implementation, or raw legacy evidence.

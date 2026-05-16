@@ -2255,3 +2255,50 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer/team review and approve the aligned metrics contract draft before implementing retained-evidence adapters, metrics computation, paper table rendering, a unified reproduction CLI, or public runner outputs.
+
+### 2026-05-17 · pending · Whole-case universe governance and non-common-core package readiness audit
+
+Mode: release-repo governance/readiness audit output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Indexed the whole legacy case universe under `cases/PERF`, `cases/CONS`, `cases/PORT`, and `cases/LONGTAIL`.
+- Detected 197 case-like directories with pool split PERF 105, CONS 40, PORT 28, LONGTAIL 24.
+- Reconciled detected directories against the legacy 190-row registry: all 190 registered cases are present, and seven detected directories are not registered.
+- Classified the 40 Common-core cases as `common_core_v0` and the 157 non-Common-core cases into staged, backlog, manual-review, and orphan/unregistered governance buckets.
+- Created future prompts for staged/backlog membership planning and low-risk non-Common-core batch planning, both marked do-not-execute-now.
+- Did not migrate cases, copy non-Common-core packages into the release repo, create staged/backlog membership files, update `case_sets/`, update reports/results, compute metrics, implement scripts, run DB engines, run validation scripts, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, delete/move `runs/`, or modify raw legacy evidence.
+
+Files created:
+- `audits/case_universe_governance/case_universe_governance_summary.md`
+- `audits/case_universe_governance/case_universe_index.csv`
+- `audits/case_universe_governance/registry_reconciliation_report.md`
+- `audits/case_universe_governance/non_common_core_readiness_matrix.csv`
+- `audits/case_universe_governance/staged_backlog_candidate_plan.md`
+- `audits/case_universe_governance/non_common_core_risk_summary.md`
+- `audits/case_universe_governance/post_release_batch_plan.md`
+- `audits/case_universe_governance/case_universe_governance_summary.json`
+- `audits/case_universe_governance/future_prompts/staged_backlog_membership_planning_prompt.md`
+- `audits/case_universe_governance/future_prompts/non_common_core_low_risk_batch_planning_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV row-count checks, Common-core count check, non-Common-core exclusion check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- case_sets changed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the case universe governance audit, then run a separate staged/backlog membership planning task without changing Common-core v0 membership or denominator values.
