@@ -1,0 +1,183 @@
+== Physical Plan ==
+AdaptiveSparkPlan (30)
++- TakeOrderedAndProject (29)
+   +- Project (28)
+      +- Window (27)
+         +- Sort (26)
+            +- Filter (25)
+               +- SortAggregate (24)
+                  +- Sort (23)
+                     +- Exchange (22)
+                        +- SortAggregate (21)
+                           +- SortAggregate (20)
+                              +- Sort (19)
+                                 +- Exchange (18)
+                                    +- SortAggregate (17)
+                                       +- Sort (16)
+                                          +- Project (15)
+                                             +- BroadcastHashJoin LeftOuter BuildRight (14)
+                                                :- Project (7)
+                                                :  +- BroadcastHashJoin LeftOuter BuildRight (6)
+                                                :     :- Filter (2)
+                                                :     :  +- Scan parquet spark_catalog.default.users (1)
+                                                :     +- BroadcastExchange (5)
+                                                :        +- Filter (4)
+                                                :           +- Scan parquet spark_catalog.default.posts (3)
+                                                +- BroadcastExchange (13)
+                                                   +- HashAggregate (12)
+                                                      +- Exchange (11)
+                                                         +- HashAggregate (10)
+                                                            +- Filter (9)
+                                                               +- Scan parquet spark_catalog.default.votes (8)
+
+
+(1) Scan parquet spark_catalog.default.users
+Output [4]: [Id#60, DisplayName#61, Reputation#62, Views#63]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/users]
+PushedFilters: [IsNotNull(Reputation), GreaterThan(Reputation,1000)]
+ReadSchema: struct<Id:int,DisplayName:string,Reputation:int,Views:int>
+
+(2) Filter
+Input [4]: [Id#60, DisplayName#61, Reputation#62, Views#63]
+Condition : (isnotnull(Reputation#62) AND (Reputation#62 > 1000))
+
+(3) Scan parquet spark_catalog.default.posts
+Output [5]: [Id#64, OwnerUserId#65, PostTypeId#66, Title#67, CreationDate#68]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/posts]
+PushedFilters: [IsNotNull(OwnerUserId)]
+ReadSchema: struct<Id:int,OwnerUserId:int,PostTypeId:int,Title:string,CreationDate:string>
+
+(4) Filter
+Input [5]: [Id#64, OwnerUserId#65, PostTypeId#66, Title#67, CreationDate#68]
+Condition : isnotnull(OwnerUserId#65)
+
+(5) BroadcastExchange
+Input [5]: [Id#64, OwnerUserId#65, PostTypeId#66, Title#67, CreationDate#68]
+Arguments: HashedRelationBroadcastMode(List(cast(input[1, int, false] as bigint)),false), [plan_id=250]
+
+(6) BroadcastHashJoin
+Left keys [1]: [Id#60]
+Right keys [1]: [OwnerUserId#65]
+Join type: LeftOuter
+Join condition: None
+
+(7) Project
+Output [7]: [DisplayName#61, Reputation#62, Views#63, Id#64, PostTypeId#66, Title#67, CreationDate#68]
+Input [9]: [Id#60, DisplayName#61, Reputation#62, Views#63, Id#64, OwnerUserId#65, PostTypeId#66, Title#67, CreationDate#68]
+
+(8) Scan parquet spark_catalog.default.votes
+Output [2]: [PostId#70, VoteTypeId#71]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/votes]
+PushedFilters: [IsNotNull(PostId)]
+ReadSchema: struct<PostId:int,VoteTypeId:int>
+
+(9) Filter
+Input [2]: [PostId#70, VoteTypeId#71]
+Condition : isnotnull(PostId#70)
+
+(10) HashAggregate
+Input [2]: [PostId#70, VoteTypeId#71]
+Keys [1]: [PostId#70]
+Functions [2]: [partial_sum(CASE WHEN (VoteTypeId#71 = 2) THEN 1 ELSE 0 END), partial_sum(CASE WHEN (VoteTypeId#71 = 3) THEN 1 ELSE 0 END)]
+Aggregate Attributes [2]: [sum#149L, sum#150L]
+Results [3]: [PostId#70, sum#151L, sum#152L]
+
+(11) Exchange
+Input [3]: [PostId#70, sum#151L, sum#152L]
+Arguments: hashpartitioning(PostId#70, 1), ENSURE_REQUIREMENTS, [plan_id=253]
+
+(12) HashAggregate
+Input [3]: [PostId#70, sum#151L, sum#152L]
+Keys [1]: [PostId#70]
+Functions [2]: [sum(CASE WHEN (VoteTypeId#71 = 2) THEN 1 ELSE 0 END), sum(CASE WHEN (VoteTypeId#71 = 3) THEN 1 ELSE 0 END)]
+Aggregate Attributes [2]: [sum(CASE WHEN (VoteTypeId#71 = 2) THEN 1 ELSE 0 END)#120L, sum(CASE WHEN (VoteTypeId#71 = 3) THEN 1 ELSE 0 END)#121L]
+Results [3]: [PostId#70, sum(CASE WHEN (VoteTypeId#71 = 2) THEN 1 ELSE 0 END)#120L AS UpVotes#108L, sum(CASE WHEN (VoteTypeId#71 = 3) THEN 1 ELSE 0 END)#121L AS DownVotes#109L]
+
+(13) BroadcastExchange
+Input [3]: [PostId#70, UpVotes#108L, DownVotes#109L]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=256]
+
+(14) BroadcastHashJoin
+Left keys [1]: [Id#64]
+Right keys [1]: [PostId#70]
+Join type: LeftOuter
+Join condition: None
+
+(15) Project
+Output [9]: [DisplayName#61, Reputation#62, Views#63, Id#64, PostTypeId#66, Title#67, CreationDate#68, UpVotes#108L, DownVotes#109L]
+Input [10]: [DisplayName#61, Reputation#62, Views#63, Id#64, PostTypeId#66, Title#67, CreationDate#68, PostId#70, UpVotes#108L, DownVotes#109L]
+
+(16) Sort
+Input [9]: [DisplayName#61, Reputation#62, Views#63, Id#64, PostTypeId#66, Title#67, CreationDate#68, UpVotes#108L, DownVotes#109L]
+Arguments: [DisplayName#61 ASC NULLS FIRST, Title#67 ASC NULLS FIRST, Reputation#62 ASC NULLS FIRST, Views#63 ASC NULLS FIRST, Id#64 ASC NULLS FIRST], false, 0
+
+(17) SortAggregate
+Input [9]: [DisplayName#61, Reputation#62, Views#63, Id#64, PostTypeId#66, Title#67, CreationDate#68, UpVotes#108L, DownVotes#109L]
+Keys [5]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64]
+Functions [5]: [partial_sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END), partial_sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END), partial_max(CreationDate#68), partial_avg(coalesce(UpVotes#108L, 0)), partial_avg(coalesce(DownVotes#109L, 0))]
+Aggregate Attributes [5]: [sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END)#123L, sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END)#124L, max(CreationDate#68)#125, avg(coalesce(UpVotes#108L, 0))#127, avg(coalesce(DownVotes#109L, 0))#128]
+Results [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+
+(18) Exchange
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+Arguments: hashpartitioning(DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, 1), ENSURE_REQUIREMENTS, [plan_id=263]
+
+(19) Sort
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+Arguments: [DisplayName#61 ASC NULLS FIRST, Title#67 ASC NULLS FIRST, Reputation#62 ASC NULLS FIRST, Views#63 ASC NULLS FIRST, Id#64 ASC NULLS FIRST], false, 0
+
+(20) SortAggregate
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+Keys [5]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64]
+Functions [5]: [merge_sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END), merge_sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END), merge_max(CreationDate#68), merge_avg(coalesce(UpVotes#108L, 0)), merge_avg(coalesce(DownVotes#109L, 0))]
+Aggregate Attributes [5]: [sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END)#123L, sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END)#124L, max(CreationDate#68)#125, avg(coalesce(UpVotes#108L, 0))#127, avg(coalesce(DownVotes#109L, 0))#128]
+Results [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+
+(21) SortAggregate
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, Id#64, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L]
+Keys [4]: [DisplayName#61, Title#67, Reputation#62, Views#63]
+Functions [6]: [merge_sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END), merge_sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END), merge_max(CreationDate#68), merge_avg(coalesce(UpVotes#108L, 0)), merge_avg(coalesce(DownVotes#109L, 0)), partial_count(distinct Id#64)]
+Aggregate Attributes [6]: [sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END)#123L, sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END)#124L, max(CreationDate#68)#125, avg(coalesce(UpVotes#108L, 0))#127, avg(coalesce(DownVotes#109L, 0))#128, count(Id#64)#122L]
+Results [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L, count#147L]
+
+(22) Exchange
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L, count#147L]
+Arguments: hashpartitioning(DisplayName#61, Title#67, Reputation#62, Views#63, 1), ENSURE_REQUIREMENTS, [plan_id=268]
+
+(23) Sort
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L, count#147L]
+Arguments: [DisplayName#61 ASC NULLS FIRST, Title#67 ASC NULLS FIRST, Reputation#62 ASC NULLS FIRST, Views#63 ASC NULLS FIRST], false, 0
+
+(24) SortAggregate
+Input [12]: [DisplayName#61, Title#67, Reputation#62, Views#63, sum#132L, sum#134L, max#136, sum#139, count#140L, sum#143, count#144L, count#147L]
+Keys [4]: [DisplayName#61, Title#67, Reputation#62, Views#63]
+Functions [6]: [sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END), sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END), max(CreationDate#68), avg(coalesce(UpVotes#108L, 0)), avg(coalesce(DownVotes#109L, 0)), count(distinct Id#64)]
+Aggregate Attributes [6]: [sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END)#123L, sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END)#124L, max(CreationDate#68)#125, avg(coalesce(UpVotes#108L, 0))#127, avg(coalesce(DownVotes#109L, 0))#128, count(Id#64)#122L]
+Results [11]: [DisplayName#61 AS UserName#110, count(Id#64)#122L AS TotalPosts#111L, sum(CASE WHEN (PostTypeId#66 = 1) THEN 1 ELSE 0 END)#123L AS TotalQuestions#112L, sum(CASE WHEN (PostTypeId#66 = 2) THEN 1 ELSE 0 END)#124L AS TotalAnswers#113L, Title#67 AS LastPostTitle#114, max(CreationDate#68)#125 AS LastPostDate#115, avg(coalesce(UpVotes#108L, 0))#127 AS AvgUpVotes#116, avg(coalesce(DownVotes#109L, 0))#128 AS AvgDownVotes#117, Reputation#62, Views#63, count(Id#64)#122L AS _w0#129L]
+
+(25) Filter
+Input [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, _w0#129L]
+Condition : (TotalPosts#111L > 0)
+
+(26) Sort
+Input [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, _w0#129L]
+Arguments: [_w0#129L DESC NULLS LAST], false, 0
+
+(27) Window
+Input [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, _w0#129L]
+Arguments: [row_number() windowspecdefinition(_w0#129L DESC NULLS LAST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS rank_value#118], [_w0#129L DESC NULLS LAST]
+
+(28) Project
+Output [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, rank_value#118]
+Input [12]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, _w0#129L, rank_value#118]
+
+(29) TakeOrderedAndProject
+Input [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, rank_value#118]
+Arguments: 10, [TotalPosts#111L DESC NULLS LAST, LastPostDate#115 DESC NULLS LAST], [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, rank_value#118]
+
+(30) AdaptiveSparkPlan
+Output [11]: [UserName#110, TotalPosts#111L, TotalQuestions#112L, TotalAnswers#113L, LastPostTitle#114, LastPostDate#115, AvgUpVotes#116, AvgDownVotes#117, Reputation#62, Views#63, rank_value#118]
+Arguments: isFinalPlan=false

@@ -1,0 +1,11 @@
+case_id: LONGTAIL_0012
+pool: LONGTAIL
+common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+common_core_membership_changed: false
+denominator_changed: false
+paper_results_changed: false
+case_sets_changed: false
+reports_changed: false
+results_changed: false
+track_a_same_engine_candidate: true
+no_global_leaderboard: true

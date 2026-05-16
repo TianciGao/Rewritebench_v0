@@ -1,0 +1,6 @@
+case_id: LONGTAIL_0013
+pool: LONGTAIL
+normalization_policy: retained_legacy_result_checks
+row_order: respect_order_when_result_check_requires_ordered_outputs
+null_handling: engine_retained_outputs_are_not_recomputed
+numeric_tolerance: not_recomputed_during_migration

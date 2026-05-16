@@ -1876,3 +1876,52 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer review/approve expected rejection wording in `audits/longtail_final_readiness/longtail_expected_rejections_preview.yaml`, then run the bounded final LONGTAIL canonical migration prompt; do not touch case_sets, reports, results, denominator files, or paper tables yet.
+
+### 2026-05-16 · pending · LONGTAIL final bounded canonical migration batch
+
+Mode: release-repo bounded LONGTAIL canonical migration; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Actual case migration performed: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Migrated `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` into canonical public-release layout.
+- Recorded maintainer-approved hard-negative expected rejection reasons in each case package and in `audits/longtail_final_bounded_migration/longtail_expected_rejection_approval_record.yaml`.
+- Published public-safe retained controls, hard-negative outputs, JSON plan evidence, and sanitized Spark plan copies.
+- Did not copy raw Spark plan text with local path traces into public retained evidence.
+- Copied validation scripts only as retained legacy validation assets; they were not executed during migration.
+- Common-core case-package migration moved from 35/40 to 40/40 after validator PASS results.
+- Common-core 40 blind/bulk migration started: no.
+
+Validation:
+- Selected-case validator v0.3 full-case: PASS 5/5.
+- Selected-case validator v0.3 canonical-case: PASS 5/5.
+- Full Common-core full-case regression: PASS 40/40.
+- Full Common-core canonical-case regression: PASS 40/40.
+- Public hygiene scan, YAML parse, JSON parse, CSV row checks, and `python -m py_compile scripts/dev/validate_case_package.py`: passed.
+
+Files created:
+- canonical package files under `cases/LONGTAIL/LONGTAIL_0012/`
+- canonical package files under `cases/LONGTAIL/LONGTAIL_0013/`
+- canonical package files under `cases/LONGTAIL/LONGTAIL_0022/`
+- canonical package files under `cases/LONGTAIL/LONGTAIL_0023/`
+- canonical package files under `cases/LONGTAIL/LONGTAIL_0024/`
+- `audits/longtail_final_bounded_migration/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- case_sets changed: no
+- reports changed: no
+- results changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review the final LONGTAIL migration audit, then perform a separate Common-core 40 case-package completion closeout if desired; do not touch case_sets, reports, results, denominator files, or paper tables yet.

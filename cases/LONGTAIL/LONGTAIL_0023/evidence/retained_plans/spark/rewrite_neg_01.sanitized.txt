@@ -1,0 +1,86 @@
+== Physical Plan ==
+AdaptiveSparkPlan (14)
++- Sort (13)
+   +- Exchange (12)
+      +- Filter (11)
+         +- HashAggregate (10)
+            +- Exchange (9)
+               +- HashAggregate (8)
+                  +- Project (7)
+                     +- BroadcastHashJoin Inner BuildLeft (6)
+                        :- BroadcastExchange (3)
+                        :  +- Filter (2)
+                        :     +- Scan parquet spark_catalog.default.posts (1)
+                        +- Filter (5)
+                           +- Scan parquet spark_catalog.default.postlinks (4)
+
+
+(1) Scan parquet spark_catalog.default.posts
+Output [2]: [Id#42, Title#43]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/posts]
+PushedFilters: [IsNotNull(Id)]
+ReadSchema: struct<Id:int,Title:string>
+
+(2) Filter
+Input [2]: [Id#42, Title#43]
+Condition : isnotnull(Id#42)
+
+(3) BroadcastExchange
+Input [2]: [Id#42, Title#43]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=255]
+
+(4) Scan parquet spark_catalog.default.postlinks
+Output [2]: [PostId#38, RelatedPostId#39]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/postlinks]
+PushedFilters: [IsNotNull(RelatedPostId), IsNotNull(PostId)]
+ReadSchema: struct<PostId:int,RelatedPostId:int>
+
+(5) Filter
+Input [2]: [PostId#38, RelatedPostId#39]
+Condition : (isnotnull(RelatedPostId#39) AND isnotnull(PostId#38))
+
+(6) BroadcastHashJoin
+Left keys [1]: [Id#42]
+Right keys [1]: [PostId#38]
+Join type: Inner
+Join condition: None
+
+(7) Project
+Output [3]: [Id#42, Title#43, RelatedPostId#39]
+Input [4]: [Id#42, Title#43, PostId#38, RelatedPostId#39]
+
+(8) HashAggregate
+Input [3]: [Id#42, Title#43, RelatedPostId#39]
+Keys [2]: [Id#42, Title#43]
+Functions [1]: [partial_count(RelatedPostId#39)]
+Aggregate Attributes [1]: [count#83L]
+Results [3]: [Id#42, Title#43, count#84L]
+
+(9) Exchange
+Input [3]: [Id#42, Title#43, count#84L]
+Arguments: hashpartitioning(Id#42, Title#43, 1), ENSURE_REQUIREMENTS, [plan_id=260]
+
+(10) HashAggregate
+Input [3]: [Id#42, Title#43, count#84L]
+Keys [2]: [Id#42, Title#43]
+Functions [1]: [count(RelatedPostId#39)]
+Aggregate Attributes [1]: [count(RelatedPostId#39)#79L]
+Results [5]: [Id#42 AS PostId#75, Title#43, count(RelatedPostId#39)#79L AS outbound_count#76L, count(RelatedPostId#39)#79L AS inbound_count#77L, (count(RelatedPostId#39)#79L * 2) AS total_links#78L]
+
+(11) Filter
+Input [5]: [PostId#75, Title#43, outbound_count#76L, inbound_count#77L, total_links#78L]
+Condition : (outbound_count#76L > 0)
+
+(12) Exchange
+Input [5]: [PostId#75, Title#43, outbound_count#76L, inbound_count#77L, total_links#78L]
+Arguments: rangepartitioning(total_links#78L DESC NULLS LAST, PostId#75 ASC NULLS FIRST, 1), ENSURE_REQUIREMENTS, [plan_id=264]
+
+(13) Sort
+Input [5]: [PostId#75, Title#43, outbound_count#76L, inbound_count#77L, total_links#78L]
+Arguments: [total_links#78L DESC NULLS LAST, PostId#75 ASC NULLS FIRST], true, 0
+
+(14) AdaptiveSparkPlan
+Output [5]: [PostId#75, Title#43, outbound_count#76L, inbound_count#77L, total_links#78L]
+Arguments: isFinalPlan=false

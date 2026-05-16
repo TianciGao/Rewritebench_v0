@@ -1,0 +1,461 @@
+case_id: LONGTAIL_0012
+pool: LONGTAIL
+policy_version: runs_retention_policy_v1
+status: canonical_full_case_migration_batch_pilot
+batch_id: longtail_final_bounded_migration
+canonical_full_case_migration:
+  status: copy_first_canonical_layout_full_case_migration_batch
+  full_case_package_migrated: true
+  full_case_package_migration_scope: LONGTAIL_0012_only
+  canonical_layout_tested: true
+full_case_package_migrated: true
+full_case_package_migration_scope: LONGTAIL_0012_only
+legacy_runs_root: cases/LONGTAIL/LONGTAIL_0012/runs/
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/LONGTAIL/LONGTAIL_0012
+public_release_case_path: cases/LONGTAIL/LONGTAIL_0012
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+raw_legacy_evidence_changed: false
+case_sets_changed: false
+reports_changed: false
+results_changed: false
+db_validation_run: false
+evidence_regenerated: false
+workload_frequency_claim_created: false
+production_frequency_claim_created: false
+timing_evidence_created: false
+speedup_claim_created: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: true
+  raw_spark_plan_files_copied_to_public_tree: false
+  raw_spark_plan_files_retained_through_mapping: true
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
+retained_control_evidence:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/result_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/postgres/result_check.json
+  sha256_legacy_source: 177a3e8b010a3de52f52a756d71ccb474a0365bfb943c15743ad5d52fa8992e8
+  sha256_public_copy: 177a3e8b010a3de52f52a756d71ccb474a0365bfb943c15743ad5d52fa8992e8
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained result check summary
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/source.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/postgres/source.tsv
+  sha256_legacy_source: 52a2452c3234582567c227dfc04650850e758a24acdfd41458ce0c613a52db3a
+  sha256_public_copy: 52a2452c3234582567c227dfc04650850e758a24acdfd41458ce0c613a52db3a
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained source output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/rewrite_pos_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/postgres/rewrite_pos_01.tsv
+  sha256_legacy_source: 52a2452c3234582567c227dfc04650850e758a24acdfd41458ce0c613a52db3a
+  sha256_public_copy: 52a2452c3234582567c227dfc04650850e758a24acdfd41458ce0c613a52db3a
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained positive output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/result_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/mysql/result_check.json
+  sha256_legacy_source: 2ab797a11ffa428dc8447cac4c379fbc2658e0c80351f272e922a0dd1052bddf
+  sha256_public_copy: 2ab797a11ffa428dc8447cac4c379fbc2658e0c80351f272e922a0dd1052bddf
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained result check summary
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/source.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/mysql/source.tsv
+  sha256_legacy_source: 79aece1a0c49a2a64dc1466fcfa14bb0c5b81f194be3dd83dc7fb9cf007765ad
+  sha256_public_copy: 79aece1a0c49a2a64dc1466fcfa14bb0c5b81f194be3dd83dc7fb9cf007765ad
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained source output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/rewrite_pos_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  sha256_legacy_source: 79aece1a0c49a2a64dc1466fcfa14bb0c5b81f194be3dd83dc7fb9cf007765ad
+  sha256_public_copy: 79aece1a0c49a2a64dc1466fcfa14bb0c5b81f194be3dd83dc7fb9cf007765ad
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained positive output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/result_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/spark/result_check.json
+  sha256_legacy_source: 9c6dff3b85cf8941a1c7c538915c03ba228b76935867c12b133069b0c0f97e39
+  sha256_public_copy: 9c6dff3b85cf8941a1c7c538915c03ba228b76935867c12b133069b0c0f97e39
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark retained result check summary
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/source.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/spark/source.tsv
+  sha256_legacy_source: adc8232ab87502247ff14be60ccc58869ae6abe3038cf8885de99986cfae0ff4
+  sha256_public_copy: adc8232ab87502247ff14be60ccc58869ae6abe3038cf8885de99986cfae0ff4
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark retained source output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/rewrite_pos_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_controls/spark/rewrite_pos_01.tsv
+  sha256_legacy_source: adc8232ab87502247ff14be60ccc58869ae6abe3038cf8885de99986cfae0ff4
+  sha256_public_copy: adc8232ab87502247ff14be60ccc58869ae6abe3038cf8885de99986cfae0ff4
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark retained positive output
+retained_plan_evidence:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/plans/plan_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/postgres/plan_check.json
+  sha256_legacy_source: 1fd50c00eb4cc6abbca4415382a2fa806643f277bd338246e0a48ecd145ffef4
+  sha256_public_copy: 1fd50c00eb4cc6abbca4415382a2fa806643f277bd338246e0a48ecd145ffef4
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained plan check summary
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/plans/source.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/postgres/source.json
+  sha256_legacy_source: 2cdb364e65b714f66da81126cf81b0fa35fd78ede125cbc6b970c8e35f4b1693
+  sha256_public_copy: 2cdb364e65b714f66da81126cf81b0fa35fd78ede125cbc6b970c8e35f4b1693
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained source plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/plans/rewrite_pos_01.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/postgres/rewrite_pos_01.json
+  sha256_legacy_source: 1307c3e618f95ef2d708dfaca07a79e44c4350ee3adee07a30ef220891e060d4
+  sha256_public_copy: 1307c3e618f95ef2d708dfaca07a79e44c4350ee3adee07a30ef220891e060d4
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained positive plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/plans/rewrite_neg_01.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/postgres/rewrite_neg_01.json
+  sha256_legacy_source: 8f88911fb39448d49b632556269588104f8cf874fe9b50c30f9a8381c2a3527e
+  sha256_public_copy: 8f88911fb39448d49b632556269588104f8cf874fe9b50c30f9a8381c2a3527e
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres retained hard-negative plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/plans/plan_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/mysql/plan_check.json
+  sha256_legacy_source: 8bb7ba85a4acd9d03d3acdfabe37ac20c4fb87c6b66d0093f0f14862a0976dac
+  sha256_public_copy: 8bb7ba85a4acd9d03d3acdfabe37ac20c4fb87c6b66d0093f0f14862a0976dac
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained plan check summary
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/plans/source.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/mysql/source.json
+  sha256_legacy_source: 7602d98a17ae23fbffcb5722923d549582a1a6176917eb641e0d3442cfee2992
+  sha256_public_copy: 7602d98a17ae23fbffcb5722923d549582a1a6176917eb641e0d3442cfee2992
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained source plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/plans/rewrite_pos_01.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/mysql/rewrite_pos_01.json
+  sha256_legacy_source: 4c294da573396c7ff10cb4b3dd8baca6c3c5e27e1a0914f27cecdb254becd577
+  sha256_public_copy: 4c294da573396c7ff10cb4b3dd8baca6c3c5e27e1a0914f27cecdb254becd577
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained positive plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/plans/rewrite_neg_01.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/mysql/rewrite_neg_01.json
+  sha256_legacy_source: 9e1259020b37431b9326ca81862f63a6e33c41155ba5b683cef3b71a2a211591
+  sha256_public_copy: 9e1259020b37431b9326ca81862f63a6e33c41155ba5b683cef3b71a2a211591
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql retained hard-negative plan
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/plans/plan_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/plan_check.json
+  sha256_legacy_source: ef0be323bac9d178576755439d68d9b7f890cb6fc7fdcee90a0376a805adf1e9
+  sha256_public_copy: ef0be323bac9d178576755439d68d9b7f890cb6fc7fdcee90a0376a805adf1e9
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark retained plan check summary
+- &id001
+  original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/plans/source.txt
+  sanitized_public_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/source.sanitized.txt
+  public_copy_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/source.sanitized.txt
+  original_sha256: cedab2c2784ca10fa03023ef4815123173634c342bcd1899be2bf08cb1a2a854
+  sanitized_sha256: 561bde2e88933c95dbe9889b9b84ea144d72046d2211bb68eafb64379cbc308b
+  evidence_role: Spark source plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; publish sanitized Spark plan copy
+    only
+  sanitized_fields:
+  - local Spark working directory path trace
+  raw_public_policy: do_not_publish_raw
+- &id002
+  original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/plans/rewrite_pos_01.txt
+  sanitized_public_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+  public_copy_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+  original_sha256: 96bdd89eb297fb627872ae1b120162928b2dbbbc3e6eadfed951986b9a80e222
+  sanitized_sha256: 81401f230a74e6ee6ec33d1578673d13ecc004c9471f4eede6126fcd67bb280f
+  evidence_role: Spark positive plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; publish sanitized Spark plan copy
+    only
+  sanitized_fields:
+  - local Spark working directory path trace
+  raw_public_policy: do_not_publish_raw
+- &id003
+  original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/plans/rewrite_neg_01.txt
+  sanitized_public_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+  public_copy_path: cases/LONGTAIL/LONGTAIL_0012/evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+  original_sha256: 0fe59a596c5c6aec4f94feb96df26d5e777e178d3dc1e5da8e5accbf4fe13feb
+  sanitized_sha256: 97702af806107b0780552e570b942e54e60217c25de8886c92f9788d7081468e
+  evidence_role: Spark hard-negative plan observability
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; publish sanitized Spark plan copy
+    only
+  sanitized_fields:
+  - local Spark working directory path trace
+  raw_public_policy: do_not_publish_raw
+hard_negative_evidence:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/rewrite_neg_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/hard_negative/postgres/rewrite_neg_01.tsv
+  sha256_legacy_source: f4a4a8817c33cd28b6a9ae64d079bef0c18e77ff30035e3f567c91b9bd7f7405
+  sha256_public_copy: f4a4a8817c33cd28b6a9ae64d079bef0c18e77ff30035e3f567c91b9bd7f7405
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: postgres hard-negative output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/mysql/rewrite_neg_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  sha256_legacy_source: 9beb41e7339613b2264f5c16c61b6b526f9cbabcad37e51d40f163fe1b445552
+  sha256_public_copy: 9beb41e7339613b2264f5c16c61b6b526f9cbabcad37e51d40f163fe1b445552
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: mysql hard-negative output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/spark/rewrite_neg_01.tsv
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/evidence/hard_negative/spark/rewrite_neg_01.tsv
+  sha256_legacy_source: 0d035df0307a0a8336aa8a3e99ee4dd1474a18ab14905d8da416849dd9bff2fd
+  sha256_public_copy: 0d035df0307a0a8336aa8a3e99ee4dd1474a18ab14905d8da416849dd9bff2fd
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe evidence in release
+    repo
+  evidence_role: spark hard-negative output
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/rewrite_neg_01.sql
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/sql/negatives/neg_01.sql
+  archive_policy: retain original SQL in legacy repo; copied into canonical negative
+    SQL path
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: hard-negative SQL control
+  notes: optional_vote_count_left_join_changed_to_inner_join
+  sha256_legacy_source: dcdc01d869e1cbdc30e867ffc4949765a93a1f40a7ed9ad03b1507b6379b84d4
+  sha256_public_copy: dcdc01d869e1cbdc30e867ffc4949765a93a1f40a7ed9ad03b1507b6379b84d4
+  sha256_matches_source: true
+sanitized_public_copies:
+- *id001
+- *id002
+- *id003
+checker_normalization:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/runs/pg/result_check.json
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/checker/normalization.yaml
+  archive_policy: generated from retained result-check behavior and canonical checker
+    policy
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: checker normalization context
+  sha256_legacy_source: 177a3e8b010a3de52f52a756d71ccb474a0365bfb943c15743ad5d52fa8992e8
+  sha256_public_copy: a534918788f1177e05d7057c1a03c7afb910d625cb3ec89f6aff444aa5cf9063
+  sha256_matches_source: false
+schema_data_context:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/schema/ddl_pg.sql
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/schema/postgres/ddl.sql
+  archive_policy: retain original schema in legacy repo; copied public-safe DDL in
+    release repo
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: postgres schema context
+  sha256_legacy_source: 02952b3c5edb93f8bb63c7374f8d0ac9ac0eb72021ea7d5be95688cf6ee87522
+  sha256_public_copy: 02952b3c5edb93f8bb63c7374f8d0ac9ac0eb72021ea7d5be95688cf6ee87522
+  sha256_matches_source: true
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/schema/ddl_mysql.sql
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/schema/mysql/ddl.sql
+  archive_policy: retain original schema in legacy repo; copied public-safe DDL in
+    release repo
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: mysql schema context
+  sha256_legacy_source: 02952b3c5edb93f8bb63c7374f8d0ac9ac0eb72021ea7d5be95688cf6ee87522
+  sha256_public_copy: 02952b3c5edb93f8bb63c7374f8d0ac9ac0eb72021ea7d5be95688cf6ee87522
+  sha256_matches_source: true
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/schema/ddl_spark.sql
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/schema/spark/ddl.sql
+  archive_policy: retain original schema in legacy repo; copied public-safe DDL in
+    release repo
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: spark schema context
+  sha256_legacy_source: 252d4e8c4de52167a3a3ea5866a9710d652a75a22b79e952063133a15331efac
+  sha256_public_copy: 252d4e8c4de52167a3a3ea5866a9710d652a75a22b79e952063133a15331efac
+  sha256_matches_source: true
+validation_scripts:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_pg_validation.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_postgres_validation.sh
+  sha256_legacy_source: feb4b18cff202710fe6a2495e3c58f5312a6b216f8c51bb0ecaa5d59b2c64c96
+  sha256_public_copy: 04fab53ac0b29d2918a838466c69e47ffe2ec5b574b6482a8d67c28eb2d72c7e
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_validation.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_validation.sh
+  sha256_legacy_source: eddcf7d2fb3111eef3e2d98fa76d249bc556a855254fdb3ec57a9cd4e28fa4dd
+  sha256_public_copy: a22d5f99e520f31e3bc981f52a360825f5f8b484ccec657678f0b8a9d6b4955e
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_validation.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_validation.sh
+  sha256_legacy_source: 255166d3e5a0606b3e18c05b6a675f74970ec10cd8fef483aea6f2d010be81f1
+  sha256_public_copy: 032b828b61980c91c21924a20b95e216756e0b014f0f7c6bfd0f4af6de3462fb
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_pg_plan_collection.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_postgres_plan_collection.sh
+  sha256_legacy_source: 8dd9528b8baa76254752290fe9bbf9d4babb8e6f5cd2d0104108cd87fd996308
+  sha256_public_copy: c3db38cf85e5510da4207ce22096163b31b5c3709e6e4fd10f02b2e889f15f67
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_plan_collection.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_plan_collection.sh
+  sha256_legacy_source: a05b6b103aec94b28d417a8e4ef641662ae804be21def76513998e124982f90b
+  sha256_public_copy: f45ded90af5d10d9ebf44664c4e01cc65fa51bef07665bb05a37c792c270c90a
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_plan_collection.sh
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_plan_collection.sh
+  sha256_legacy_source: 04f442168801da476a007452333438dc49b1bc7ef1f97e7908be5917b2611a8d
+  sha256_public_copy: b2023eb074a33618cfab2be0060598e74508bcb187f4e1d8e72123b9ffd32e43
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; public copy includes release output-policy
+    caveat
+  evidence_role: retained legacy validation asset not run during migration
+provenance:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/manifest.yaml
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/metadata/provenance.yaml
+  archive_policy: generated canonical provenance from legacy manifest and readiness
+    audit
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: provenance metadata
+  sha256_legacy_source: 5ce92595e3e27e6168922c848e4e543698575401d40972a3232b34891a4de6db
+  sha256_public_copy: ba9aec6ffadeb77c8f67230c3c9a6eba7c796ccd886ebdbc0c37600d67a5e072
+  sha256_matches_source: false
+taxonomy:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012/manifest.yaml
+  public_release_path: cases/LONGTAIL/LONGTAIL_0012/metadata/taxonomy.yaml
+  archive_policy: generated canonical taxonomy from legacy tags and readiness audit
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: taxonomy metadata
+  sha256_legacy_source: 5ce92595e3e27e6168922c848e4e543698575401d40972a3232b34891a4de6db
+  sha256_public_copy: 3af2670c90f47d394a2626c39dabd75d4ecd8dff1884bc7e3d560f6f6da6b617
+  sha256_matches_source: false
+do_not_delete:
+- original_legacy_path: cases/LONGTAIL/LONGTAIL_0012
+  do_not_delete_original: true
+  archive_policy: retain complete legacy case package as source archive
+static_references:
+- original_legacy_path: audits/longtail_final_readiness/longtail_expected_rejections_preview.yaml
+  archive_policy: release-repo approval preview retained as planning artifact
+  do_not_delete_original: true
+  public_safe: true
+  evidence_role: maintainer-approved expected-rejection basis
+public_release_notes:
+  full_case_package_migrated: true
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  raw_legacy_evidence_changed: false
+  case_sets_changed: false
+  reports_changed: false
+  results_changed: false
+  db_validation_run: false
+  evidence_regenerated: false
+  workload_frequency_claim_created: false
+  production_frequency_claim_created: false
+  validation_scripts: legacy validation asset; future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+  spark_plan_publication: sanitized public copies only
+human_approval:
+  status: maintainer_approved_for_migration
+  full_case_migration: maintainer-approved expected rejection reasons for final LONGTAIL
+    bounded migration
+  expected_rejection_reason: optional_vote_count_left_join_changed_to_inner_join
+  approval_scope: public_release_migration

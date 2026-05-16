@@ -1,0 +1,136 @@
+== Physical Plan ==
+AdaptiveSparkPlan (22)
++- Project (21)
+   +- Sort (20)
+      +- Exchange (19)
+         +- Project (18)
+            +- Filter (17)
+               +- BroadcastHashJoin LeftOuter BuildRight (16)
+                  :- Project (9)
+                  :  +- BroadcastHashJoin LeftOuter BuildRight (8)
+                  :     :- Scan parquet spark_catalog.default.posts (1)
+                  :     +- BroadcastExchange (7)
+                  :        +- HashAggregate (6)
+                  :           +- Exchange (5)
+                  :              +- HashAggregate (4)
+                  :                 +- Filter (3)
+                  :                    +- Scan parquet spark_catalog.default.postlinks (2)
+                  +- BroadcastExchange (15)
+                     +- HashAggregate (14)
+                        +- Exchange (13)
+                           +- HashAggregate (12)
+                              +- Filter (11)
+                                 +- Scan parquet spark_catalog.default.postlinks (10)
+
+
+(1) Scan parquet spark_catalog.default.posts
+Output [2]: [Id#42, Title#43]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/posts]
+ReadSchema: struct<Id:int,Title:string>
+
+(2) Scan parquet spark_catalog.default.postlinks
+Output [1]: [PostId#38]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/postlinks]
+PushedFilters: [IsNotNull(PostId)]
+ReadSchema: struct<PostId:int>
+
+(3) Filter
+Input [1]: [PostId#38]
+Condition : isnotnull(PostId#38)
+
+(4) HashAggregate
+Input [1]: [PostId#38]
+Keys [1]: [PostId#38]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#71L]
+Results [2]: [PostId#38, count#72L]
+
+(5) Exchange
+Input [2]: [PostId#38, count#72L]
+Arguments: hashpartitioning(PostId#38, 1), ENSURE_REQUIREMENTS, [plan_id=193]
+
+(6) HashAggregate
+Input [2]: [PostId#38, count#72L]
+Keys [1]: [PostId#38]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#63L]
+Results [2]: [PostId#38, count(1)#63L AS outbound_count#56L]
+
+(7) BroadcastExchange
+Input [2]: [PostId#38, outbound_count#56L]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=196]
+
+(8) BroadcastHashJoin
+Left keys [1]: [Id#42]
+Right keys [1]: [PostId#38]
+Join type: LeftOuter
+Join condition: None
+
+(9) Project
+Output [3]: [Id#42, Title#43, outbound_count#56L]
+Input [4]: [Id#42, Title#43, PostId#38, outbound_count#56L]
+
+(10) Scan parquet spark_catalog.default.postlinks
+Output [1]: [RelatedPostId#67]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/postlinks]
+PushedFilters: [IsNotNull(RelatedPostId)]
+ReadSchema: struct<RelatedPostId:int>
+
+(11) Filter
+Input [1]: [RelatedPostId#67]
+Condition : isnotnull(RelatedPostId#67)
+
+(12) HashAggregate
+Input [1]: [RelatedPostId#67]
+Keys [1]: [RelatedPostId#67]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count#73L]
+Results [2]: [RelatedPostId#67, count#74L]
+
+(13) Exchange
+Input [2]: [RelatedPostId#67, count#74L]
+Arguments: hashpartitioning(RelatedPostId#67, 1), ENSURE_REQUIREMENTS, [plan_id=199]
+
+(14) HashAggregate
+Input [2]: [RelatedPostId#67, count#74L]
+Keys [1]: [RelatedPostId#67]
+Functions [1]: [count(1)]
+Aggregate Attributes [1]: [count(1)#64L]
+Results [2]: [RelatedPostId#67 AS PostId#57, count(1)#64L AS inbound_count#58L]
+
+(15) BroadcastExchange
+Input [2]: [PostId#57, inbound_count#58L]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=202]
+
+(16) BroadcastHashJoin
+Left keys [1]: [Id#42]
+Right keys [1]: [PostId#57]
+Join type: LeftOuter
+Join condition: None
+
+(17) Filter
+Input [5]: [Id#42, Title#43, outbound_count#56L, PostId#57, inbound_count#58L]
+Condition : ((coalesce(outbound_count#56L, 0) + coalesce(inbound_count#58L, 0)) > 0)
+
+(18) Project
+Output [6]: [Id#42 AS PostId#59, Title#43, coalesce(outbound_count#56L, 0) AS outbound_count#60L, coalesce(inbound_count#58L, 0) AS inbound_count#61L, (coalesce(outbound_count#56L, 0) + coalesce(inbound_count#58L, 0)) AS total_links#62L, Id#42]
+Input [5]: [Id#42, Title#43, outbound_count#56L, PostId#57, inbound_count#58L]
+
+(19) Exchange
+Input [6]: [PostId#59, Title#43, outbound_count#60L, inbound_count#61L, total_links#62L, Id#42]
+Arguments: rangepartitioning(total_links#62L DESC NULLS LAST, Id#42 ASC NULLS FIRST, 1), ENSURE_REQUIREMENTS, [plan_id=207]
+
+(20) Sort
+Input [6]: [PostId#59, Title#43, outbound_count#60L, inbound_count#61L, total_links#62L, Id#42]
+Arguments: [total_links#62L DESC NULLS LAST, Id#42 ASC NULLS FIRST], true, 0
+
+(21) Project
+Output [5]: [PostId#59, Title#43, outbound_count#60L, inbound_count#61L, total_links#62L]
+Input [6]: [PostId#59, Title#43, outbound_count#60L, inbound_count#61L, total_links#62L, Id#42]
+
+(22) AdaptiveSparkPlan
+Output [5]: [PostId#59, Title#43, outbound_count#60L, inbound_count#61L, total_links#62L]
+Arguments: isFinalPlan=false

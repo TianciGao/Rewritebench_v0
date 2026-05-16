@@ -1,0 +1,6 @@
+case_id,canonical_package_created,source_sql_copied,positive_sql_copied,negative_sql_copied,expected_rejection_recorded,schema_copied,data_or_witness_copied,checker_copied,validation_assets_copied,runs_retention_created,sanitized_spark_plans_created,raw_spark_plans_copied,public_hygiene_passed,full_case_validator_passed,canonical_case_validator_passed,notes
+LONGTAIL_0012,yes,yes,yes,yes,yes,yes,yes,generated,yes_with_caveat,yes,yes,no,yes,yes,yes,Approved hard-negative reason optional_vote_count_left_join_changed_to_inner_join
+LONGTAIL_0013,yes,yes,yes,yes,yes,yes,yes,generated,yes_with_caveat,yes,yes,no,yes,yes,yes,Approved hard-negative reason best_question_attachment_left_join_changed_to_inner_join
+LONGTAIL_0022,yes,yes,yes,yes,yes,yes,yes,generated,yes_with_caveat,yes,yes,no,yes,yes,yes,Approved hard-negative reason comment_aggregation_grouping_fragmented_by_commenter
+LONGTAIL_0023,yes,yes,yes,yes,yes,yes,yes,generated,yes_with_caveat,yes,yes,no,yes,yes,yes,Approved hard-negative reason directed_postlink_inbound_outbound_semantics_collapsed
+LONGTAIL_0024,yes,yes,yes,yes,yes,yes,yes,generated,yes_with_caveat,yes,yes,no,yes,yes,yes,Approved hard-negative reason posthistory_revision_aggregation_fragmented_by_editor

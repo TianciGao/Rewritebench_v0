@@ -1,0 +1,28 @@
+case_id: LONGTAIL_0023
+pool: LONGTAIL
+expected_rejections:
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  positive_sql_path: sql/positives/pos_01.sql
+  negative_sql_path: sql/negatives/neg_01.sql
+  expected_rejection_reason: directed_postlink_inbound_outbound_semantics_collapsed
+  semantic_risk_type:
+  - set_relation_direction_changed
+  - aggregation_input_boundary
+  - row_preservation
+  checker_guard_role: source_positive_equal_and_negative_differs_on_directed_postlink_aggregation_witness
+  observed_static_basis:
+    positive_semantics: The positive rewrite preserves separate outbound and inbound
+      PostLinks aggregate inputs.
+    negative_semantics: The hard negative collapses directionality and can lose inbound-only
+      relationship evidence.
+    witness_discriminator: Retained result checks show source and positive outputs
+      match while neg_01 differs across PostgreSQL, MySQL, and Spark.
+  evidence_paths:
+  - evidence/retained_controls/postgres/result_check.json
+  - evidence/retained_controls/mysql/result_check.json
+  - evidence/retained_controls/spark/result_check.json
+  - evidence/hard_negative/hard_negative_summary.json
+  approval_status: maintainer_approved_for_migration
+  approved_by: maintainer
+  approval_scope: public_release_migration

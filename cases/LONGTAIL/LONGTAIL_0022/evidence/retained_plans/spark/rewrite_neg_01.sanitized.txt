@@ -1,0 +1,132 @@
+== Physical Plan ==
+AdaptiveSparkPlan (21)
++- Sort (20)
+   +- Exchange (19)
+      +- Filter (18)
+         +- HashAggregate (17)
+            +- HashAggregate (16)
+               +- HashAggregate (15)
+                  +- Exchange (14)
+                     +- HashAggregate (13)
+                        +- Project (12)
+                           +- BroadcastHashJoin LeftOuter BuildRight (11)
+                              :- Project (7)
+                              :  +- BroadcastHashJoin Inner BuildLeft (6)
+                              :     :- BroadcastExchange (3)
+                              :     :  +- Filter (2)
+                              :     :     +- Scan parquet spark_catalog.default.posts (1)
+                              :     +- Filter (5)
+                              :        +- Scan parquet spark_catalog.default.comments (4)
+                              +- BroadcastExchange (10)
+                                 +- Filter (9)
+                                    +- Scan parquet spark_catalog.default.users (8)
+
+
+(1) Scan parquet spark_catalog.default.posts
+Output [4]: [Id#59, OwnerUserId#60, Title#61, Score#62]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/posts]
+PushedFilters: [IsNotNull(Id)]
+ReadSchema: struct<Id:int,OwnerUserId:int,Title:string,Score:int>
+
+(2) Filter
+Input [4]: [Id#59, OwnerUserId#60, Title#61, Score#62]
+Condition : isnotnull(Id#59)
+
+(3) BroadcastExchange
+Input [4]: [Id#59, OwnerUserId#60, Title#61, Score#62]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=306]
+
+(4) Scan parquet spark_catalog.default.comments
+Output [2]: [PostId#54, UserId#55]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/comments]
+PushedFilters: [IsNotNull(UserId), IsNotNull(PostId)]
+ReadSchema: struct<PostId:int,UserId:int>
+
+(5) Filter
+Input [2]: [PostId#54, UserId#55]
+Condition : (isnotnull(UserId#55) AND isnotnull(PostId#54))
+
+(6) BroadcastHashJoin
+Left keys [1]: [Id#59]
+Right keys [1]: [PostId#54]
+Join type: Inner
+Join condition: None
+
+(7) Project
+Output [5]: [Id#59, OwnerUserId#60, Title#61, Score#62, UserId#55]
+Input [6]: [Id#59, OwnerUserId#60, Title#61, Score#62, PostId#54, UserId#55]
+
+(8) Scan parquet spark_catalog.default.users
+Output [2]: [Id#63, DisplayName#64]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_PATH_REDACTED>/users]
+PushedFilters: [IsNotNull(Id)]
+ReadSchema: struct<Id:int,DisplayName:string>
+
+(9) Filter
+Input [2]: [Id#63, DisplayName#64]
+Condition : isnotnull(Id#63)
+
+(10) BroadcastExchange
+Input [2]: [Id#63, DisplayName#64]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=310]
+
+(11) BroadcastHashJoin
+Left keys [1]: [OwnerUserId#60]
+Right keys [1]: [Id#63]
+Join type: LeftOuter
+Join condition: None
+
+(12) Project
+Output [5]: [Id#59, Title#61, Score#62, UserId#55, DisplayName#64]
+Input [7]: [Id#59, OwnerUserId#60, Title#61, Score#62, UserId#55, Id#63, DisplayName#64]
+
+(13) HashAggregate
+Input [5]: [Id#59, Title#61, Score#62, UserId#55, DisplayName#64]
+Keys [6]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55]
+Functions [1]: [partial_count(1)]
+Aggregate Attributes [1]: [count(1)#91L]
+Results [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, count#95L]
+
+(14) Exchange
+Input [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, count#95L]
+Arguments: hashpartitioning(Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, 1), ENSURE_REQUIREMENTS, [plan_id=315]
+
+(15) HashAggregate
+Input [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, count#95L]
+Keys [6]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55]
+Functions [1]: [merge_count(1)]
+Aggregate Attributes [1]: [count(1)#91L]
+Results [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, count#95L]
+
+(16) HashAggregate
+Input [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, UserId#55, count#95L]
+Keys [5]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55]
+Functions [2]: [merge_count(1), partial_count(distinct UserId#55)]
+Aggregate Attributes [2]: [count(1)#91L, count(UserId#55)#93L]
+Results [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, count#95L, count#98L]
+
+(17) HashAggregate
+Input [7]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55, count#95L, count#98L]
+Keys [5]: [Id#59, Title#61, Score#62, DisplayName#64, UserId#55]
+Functions [2]: [count(1), count(distinct UserId#55)]
+Aggregate Attributes [2]: [count(1)#91L, count(UserId#55)#93L]
+Results [6]: [Id#59 AS PostId#87, Title#61, Score#62, count(1)#91L AS comment_count#88L, count(UserId#55)#93L AS distinct_commenters#89L, DisplayName#64 AS OwnerDisplayName#90]
+
+(18) Filter
+Input [6]: [PostId#87, Title#61, Score#62, comment_count#88L, distinct_commenters#89L, OwnerDisplayName#90]
+Condition : (comment_count#88L >= 3)
+
+(19) Exchange
+Input [6]: [PostId#87, Title#61, Score#62, comment_count#88L, distinct_commenters#89L, OwnerDisplayName#90]
+Arguments: rangepartitioning(distinct_commenters#89L DESC NULLS LAST, Score#62 DESC NULLS LAST, PostId#87 ASC NULLS FIRST, 1), ENSURE_REQUIREMENTS, [plan_id=321]
+
+(20) Sort
+Input [6]: [PostId#87, Title#61, Score#62, comment_count#88L, distinct_commenters#89L, OwnerDisplayName#90]
+Arguments: [distinct_commenters#89L DESC NULLS LAST, Score#62 DESC NULLS LAST, PostId#87 ASC NULLS FIRST], true, 0
+
+(21) AdaptiveSparkPlan
+Output [6]: [PostId#87, Title#61, Score#62, comment_count#88L, distinct_commenters#89L, OwnerDisplayName#90]
+Arguments: isFinalPlan=false

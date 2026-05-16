@@ -1,0 +1,20 @@
+case_id: LONGTAIL_0022
+pool: LONGTAIL
+comparison_scope: source_positive_equal_and_source_negative_different
+engines:
+- postgres
+- mysql
+- spark
+source_outputs:
+- evidence/retained_controls/postgres/source.tsv
+- evidence/retained_controls/mysql/source.tsv
+- evidence/retained_controls/spark/source.tsv
+positive_outputs:
+- evidence/retained_controls/postgres/rewrite_pos_01.tsv
+- evidence/retained_controls/mysql/rewrite_pos_01.tsv
+- evidence/retained_controls/spark/rewrite_pos_01.tsv
+negative_outputs:
+- evidence/hard_negative/postgres/rewrite_neg_01.tsv
+- evidence/hard_negative/mysql/rewrite_neg_01.tsv
+- evidence/hard_negative/spark/rewrite_neg_01.tsv
+db_validation_run_during_migration: false

@@ -11,13 +11,11 @@ Date: 2026-05-16
 
 ## Current Status Summary
 
-Common-core case-package migration is partially complete at canonical-layout package level. PERF, CONS, and PORT are complete; LONGTAIL has one completed representative canonical package and five remaining cases.
+Common-core case-package migration is complete at canonical-layout package level: 40/40 Common-core cases now have canonical public-release case packages.
 
-This status snapshot is based on release-repo file inspection and validator v0.3 closeout outputs under `audits/common_core40_case_package_closeout/`.
+This status is based on release-repo files and validator v0.3 outputs, including the LONGTAIL final bounded canonical migration audit under `audits/longtail_final_bounded_migration/`.
 
-Common-core 40 blind/bulk migration is still not started. Completed migration work remains bounded, explicit, and case-package scoped.
-
-Latest planning update: LONGTAIL final readiness/planning completed. Actual case migration performed: no. Recommended next migration batch, after maintainer approval of expected rejection wording, is the bounded final LONGTAIL batch: `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`. Fallback batch is `LONGTAIL_0012` and `LONGTAIL_0013`.
+Common-core 40 blind/bulk migration was not started. Completed work remained bounded, explicit, and case-package scoped.
 
 ## Common-core Case-Package Counts
 
@@ -26,28 +24,18 @@ Latest planning update: LONGTAIL final readiness/planning completed. Actual case
 | PERF | 16 | 16 | complete |
 | CONS | 9 | 9 | complete |
 | PORT | 9 | 9 | complete |
-| LONGTAIL | 1 | 6 | remaining cases not yet canonical |
-| Total | 35 | 40 | not complete |
+| LONGTAIL | 6 | 6 | complete |
+| Total | 40 | 40 | complete |
 
 Validator snapshot:
 
-- Full-case validator v0.3: PASS 35/35 over current canonical-complete cases.
-- Canonical-case validator v0.3: PASS 35/35 over current canonical-complete cases.
-- `PORT_0004` is now canonical after the PORT final bounded batch.
-
-## Remaining Common-core Cases
-
-The remaining not-yet-canonical Common-core cases are:
-
-- `LONGTAIL_0012`
-- `LONGTAIL_0013`
-- `LONGTAIL_0022`
-- `LONGTAIL_0023`
-- `LONGTAIL_0024`
+- Full-case validator v0.3: PASS 40/40 over all canonical Common-core case packages.
+- Canonical-case validator v0.3: PASS 40/40 over all canonical Common-core case packages.
+- `PORT_0004` is canonical after the PORT final bounded batch.
+- `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` are canonical after the LONGTAIL final bounded batch.
 
 ## Explicit Boundaries
 
-- Common-core 40 case-package migration is not complete.
 - Common-core denominator unchanged.
 - Track A 120 planned rows unchanged.
 - Paper results unchanged.
@@ -56,7 +44,7 @@ The remaining not-yet-canonical Common-core cases are:
 - `reports/` and `results/` not updated by migration batches.
 - Raw legacy evidence unchanged.
 - No global leaderboard.
-- No new DB validation, timing rerun, evidence regeneration, benchmark result row, or cross-engine result was created by the migration closeout.
+- No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration.
 
 ## Completed Major Milestones
 
@@ -68,17 +56,17 @@ The remaining not-yet-canonical Common-core cases are:
 - PERF pool canonical case-package migration complete: 16/16.
 - CONS pool canonical case-package migration complete: 9/9.
 - PORT pool canonical case-package migration complete: 9/9.
-- `LONGTAIL_0011` representative canonical pilot complete.
+- LONGTAIL pool canonical case-package migration complete: 6/6.
+- Common-core case-package migration complete: 40/40 canonical packages.
 
 ## Current Blockers
 
-- Remaining LONGTAIL cases need structure and hard-negative review before migration.
 - Validation scripts are retained legacy assets, not final public user runners.
-- Hard-negative static approvals and review sweep may still be needed for final polish.
 - Reports/results retained evidence map is not done.
 - Script inventory and public runner path are not done.
 - Case universe 197 vs 190 governance reconciliation is still pending.
+- No case-set, report, result, denominator, or paper-table update should occur without a separate approved task.
 
 ## Current Next Safe Action
 
-Review the LONGTAIL readiness outputs under `audits/longtail_final_readiness/`. If the expected rejection wording is approved, run the bounded final LONGTAIL canonical migration prompt; otherwise use the fallback SQLStorm pair prompt. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables yet.
+Review the final LONGTAIL migration audit under `audits/longtail_final_bounded_migration/`, then perform a separate Common-core 40 case-package completion closeout if desired. Do not touch `case_sets/`, `reports/`, `results/`, denominator files, or paper tables yet.

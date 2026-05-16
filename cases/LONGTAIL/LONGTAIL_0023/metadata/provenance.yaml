@@ -1,0 +1,12 @@
+case_id: LONGTAIL_0023
+pool: LONGTAIL
+source_family: Stack Queries
+source_workload: superuser_dump_substrate
+source_query_identity: manual_postlinks_graph_anchor
+source_path_reference: datasets/raw/stack_queries/staged/superuser/
+draft_origin: LONGTAIL_STACK_SUBSTRATE_DRAFT_0002
+legacy_case_path: cases/LONGTAIL/LONGTAIL_0023
+release_case_path: cases/LONGTAIL/LONGTAIL_0023
+migration_source: legacy read-only copy plus sanitized public retained evidence
+db_validation_run_during_migration: false
+evidence_regenerated: false

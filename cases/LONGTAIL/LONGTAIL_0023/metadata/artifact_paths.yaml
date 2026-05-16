@@ -1,0 +1,12 @@
+case_id: LONGTAIL_0023
+pool: LONGTAIL
+canonical_case_root: cases/LONGTAIL/LONGTAIL_0023
+legacy_case_root: cases/LONGTAIL/LONGTAIL_0023
+sql:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  package_validation_summary: evidence/package_validation_summary.json
+raw_runs_publication_policy: do_not_copy_raw_runs_wholesale

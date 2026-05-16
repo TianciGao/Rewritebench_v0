@@ -1,0 +1,24 @@
+{
+  "approved_expected_rejection_reason": "optional_vote_count_left_join_changed_to_inner_join",
+  "case_id": "LONGTAIL_0012",
+  "db_validation_run_during_migration": false,
+  "engines": [
+    "postgres",
+    "mysql",
+    "spark"
+  ],
+  "evidence_paths": [
+    "evidence/hard_negative/postgres/rewrite_neg_01.tsv",
+    "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "evidence/hard_negative/spark/rewrite_neg_01.tsv"
+  ],
+  "hard_negative_id": "neg_01",
+  "pool": "LONGTAIL",
+  "semantic_risk_type": [
+    "outer_join_row_preservation",
+    "optional_vote_enrichment_semantics",
+    "aggregation_input_boundary"
+  ],
+  "source_negative_different_retained": true,
+  "source_positive_equal_retained": true
+}

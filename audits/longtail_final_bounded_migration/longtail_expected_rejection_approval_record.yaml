@@ -1,0 +1,64 @@
+approval_scope: public_release_migration
+approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+  migration batch
+cases:
+- case_id: LONGTAIL_0012
+  hard_negative_id: neg_01
+  approved_expected_rejection_reason: optional_vote_count_left_join_changed_to_inner_join
+  semantic_risk_type:
+  - outer_join_row_preservation
+  - optional_vote_enrichment_semantics
+  - aggregation_input_boundary
+  approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+    migration batch
+  copied_to_checker_expected_rejections: true
+  copied_to_readme_or_notes: true
+  notes: Hard negative is a checker control, not a method-generated failure.
+- case_id: LONGTAIL_0013
+  hard_negative_id: neg_01
+  approved_expected_rejection_reason: best_question_attachment_left_join_changed_to_inner_join
+  semantic_risk_type:
+  - outer_join_row_preservation
+  - window_attachment_semantics
+  - null_preservation
+  approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+    migration batch
+  copied_to_checker_expected_rejections: true
+  copied_to_readme_or_notes: true
+  notes: Hard negative is a checker control, not a method-generated failure.
+- case_id: LONGTAIL_0022
+  hard_negative_id: neg_01
+  approved_expected_rejection_reason: comment_aggregation_grouping_fragmented_by_commenter
+  semantic_risk_type:
+  - aggregation_grouping_changed
+  - duplicate_multiplicity
+  - row_cardinality_changed
+  approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+    migration batch
+  copied_to_checker_expected_rejections: true
+  copied_to_readme_or_notes: true
+  notes: Hard negative is a checker control, not a method-generated failure.
+- case_id: LONGTAIL_0023
+  hard_negative_id: neg_01
+  approved_expected_rejection_reason: directed_postlink_inbound_outbound_semantics_collapsed
+  semantic_risk_type:
+  - set_relation_direction_changed
+  - aggregation_input_boundary
+  - row_preservation
+  approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+    migration batch
+  copied_to_checker_expected_rejections: true
+  copied_to_readme_or_notes: true
+  notes: Hard negative is a checker control, not a method-generated failure.
+- case_id: LONGTAIL_0024
+  hard_negative_id: neg_01
+  approved_expected_rejection_reason: posthistory_revision_aggregation_fragmented_by_editor
+  semantic_risk_type:
+  - aggregation_grouping_changed
+  - temporal_aggregation_semantics
+  - row_cardinality_changed
+  approval_source: maintainer approval supplied for LONGTAIL final bounded canonical
+    migration batch
+  copied_to_checker_expected_rejections: true
+  copied_to_readme_or_notes: true
+  notes: Hard negative is a checker control, not a method-generated failure.

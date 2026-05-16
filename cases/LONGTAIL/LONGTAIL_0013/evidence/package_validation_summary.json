@@ -1,0 +1,33 @@
+{
+  "canonical_layout": true,
+  "case_id": "LONGTAIL_0013",
+  "common_core_membership_changed": false,
+  "db_validation_run": false,
+  "denominator_changed": false,
+  "evidence_regenerated": false,
+  "paper_results_changed": false,
+  "pool": "LONGTAIL",
+  "production_frequency_claim_created": false,
+  "raw_legacy_evidence_changed": false,
+  "retained_evidence": {
+    "control_engines": [
+      "postgres",
+      "mysql",
+      "spark"
+    ],
+    "hard_negative_id": "neg_01",
+    "plan_engines": [
+      "postgres",
+      "mysql",
+      "spark"
+    ],
+    "spark_plan_publication": "sanitized_public_copies_only"
+  },
+  "speedup_claim_created": false,
+  "status": "canonical_full_case_migration_static_package_summary",
+  "validator_expectation": {
+    "canonical_case": "expected_pass_after_static_validation",
+    "full_case": "expected_pass_after_static_validation"
+  },
+  "workload_frequency_claim_created": false
+}

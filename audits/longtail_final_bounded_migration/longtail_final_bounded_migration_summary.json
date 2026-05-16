@@ -1,0 +1,23 @@
+{
+  "actual_case_migration_performed": true,
+  "canonical_case_regression_pass_count": 40,
+  "canonical_case_validator_pass_count": 5,
+  "case_membership_changed": false,
+  "case_sets_changed": false,
+  "cases_migrated": [
+    "LONGTAIL_0012",
+    "LONGTAIL_0013",
+    "LONGTAIL_0022",
+    "LONGTAIL_0023",
+    "LONGTAIL_0024"
+  ],
+  "denominator_changed": false,
+  "full_case_regression_pass_count": 40,
+  "full_case_validator_pass_count": 5,
+  "migrated_count": 5,
+  "paper_results_changed": false,
+  "public_hygiene_passed": true,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false
+}

@@ -1,0 +1,18 @@
+case_id: LONGTAIL_0023
+pool: LONGTAIL
+witness_role: retained source-positive equivalence and hard-negative difference evidence
+engines:
+- postgres
+- mysql
+- spark
+source_positive_equal_retained: true
+source_negative_different_retained: true
+evidence_paths:
+- evidence/retained_controls/postgres/result_check.json
+- evidence/retained_controls/mysql/result_check.json
+- evidence/retained_controls/spark/result_check.json
+hard_negative_evidence_paths:
+- evidence/hard_negative/postgres/rewrite_neg_01.tsv
+- evidence/hard_negative/mysql/rewrite_neg_01.tsv
+- evidence/hard_negative/spark/rewrite_neg_01.tsv
+db_validation_run_during_migration: false

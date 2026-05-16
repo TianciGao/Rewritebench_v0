@@ -1,0 +1,14 @@
+case_id: LONGTAIL_0022
+pool: LONGTAIL
+schema_files:
+  postgres: schema/postgres/ddl.sql
+  mysql: schema/mysql/ddl.sql
+  spark: schema/spark/ddl.sql
+load_files:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+witness_source: legacy case validation witness data copied into canonical schema load
+  paths
+structural_scope: per-post comment aggregation with owner attachment
+db_validation_run_during_migration: false
