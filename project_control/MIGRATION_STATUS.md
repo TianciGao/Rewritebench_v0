@@ -28,7 +28,7 @@ runs/ 不能直接删除；
 Common-core 40 是 public v0 主范围；
 全部 197 case-like packages 需要治理索引；
 本地发布仓 clone 已确认；
-latest completed run is CONS hard-negative approved canonical migration batch 002；
+latest completed run is PORT wave-2 canonical migration batch 001；
 
 common-core 40 batch readiness audit completed；
 actual case migration performed: no；
@@ -919,3 +919,31 @@ Next safe action：human review of the `PORT_0008` canonical-layout plan, then d
 - canonical-case regression result: PASS 27/27 including the four new CONS batch 002 cases after migration
 - validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
 - next safe action: human review CONS batch 002 and the completed CONS pool canonical migration. Do not start blind full Common-core 40 migration.
+
+## 26. Last Codex run
+
+- task name: PORT wave-2 canonical migration batch 001
+- date: 2026-05-16
+- mode: release-repo bounded PORT canonical migration; legacy read-only source copy
+- legacy repo modified: no
+- release repo modified: yes
+- cases attempted: PORT_0003, PORT_0005, PORT_0012, PORT_0013
+- cases completed: PORT_0003, PORT_0005, PORT_0012, PORT_0013
+- failed/deferred cases: none
+- actual case migration performed: yes, bounded four-case PORT batch only
+- Common-core 40 blind/bulk migration started: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- cross_engine_result_created: false
+- speedup_transfer_claim_created: false
+- full_port9_claim_created: false
+- PORT_0004 remains a legacy-compatible full-case pilot and is excluded from canonical-case regression
+- validator v0.3 full-case result: PASS 4/4 for PORT_0003, PORT_0005, PORT_0012, and PORT_0013
+- validator v0.3 canonical-case result: PASS 4/4 for PORT_0003, PORT_0005, PORT_0012, and PORT_0013
+- evidence-pilot regression result: PASS 6/6
+- full-case regression result: PASS 32/32 including the four new PORT batch 001 cases after migration
+- canonical-case regression result: PASS 31/31 including the four new PORT batch 001 cases after migration and excluding legacy-compatible PORT_0004
+- validation summary: SHA256 copy validation passed; public hygiene scan passed; YAML validation passed; JSON validation passed; `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- next safe action: human review PORT wave-2 batch 001; if accepted, select the next bounded PORT wave from the readiness audit. Do not start blind full Common-core 40 migration.

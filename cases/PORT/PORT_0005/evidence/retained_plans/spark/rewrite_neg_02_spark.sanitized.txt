@@ -1,0 +1,24 @@
+== Physical Plan ==
+TakeOrderedAndProject (4)
++- * Filter (3)
+   +- * ColumnarToRow (2)
+      +- Scan parquet spark_catalog.default.drivers (1)
+
+
+(1) Scan parquet spark_catalog.default.drivers
+Output [2]: [nationality#10, dob#11]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(dob)]
+ReadSchema: struct<nationality:string,dob:timestamp>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [2]: [nationality#10, dob#11]
+
+(3) Filter [codegen id : 1]
+Input [2]: [nationality#10, dob#11]
+Condition : isnotnull(dob#11)
+
+(4) TakeOrderedAndProject
+Input [2]: [nationality#10, dob#11]
+Arguments: 1, [dob#11 DESC NULLS LAST], [nationality#10]

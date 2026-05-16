@@ -1,0 +1,25 @@
+{
+  "case_id": "PORT_0013",
+  "status": "complete",
+  "draft_only": true,
+  "expected_plan_files": [
+    "runs/mysql/plans/source.json",
+    "runs/pg/plans/rewrite_pos_01.json",
+    "runs/pg/plans/rewrite_neg_01.json",
+    "runs/spark/plans/rewrite_pos_01.txt",
+    "runs/spark/plans/rewrite_neg_01.txt"
+  ],
+  "existing_plan_files": [
+    "runs/mysql/plans/source.json",
+    "runs/pg/plans/rewrite_pos_01.json",
+    "runs/pg/plans/rewrite_neg_01.json",
+    "runs/spark/plans/rewrite_pos_01.txt",
+    "runs/spark/plans/rewrite_neg_01.txt"
+  ],
+  "missing_plan_files": [],
+  "notes": [
+    "Plan-artifact presence checking only.",
+    "No plan semantics review is claimed.",
+    "No admission, formal review completion, or release-grade claim is implied."
+  ]
+}

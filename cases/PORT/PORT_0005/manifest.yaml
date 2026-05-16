@@ -1,0 +1,135 @@
+case_id: PORT_0005
+pool: PORT
+status: canonical_full_case_migration_batch_pilot
+canonical_layout: true
+batch_id: port_wave_2_batch_001
+source_family: PARROT
+source_id: SRC_009
+source_subset: BIRD
+source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[9]
+source_dialect: postgres_like_candidate
+benchmark_scope:
+  benchmark_unit: case_package
+  migration_scope: PORT_0005_only
+  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+  common_core_membership_changed: false
+  case_admission_status_changed: false
+  db_validation_run: false
+  evidence_regenerated: false
+denominator_eligibility:
+  case_id: PORT_0005
+  pool: PORT
+  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+  common_core_membership_changed: false
+  track_a_same_engine_candidate: true
+  denominator_changed: false
+  paper_results_changed: false
+  case_membership_changed: false
+  no_global_leaderboard: true
+  cross_engine_result_created: false
+  speedup_transfer_claim_created: false
+  complete_port_pool_closure_claim_created: false
+  full_port9_claim_created: false
+engine_support:
+  postgres:
+    supported_by_legacy_assets: true
+    role: source_or_target_reference
+    validation_assets: retained_legacy_asset_not_run_during_migration
+  mysql:
+    supported_by_legacy_assets: true
+    role: source_or_target_reference
+    validation_assets: retained_legacy_asset_not_run_during_migration
+  spark:
+    supported_by_legacy_assets: true
+    role: target_adaptation_and_plan_observability
+    validation_assets: retained_legacy_asset_not_run_during_migration
+sql:
+  source: sql/source.sql
+  positives:
+  - id: pos_01
+    path: sql/positives/pos_01.sql
+    source_legacy_path: cases/PORT/PORT_0005/rewrite_pos_01.sql
+    role: positive_rewrite
+  negatives:
+  - id: neg_01
+    path: sql/negatives/neg_01.sql
+    source_legacy_path: cases/PORT/PORT_0005/rewrite_neg_01.sql
+    role: hard_negative
+    expected_behavior: result_divergence_from_source_reference
+  dialect_variants:
+    spark:
+    - sql/dialect_variants/spark/pos_02_spark.sql
+    - sql/dialect_variants/spark/neg_02_spark.sql
+schema:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+  profile: schema/schema_profile.yaml
+checker:
+  checker: checker/checker.yaml
+  normalization: checker/normalization.yaml
+  compare_config: checker/compare_config.yaml
+  expected_rejections: checker/expected_rejections.yaml
+validation:
+  postgres_validation: validation/run_postgres_validation.sh
+  mysql_validation: validation/run_mysql_validation.sh
+  spark_validation: validation/run_spark_validation.sh
+  postgres_plan_collection: validation/run_postgres_plan_collection.sh
+  mysql_plan_collection: validation/run_mysql_plan_collection.sh
+  spark_plan_collection: validation/run_spark_plan_collection.sh
+  execution_policy: not_run_during_migration
+  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  retained_controls:
+  - evidence/retained_controls/result_check.json
+  - evidence/retained_controls/postgres/source.tsv
+  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  - evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+  retained_plans:
+  - evidence/retained_plans/plan_check.json
+  - evidence/retained_plans/postgres/source.json
+  - evidence/retained_plans/mysql/rewrite_pos_01.json
+  - evidence/retained_plans/mysql/rewrite_neg_01.json
+  - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
+  - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+  hard_negative:
+  - evidence/hard_negative/hard_negative_summary.json
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
+  package_validation_summary: evidence/package_validation_summary.json
+metadata:
+  provenance: metadata/provenance.yaml
+  taxonomy: metadata/taxonomy.yaml
+  engine_support: metadata/engine_support.yaml
+  denominator_eligibility: metadata/denominator_eligibility.yaml
+  artifact_paths: metadata/artifact_paths.yaml
+notes:
+  witness_design_notes: notes/witness_design_notes.md
+  risk_notes: notes/risk_notes.md
+  schema_notes: notes/schema_notes.md
+  promotion_checklist: notes/promotion_checklist.md
+  migration_notes: notes/migration_notes.md
+claim_boundaries:
+  actual_migration_performed: true
+  full_case_package_migrated: true
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  case_membership_changed: false
+  raw_legacy_evidence_changed: false
+  no_global_leaderboard: true
+  db_validation_run: false
+  evidence_regenerated: false
+  cross_engine_result_created: false
+  speedup_transfer_claim_created: false
+  complete_port_pool_closure_claim_created: false
+  full_port9_claim_created: false
+hard_negative_expected_rejection_reference: checker/expected_rejections.yaml
+portability_boundary_reference: notes/migration_notes.md

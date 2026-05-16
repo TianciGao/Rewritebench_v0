@@ -1,0 +1,33 @@
+case_id: PORT_0012
+pool: PORT
+taxonomy_version: migrated_static_characterization_v1
+primary_pool: portability
+sql_feature:
+  primary:
+  - date_time_function
+  - expression_complexity
+  secondary: []
+rewrite_opportunity:
+  primary:
+  - dialect_adaptation
+  secondary:
+  - function_normalization
+  - expression_simplification
+plan_operator:
+  present:
+  - scan
+  - filter
+  - aggregate
+  delta_relevant: []
+workload_realism:
+  source_inherited:
+  - realistic_query_style
+  case_specific:
+  - complex_expression_density
+portability:
+  confirmed_or_declared:
+  - identifier_quoting
+  - datetime_semantics_gap
+  - type_semantics_gap
+  claim_boundary: retained/static characterization only; no new cross-engine result
+    created

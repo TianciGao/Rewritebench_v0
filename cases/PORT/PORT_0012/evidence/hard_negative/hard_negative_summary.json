@@ -1,0 +1,16 @@
+{
+  "case_id": "PORT_0012",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "year_filter_literal_changed",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "static_sql_difference_summary": "The hard negative changes the birth-year predicate from 1980 to 1981 and changes the aggregate input boundary.",
+  "source_positive_behavior": "source and positive filter RA patients born in 1980 before computing the female percentage",
+  "negative_behavior": "negative filters birth year 1981 and changes the aggregate input set",
+  "retained_evidence_basis": [
+    "evidence/hard_negative/hard_negative_summary.json",
+    "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "evidence/hard_negative/spark/rewrite_neg_01.tsv",
+    "evidence/retained_controls/result_check.json"
+  ],
+  "db_validation_run_during_migration": false
+}

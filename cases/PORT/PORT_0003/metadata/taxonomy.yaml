@@ -1,0 +1,30 @@
+case_id: PORT_0003
+pool: PORT
+taxonomy_version: migrated_static_characterization_v1
+primary_pool: portability
+sql_feature:
+  primary: []
+  secondary: []
+rewrite_opportunity:
+  primary:
+  - dialect_adaptation
+  secondary:
+  - order_limit_simplification
+plan_operator:
+  present:
+  - scan
+  - sort
+  - limit
+  delta_relevant: []
+workload_realism:
+  source_inherited:
+  - realistic_query_style
+  case_specific:
+  - result_size_sensitivity
+portability:
+  confirmed_or_declared:
+  - identifier_quoting
+  - null_semantics_gap
+  - limit_fetch_gap
+  claim_boundary: retained/static characterization only; no new cross-engine result
+    created

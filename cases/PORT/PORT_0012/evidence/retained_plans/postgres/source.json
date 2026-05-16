@@ -1,0 +1,30 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Aggregate",
+      "Strategy": "Plain",
+      "Partial Mode": "Simple",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 26.21,
+      "Total Cost": 26.23,
+      "Plan Rows": 1,
+      "Plan Width": 8,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "patient",
+          "Alias": "patient",
+          "Startup Cost": 0.00,
+          "Total Cost": 26.20,
+          "Plan Rows": 1,
+          "Plan Width": 36,
+          "Filter": "((diagnosis = 'RA'::text) AND (to_char((birthday)::timestamp without time zone, 'YYYY'::text) = '1980'::text))"
+        }
+      ]
+    }
+  }
+]

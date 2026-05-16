@@ -1695,3 +1695,62 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review CONS batch 002 and the completed CONS pool canonical migration. Do not start blind full Common-core 40 migration.
+
+### 2026-05-16 · pending · PORT wave-2 canonical migration batch 001
+
+Mode: release-repo bounded PORT canonical migration; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until push completes
+Scope: Migrated exactly the bounded PORT wave-2 batch 001 cases `PORT_0003`, `PORT_0005`, `PORT_0012`, and `PORT_0013` into canonical public-release layout.
+
+Summary:
+- Used `PORT_0008` as the canonical PORT pattern.
+- Kept `PORT_0004` as a legacy-compatible full-case pilot only; it was not used as the canonical template and remains excluded from canonical-case regression.
+- Created canonical case packages under `cases/PORT/PORT_0003/` and `cases/PORT/PORT_0005/`.
+- Upgraded existing evidence-mapping pilot slices under `cases/PORT/PORT_0012/` and `cases/PORT/PORT_0013/` into canonical case packages while retaining `MIGRATION_PILOT.md` and reusing validated sanitized Spark plan files.
+- Copied public-safe SQL, schema, witness load scripts, retained controls, hard-negative outputs, and JSON plan evidence.
+- Adapted validation scripts as retained legacy validation assets with output-policy caveats; they were not executed.
+- Created or reused sanitized public Spark plan evidence; raw Spark plan text files were not copied into public retained evidence.
+- Raw `runs/` was not copied wholesale and raw stdout/stderr logs were not copied into public evidence.
+- Actual case migration performed: yes, for `PORT_0003`, `PORT_0005`, `PORT_0012`, and `PORT_0013` only.
+- Common-core 40 blind/bulk migration started: no.
+
+Validation:
+- SHA256 copy validation passed for byte-for-byte copied legacy files; generated, adapted, and sanitized derivatives are recorded separately.
+- Public hygiene scan passed for all four migrated case directories.
+- YAML validation passed for migrated case YAML files.
+- JSON validation passed for migrated case evidence/metadata JSON files.
+- Validator v0.3 full-case mode passed 4/4 for `PORT_0003`, `PORT_0005`, `PORT_0012`, and `PORT_0013`.
+- Validator v0.3 canonical-case mode passed 4/4 for `PORT_0003`, `PORT_0005`, `PORT_0012`, and `PORT_0013`.
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 32/32 including the four new PORT batch 001 cases after migration.
+- Canonical-case regression passed 31/31 including the four new PORT batch 001 cases after migration and excluding legacy-compatible `PORT_0004`.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+- `git diff --check` result: pending final git check.
+
+Files created:
+- `cases/PORT/PORT_0003/`
+- `cases/PORT/PORT_0005/`
+- canonical package files under `cases/PORT/PORT_0012/`
+- canonical package files under `cases/PORT/PORT_0013/`
+- `audits/batch_migration_pilots/port_wave_2_batch_001/`
+
+Files modified:
+- `cases/PORT/PORT_0012/evidence/runs_retention.yaml`
+- `cases/PORT/PORT_0013/evidence/runs_retention.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- cross-engine result created: no
+- full PORT9 claim created: no
+- speedup-transfer claim created: no
+
+Next safe action:
+- Human review PORT wave-2 batch 001. If accepted, select the next bounded PORT wave from the readiness audit; do not start blind full Common-core 40 migration.

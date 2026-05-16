@@ -1,0 +1,20 @@
+status: draft_only
+not_loaded: true
+engine_neutral_intent: true
+tables:
+  schools:
+    columns:
+      - gsoffered
+      - longitude
+    rows:
+      - gsoffered: north-max
+        longitude: 120.0
+      - gsoffered: south-mid
+        longitude: -45.0
+      - gsoffered: near-origin
+        longitude: 5.0
+      - gsoffered: unknown
+        longitude: null
+notes:
+  - Distinct labels make the top-row comparison easy to inspect later.
+  - The negative rewrite should fail by selecting the smallest absolute longitude instead of the largest.

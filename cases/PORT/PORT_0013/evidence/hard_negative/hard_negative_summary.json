@@ -1,0 +1,16 @@
+{
+  "case_id": "PORT_0013",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "gender_filter_literal_changed",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "static_sql_difference_summary": "The hard negative changes the counted gender literal from F to M and changes the aggregate filter semantics.",
+  "source_positive_behavior": "source and positive count female clients in qualifying districts",
+  "negative_behavior": "negative counts male clients instead and changes the scalar percentage",
+  "retained_evidence_basis": [
+    "evidence/hard_negative/hard_negative_summary.json",
+    "evidence/hard_negative/postgres/rewrite_neg_01.tsv",
+    "evidence/hard_negative/spark/rewrite_neg_01.tsv",
+    "evidence/retained_controls/result_check.json"
+  ],
+  "db_validation_run_during_migration": false
+}

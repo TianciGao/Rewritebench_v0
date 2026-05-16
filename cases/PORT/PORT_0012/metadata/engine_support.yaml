@@ -1,0 +1,16 @@
+case_id: PORT_0012
+engines:
+  postgres:
+    supported_by_legacy_assets: true
+    role: source_or_target_reference
+    validation_assets: retained_legacy_asset_not_run_during_migration
+  mysql:
+    supported_by_legacy_assets: true
+    role: source_or_target_reference
+    validation_assets: retained_legacy_asset_not_run_during_migration
+  spark:
+    supported_by_legacy_assets: true
+    role: target_adaptation_and_plan_observability
+    validation_assets: retained_legacy_asset_not_run_during_migration
+db_validation_run_during_migration: false
+cross_engine_result_created: false

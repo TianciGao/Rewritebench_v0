@@ -1,0 +1,29 @@
+{
+  "case_id": "PORT_0005",
+  "validation_model": "cross_dialect_reference",
+  "status": "validated",
+  "ok": true,
+  "draft_only": true,
+  "compared_existing_outputs": true,
+  "expected_future_inputs": {
+    "pg_source": "runs/pg/source.tsv",
+    "mysql_positive": "runs/mysql/rewrite_pos_01.tsv",
+    "mysql_negative": "runs/mysql/rewrite_neg_01.tsv",
+    "spark_positive": "runs/spark/rewrite_pos_02_spark.tsv",
+    "spark_negative": "runs/spark/rewrite_neg_02_spark.tsv"
+  },
+  "checks": {
+    "mysql_positive_equals_pg_source": true,
+    "mysql_negative_differs_from_pg_source": true,
+    "spark_positive_equals_pg_source": true,
+    "spark_negative_differs_from_pg_source": true
+  },
+  "notes": [
+    "Draft cross-dialect checker logic only.",
+    "PostgreSQL source output is treated as the semantic reference.",
+    "Top-1 TSV outputs are normalized by trimming and sorting before comparison.",
+    "The checker will fail if any required TSV file is missing.",
+    "This checker compares existing PostgreSQL, MySQL, and Spark TSV outputs only.",
+    "No registry validation or admission claim is implied."
+  ]
+}

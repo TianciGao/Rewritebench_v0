@@ -1,0 +1,37 @@
+case_id,check_name,status,details
+PORT_0003,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0003,public hygiene scan,PASS,no forbidden public patterns found
+PORT_0003,YAML validation,PASS,all YAML parsed
+PORT_0003,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0003,validator v0.3 full-case,PASS,new-batch full-case validator passed 4/4
+PORT_0003,validator v0.3 canonical-case,PASS,new-batch canonical-case validator passed 4/4
+PORT_0003,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; PORT_0012/PORT_0013 historical evidence-pilot status preserved
+PORT_0003,full-case regression,PASS,full-case regression passed 32/32 including new PORT batch
+PORT_0003,canonical-case regression,PASS,canonical-case regression passed 31/31 excluding legacy-compatible PORT_0004
+PORT_0005,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0005,public hygiene scan,PASS,no forbidden public patterns found
+PORT_0005,YAML validation,PASS,all YAML parsed
+PORT_0005,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0005,validator v0.3 full-case,PASS,new-batch full-case validator passed 4/4
+PORT_0005,validator v0.3 canonical-case,PASS,new-batch canonical-case validator passed 4/4
+PORT_0005,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; PORT_0012/PORT_0013 historical evidence-pilot status preserved
+PORT_0005,full-case regression,PASS,full-case regression passed 32/32 including new PORT batch
+PORT_0005,canonical-case regression,PASS,canonical-case regression passed 31/31 excluding legacy-compatible PORT_0004
+PORT_0012,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0012,public hygiene scan,PASS,no forbidden public patterns found
+PORT_0012,YAML validation,PASS,all YAML parsed
+PORT_0012,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0012,validator v0.3 full-case,PASS,new-batch full-case validator passed 4/4
+PORT_0012,validator v0.3 canonical-case,PASS,new-batch canonical-case validator passed 4/4
+PORT_0012,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; PORT_0012/PORT_0013 historical evidence-pilot status preserved
+PORT_0012,full-case regression,PASS,full-case regression passed 32/32 including new PORT batch
+PORT_0012,canonical-case regression,PASS,canonical-case regression passed 31/31 excluding legacy-compatible PORT_0004
+PORT_0013,SHA256 copy validation,PASS,copied legacy files match source; adapted/generated/sanitized files recorded separately
+PORT_0013,public hygiene scan,PASS,no forbidden public patterns found
+PORT_0013,YAML validation,PASS,all YAML parsed
+PORT_0013,JSON validation,PASS,all evidence/metadata JSON parsed
+PORT_0013,validator v0.3 full-case,PASS,new-batch full-case validator passed 4/4
+PORT_0013,validator v0.3 canonical-case,PASS,new-batch canonical-case validator passed 4/4
+PORT_0013,evidence-pilot regression,PASS,PORT evidence-pilot regression passed 6/6; PORT_0012/PORT_0013 historical evidence-pilot status preserved
+PORT_0013,full-case regression,PASS,full-case regression passed 32/32 including new PORT batch
+PORT_0013,canonical-case regression,PASS,canonical-case regression passed 31/31 excluding legacy-compatible PORT_0004

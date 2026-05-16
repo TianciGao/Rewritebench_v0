@@ -1,0 +1,28 @@
+case_id: PORT_0005
+inputs:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+expected:
+  source_equals_positive: true
+  source_differs_from_negative: true
+retained_evidence:
+  retained_controls:
+  - evidence/retained_controls/result_check.json
+  - evidence/retained_controls/postgres/source.tsv
+  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  - evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+  hard_negative:
+  - evidence/hard_negative/hard_negative_summary.json
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
+  result_checks:
+  - evidence/retained_controls/result_check.json
+  plan_evidence:
+  - evidence/retained_plans/plan_check.json
+  - evidence/retained_plans/postgres/source.json
+  - evidence/retained_plans/mysql/rewrite_pos_01.json
+  - evidence/retained_plans/mysql/rewrite_neg_01.json
+  - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
+  - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+db_validation_run: false

@@ -1,0 +1,32 @@
+{
+  "case_id": "PORT_0013",
+  "pool": "PORT",
+  "batch_id": "port_wave_2_batch_001",
+  "canonical_layout": true,
+  "full_case_package_migrated": true,
+  "db_validation_run": false,
+  "evidence_regenerated": false,
+  "cross_engine_result_created": false,
+  "speedup_transfer_claim_created": false,
+  "complete_port_pool_closure_claim_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "common_core_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "retained_controls_count": 4,
+  "retained_plan_count": 6,
+  "hard_negative_evidence_count": 3,
+  "spark_plan_sanitization": [
+    {
+      "original_legacy_path": "cases/PORT/PORT_0013/runs/spark/plans/rewrite_pos_01.txt",
+      "sanitized_public_path": "cases/PORT/PORT_0013/evidence/retained_plans/rewrite_pos_01.sanitized.txt",
+      "public_safe": true
+    },
+    {
+      "original_legacy_path": "cases/PORT/PORT_0013/runs/spark/plans/rewrite_neg_01.txt",
+      "sanitized_public_path": "cases/PORT/PORT_0013/evidence/retained_plans/rewrite_neg_01.sanitized.txt",
+      "public_safe": true
+    }
+  ],
+  "full_port9_claim_created": false
+}
