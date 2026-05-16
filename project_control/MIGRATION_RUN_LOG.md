@@ -2114,13 +2114,13 @@ Paper/denominator impact:
 Next safe action:
 - Review and approve evidence ledger field semantics plus adapter row-grain policy before implementing retained evidence adapters, metrics computation, a paper table renderer, unified reproduction CLI, or public runner output.
 
-### 2026-05-16 · pending · Evidence ledger field semantics and adapter row-grain policy lock
+### 2026-05-16 · ac4e331 · Evidence ledger field semantics and adapter row-grain policy lock
 
 Mode: release-repo ledger semantics and row-grain policy output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `ac4e3311ec9a242042565ae69a12fc697e6f3a1d`
+Push: `origin/main` updated `586991c..ac4e331`
 
 Summary:
 - Created draft policy specs for evidence ledger field semantics, adapter row grain, and record-type boundaries under `repository_spec/`.
