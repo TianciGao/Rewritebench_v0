@@ -1,0 +1,13 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+denominator_eligibility_version: canonical_static_summary_v1
+common_core_v0_membership_reference: case_sets/common_core_v0.yaml
+track_a_same_engine_candidate: true
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+case_membership_changed: false
+no_global_leaderboard: true
+workload_frequency_claim_created: false
+production_frequency_claim_created: false
+case_admission_status_changed: false

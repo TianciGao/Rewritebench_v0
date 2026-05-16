@@ -1219,3 +1219,58 @@ Paper/denominator impact:
 
 Next safe action:
 - Human review of the `LONGTAIL_0011` canonical-layout plan, then decide whether to execute the future actual migration prompt. Do not start Common-core 40 migration.
+
+### 2026-05-16 · pending · LONGTAIL_0011 canonical-layout full case migration pilot
+
+Mode: release-repo canonical full case migration pilot; legacy read-only source copy
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+Scope: Executed the approved one-case canonical-layout full case migration pilot for `LONGTAIL_0011`.
+
+Summary:
+- Created canonical `LONGTAIL_0011` package structure under `cases/LONGTAIL/LONGTAIL_0011/`.
+- Generated canonical README, manifest, checker YAML, expected-rejection metadata, schema/data profiles, stable metadata, package summary, migration notes, and full retention mapping.
+- Copied public-safe SQL, schema, witness load, notes, retained JSON/TSV evidence, and PostgreSQL/MySQL plan evidence from the legacy case.
+- Adapted validation scripts to canonical paths and removed WSL-local wording while preserving their retained legacy validation-asset role.
+- Created sanitized public Spark plan evidence from legacy Spark plan text files; raw Spark plan text files were not copied into public retained evidence.
+- Recorded the maintainer-approved hard-negative expected rejection reason for DENSE_RANK to ROW_NUMBER tie-sensitive ranking semantics.
+- Preserved the long-tail structural boundary with `workload_frequency_claim_created: false`.
+- Raw `runs/` was not copied wholesale.
+- Actual case migration performed: yes, for `LONGTAIL_0011` only.
+
+Validation:
+- SHA256 copy validation passed for 33 byte-for-byte copied legacy files; six validation scripts were intentionally adapted and one source SQL file was whitespace-normalized in the release copy.
+- Public hygiene scan passed.
+- YAML validation passed for 14 files.
+- JSON validation passed for 14 files.
+- Validator v0.3 full-case mode passed for `LONGTAIL_0011`.
+- Validator v0.3 canonical-case mode passed for `LONGTAIL_0011`.
+- Evidence-pilot regression passed 6/6.
+- Full-case regression passed 4/4 for `PORT_0004`, `PORT_0008`, `CONS_0005`, and `PERF_0006`.
+- `python -m py_compile scripts/dev/validate_case_package.py` passed.
+
+Files created:
+- `cases/LONGTAIL/LONGTAIL_0011/`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_canonical_full_case_migration_pilot.md`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_canonical_full_case_file_inventory.csv`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_canonical_full_case_validation.csv`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_validator_full_case_result.csv`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_validator_canonical_case_result.csv`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_evidence_pilot_regression_result.csv`
+- `audits/full_case_migration_pilots/LONGTAIL_0011_full_case_regression_result.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- workload-frequency claim created: no
+
+Next safe action:
+- Review the completed `LONGTAIL_0011` canonical-layout pilot and all four representative pool pilots, then decide whether to continue case-universe/report/script audits or plan the next bounded single-case pilot. Do not start Common-core 40 migration.

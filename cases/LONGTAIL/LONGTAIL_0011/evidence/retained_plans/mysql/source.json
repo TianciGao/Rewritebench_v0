@@ -1,0 +1,193 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "6.12"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "2.00"
+      },
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "rp",
+            "access_type": "ALL",
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 2,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "2.52",
+              "eval_cost": "0.20",
+              "prefix_cost": "2.73",
+              "data_read_per_join": "112"
+            },
+            "used_columns": [
+              "Id",
+              "Title",
+              "CreationDate",
+              "Score",
+              "ViewCount",
+              "OwnerDisplayName",
+              "PostRank"
+            ],
+            "materialized_from_subquery": {
+              "using_temporary_table": true,
+              "dependent": false,
+              "cacheable": true,
+              "query_block": {
+                "select_id": 2,
+                "cost_info": {
+                  "query_cost": "2.20"
+                },
+                "windowing": {
+                  "windows": [
+                    {
+                      "name": "<unnamed window>",
+                      "using_filesort": true,
+                      "filesort_key": [
+                        "`OwnerUserId`",
+                        "`Score` desc"
+                      ],
+                      "functions": [
+                        "dense_rank"
+                      ]
+                    }
+                  ],
+                  "cost_info": {
+                    "sort_cost": "1.00"
+                  },
+                  "buffer_result": {
+                    "using_temporary_table": true,
+                    "nested_loop": [
+                      {
+                        "table": {
+                          "table_name": "p",
+                          "access_type": "ALL",
+                          "rows_examined_per_scan": 5,
+                          "rows_produced_per_join": 1,
+                          "filtered": "20.00",
+                          "cost_info": {
+                            "read_cost": "0.65",
+                            "eval_cost": "0.10",
+                            "prefix_cost": "0.75",
+                            "data_read_per_join": "48"
+                          },
+                          "used_columns": [
+                            "Id",
+                            "Title",
+                            "CreationDate",
+                            "Score",
+                            "ViewCount",
+                            "OwnerUserId",
+                            "PostTypeId"
+                          ],
+                          "attached_condition": "((`bench`.`p`.`PostTypeId` = 1) and (`bench`.`p`.`CreationDate` >= '2022-01-01'))"
+                        }
+                      },
+                      {
+                        "table": {
+                          "table_name": "u",
+                          "access_type": "ALL",
+                          "rows_examined_per_scan": 2,
+                          "rows_produced_per_join": 1,
+                          "filtered": "50.00",
+                          "using_join_buffer": "hash join",
+                          "cost_info": {
+                            "read_cost": "0.25",
+                            "eval_cost": "0.10",
+                            "prefix_cost": "1.20",
+                            "data_read_per_join": "16"
+                          },
+                          "used_columns": [
+                            "Id",
+                            "DisplayName"
+                          ],
+                          "attached_condition": "(`bench`.`u`.`Id` = `bench`.`p`.`OwnerUserId`)"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "table": {
+            "table_name": "mr",
+            "access_type": "ref",
+            "possible_keys": [
+              "<auto_key0>"
+            ],
+            "key": "<auto_key0>",
+            "used_key_parts": [
+              "MaxPostRank"
+            ],
+            "key_length": "9",
+            "ref": [
+              "rp.PostRank"
+            ],
+            "rows_examined_per_scan": 2,
+            "rows_produced_per_join": 2,
+            "filtered": "50.00",
+            "cost_info": {
+              "read_cost": "1.00",
+              "eval_cost": "0.20",
+              "prefix_cost": "4.12",
+              "data_read_per_join": "48"
+            },
+            "used_columns": [
+              "OwnerDisplayName",
+              "MaxPostRank"
+            ],
+            "attached_condition": "(`mr`.`OwnerDisplayName` = `rp`.`OwnerDisplayName`)",
+            "materialized_from_subquery": {
+              "using_temporary_table": true,
+              "dependent": false,
+              "cacheable": true,
+              "query_block": {
+                "select_id": 3,
+                "cost_info": {
+                  "query_cost": "2.72"
+                },
+                "grouping_operation": {
+                  "using_temporary_table": true,
+                  "using_filesort": false,
+                  "table": {
+                    "table_name": "RankedPosts",
+                    "access_type": "ALL",
+                    "rows_examined_per_scan": 2,
+                    "rows_produced_per_join": 2,
+                    "filtered": "100.00",
+                    "cost_info": {
+                      "read_cost": "2.52",
+                      "eval_cost": "0.20",
+                      "prefix_cost": "2.73",
+                      "data_read_per_join": "112"
+                    },
+                    "used_columns": [
+                      "Id",
+                      "Title",
+                      "CreationDate",
+                      "Score",
+                      "ViewCount",
+                      "OwnerDisplayName",
+                      "PostRank"
+                    ],
+                    "materialized_from_subquery": {
+                      "sharing_temporary_table_with": {
+                        "select_id": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

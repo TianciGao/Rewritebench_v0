@@ -1,0 +1,15 @@
+check_name,status,details
+SHA256 copy validation,PASS,33 byte-for-byte copied legacy files checked; 7 files intentionally adapted or whitespace-normalized; 3 Spark plans sanitized; failures=none.
+public hygiene scan,PASS,No forbidden patterns found under cases/LONGTAIL/LONGTAIL_0011.
+YAML validation,PASS,Parsed 14 YAML files.
+JSON validation,PASS,Parsed 14 JSON files.
+validator v0.3 full-case,PASS,1/1 passed.
+validator v0.3 canonical-case,PASS,1/1 passed.
+evidence-pilot regression,PASS,6/6 passed.
+full-case regression,PASS,4/4 passed.
+py_compile,PASS,python -m py_compile scripts/dev/validate_case_package.py passed.
+denominator unchanged,PASS,No denominator files or case_sets were modified.
+paper results unchanged,PASS,No paper result files were modified.
+case membership unchanged,PASS,No case membership files were modified.
+raw legacy evidence unchanged,PASS,Legacy repo was read-only; raw legacy artifacts were not modified.
+workload frequency claim boundary,PASS,No workload-frequency or production-frequency claim was created.

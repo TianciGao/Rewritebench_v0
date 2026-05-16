@@ -1,0 +1,35 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+schema_profile_version: v1
+source: generated_from_legacy_schema_and_witness_files
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+tables:
+  Users:
+    columns:
+      - {name: Id, role: user_identifier}
+      - {name: DisplayName, role: display_name}
+  Posts:
+    columns:
+      - {name: Id, role: post_identifier}
+      - {name: Title, role: projected_title}
+      - {name: CreationDate, role: filter_and_output_date}
+      - {name: Score, role: ranking_metric}
+      - {name: ViewCount, role: output_ordering_metric}
+      - {name: OwnerUserId, role: join_key_to_users}
+      - {name: PostTypeId, role: question_filter}
+witness_basis:
+  row_count_users: 2
+  row_count_posts: 5
+  discriminator: two Alice question posts have tied worst score and distinguish DENSE_RANK from ROW_NUMBER
+claim_boundaries:
+  db_validation_run: false
+  evidence_regenerated: false

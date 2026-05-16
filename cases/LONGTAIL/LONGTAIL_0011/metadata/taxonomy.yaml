@@ -1,0 +1,33 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+taxonomy_version: canonical_static_summary_v1
+source_family: SQLStorm
+source_workload: stackoverflow
+structural_classification: long_tail_structure
+sql_features:
+  - cte
+  - window_function
+  - join
+  - aggregate
+  - sort
+rewrite_opportunity:
+  primary:
+    - expression_simplification
+  secondary:
+    - cte_strategy
+plan_operator_tags:
+  present:
+    - scan
+    - join
+    - aggregate
+    - sort
+    - window
+    - subquery
+semantic_risks:
+  - tie_sensitive_ranking
+  - rank_function_substitution
+claim_boundaries:
+  workload_frequency_claim_created: false
+  production_frequency_claim_created: false
+  denominator_changed: false
+  paper_results_changed: false

@@ -1,0 +1,22 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+witness_profile_version: v1
+source: generated_from_retained_witness_load_files
+witness_rows:
+  Users:
+    - {Id: 1, DisplayName: Alice}
+    - {Id: 2, DisplayName: Bob}
+  Posts:
+    - {Id: 1, Title: Alice Best, CreationDate: '2023-01-10', Score: 5, ViewCount: 100, OwnerUserId: 1, PostTypeId: 1}
+    - {Id: 2, Title: Alice Worst A, CreationDate: '2023-01-11', Score: 1, ViewCount: 200, OwnerUserId: 1, PostTypeId: 1}
+    - {Id: 3, Title: Alice Worst B, CreationDate: '2023-01-12', Score: 1, ViewCount: 150, OwnerUserId: 1, PostTypeId: 1}
+    - {Id: 4, Title: Bob Worst, CreationDate: '2023-01-13', Score: 3, ViewCount: 50, OwnerUserId: 2, PostTypeId: 1}
+    - {Id: 5, Title: Ignored Answer, CreationDate: '2023-01-14', Score: -1, ViewCount: 10, OwnerUserId: 1, PostTypeId: 2}
+semantic_discriminator:
+  hard_negative_id: neg_01
+  positive_semantics: DENSE_RANK preserves tied rows at the same rank
+  negative_semantics: ROW_NUMBER assigns unique row numbers and can collapse tied rows
+  expected_checker_behavior: source_positive_equal_and_negative_differs_on_tied_ranking_witness
+claim_boundaries:
+  db_validation_run: false
+  evidence_regenerated: false

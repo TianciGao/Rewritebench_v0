@@ -1,0 +1,19 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+checker_version: canonical_static_summary_v1
+comparison_model:
+  source_reference: sql/source.sql
+  positive_rewrites:
+    - sql/positives/pos_01.sql
+  hard_negatives:
+    - sql/negatives/neg_01.sql
+retained_evidence:
+  postgres_result_check: evidence/retained_controls/postgres/result_check.json
+  mysql_result_check: evidence/retained_controls/mysql/result_check.json
+  spark_result_check: evidence/retained_controls/spark/result_check.json
+expected_behavior:
+  source_positive_equal: true
+  source_negative_different: true
+execution_policy:
+  db_validation_run_during_migration: false
+  evidence_regenerated: false

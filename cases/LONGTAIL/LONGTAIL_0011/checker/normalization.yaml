@@ -1,0 +1,12 @@
+case_id: LONGTAIL_0011
+pool: LONGTAIL
+normalization_version: canonical_static_summary_v1
+result_format: tsv
+normalization_rules:
+  - compare retained TSV outputs as line-oriented values
+  - preserve NULL markers when present
+  - preserve text/date/integer projected values
+  - ordering is retained in evidence, but semantic comparison should remain role-aware
+claim_boundaries:
+  generated_summary_only: true
+  db_validation_run: false
