@@ -2980,13 +2980,13 @@ Authorization:
 Next safe action:
 - Review the retained_summary_adapter_v0 output and production validation gates before authorizing any adapter that parses real retained evidence or emits metric-eligible rows; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Control-cell adapter v0 with production ledger validator skeleton
+### 2026-05-17 · 2f231fa · Control-cell adapter v0 with production ledger validator skeleton
 
 Mode: bounded implementation for a non-mutating production ledger validator skeleton and release-case-package-only `control_cell_adapter_v0`; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `2f231fa5f0156b28e8cd022b735375fffb9bee4a`
+Push: `origin/main` updated `3212159..2f231fa`
 
 Summary:
 - Created `scripts/dev/validate_ledger_csv.py`, a non-mutating production ledger validator skeleton for ledger-style CSV files.
