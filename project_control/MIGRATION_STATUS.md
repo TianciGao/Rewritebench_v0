@@ -512,6 +512,19 @@ Membership and scaffold snapshot:
 - Denominator changed by SQLGlot projection/parser v1 and dry-run v4: no.
 - Paper results changed by SQLGlot projection/parser v1 and dry-run v4: no.
 - Raw legacy evidence changed by SQLGlot projection/parser v1 and dry-run v4: no.
+- official_status_metrics_readiness_gate_v0 completed: yes.
+- Official metrics computed by official_status_metrics_readiness_gate_v0: no.
+- Paper tables rendered by official_status_metrics_readiness_gate_v0: no.
+- Timing metrics computed by official_status_metrics_readiness_gate_v0: no.
+- Reports/results changed by official_status_metrics_readiness_gate_v0: no.
+- Denominator changed by official_status_metrics_readiness_gate_v0: no.
+- Paper results changed by official_status_metrics_readiness_gate_v0: no.
+- Raw legacy evidence changed by official_status_metrics_readiness_gate_v0: no.
+- Combined filled rows reviewed by official_status_metrics_readiness_gate_v0: 312.
+- Combined unresolved rows reviewed by official_status_metrics_readiness_gate_v0: 288.
+- Generation Rate readiness: blocked_needs_policy_decision.
+- Execution Coverage Rate readiness: ready_with_caveats.
+- Result Consistency Rate readiness: ready_with_caveats.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -564,6 +577,7 @@ Membership and scaffold snapshot:
 - candidate_status_evidence_completion_round1 completed as an audit-only evidence-completion triage, reviewing 45 overlap-denied candidate-status rows and eight SQLGlot candidate evidence sources, producing overlap-resolution proposals, SQLGlot manual decision materials, and ten pending SQLGlot manifest-preview rows without filling statuses, changing metric-input authorization, computing metrics, filling timing fields, updating reports/results, changing denominators, changing paper results, changing case membership, or modifying raw legacy evidence.
 - overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3 completed as audit-only outputs, resolving all 45 overlap-denied candidate-status rows under maintainer-approved Option B, creating a combined 175-row metric-input authorization overlay, preserving 425 unresolved rows in denominator/accounting outputs, refreshing normalization for newly authorized overlap rows, and creating v3 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables. They did not compute official metrics, render paper tables, compute timing metrics, implement SQLGlot parsing, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
 - SQLGlot sanitized non-timing projection and parser v1 completed as audit-only outputs, approving only SGL011 for sanitized non-timing status projection, creating two parser-ready SQLGlot projection files with 137 total rows, emitting 240 SQLGlot candidate-status rows with 137 filled and 103 unresolved, validating the SQLGlot ledger, building combined candidate status overlay v2 with 312 filled rows and 288 unresolved rows, and creating normalized status-only dry-run v4 outputs. It did not compute official metrics, render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+- official_status_metrics_readiness_gate_v0 completed as a readiness-gate decision packet, reviewing combined candidate status overlay v2 and normalized dry-run v4, confirming 312 filled rows and 288 unresolved rows, classifying Generation Rate as `blocked_needs_policy_decision`, classifying Execution Coverage Rate and Result Consistency Rate as `ready_with_caveats`, and documenting denominator visibility requirements, risk controls, implementation-scope boundaries, and a maintainer decision template. It did not compute official metrics, render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -586,4 +600,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_report.md`, `audits/combined_candidate_status_overlay_v2/combined_candidate_status_overlay_v2_summary.json`, and `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_dryrun_v4_delta_vs_v3.csv`. If accepted, separately decide whether to approve additional sanitized SQLGlot non-timing sources for the remaining 103 SQLGlot unresolved rows or move to an official metric-readiness review; keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+Review `audits/official_status_metrics_readiness_gate_v0/status_metric_readiness_matrix.csv` and decide whether to authorize a limited official status-only metrics implementation with caveats, approve another audit-only dry run, or defer until Generation Rate policy/evidence gaps and the 288 unresolved candidate rows are reduced. Keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.

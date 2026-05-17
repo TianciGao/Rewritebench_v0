@@ -4771,3 +4771,60 @@ Paper/denominator impact:
 
 Next safe action:
 - Review SQLGlot parser coverage and dry-run v4 delta/caveats; then separately decide whether to authorize additional sanitized SQLGlot non-timing sources for the remaining 103 unresolved SQLGlot rows or proceed to official metric-readiness review. Keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+
+### 2026-05-17 · pending · official_status_metrics_readiness_gate_v0
+
+Mode: readiness-gate and decision packet; no official metrics; no paper tables; no timing/performance metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until push is performed
+
+Summary:
+- Reviewed current audit-only candidate-status evidence after SQLGlot projection/parser v1 and normalized dry-run v4.
+- Reviewed combined candidate status overlay v2 with 600 planned rows, 312 filled rows, and 288 unresolved rows.
+- Classified Generation Rate readiness as `blocked_needs_policy_decision`.
+- Classified Execution Coverage Rate readiness as `ready_with_caveats`.
+- Classified Result Consistency Rate readiness as `ready_with_caveats`.
+- Created denominator visibility requirements confirming unresolved rows must remain visible, denominator reduction is forbidden, and no global leaderboard is allowed.
+- Created official-computation risk register, future implementation scope proposal, and maintainer decision template.
+- Did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/official_status_metrics_readiness_gate_v0/official_status_metrics_readiness_summary.md`
+- `audits/official_status_metrics_readiness_gate_v0/status_metric_readiness_matrix.csv`
+- `audits/official_status_metrics_readiness_gate_v0/method_status_coverage_matrix.csv`
+- `audits/official_status_metrics_readiness_gate_v0/denominator_visibility_plan.csv`
+- `audits/official_status_metrics_readiness_gate_v0/official_computation_risk_register.md`
+- `audits/official_status_metrics_readiness_gate_v0/official_status_metrics_implementation_scope_proposal.md`
+- `audits/official_status_metrics_readiness_gate_v0/official_status_metrics_readiness_decision_template.md`
+- `audits/official_status_metrics_readiness_gate_v0/official_status_metrics_readiness_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed for required metric families, five method routes, denominator visibility flags, and no official/paper-result claims.
+- `git diff --check`: passed.
+- `git status -sb`: only intended readiness-gate audit outputs and project-control changes before commit.
+
+Task result:
+- official metrics computed: no.
+- paper tables rendered: no.
+- timing metrics computed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+- combined filled rows: 312.
+- combined unresolved rows: 288.
+- Generation Rate readiness: blocked_needs_policy_decision.
+- Execution Coverage Rate readiness: ready_with_caveats.
+- Result Consistency Rate readiness: ready_with_caveats.
+
+Next safe action:
+- Review the readiness matrix and decide whether to authorize a limited official status-only metrics implementation with caveats, approve another audit-only dry run, or defer until Generation Rate policy/evidence gaps and unresolved rows are reduced.

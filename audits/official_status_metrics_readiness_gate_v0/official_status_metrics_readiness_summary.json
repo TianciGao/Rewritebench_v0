@@ -1,0 +1,17 @@
+{
+  "combined_filled_rows": 312,
+  "combined_unresolved_rows": 288,
+  "denominator_changed": false,
+  "execution_coverage_readiness": "ready_with_caveats",
+  "generation_rate_readiness": "blocked_needs_policy_decision",
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "readiness_task_completed": true,
+  "recommended_next_action": "Do not compute official status metrics yet. First decide whether inferred_generated may be official metric input and whether partial SQLGlot/Calcite/Repair evidence is acceptable; alternatively complete more non-timing evidence before authorizing official computation.",
+  "reports_changed": false,
+  "result_consistency_readiness": "ready_with_caveats",
+  "results_changed": false,
+  "timing_metrics_computed": false
+}
