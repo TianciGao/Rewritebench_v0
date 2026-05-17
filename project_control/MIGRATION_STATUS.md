@@ -83,6 +83,8 @@ Maintainer approval for `candidate_status_parser_v1` whitelist use has been reco
 
 `official_status_metrics_v0_limited` is complete under `scripts/dev/compute_official_status_metrics_limited.py` and `audits/official_status_metrics_v0_limited/`. This limited official status-metrics computation uses the current combined candidate-status evidence and authorization overlay to compute only Execution Coverage Rate and Result Consistency Rate, keeps Generation Rate blocked by policy, preserves 600 planned denominator rows, keeps 425 unauthorized/unresolved rows visible, and marks every output `paper_result=false` with no global leaderboard. It did not render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
 
+`official_status_metrics_v0_limited` closeout and paper-rendering decision packet is complete under `audits/official_status_metrics_v0_limited_closeout/`. This closeout reviewed the existing limited official status metrics without recomputing metrics, confirmed Execution Coverage Rate and Result Consistency Rate are internally consistent for the limited official scope, confirmed Generation Rate remains blocked, and prepared renderer-scope, blocker-resolution, denominator, and risk decision materials. It did not render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -540,6 +542,16 @@ Membership and scaffold snapshot:
 - Paper results changed by official_status_metrics_v0_limited: no.
 - Raw legacy evidence changed by official_status_metrics_v0_limited: no.
 - Generation Rate blocker by official_status_metrics_v0_limited: `inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap`.
+- official_status_metrics_v0_limited closeout completed: yes.
+- New metrics computed by official_status_metrics_v0_limited closeout: no.
+- Official Generation Rate computed by official_status_metrics_v0_limited closeout: no.
+- Official Execution Coverage Rate already computed before closeout: yes.
+- Official Result Consistency Rate already computed before closeout: yes.
+- Paper tables rendered by official_status_metrics_v0_limited closeout: no.
+- Reports/results changed by official_status_metrics_v0_limited closeout: no.
+- Denominator changed by official_status_metrics_v0_limited closeout: no.
+- Paper results changed by official_status_metrics_v0_limited closeout: no.
+- Raw legacy evidence changed by official_status_metrics_v0_limited closeout: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -594,6 +606,7 @@ Membership and scaffold snapshot:
 - SQLGlot sanitized non-timing projection and parser v1 completed as audit-only outputs, approving only SGL011 for sanitized non-timing status projection, creating two parser-ready SQLGlot projection files with 137 total rows, emitting 240 SQLGlot candidate-status rows with 137 filled and 103 unresolved, validating the SQLGlot ledger, building combined candidate status overlay v2 with 312 filled rows and 288 unresolved rows, and creating normalized status-only dry-run v4 outputs. It did not compute official metrics, render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
 - official_status_metrics_readiness_gate_v0 completed as a readiness-gate decision packet, reviewing combined candidate status overlay v2 and normalized dry-run v4, confirming 312 filled rows and 288 unresolved rows, classifying Generation Rate as `blocked_needs_policy_decision`, classifying Execution Coverage Rate and Result Consistency Rate as `ready_with_caveats`, and documenting denominator visibility requirements, risk controls, implementation-scope boundaries, and a maintainer decision template. It did not compute official metrics, render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
 - official_status_metrics_v0_limited completed as a limited official status-metrics computation, computing official Execution Coverage Rate and Result Consistency Rate only from the authorized normalized status rows, preserving the 600-row planned denominator, keeping 425 unauthorized/unresolved rows visible, blocking Generation Rate with `inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap`, and forbidding global leaderboard output. It did not render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+- official_status_metrics_v0_limited closeout completed as a decision packet, confirming no new metrics were computed, no paper tables were rendered, Execution Coverage Rate and Result Consistency Rate are safe for future renderer planning only with limited-scope and denominator caveats, Generation Rate remains blocked, and global leaderboard output remains forbidden.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -616,4 +629,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_table.csv` and `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_report.md`; separately decide whether to authorize SQLGlot metric-input expansion, resolve Generation Rate policy/evidence gaps, or prepare a paper-rendering decision packet. Keep timing adapter work, reports/results updates, denominator changes, and paper-result changes separate.
+Review `audits/official_status_metrics_v0_limited_closeout/limited_status_metrics_paper_rendering_decision_matrix.csv` and decide whether to resolve Generation Rate evidence/policy before any paper-facing main table or authorize a renderer-planning task limited to status-only outputs with blocked Generation Rate and denominator partitions visible. Keep timing adapter work, reports/results updates, denominator changes, and paper-result changes separate.

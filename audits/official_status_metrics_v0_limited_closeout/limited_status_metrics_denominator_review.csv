@@ -1,0 +1,6 @@
+rewrite_method,planned_denominator_rows,authorized_input_rows,unresolved_or_unauthorized_rows,denominator_preserved,denominator_reduction_allowed,global_leaderboard_allowed,paper_table_caveat_required,notes
+calcite_hep_fail_closed,120,29,91,true,false,false,true,Future reporting must show planned denominator and unresolved/unauthorized partition for this method route.
+direct_llm_original,120,120,0,true,false,false,true,Future reporting must show planned denominator and unresolved/unauthorized partition for this method route.
+direct_llm_repair_1,120,26,94,true,false,false,true,Future reporting must show planned denominator and unresolved/unauthorized partition for this method route.
+sqlglot_noop,120,0,120,true,false,false,true,Future reporting must show planned denominator and unresolved/unauthorized partition for this method route.
+sqlglot_optimize,120,0,120,true,false,false,true,Future reporting must show planned denominator and unresolved/unauthorized partition for this method route.

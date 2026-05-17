@@ -4886,3 +4886,55 @@ Task result:
 
 Next safe action:
 - Review the limited official status-metrics outputs, then separately decide whether to authorize SQLGlot metric-input expansion, resolve Generation Rate policy/evidence gaps, or prepare a paper-rendering decision packet.
+
+### 2026-05-18 · pending · official_status_metrics_v0_limited_closeout_and_paper_rendering_decision_packet
+
+Mode: closeout and decision packet; no new metrics; no paper tables; no timing/performance metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Reviewed the existing `official_status_metrics_v0_limited` outputs without recomputing metrics.
+- Confirmed official Execution Coverage Rate and official Result Consistency Rate were previously computed in the limited official task.
+- Confirmed official Generation Rate remains blocked by `inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap`.
+- Confirmed denominator partitions remain visible: 600 planned rows, 175 authorized input rows, and 425 unauthorized/unresolved rows in the limited official output.
+- Prepared closeout matrix, denominator review, paper-rendering decision matrix, Generation Rate blocker options, renderer scope proposal, and risk register.
+- Did not render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/official_status_metrics_v0_limited_closeout/official_status_metrics_v0_limited_closeout_summary.md`
+- `audits/official_status_metrics_v0_limited_closeout/limited_status_metrics_closeout_matrix.csv`
+- `audits/official_status_metrics_v0_limited_closeout/limited_status_metrics_denominator_review.csv`
+- `audits/official_status_metrics_v0_limited_closeout/limited_status_metrics_paper_rendering_decision_matrix.csv`
+- `audits/official_status_metrics_v0_limited_closeout/generation_rate_blocker_resolution_options.md`
+- `audits/official_status_metrics_v0_limited_closeout/official_status_metrics_report_renderer_scope_proposal.md`
+- `audits/official_status_metrics_v0_limited_closeout/official_status_metrics_closeout_risk_register.md`
+- `audits/official_status_metrics_v0_limited_closeout/official_status_metrics_v0_limited_closeout_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed for required metric families, Generation Rate blocked, limited official status metrics marked previously computed, denominator reduction/global leaderboard denied, paper rendering global leaderboard denied, and no `paper_result=true` rows.
+- `git diff --check`: passed.
+
+Task result:
+- new metrics computed: no.
+- official Generation Rate computed: no.
+- official Execution Coverage Rate already computed: yes.
+- official Result Consistency Rate already computed: yes.
+- paper tables rendered: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Review the closeout paper-rendering decision matrix and decide whether to resolve Generation Rate evidence/policy before any paper-facing main table or authorize a renderer-planning task limited to status-only outputs with blocked Generation Rate and denominator partitions visible.

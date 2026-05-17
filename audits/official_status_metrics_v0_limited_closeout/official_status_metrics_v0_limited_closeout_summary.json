@@ -1,0 +1,20 @@
+{
+  "authorized_input_rows_reviewed": 175,
+  "closeout_task_completed": true,
+  "denominator_changed": false,
+  "execution_coverage_status": "limited_official_computed_safe_for_future_renderer_with_caveats",
+  "generation_rate_status": "blocked_needs_policy_decision",
+  "new_metrics_computed": false,
+  "official_execution_coverage_computed_previously": true,
+  "official_generation_rate_computed": false,
+  "official_result_consistency_computed_previously": true,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "planned_candidate_rows_reviewed": 600,
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_action": "Resolve Generation Rate evidence/policy before any paper-facing main table; optionally authorize a status-only renderer-planning task that preserves blocked Generation Rate and denominator partitions.",
+  "reports_changed": false,
+  "result_consistency_status": "limited_official_computed_safe_for_future_renderer_with_caveats",
+  "results_changed": false,
+  "unresolved_or_unauthorized_rows_reviewed": 425
+}
