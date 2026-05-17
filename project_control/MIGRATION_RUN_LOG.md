@@ -3602,13 +3602,13 @@ Authorization:
 Next safe action:
 - Maintainer should review `audits/candidate_retained_evidence_parser_approval_packet/approval_decision_template.md` and choose design-only approval, bounded non-timing parser implementation approval, deferral pending metric/team review, or rejection due to evidence ambiguity. If implementation is approved, require an explicit input manifest and validation gates; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · candidate_status_parser_v0 manifest-first bounded non-timing parser
+### 2026-05-17 · 6988b52 · candidate_status_parser_v0 manifest-first bounded non-timing parser
 
 Mode: bounded non-timing candidate status parser; manifest-first; fail-closed; no timing fields; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `6988b5202446c62338e6091de4504971f91678c1`
+Push: `origin/main` updated `baa1bfb..6988b52`
 
 Summary:
 - Created `scripts/dev/build_candidate_status_parser_input_manifest.py`, a release-metadata-only manifest builder for candidate status parser inputs.
