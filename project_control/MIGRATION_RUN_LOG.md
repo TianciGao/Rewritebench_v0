@@ -2547,13 +2547,13 @@ Authorization:
 Next safe action:
 - Review the retained-evidence adapter design and validation plan, then formalize a ledger schema model and non-mutating validation fixtures without parsing production retained evidence into a metrics ledger, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
 
-### 2026-05-17 · pending · Ledger schema model and non-mutating validation fixtures skeleton
+### 2026-05-17 · 18df984 · Ledger schema model and non-mutating validation fixtures skeleton
 
 Mode: release-repo ledger schema/fixture design output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `18df9844c35877d26a4c71319d42cd6bd124c3c9`
+Push: `origin/main` updated `5949fd0..18df984`
 
 Summary:
 - Created draft ledger column schema, validation rules, and fixture policy specs under `repository_spec/`.
