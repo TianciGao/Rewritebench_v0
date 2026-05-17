@@ -2497,13 +2497,13 @@ Authorization:
 Next safe action:
 - Review Metrics Contract v1 and the attribution policy draft, then plan retained-evidence adapter design and validation gates without computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
 
-### 2026-05-17 · pending · Retained-evidence adapter design and validation plan
+### 2026-05-17 · 58d843f · Retained-evidence adapter design and validation plan
 
 Mode: release-repo adapter design/spec and validation-plan output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `58d843f91cf8a901565b868df812c65c20ef2ebd`
+Push: `origin/main` updated `e932114..58d843f`
 
 Summary:
 - Created `repository_spec/retained_evidence_adapter_design_v1_draft.md` to define future retained-evidence adapter families, input sources, output ledger record types, row-grain rules, denominator joins, unsupported/N.A. handling, validation gates, implementation sequence, and boundaries against metrics computation and paper rendering.
