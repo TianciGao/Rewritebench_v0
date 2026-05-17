@@ -5164,13 +5164,13 @@ Task result:
 Next safe action:
 - Run `b_line_reproduction_report_renderer_design_v0` to design the reproduction/report renderer boundary and validation gates without rendering paper tables, writing `reports/` or `results/`, computing metrics, changing denominators, or changing paper results.
 
-### 2026-05-18 · pending · overnight_non_common_core_case_package_standardization_wave_001
+### 2026-05-18 · de903f7 · overnight_non_common_core_case_package_standardization_wave_001
 
 Mode: bounded non-Common-core case package standardization; no case-set membership update; no metrics; no DB validation; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `de903f7f50c320445481e77fe2db8ec3e858c025`
+Push: `origin/main` updated `00bdf2a..de903f7`
 
 Summary:
 - Considered 30 non-Common-core candidate cases from existing governance and staged/backlog preview artifacts.
