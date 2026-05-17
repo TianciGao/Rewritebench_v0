@@ -3225,3 +3225,76 @@ Authorization:
 
 Next safe action:
 - Review source_positive_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers source-positive consistency outcomes, computes Result Consistency Rate, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Control-layer adapter closeout before candidate adapters
+
+Mode: control-layer closeout / audit only; no adapter implementation; legacy not read
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Created `audits/control_layer_adapter_closeout/` with a control-layer adapter closeout summary, adapter matrix, route-level join check, evidence-index caveat table, closeout checks, machine-readable summary, and next-adapter recommendation.
+- Reviewed `control_cell_adapter_v0`, `source_positive_control_detail_adapter_v0`, and `hard_negative_control_detail_adapter_v0`.
+- Verified generic control scaffold coverage: 360/360 rows.
+- Verified source/positive detail coverage: 240/240 rows.
+- Verified hard-negative detail coverage: 120/120 rows.
+- Verified combined detail coverage: 360/360 rows.
+- Verified source, positive, and hard-negative route coverage: 120/120 each in both generic and detail layers.
+- Confirmed all adapter ledger validations passed and fixture smoke still passes.
+- Did not implement a new adapter, parse production retained evidence, read the legacy repo, compute metrics, compute false-accept rate, compute source-positive rate, compute Result Consistency Rate, update reports/results, change denominator values, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `audits/control_layer_adapter_closeout/control_layer_adapter_closeout_summary.md`
+- `audits/control_layer_adapter_closeout/control_layer_adapter_closeout_matrix.csv`
+- `audits/control_layer_adapter_closeout/control_layer_adapter_join_check.csv`
+- `audits/control_layer_adapter_closeout/control_layer_evidence_index_caveats.csv`
+- `audits/control_layer_adapter_closeout/control_layer_adapter_closeout_checks.csv`
+- `audits/control_layer_adapter_closeout/control_layer_adapter_closeout_summary.json`
+- `audits/control_layer_adapter_closeout/control_layer_next_adapter_recommendation.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- JSON invariant checks for `control_layer_adapter_closeout_summary.json`: passed.
+- CSV checks for closeout matrix, join check, checks table, combined detail rows, and no metrics computed: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending before commit.
+
+Closeout result:
+- Generic control rows: 360.
+- Source/positive detail rows: 240.
+- Hard-negative detail rows: 120.
+- Combined detail rows: 360.
+- Route coverage: source 120/120, positive 120/120, hard-negative 120/120.
+- Adapter validations: all passed.
+- Fixture smoke: passed, 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, 0 unexpected pass/fail rows.
+- Evidence-index caveats: source/positive detail has 179 `indexed_not_recomputed` and 61 `evidence_not_retained` rows; hard-negative detail has 97 `indexed_not_recomputed` and 23 `evidence_not_retained` rows; hard-negative approval status includes 45 `maintainer_approved_for_migration`, 72 `migration_planning_static_inference_needs_review_if_not_explicit_in_legacy`, and 3 `manual_review_required` rows.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- False-accept-rate computed: no.
+- Source-positive rate computed: no.
+- Result Consistency Rate computed: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Begin `rewrite_candidate_adapter_v0` planning only, or request explicit maintainer authorization for a bounded candidate adapter; do not parse production retained evidence, implement general candidate adapters, compute metrics, compute control rates, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

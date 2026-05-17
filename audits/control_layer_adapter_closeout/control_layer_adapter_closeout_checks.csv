@@ -1,0 +1,19 @@
+check_name,status,details
+controls_360 row count = 360,PASS,controls_360_rows=360
+generic control rows = 360,PASS,generic_control_rows=360
+source/positive detail rows = 240,PASS,source_positive_detail_rows=240
+hard-negative detail rows = 120,PASS,hard_negative_detail_rows=120
+combined detail rows = 360,PASS,combined_detail_rows=360
+source route coverage = 120/120,PASS,generic=120;detail=120
+positive route coverage = 120/120,PASS,generic=120;detail=120
+hard_negative route coverage = 120/120,PASS,generic=120;detail=120
+all adapter validations passed,PASS,control_cell_adapter_v0=True;source_positive_control_detail_adapter_v0=True;hard_negative_control_detail_adapter_v0=True
+fixture smoke still passes,PASS,total_fixture_rows_checked=38;unexpected_pass=0;unexpected_fail=0
+production retained evidence parsed = false,PASS,all adapter summaries report production_retained_evidence_parsed=false
+legacy repo read = false,PASS,all adapter summaries report legacy_repo_read=false
+metrics computed = false,PASS,all adapter summaries report metrics_computed=false
+reports/results unchanged,PASS,all adapter summaries report reports_changed=false and results_changed=false
+denominator unchanged,PASS,all adapter summaries report denominator_changed=false
+paper results unchanged,PASS,all adapter summaries report paper_results_changed=false
+no row silently dropped,PASS,generic and combined detail keys exactly match controls_360 keys
+evidence-index caveats documented,WARN,non-blocking closeout caveats recorded; metrics remain blocked

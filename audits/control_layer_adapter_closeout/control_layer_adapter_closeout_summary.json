@@ -1,0 +1,48 @@
+{
+  "closeout_scope": "control_layer_adapters",
+  "combined_detail_rows": 360,
+  "controls_360_rows": 360,
+  "denominator_changed": false,
+  "false_accept_rate_computed": false,
+  "fixture_smoke_passed": true,
+  "generic_control_rows": 360,
+  "hard_negative_detail_rows": 120,
+  "legacy_repo_read": false,
+  "metrics_computed": false,
+  "next_safe_action": "Begin rewrite_candidate_adapter_v0 planning only, or request explicit maintainer authorization for a bounded candidate adapter; do not compute metrics or parse legacy/raw retained evidence without separate approval.",
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "result_consistency_rate_computed": false,
+  "results_changed": false,
+  "route_coverage": {
+    "hard_negative": {
+      "detail": 120,
+      "expected": 120,
+      "generic": 120,
+      "status": "PASS"
+    },
+    "positive": {
+      "detail": 120,
+      "expected": 120,
+      "generic": 120,
+      "status": "PASS"
+    },
+    "source": {
+      "detail": 120,
+      "expected": 120,
+      "generic": 120,
+      "status": "PASS"
+    },
+    "total": {
+      "detail": 360,
+      "expected": 360,
+      "generic": 360,
+      "status": "PASS"
+    }
+  },
+  "source_positive_detail_rows": 240,
+  "source_positive_rate_computed": false,
+  "validations_passed": true
+}

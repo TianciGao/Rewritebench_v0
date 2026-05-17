@@ -1,0 +1,5 @@
+control_route,expected_rows_from_controls_360,generic_control_rows,detail_control_rows,generic_minus_expected,detail_minus_expected,missing_in_generic,missing_in_detail,extra_in_generic,extra_in_detail,status,notes
+source,120,120,120,0,0,none,none,none,none,PASS,Detail and generic control rows match the expected scaffold for this route.
+positive,120,120,120,0,0,none,none,none,none,PASS,Detail and generic control rows match the expected scaffold for this route.
+hard_negative,120,120,120,0,0,none,none,none,none,PASS,Detail and generic control rows match the expected scaffold for this route.
+total,360,360,360,0,0,none,none,none,none,PASS,Combined source/positive plus hard-negative detail rows exactly cover the generic control scaffold.
