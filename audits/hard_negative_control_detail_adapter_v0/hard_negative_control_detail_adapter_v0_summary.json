@@ -1,0 +1,35 @@
+{
+  "adapter_name": "hard_negative_control_detail_adapter_v0",
+  "adapter_scope": "release_case_package_only",
+  "applicable_status_counts": {
+    "planned_control": 120
+  },
+  "approval_status_counts": {
+    "maintainer_approved_for_migration": 45,
+    "manual_review_required": 3,
+    "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy": 72
+  },
+  "control_route_emitted": [
+    "hard_negative"
+  ],
+  "denominator_changed": false,
+  "evidence_index_status_counts": {
+    "evidence_not_retained": 23,
+    "indexed_not_recomputed": 97
+  },
+  "hard_negative_rate_computed": false,
+  "legacy_repo_read": false,
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "planned_hard_negative_rows_emitted": 120,
+  "planned_hard_negative_rows_expected": 120,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "control_cell"
+  ],
+  "reports_changed": false,
+  "results_changed": false,
+  "rows_emitted": 120
+}
