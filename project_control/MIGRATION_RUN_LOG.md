@@ -4938,3 +4938,59 @@ Task result:
 
 Next safe action:
 - Review the closeout paper-rendering decision matrix and decide whether to resolve Generation Rate evidence/policy before any paper-facing main table or authorize a renderer-planning task limited to status-only outputs with blocked Generation Rate and denominator partitions visible.
+
+### 2026-05-18 · pending · A_line_final_metrics_closure_plan_v0
+
+Mode: A-line final closure planning; no new metrics; no paper tables; no timing/performance implementation; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created an A-line final metrics closure planning packet under `audits/a_line_final_metrics_closure_plan_v0/`.
+- Classified all ten Metrics Contract v1 primary metrics.
+- Classified Execution Coverage Rate and Result Consistency Rate as official limited v0 metrics.
+- Classified Generation Rate, Semantic Equivalence Rate, GM_Speedup, and Speedup Ratio Percentiles as blocked by policy/evidence/adapter gaps.
+- Classified Speedup Retention as N.A. for v0.
+- Classified Attribution Coverage, Cross-Engine Execution, and Cross-Engine Consistency as post-release backlog.
+- Recommended three core remaining A-line tasks: Generation Rate blocker decision, non-status metric N.A./backlog closure bundle, and final renderer input package.
+- Did not compute new metrics, recompute official metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_final_metrics_closure_summary.md`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_metric_state_matrix.csv`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_remaining_task_sequence.csv`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_metric_blocker_register.csv`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_v0_treatment_decision_matrix.csv`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_final_renderer_input_manifest_preview.csv`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_closeout_risk_register.md`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_final_closure_recommendation.md`
+- `audits/a_line_final_metrics_closure_plan_v0/a_line_final_metrics_closure_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed; both metric-state and v0-treatment matrices include all ten Metrics Contract v1 primary metrics, and the remaining task sequence has task rows.
+- `git diff --check`: passed.
+
+Task result:
+- new metrics computed: no.
+- paper tables rendered: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- official metrics available count: 2.
+- blocked metrics count: 4.
+- N.A. metrics count: 1.
+- post-release metrics count: 3.
+
+Next safe action:
+- Run `generation_rate_blocker_final_decision_v0` as a policy/evidence decision packet with no metric computation, no paper rendering, and no reports/results writes.

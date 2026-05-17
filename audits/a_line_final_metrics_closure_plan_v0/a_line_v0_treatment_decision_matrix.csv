@@ -1,0 +1,11 @@
+metric_name,v0_treatment,paper_main_candidate,appendix_candidate,README_candidate,renderer_input_candidate,caveat_required,no_global_leaderboard_guard,notes
+Generation Rate,report_as_blocked,false,true,true,true,true,true,Show blocker explicitly; do not use inferred_generated as official numerator.
+Execution Coverage Rate,include_official_limited,false,true,true,true,true,true,Can feed a future limited status renderer only with denominator partitions visible.
+Result Consistency Rate,include_official_limited,false,true,true,true,true,true,Can feed a future limited status renderer only with task-authorized denominator model disclosed.
+Semantic Equivalence Rate,report_as_blocked,false,true,false,true,true,true,Needs verifier support and decidability policy before official computation.
+GM_Speedup,report_as_blocked,false,true,false,true,true,true,Timing/performance adapter and timing eligibility are absent.
+Speedup Ratio Percentiles,report_as_blocked,false,true,false,true,true,true,Timing/performance adapter and percentile renderer are absent.
+Attribution Coverage,defer_post_release,false,false,false,false,true,true,Attribution schema and evidence pipeline are not v0-ready.
+Cross-Engine Execution,defer_post_release,false,false,false,false,true,true,Portability denominator and adapter are separate from Track A and not v0-ready.
+Cross-Engine Consistency,defer_post_release,false,false,false,false,true,true,Cross-engine checker policy and adapter are not v0-ready.
+Speedup Retention,report_as_NA,false,true,false,true,true,true,Paired portability timing is unavailable for v0.

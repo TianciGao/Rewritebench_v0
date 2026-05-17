@@ -1,0 +1,16 @@
+{
+  "blocked_metrics_count": 4,
+  "denominator_changed": false,
+  "na_metrics_count": 1,
+  "new_metrics_computed": false,
+  "official_metrics_available_count": 2,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "post_release_metrics_count": 3,
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_task": "generation_rate_blocker_final_decision_v0",
+  "recommended_remaining_a_line_tasks": 3,
+  "reports_changed": false,
+  "results_changed": false,
+  "task_completed": true
+}
