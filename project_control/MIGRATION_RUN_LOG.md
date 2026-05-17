@@ -3226,13 +3226,13 @@ Authorization:
 Next safe action:
 - Review source_positive_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers source-positive consistency outcomes, computes Result Consistency Rate, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Control-layer adapter closeout before candidate adapters
+### 2026-05-17 · b14e779 · Control-layer adapter closeout before candidate adapters
 
 Mode: control-layer closeout / audit only; no adapter implementation; legacy not read
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `b14e779aa198a2c71e392d21646d216c3ac9cb90`
+Push: `origin/main` updated `3b51474..b14e779`
 
 Summary:
 - Created `audits/control_layer_adapter_closeout/` with a control-layer adapter closeout summary, adapter matrix, route-level join check, evidence-index caveat table, closeout checks, machine-readable summary, and next-adapter recommendation.
@@ -3262,8 +3262,8 @@ Validation:
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed.
 - JSON invariant checks for `control_layer_adapter_closeout_summary.json`: passed.
 - CSV checks for closeout matrix, join check, checks table, combined detail rows, and no metrics computed: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending before commit.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Closeout result:
 - Generic control rows: 360.
