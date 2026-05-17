@@ -4518,13 +4518,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_delta_vs_v1.csv` and `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_caveats.csv`. If accepted, separately authorize official metric readiness review, additional evidence parsing, or overlap resolution; keep timing and paper rendering separate.
 
-### 2026-05-17 · pending · candidate_status_evidence_completion_round1
+### 2026-05-17 · 849927b · candidate_status_evidence_completion_round1
 
 Mode: targeted evidence-completion triage; audit-only; no candidate status parsing; no metric authorization; no metrics; no timing; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `849927b3d5eb9edab4280e9842f51c2f80f00b85`
+Push: `origin/main` updated `7f3f788..849927b`
 
 Summary:
 - Reviewed 45 overlap-denied candidate-status rows from `metric_input_authorization_overlay_v0`.
@@ -4552,8 +4552,8 @@ Validation:
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
 - JSON invariant checks for `candidate_status_evidence_completion_round1_summary.json`: passed.
 - CSV checks for 45 overlap proposal rows, `would_change_metric_input_authorization=false`, SQLGlot headers, no approved manifest-preview rows, and no metric/status-fill claims: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending final pre-commit check.
+- `git diff --check`: passed.
+- `git status -sb`: only intended audit and project-control changes before commit.
 
 Task result:
 - candidate statuses filled: no
