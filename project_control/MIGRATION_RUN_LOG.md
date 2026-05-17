@@ -4574,13 +4574,13 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer reviews `audits/candidate_status_evidence_completion_round1/overlap_rows_resolution_proposal.csv` and `audits/candidate_status_evidence_completion_round1/sqlglot_candidate_manual_decision_sheet.csv`; if accepted, separately authorize an overlap-priority authorization overlay v1 and/or a sanitized SQLGlot projection/parser task.
 
-### 2026-05-17 · pending · overlap_priority_overlay_v1 and normalized status-only dry-run v3
+### 2026-05-17 · 2dd7c02 · overlap_priority_overlay_v1 and normalized status-only dry-run v3
 
 Mode: bounded audit-only overlap resolution plus normalized status-only dry run; no official metrics; no timing; no reports/results; no SQLGlot parser
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `2dd7c021b1396cd8615e1abf62f60b67eb32dfce`
+Push: `origin/main` updated `ffaa26e..2dd7c02`
 
 Summary:
 - Added `scripts/dev/build_overlap_priority_overlay_v1.py`.
@@ -4634,8 +4634,8 @@ Validation:
 - JSON invariant checks for overlay, normalization, and v3 dry-run summaries: passed.
 - CSV checks for required row counts, official/paper/audit flags, required metric families, no performance metric rows, and v2-v3 deltas: passed.
 - Original parser ledger, v0 authorization overlay, v0 normalization overlay, and inference overlay were not modified.
-- `git diff --check`: pending.
-- `git status -sb`: pending final pre-commit check.
+- `git diff --check`: passed.
+- `git status -sb`: only intended overlap overlay, dry-run v3, docs, scripts, and project-control changes before commit.
 
 Task result:
 - overlap priority overlay completed: yes
