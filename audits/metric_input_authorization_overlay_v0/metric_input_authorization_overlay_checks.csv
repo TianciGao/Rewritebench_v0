@@ -1,0 +1,16 @@
+check_name,status,details
+readiness review rows = 175,PASS,actual=175
+ready_candidate_status_only rows = 130,PASS,actual=130
+needs_source_overlap_review rows = 45,PASS,actual=45
+authorized overlay rows = 130,PASS,actual=130
+overlap rows unauthorized = 45,PASS,overlay_false=45;denied_rows=45
+unresolved rows unauthorized = 425,PASS,actual=425; unresolved rows are not present in overlay and remain unauthorized
+timing_authorized=false,PASS,all overlay rows timing_authorized=false
+metrics_computed=false,PASS,all overlay rows metrics_computed=false
+Generation Rate not computed,PASS,overlay authorizes eligibility only; no rate calculation
+Execution Coverage Rate not computed,PASS,overlay authorizes eligibility only; no rate calculation
+Result Consistency Rate not computed,PASS,overlay authorizes eligibility only; no rate calculation
+reports/results unchanged,PASS,writes restricted to audits/metric_input_authorization_overlay_v0 and project_control
+denominator unchanged,PASS,case_sets not modified
+paper results unchanged,PASS,no paper-facing outputs modified
+original parser ledger not modified,PASS,overlay is separate; candidate_status_parsed_ledger_v1.csv is not written

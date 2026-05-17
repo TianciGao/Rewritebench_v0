@@ -4050,3 +4050,65 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/candidate_status_parser_v1_closeout/candidate_status_metric_input_readiness_review.csv`. If accepted, authorize a separate `metric_input_authorization_overlay_v0` for rows labeled `ready_candidate_status_only` only; separately review overlap rows and unresolved rows. Do not compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
+
+### 2026-05-17 · pending · metric_input_authorization_overlay_v0 for ready candidate-status rows
+
+Mode: bounded metric-input authorization overlay; audit-only; no metrics; no timing; no parser ledger mutation
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `audits/metric_input_authorization_overlay_v0/` as a separate audit-only metric-input authorization overlay.
+- Read `audits/candidate_status_parser_v1_closeout/candidate_status_metric_input_readiness_review.csv`.
+- Reviewed 175 filled parser-v1 readiness rows.
+- Authorized exactly 130 rows labeled `ready_candidate_status_only` with `metric_input_authorized_overlay=true`.
+- Denied exactly 45 rows labeled `needs_source_overlap_review` with `metric_input_authorized_overlay=false`.
+- Left the 425 unresolved parser-v1 rows unauthorized and outside the overlay.
+- Did not rewrite `audits/candidate_status_parser_v1/candidate_status_parsed_ledger_v1.csv`.
+- Did not authorize timing fields, speedup fields, metric computation, paper table rendering, reports/results updates, denominator changes, or paper-result changes.
+
+Files created:
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_overlay_v0.csv`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_overlay_summary.json`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_overlay_report.md`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_overlay_checks.csv`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_denied_rows.csv`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_next_steps.md`
+- `audits/metric_input_authorization_overlay_v0/metric_input_authorization_overlay_summary.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `metric_input_authorization_overlay_summary.json`: passed.
+- CSV checks for overlay rows, denied rows, authorization booleans, forbidden timing/paper/report/denominator flags, and checks CSV: passed.
+- Original parser ledger mutation check: passed; `candidate_status_parsed_ledger_v1.csv` absent from `git diff --name-status`.
+- `git diff --check`: passed.
+- `git status -sb`: only intended overlay audit and project-control changes before commit.
+
+Overlay result:
+- authorized metric-input overlay rows: 130
+- unauthorized overlap rows: 45
+- unresolved rows: 425
+- timing authorized: no
+- metrics computed: no
+- Generation Rate computed: no
+- Execution Coverage Rate computed: no
+- Result Consistency Rate computed: no
+- timing metrics computed: no
+- original parser ledger modified: no
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Do not compute metrics yet. Either perform manual overlap review for the 45 denied rows or prepare a status-only metrics dry-run plan that explicitly handles partial denominator coverage from the 130 authorized overlay rows. Keep timing adapter work separate.

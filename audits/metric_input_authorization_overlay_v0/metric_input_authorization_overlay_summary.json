@@ -1,0 +1,20 @@
+{
+  "authorized_rows": 130,
+  "denominator_changed": false,
+  "execution_coverage_computed": false,
+  "generation_rate_computed": false,
+  "legacy_repo_modified": false,
+  "metrics_computed": false,
+  "original_parser_ledger_modified": false,
+  "overlay_name": "metric_input_authorization_overlay_v0",
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "result_consistency_rate_computed": false,
+  "results_changed": false,
+  "timing_authorized": false,
+  "timing_metrics_computed": false,
+  "total_filled_rows_reviewed": 175,
+  "unauthorized_overlap_rows": 45,
+  "unresolved_rows_not_reviewed": 425
+}
