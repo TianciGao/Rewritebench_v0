@@ -3767,13 +3767,13 @@ Authorization:
 Next safe action:
 - Maintainer reviews `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and explicitly approves or rejects proposed candidate status parser inputs before any `candidate_status_parser_v1` manifest is created. Keep all 600 candidate parser rows unresolved until exact row-grain non-timing sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · PENDING · Candidate status parser v1 whitelist approval recording
+### 2026-05-17 · f763746 · Candidate status parser v1 whitelist approval recording
 
 Mode: approval recording only; no parser implementation; no candidate status parsing; no timing fields; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `f763746a89e251fb713022c7d6635716a4de7c43`
+Push: `origin/main` updated `02f1f6c..f763746`
 
 Summary:
 - Recorded maintainer approval for `candidate_status_parser_v1` to use proposal IDs `P001`, `P002`, `P003`, `P011`, and `P012` only.
