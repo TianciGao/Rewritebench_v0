@@ -1,0 +1,21 @@
+fixture_row_id,expected_valid,expected_errors,reason
+valid_source_control,true,,Source control has control denominator and no forbidden timing fields
+valid_positive_control,true,,Positive control has control denominator and checker status
+valid_hard_negative_control,true,,Hard-negative control uses reject_expected and control denominator
+valid_rewrite_generated_not_executed,true,,Generated candidate preserves blocked not-executed state
+valid_rewrite_executed_mismatch,true,,Executed mismatch has exact=false and mismatch status
+valid_rewrite_exact_timed,true,,Exact timed candidate has timing fields and Track A denominator
+valid_rewrite_timing_missing,true,,Timing missing is explicit and not zero-filled
+valid_plan_artifact,true,,Plan artifact is support-only and has no denominator
+valid_portability_executed_target,true,,Portability row has source and target engine
+valid_portability_target_timing_missing,true,,Target timing missing is explicit for portability row
+valid_verifier_equivalent,true,,Verifier support row has support_pair_id and no timing fields
+valid_verifier_unknown,true,,Verifier unknown is represented separately
+valid_retained_summary,true,,Retained summary is support-only and not metric eligible
+valid_user_run_candidate,true,,Future user candidate uses output-root path and Track A denominator
+invalid_rewrite_missing_candidate_id,false,missing_required:candidate_id,Rewrite candidate row must have candidate_id
+invalid_control_speedup_populated,false,forbidden_field:speedup_ratio;forbidden_field:latency_ms,Control rows must not carry speedup_ratio or latency_ms
+invalid_verifier_latency_populated,false,forbidden_field:latency_ms,Verifier support rows must not carry latency_ms
+invalid_portability_missing_target_engine,false,missing_required:target_engine,Portability rows require target_engine
+invalid_retained_summary_metric_eligible,false,forbidden_value:metric_eligible_true,Retained summary artifacts are support-only by default
+invalid_rewrite_missing_denominator,false,missing_required:denominator_id,Same-engine rewrite candidate requires Track A denominator_id

@@ -1,0 +1,15 @@
+fixture_row_id,record_type,denominator_id,joins_to_case_sets,joins_to_same_engine_120,joins_to_controls_360,expected_join_status,notes
+valid_source_control,control_cell,control:PERF_0006:postgres:source,true,false,true,pass,Control row joins controls_360
+valid_positive_control,control_cell,control:CONS_0007:spark:positive,true,false,true,pass,Positive control joins controls_360
+valid_hard_negative_control,control_cell,control:PORT_0024:mysql:hard_negative,true,false,true,pass,Hard-negative control joins controls_360
+valid_rewrite_generated_not_executed,rewrite_candidate_cell,track_a_same_engine:PERF_0007:mysql,true,true,false,pass,Same-engine candidate joins denominator_same_engine_120
+valid_rewrite_executed_mismatch,rewrite_candidate_cell,track_a_same_engine:CONS_0010:spark,true,true,false,pass,Same-engine mismatch candidate still joins denominator
+valid_rewrite_exact_timed,rewrite_candidate_cell,track_a_same_engine:PERF_0024:postgres,true,true,false,pass,Exact timed row joins denominator but no metric computed
+valid_rewrite_timing_missing,rewrite_candidate_cell,track_a_same_engine:PERF_0033:mysql,true,true,false,pass,Timing missing row joins denominator and remains explicit
+valid_portability_executed_target,portability_candidate_cell,,true,false,false,pass_support_boundary,Portability row has separate denominator semantics
+valid_portability_target_timing_missing,portability_candidate_cell,,true,false,false,pass_support_boundary,Target timing missing row not Track A denominator
+valid_user_run_candidate,user_run_candidate_cell,track_a_same_engine:LONGTAIL_0024:postgres,true,true,false,pass,Future benchmark-scoped user row joins Track A denominator
+valid_plan_artifact,plan_observability_artifact,,true,false,false,pass_support_only,Plan artifact has no metric denominator
+valid_verifier_equivalent,verifier_support_pair,,true,false,false,pass_support_only,Verifier support pair has no metric denominator
+valid_retained_summary,retained_summary_artifact,,true,false,false,pass_support_only,Summary artifact has no metric denominator
+invalid_rewrite_missing_denominator,rewrite_candidate_cell,,true,false,false,fail_missing_denominator,Same-engine rewrite candidate requires denominator_id

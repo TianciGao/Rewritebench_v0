@@ -1,0 +1,23 @@
+status_family,allowed_value,applies_to_fields,meaning,metric_behavior,report_behavior,notes
+missingness,unsupported,status;result_status;na_reason,Scope or engine or method unsupported,exclude only by approved metric rule,render as unsupported,Not failure by default
+missingness,not_applicable,status;result_status;na_reason;checker_status;parse_status,Field or metric does not apply,exclude from metric denominator when policy permits,render as N.A.,Requires reason when used as status
+missingness,unknown,status;result_status;na_reason;checker_status;parse_status,Value cannot be determined safely,do not count as pass or fail,render as unknown,Manual review may be needed
+missingness,verifier_unknown,status;result_status;na_reason;failure_type,Verifier support absent or undecidable,exclude from Semantic Equivalence Rate denominator unless policy changes,render separately from failure,Correctness support only
+missingness,timing_missing,status;result_status;na_reason;failure_type,Timing missing despite other evidence,exclude from performance metrics,render as timing missing,Not zero timing
+missingness,target_timing_missing,status;result_status;na_reason;failure_type,Target-engine timing missing for paired retention,Speedup Retention is N.A.,render as target timing missing,Portability only
+missingness,evidence_not_retained,status;result_status;na_reason,Expected evidence not retained,not metric eligible,render as evidence not retained,Distinct from execution failure
+missingness,manual_review_required,status;result_status;na_reason,Human review required,not metric eligible,render as manual review,Used for ambiguous rows
+missingness,blocked,status;result_status;na_reason,Policy or preflight blocks progression,not metric eligible until resolved,render as blocked,Used for no implementation authorization
+lifecycle,generated,status;generated,Candidate SQL emitted,may feed Generation Rate after authorization,render generated state,Not execution evidence
+lifecycle,ready,status;ready,Candidate passed readiness gate,diagnostic only unless approved,render ready state,Not primary Generation Rate
+lifecycle,executed,status;executed,Execution happened,may feed Execution Coverage after authorization,render executed state,Not correctness by itself
+lifecycle,exact,status;exact,Correctness gate passed,may feed correctness after authorization,render exact/result-consistent state,Requires checker/result evidence
+lifecycle,mismatch,status;result_status;failure_type,Executed result mismatch,counts by approved correctness metric only,render mismatch,Requires executed=true
+lifecycle,failed,status;result_status;failure_type,Failure occurred,diagnostic unless metric policy says otherwise,render failure bucket,Candidate Failure Rate not primary
+lifecycle,N.A.,status;na_reason,Not applicable or not computable,not counted as zero or failure,render N.A. with reason,Requires na_reason
+checker,pass,checker_status;result_status,Checker or result comparison passed,may feed correctness after authorization,render pass,Context-specific
+checker,fail,checker_status;result_status,Checker or result comparison failed,may feed correctness after authorization,render fail,Context-specific
+checker,reject_expected,checker_status,Expected hard-negative rejection,control evidence only,render expected rejection,Not method failure
+checker,reject_unexpected,checker_status,Unexpected checker rejection,diagnostic failure,render unexpected rejection,Manual review likely
+parse,parsed,parse_status,SQL parsed or extracted,diagnostic unless approved,render parsed,Not execution evidence
+parse,not_parsed,parse_status,SQL parse or extraction failed,diagnostic unless approved,render not parsed,Not primary Generation Rate

@@ -2546,3 +2546,57 @@ Authorization:
 
 Next safe action:
 - Review the retained-evidence adapter design and validation plan, then formalize a ledger schema model and non-mutating validation fixtures without parsing production retained evidence into a metrics ledger, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
+
+### 2026-05-17 · pending · Ledger schema model and non-mutating validation fixtures skeleton
+
+Mode: release-repo ledger schema/fixture design output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created draft ledger column schema, validation rules, and fixture policy specs under `repository_spec/`.
+- Created synthetic validation fixture outputs under `audits/ledger_schema_validation_fixtures/`.
+- Fixture rows cover all seven record types: `control_cell`, `rewrite_candidate_cell`, `plan_observability_artifact`, `portability_candidate_cell`, `verifier_support_pair`, `retained_summary_artifact`, and `user_run_candidate_cell`.
+- Included intentionally invalid fixture rows for missing candidate ID, forbidden timing fields on control/verifier rows, missing target engine, metric-eligible retained summary, and missing same-engine denominator ID.
+- Did not parse production retained evidence, load the 3,439 retained candidates into a production ledger, implement adapters, implement metrics, implement a reproduction CLI, implement public runner outputs, create scripts, create source package files, copy reports/results, render paper tables, run DB engines, run validation scripts, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, update case sets, modify case packages, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/evidence_ledger_column_schema_v1_draft.md`
+- `repository_spec/evidence_ledger_validation_rules_v1_draft.md`
+- `repository_spec/evidence_ledger_fixture_policy_v1_draft.md`
+- `audits/ledger_schema_validation_fixtures/ledger_schema_fixture_summary.md`
+- `audits/ledger_schema_validation_fixtures/fixture_all_record_types.csv`
+- `audits/ledger_schema_validation_fixtures/fixture_expected_validation_results.csv`
+- `audits/ledger_schema_validation_fixtures/record_type_required_fields_matrix.csv`
+- `audits/ledger_schema_validation_fixtures/allowed_status_values.csv`
+- `audits/ledger_schema_validation_fixtures/fixture_denominator_join_examples.csv`
+- `audits/ledger_schema_validation_fixtures/ledger_schema_validation_plan.md`
+- `audits/ledger_schema_validation_fixtures/ledger_schema_validation_fixtures_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, fixture row flag check, required record-type coverage check, required fixture example coverage check, valid/invalid expected-result coverage check, record-type required-field matrix coverage check, allowed-status coverage check, denominator-bearing record-type join example check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- production retained evidence parsed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the ledger schema model and synthetic validation fixtures, then design or prototype a non-mutating validator that reads only synthetic fixtures without parsing production retained evidence, implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
