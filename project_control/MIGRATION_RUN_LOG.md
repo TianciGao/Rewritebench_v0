@@ -2353,13 +2353,13 @@ Paper/denominator impact:
 Next safe action:
 - Review the overnight investigation bundle, then run a bounded benchmark_spec/docs public skeleton formalization task or staged/backlog official membership preview without migration, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.
 
-### 2026-05-17 · pending · Staged/backlog membership preview for non-Common-core case universe
+### 2026-05-17 · fd2380f · Staged/backlog membership preview for non-Common-core case universe
 
 Mode: release-repo membership preview/governance planning output; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `fd2380f498320d8f74ee0bd359c2c7a5fae43911`
+Push: `origin/main` updated `ccb79a9..fd2380f`
 
 Summary:
 - Created a human-reviewable staged/backlog membership preview for all 157 non-Common-core cases using the case-universe governance audit and overnight investigation bundle.
