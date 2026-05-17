@@ -2719,13 +2719,13 @@ Authorization:
 Next safe action:
 - Review the hardened fixture-only validator and dev-smoke documentation, then decide whether to add a developer-only smoke entrypoint or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Developer smoke entrypoint for ledger fixture validator
+### 2026-05-17 · b212c7a · Developer smoke entrypoint for ledger fixture validator
 
 Mode: release-repo developer smoke entrypoint for synthetic fixtures only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `b212c7a6a85bcd367b7f66ac0d4708c46fc6df2f`
+Push: `origin/main` updated `6fcbeac..b212c7a`
 
 Summary:
 - Created `scripts/dev/smoke_ledger_fixtures.py`, a thin developer-only wrapper around `scripts/dev/validate_ledger_fixtures.py`.
@@ -2752,8 +2752,8 @@ Validation:
 - `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed.
 - JSON assertions and output existence checks: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Smoke result:
 - Fixture rows checked: 38.
