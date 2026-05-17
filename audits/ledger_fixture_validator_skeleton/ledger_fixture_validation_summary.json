@@ -1,0 +1,22 @@
+{
+  "adapter_implemented": false,
+  "denominator_changed": false,
+  "denominator_join_checks": {
+    "checked": 14,
+    "failed": 0,
+    "passed": 14
+  },
+  "expected_invalid_failed_as_expected": 6,
+  "expected_invalid_rows": 6,
+  "expected_valid_passed": 14,
+  "expected_valid_rows": 14,
+  "fixture_rows_checked": 20,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "unexpected_fail_count": 0,
+  "unexpected_pass_count": 0
+}

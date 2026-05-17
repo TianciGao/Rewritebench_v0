@@ -85,6 +85,8 @@ Membership and scaffold snapshot:
 - `repository_spec/evidence_ledger_column_schema_v1_draft.md`: draft ledger column model.
 - `audits/ledger_schema_validation_fixtures/fixture_all_record_types.csv`: 20 synthetic fixture rows covering all seven ledger record types.
 - `audits/ledger_schema_validation_fixtures/fixture_expected_validation_results.csv`: expected valid/invalid fixture outcomes.
+- `scripts/dev/validate_ledger_fixtures.py`: non-mutating developer validator skeleton for synthetic ledger fixtures only.
+- `audits/ledger_fixture_validator_skeleton/ledger_fixture_validation_summary.json`: latest synthetic fixture validator result; 20 fixture rows checked, 14 expected-valid rows passed, 6 expected-invalid rows failed as expected, and 14/14 denominator join examples matched expectations.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -119,6 +121,7 @@ Membership and scaffold snapshot:
 - Unified reproduction interface implementation authorized: no.
 - Public runner implementation authorized: no.
 - Paper table rendering authorized: no.
+- Production retained evidence parsed by ledger fixture validator: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -143,6 +146,7 @@ Membership and scaffold snapshot:
 - Metrics Contract v1 formalized without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, denominator changes, paper-result changes, or paper table rendering.
 - Retained-evidence adapter design and validation plan completed without implementing adapters, computing metrics, creating scripts/source code, copying reports/results, rendering paper tables, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Ledger schema model and non-mutating validation fixtures completed without parsing production retained evidence, implementing adapters, computing metrics, creating scripts/source code, copying reports/results, rendering paper tables, changing denominators, changing paper results, or modifying raw legacy evidence.
+- Ledger fixture validator skeleton completed for synthetic fixtures only, without parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -153,7 +157,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, and synthetic ledger schema validation fixtures exist; production retained-evidence parsing, adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, and a synthetic-only fixture validator skeleton exists; production retained-evidence parsing, adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -165,4 +169,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review the ledger schema model and synthetic validation fixtures. The next safe task is a non-mutating validator design or prototype that reads only synthetic fixtures; do not parse production retained evidence, implement retained-evidence adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence.
+Review the ledger fixture validator skeleton and its warnings for fixture-only missing path columns. The next safe task is either hardening the synthetic fixture validator or planning production ledger validation gates; do not parse production retained evidence, implement retained-evidence adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.

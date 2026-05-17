@@ -2600,3 +2600,54 @@ Authorization:
 
 Next safe action:
 - Review the ledger schema model and synthetic validation fixtures, then design or prototype a non-mutating validator that reads only synthetic fixtures without parsing production retained evidence, implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
+
+### 2026-05-17 · pending · Ledger fixture validator skeleton
+
+Mode: release-repo developer validator skeleton for synthetic fixtures only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `scripts/dev/validate_ledger_fixtures.py`, a non-mutating developer validator that reads only synthetic ledger fixture CSVs and static Common-core denominator/control scaffolds.
+- Generated fixture validation outputs under `audits/ledger_fixture_validator_skeleton/`.
+- Checked required fields for materialized fixture columns, forbidden fields by record type, allowed status values, fixture safety flags, expected valid/invalid fixture outcomes, and denominator join examples.
+- Did not parse production retained evidence, implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, implement paper table rendering, copy reports/results, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/validate_ledger_fixtures.py`
+- `audits/ledger_fixture_validator_skeleton/ledger_fixture_validation_results.csv`
+- `audits/ledger_fixture_validator_skeleton/ledger_fixture_validation_summary.json`
+- `audits/ledger_fixture_validator_skeleton/ledger_fixture_validator_report.md`
+- `audits/ledger_fixture_validator_skeleton/validator_limitations.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python scripts/dev/validate_ledger_fixtures.py --fixtures-dir audits/ledger_schema_validation_fixtures --out-dir audits/ledger_fixture_validator_skeleton`: passed.
+- JSON parse and CSV row checks: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending.
+
+Paper/denominator impact:
+- production retained evidence parsed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the ledger fixture validator skeleton and decide whether to harden synthetic fixture validation or plan production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
