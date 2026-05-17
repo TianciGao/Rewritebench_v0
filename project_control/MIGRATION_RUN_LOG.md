@@ -4113,13 +4113,13 @@ Paper/denominator impact:
 Next safe action:
 - Do not compute metrics yet. Either perform manual overlap review for the 45 denied rows or prepare a status-only metrics dry-run plan that explicitly handles partial denominator coverage from the 130 authorized overlay rows. Keep timing adapter work separate.
 
-### 2026-05-17 · PENDING · candidate status overlap review and status-only metrics dry-run plan
+### 2026-05-17 · 0be6d7b · candidate status overlap review and status-only metrics dry-run plan
 
 Mode: release-repo audit/planning only; no new candidate status parsing; no metric input authorization change; no metrics; no timing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `0be6d7b7bddfb54dd1e6dd454c968bc12b45314a`
+Push: `origin/main` updated `646f06b..0be6d7b`
 
 Summary:
 - Created `audits/candidate_status_overlap_and_metrics_dryrun_plan/`.
@@ -4146,7 +4146,11 @@ Files modified:
 - `project_control/MIGRATION_RUN_LOG.md`
 
 Validation:
-- `PENDING`
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `candidate_status_overlap_and_metrics_dryrun_plan_summary.json`: passed.
+- CSV checks for 45 overlap-review rows, required status-only metric dry-run scope rows, no metrics-computed claims, no metric-input-authorization changes, and no timing metric entries: passed.
+- `git diff --check`: passed.
+- `git status -sb`: only intended audit and project-control changes before commit.
 
 Task result:
 - new candidate status parsing performed: no
