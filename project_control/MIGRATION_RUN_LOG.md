@@ -3985,13 +3985,13 @@ Paper/denominator impact:
 Next safe action:
 - Perform a metric-input readiness review for the 175 filled `candidate_status_parser_v1` audit rows and separately triage row-level evidence for the 425 unresolved rows. Do not authorize metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
 
-### 2026-05-17 · pending · candidate_status_parser_v1 closeout and metric-input readiness review
+### 2026-05-17 · 7f8b894 · candidate_status_parser_v1 closeout and metric-input readiness review
 
 Mode: parser closeout plus metric-input readiness review; release-repo audit outputs only; no new candidate status parsing; no timing fields; no metric-input authorization; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `7f8b89414474d8634303b8037dbf6c713f68f1d0`
+Push: `origin/main` updated `498db49..7f8b894`
 
 Summary:
 - Updated `audits/candidate_status_parser_v1_closeout/` to add audit-only metric-input readiness labels for the 175 filled `candidate_status_parser_v1` rows.
