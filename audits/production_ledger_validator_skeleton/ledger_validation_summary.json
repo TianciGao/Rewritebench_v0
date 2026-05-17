@@ -1,0 +1,18 @@
+{
+  "adapter_implemented": false,
+  "adapter_output_validated": true,
+  "denominator_changed": false,
+  "errors_count": 0,
+  "ledger_rows_checked": 360,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_seen": [
+    "control_cell"
+  ],
+  "reports_changed": false,
+  "results_changed": false,
+  "validation_passed": true,
+  "warnings_count": 0
+}

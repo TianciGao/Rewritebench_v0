@@ -1,0 +1,12 @@
+check_name,status,details
+controls_360 row count = 360,PASS,controls_360_rows=360
+emitted row count = 360,PASS,rows_emitted=360
+all rows record_type=control_cell,PASS,control_cell
+no legacy repo path read,PASS,legacy_repo_read=false
+metrics_computed=false,PASS,metrics_computed=false
+metric_input_authorized=false,PASS,metric_input_authorized=false
+production_retained_evidence_parsed=false,PASS,production_retained_evidence_parsed=false
+no reports/results changed,PASS,reports_changed=false;results_changed=false
+denominator unchanged,PASS,denominator_changed=false
+paper results unchanged,PASS,paper_results_changed=false
+evidence-index caveats documented,WARN,rows_without_direct_retained_artifact_path=95

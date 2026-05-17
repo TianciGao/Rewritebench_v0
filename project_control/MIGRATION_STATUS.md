@@ -53,6 +53,8 @@ Production ledger validation-gate planning is complete under `repository_spec/pr
 
 `retained_summary_adapter_v0` is complete as a narrow low-risk adapter skeleton under `scripts/dev/build_retained_summary_ledger.py` and `audits/retained_summary_adapter_v0/`. Scope is `release_repo_summary_only`; it emits only `retained_summary_artifact` rows from release-repo summaries, Common-core scaffolds, inventory, and repository specs. It emitted 31 rows, with `metric_input_authorized=false`, `metrics_computed=false`, `production_retained_evidence_parsed=false`, and `legacy_repo_read=false` for every row. This is not a general retained-evidence adapter, not a production ledger, and not a metrics input.
 
+Production ledger validator skeleton and `control_cell_adapter_v0` are complete under `scripts/dev/validate_ledger_csv.py`, `scripts/dev/build_control_cell_ledger.py`, `audits/production_ledger_validator_skeleton/`, and `audits/control_cell_adapter_v0/`. This bounded implementation validates ledger-style CSV files without computing metrics and emits only `control_cell` rows from release-repo canonical Common-core case-package metadata and `controls_360.csv`. It emitted 360 rows, exactly matching the planned control scaffold, with 120 source, 120 positive, and 120 hard-negative rows. Production retained evidence parsing, legacy repo reads, general adapter implementation, metrics computation, reproduction interface implementation, public runner implementation, paper table rendering, reports/results migration, denominator changes, paper-result changes, and raw legacy evidence changes remain unauthorized.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -103,6 +105,12 @@ Membership and scaffold snapshot:
 - `scripts/dev/build_retained_summary_ledger.py`: narrow release-repo-summary-only adapter skeleton emitting `retained_summary_artifact` rows only.
 - `audits/retained_summary_adapter_v0/retained_summary_ledger_v0.csv`: 31 draft retained-summary rows, all non-metric audit rows.
 - `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_summary.json`: adapter summary recording `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, and `metric_input_authorized=false`.
+- `scripts/dev/validate_ledger_csv.py`: non-mutating production ledger validator skeleton for ledger-style CSV files.
+- `scripts/dev/build_control_cell_ledger.py`: bounded release-case-package-only control-cell adapter v0.
+- `audits/production_ledger_validator_skeleton/ledger_validation_summary.json`: validator skeleton output over the control-cell adapter ledger; 360 rows checked, validation passed, no metrics computed.
+- `audits/control_cell_adapter_v0/control_cell_ledger_v0.csv`: 360 draft `control_cell` rows, one per planned row in `controls_360.csv`.
+- `audits/control_cell_adapter_v0/control_cell_adapter_v0_summary.json`: adapter summary recording 360 rows emitted, `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, and `metric_input_authorized=false`.
+- `audits/control_cell_adapter_v0/ledger_validation/ledger_validation_summary.json`: validation output for the control-cell ledger; `validation_passed=true`.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -146,7 +154,12 @@ Membership and scaffold snapshot:
 - Legacy repo read by retained_summary_adapter_v0: no.
 - Metrics computed by retained_summary_adapter_v0: no.
 - Metric input authorized by retained_summary_adapter_v0: no.
-- Production ledger validator implemented: no.
+- Production ledger validator skeleton implemented: yes, non-mutating and metrics-free.
+- control_cell_adapter_v0 implemented: yes, bounded to release case-package metadata and `control_cell` rows only.
+- Production retained evidence parsed by control_cell_adapter_v0: no.
+- Legacy repo read by control_cell_adapter_v0: no.
+- Metrics computed by control_cell_adapter_v0: no.
+- Metric input authorized by control_cell_adapter_v0: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -177,6 +190,7 @@ Membership and scaffold snapshot:
 - Ledger fixture CI smoke workflow completed, running synthetic fixture validation only and not parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Production ledger validation-gate planning completed without parsing production retained evidence, implementing a production ledger validator, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - retained_summary_adapter_v0 completed as a narrow release-repo-summary-only adapter skeleton, emitting 31 `retained_summary_artifact` audit rows without reading the legacy repo, parsing production retained evidence, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- Production ledger validator skeleton and control_cell_adapter_v0 completed as a bounded implementation, emitting and validating 360 `control_cell` rows without reading the legacy repo, parsing production retained evidence, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -187,7 +201,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, and retained_summary_adapter_v0 exists for release-repo summary artifacts only; production retained-evidence parsing, production ledger validator implementation, general adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, retained_summary_adapter_v0 exists for release-repo summary artifacts only, and control_cell_adapter_v0 exists for release case-package control rows only; production retained-evidence parsing, general adapter implementation beyond the authorized bounded skeletons, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -199,4 +213,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review retained_summary_adapter_v0 output and production ledger validation gates before authorizing any adapter that parses real retained evidence or emits metric-eligible rows. Do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.
+Review control_cell_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, emits metric-eligible rows, or consumes ledger rows for metrics. Do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.

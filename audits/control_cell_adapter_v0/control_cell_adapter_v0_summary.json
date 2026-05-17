@@ -1,0 +1,24 @@
+{
+  "adapter_name": "control_cell_adapter_v0",
+  "adapter_scope": "release_case_package_only",
+  "control_route_counts": {
+    "hard_negative": 120,
+    "positive": 120,
+    "source": 120
+  },
+  "denominator_changed": false,
+  "legacy_repo_read": false,
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "planned_control_rows_emitted": 360,
+  "planned_control_rows_expected": 360,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "control_cell"
+  ],
+  "reports_changed": false,
+  "results_changed": false,
+  "rows_emitted": 360
+}
