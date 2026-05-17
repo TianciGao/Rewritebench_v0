@@ -2651,3 +2651,70 @@ Authorization:
 
 Next safe action:
 - Review the ledger fixture validator skeleton and decide whether to harden synthetic fixture validation or plan production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Ledger fixture validator hardening and dev-smoke documentation
+
+Mode: release-repo developer validator hardening for synthetic fixtures only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Hardened `scripts/dev/validate_ledger_fixtures.py` while preserving fixture-only scope.
+- Added optional `--extra-fixtures` and `--extra-expected` inputs for synthetic hardening rows.
+- Added duplicate ID checks, stricter safety-flag checks, status and obvious consistency checks, record-type identity checks, direct denominator scaffold joins, and hardening-specific output names.
+- Created additional synthetic hardening fixtures and expected outcomes under `audits/ledger_fixture_validator_hardening/`.
+- Generated hardening validation outputs and developer smoke documentation.
+- Did not parse production retained evidence, read legacy reports/results/runs, implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, implement paper table rendering, copy reports/results, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `audits/ledger_fixture_validator_hardening/fixture_hardening_extra_rows.csv`
+- `audits/ledger_fixture_validator_hardening/fixture_hardening_expected_results.csv`
+- `audits/ledger_fixture_validator_hardening/ledger_fixture_hardening_validation_results.csv`
+- `audits/ledger_fixture_validator_hardening/ledger_fixture_hardening_summary.json`
+- `audits/ledger_fixture_validator_hardening/ledger_fixture_validator_hardening_report.md`
+- `audits/ledger_fixture_validator_hardening/validator_hardening_limitations.md`
+- `audits/ledger_fixture_validator_hardening/dev_smoke_usage.md`
+
+Files modified:
+- `scripts/dev/validate_ledger_fixtures.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- Base fixture validator run: passed.
+- Base plus hardening fixture validator run: passed.
+- JSON assertions and CSV row/count checks: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending.
+
+Hardening result:
+- Base fixture rows checked: 20.
+- Extra fixture rows checked: 18.
+- Expected-valid rows passed: 17/17.
+- Expected-invalid rows failed as expected: 21/21.
+- Unexpected pass/fail count: 0/0.
+- Denominator join examples: 14/14 passed.
+- Duplicate record IDs detected as expected: 1.
+- Safety flag failures detected as expected: 3.
+
+Paper/denominator impact:
+- production retained evidence parsed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the hardened fixture-only validator and dev-smoke documentation, then decide whether to add a developer-only smoke entrypoint or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

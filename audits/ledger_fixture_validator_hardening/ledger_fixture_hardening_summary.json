@@ -1,0 +1,37 @@
+{
+  "adapter_implemented": false,
+  "base_fixture_rows_checked": 20,
+  "denominator_changed": false,
+  "denominator_join_checks": {
+    "checked": 14,
+    "failed": 0,
+    "passed": 14
+  },
+  "duplicate_id_checks": {
+    "checked": 38,
+    "duplicate_fixture_row_id_values": [],
+    "duplicate_fixture_row_ids": 0,
+    "duplicate_record_id_values": [
+      "fixture:hardening:rewrite:timing_missing"
+    ],
+    "duplicate_record_ids": 1
+  },
+  "expected_invalid_failed_as_expected": 21,
+  "expected_invalid_rows": 21,
+  "expected_valid_passed": 17,
+  "expected_valid_rows": 17,
+  "extra_fixture_rows_checked": 18,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "safety_flag_checks": {
+    "checked": 114,
+    "failed": 3
+  },
+  "total_fixture_rows_checked": 38,
+  "unexpected_fail_count": 0,
+  "unexpected_pass_count": 0
+}
