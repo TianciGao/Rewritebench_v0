@@ -3923,13 +3923,13 @@ Authorization:
 Next safe action:
 - Review `audits/candidate_status_parser_v1/candidate_status_parser_v1_report.md` and decide whether to authorize a validation-hardening or manual-review cleanup pass for the 425 unresolved rows. Do not authorize metric input, compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
 
-### 2026-05-17 · pending · candidate_status_parser_v1 closeout and unresolved-row review
+### 2026-05-17 · 3e523d8 · candidate_status_parser_v1 closeout and unresolved-row review
 
 Mode: parser closeout and unresolved-row review; release-repo audit outputs only; no new candidate status parsing; no timing fields; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `3e523d8fe6c231a0520893878c1f4bf4c5a33e5b`
+Push: `origin/main` updated `a37d205..3e523d8`
 
 Summary:
 - Created `audits/candidate_status_parser_v1_closeout/` to review the existing `candidate_status_parser_v1` 600-row audit ledger and related parser-v1 audit outputs.
