@@ -2496,3 +2496,53 @@ Authorization:
 
 Next safe action:
 - Review Metrics Contract v1 and the attribution policy draft, then plan retained-evidence adapter design and validation gates without computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
+
+### 2026-05-17 · pending · Retained-evidence adapter design and validation plan
+
+Mode: release-repo adapter design/spec and validation-plan output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `repository_spec/retained_evidence_adapter_design_v1_draft.md` to define future retained-evidence adapter families, input sources, output ledger record types, row-grain rules, denominator joins, unsupported/N.A. handling, validation gates, implementation sequence, and boundaries against metrics computation and paper rendering.
+- Created audit outputs under `audits/retained_evidence_adapter_design/` for adapter source groups, output row examples, validation gates, metric dependencies, unsupported/N.A. policy, implementation sequence, and machine-readable summary.
+- Confirmed `project_control/MIGRATION_STATUS.md` was current relative to Metrics Contract v1 and did not require discrepancy reporting.
+- Did not implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, create scripts, create source package files, copy reports/results, render paper tables, run DB engines, run validation scripts, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, update case sets, modify case packages, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/retained_evidence_adapter_design_v1_draft.md`
+- `audits/retained_evidence_adapter_design/retained_evidence_adapter_design_summary.md`
+- `audits/retained_evidence_adapter_design/adapter_input_source_matrix.csv`
+- `audits/retained_evidence_adapter_design/adapter_output_ledger_row_examples.csv`
+- `audits/retained_evidence_adapter_design/adapter_validation_gate_plan.md`
+- `audits/retained_evidence_adapter_design/metric_to_adapter_dependency_matrix.csv`
+- `audits/retained_evidence_adapter_design/unsupported_or_na_policy.md`
+- `audits/retained_evidence_adapter_design/implementation_sequence_plan.md`
+- `audits/retained_evidence_adapter_design/retained_evidence_adapter_design_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, adapter input source matrix row check, output row example coverage check, metric dependency coverage check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the retained-evidence adapter design and validation plan, then formalize a ledger schema model and non-mutating validation fixtures without parsing production retained evidence into a metrics ledger, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.

@@ -1,0 +1,22 @@
+{
+  "adapter_implementation_authorized": false,
+  "metrics_implementation_authorized": false,
+  "reproduction_interface_authorized": false,
+  "paper_table_rendering_authorized": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "adapter_families_count": 9,
+  "record_types_covered": [
+    "control_cell",
+    "rewrite_candidate_cell",
+    "plan_observability_artifact",
+    "portability_candidate_cell",
+    "verifier_support_pair",
+    "retained_summary_artifact",
+    "user_run_candidate_cell"
+  ],
+  "next_safe_action": "review adapter design and then formalize a ledger schema model plus non-mutating validation fixtures without parsing production retained evidence or computing metrics"
+}
