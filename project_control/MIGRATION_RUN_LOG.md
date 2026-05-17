@@ -4378,13 +4378,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v1/normalized_status_only_metrics_dryrun_table.csv` and `audits/normalized_status_only_metrics_dryrun_v1/normalized_status_only_status_caveats.csv`. If accepted, separately authorize official metric computation or additional evidence parsing; keep overlap resolution and timing adapter work separate.
 
-### 2026-05-17 · PENDING · status_inference_policy_v0 and candidate status evidence-gap review
+### 2026-05-17 · a674988 · status_inference_policy_v0 and candidate status evidence-gap review
 
 Mode: status-inference policy and evidence-gap review; audit/design only; no official metrics; no timing; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `a674988c82d53a96b4dbd9c1663b265216108b98`
+Push: `origin/main` updated `8d4397e..a674988`
 
 Summary:
 - Created `repository_spec/status_inference_policy_v1_draft.md`.
@@ -4416,8 +4416,8 @@ Validation:
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
 - JSON invariant checks for `status_inference_policy_summary.json`: passed.
 - CSV checks for R1/R2/R3/R4 coverage, preview-only inference flags, future authorization flags, required evidence-gap fields, and no metric authorization claims: passed.
-- `git diff --check`: pending final run.
-- `git status -sb`: pending final run.
+- `git diff --check`: passed.
+- `git status -sb`: only intended status-inference policy audit, spec, doc, and project-control changes before commit.
 
 Task result:
 - official metrics computed: no
