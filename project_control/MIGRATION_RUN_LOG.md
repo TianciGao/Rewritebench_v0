@@ -2403,13 +2403,13 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer review of staged/backlog preview criteria and unregistered-directory disposition before any official staged/backlog case-set creation, migration planning, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.
 
-### 2026-05-17 · pending · Public release clean-export strategy policy
+### 2026-05-17 · 6699ccb · Public release clean-export strategy policy
 
 Mode: release-repo policy/release-surface strategy output; legacy untouched
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `6699ccb12f3e7a743a6e8a652445cd0b2f9a4de7`
+Push: `origin/main` updated `daa3962..6699ccb`
 
 Summary:
 - Added D017 to `project_control/DECISION_LOG.md`, recording that `Rewritebench_v0` is a release construction and migration work repository and that final public v0 should be produced by clean export branch or clean public release repository.
