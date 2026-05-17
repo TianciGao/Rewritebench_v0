@@ -1,0 +1,4 @@
+rewrite_method,authorized_rows,normalized_generated_known,normalized_ready_known,normalized_executed_known,normalized_exact_known,manual_mapping_rows,normalization_ready_for_status_dryrun,notes
+direct_llm_original,94,0,94,0,0,0,false,true only when generated/executed/exact are known for every authorized row and no manual mapping remains
+direct_llm_repair_1,7,7,7,0,0,0,false,true only when generated/executed/exact are known for every authorized row and no manual mapping remains
+calcite_hep_fail_closed,29,0,0,2,2,0,false,true only when generated/executed/exact are known for every authorized row and no manual mapping remains

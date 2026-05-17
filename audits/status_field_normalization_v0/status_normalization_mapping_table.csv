@@ -1,0 +1,16 @@
+field_name,raw_value_pattern,normalized_value,mapping_confidence,applies_to_fields,notes
+all_status_fields,empty|unknown|requires_production_retained_evidence,unknown,medium,generated|ready|executed|exact|result_status|failure_stage|failure_type|parse_status|checker_status,Do not infer success or failure from missing retained evidence.
+all_status_fields,not_applicable,not_applicable,high,generated|ready|executed|exact|result_status|failure_stage|failure_type|parse_status|checker_status,Preserve explicit not-applicable states.
+failure_stage|failure_type,N.A.,not_applicable,high,failure_stage|failure_type,No failure bucket present.
+generated|ready|executed|exact,true|1|yes|generated|ready|executed|exact|success|passed|consistent,true,high,generated|ready|executed|exact,Field-context success values only.
+generated|ready|executed|exact,false|0|no|failed|no_candidate|generation_failed|extraction_failed|parse_failed|preflight_blocked|execution_failed|checker_failed|semantic_mismatch|mismatch|unsupported|timeout|blocked,false,high,generated|ready|executed|exact,Field-context non-success values only.
+result_status,ready|exact|match_exact|exact_match|success|passed|consistent,true,high,result_status,Result status is explicitly positive or ready.
+result_status,failed|blocked|mismatch|no_candidate|generation_failed|extraction_failed|parse_failed|preflight_blocked|execution_failed|checker_failed|semantic_mismatch|unsupported|timeout,false,high,result_status,Result status is explicitly failing or blocked.
+failure_stage,generation|parse|preflight|execution|checker|artifact_collection,true,high,failure_stage,Failure stage value is present.
+failure_type,parser_failed|blocked_missing_failure_feedback|disallowed_semantic_mismatch|generated_execution_failed|generation_failed|extraction_failed|parse_failed|preflight_blocked|execution_failed|checker_failed|semantic_mismatch|mismatch|unsupported|timeout|blocked,true,high,failure_type,Failure type value is present.
+parse_status,parsed|success|passed,true,high,parse_status,Parse succeeded.
+parse_status,not_parsed|parse_failed|parser_failed|extraction_failed,false,high,parse_status,Parse did not succeed.
+checker_status,pass|passed|exact|consistent,true,high,checker_status,Checker/result status succeeded.
+checker_status,fail|failed|mismatch|checker_failed|reject_unexpected,false,high,checker_status,Checker/result status did not succeed.
+checker_status,not_run,unknown,medium,checker_status,Checker did not run; no success/failure inference.
+all_status_fields,otherwise,needs_manual_mapping,low,generated|ready|executed|exact|result_status|failure_stage|failure_type|parse_status|checker_status,Unrecognized raw values require manual mapping.

@@ -4241,3 +4241,70 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_table.csv` and its status-normalization caveats. If accepted, separately authorize status normalization and any official metric-computation task; keep overlap resolution and timing adapter work separate.
+
+### 2026-05-17 · PENDING · status_field_normalization_v0 for authorized candidate-status rows
+
+Mode: bounded audit-only status normalization; authorized candidate-status rows only; no metrics; no timing
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Added `scripts/dev/normalize_candidate_status_fields.py`.
+- Created `audits/status_field_normalization_v0/`.
+- Processed exactly 130 rows with `metric_input_authorized_overlay=true` and `readiness_label=ready_candidate_status_only`.
+- Excluded 45 overlap rows and 425 unresolved rows.
+- Normalized non-timing fields only: `generated`, `ready`, `executed`, `exact`, `result_status`, `failure_stage`, `failure_type`, `parse_status`, and `checker_status`.
+- Inventoried 28 observed field/raw-value pairs and emitted the mapping table used by the script.
+- Rows needing manual mapping: 0.
+- Left original parser and authorization ledgers unchanged.
+- Did not compute official metrics, render paper tables, fill or modify timing fields, update reports/results, change denominators, change paper results, change case membership, read new legacy evidence, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/normalize_candidate_status_fields.py`
+- `audits/status_field_normalization_v0/normalized_candidate_status_overlay_v0.csv`
+- `audits/status_field_normalization_v0/status_normalization_observed_values.csv`
+- `audits/status_field_normalization_v0/status_normalization_mapping_table.csv`
+- `audits/status_field_normalization_v0/status_normalization_manual_review_rows.csv`
+- `audits/status_field_normalization_v0/status_normalization_readiness_by_method.csv`
+- `audits/status_field_normalization_v0/status_field_normalization_report.md`
+- `audits/status_field_normalization_v0/status_field_normalization_checks.csv`
+- `audits/status_field_normalization_v0/status_field_normalization_summary.json`
+- `audits/status_field_normalization_v0/status_field_normalization_limitations.md`
+- `docs/dev/STATUS_FIELD_NORMALIZATION_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/normalize_candidate_status_fields.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/normalize_candidate_status_fields.py ...`: passed; normalized 130 rows, emitted 28 observed-value rows, and found 0 rows needing manual mapping.
+- JSON invariant checks for `status_field_normalization_summary.json`: passed.
+- CSV checks for 130 normalized overlay rows, observed-value inventory, mapping table, all PASS checks, no metrics-computed rows, no paper-result rows, and timing unchanged flags: passed.
+- Original parser ledger mutation check: passed; `candidate_status_parsed_ledger_v1.csv` absent from `git diff --name-status`.
+- `git diff --check`: passed.
+- `git status -sb`: only intended normalization audit, doc, script, and project-control changes before commit.
+
+Task result:
+- rows normalized: 130
+- rows needing manual mapping: 0
+- official metrics computed: no
+- metrics computed: no
+- timing fields filled: no
+- timing fields modified: no
+- paper tables rendered: no
+- original parser ledger modified: no
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review `audits/status_field_normalization_v0/normalized_candidate_status_overlay_v0.csv` and `audits/status_field_normalization_v0/status_normalization_readiness_by_method.csv`. If accepted, separately authorize a normalized status-only metrics dry-run v1; keep official metrics, overlap resolution, and timing adapter work separate.

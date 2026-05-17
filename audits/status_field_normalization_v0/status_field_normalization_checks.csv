@@ -1,0 +1,13 @@
+check_name,status,details
+input authorized rows = 130,PASS,authorized rows=130
+normalized overlay rows = 130,PASS,normalized overlay rows=130
+overlap rows excluded = 45,PASS,overlap rows excluded=45
+unresolved rows excluded = 425,PASS,unresolved rows excluded=425
+original parser ledger unchanged,PASS,script writes only normalization overlay outputs
+timing fields unchanged,PASS,no timing/speedup fields are read for normalization or written as normalized fields
+no metrics computed,PASS,normalizer emits no rates or metric aggregate values
+no paper result,PASS,all overlay rows set paper_result=false
+no reports/results changed,PASS,outputs are under audits/status_field_normalization_v0 only
+denominator unchanged,PASS,case_sets and denominator files are read-only/not written
+paper results unchanged,PASS,no paper table or result file is written
+all raw values inventoried,PASS,observed field/raw pairs=28; inventory rows=28

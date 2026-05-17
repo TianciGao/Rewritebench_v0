@@ -1,0 +1,20 @@
+{
+  "authorized_rows_processed": 130,
+  "denominator_changed": false,
+  "metrics_computed": false,
+  "next_safe_action": "Review normalization overlay and observed-value inventory; separately authorize a normalized status-only metrics dry-run v1 before computing any official metrics.",
+  "normalization_task_completed": true,
+  "normalized_overlay_rows": 130,
+  "official_metrics_computed": false,
+  "original_parser_ledger_modified": false,
+  "overlap_rows_excluded": 45,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "rows_needing_manual_mapping": 0,
+  "timing_fields_filled": false,
+  "timing_fields_modified": false,
+  "unresolved_rows_excluded": 425
+}

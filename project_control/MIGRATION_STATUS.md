@@ -403,6 +403,21 @@ Membership and scaffold snapshot:
 - Denominator changed by status_only_metrics_dryrun_v0: no.
 - Paper results changed by status_only_metrics_dryrun_v0: no.
 - Raw legacy evidence changed by status_only_metrics_dryrun_v0: no.
+- status_field_normalization_v0 completed: yes.
+- Authorized rows processed by status_field_normalization_v0: 130.
+- Overlap rows excluded by status_field_normalization_v0: 45.
+- Unresolved rows excluded by status_field_normalization_v0: 425.
+- Rows needing manual mapping after status_field_normalization_v0: 0.
+- Metrics computed by status_field_normalization_v0: no.
+- Official metrics computed by status_field_normalization_v0: no.
+- Timing fields filled by status_field_normalization_v0: no.
+- Timing fields modified by status_field_normalization_v0: no.
+- Paper tables rendered by status_field_normalization_v0: no.
+- Reports/results changed by status_field_normalization_v0: no.
+- Denominator changed by status_field_normalization_v0: no.
+- Paper results changed by status_field_normalization_v0: no.
+- Raw legacy evidence changed by status_field_normalization_v0: no.
+- Original parser ledger modified by status_field_normalization_v0: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -448,6 +463,7 @@ Membership and scaffold snapshot:
 - metric_input_authorization_overlay_v0 completed as an audit-only authorization overlay, authorizing 130 status-only non-timing parser-v1 rows, denying 45 overlap rows, leaving 425 unresolved rows unauthorized, and not rewriting the original parser ledger or computing metrics.
 - Candidate status overlap review and status-only metrics dry-run plan completed as an audit-only planning packet, reviewing the 45 overlap-blocked rows, recommending manual source-by-source overlap selection before authorization, and planning a future status-only dry run from the 130 currently authorized rows without computing metrics, changing metric-input authorization, filling timing fields, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - status_only_metrics_dryrun_v0 completed as an audit-only dry run, creating Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables from the 130 authorized status-only rows while preserving 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs. It did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+- status_field_normalization_v0 completed as an audit-only normalization overlay, processing exactly the 130 authorized candidate-status rows, excluding 45 overlap rows and 425 unresolved rows, inventorying all observed raw non-timing status values, and leaving original parser and authorization ledgers unchanged. It did not compute official metrics, render paper tables, fill or modify timing fields, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -470,4 +486,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_table.csv` and its status-normalization caveats. If accepted, separately authorize status normalization and any official metric-computation task; keep overlap resolution, timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+Review `audits/status_field_normalization_v0/normalized_candidate_status_overlay_v0.csv` and `audits/status_field_normalization_v0/status_normalization_readiness_by_method.csv`. If accepted, separately authorize a normalized status-only metrics dry-run v1; keep official metrics, overlap resolution, timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
