@@ -2402,3 +2402,44 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer review of staged/backlog preview criteria and unregistered-directory disposition before any official staged/backlog case-set creation, migration planning, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.
+
+### 2026-05-17 · pending · Public release clean-export strategy policy
+
+Mode: release-repo policy/release-surface strategy output; legacy untouched
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Added D017 to `project_control/DECISION_LOG.md`, recording that `Rewritebench_v0` is a release construction and migration work repository and that final public v0 should be produced by clean export branch or clean public release repository.
+- Created `repository_spec/public_release_surface_policy_v1.md` defining file classification labels: `PUBLIC_FINAL`, `PUBLIC_SUPPORT`, `MAINTAINER_ARCHIVE`, `DROP_BEFORE_V0`, and `PRIVATE_ONLY`.
+- Created a public release surface strategy audit with a summary, seed classification table, clean export release plan, and machine-readable summary JSON.
+- Did not delete files, rewrite history, create a release branch, create a new public repository, remove audits, remove project-control files, migrate cases, update reports/results, update case sets, implement scripts/source, compute metrics, render paper tables, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/public_release_surface_policy_v1.md`
+- `audits/public_release_surface_strategy/public_release_surface_strategy_summary.md`
+- `audits/public_release_surface_strategy/public_release_surface_classification_seed.csv`
+- `audits/public_release_surface_strategy/clean_export_release_plan.md`
+- `audits/public_release_surface_strategy/public_release_surface_policy_summary.json`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, classification CSV read check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- files deleted: no
+- history rewritten: no
+- release branch created: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Continue redevelopment in the construction repository; before public v0 tagging, run a separate clean-export surface classification and verification task without deleting construction files, rewriting history, creating a release branch, migrating cases, changing denominators, updating reports/results, or modifying raw legacy evidence.

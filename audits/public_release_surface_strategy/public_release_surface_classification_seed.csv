@@ -1,0 +1,21 @@
+path_or_category,proposed_classification,rationale,keep_in_current_repo_now,likely_in_final_public_surface,final_action_before_v0,notes
+cases/,PUBLIC_FINAL,Canonical case packages are the benchmark unit,true,true,export selected canonical packages after validator and hygiene checks,Common-core 40 is the public v0 anchor
+case_sets/,PUBLIC_FINAL,Case-set membership and denominator scaffolds define release scope,true,true,export approved case sets only,Do not alter Common-core membership during export
+inventory/,PUBLIC_FINAL,Inventory provides public case and source registry context,true,true,export curated public inventory,Non-common-core registry scope needs separate approval
+benchmark_spec/,PUBLIC_FINAL,Public benchmark protocol should be final reviewer-facing spec,true,true,create or promote before export,Currently a release skeleton gap
+repository_spec/,PUBLIC_SUPPORT,Final policies support repository interpretation,true,partial,export final policies and archive superseded drafts,Draft-only specs may move to maintainer archive
+audits/,MAINTAINER_ARCHIVE,Construction audits provide traceability but are noisy for public users,true,false,archive or selectively promote final summaries,Do not delete during active redevelopment
+project_control/,MAINTAINER_ARCHIVE,Project-control files coordinate migration and construction,true,false,archive outside minimal public surface or include only selected release note,Run log is not reviewer-facing by default
+future_prompts/,DROP_BEFORE_V0,Future prompts are construction scaffolding,true,false,drop from clean export unless explicitly promoted,Includes prompts under audit directories
+reports/,PUBLIC_FINAL,Curated public reports are reviewer-facing release artifacts,true,true,create only curated reports after retained-evidence triage,Do not export raw workspaces
+results/,PUBLIC_FINAL,Curated retained results/evidence may support reproduction,true,true,create only curated retained evidence after approval,No metric recomputation implied
+scripts/,PUBLIC_FINAL,Public scripts should expose stable user/dev/reproduce entrypoints,true,true,export only public-safe scripts after redevelopment,Legacy script copies are not automatically public
+src/,PUBLIC_FINAL,Source package implementation belongs in public workbench when implemented,true,true,create after adapter/runner implementation approval,Currently not implemented
+docs/,PUBLIC_FINAL,User and reviewer documentation belongs in final surface,true,true,create docs before release,Currently a skeleton gap
+tests/,PUBLIC_FINAL,Tests and smoke checks should support release confidence,true,true,add with stable scripts/src,Currently a skeleton gap
+baselines/,PUBLIC_SUPPORT,Baseline wrappers may support benchmark context,true,conditional,export only approved public baseline wrappers,Currently optional/deferred
+runs/,PRIVATE_ONLY,Local run outputs must not be published by default,true,false,export at most runs/.gitignore placeholder,Case-local runs remain retained evidence only through mappings
+README/LICENSE/CITATION/CONTRIBUTING,PUBLIC_FINAL,Core public repository metadata,true,true,add or finalize before export,License and citation require maintainer confirmation
+pyproject.toml,PUBLIC_FINAL,Packaging metadata needed once source package exists,true,true,create when implementation packaging is ready,Currently a skeleton gap
+.github/workflows,PUBLIC_FINAL,CI should validate public export,true,true,add after tests and stable commands exist,Currently a skeleton gap
+Codex/agent control files,PRIVATE_ONLY,AI workflow and local agent instructions are not public benchmark artifacts,true,false,exclude from clean export,Includes hidden agent metadata if present

@@ -1,0 +1,10 @@
+{
+  "clean_export_strategy_adopted": true,
+  "denominator_changed": false,
+  "files_deleted_now": false,
+  "history_rewrite_now": false,
+  "next_safe_action": "continue redevelopment in the construction repo; before public v0 tagging run a clean-export surface classification and verification task",
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "release_branch_created_now": false
+}

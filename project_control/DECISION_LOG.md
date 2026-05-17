@@ -346,3 +346,22 @@ Impact:
 - User-facing outputs must not write into case-local `runs/`.
 - Final metric changes must be confirmed by maintainer/team before implementing the unified reproduction interface.
 - Common-core 40 remains the public v0 benchmark line; non-common-core cases remain governed backlog/universe, not v0 denominator.
+
+## D017: Clean public release export strategy
+
+Decision:
+
+`Rewritebench_v0` is treated as a release construction and migration work repository. The final public v0 artifact should be produced through a clean public export branch or clean public release repository rather than assuming that the current construction history and all audit scaffolding are the final public surface.
+
+Reason:
+
+During migration and redevelopment, the repository intentionally contains project-control files, audit reports, planning previews, future prompts, temporary strategy files, and draft specifications. These are useful for safety and coordination but can make the final public repository unnecessarily noisy. A clean export step allows the project to preserve construction traceability while publishing a minimal reviewer/user-facing artifact.
+
+Impact:
+
+- Do not delete current audits during active redevelopment.
+- Before release tag, run a public release surface pruning / clean-export task.
+- Classify files as `PUBLIC_FINAL`, `PUBLIC_SUPPORT`, `MAINTAINER_ARCHIVE`, `DROP_BEFORE_V0`, or `PRIVATE_ONLY`.
+- The clean release surface should retain canonical case packages, case sets, inventory, benchmark specs, user docs, curated reports/results, scripts, source package code, tests, and CI as appropriate.
+- Migration logs, future prompts, intermediate audits, scratch files, and internal coordination artifacts should not be assumed to belong in the final public surface.
+- If history cleanliness is required, create a clean export branch or clean public release repository from selected files.
