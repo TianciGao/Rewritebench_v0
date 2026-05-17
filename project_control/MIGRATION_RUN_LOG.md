@@ -3537,13 +3537,13 @@ Authorization:
 Next safe action:
 - Review `candidate_status_adapter_v0` unresolved overlay rows and input-use log before authorizing any production retained-evidence candidate adapter. Do not parse legacy/raw evidence, fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Candidate retained-evidence parser approval packet
+### 2026-05-17 · a784923 · Candidate retained-evidence parser approval packet
 
 Mode: release-repo audit/design/approval-packet only; no production retained-evidence parsing; legacy not read
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `a78492364b463b5d9c6edec041b025577ac0f4e1`
+Push: `origin/main` updated `adf2ba7..a784923`
 
 Summary:
 - Created `audits/candidate_retained_evidence_parser_approval_packet/` with an approval summary, unresolved-overlay review, input-use review, candidate field/source plan, route risk matrix, proposed parser scope, validation-gate checklist, and maintainer decision template.
