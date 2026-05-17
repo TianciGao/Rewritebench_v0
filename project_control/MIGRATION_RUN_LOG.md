@@ -5046,13 +5046,13 @@ Task result:
 Next safe action:
 - Run `non_status_metric_na_backlog_closure_bundle_v0` to close Semantic Equivalence, performance, attribution, cross-engine, and Speedup Retention as blocked, N.A., or post-release without implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.
 
-### 2026-05-18 · pending · non_status_metric_na_backlog_closure_bundle_v0
+### 2026-05-18 · c840a5e · non_status_metric_na_backlog_closure_bundle_v0
 
 Mode: A-line non-status metric closure; no new metrics; no adapters; no paper tables; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `c840a5e990b9998ab458fed24261e7a5620827bb`
+Push: `origin/main` updated `1a68b7b..c840a5e`
 
 Summary:
 - Created `audits/non_status_metric_na_backlog_closure_bundle_v0/` closure packet.
