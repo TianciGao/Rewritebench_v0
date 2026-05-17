@@ -2911,3 +2911,71 @@ Authorization:
 
 Next safe action:
 - Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · retained_summary_adapter_v0
+
+Mode: narrow low-risk adapter skeleton for release-repo summary artifacts only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `scripts/dev/build_retained_summary_ledger.py`, a bounded retained-summary adapter skeleton.
+- Adapter scope: `release_repo_summary_only`.
+- Allowed emitted record type: `retained_summary_artifact` only.
+- Generated `audits/retained_summary_adapter_v0/retained_summary_ledger_v0.csv` with 31 non-metric retained-summary rows.
+- Generated adapter summary, checks, report, and limitations under `audits/retained_summary_adapter_v0/`.
+- Added concise developer documentation at `docs/dev/RETAINED_SUMMARY_ADAPTER_V0.md`.
+- Did not read the legacy repo, parse production retained evidence, parse legacy reports/results/runs, implement a general retained-evidence adapter, compute metrics, implement a reproduction CLI, implement public runner outputs, render paper tables, copy reports/results, create `results/retained`, create `reports/evaluation`, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_retained_summary_ledger.py`
+- `audits/retained_summary_adapter_v0/retained_summary_ledger_v0.csv`
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_summary.json`
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_report.md`
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_checks.csv`
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_limitations.md`
+- `docs/dev/RETAINED_SUMMARY_ADAPTER_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_retained_summary_ledger.py`: passed.
+- `python scripts/dev/build_retained_summary_ledger.py --out-dir audits/retained_summary_adapter_v0`: passed.
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_summary.json` parse and invariant checks: passed.
+- CSV checks for retained summary rows and adapter checks: passed.
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending.
+
+Adapter result:
+- Rows emitted: 31.
+- Record types emitted: `retained_summary_artifact`.
+- Optional inputs missing: 0.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- Metric input authorized: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the retained_summary_adapter_v0 output and production validation gates before authorizing any adapter that parses real retained evidence or emits metric-eligible rows; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

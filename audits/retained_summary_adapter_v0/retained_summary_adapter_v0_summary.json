@@ -1,0 +1,20 @@
+{
+  "adapter_name": "retained_summary_adapter_v0",
+  "adapter_scope": "release_repo_summary_only",
+  "denominator_changed": false,
+  "inputs_checked": 31,
+  "legacy_repo_read": false,
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "optional_inputs_missing": [],
+  "optional_inputs_missing_count": 0,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "retained_summary_artifact"
+  ],
+  "reports_changed": false,
+  "results_changed": false,
+  "rows_emitted": 31
+}

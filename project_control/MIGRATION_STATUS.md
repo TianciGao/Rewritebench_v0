@@ -51,6 +51,8 @@ Important blocker: Metrics Contract v1 is formalized, but implementation remains
 
 Production ledger validation-gate planning is complete under `repository_spec/production_ledger_validation_policy_v1_draft.md` and `audits/production_ledger_validation_gates/`. The plan defines schema, record-type, denominator, status/N.A., metric-readiness, public-hygiene, mutation-boundary, no-global-leaderboard, provenance, and CI-smoke gates for future production ledgers. It does not implement a production ledger validator, parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 
+`retained_summary_adapter_v0` is complete as a narrow low-risk adapter skeleton under `scripts/dev/build_retained_summary_ledger.py` and `audits/retained_summary_adapter_v0/`. Scope is `release_repo_summary_only`; it emits only `retained_summary_artifact` rows from release-repo summaries, Common-core scaffolds, inventory, and repository specs. It emitted 31 rows, with `metric_input_authorized=false`, `metrics_computed=false`, `production_retained_evidence_parsed=false`, and `legacy_repo_read=false` for every row. This is not a general retained-evidence adapter, not a production ledger, and not a metrics input.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -98,6 +100,9 @@ Membership and scaffold snapshot:
 - `audits/production_ledger_validation_gates/production_ledger_gate_matrix.csv`: 24 proposed validation gates across schema, record-type, denominator, status/N.A., metric-readiness, public hygiene, mutation boundary, no-global-leaderboard, provenance, and CI-smoke families.
 - `audits/production_ledger_validation_gates/record_type_production_gate_matrix.csv`: seven ledger record types covered by future production validation gates.
 - `audits/production_ledger_validation_gates/metric_readiness_gate_matrix.csv`: 10 Metrics Contract v1 primary metrics mapped to pre-computation readiness gates, with `can_compute_without_gate=false`.
+- `scripts/dev/build_retained_summary_ledger.py`: narrow release-repo-summary-only adapter skeleton emitting `retained_summary_artifact` rows only.
+- `audits/retained_summary_adapter_v0/retained_summary_ledger_v0.csv`: 31 draft retained-summary rows, all non-metric audit rows.
+- `audits/retained_summary_adapter_v0/retained_summary_adapter_v0_summary.json`: adapter summary recording `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, and `metric_input_authorized=false`.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -137,6 +142,10 @@ Membership and scaffold snapshot:
 - Production retained evidence parsed by developer smoke entrypoint: no.
 - Production retained evidence parsed by ledger fixture CI smoke workflow: no.
 - Production retained evidence parsed by production ledger validation-gate planning: no.
+- Production retained evidence parsed by retained_summary_adapter_v0: no.
+- Legacy repo read by retained_summary_adapter_v0: no.
+- Metrics computed by retained_summary_adapter_v0: no.
+- Metric input authorized by retained_summary_adapter_v0: no.
 - Production ledger validator implemented: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
@@ -167,6 +176,7 @@ Membership and scaffold snapshot:
 - Developer-only ledger fixture smoke entrypoint completed, wrapping the hardened synthetic validator without parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Ledger fixture CI smoke workflow completed, running synthetic fixture validation only and not parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Production ledger validation-gate planning completed without parsing production retained evidence, implementing a production ledger validator, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- retained_summary_adapter_v0 completed as a narrow release-repo-summary-only adapter skeleton, emitting 31 `retained_summary_artifact` audit rows without reading the legacy repo, parsing production retained evidence, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -177,7 +187,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, and production ledger validation-gate planning is complete; production retained-evidence parsing, production ledger validator implementation, adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, and retained_summary_adapter_v0 exists for release-repo summary artifacts only; production retained-evidence parsing, production ledger validator implementation, general adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -189,4 +199,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter. Do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.
+Review retained_summary_adapter_v0 output and production ledger validation gates before authorizing any adapter that parses real retained evidence or emits metric-eligible rows. Do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.

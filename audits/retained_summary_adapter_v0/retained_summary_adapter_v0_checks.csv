@@ -1,0 +1,13 @@
+check_name,status,details
+only release repo inputs used,PASS,All emitted rows use repository-relative curated release inputs.
+no legacy repo path read,PASS,No path under /home/tianci_gao/code/sql-rewrite-bench-artifact-clean was read.
+output rows record_type retained_summary_artifact only,PASS,All rows are retained_summary_artifact.
+metric_input_authorized false for all rows,PASS,No row is authorized as a metric input.
+metrics_computed false,PASS,No metric computation performed.
+production_retained_evidence_parsed false,PASS,Only release summaries and scaffolds were read.
+reports/results unchanged,PASS,No reports/ or results/ outputs were written.
+denominator unchanged,PASS,Scaffolds were read only.
+paper results unchanged,PASS,No paper result values inferred or changed.
+output row count greater than zero,PASS,rows_emitted=31
+no disallowed record types emitted,PASS,record_types=['retained_summary_artifact']
+optional missing inputs documented,PASS,No optional curated inputs missing.
