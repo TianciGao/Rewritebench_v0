@@ -2652,13 +2652,13 @@ Authorization:
 Next safe action:
 - Review the ledger fixture validator skeleton and decide whether to harden synthetic fixture validation or plan production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Ledger fixture validator hardening and dev-smoke documentation
+### 2026-05-17 · f7c613a · Ledger fixture validator hardening and dev-smoke documentation
 
 Mode: release-repo developer validator hardening for synthetic fixtures only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `f7c613a904e72a0dc624bb6e1ad0b9683a43545c`
+Push: `origin/main` updated `432b217..f7c613a`
 
 Summary:
 - Hardened `scripts/dev/validate_ledger_fixtures.py` while preserving fixture-only scope.
@@ -2687,8 +2687,8 @@ Validation:
 - Base fixture validator run: passed.
 - Base plus hardening fixture validator run: passed.
 - JSON assertions and CSV row/count checks: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Hardening result:
 - Base fixture rows checked: 20.
