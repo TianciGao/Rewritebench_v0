@@ -1,0 +1,16 @@
+check_name,status,details
+source/positive scaffold row count = 240,PASS,source_positive_control_rows=240
+emitted row count = 240,PASS,rows_emitted=240
+all rows record_type=control_cell,PASS,control_cell
+"all rows control_route in {source, positive}",PASS,source;positive
+no legacy repo path read,PASS,legacy_repo_read=false
+metrics_computed=false,PASS,metrics_computed=false
+metric_input_authorized=false,PASS,metric_input_authorized=false
+source_positive_rate_computed=false,PASS,source_positive_rate_computed=false
+result_consistency_rate_computed=false,PASS,result_consistency_rate_computed=false
+production_retained_evidence_parsed=false,PASS,production_retained_evidence_parsed=false
+no reports/results changed,PASS,reports_changed=false;results_changed=false
+denominator unchanged,PASS,denominator_changed=false
+paper results unchanged,PASS,paper_results_changed=false
+no source/positive control row silently dropped,PASS,dropped_rows=0
+evidence-index caveats documented,WARN,rows_without_engine_specific_retained_artifact=61

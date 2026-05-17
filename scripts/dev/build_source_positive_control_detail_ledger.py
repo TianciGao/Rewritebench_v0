@@ -1,0 +1,644 @@
+#!/usr/bin/env python3
+"""Build source/positive control detail rows from release case packages only.
+
+This bounded adapter reads Common-core control scaffolds and canonical case
+package metadata/evidence indexes. It emits one non-metric control_cell row for
+each source or positive row in controls_360.csv. It does not read legacy
+reports/results/runs, parse production retained evidence, compute
+source-positive rates, or infer consistency outcomes.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import re
+import sys
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+
+ADAPTER_NAME = "source_positive_control_detail_adapter_v0"
+ADAPTER_SCOPE = "release_case_package_only"
+CASE_SET = "common_core_v0"
+RECORD_TYPE = "control_cell"
+CONTROL_ROUTES = {"source", "positive"}
+LEGACY_REPO_ROOT = Path("/home/tianci_gao/code/sql-rewrite-bench-artifact-clean")
+DEFAULT_OUT_DIR = Path("audits/source_positive_control_detail_adapter_v0")
+CASE_REGISTRY_PATH = Path("inventory/case_registry.csv")
+
+LEDGER_FILENAME = "source_positive_control_detail_ledger_v0.csv"
+SUMMARY_FILENAME = "source_positive_control_detail_adapter_v0_summary.json"
+REPORT_FILENAME = "source_positive_control_detail_adapter_v0_report.md"
+CHECKS_FILENAME = "source_positive_control_detail_adapter_v0_checks.csv"
+LIMITATIONS_FILENAME = "source_positive_control_detail_limitations.md"
+
+LEDGER_COLUMNS = [
+    "record_id",
+    "record_type",
+    "adapter_name",
+    "adapter_scope",
+    "case_id",
+    "pool",
+    "case_set",
+    "denominator_id",
+    "engine",
+    "route",
+    "method_role",
+    "control_route",
+    "candidate_id",
+    "source_sql_path",
+    "candidate_sql_path",
+    "planned",
+    "applicable_status",
+    "sql_artifact_path",
+    "checker_config_path",
+    "normalization_config_path",
+    "compare_config_path",
+    "runs_retention_path",
+    "package_validation_summary_path",
+    "retained_artifact_path",
+    "evidence_index_status",
+    "checker_guard_role",
+    "generated",
+    "ready",
+    "executed",
+    "exact",
+    "timed",
+    "result_status",
+    "checker_status",
+    "evidence_source",
+    "status",
+    "na_reason",
+    "metrics_computed",
+    "metric_input_authorized",
+    "source_positive_rate_computed",
+    "result_consistency_rate_computed",
+    "production_retained_evidence_parsed",
+    "legacy_repo_read",
+    "reports_changed",
+    "results_changed",
+    "denominator_changed",
+    "paper_results_changed",
+    "notes",
+]
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Build source/positive control detail rows from release case packages."
+    )
+    parser.add_argument("--case-set", required=True, type=Path)
+    parser.add_argument("--controls", required=True, type=Path)
+    parser.add_argument("--out-dir", required=True, type=Path, default=DEFAULT_OUT_DIR)
+    return parser.parse_args()
+
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def ensure_safe_path(path: Path, *, allow_cases: bool = False) -> None:
+    resolved = path.resolve()
+    if resolved == LEGACY_REPO_ROOT or LEGACY_REPO_ROOT in resolved.parents:
+        raise ValueError(f"legacy repo path is not allowed: {path}")
+    if "reports" in path.parts or "results" in path.parts:
+        raise ValueError(f"reports/results paths are not valid adapter inputs: {path}")
+    if "runs" in path.parts and not allow_cases:
+        raise ValueError(f"raw runs paths are not valid adapter inputs: {path}")
+
+
+def read_csv(path: Path) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def write_csv(path: Path, rows: list[dict[str, str]], fieldnames: list[str]) -> None:
+    with path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def read_text_if_exists(path: Path) -> str:
+    ensure_safe_path(path, allow_cases=True)
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def load_json_if_exists(path: Path) -> dict[str, Any]:
+    ensure_safe_path(path, allow_cases=True)
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data if isinstance(data, dict) else {}
+
+
+def engine_aliases(engine: str) -> set[str]:
+    aliases = {
+        "postgres": {"postgres", "pg"},
+        "mysql": {"mysql"},
+        "spark": {"spark"},
+    }
+    return aliases.get(engine, {engine})
+
+
+def normalize_evidence_path(case_path: Path, path_text: str) -> Path | None:
+    clean = path_text.strip().strip("'\"").rstrip(",")
+    if not clean.endswith(".tsv") or "evidence/retained_controls" not in clean:
+        return None
+    path = Path(clean)
+    if clean.startswith("cases/"):
+        return path
+    if clean.startswith("evidence/"):
+        return case_path / path
+    return None
+
+
+def indexed_retained_control_paths(case_path: Path, texts: list[str]) -> list[Path]:
+    pattern = re.compile(r"(?P<path>(?:cases/[^\s,'\"]+/)?evidence/retained_controls/[^\s,'\"]+\.tsv)")
+    paths: list[Path] = []
+    for text in texts:
+        for match in pattern.finditer(text):
+            normalized = normalize_evidence_path(case_path, match.group("path"))
+            if normalized is not None and normalized not in paths:
+                paths.append(normalized)
+    return paths
+
+
+def path_matches_engine(path: Path, engine: str) -> bool:
+    lower_parts = [part.lower() for part in path.parts]
+    lower_name = path.name.lower()
+    aliases = engine_aliases(engine)
+    return any(alias in lower_parts or alias in lower_name for alias in aliases)
+
+
+def path_matches_route(path: Path, control_route: str) -> bool:
+    lower_name = path.name.lower()
+    if control_route == "source":
+        return "source" in lower_name
+    return "rewrite_pos" in lower_name or re.search(r"(^|_)pos(_|\d)", lower_name) is not None
+
+
+def fallback_candidates(case_path: Path, engine: str, control_route: str) -> list[Path]:
+    base = case_path / "evidence/retained_controls"
+    aliases = sorted(engine_aliases(engine))
+    candidates: list[Path] = []
+    if control_route == "source":
+        candidates.append(base / engine / "source.tsv")
+        for alias in aliases:
+            candidates.extend([base / f"{alias}_source.tsv", base / f"{alias}-source.tsv"])
+    else:
+        candidates.append(base / engine / "rewrite_pos_01.tsv")
+        candidates.append(base / engine / "rewrite_pos_02_spark.tsv")
+        for alias in aliases:
+            candidates.extend(
+                [
+                    base / f"{alias}_rewrite_pos_01.tsv",
+                    base / f"{alias}_rewrite_pos_02_spark.tsv",
+                    base / f"{alias}-rewrite_pos_01.tsv",
+                ]
+            )
+    return candidates
+
+
+def select_retained_artifact(
+    root: Path,
+    case_path: Path,
+    engine: str,
+    control_route: str,
+    indexed_paths: list[Path],
+) -> Path | None:
+    candidates = [
+        path
+        for path in indexed_paths
+        if path_matches_engine(path, engine) and path_matches_route(path, control_route)
+    ]
+    candidates.extend(fallback_candidates(case_path, engine, control_route))
+    safe_existing: list[Path] = []
+    for rel_path in candidates:
+        full_path = root / rel_path
+        ensure_safe_path(full_path, allow_cases=True)
+        if full_path.exists() and full_path.suffix == ".tsv":
+            safe_existing.append(rel_path)
+    if not safe_existing:
+        return None
+    return sorted(set(safe_existing))[0]
+
+
+def config_path(root: Path, case_path: Path, filename: str) -> str:
+    path = root / case_path / "checker" / filename
+    ensure_safe_path(path, allow_cases=True)
+    return str(case_path / "checker" / filename) if path.exists() else ""
+
+
+def sql_artifact_path(case_path: Path, control_route: str) -> str:
+    if control_route == "source":
+        return str(case_path / "sql/source.sql")
+    return str(case_path / "sql/positives/pos_01.sql")
+
+
+def checker_guard_role(control_route: str) -> str:
+    if control_route == "source":
+        return "source_reference_control"
+    return "source_positive_equivalence_control"
+
+
+def evidence_status_and_path(
+    root: Path,
+    case_path: Path,
+    engine: str,
+    control_route: str,
+    indexed_paths: list[Path],
+    runs_retention_path: Path,
+) -> tuple[str, str]:
+    retained_path = select_retained_artifact(root, case_path, engine, control_route, indexed_paths)
+    if retained_path is not None:
+        return "indexed_not_recomputed", str(retained_path)
+    if runs_retention_path.exists():
+        return "evidence_not_retained", ""
+    return "manual_review_required", ""
+
+
+def build_rows(
+    root: Path,
+    case_rows: list[dict[str, str]],
+    control_rows: list[dict[str, str]],
+    registry_rows: list[dict[str, str]],
+) -> tuple[list[dict[str, str]], list[str]]:
+    case_by_id = {row["case_id"]: row for row in case_rows}
+    registry_case_ids = {row.get("case_id", "") for row in registry_rows}
+    source_positive_controls = [
+        row for row in control_rows if row.get("control_route") in CONTROL_ROUTES
+    ]
+    inputs_read = [
+        str(Path("case_sets/common_core_v0/cases.csv")),
+        str(Path("case_sets/common_core_v0/controls_360.csv")),
+        str(CASE_REGISTRY_PATH),
+    ]
+    output_rows: list[dict[str, str]] = []
+
+    for control in source_positive_controls:
+        case_id = control["case_id"]
+        case = case_by_id[case_id]
+        case_path = Path(case["case_path"])
+        manifest_path = root / case["manifest_path"]
+        runs_retention_path = root / case_path / "evidence/runs_retention.yaml"
+        package_summary_path = root / case_path / "evidence/package_validation_summary.json"
+        checker_config_path = root / case_path / "checker/checker.yaml"
+        normalization_path = root / case_path / "checker/normalization.yaml"
+        compare_config_path = root / case_path / "checker/compare_config.yaml"
+        source_sql_path = root / case_path / "sql/source.sql"
+        positive_sql_path = root / case_path / "sql/positives/pos_01.sql"
+        for path in (
+            manifest_path,
+            runs_retention_path,
+            package_summary_path,
+            checker_config_path,
+            normalization_path,
+            compare_config_path,
+            source_sql_path,
+            positive_sql_path,
+        ):
+            ensure_safe_path(path, allow_cases=True)
+
+        read_text_if_exists(manifest_path)
+        runs_retention_text = read_text_if_exists(runs_retention_path)
+        checker_text = read_text_if_exists(checker_config_path)
+        normalization_text = read_text_if_exists(normalization_path)
+        compare_text = read_text_if_exists(compare_config_path)
+        read_text_if_exists(source_sql_path)
+        read_text_if_exists(positive_sql_path)
+        package_summary = load_json_if_exists(package_summary_path)
+        del normalization_text
+
+        for rel_path in (
+            case["manifest_path"],
+            str(case_path / "evidence/runs_retention.yaml"),
+            str(case_path / "evidence/package_validation_summary.json"),
+            str(case_path / "checker/checker.yaml"),
+            str(case_path / "checker/normalization.yaml"),
+            str(case_path / "checker/compare_config.yaml"),
+            str(case_path / "sql/source.sql"),
+            str(case_path / "sql/positives/pos_01.sql"),
+        ):
+            if rel_path not in inputs_read:
+                inputs_read.append(rel_path)
+
+        route = control["control_route"]
+        indexed_paths = indexed_retained_control_paths(
+            case_path, [runs_retention_text, checker_text, compare_text]
+        )
+        evidence_index_status, retained_artifact_path = evidence_status_and_path(
+            root, case_path, control["engine"], route, indexed_paths, runs_retention_path
+        )
+        claim_boundaries = package_summary.get("claim_boundaries", {}) if isinstance(package_summary, dict) else {}
+        no_db_validation = (
+            claim_boundaries.get("db_validation_run") is False
+            or package_summary.get("db_validation_run") is False
+        )
+        applicable_status = "planned_control" if control.get("planned") == "true" else "not_applicable"
+        sql_path = sql_artifact_path(case_path, route)
+        notes = [
+            "Source/positive control detail row emitted from release case package metadata only",
+            "no fresh execution or consistency status inferred",
+            "source-positive and result-consistency rates not computed",
+            "case present in inventory/case_registry.csv" if case_id in registry_case_ids else "case missing from inventory/case_registry.csv",
+        ]
+        if evidence_index_status != "indexed_not_recomputed":
+            notes.append("engine-specific source/positive retained artifact not indexed for this control cell")
+        if no_db_validation:
+            notes.append("package summary records no DB validation run during migration")
+
+        output_rows.append(
+            {
+                "record_id": f"{ADAPTER_NAME}:{control['control_id']}",
+                "record_type": RECORD_TYPE,
+                "adapter_name": ADAPTER_NAME,
+                "adapter_scope": ADAPTER_SCOPE,
+                "case_id": case_id,
+                "pool": control["pool"],
+                "case_set": CASE_SET,
+                "denominator_id": control["control_id"],
+                "engine": control["engine"],
+                "route": route,
+                "method_role": "control",
+                "control_route": route,
+                "candidate_id": control["control_id"],
+                "source_sql_path": str(case_path / "sql/source.sql"),
+                "candidate_sql_path": sql_path,
+                "planned": control["planned"],
+                "applicable_status": applicable_status,
+                "sql_artifact_path": sql_path,
+                "checker_config_path": config_path(root, case_path, "checker.yaml"),
+                "normalization_config_path": config_path(root, case_path, "normalization.yaml"),
+                "compare_config_path": config_path(root, case_path, "compare_config.yaml"),
+                "runs_retention_path": str(case_path / "evidence/runs_retention.yaml"),
+                "package_validation_summary_path": str(
+                    case_path / "evidence/package_validation_summary.json"
+                ),
+                "retained_artifact_path": retained_artifact_path,
+                "evidence_index_status": evidence_index_status,
+                "checker_guard_role": checker_guard_role(route),
+                "generated": "false",
+                "ready": "N.A.",
+                "executed": "N.A.",
+                "exact": "N.A.",
+                "timed": "N.A.",
+                "result_status": "N.A.",
+                "checker_status": "not_run",
+                "evidence_source": "canonical_case_package",
+                "status": "N.A.",
+                "na_reason": "not_applicable",
+                "metrics_computed": "false",
+                "metric_input_authorized": "false",
+                "source_positive_rate_computed": "false",
+                "result_consistency_rate_computed": "false",
+                "production_retained_evidence_parsed": "false",
+                "legacy_repo_read": "false",
+                "reports_changed": "false",
+                "results_changed": "false",
+                "denominator_changed": "false",
+                "paper_results_changed": "false",
+                "notes": "; ".join(notes),
+            }
+        )
+    return output_rows, inputs_read
+
+
+def checks(rows: list[dict[str, str]], source_positive_controls_count: int) -> list[dict[str, str]]:
+    evidence_missing = sum(1 for row in rows if row["evidence_index_status"] != "indexed_not_recomputed")
+    dropped = source_positive_controls_count - len(rows)
+    checks_data = [
+        (
+            "source/positive scaffold row count = 240",
+            source_positive_controls_count == 240,
+            f"source_positive_control_rows={source_positive_controls_count}",
+        ),
+        ("emitted row count = 240", len(rows) == 240, f"rows_emitted={len(rows)}"),
+        ("all rows record_type=control_cell", all(row["record_type"] == RECORD_TYPE for row in rows), RECORD_TYPE),
+        (
+            "all rows control_route in {source, positive}",
+            all(row["control_route"] in CONTROL_ROUTES for row in rows),
+            "source;positive",
+        ),
+        ("no legacy repo path read", all(row["legacy_repo_read"] == "false" for row in rows), "legacy_repo_read=false"),
+        ("metrics_computed=false", all(row["metrics_computed"] == "false" for row in rows), "metrics_computed=false"),
+        (
+            "metric_input_authorized=false",
+            all(row["metric_input_authorized"] == "false" for row in rows),
+            "metric_input_authorized=false",
+        ),
+        (
+            "source_positive_rate_computed=false",
+            all(row["source_positive_rate_computed"] == "false" for row in rows),
+            "source_positive_rate_computed=false",
+        ),
+        (
+            "result_consistency_rate_computed=false",
+            all(row["result_consistency_rate_computed"] == "false" for row in rows),
+            "result_consistency_rate_computed=false",
+        ),
+        (
+            "production_retained_evidence_parsed=false",
+            all(row["production_retained_evidence_parsed"] == "false" for row in rows),
+            "production_retained_evidence_parsed=false",
+        ),
+        (
+            "no reports/results changed",
+            all(row["reports_changed"] == "false" and row["results_changed"] == "false" for row in rows),
+            "reports_changed=false;results_changed=false",
+        ),
+        ("denominator unchanged", all(row["denominator_changed"] == "false" for row in rows), "denominator_changed=false"),
+        ("paper results unchanged", all(row["paper_results_changed"] == "false" for row in rows), "paper_results_changed=false"),
+        ("no source/positive control row silently dropped", dropped == 0, f"dropped_rows={dropped}"),
+    ]
+    result = [
+        {"check_name": name, "status": "PASS" if ok else "FAIL", "details": details}
+        for name, ok, details in checks_data
+    ]
+    result.append(
+        {
+            "check_name": "evidence-index caveats documented",
+            "status": "WARN" if evidence_missing else "PASS",
+            "details": f"rows_without_engine_specific_retained_artifact={evidence_missing}",
+        }
+    )
+    return result
+
+
+def write_report(
+    path: Path,
+    rows: list[dict[str, str]],
+    inputs_read: list[str],
+    validation_result: str,
+) -> None:
+    route_counts = Counter(row["control_route"] for row in rows)
+    pool_counts = Counter(row["pool"] for row in rows)
+    engine_counts = Counter(row["engine"] for row in rows)
+    applicable_counts = Counter(row["applicable_status"] for row in rows)
+    evidence_counts = Counter(row["evidence_index_status"] for row in rows)
+    lines = [
+        "# source_positive_control_detail_adapter_v0 Report",
+        "",
+        "## Purpose And Scope",
+        "",
+        "This bounded adapter emits one source/positive `control_cell` detail row per source or positive row in `controls_360.csv`.",
+        "It reads only release-repo Common-core scaffolds and canonical case package metadata/evidence indexes.",
+        "The output is an audit artifact. It is not a production metrics ledger and is not paper evidence by itself.",
+        "",
+        "## Inputs Read",
+        "",
+    ]
+    lines.extend(f"- `{input_path}`" for input_path in inputs_read)
+    lines.extend(["", "## Rows Emitted", "", f"- Rows emitted: {len(rows)}"])
+    lines.extend(["", "## Source/Positive Route Counts", ""])
+    lines.extend(f"- `{route}`: {count}" for route, count in sorted(route_counts.items()))
+    lines.extend(["", "## Pool Counts", ""])
+    lines.extend(f"- `{pool}`: {count}" for pool, count in sorted(pool_counts.items()))
+    lines.extend(["", "## Engine Counts", ""])
+    lines.extend(f"- `{engine}`: {count}" for engine, count in sorted(engine_counts.items()))
+    lines.extend(["", "## Applicable Status Counts", ""])
+    lines.extend(f"- `{status}`: {count}" for status, count in sorted(applicable_counts.items()))
+    lines.extend(["", "## Evidence-index Caveats", ""])
+    lines.extend(f"- `{status}`: {count}" for status, count in sorted(evidence_counts.items()))
+    lines.extend(
+        [
+            "",
+            "`indexed_not_recomputed` means an engine-specific source/positive retained artifact is indexed in the release case package, but this task did not parse or rerun it.",
+            "`evidence_not_retained` means the row is preserved from the scaffold, but no engine-specific source/positive retained artifact was indexed for that control cell.",
+            "",
+            "## Explicit Non-goals",
+            "",
+            "- No legacy reports/results/runs were read.",
+            "- No production retained evidence was parsed.",
+            "- No source/positive validation was rerun.",
+            "- No source/positive pass rate was computed.",
+            "- No Result Consistency Rate was computed.",
+            "- No semantic equivalence proof was created.",
+            "- No reports/results were copied or modified.",
+            "- No production ledger was created under `results/`.",
+            "- No paper tables were rendered.",
+            "",
+            "## Why This Is Not Metrics Computation",
+            "",
+            "Every row has `metric_input_authorized=false`, `metrics_computed=false`, `source_positive_rate_computed=false`, `result_consistency_rate_computed=false`, and execution/correctness/timing fields set to `N.A.`.",
+            "",
+            "## Why This Is Not Source-positive Consistency Computation",
+            "",
+            "The adapter records SQL/config paths and retained artifact pointers only. It does not inspect outputs, classify equality, or aggregate source-positive outcomes.",
+            "",
+            "## Why This Is Not Legacy Retained-evidence Parsing",
+            "",
+            "The adapter reads only release-repo case package metadata and indexes. It does not inspect `/home/tianci_gao/code/sql-rewrite-bench-artifact-clean` or parse legacy reports/results/runs.",
+            "",
+            "## Validation Result",
+            "",
+            validation_result,
+            "",
+            "## Next Safe Action",
+            "",
+            "Review source/positive detail row coverage and validator output before authorizing any adapter that parses real retained evidence or computes correctness metrics.",
+        ]
+    )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_limitations(path: Path) -> None:
+    path.write_text(
+        "\n".join(
+            [
+                "# source_positive_control_detail_adapter_v0 Limitations",
+                "",
+                "- This adapter only indexes release case-package source/positive metadata and evidence pointers.",
+                "- It does not rerun source/positive validation.",
+                "- It does not compute source-positive consistency rate.",
+                "- It does not compute Result Consistency Rate.",
+                "- It does not parse legacy retained evidence.",
+                "- It does not prove semantic equivalence.",
+                "- It does not create official `results/retained` or `reports/evaluation` outputs.",
+                "- Future metrics and reporting require separate authorization.",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+
+def main() -> int:
+    args = parse_args()
+    root = repo_root()
+    case_set_path = args.case_set if args.case_set.is_absolute() else root / args.case_set
+    controls_path = args.controls if args.controls.is_absolute() else root / args.controls
+    registry_path = root / CASE_REGISTRY_PATH
+    out_dir = args.out_dir if args.out_dir.is_absolute() else root / args.out_dir
+    for path in (case_set_path, controls_path, registry_path, out_dir):
+        ensure_safe_path(path, allow_cases=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    case_rows = read_csv(case_set_path)
+    control_rows = read_csv(controls_path)
+    registry_rows = read_csv(registry_path)
+    rows, inputs_read = build_rows(root, case_rows, control_rows, registry_rows)
+    source_positive_controls_count = sum(
+        1 for row in control_rows if row.get("control_route") in CONTROL_ROUTES
+    )
+
+    ledger_path = out_dir / LEDGER_FILENAME
+    summary_path = out_dir / SUMMARY_FILENAME
+    checks_path = out_dir / CHECKS_FILENAME
+    report_path = out_dir / REPORT_FILENAME
+    limitations_path = out_dir / LIMITATIONS_FILENAME
+
+    write_csv(ledger_path, rows, LEDGER_COLUMNS)
+    check_rows = checks(rows, source_positive_controls_count)
+    write_csv(checks_path, check_rows, ["check_name", "status", "details"])
+    validation_result = "PASS: all required adapter checks passed."
+    if any(row["status"] == "FAIL" for row in check_rows):
+        validation_result = "FAIL: one or more required adapter checks failed."
+    write_report(report_path, rows, inputs_read, validation_result)
+    write_limitations(limitations_path)
+
+    summary = {
+        "adapter_name": ADAPTER_NAME,
+        "adapter_scope": ADAPTER_SCOPE,
+        "rows_emitted": len(rows),
+        "planned_source_positive_rows_expected": 240,
+        "planned_source_positive_rows_emitted": len(rows),
+        "record_types_emitted": sorted({row["record_type"] for row in rows}),
+        "control_routes_emitted": sorted({row["control_route"] for row in rows}),
+        "route_counts": dict(sorted(Counter(row["control_route"] for row in rows).items())),
+        "applicable_status_counts": dict(sorted(Counter(row["applicable_status"] for row in rows).items())),
+        "evidence_index_status_counts": dict(
+            sorted(Counter(row["evidence_index_status"] for row in rows).items())
+        ),
+        "production_retained_evidence_parsed": False,
+        "legacy_repo_read": False,
+        "metrics_computed": False,
+        "metric_input_authorized": False,
+        "source_positive_rate_computed": False,
+        "result_consistency_rate_computed": False,
+        "reports_changed": False,
+        "results_changed": False,
+        "denominator_changed": False,
+        "paper_results_changed": False,
+        "raw_legacy_evidence_changed": False,
+    }
+    summary_path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(f"rows_emitted: {len(rows)}")
+    print("record_types_emitted:", ",".join(summary["record_types_emitted"]))
+    print("control_routes_emitted:", ",".join(summary["control_routes_emitted"]))
+    print("evidence_index_status_counts:", summary["evidence_index_status_counts"])
+    return 0 if validation_result.startswith("PASS") else 1
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except Exception as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        raise SystemExit(1)

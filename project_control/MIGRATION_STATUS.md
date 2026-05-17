@@ -57,6 +57,8 @@ Production ledger validator skeleton and `control_cell_adapter_v0` are complete 
 
 `hard_negative_control_detail_adapter_v0` is complete under `scripts/dev/build_hard_negative_control_detail_ledger.py` and `audits/hard_negative_control_detail_adapter_v0/`. This bounded adapter emits only `control_cell` rows for `control_route=hard_negative` from release-repo canonical Common-core case-package metadata and `controls_360.csv`. It emitted 120 rows, exactly matching the 40 cases x 3 engines hard-negative control scaffold. It records expected-rejection metadata and hard-negative evidence pointers only; it does not parse production retained evidence, read the legacy repo, infer fresh rejection outcomes, compute hard-negative rejection rate, compute false-accept rate, compute metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 
+`source_positive_control_detail_adapter_v0` is complete under `scripts/dev/build_source_positive_control_detail_ledger.py` and `audits/source_positive_control_detail_adapter_v0/`. This bounded adapter emits only `control_cell` rows for `control_route in {source, positive}` from release-repo canonical Common-core case-package metadata and `controls_360.csv`. It emitted 240 rows, exactly matching the 40 cases x 3 engines x 2 source/positive control scaffold. It records SQL/config paths and source/positive retained evidence pointers only; it does not parse production retained evidence, read the legacy repo, infer fresh execution or consistency outcomes, compute source-positive rate, compute Result Consistency Rate, compute metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -117,6 +119,10 @@ Membership and scaffold snapshot:
 - `audits/hard_negative_control_detail_adapter_v0/hard_negative_control_detail_ledger_v0.csv`: 120 draft `control_cell` rows for hard-negative controls only.
 - `audits/hard_negative_control_detail_adapter_v0/hard_negative_control_detail_adapter_v0_summary.json`: adapter summary recording 120 rows emitted, `hard_negative_rate_computed=false`, `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, and `metric_input_authorized=false`.
 - `audits/hard_negative_control_detail_adapter_v0/ledger_validation/ledger_validation_summary.json`: validation output for the hard-negative detail ledger; `validation_passed=true`.
+- `scripts/dev/build_source_positive_control_detail_ledger.py`: bounded release-case-package-only source/positive detail adapter v0.
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_ledger_v0.csv`: 240 draft `control_cell` rows for source and positive controls only.
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_adapter_v0_summary.json`: adapter summary recording 240 rows emitted, `source_positive_rate_computed=false`, `result_consistency_rate_computed=false`, `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, and `metric_input_authorized=false`.
+- `audits/source_positive_control_detail_adapter_v0/ledger_validation/ledger_validation_summary.json`: validation output for the source/positive detail ledger; `validation_passed=true`.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -172,6 +178,13 @@ Membership and scaffold snapshot:
 - Metrics computed by hard_negative_control_detail_adapter_v0: no.
 - False-accept-rate computed by hard_negative_control_detail_adapter_v0: no.
 - Metric input authorized by hard_negative_control_detail_adapter_v0: no.
+- source_positive_control_detail_adapter_v0 implemented: yes, bounded to source/positive `control_cell` rows from release case-package metadata.
+- Production retained evidence parsed by source_positive_control_detail_adapter_v0: no.
+- Legacy repo read by source_positive_control_detail_adapter_v0: no.
+- Metrics computed by source_positive_control_detail_adapter_v0: no.
+- Source-positive rate computed by source_positive_control_detail_adapter_v0: no.
+- Result Consistency Rate computed by source_positive_control_detail_adapter_v0: no.
+- Metric input authorized by source_positive_control_detail_adapter_v0: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -204,6 +217,7 @@ Membership and scaffold snapshot:
 - retained_summary_adapter_v0 completed as a narrow release-repo-summary-only adapter skeleton, emitting 31 `retained_summary_artifact` audit rows without reading the legacy repo, parsing production retained evidence, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Production ledger validator skeleton and control_cell_adapter_v0 completed as a bounded implementation, emitting and validating 360 `control_cell` rows without reading the legacy repo, parsing production retained evidence, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - hard_negative_control_detail_adapter_v0 completed as a bounded control-cell detail adapter, emitting and validating 120 hard-negative `control_cell` rows without reading the legacy repo, parsing production retained evidence, inferring fresh rejection outcomes, computing hard-negative rejection rate, computing false-accept rate, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- source_positive_control_detail_adapter_v0 completed as a bounded control-cell detail adapter, emitting and validating 240 source/positive `control_cell` rows without reading the legacy repo, parsing production retained evidence, inferring fresh execution or consistency outcomes, computing source-positive rate, computing Result Consistency Rate, authorizing metric input, computing metrics, implementing general adapters, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -214,7 +228,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, retained_summary_adapter_v0 exists for release-repo summary artifacts only, control_cell_adapter_v0 exists for release case-package control rows, and hard_negative_control_detail_adapter_v0 exists for release case-package hard-negative control detail rows only; production retained-evidence parsing, general adapter implementation beyond the authorized bounded skeletons, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, retained_summary_adapter_v0 exists for release-repo summary artifacts only, control_cell_adapter_v0 exists for release case-package control rows, hard_negative_control_detail_adapter_v0 exists for release case-package hard-negative control detail rows only, and source_positive_control_detail_adapter_v0 exists for release case-package source/positive control detail rows only; production retained-evidence parsing, general adapter implementation beyond the authorized bounded skeletons, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -226,4 +240,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review hard_negative_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers hard-negative outcomes, computes false-accept rates, emits metric-eligible rows, or consumes ledger rows for metrics. Do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.
+Review source_positive_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers source-positive consistency outcomes, computes Result Consistency Rate, emits metric-eligible rows, or consumes ledger rows for metrics. Do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.

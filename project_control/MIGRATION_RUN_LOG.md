@@ -3141,3 +3141,87 @@ Authorization:
 
 Next safe action:
 - Review hard_negative_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers hard-negative outcomes, computes false-accept rates, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · source_positive_control_detail_adapter_v0
+
+Mode: bounded control-cell detail adapter for source/positive controls only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `scripts/dev/build_source_positive_control_detail_ledger.py`, a bounded source/positive control detail adapter.
+- Adapter scope: `release_case_package_only`.
+- Allowed emitted record type: `control_cell` only.
+- Allowed emitted control routes: `source` and `positive` only.
+- Generated `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_ledger_v0.csv` with 240 source/positive control detail rows, matching the source/positive subset of `controls_360.csv`.
+- Generated adapter summary, checks, report, limitations, and ledger-validator outputs under `audits/source_positive_control_detail_adapter_v0/`.
+- Added developer documentation at `docs/dev/SOURCE_POSITIVE_CONTROL_DETAIL_ADAPTER_V0.md`.
+- Did not read the legacy repo, parse production retained evidence, parse legacy reports/results/runs, parse release reports/results as production input, implement method candidate adapters, implement timing adapters, implement portability adapters, implement verifier support adapters, implement metrics computation, compute source-positive pass rates, compute Result Consistency Rate, compute execution coverage, implement a reproduction CLI, implement public runner outputs, render paper tables, copy reports/results, create `results/retained`, create `reports/evaluation`, create an official production ledger under `results/`, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify raw legacy evidence, or modify migrated case packages.
+
+Files created:
+- `scripts/dev/build_source_positive_control_detail_ledger.py`
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_ledger_v0.csv`
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_adapter_v0_summary.json`
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_adapter_v0_report.md`
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_adapter_v0_checks.csv`
+- `audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_limitations.md`
+- `audits/source_positive_control_detail_adapter_v0/ledger_validation/ledger_validation_results.csv`
+- `audits/source_positive_control_detail_adapter_v0/ledger_validation/ledger_validation_summary.json`
+- `audits/source_positive_control_detail_adapter_v0/ledger_validation/ledger_validation_report.md`
+- `docs/dev/SOURCE_POSITIVE_CONTROL_DETAIL_ADAPTER_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_source_positive_control_detail_ledger.py`: passed.
+- `python -m py_compile scripts/dev/build_hard_negative_control_detail_ledger.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_csv.py`: passed.
+- `python -m py_compile scripts/dev/build_control_cell_ledger.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/build_source_positive_control_detail_ledger.py --case-set case_sets/common_core_v0/cases.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/source_positive_control_detail_adapter_v0`: passed.
+- `python scripts/dev/validate_ledger_csv.py --ledger audits/source_positive_control_detail_adapter_v0/source_positive_control_detail_ledger_v0.csv --case-set case_sets/common_core_v0/cases.csv --same-engine-denominator case_sets/common_core_v0/denominator_same_engine_120.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/source_positive_control_detail_adapter_v0/ledger_validation`: passed.
+- JSON invariant checks for adapter summary and ledger validation summary: passed.
+- CSV checks for 240 source/positive `control_cell` rows and adapter checks: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
+
+Adapter result:
+- Rows emitted: 240.
+- Record types emitted: `control_cell`.
+- Control routes emitted: `source`, `positive`.
+- Source/positive scaffold coverage: 240/240 planned rows.
+- Route counts: 120 source, 120 positive.
+- Applicable status counts: 240 `planned_control`.
+- Evidence-index status counts: 179 `indexed_not_recomputed`, 61 `evidence_not_retained`.
+- Adapter validation: passed, 240 rows checked, 0 errors, 0 warnings.
+- Fixture smoke: passed, 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, 0 unexpected pass/fail rows.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- Source-positive rate computed: no.
+- Result Consistency Rate computed: no.
+- Metric input authorized: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review source_positive_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers source-positive consistency outcomes, computes Result Consistency Rate, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

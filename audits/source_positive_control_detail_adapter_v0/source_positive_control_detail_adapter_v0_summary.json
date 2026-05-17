@@ -1,0 +1,36 @@
+{
+  "adapter_name": "source_positive_control_detail_adapter_v0",
+  "adapter_scope": "release_case_package_only",
+  "applicable_status_counts": {
+    "planned_control": 240
+  },
+  "control_routes_emitted": [
+    "positive",
+    "source"
+  ],
+  "denominator_changed": false,
+  "evidence_index_status_counts": {
+    "evidence_not_retained": 61,
+    "indexed_not_recomputed": 179
+  },
+  "legacy_repo_read": false,
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "planned_source_positive_rows_emitted": 240,
+  "planned_source_positive_rows_expected": 240,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "control_cell"
+  ],
+  "reports_changed": false,
+  "result_consistency_rate_computed": false,
+  "results_changed": false,
+  "route_counts": {
+    "positive": 120,
+    "source": 120
+  },
+  "rows_emitted": 240,
+  "source_positive_rate_computed": false
+}
