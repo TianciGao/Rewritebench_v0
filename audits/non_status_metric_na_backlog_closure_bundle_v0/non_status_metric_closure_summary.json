@@ -1,0 +1,32 @@
+{
+  "task_completed": true,
+  "new_metrics_computed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "metrics_reviewed": 7,
+  "metrics_report_as_blocked": 2,
+  "metrics_report_as_NA": 1,
+  "metrics_defer_post_release": 3,
+  "metrics_audit_only_support": 1,
+  "metrics_report_as_blocked_names": [
+    "GM_Speedup",
+    "Speedup Ratio Percentiles"
+  ],
+  "metrics_report_as_NA_names": [
+    "Speedup Retention"
+  ],
+  "metrics_defer_post_release_names": [
+    "Attribution Coverage",
+    "Cross-Engine Execution",
+    "Cross-Engine Consistency"
+  ],
+  "metrics_audit_only_support_names": [
+    "Semantic Equivalence Rate"
+  ],
+  "recommended_next_task": "a_line_final_renderer_input_package_v0"
+}

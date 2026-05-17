@@ -5045,3 +5045,60 @@ Task result:
 
 Next safe action:
 - Run `non_status_metric_na_backlog_closure_bundle_v0` to close Semantic Equivalence, performance, attribution, cross-engine, and Speedup Retention as blocked, N.A., or post-release without implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.
+
+### 2026-05-18 · pending · non_status_metric_na_backlog_closure_bundle_v0
+
+Mode: A-line non-status metric closure; no new metrics; no adapters; no paper tables; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `audits/non_status_metric_na_backlog_closure_bundle_v0/` closure packet.
+- Reviewed seven non-status Metrics Contract v1 primary metrics not covered by limited official status metrics.
+- Classified Semantic Equivalence Rate as audit-only support for v0.
+- Classified GM_Speedup and Speedup Ratio Percentiles as blocked for v0.
+- Classified Attribution Coverage, Cross-Engine Execution, and Cross-Engine Consistency as post-release backlog.
+- Classified Speedup Retention as N.A. for v0.
+- Did not compute new metrics, recompute official metrics, implement adapters, render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_closure_summary.md`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_v0_treatment_matrix.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_blocker_register.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_na_record.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_post_release_backlog.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_audit_support_manifest.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_renderer_manifest_preview.csv`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_closure_risk_register.md`
+- `audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_closure_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed; treatment matrix includes all seven non-status metrics, N.A. record includes Speedup Retention, post-release and renderer preview files have headers, and no row claims new metrics or paper tables.
+- `git diff --check`: passed.
+
+Task result:
+- new metrics computed: no.
+- official metrics computed: no.
+- paper tables rendered: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- non-status metrics reviewed: 7.
+- metrics reported blocked: 2.
+- metrics reported N.A.: 1.
+- metrics deferred post-release: 3.
+- metrics retained as audit-only support: 1.
+
+Next safe action:
+- Run `a_line_final_renderer_input_package_v0` to package official limited metrics, blocked metrics, N.A. records, audit-only support, and post-release backlog decisions for a future renderer without rendering paper tables, updating reports/results, changing denominators, or changing paper results.

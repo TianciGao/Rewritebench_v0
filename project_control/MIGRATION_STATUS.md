@@ -575,6 +575,19 @@ Membership and scaffold snapshot:
 - Paper results changed by generation_rate_blocker_final_decision_v0: no.
 - Raw legacy evidence changed by generation_rate_blocker_final_decision_v0: no.
 - Recommended v0 Generation Rate treatment: report_as_blocked.
+- non_status_metric_na_backlog_closure_bundle_v0 completed: yes.
+- New metrics computed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Official metrics computed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Paper tables rendered by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Reports/results changed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Denominator changed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Paper results changed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Raw legacy evidence changed by non_status_metric_na_backlog_closure_bundle_v0: no.
+- Non-status metrics reviewed by non_status_metric_na_backlog_closure_bundle_v0: 7.
+- Metrics reported blocked by non_status_metric_na_backlog_closure_bundle_v0: 2.
+- Metrics reported N.A. by non_status_metric_na_backlog_closure_bundle_v0: 1.
+- Metrics deferred post-release by non_status_metric_na_backlog_closure_bundle_v0: 3.
+- Metrics retained as audit-only support by non_status_metric_na_backlog_closure_bundle_v0: 1.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -632,6 +645,7 @@ Membership and scaffold snapshot:
 - official_status_metrics_v0_limited closeout completed as a decision packet, confirming no new metrics were computed, no paper tables were rendered, Execution Coverage Rate and Result Consistency Rate are safe for future renderer planning only with limited-scope and denominator caveats, Generation Rate remains blocked, and global leaderboard output remains forbidden.
 - A_line_final_metrics_closure_plan_v0 completed as an A-line planning packet, classifying all ten Metrics Contract v1 primary metrics and recommending the smallest remaining A-line task sequence before B-line handoff without computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.
 - generation_rate_blocker_final_decision_v0 completed as a policy/evidence decision packet, deciding that Generation Rate should be reported as blocked for public v0, allowing only optional future diagnostic Generation/Readiness support under separate authorization, and not computing metrics, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- non_status_metric_na_backlog_closure_bundle_v0 completed as an A-line non-status metric closure packet, classifying Semantic Equivalence Rate as audit-only support, GM_Speedup and Speedup Ratio Percentiles as blocked, Attribution Coverage and Cross-Engine Execution/Consistency as post-release backlog, and Speedup Retention as N.A. for v0 without computing metrics, implementing adapters, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -654,4 +668,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Run `non_status_metric_na_backlog_closure_bundle_v0` to close Semantic Equivalence, performance, attribution, cross-engine, and Speedup Retention as blocked, N.A., or post-release without implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.
+Run `a_line_final_renderer_input_package_v0` to package official limited metrics, blocked metrics, N.A. records, audit-only support, and post-release backlog decisions for a future renderer without rendering paper tables, updating reports/results, changing denominators, or changing paper results.

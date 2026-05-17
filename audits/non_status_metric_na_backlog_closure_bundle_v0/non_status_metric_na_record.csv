@@ -1,0 +1,2 @@
+metric_name,na_reason,denominator_condition,evidence_condition,paper_caveat,future_resolution,notes
+Speedup Retention,paired_source_target_timing_unavailable,Requires paired source/target result-consistent timed portability rows,No approved paired timing evidence or retention protocol exists for v0,Render as N.A. only and do not imply zero retention,Implement portability and timing adapters under separate authorization,Speedup Retention is not applicable without paired timing.

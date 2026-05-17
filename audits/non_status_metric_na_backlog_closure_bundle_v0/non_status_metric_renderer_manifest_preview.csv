@@ -1,0 +1,8 @@
+metric_name,v0_treatment,renderer_use_allowed,renderer_use_case,required_caveat,forbidden_renderer_use,notes
+Semantic Equivalence Rate,include_audit_only_support,true,Support-only appendix or blocker row,Verifier support is audit-only and no official Semantic Equivalence Rate was computed,Main metric value or semantic leaderboard,May be referenced only as support evidence.
+GM_Speedup,report_as_blocked,true,Blocked performance metric row,Timing adapter and exact+timed denominator are absent,Any speedup value or ranking,Do not render performance values.
+Speedup Ratio Percentiles,report_as_blocked,true,Blocked performance distribution row,Timing adapter and validated speedup_ratio distribution are absent,Any percentile table or regression ranking,Do not render distribution values.
+Attribution Coverage,defer_post_release,false,No v0 renderer use,Attribution schema and denominator are not approved,Attribution coverage value or table,Post-release backlog only.
+Cross-Engine Execution,defer_post_release,false,No v0 renderer use,Portability denominator and adapter are absent,Cross-engine execution table or global comparison,Post-release backlog only.
+Cross-Engine Consistency,defer_post_release,false,No v0 renderer use,Cross-engine checker policy and adapter are absent,Cross-engine consistency table or same-engine substitution,Post-release backlog only.
+Speedup Retention,report_as_NA,true,N.A. generalization row,Paired source/target timing is unavailable,Zero speedup retention or failure row,Render N.A. only if renderer is separately authorized.
