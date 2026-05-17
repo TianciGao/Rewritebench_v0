@@ -3451,13 +3451,13 @@ Authorization:
 Next safe action:
 - Request explicit maintainer authorization for a bounded `candidate_status_adapter_v0` that fills only non-timing, non-metric candidate status fields from approved release-repo summaries when row grain is unambiguous; otherwise keep candidate fields `N.A.` or `evidence_not_adapted_yet`. Do not parse legacy raw evidence, read legacy reports/results/runs, compute metrics, authorize metric input, render paper tables, update reports/results, change denominators, or modify raw legacy evidence.
 
-### 2026-05-17 · pending · candidate_status_adapter_v0 release-summary-only non-timing overlay
+### 2026-05-17 · 7e8dbc7 · candidate_status_adapter_v0 release-summary-only non-timing overlay
 
 Mode: bounded rewrite-candidate status overlay; release-summary-only; no production retained-evidence parsing; legacy not read
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending before commit
-Push: pending before push
+Commit: `7e8dbc74cf9fa6eeaa71c67d073711432017529c`
+Push: `origin/main` updated `c22c2be..7e8dbc7`
 
 Summary:
 - Created `scripts/dev/build_candidate_status_ledger.py`, a bounded release-summary-only non-timing overlay adapter for the existing 600-row Track-A same-engine rewrite candidate scaffold.
