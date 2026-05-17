@@ -1,0 +1,14 @@
+{
+  "audit_only_overlay_created": true,
+  "denominator_changed": false,
+  "inference_rule_used": "R1",
+  "inferred_rows": 94,
+  "observed_fields_overwritten": false,
+  "official_metrics_computed": false,
+  "overlay_name": "status_inference_overlay_v0",
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "timing_fields_touched": false
+}

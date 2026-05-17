@@ -1,0 +1,10 @@
+check_name,status,details
+preview candidate rows = 94,PASS,preview rows=94
+overlay rows = 94,PASS,overlay rows=94
+all rows rule R1,PASS,all overlay rows use R1 ready=>generated
+no observed field overwritten,PASS,observed normalized fields are not modified
+no timing fields touched,PASS,timing fields are absent from overlay logic
+no official metrics computed,PASS,overlay is not official metric authorization or computation
+no paper results,PASS,overlay is not a paper result
+reports/results unchanged,PASS,script writes only to audits/status_inference_overlay_v0
+denominator unchanged,PASS,denominator files are not written

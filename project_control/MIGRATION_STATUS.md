@@ -446,6 +446,23 @@ Membership and scaffold snapshot:
 - Raw legacy evidence changed by status_inference_policy_v0: no.
 - Potential ready-implies-generated rows from status_inference_policy_v0: 94.
 - Potential exact-implies-executed rows from status_inference_policy_v0: 0.
+- status_inference_overlay_v0 completed: yes.
+- normalized_status_only_metrics_dryrun_v2 completed: yes.
+- Inference overlay rows from status_inference_overlay_v0: 94.
+- Official metrics computed by normalized_status_only_metrics_dryrun_v2: no.
+- Audit-only dry-run metrics computed by normalized_status_only_metrics_dryrun_v2: yes.
+- Paper tables rendered by normalized_status_only_metrics_dryrun_v2: no.
+- Timing metrics computed by normalized_status_only_metrics_dryrun_v2: no.
+- Generation Rate dry-run created by normalized_status_only_metrics_dryrun_v2: yes.
+- Execution Coverage Rate dry-run created by normalized_status_only_metrics_dryrun_v2: yes.
+- Result Consistency Rate dry-run created by normalized_status_only_metrics_dryrun_v2: yes.
+- Authorized input rows used by normalized_status_only_metrics_dryrun_v2: 130.
+- Unauthorized overlap rows excluded by normalized_status_only_metrics_dryrun_v2: 45.
+- Unresolved rows preserved by normalized_status_only_metrics_dryrun_v2: 425.
+- Reports/results changed by status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2: no.
+- Denominator changed by status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2: no.
+- Paper results changed by status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2: no.
+- Raw legacy evidence changed by status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -494,6 +511,7 @@ Membership and scaffold snapshot:
 - status_field_normalization_v0 completed as an audit-only normalization overlay, processing exactly the 130 authorized candidate-status rows, excluding 45 overlap rows and 425 unresolved rows, inventorying all observed raw non-timing status values, and leaving original parser and authorization ledgers unchanged. It did not compute official metrics, render paper tables, fill or modify timing fields, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - normalized_status_only_metrics_dryrun_v1 completed as an audit-only normalized status dry run, creating Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables from the 130 authorized normalized status rows while preserving 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs. It did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - status_inference_policy_v0 completed as a policy/evidence-gap review, defining conservative observed-vs-inferred status rules, producing a preview-only inferred-status candidate overlay for 94 potential ready-implies-generated rows, confirming 0 potential exact-implies-executed rows, and documenting remaining evidence gaps without computing official metrics, changing metric input authorization, modifying parser ledgers or normalization overlays, filling timing fields, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2 completed as audit-only outputs, materializing 94 R1 inferred_generated rows as a separate overlay and creating v2 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables from 130 authorized rows while preserving 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs. They did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -516,4 +534,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/status_inference_policy_v0/status_inference_rule_matrix.csv` and `audits/status_inference_policy_v0/inferred_status_candidate_overlay_preview.csv`. If accepted, separately authorize a status inference overlay or additional evidence parsing; keep official metrics, timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+Review `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_delta_vs_v1.csv` and `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_caveats.csv`. If accepted, separately authorize official metric readiness review, additional evidence parsing, or overlap resolution; keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.

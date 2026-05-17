@@ -1,0 +1,15 @@
+check_name,status,details
+inference overlay rows = 94,PASS,inference rows=94
+authorized rows = 130,PASS,authorized rows=130
+unauthorized overlap rows = 45,PASS,overlap rows=45
+unresolved rows = 425,PASS,unresolved rows=425
+official_metric=false,PASS,all dry-run table rows are non-official
+paper_result=false,PASS,all dry-run table rows set paper_result=false
+audit_only=true,PASS,all dry-run table rows set audit_only=true
+timing metrics not computed,PASS,timing fields are not read as metric inputs
+GM_Speedup not computed,PASS,performance metrics are out of scope
+Speedup Ratio Percentiles not computed,PASS,performance metrics are out of scope
+reports/results unchanged,PASS,script writes only to audits/normalized_status_only_metrics_dryrun_v2
+denominator unchanged,PASS,planned denominator accounting is preserved
+paper results unchanged,PASS,no paper result file or table is written
+no global leaderboard output,PASS,"rows are grouped by metric, method, pool, and engine"

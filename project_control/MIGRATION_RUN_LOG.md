@@ -4439,3 +4439,81 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/status_inference_policy_v0/status_inference_rule_matrix.csv` and `audits/status_inference_policy_v0/inferred_status_candidate_overlay_preview.csv`. If accepted, separately authorize a status inference overlay or additional evidence parsing; keep official metrics and timing adapter work separate.
+
+### 2026-05-17 · PENDING · status_inference_overlay_v0 and normalized status-only metrics dry-run v2
+
+Mode: bounded audit-only inference overlay plus normalized status-only metrics dry run; no official metrics; no timing; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Added `scripts/dev/build_status_inference_overlay.py`.
+- Added `scripts/dev/compute_normalized_status_only_metrics_dryrun_v2.py`.
+- Created `audits/status_inference_overlay_v0/` with 94 R1 `inferred_generated=true` overlay rows.
+- Created `audits/normalized_status_only_metrics_dryrun_v2/`.
+- Used exactly 130 authorized candidate-status rows, 130 normalized overlay rows, and 94 inferred-generated rows.
+- Kept inferred generated status separate from observed `normalized_generated`; no observed normalized field was overwritten.
+- Created audit-only v2 dry-run outputs for Generation Rate, Execution Coverage Rate, and Result Consistency Rate.
+- Preserved 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs.
+- Did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, change case membership, read new legacy evidence, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_status_inference_overlay.py`
+- `scripts/dev/compute_normalized_status_only_metrics_dryrun_v2.py`
+- `audits/status_inference_overlay_v0/status_inference_overlay_v0.csv`
+- `audits/status_inference_overlay_v0/status_inference_overlay_summary.json`
+- `audits/status_inference_overlay_v0/status_inference_overlay_report.md`
+- `audits/status_inference_overlay_v0/status_inference_overlay_checks.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_metrics_dryrun_v2_table.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_denominator_audit.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_input_rows.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_delta_vs_v1.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_caveats.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_metrics_dryrun_v2_report.md`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_metrics_dryrun_v2_checks.csv`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_metrics_dryrun_v2_summary.json`
+- `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_metrics_dryrun_v2_limitations.md`
+- `docs/dev/STATUS_INFERENCE_OVERLAY_AND_DRYRUN_V2.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_status_inference_overlay.py`: passed.
+- `python -m py_compile scripts/dev/compute_normalized_status_only_metrics_dryrun_v2.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/build_status_inference_overlay.py ...`: passed; wrote 94 inferred status overlay rows.
+- `python scripts/dev/compute_normalized_status_only_metrics_dryrun_v2.py ...`: passed; used 130 authorized rows and 94 inferred-generated rows.
+- JSON invariant checks for overlay and v2 dry-run summaries: passed.
+- CSV checks for 94 overlay rows, official/paper/audit flags, required metric families, and v1-v2 inference deltas: passed.
+- `git diff --check`: pending final run.
+- `git status -sb`: pending final run.
+
+Task result:
+- status inference overlay completed: yes.
+- inference overlay rows: 94.
+- official metrics computed: no.
+- audit-only dry-run metrics computed: yes.
+- paper tables rendered: no.
+- timing metrics computed: no.
+- Generation Rate dry-run created: yes.
+- Execution Coverage Rate dry-run created: yes.
+- Result Consistency Rate dry-run created: yes.
+- authorized input rows: 130.
+- unauthorized overlap rows: 45.
+- unresolved rows: 425.
+- inferred generated rows used: 94.
+
+Paper/denominator impact:
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Review `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_delta_vs_v1.csv` and `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_caveats.csv`. If accepted, separately authorize official metric readiness review, additional evidence parsing, or overlap resolution; keep timing and paper rendering separate.
