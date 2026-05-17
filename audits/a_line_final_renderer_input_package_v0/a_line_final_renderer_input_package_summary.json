@@ -1,0 +1,38 @@
+{
+  "task_completed": true,
+  "new_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "metrics_represented": 10,
+  "official_limited_metrics": 2,
+  "official_limited_metric_names": [
+    "Execution Coverage Rate",
+    "Result Consistency Rate"
+  ],
+  "blocked_metrics": 3,
+  "blocked_metric_names": [
+    "Generation Rate",
+    "GM_Speedup",
+    "Speedup Ratio Percentiles"
+  ],
+  "na_metrics": 1,
+  "na_metric_names": [
+    "Speedup Retention"
+  ],
+  "audit_support_metrics": 1,
+  "audit_support_metric_names": [
+    "Semantic Equivalence Rate"
+  ],
+  "post_release_metrics": 3,
+  "post_release_metric_names": [
+    "Attribution Coverage",
+    "Cross-Engine Execution",
+    "Cross-Engine Consistency"
+  ],
+  "a_line_ready_for_b_line_handoff": true,
+  "recommended_next_task": "b_line_reproduction_report_renderer_design_v0"
+}

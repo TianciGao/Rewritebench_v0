@@ -5102,3 +5102,64 @@ Task result:
 
 Next safe action:
 - Run `a_line_final_renderer_input_package_v0` to package official limited metrics, blocked metrics, N.A. records, audit-only support, and post-release backlog decisions for a future renderer without rendering paper tables, updating reports/results, changing denominators, or changing paper results.
+
+### 2026-05-18 · pending · a_line_final_renderer_input_package_v0
+
+Mode: A-line final renderer-input package; no new metrics; no paper tables; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `audits/a_line_final_renderer_input_package_v0/` renderer-input package.
+- Represented all ten Metrics Contract v1 primary metrics for future renderer planning.
+- Packaged two limited official metric inputs: Execution Coverage Rate and Result Consistency Rate.
+- Packaged three blocked metric records: Generation Rate, GM_Speedup, and Speedup Ratio Percentiles.
+- Packaged one N.A. metric record: Speedup Retention.
+- Packaged one audit-only support metric record: Semantic Equivalence Rate.
+- Packaged three post-release backlog records: Attribution Coverage, Cross-Engine Execution, and Cross-Engine Consistency.
+- Confirmed A-line v0 is ready for B-line handoff after this package.
+- Did not compute new metrics, recompute official metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/a_line_final_renderer_input_package_v0/a_line_final_renderer_input_package_summary.md`
+- `audits/a_line_final_renderer_input_package_v0/a_line_final_metric_renderer_manifest.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_official_limited_metric_inputs.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_blocked_metric_records.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_na_and_post_release_records.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_audit_support_records.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_denominator_and_caveat_package.md`
+- `audits/a_line_final_renderer_input_package_v0/a_line_final_renderer_package_validation.csv`
+- `audits/a_line_final_renderer_input_package_v0/a_line_final_renderer_next_steps.md`
+- `audits/a_line_final_renderer_input_package_v0/a_line_final_renderer_input_package_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed; manifest includes all ten Metrics Contract v1 primary metrics, official limited inputs include Execution Coverage Rate and Result Consistency Rate, blocked records include Generation Rate, GM_Speedup, and Speedup Ratio Percentiles, N.A./post-release records include the expected four metrics, audit support includes Semantic Equivalence Rate, validation CSV has no FAIL rows, and no row claims new metrics or paper tables.
+- `git diff --check`: passed.
+
+Task result:
+- new metrics computed: no.
+- paper tables rendered: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics represented: 10.
+- official limited metrics: 2.
+- blocked metrics: 3.
+- N.A. metrics: 1.
+- audit-support metrics: 1.
+- post-release metrics: 3.
+- A-line ready for B-line handoff: yes.
+
+Next safe action:
+- Run `b_line_reproduction_report_renderer_design_v0` to design the reproduction/report renderer boundary and validation gates without rendering paper tables, writing `reports/` or `results/`, computing metrics, changing denominators, or changing paper results.

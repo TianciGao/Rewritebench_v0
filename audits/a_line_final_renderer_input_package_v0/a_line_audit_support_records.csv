@@ -1,0 +1,2 @@
+support_id,metric_name,support_artifact,support_role,allowed_renderer_use_later,forbidden_use,required_caveat,notes
+semantic_verifier_support_refs,Semantic Equivalence Rate,audits/non_status_metric_na_backlog_closure_bundle_v0/non_status_metric_audit_support_manifest.csv#semantic_verifier_support_refs,verifier_support_reference,Support-only appendix or evidence note after separate renderer authorization,Official Semantic Equivalence Rate value or semantic proof claim,Support evidence only and no verifier-decidable denominator exists,Keep as audit-only support for v0.

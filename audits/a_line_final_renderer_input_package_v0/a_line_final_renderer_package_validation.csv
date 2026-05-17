@@ -1,0 +1,14 @@
+check_name,expected,observed,status,notes
+all_10_primary_metrics_represented,10,10,PASS,Renderer manifest includes every Metrics Contract v1 primary metric.
+official_limited_metrics_count,2,2,PASS,Execution Coverage Rate and Result Consistency Rate are the only official limited inputs.
+blocked_metric_count,3,3,PASS,Generation Rate GM_Speedup and Speedup Ratio Percentiles are blocked.
+na_metric_count,1,1,PASS,Speedup Retention is N.A. for v0.
+post_release_metric_count,3,3,PASS,Attribution Coverage and both Cross-Engine metrics are post-release backlog.
+audit_support_metric_count,1,1,PASS,Semantic Equivalence Rate has audit-only support.
+no_new_metrics_computed,false,false,PASS,This package did not compute metrics.
+no_paper_tables_rendered,false,false,PASS,This package did not render paper tables.
+no_reports_results_changed,false,false,PASS,No reports or results paths were written.
+denominator_unchanged,false,false,PASS,No denominator files were modified.
+paper_results_unchanged,false,false,PASS,No paper results were changed.
+no_global_leaderboard,true,true,PASS,Every renderer treatment preserves no-global-leaderboard guard.
+no_metric_missing_renderer_treatment,0,0,PASS,Every metric has a v0 renderer treatment.
