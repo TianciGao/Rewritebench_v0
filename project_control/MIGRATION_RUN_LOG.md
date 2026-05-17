@@ -3060,13 +3060,13 @@ Authorization:
 Next safe action:
 - Review control_cell_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · hard_negative_control_detail_adapter_v0
+### 2026-05-17 · a04aa87 · hard_negative_control_detail_adapter_v0
 
 Mode: bounded control-cell detail adapter for hard-negative controls only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `a04aa8708f42f6b758e6fdeff721941ae3376f4f`
+Push: `origin/main` updated `435122a..a04aa87`
 
 Summary:
 - Created `scripts/dev/build_hard_negative_control_detail_ledger.py`, a bounded hard-negative control detail adapter.
