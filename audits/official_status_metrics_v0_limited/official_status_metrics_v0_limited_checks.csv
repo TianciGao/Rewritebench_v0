@@ -1,0 +1,12 @@
+check_name,status,details
+only Execution Coverage Rate and Result Consistency Rate official-computed,PASS,official-computed rows are limited to the two authorized status metric families
+Generation Rate blocked,PASS,inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap
+GM_Speedup not computed,PASS,not present
+Speedup Ratio Percentiles not computed,PASS,not present
+paper_result=false,PASS,all rows are non-paper
+reports/results unchanged,PASS,false
+denominator unchanged,PASS,false
+paper results unchanged,PASS,false
+no global leaderboard output,PASS,all rows retain method/pool/engine grouping
+denominator reduction not allowed,PASS,all denominator audit rows preserve planned denominator
+unresolved rows remain visible,PASS,425 planned rows are unresolved or unauthorized for this limited official input set

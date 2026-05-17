@@ -1,0 +1,23 @@
+{
+  "authorized_input_rows": 175,
+  "denominator_changed": false,
+  "execution_coverage_success_rows": 7,
+  "generation_rate_blocker": "inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap",
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review limited official status metrics with denominator caveats; separately decide whether to authorize SQLGlot metric-input overlay and Generation Rate policy resolution.",
+  "official_execution_coverage_computed": true,
+  "official_generation_rate_computed": false,
+  "official_result_consistency_computed": true,
+  "official_status_metrics_computed": true,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "performance_metrics_computed": false,
+  "planned_candidate_rows": 600,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "result_consistency_success_rows": 2,
+  "results_changed": false,
+  "task_completed": true,
+  "timing_metrics_computed": false,
+  "unresolved_or_unauthorized_rows": 425
+}

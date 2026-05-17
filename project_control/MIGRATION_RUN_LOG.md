@@ -4828,3 +4828,61 @@ Task result:
 
 Next safe action:
 - Review the readiness matrix and decide whether to authorize a limited official status-only metrics implementation with caveats, approve another audit-only dry run, or defer until Generation Rate policy/evidence gaps and unresolved rows are reduced.
+
+### 2026-05-18 · pending · official_status_metrics_v0_limited_execution_consistency
+
+Mode: limited official status-metrics computation; Execution Coverage Rate and Result Consistency Rate only; Generation Rate blocked; no paper tables; no timing/performance metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Implemented `scripts/dev/compute_official_status_metrics_limited.py`.
+- Computed official limited status metrics only for Execution Coverage Rate and Result Consistency Rate from the authorized normalized status overlay.
+- Wrote blocked Generation Rate rows with `official_metric_computed=false` and blocker `inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap`.
+- Preserved 600 planned denominator rows, 175 authorized input rows, and 425 unauthorized/unresolved denominator-visible rows.
+- Marked metric outputs as `paper_result=false` and guarded against global leaderboard output.
+- Did not compute Generation Rate, timing/performance metrics, GM_Speedup, Speedup Ratio Percentiles, Semantic Equivalence Rate, Attribution Coverage, or Cross-Engine metrics.
+- Did not render paper tables, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/compute_official_status_metrics_limited.py`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_table.csv`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_denominator_audit.csv`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_input_rows.csv`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_blocked_generation_rate.csv`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_report.md`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_checks.csv`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_summary.json`
+- `audits/official_status_metrics_v0_limited/official_status_metrics_v0_limited_limitations.md`
+- `docs/dev/OFFICIAL_STATUS_METRICS_V0_LIMITED.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/compute_official_status_metrics_limited.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/compute_official_status_metrics_limited.py ...`: passed; 600 planned candidate rows, 175 authorized input rows, 7 execution success rows, 2 consistency success rows, and Generation Rate blocked.
+- JSON invariant checks: passed.
+- CSV checks: passed for required metric families, blocked Generation Rate rows, no speedup metrics, `paper_result=false`, `no_global_leaderboard=true`, denominator preservation, and denominator reduction/global leaderboard denial.
+- `git diff --check`: passed.
+
+Task result:
+- official status metrics computed: yes.
+- official Generation Rate computed: no.
+- official Execution Coverage Rate computed: yes.
+- official Result Consistency Rate computed: yes.
+- paper tables rendered: no.
+- timing metrics computed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Review the limited official status-metrics outputs, then separately decide whether to authorize SQLGlot metric-input expansion, resolve Generation Rate policy/evidence gaps, or prepare a paper-rendering decision packet.
