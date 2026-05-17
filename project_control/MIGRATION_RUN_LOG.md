@@ -4175,3 +4175,69 @@ Paper/denominator impact:
 
 Next safe action:
 - Maintainer reviews `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review.csv` and chooses an overlap policy. Separately authorize any status-only metrics dry-run implementation before computing metrics; keep timing adapter work separate.
+
+### 2026-05-17 · PENDING · status_only_metrics_dryrun_v0 from authorized candidate-status rows
+
+Mode: bounded audit-only metrics dry-run; status-only candidate rows; no official metrics; no paper tables; no timing
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Added `scripts/dev/compute_status_only_metrics_dryrun.py`.
+- Created `audits/status_only_metrics_dryrun_v0/`.
+- Used only 130 rows with `metric_input_authorized_overlay=true` and `readiness_label=ready_candidate_status_only`.
+- Excluded 45 unauthorized overlap rows.
+- Preserved 425 unresolved rows in denominator/accounting outputs.
+- Created audit-only dry-run outputs for Generation Rate, Execution Coverage Rate, and Result Consistency Rate.
+- Marked every dry-run row as `dry_run_value_is_official=false` and `paper_result=false`.
+- Did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, change case membership, read new legacy evidence, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/compute_status_only_metrics_dryrun.py`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_table.csv`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_denominator_audit.csv`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_input_rows.csv`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_excluded_rows_summary.csv`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_report.md`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_checks.csv`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_summary.json`
+- `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_limitations.md`
+- `docs/dev/STATUS_ONLY_METRICS_DRYRUN_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/compute_status_only_metrics_dryrun.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/compute_status_only_metrics_dryrun.py ...`: passed; wrote 180 dry-run table rows, 130 authorized input rows, and preserved 425 unresolved rows.
+- JSON invariant checks for `status_only_metrics_dryrun_summary.json`: passed.
+- CSV checks for required dry-run metrics, official/paper flags, denominator preservation, excluded-row categories, 130 input rows, and all PASS checks: passed.
+- `git diff --check`: passed.
+- `git status -sb`: only intended dry-run audit, doc, script, and project-control changes before commit.
+
+Task result:
+- official metrics computed: no
+- audit-only dry-run metrics computed: yes
+- paper tables rendered: no
+- timing metrics computed: no
+- Generation Rate dry-run created: yes
+- Execution Coverage Rate dry-run created: yes
+- Result Consistency Rate dry-run created: yes
+- authorized input rows: 130
+- unauthorized overlap rows: 45
+- unresolved rows: 425
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_table.csv` and its status-normalization caveats. If accepted, separately authorize status normalization and any official metric-computation task; keep overlap resolution and timing adapter work separate.

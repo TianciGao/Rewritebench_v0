@@ -1,0 +1,20 @@
+{
+  "audit_only_metrics_computed": true,
+  "authorized_input_rows": 130,
+  "denominator_changed": false,
+  "dryrun_task_completed": true,
+  "execution_coverage_dryrun_created": true,
+  "generation_rate_dryrun_created": true,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review dry-run status normalization caveats; separately authorize status normalization or official metrics before using these values as benchmark results.",
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "result_consistency_dryrun_created": true,
+  "results_changed": false,
+  "timing_metrics_computed": false,
+  "unauthorized_overlap_rows": 45,
+  "unresolved_rows": 425
+}
