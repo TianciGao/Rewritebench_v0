@@ -2912,13 +2912,13 @@ Authorization:
 Next safe action:
 - Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · retained_summary_adapter_v0
+### 2026-05-17 · a231ad9 · retained_summary_adapter_v0
 
 Mode: narrow low-risk adapter skeleton for release-repo summary artifacts only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `a231ad95e705165744acc9b60f42a2fe93d09238`
+Push: `origin/main` updated `257251b..a231ad9`
 
 Summary:
 - Created `scripts/dev/build_retained_summary_ledger.py`, a bounded retained-summary adapter skeleton.
@@ -2950,8 +2950,8 @@ Validation:
 - `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
 - `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Adapter result:
 - Rows emitted: 31.
