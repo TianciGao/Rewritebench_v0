@@ -1,0 +1,14 @@
+check_name,status,details
+denominator_same_engine_120 row count = 120,PASS,denominator_rows=120
+method route count = 5,PASS,method_routes=5
+emitted scaffold row count = 600,PASS,rows_emitted=600
+all rows record_type=rewrite_candidate_cell,PASS,rewrite_candidate_cell
+all rows metric_input_authorized=false,PASS,metric_input_authorized=false
+all rows metrics_computed=false,PASS,metrics_computed=false
+all rows production_retained_evidence_parsed=false,PASS,production_retained_evidence_parsed=false
+no legacy repo path read,PASS,legacy_repo_read=false
+no reports/results changed,PASS,reports_changed=false;results_changed=false
+denominator unchanged,PASS,denominator_changed=false
+paper results unchanged,PASS,paper_results_changed=false
+no generated/executed/exact/timed values inferred,PASS,generated/ready/executed/exact/timed=N.A.
+no metric computed,PASS,all metric computation flags false

@@ -1,0 +1,14 @@
+rewrite_method,display_name,route_family,method_role,included_in_scaffold,excluded_from_scaffold_reason,notes
+direct_llm_original,Direct LLM original,llm_direct,same_engine_rewrite_method,true,,Authorized main Track-A same-engine scaffold method; no evidence parsed.
+direct_llm_repair_1,Direct LLM + Repair-1,llm_feedback_repair,same_engine_feedback_rewrite_method,true,,Authorized main Track-A same-engine scaffold method; no evidence parsed.
+sqlglot_optimize,SQLGlot optimize,sqlglot_optimize,deterministic_same_engine_rewrite_method,true,,Authorized main Track-A same-engine scaffold method; no evidence parsed.
+sqlglot_noop,SQLGlot no-op,sqlglot_noop,low_transform_infrastructure_route,true,,Authorized main Track-A same-engine scaffold method; no evidence parsed.
+calcite_hep_fail_closed,Calcite HEP fail-closed,calcite_hep,rule_based_fail_closed_rewrite_method,true,,Authorized main Track-A same-engine scaffold method; no evidence parsed.
+r_bot,R-Bot,,,false,bounded prior route; separate adapter required,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+llm_r2,LLM-R2,,,false,bounded prior route; separate adapter required,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+learnedrewrite,LearnedRewrite,,,false,bounded prior route; separate adapter required,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+sqlglot_transpile,SQLGlot Transpile,,,false,portability/transpile route; separate adapter required,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+llm_translate,LLM Translate,,,false,portability/translation route; separate adapter required,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+sqlsolver,SQLSolver,,,false,verifier support route; not a rewrite-generation baseline,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+verieql,VeriEQL,,,false,verifier support route; not a rewrite-generation baseline,Excluded from this bounded scaffold; handle only in a later authorized adapter.
+user_submitted_methods,User-submitted methods,,,false,future public-runner route; not retained scaffold,Excluded from this bounded scaffold; handle only in a later authorized adapter.

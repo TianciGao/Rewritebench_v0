@@ -1,0 +1,32 @@
+{
+  "adapter_name": "rewrite_candidate_adapter_v0",
+  "adapter_scope": "track_a_same_engine_scaffold_only",
+  "denominator_changed": false,
+  "execution_coverage_computed": false,
+  "generation_rate_computed": false,
+  "legacy_repo_read": false,
+  "method_routes_expected": 5,
+  "methods_emitted": [
+    "direct_llm_original",
+    "direct_llm_repair_1",
+    "sqlglot_optimize",
+    "sqlglot_noop",
+    "calcite_hep_fail_closed"
+  ],
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "rewrite_candidate_cell"
+  ],
+  "reports_changed": false,
+  "result_consistency_rate_computed": false,
+  "results_changed": false,
+  "rows_emitted": 600,
+  "same_engine_denominator_rows_expected": 120,
+  "scaffold_rows_emitted": 600,
+  "scaffold_rows_expected": 600,
+  "timing_metrics_computed": false
+}

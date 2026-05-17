@@ -3298,3 +3298,89 @@ Authorization:
 
 Next safe action:
 - Begin `rewrite_candidate_adapter_v0` planning only, or request explicit maintainer authorization for a bounded candidate adapter; do not parse production retained evidence, implement general candidate adapters, compute metrics, compute control rates, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · rewrite_candidate_adapter_v0 Track-A scaffold
+
+Mode: bounded rewrite-candidate scaffold; no production retained-evidence parsing; legacy not read
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Updated `scripts/dev/validate_ledger_csv.py` with minimal validation support for `record_type=rewrite_candidate_cell`.
+- Created `scripts/dev/build_rewrite_candidate_scaffold_ledger.py`, a bounded Track-A same-engine scaffold adapter.
+- Adapter scope: `track_a_same_engine_scaffold_only`.
+- Allowed emitted record type: `rewrite_candidate_cell` only.
+- Generated `audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv` with 600 planned candidate scaffold rows: 120 same-engine denominator rows x five authorized method routes.
+- Generated method scope, summary, checks, report, limitations, and ledger-validator outputs under `audits/rewrite_candidate_adapter_v0/`.
+- Added developer documentation at `docs/dev/REWRITE_CANDIDATE_ADAPTER_V0.md`.
+- Did not read the legacy repo, parse production retained evidence, parse legacy reports/results/runs, parse release reports/results as production evidence, parse retained-evidence candidate maps as production input, parse method raw outputs, parse timing files, implement timing adapters, implement portability adapters, implement verifier support adapters, compute Generation Rate, compute Execution Coverage Rate, compute Result Consistency Rate, compute Semantic Equivalence Rate, compute GM_Speedup, compute Speedup Ratio Percentiles, compute Attribution Coverage, compute Cross-Engine metrics, implement a reproduction CLI, implement public runner outputs, render paper tables, copy reports/results, create `results/retained`, create `reports/evaluation`, create an official production ledger under `results/`, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_rewrite_candidate_scaffold_ledger.py`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_method_scope.csv`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_summary.json`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_report.md`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_checks.csv`
+- `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_limitations.md`
+- `audits/rewrite_candidate_adapter_v0/ledger_validation/ledger_validation_results.csv`
+- `audits/rewrite_candidate_adapter_v0/ledger_validation/ledger_validation_summary.json`
+- `audits/rewrite_candidate_adapter_v0/ledger_validation/ledger_validation_report.md`
+- `docs/dev/REWRITE_CANDIDATE_ADAPTER_V0.md`
+
+Files modified:
+- `scripts/dev/validate_ledger_csv.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_rewrite_candidate_scaffold_ledger.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_csv.py`: passed.
+- `python -m py_compile scripts/dev/build_control_cell_ledger.py`: passed.
+- `python -m py_compile scripts/dev/build_source_positive_control_detail_ledger.py`: passed.
+- `python -m py_compile scripts/dev/build_hard_negative_control_detail_ledger.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/build_rewrite_candidate_scaffold_ledger.py --case-set case_sets/common_core_v0/cases.csv --denominator case_sets/common_core_v0/denominator_same_engine_120.csv --out-dir audits/rewrite_candidate_adapter_v0`: passed.
+- `python scripts/dev/validate_ledger_csv.py --ledger audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv --case-set case_sets/common_core_v0/cases.csv --same-engine-denominator case_sets/common_core_v0/denominator_same_engine_120.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/rewrite_candidate_adapter_v0/ledger_validation`: passed.
+- JSON invariant checks for adapter summary and ledger validation summary: passed.
+- CSV checks for 600 `rewrite_candidate_cell` rows and adapter checks: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending before commit.
+
+Adapter result:
+- Rows emitted: 600.
+- Record types emitted: `rewrite_candidate_cell`.
+- Same-engine denominator coverage: 120/120 denominator rows crossed with five method routes.
+- Method routes emitted: `direct_llm_original`, `direct_llm_repair_1`, `sqlglot_optimize`, `sqlglot_noop`, `calcite_hep_fail_closed`.
+- Adapter validation: passed, 600 rows checked, 0 errors, 0 warnings.
+- Fixture smoke: passed, 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, 0 unexpected pass/fail rows.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- Generation Rate computed: no.
+- Execution Coverage Rate computed: no.
+- Result Consistency Rate computed: no.
+- Timing metrics computed: no.
+- Metric input authorized: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the `rewrite_candidate_adapter_v0` scaffold row grain and method scope before authorizing any candidate evidence adapter that parses retained method outputs, fills generated/executed/exact/timed statuses, authorizes metric input, or computes metrics; do not parse production retained evidence, implement general candidate adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

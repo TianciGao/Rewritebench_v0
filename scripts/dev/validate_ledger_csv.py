@@ -35,7 +35,11 @@ KNOWN_RECORD_TYPES = {
     "user_run_candidate_cell",
 }
 
-SUPPORTED_RECORD_TYPES = {"control_cell", "retained_summary_artifact"}
+SUPPORTED_RECORD_TYPES = {
+    "control_cell",
+    "retained_summary_artifact",
+    "rewrite_candidate_cell",
+}
 
 COMMON_REQUIRED_COLUMNS = {
     "record_id",
@@ -73,6 +77,58 @@ CONTROL_REQUIRED_COLUMNS = {
 
 CONTROL_REQUIRED_COLUMNS_ALLOW_EMPTY_WITH_STATUS = {
     "retained_artifact_path",
+}
+
+REWRITE_CANDIDATE_REQUIRED_COLUMNS = {
+    "record_id",
+    "record_type",
+    "adapter_name",
+    "adapter_scope",
+    "case_id",
+    "pool",
+    "case_set",
+    "denominator_id",
+    "engine",
+    "rewrite_method",
+    "route",
+    "method_role",
+    "candidate_id",
+    "planned",
+    "generated",
+    "ready",
+    "executed",
+    "exact",
+    "timed",
+    "result_status",
+    "metric_input_authorized",
+    "metrics_computed",
+    "production_retained_evidence_parsed",
+    "legacy_repo_read",
+    "reports_changed",
+    "results_changed",
+    "denominator_changed",
+    "paper_results_changed",
+}
+
+REWRITE_CANDIDATE_NA_FIELDS = {
+    "generated",
+    "ready",
+    "executed",
+    "exact",
+    "timed",
+}
+
+REWRITE_CANDIDATE_ALLOWED_NA_VALUES = {"N.A.", "evidence_not_adapted_yet"}
+
+SAFETY_FALSE_FIELDS = {
+    "metric_input_authorized",
+    "metrics_computed",
+    "production_retained_evidence_parsed",
+    "legacy_repo_read",
+    "reports_changed",
+    "results_changed",
+    "denominator_changed",
+    "paper_results_changed",
 }
 
 RETAINED_SUMMARY_REQUIRED_ANY = [
@@ -154,8 +210,12 @@ def controls_lookup(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
     return {row["control_id"]: row for row in rows if row.get("control_id")}
 
 
-def same_engine_lookup(rows: list[dict[str, str]]) -> set[str]:
-    return {row["denominator_id"] for row in rows if row.get("denominator_id")}
+def same_engine_lookup(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    return {row["denominator_id"]: row for row in rows if row.get("denominator_id")}
+
+
+def value_is_false(value: str | None) -> bool:
+    return (value or "").strip().lower() == "false"
 
 
 def validate_common(
@@ -263,11 +323,85 @@ def validate_retained_summary_artifact(
     return errors, warnings
 
 
+def validate_rewrite_candidate_cell(
+    row: dict[str, str],
+    fieldnames: list[str],
+    cases: dict[str, dict[str, str]],
+    same_engine_denominator: dict[str, dict[str, str]],
+) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    missing_columns = sorted(
+        column for column in REWRITE_CANDIDATE_REQUIRED_COLUMNS if column not in fieldnames
+    )
+    if missing_columns:
+        errors.append("missing_rewrite_candidate_columns:" + ";".join(missing_columns))
+    for column in REWRITE_CANDIDATE_REQUIRED_COLUMNS & set(fieldnames):
+        if is_blank(row.get(column)):
+            errors.append(f"empty_rewrite_candidate_field:{column}")
+
+    case_id = row.get("case_id", "")
+    if case_id and case_id not in cases:
+        errors.append(f"case_id_not_in_case_set:{case_id}")
+    elif case_id:
+        expected_pool = cases[case_id].get("pool")
+        if row.get("pool") and expected_pool and row.get("pool") != expected_pool:
+            errors.append(f"pool_mismatch:{case_id}:{row.get('pool')}!={expected_pool}")
+
+    denominator_id = row.get("denominator_id", "")
+    denominator_row = same_engine_denominator.get(denominator_id)
+    if not denominator_id:
+        errors.append("missing_denominator_id")
+    elif denominator_row is None:
+        errors.append(f"same_engine_denominator_join_missing:{denominator_id}")
+    else:
+        for column in ("case_id", "pool", "engine"):
+            if row.get(column) and denominator_row.get(column) and row.get(column) != denominator_row.get(column):
+                errors.append(
+                    f"same_engine_join_{column}_mismatch:{row.get(column)}!={denominator_row.get(column)}"
+                )
+
+    expected_denominator_id = None
+    if case_id and row.get("engine"):
+        expected_denominator_id = f"track_a_same_engine:{case_id}:{row.get('engine')}"
+    if expected_denominator_id and denominator_id and denominator_id != expected_denominator_id:
+        errors.append(
+            f"same_engine_denominator_id_unexpected:{denominator_id}!={expected_denominator_id}"
+        )
+
+    if row.get("record_type") != "rewrite_candidate_cell":
+        errors.append("rewrite_candidate_record_type_mismatch")
+    if row.get("route") != "same_engine_rewrite":
+        errors.append(f"rewrite_candidate_route_unexpected:{row.get('route')}")
+    for column in ("rewrite_method", "route", "method_role", "candidate_id"):
+        if column in fieldnames and is_blank(row.get(column)):
+            errors.append(f"empty_rewrite_candidate_identity_field:{column}")
+
+    for column in SAFETY_FALSE_FIELDS & set(fieldnames):
+        if not value_is_false(row.get(column)):
+            errors.append(f"safety_flag_not_false:{column}={row.get(column)}")
+
+    if "planned" in fieldnames and (row.get("planned") or "").strip().lower() != "true":
+        errors.append(f"planned_not_true:{row.get('planned')}")
+
+    for column in REWRITE_CANDIDATE_NA_FIELDS & set(fieldnames):
+        if row.get(column) not in REWRITE_CANDIDATE_ALLOWED_NA_VALUES:
+            errors.append(f"rewrite_candidate_outcome_inferred:{column}={row.get(column)}")
+    if "result_status" in fieldnames and row.get("result_status") != "evidence_not_adapted_yet":
+        errors.append(f"rewrite_candidate_result_status_unexpected:{row.get('result_status')}")
+
+    for column in ("latency_ms", "speedup_ratio"):
+        if column in fieldnames and row.get(column) not in {"", "N.A."}:
+            errors.append(f"rewrite_candidate_timing_value_populated:{column}")
+    return errors, warnings
+
+
 def validate_rows(
     rows: list[dict[str, str]],
     fieldnames: list[str],
     cases: dict[str, dict[str, str]],
     controls: dict[str, dict[str, str]],
+    same_engine_denominator: dict[str, dict[str, str]],
 ) -> list[dict[str, str]]:
     global_errors, global_warnings = validate_forbidden_columns(fieldnames)
     seen_ids = Counter(row.get("record_id", "") for row in rows if row.get("record_id"))
@@ -289,6 +423,15 @@ def validate_rows(
             warnings.extend(type_warnings)
         elif record_type == "retained_summary_artifact":
             type_errors, type_warnings = validate_retained_summary_artifact(row, fieldnames)
+            errors.extend(type_errors)
+            warnings.extend(type_warnings)
+        elif record_type == "rewrite_candidate_cell":
+            type_errors, type_warnings = validate_rewrite_candidate_cell(
+                row,
+                fieldnames,
+                cases,
+                same_engine_denominator,
+            )
             errors.extend(type_errors)
             warnings.extend(type_warnings)
 
@@ -385,12 +528,12 @@ def main() -> int:
     case_rows, _ = read_csv(case_set_path)
     same_engine_rows, _ = read_csv(same_engine_path)
     control_rows, _ = read_csv(controls_path)
-    del same_engine_rows
 
     cases = case_lookup(case_rows)
     controls = controls_lookup(control_rows)
+    same_engine_denominator = same_engine_lookup(same_engine_rows)
     record_type_counts = Counter(row.get("record_type", "") for row in ledger_rows)
-    results = validate_rows(ledger_rows, ledger_fields, cases, controls)
+    results = validate_rows(ledger_rows, ledger_fields, cases, controls, same_engine_denominator)
     errors_count = sum(1 for row in results if row["errors"])
     warnings_count = sum(1 for row in results if row["warnings"])
     adapter_output_validated = any(row.get("adapter_name") for row in ledger_rows)
