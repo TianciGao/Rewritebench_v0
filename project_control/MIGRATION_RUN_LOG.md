@@ -4377,3 +4377,65 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v1/normalized_status_only_metrics_dryrun_table.csv` and `audits/normalized_status_only_metrics_dryrun_v1/normalized_status_only_status_caveats.csv`. If accepted, separately authorize official metric computation or additional evidence parsing; keep overlap resolution and timing adapter work separate.
+
+### 2026-05-17 · PENDING · status_inference_policy_v0 and candidate status evidence-gap review
+
+Mode: status-inference policy and evidence-gap review; audit/design only; no official metrics; no timing; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Created `repository_spec/status_inference_policy_v1_draft.md`.
+- Created `audits/status_inference_policy_v0/`.
+- Reviewed parser-v1, metric-input authorization, normalization, and normalized status-only dry-run outputs.
+- Defined conservative observed-vs-inferred status rules for R1 ready-implies-generated, R2 exact-implies-executed, R3 failure-stage-derived inference, and R4 unknown-stays-unknown.
+- Created a preview-only inferred-status candidate overlay for 94 potential ready-implies-generated rows.
+- Confirmed 0 potential exact-implies-executed rows.
+- Documented evidence gaps across five Track-A same-engine method routes and nine status fields.
+- Did not compute official metrics, change metric-input authorization, modify parser ledgers, modify normalization overlays, fill timing fields, update reports/results, change denominators, change paper results, change case membership, read new legacy evidence, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/status_inference_policy_v1_draft.md`
+- `audits/status_inference_policy_v0/status_inference_policy_summary.md`
+- `audits/status_inference_policy_v0/status_inference_rule_matrix.csv`
+- `audits/status_inference_policy_v0/inferred_status_candidate_overlay_preview.csv`
+- `audits/status_inference_policy_v0/status_evidence_gap_matrix.csv`
+- `audits/status_inference_policy_v0/status_inference_manual_questions.md`
+- `audits/status_inference_policy_v0/status_inference_dryrun_v2_plan.md`
+- `audits/status_inference_policy_v0/status_inference_policy_summary.json`
+- `audits/status_inference_policy_v0/status_inference_limitations.md`
+- `docs/dev/STATUS_INFERENCE_POLICY_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `status_inference_policy_summary.json`: passed.
+- CSV checks for R1/R2/R3/R4 coverage, preview-only inference flags, future authorization flags, required evidence-gap fields, and no metric authorization claims: passed.
+- `git diff --check`: pending final run.
+- `git status -sb`: pending final run.
+
+Task result:
+- official metrics computed: no
+- audit-only inference preview created: yes
+- parser ledgers modified: no
+- normalized overlay modified: no
+- timing fields filled: no
+- potential ready-implies-generated rows: 94
+- potential exact-implies-executed rows: 0
+- rows requiring future authorization: 94
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review `audits/status_inference_policy_v0/status_inference_rule_matrix.csv` and `audits/status_inference_policy_v0/inferred_status_candidate_overlay_preview.csv`. If accepted, separately authorize a status inference overlay or additional evidence parsing; keep official metrics and timing adapter work separate.

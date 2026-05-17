@@ -1,0 +1,18 @@
+{
+  "audit_only_inference_preview_created": true,
+  "denominator_changed": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review status_inference_rule_matrix.csv and inferred_status_candidate_overlay_preview.csv; separately authorize any inference overlay or official metric computation.",
+  "normalized_overlay_modified": false,
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "parser_ledgers_modified": false,
+  "potential_exact_implies_executed_rows": 0,
+  "potential_ready_implies_generated_rows": 94,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "rows_requiring_future_authorization": 94,
+  "task_completed": true,
+  "timing_fields_filled": false
+}
