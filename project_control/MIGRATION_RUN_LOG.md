@@ -4051,13 +4051,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/candidate_status_parser_v1_closeout/candidate_status_metric_input_readiness_review.csv`. If accepted, authorize a separate `metric_input_authorization_overlay_v0` for rows labeled `ready_candidate_status_only` only; separately review overlap rows and unresolved rows. Do not compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
 
-### 2026-05-17 · pending · metric_input_authorization_overlay_v0 for ready candidate-status rows
+### 2026-05-17 · 80f9617 · metric_input_authorization_overlay_v0 for ready candidate-status rows
 
 Mode: bounded metric-input authorization overlay; audit-only; no metrics; no timing; no parser ledger mutation
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `80f9617f1bbf2bd3e6e1e3cd96c6ddae3fa2651d`
+Push: `origin/main` updated `8089e86..80f9617`
 
 Summary:
 - Created `audits/metric_input_authorization_overlay_v0/` as a separate audit-only metric-input authorization overlay.
