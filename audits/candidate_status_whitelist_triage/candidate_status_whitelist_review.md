@@ -4,11 +4,44 @@
 
 This review guide is for maintainer triage only. It does not approve parser inputs by itself.
 
-The proposed sources are grouped by recommended decision in `candidate_status_whitelist_proposal.csv`. All parser manifest preview rows remain `pending_maintainer_review`.
+The proposed sources are grouped by recommended decision in `candidate_status_whitelist_proposal.csv`. The parser manifest preview now marks only the five explicitly approved rows as `approved_by_maintainer`.
 
-## Approve Header Only Then Parser
+## Approval Update
 
-These files look most likely to support a bounded non-timing parser after maintainer approval.
+On 2026-05-17, the maintainer approved `P001`, `P002`, `P003`, `P011`, and `P012` for `candidate_status_parser_v1` use under the approved fields and required conditions recorded in `candidate_status_manual_decision_sheet.csv`.
+
+This approval does not authorize timing fields, metric fields, metric input authorization, metrics computation, production ledger promotion, reports/results updates, denominator changes, paper-result changes, or raw legacy evidence mutation.
+
+## Approved For Parser V1
+
+`P001` `direct_llm_preflight/direct_llm_generation_matrix.csv`
+
+- Approved fields: `generated`, `ready`, `failure_stage`, `failure_type`, `evidence_source`.
+- Conditions: parse only non-timing generation/status columns; do not read prompt payloads or generated SQL payloads; require exact row keys; leave ambiguous rows unresolved.
+
+`P002` `00_PAPER_EVIDENCE_FREEZE_V1/direct_llm_execute_repair_candidate_set_v1.csv`
+
+- Approved fields: `generated`, `ready`, `executed`, `exact`, `result_status`, `failure_stage`, `failure_type`, `retained_artifact_path`.
+- Conditions: ignore `original_timing_success` and raw `source_artifacts`; parse only non-timing original/repair status columns; leave ambiguous rows unresolved.
+
+`P003` `direct_llm_execute_repair_1shot_01/repair_failures.csv`
+
+- Approved fields: `failure_stage`, `failure_type`, `result_status`, `retained_artifact_path`, `evidence_source`.
+- Conditions: denominator and candidate ID may be derived from scaffold route context only when unique.
+
+`P011` `calcite_hep_120_post93_frontier_audit_v1.csv`
+
+- Approved fields: `result_status`, `failure_stage`, `failure_type`, `retained_artifact_path`, `evidence_source`.
+- Conditions: `row_key` must map uniquely to candidate ID and denominator ID; public path hygiene must be enforced.
+
+`P012` `calcite_hep_120_recovery_round3c_numeric_scale_canary_02_01/run_event_long.csv`
+
+- Approved fields: `executed`, `exact`, `result_status`, `failure_stage`, `failure_type`, `checker_status`, `retained_artifact_path`.
+- Conditions: parse bounded subset rows only and leave unmatched scaffold rows unresolved.
+
+## Previously Recommended Header-Only Candidates
+
+These files looked most likely to support a bounded non-timing parser after maintainer approval.
 
 `P003` `direct_llm_execute_repair_1shot_01/repair_failures.csv`
 
@@ -32,7 +65,7 @@ These files look most likely to support a bounded non-timing parser after mainta
 
 - Might support: `executed`, `exact`, `result_status`, `checker_status`, `retained_artifact_path`.
 - Remaining risk: single-row JSON pattern and local DB metadata must be excluded from parser output.
-- Maintainer decision needed: approve a constrained `row_metadata.json` pattern or reject until a cleaner projection exists.
+- Maintainer decision needed: not approved in the explicit `P001`, `P002`, `P003`, `P011`, `P012` approval set; requires separate approval before parser use.
 
 ## Defer Manual Review
 
@@ -61,4 +94,4 @@ Reject parser use for route-level summaries, paper cards, proposed method rows, 
 
 ## Next Safe Action
 
-Fill `candidate_status_manual_decision_sheet.csv`. Only rows explicitly approved there should be converted into a future `candidate_status_parser_v1` manifest.
+Use only the five explicitly approved rows in `candidate_status_manual_decision_sheet.csv` to implement a future `candidate_status_parser_v1` manifest. Do not include non-approved rows without a separate maintainer decision.

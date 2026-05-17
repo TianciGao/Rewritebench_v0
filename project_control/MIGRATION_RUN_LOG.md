@@ -3766,3 +3766,65 @@ Authorization:
 
 Next safe action:
 - Maintainer reviews `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and explicitly approves or rejects proposed candidate status parser inputs before any `candidate_status_parser_v1` manifest is created. Keep all 600 candidate parser rows unresolved until exact row-grain non-timing sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · PENDING · Candidate status parser v1 whitelist approval recording
+
+Mode: approval recording only; no parser implementation; no candidate status parsing; no timing fields; no metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Recorded maintainer approval for `candidate_status_parser_v1` to use proposal IDs `P001`, `P002`, `P003`, `P011`, and `P012` only.
+- Updated `candidate_status_manual_decision_sheet.csv` with approved fields, rejected fields, and required conditions for the five approved proposal IDs.
+- Updated `candidate_status_parser_v1_input_manifest_preview.csv` so only the five approved sources are marked `approved_by_maintainer`.
+- Marked `P013` as not approved for parser-v1 use in this approval record because it was not included in the explicit maintainer-approved proposal list.
+- Did not implement `candidate_status_parser_v1`, parse candidate statuses, fill generated/ready/executed/exact fields, fill timing fields, authorize metric input, compute metrics, create a production ledger, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- none
+
+Files modified:
+- `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_parser_v1_input_manifest_preview.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_triage_summary.md`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_review.md`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_triage_summary.json`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- CSV/JSON approval-record checks: passed; approved proposal IDs are exactly P001, P002, P003, P011, and P012.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `git diff --check`: passed.
+- `git status -sb`: only intended whitelist-triage audit and project-control changes before commit.
+
+Approval result:
+- Approved proposal IDs: P001, P002, P003, P011, P012.
+- candidate_status_parser_v1 implemented: no.
+- Candidate statuses filled: no.
+- Timing fields filled: no.
+- Metric input authorized: no.
+- Metrics computed: no.
+- Production ledger created: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- candidate_status_parser_v1 implementation authorized by maintainer approval: yes, bounded to the five approved non-timing whitelist entries and fail-closed row-grain validation.
+- timing parser authorized: no
+- metric input authorization changed: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Implement `candidate_status_parser_v1` from the five maintainer-approved whitelist entries only: `P001`, `P002`, `P003`, `P011`, and `P012`. The parser must remain non-timing, keep `metric_input_authorized=false`, compute no metrics, fail closed on row-grain ambiguity, leave unmatched rows unresolved, and avoid reports/results updates, denominator changes, paper-result changes, case membership changes, legacy repo mutation, and raw legacy evidence mutation.

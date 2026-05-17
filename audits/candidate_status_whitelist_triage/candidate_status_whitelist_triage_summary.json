@@ -11,5 +11,32 @@
   "proposed_approve_count": 4,
   "proposed_defer_count": 6,
   "rejected_count": 8,
-  "next_safe_action": "Maintainer reviews audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv before any candidate_status_parser_v1 manifest is approved."
+  "maintainer_approval_recorded": true,
+  "approved_for_candidate_status_parser_v1_count": 5,
+  "approved_for_candidate_status_parser_v1": [
+    "P001",
+    "P002",
+    "P003",
+    "P011",
+    "P012"
+  ],
+  "not_approved_for_candidate_status_parser_v1": [
+    "P004",
+    "P005",
+    "P006",
+    "P007",
+    "P008",
+    "P009",
+    "P010",
+    "P013",
+    "P014",
+    "P015",
+    "P016",
+    "P017",
+    "P018",
+    "P019"
+  ],
+  "candidate_status_parser_v1_implemented": false,
+  "candidate_status_parser_v1_manifest_created": false,
+  "next_safe_action": "Implement candidate_status_parser_v1 from the five maintainer-approved whitelist entries only, with non-timing fields only, metric_input_authorized=false, no metrics, and fail-closed row-grain validation."
 }

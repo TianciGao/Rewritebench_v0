@@ -73,6 +73,8 @@ Candidate retained-evidence parser approval packet completed under `audits/candi
 
 Candidate status whitelist triage for manual approval completed under `audits/candidate_status_whitelist_triage/`. This audit-only task reviewed release metadata and selected legacy inventory paths at path/header/schema-preview level only, produced a 19-row maintainer-reviewable whitelist proposal, identified four `approve_header_only_then_parser` candidates pending maintainer review, six deferred manual-review candidates, eight rejected parser inputs, and one reference-only locator row. It did not parse candidate statuses, fill timing fields, compute metrics, create a production ledger, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
 
+Maintainer approval for `candidate_status_parser_v1` whitelist use has been recorded in `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and `candidate_status_parser_v1_input_manifest_preview.csv`. Approved proposal IDs are `P001`, `P002`, `P003`, `P011`, and `P012` only, limited to non-timing status fields and the required conditions in the decision sheet. `candidate_status_parser_v1` has not been implemented by this approval-recording task; no candidate statuses were parsed or filled, no timing fields were filled, no metrics were computed, no production ledger was created, and no reports/results, denominators, paper results, case membership, legacy repo files, or raw legacy evidence were changed.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -299,6 +301,18 @@ Membership and scaffold snapshot:
 - Reports/results changed by whitelist triage: no.
 - Denominator changed by whitelist triage: no.
 - Paper results changed by whitelist triage: no.
+- Maintainer approval recorded for candidate_status_parser_v1 whitelist: yes.
+- candidate_status_parser_v1 approved proposal IDs: P001, P002, P003, P011, P012.
+- candidate_status_parser_v1 implemented by approval-recording task: no.
+- Candidate statuses filled by approval-recording task: no.
+- Timing fields filled by approval-recording task: no.
+- Metrics computed by approval-recording task: no.
+- Production ledger created by approval-recording task: no.
+- Reports/results changed by approval-recording task: no.
+- Denominator changed by approval-recording task: no.
+- Paper results changed by approval-recording task: no.
+- Case membership changed by approval-recording task: no.
+- Raw legacy evidence changed by approval-recording task: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -338,6 +352,7 @@ Membership and scaffold snapshot:
 - Candidate retained-evidence parser approval packet completed as an audit/design packet, reviewing the unresolved candidate overlay and preparing maintainer decision materials without implementing a parser, parsing production retained evidence, reading the legacy repo, filling candidate row statuses, filling timing fields, authorizing metric input, computing metrics, updating reports/results, changing denominators, changing paper results, changing case membership, or modifying raw legacy evidence.
 - candidate_status_parser_v0 completed as a manifest-first bounded non-timing parser, producing a header-only approved input manifest, emitting and validating 600 unresolved `rewrite_candidate_cell` rows, filling 0 row-level statuses, and keeping production retained-evidence parsing, legacy repo reads, timing fields, metric input authorization, metrics computation, reports/results changes, denominator changes, paper-result changes, case membership changes, and raw legacy evidence changes at no.
 - Candidate status whitelist triage completed as an audit-only maintainer-review packet, producing a small whitelist proposal, manifest preview, manual decision sheet, rejected-source list, and review guide without parsing candidate statuses, filling timing fields, computing metrics, creating a production ledger, changing reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
+- Candidate status parser v1 whitelist approval recorded for proposal IDs P001, P002, P003, P011, and P012 only, without implementing parser v1, parsing candidate statuses, filling timing fields, computing metrics, creating a production ledger, changing reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -360,4 +375,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Maintainer reviews `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and explicitly approves or rejects proposed candidate status parser inputs before any `candidate_status_parser_v1` manifest is created. Keep all 600 candidate parser rows unresolved until exact row-grain non-timing sources are approved. Do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominator values, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
+Implement `candidate_status_parser_v1` from the five maintainer-approved whitelist entries only: `P001`, `P002`, `P003`, `P011`, and `P012`. The parser must remain non-timing, keep `metric_input_authorized=false`, compute no metrics, fail closed on row-grain ambiguity, leave unmatched rows unresolved, and avoid reports/results updates, denominator changes, paper-result changes, case membership changes, legacy repo mutation, and raw legacy evidence mutation.

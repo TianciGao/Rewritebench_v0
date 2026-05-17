@@ -1,20 +1,20 @@
 proposal_id,recommended_decision,maintainer_decision,approved_fields,rejected_fields,required_conditions,notes
-P001,defer_manual_review,,,,,
-P002,defer_manual_review,,,,,
-P003,approve_header_only_then_parser,,,,,
-P004,reject_route_level_only,,,,,
-P005,reject_timing_or_performance,,,,,
-P006,defer_manual_review,,,,,
-P007,defer_manual_review,,,,,
-P008,defer_manual_review,,,,,
-P009,reject_timing_or_performance,,,,,
-P010,reject_route_level_only,,,,,
-P011,approve_header_only_then_parser,,,,,
-P012,approve_header_only_then_parser,,,,,
-P013,approve_header_only_then_parser,,,,,
-P014,defer_manual_review,,,,,
-P015,reject_route_level_only,,,,,
-P016,reject_timing_or_performance,,,,,
-P017,reject_timing_or_performance,,,,,
-P018,retain_reference_only,,,,,
-P019,reject_timing_or_performance,,,,,
+P001,defer_manual_review,approved_for_candidate_status_parser_v1,generated|ready|failure_stage|failure_type|evidence_source,timed|latency_ms|speedup_ratio|timing_eligible|metric_input_authorized|metrics_computed,Parse only non-timing generation/status columns; do not read prompt payloads or generated SQL payloads; require case_id+engine+route_id+denominator_id+method_id row keys; leave ambiguous rows unresolved,Maintainer approved 2026-05-17.
+P002,defer_manual_review,approved_for_candidate_status_parser_v1,generated|ready|executed|exact|result_status|failure_stage|failure_type|retained_artifact_path,timed|latency_ms|speedup_ratio|timing_eligible|metric_input_authorized|metrics_computed,Parse only non-timing original/repair status columns; ignore original_timing_success and raw source_artifacts; require repair_row_id+case_id+engine+denominator_id; leave ambiguous rows unresolved,Maintainer approved 2026-05-17.
+P003,approve_header_only_then_parser,approved_for_candidate_status_parser_v1,failure_stage|failure_type|result_status|retained_artifact_path|evidence_source,timed|latency_ms|speedup_ratio|timing_eligible|metric_input_authorized|metrics_computed,Use failure metadata only; denominator_id and candidate_id may be derived from scaffold route context only when unique; leave ambiguous rows unresolved,Maintainer approved 2026-05-17.
+P004,reject_route_level_only,reject_route_level_only,,all_status_fields,Remain reference-only because aggregate counts cannot be distributed into rows,Processed per decision sheet.
+P005,reject_timing_or_performance,reject_timing_or_performance,,all_status_fields,Remain reference-only because timing or metric fields are present,Processed per decision sheet.
+P006,defer_manual_review,defer_manual_review,,all_status_fields,Requires separate approval for safe per-engine expansion policy,Processed per decision sheet.
+P007,defer_manual_review,defer_manual_review,,all_status_fields,Requires separate approval because explicit engine and candidate_id row grain are missing,Processed per decision sheet.
+P008,defer_manual_review,defer_manual_review,,all_status_fields,Requires separate approval because same-engine and PORT scope may be mixed,Processed per decision sheet.
+P009,reject_timing_or_performance,reject_timing_or_performance,,all_status_fields,Raw event log is timing/performance-bearing and requires a sanitized non-timing projection before parser use,Processed per decision sheet.
+P010,reject_route_level_only,reject_route_level_only,,all_status_fields,Remain reference-only because aggregate summary lacks candidate row grain,Processed per decision sheet.
+P011,approve_header_only_then_parser,approved_for_candidate_status_parser_v1,result_status|failure_stage|failure_type|retained_artifact_path|evidence_source,timed|latency_ms|speedup_ratio|timing_eligible|metric_input_authorized|metrics_computed,Use row-level frontier status only; row_key must map uniquely to candidate_id and denominator_id; enforce public path hygiene; leave ambiguous rows unresolved,Maintainer approved 2026-05-17.
+P012,approve_header_only_then_parser,approved_for_candidate_status_parser_v1,executed|exact|result_status|failure_stage|failure_type|checker_status|retained_artifact_path,timed|latency_ms|speedup_ratio|timing_eligible|metric_input_authorized|metrics_computed,Parse bounded subset rows only; leave unmatched scaffold rows unresolved; do not parse timing or performance fields,Maintainer approved 2026-05-17.
+P013,approve_header_only_then_parser,not_approved_for_candidate_status_parser_v1,,all_status_fields,Not included in explicit maintainer-approved P001/P002/P003/P011/P012 list; requires separate approval before parser use,Processed per explicit approval boundary.
+P014,defer_manual_review,defer_manual_review,,all_status_fields,Requires separate approval because row_key parsing into case_id would otherwise be guesswork,Processed per decision sheet.
+P015,reject_route_level_only,reject_route_level_only,,all_status_fields,Remain reference-only because aggregate synthesis lacks candidate row grain,Processed per decision sheet.
+P016,reject_timing_or_performance,reject_timing_or_performance,,all_status_fields,Remain reference-only because aggregate rate fields are present,Processed per decision sheet.
+P017,reject_timing_or_performance,reject_timing_or_performance,,all_status_fields,Remain reference-only because timing denominator and aggregate counts are present,Processed per decision sheet.
+P018,retain_reference_only,retain_reference_only,,all_status_fields,Use only as locator metadata and not as parser input,Processed per decision sheet.
+P019,reject_timing_or_performance,reject_timing_or_performance,,all_status_fields,Remain reference-only because aggregate metric fields are present,Processed per decision sheet.

@@ -46,7 +46,21 @@ The proposal contains 19 maintainer-reviewable rows:
 - `reject_timing_or_performance`: 5
 - `retain_reference_only`: 1
 
-No row is approved by the maintainer yet. The manifest preview marks every row as `pending_maintainer_review`.
+The original triage did not approve any parser input by itself; approval status is recorded separately in the maintainer decision sheet.
+
+## Maintainer Approval Recorded
+
+On 2026-05-17, the maintainer approved `candidate_status_parser_v1` use of these proposal IDs only:
+
+- `P001`
+- `P002`
+- `P003`
+- `P011`
+- `P012`
+
+The approved scope is limited to the approved non-timing fields and required conditions recorded in `candidate_status_manual_decision_sheet.csv`. Timing fields, metric fields, metric input authorization, production ledger promotion, reports/results updates, denominator changes, paper-result changes, and raw legacy evidence mutation remain out of scope.
+
+All other proposal rows are not approved for parser-v1 use by this approval record unless a later maintainer decision explicitly changes that status.
 
 ## Rejected or Deferred Groups
 
@@ -73,4 +87,4 @@ This triage did not modify the legacy repo, copy reports/results, create `result
 
 ## Exact Next Safe Action
 
-Maintainer reviews `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and explicitly approves or rejects each proposed source before any `candidate_status_parser_v1` manifest is created.
+Implement `candidate_status_parser_v1` from the five maintainer-approved whitelist entries only, with non-timing fields only, `metric_input_authorized=false`, no metrics, and fail-closed row-grain validation.
