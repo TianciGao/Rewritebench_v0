@@ -3142,13 +3142,13 @@ Authorization:
 Next safe action:
 - Review hard_negative_control_detail_adapter_v0 coverage and validator output before authorizing any adapter that parses real retained evidence, infers hard-negative outcomes, computes false-accept rates, emits metric-eligible rows, or consumes ledger rows for metrics; do not parse production retained evidence, implement general adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · source_positive_control_detail_adapter_v0
+### 2026-05-17 · c74cde6 · source_positive_control_detail_adapter_v0
 
 Mode: bounded control-cell detail adapter for source/positive controls only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `c74cde6fbd758607fc96e247d900cad87671ca46`
+Push: `origin/main` updated `8663aca..c74cde6`
 
 Summary:
 - Created `scripts/dev/build_source_positive_control_detail_ledger.py`, a bounded source/positive control detail adapter.
