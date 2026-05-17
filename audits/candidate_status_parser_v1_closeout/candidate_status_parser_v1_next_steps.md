@@ -1,29 +1,35 @@
 # candidate_status_parser_v1 Next Steps
 
-## Option A: Metric-input Readiness Review For 175 Filled Rows
+## Option A: Future Metric-input Authorization Overlay For Ready Rows
 
-Review only the 175 filled audit rows for schema consistency, source precedence, overlap handling, denominator joins, and status vocabulary. This does not authorize metrics by itself.
+Authorize a separate `metric_input_authorization_overlay_v0` for rows labeled `ready_candidate_status_only` in `candidate_status_metric_input_readiness_review.csv`. This would be an authorization overlay only and must not compute metrics.
 
-Recommendation: choose this first, because parser v1 produced mixed source overlap that should be reviewed before any metric-input eligibility decision.
+Recommendation: possible next step after maintainer review of the readiness CSV.
 
-## Option B: Additional Non-timing Evidence Triage For 425 Unresolved Rows
+## Option B: Manual Overlap Review
 
-Curate more row-level non-timing evidence sources for unresolved rows, especially SQLGlot optimize, SQLGlot no-op, remaining Repair-1 rows, and remaining Calcite rows. This should be a separate whitelist/approval pass.
+Review rows labeled `needs_source_overlap_review`, especially P001/P002 and P002/P003 overlaps. Define source precedence and whether overlap rows can later become metric-input eligible.
 
-Recommendation: run in parallel only as audit triage; do not parse more rows until sources are explicitly approved.
+Recommendation: required before any overlap row is authorized for metric input.
 
-## Option C: Timing Adapter Planning
+## Option C: Additional Non-timing Evidence For Unresolved Rows
 
-Plan timing parsing for already-filled candidate rows, but keep it separate from non-timing status parsing. Timing must not backfill `timed`, `latency_ms`, `speedup_ratio`, or `timing_eligible` without separate authorization.
+Curate additional row-level non-timing evidence sources for the 425 unresolved rows, especially SQLGlot optimize, SQLGlot no-op, remaining Repair-1 rows, and remaining Calcite rows.
 
-Recommendation: defer until status precedence and metric-readiness boundaries are reviewed.
+Recommendation: keep this as a separate whitelist/approval pass.
 
-## Option D: Portability / Verifier / Explainability Adapter Planning
+## Option D: Timing Adapter Planning
 
-Stop candidate parsing and move to other adapter families. This may be useful if candidate status coverage is intentionally paused.
+Plan timing parsing separately. Timing must not backfill `timed`, `latency_ms`, `speedup_ratio`, or `timing_eligible` without separate authorization.
 
-Recommendation: lower priority than reviewing parser-v1 row quality, because candidate rows are now partially filled and need closeout/readiness gates.
+Recommendation: defer until non-timing status readiness is resolved.
+
+## Option E: Portability / Verifier / Explainability Planning
+
+Defer candidate metrics and move to other adapter families if candidate status coverage is intentionally paused.
+
+Recommendation: lower priority than reviewing parser-v1 readiness, because non-timing candidate rows are now partially filled.
 
 ## Recommended Next Safe Action
 
-Do not authorize metrics yet. First perform a metric-input readiness review for the 175 filled audit rows and separately triage row-level evidence for the 425 unresolved rows. Timing adapter work should remain separate.
+Do not compute metrics yet. First review `candidate_status_metric_input_readiness_review.csv`. If enough rows are accepted, authorize a separate `metric_input_authorization_overlay_v0` for status-only rows labeled `ready_candidate_status_only`; keep timing adapter work separate.

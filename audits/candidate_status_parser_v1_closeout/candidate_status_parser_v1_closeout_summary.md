@@ -1,10 +1,10 @@
-# candidate_status_parser_v1 Closeout Summary
+# candidate_status_parser_v1 Closeout And Metric-input Readiness Summary
 
 Date: 2026-05-17
 
 ## Purpose And Scope
 
-This closeout reviews the already-emitted `candidate_status_parser_v1` audit ledger. It performs release-repo-only audit counts over `audits/candidate_status_parser_v1/candidate_status_parsed_ledger_v1.csv` and related parser-v1 audit outputs.
+This closeout reviews the already-emitted `candidate_status_parser_v1` audit ledger and assigns audit-only metric-input readiness labels to the 175 filled non-timing rows. It reads release-repo audit outputs only.
 
 No new candidate status parsing was performed. No additional legacy files were opened. No candidate statuses were filled by this closeout. No timing fields were filled, `metric_input_authorized` remains false for every row, and no metrics were computed.
 
@@ -34,7 +34,7 @@ Detailed method x pool x engine counts are in `candidate_status_parser_v1_filled
 
 ## Unresolved Rows By Method / Route / Pool / Engine
 
-Detailed unresolved groups are in `candidate_status_parser_v1_unresolved_distribution.csv`. Unresolved rows remain `unresolved_no_approved_source_match` because no approved parser-v1 source matched those exact scaffold row grains. These rows block metric input until separately reviewed and validated.
+Detailed unresolved groups are in `candidate_status_parser_v1_unresolved_distribution.csv`. Direct LLM Repair-1 and Calcite unresolved rows remain `unresolved_no_approved_source_match`; SQLGlot optimize and SQLGlot no-op rows are `unresolved_route_not_covered_by_v1`. These rows block metric input until separately reviewed and validated.
 
 ## Per-source Contribution Summary
 
@@ -48,11 +48,19 @@ The sum of source matches can exceed unique filled rows because approved sources
 
 ## Overlap And Conflict Review
 
-- P001/P002 overlap: 26 direct LLM original rows.
-- P002/P003 Repair-1 overlap: 19 rows; this is documented as failure enrichment and remains audit-only.
+- P001/P002 overlap: 26 Direct LLM original rows.
+- P002/P003 Repair-1 overlap: 19 rows; this is documented as failure enrichment and blocks metric-input authorization until manual overlap review.
 - P011/P012 Calcite overlap: 0 rows.
 - Duplicate output rows: none; parser v1 preserved one row per scaffold row.
-- Conflicting/overlapping status semantics block metric-input readiness review, not this audit closeout.
+
+## Metric-input Readiness Summary
+
+Readiness labels are audit-only and do not authorize metric input.
+
+- `needs_source_overlap_review`: 45.
+- `ready_candidate_status_only`: 130.
+
+Rows labeled `ready_candidate_status_only` are structurally ready for a future separate metric-input authorization overlay review, not for immediate metric computation. Rows labeled `needs_source_overlap_review` must be manually reviewed before any authorization because more than one approved source contributed to the row.
 
 ## Timing And Metric-input Boundary Confirmation
 
@@ -69,11 +77,11 @@ The sum of source matches can exceed unique filled rows because approved sources
 
 ## Remaining Blockers
 
-- The 175 filled rows are audit-only and need metric-input readiness review before any metric use.
+- The 130 rows labeled `ready_candidate_status_only` still require a separate authorization overlay before metric input can be set to true.
+- The 45 rows labeled `needs_source_overlap_review` require manual source-precedence review.
 - The 425 unresolved rows need additional row-level non-timing evidence triage or separate parser authorization.
 - Timing evidence remains outside parser-v1 scope and requires a separate timing adapter plan.
-- P002/P003 overlap needs explicit readiness handling before any downstream metric computation.
 
 ## Exact Next Safe Action
 
-Perform a metric-input readiness review for the 175 filled audit rows and separately triage row-level evidence for the 425 unresolved rows. Do not authorize metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, mutate the legacy repo, or modify raw legacy evidence without separate approval.
+Review `candidate_status_metric_input_readiness_review.csv`. If accepted, authorize a separate `metric_input_authorization_overlay_v0` for rows labeled `ready_candidate_status_only` only; separately review overlap rows and unresolved rows. Do not compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, mutate the legacy repo, or modify raw legacy evidence without separate approval.

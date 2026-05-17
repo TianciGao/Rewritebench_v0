@@ -3984,3 +3984,69 @@ Paper/denominator impact:
 
 Next safe action:
 - Perform a metric-input readiness review for the 175 filled `candidate_status_parser_v1` audit rows and separately triage row-level evidence for the 425 unresolved rows. Do not authorize metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
+
+### 2026-05-17 · pending · candidate_status_parser_v1 closeout and metric-input readiness review
+
+Mode: parser closeout plus metric-input readiness review; release-repo audit outputs only; no new candidate status parsing; no timing fields; no metric-input authorization; no metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Updated `audits/candidate_status_parser_v1_closeout/` to add audit-only metric-input readiness labels for the 175 filled `candidate_status_parser_v1` rows.
+- Confirmed no new candidate status parsing was performed, no additional legacy files were opened, no additional statuses were filled, timing fields remain unfilled, `metric_input_authorized` rows remain 0, and no metrics were computed.
+- Confirmed row-level statuses filled by prior parser v1: 175.
+- Confirmed unresolved rows: 425.
+- Metric-input readiness review completed: yes.
+- Readiness labels: `ready_candidate_status_only=130`, `needs_source_overlap_review=45`, `needs_status_normalization=0`, `not_metric_ready=0`.
+- Confirmed approved parser-v1 inputs reviewed: P001, P002, P003, P011, and P012.
+- Documented source overlap: P001/P002 overlap on 26 Direct LLM original rows, P002/P003 overlap on 19 Repair-1 rows, and P011/P012 Calcite overlap on 0 rows.
+- Confirmed the existing parser-v1 ledger validation passed with 600 rows checked, 0 errors, and 0 warnings.
+
+Files created:
+- `audits/candidate_status_parser_v1_closeout/candidate_status_metric_input_readiness_review.csv`
+
+Files modified:
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_closeout_summary.md`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_filled_distribution.csv`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_unresolved_distribution.csv`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_source_contribution.csv`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_overlap_conflict_review.csv`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_metric_boundary_checks.csv`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_next_steps.md`
+- `audits/candidate_status_parser_v1_closeout/candidate_status_parser_v1_closeout_summary.json`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `candidate_status_parser_v1_closeout_summary.json`: passed.
+- CSV checks for filled distribution, unresolved distribution, source contribution, overlap/conflict review, metric boundary checks, and metric-input readiness review: passed.
+- Metric-input readiness review rows: 175, exactly one per filled parser-v1 row.
+- Metric boundary checks: all PASS.
+- `git diff --check`: passed after normalizing generated CSV line endings to LF.
+- `git status -sb`: only intended closeout audit and project-control changes before commit.
+
+Closeout/readiness result:
+- new candidate status parsing performed: no
+- candidate statuses filled by prior parser v1: 175
+- unresolved rows: 425
+- timing fields filled: no
+- metric_input_authorized rows: 0
+- metrics computed: no
+- Generation Rate computed: no
+- Execution Coverage Rate computed: no
+- Result Consistency Rate computed: no
+- timing metrics computed: no
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Review `audits/candidate_status_parser_v1_closeout/candidate_status_metric_input_readiness_review.csv`. If accepted, authorize a separate `metric_input_authorization_overlay_v0` for rows labeled `ready_candidate_status_only` only; separately review overlap rows and unresolved rows. Do not compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
