@@ -2718,3 +2718,67 @@ Authorization:
 
 Next safe action:
 - Review the hardened fixture-only validator and dev-smoke documentation, then decide whether to add a developer-only smoke entrypoint or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Developer smoke entrypoint for ledger fixture validator
+
+Mode: release-repo developer smoke entrypoint for synthetic fixtures only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `scripts/dev/smoke_ledger_fixtures.py`, a thin developer-only wrapper around `scripts/dev/validate_ledger_fixtures.py`.
+- The wrapper defaults to the base synthetic fixture directory, hardening extra fixture rows, hardening expected results, and `audits/ledger_fixture_dev_smoke/` as its output directory.
+- Created developer smoke documentation under `docs/dev/`.
+- Generated developer smoke audit outputs under `audits/ledger_fixture_dev_smoke/`.
+- Did not parse production retained evidence, read legacy reports/results/runs, implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, implement paper table rendering, copy reports/results, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/smoke_ledger_fixtures.py`
+- `docs/dev/LEDGER_FIXTURE_SMOKE.md`
+- `audits/ledger_fixture_dev_smoke/ledger_fixture_hardening_validation_results.csv`
+- `audits/ledger_fixture_dev_smoke/ledger_fixture_hardening_summary.json`
+- `audits/ledger_fixture_dev_smoke/ledger_fixture_validator_hardening_report.md`
+- `audits/ledger_fixture_dev_smoke/ledger_fixture_dev_smoke_report.md`
+- `audits/ledger_fixture_dev_smoke/ledger_fixture_dev_smoke_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- JSON assertions and output existence checks: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending.
+
+Smoke result:
+- Fixture rows checked: 38.
+- Expected-valid rows passed: 17/17.
+- Expected-invalid rows failed as expected: 21/21.
+- Unexpected pass/fail count: 0/0.
+- Production retained evidence parsed: no.
+- Metrics computed: no.
+- Adapter implemented: no.
+
+Paper/denominator impact:
+- production retained evidence parsed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review the developer-only smoke entrypoint and decide whether to add CI wiring for synthetic fixture validation or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
