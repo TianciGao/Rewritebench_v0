@@ -4939,13 +4939,13 @@ Task result:
 Next safe action:
 - Review the closeout paper-rendering decision matrix and decide whether to resolve Generation Rate evidence/policy before any paper-facing main table or authorize a renderer-planning task limited to status-only outputs with blocked Generation Rate and denominator partitions visible.
 
-### 2026-05-18 · pending · A_line_final_metrics_closure_plan_v0
+### 2026-05-18 · ac4be19 · A_line_final_metrics_closure_plan_v0
 
 Mode: A-line final closure planning; no new metrics; no paper tables; no timing/performance implementation; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `ac4be19147710400a33ae044f867af39fc716ecf`
+Push: `origin/main` updated `7e7f56c..ac4be19`
 
 Summary:
 - Created an A-line final metrics closure planning packet under `audits/a_line_final_metrics_closure_plan_v0/`.
