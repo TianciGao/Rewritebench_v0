@@ -1,0 +1,17 @@
+{
+  "overlay_name": "overlap_priority_overlay_v1",
+  "overlap_rows_reviewed": 45,
+  "overlap_rows_resolved": 45,
+  "overlap_rows_still_blocked": 0,
+  "combined_authorized_rows": 175,
+  "combined_unauthorized_overlap_rows": 0,
+  "unresolved_rows_remain": 425,
+  "timing_authorized": false,
+  "official_metrics_computed": false,
+  "audit_only_overlay_created": true,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false
+}

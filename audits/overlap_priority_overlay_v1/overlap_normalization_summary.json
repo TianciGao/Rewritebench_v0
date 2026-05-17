@@ -1,0 +1,15 @@
+{
+  "previous_normalized_rows": 130,
+  "newly_normalized_overlap_rows": 45,
+  "combined_normalized_rows": 175,
+  "overlap_rows_still_blocked": 0,
+  "unresolved_rows_excluded": 425,
+  "rows_needing_manual_mapping": 27,
+  "metrics_computed": false,
+  "official_metrics_computed": false,
+  "timing_fields_filled": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false
+}

@@ -1,0 +1,10 @@
+check_name,status,details
+previous normalized rows = 130,PASS,previous rows=130
+combined normalized rows match authorized rows,PASS,combined normalized rows=175 authorized rows=175
+overlap rows still blocked recorded,PASS,still-blocked overlap rows=0
+unresolved rows excluded = 425,PASS,unresolved rows=425
+timing fields unchanged,PASS,all normalized rows keep timing_fields_unchanged=true
+no metrics computed,PASS,normalization does not compute metrics
+no paper result,PASS,normalization does not create paper results
+reports/results unchanged,PASS,script writes only under audits/overlap_priority_overlay_v1
+denominator unchanged,PASS,denominator files are not written

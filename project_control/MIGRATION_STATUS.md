@@ -478,6 +478,24 @@ Membership and scaffold snapshot:
 - Denominator changed by evidence completion round1: no.
 - Paper results changed by evidence completion round1: no.
 - Raw legacy evidence changed by evidence completion round1: no.
+- overlap_priority_overlay_v1 completed: yes.
+- normalized_status_only_metrics_dryrun_v3 completed: yes.
+- Overlap rows reviewed by overlap_priority_overlay_v1: 45.
+- Newly authorized overlap rows by overlap_priority_overlay_v1: 45.
+- Still-blocked overlap rows after overlap_priority_overlay_v1: 0.
+- v3 authorized input rows: 175.
+- Official metrics computed by normalized_status_only_metrics_dryrun_v3: no.
+- Audit-only dry-run metrics computed by normalized_status_only_metrics_dryrun_v3: yes.
+- Paper tables rendered by normalized_status_only_metrics_dryrun_v3: no.
+- Timing metrics computed by normalized_status_only_metrics_dryrun_v3: no.
+- Generation Rate dry-run created by normalized_status_only_metrics_dryrun_v3: yes.
+- Execution Coverage Rate dry-run created by normalized_status_only_metrics_dryrun_v3: yes.
+- Result Consistency Rate dry-run created by normalized_status_only_metrics_dryrun_v3: yes.
+- Unresolved rows after overlap_priority_overlay_v1 and dry-run v3: 425.
+- Reports/results changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
+- Denominator changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
+- Paper results changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
+- Raw legacy evidence changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -528,6 +546,7 @@ Membership and scaffold snapshot:
 - status_inference_policy_v0 completed as a policy/evidence-gap review, defining conservative observed-vs-inferred status rules, producing a preview-only inferred-status candidate overlay for 94 potential ready-implies-generated rows, confirming 0 potential exact-implies-executed rows, and documenting remaining evidence gaps without computing official metrics, changing metric input authorization, modifying parser ledgers or normalization overlays, filling timing fields, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2 completed as audit-only outputs, materializing 94 R1 inferred_generated rows as a separate overlay and creating v2 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables from 130 authorized rows while preserving 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs. They did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - candidate_status_evidence_completion_round1 completed as an audit-only evidence-completion triage, reviewing 45 overlap-denied candidate-status rows and eight SQLGlot candidate evidence sources, producing overlap-resolution proposals, SQLGlot manual decision materials, and ten pending SQLGlot manifest-preview rows without filling statuses, changing metric-input authorization, computing metrics, filling timing fields, updating reports/results, changing denominators, changing paper results, changing case membership, or modifying raw legacy evidence.
+- overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3 completed as audit-only outputs, resolving all 45 overlap-denied candidate-status rows under maintainer-approved Option B, creating a combined 175-row metric-input authorization overlay, preserving 425 unresolved rows in denominator/accounting outputs, refreshing normalization for newly authorized overlap rows, and creating v3 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables. They did not compute official metrics, render paper tables, compute timing metrics, implement SQLGlot parsing, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -550,4 +569,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/candidate_status_evidence_completion_round1/overlap_rows_resolution_proposal.csv` and `audits/candidate_status_evidence_completion_round1/sqlglot_candidate_manual_decision_sheet.csv`. If accepted, separately authorize an overlap-priority authorization overlay v1 and/or a sanitized SQLGlot projection/parser task; keep official metrics, timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+Review `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_delta_vs_v2.csv` and `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_caveats.csv`. If accepted, separately authorize official metric-readiness review or SQLGlot status evidence parsing; keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.

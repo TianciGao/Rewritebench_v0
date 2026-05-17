@@ -1,0 +1,10 @@
+check_name,status,details
+overlap rows reviewed = 45,PASS,overlap rows=45
+no original parser ledger modified,PASS,script reads parser-v1 ledger and writes only audit outputs
+no v0 overlay modified,PASS,script does not write metric_input_authorization_overlay_v0
+P003 cannot override primary status,PASS,P003 is failure enrichment only
+timing_authorized=false,PASS,timing remains unauthorized
+official_metrics_computed=false,PASS,no official metrics computed
+paper_result=false,PASS,no paper results
+reports/results unchanged,PASS,script writes only under audits/overlap_priority_overlay_v1
+denominator unchanged,PASS,denominator files are not written
