@@ -1,0 +1,9 @@
+{
+  "pg": "SELECT CAST( SUM( CASE WHEN TO_CHAR( CAST( \"creationdate\" AS TIMESTAMP ) , 'YYYY' ) = '2010' THEN 1 ELSE 0 END ) AS REAL ) / NULLIF( SUM( CASE WHEN TO_CHAR( CAST( \"creationdate\" AS TIMESTAMP ) , 'YYYY' ) = '2011' THEN 1 ELSE 0 END ) , 0 ) FROM \"votes\"\n",
+  "cracksql": "SELECT CAST( SUM( CASE WHEN DATE_FORMAT(`creationdate`, '%Y') = '2010' THEN 1 ELSE 0 END ) AS REAL ) / NULLIF( SUM( CASE WHEN DATE_FORMAT(`creationdate`, '%Y') = '2011' THEN 1 ELSE 0 END ) , 0 ) FROM `votes`",
+  "result": [
+    {
+      "?column?": 1.307099679981036
+    }
+  ]
+}

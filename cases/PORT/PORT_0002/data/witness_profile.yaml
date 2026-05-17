@@ -1,0 +1,14 @@
+case_id: PORT_0002
+pool: PORT
+source_legacy_path: cases/PORT/PORT_0002/validation/witness_dataset.yaml
+witness:
+  dataset_id: port_0002_pg_mysql_spark_witness_v1
+  tables:
+  - votes
+  notes:
+  - minimal manually constructed witness dataset
+  - used for PostgreSQL source validation and MySQL/Spark rewrite validation
+  - portability focus is datetime semantics gap
+db_validation_run: false
+notes:
+- Witness profile retained as metadata only; no DB validation was run.

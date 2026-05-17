@@ -1,0 +1,38 @@
+type: value_normalized_result_equivalence_checker
+status: pg_witness_validated
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_numeric_format: true
+  normalize_null: true
+inputs:
+  source: source.sql
+  positive_rewrite: rewrite_pos_01.sql
+  negative_rewrite: rewrite_neg_01.sql
+schema_profile:
+  pg_ddl: schema/ddl_pg.sql
+  data_profile: data_profile.json
+expectations:
+  equal:
+    - source.sql
+    - rewrite_pos_01.sql
+  not_equal:
+    - source.sql
+    - rewrite_neg_01.sql
+expected_results:
+  source: runs/pg/source.tsv
+  positive_rewrite: runs/pg/rewrite_pos_01.tsv
+  negative_rewrite: runs/pg/rewrite_neg_01.tsv
+validation_evidence:
+  - runs/pg/result_check.json
+plan_evidence:
+  - runs/pg/plans/plan_check.json
+  - runs/pg/plans/source.json
+  - runs/pg/plans/rewrite_pos_01.json
+  - runs/pg/plans/rewrite_neg_01.json
+notes:
+  - PostgreSQL-only witness validation passed for the case-local minimal dataset.
+  - Positive rewrite matched source output on PostgreSQL witness data.
+  - Negative rewrite differed from source output on PostgreSQL witness data.
+  - PostgreSQL plan artifacts were collected with EXPLAIN FORMAT JSON.
+  - No MySQL/Spark validation, admission claim, or promotion claim is implied.

@@ -1,0 +1,22 @@
+source_id: SRC_009
+seed_id: SEED_004
+source_name: PARROT
+source_subset: BIRD
+source_entry: pg_res.json[0]
+
+localization_evidence:
+- benchmark/BIRD/pg_res.json
+- entry contains keys: pg, cracksql, result
+- source query uses PostgreSQL-style year extraction via TO_CHAR(CAST(... AS TIMESTAMP), 'YYYY')
+- translated query uses MySQL-style DATE_FORMAT(..., '%Y')
+- validator-backed result is embedded in the same entry
+
+semantic_summary:
+This candidate computes the ratio between the number of votes created in 2010
+and the number of votes created in 2011.
+
+selection_reason:
+- validator-backed portability seed
+- single-table query over votes
+- explicit date-time function portability gap
+- simpler than multi-table BIRD candidates for first portability draft case

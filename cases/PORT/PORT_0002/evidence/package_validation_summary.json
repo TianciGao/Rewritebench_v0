@@ -1,0 +1,14 @@
+{
+  "canonical_layout_basic_check": "pass",
+  "case_id": "PORT_0002",
+  "db_validation_run": false,
+  "denominator_changed": false,
+  "metrics_computed": false,
+  "migration_wave": "overnight_non_common_core_case_package_standardization_wave_001",
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "pool": "PORT",
+  "raw_legacy_evidence_changed": false,
+  "static_case_validator": "pass",
+  "validator": "scripts/dev/validate_case_package.py --mode canonical-case"
+}

@@ -1,0 +1,225 @@
+case_id: PORT_0002
+pool: PORT
+policy_version: runs_retention_policy_v1
+status: non_common_core_wave_001_standardized
+canonical_full_case_migration:
+  status: copy_first_non_common_core_standardization_wave_001
+  full_case_package_migrated: true
+  full_case_package_migration_scope: PORT_0002_only
+  canonical_layout_tested: true
+full_case_package_migrated: true
+full_case_package_migration_scope: PORT_0002_only
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/PORT/PORT_0002
+public_release_case_path: cases/PORT/PORT_0002
+legacy_runs_root: cases/PORT/PORT_0002/runs/
+legacy_runs_detected: false
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+raw_legacy_evidence_changed: false
+db_validation_run: false
+evidence_regenerated: false
+metrics_computed: false
+paper_tables_rendered: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: false
+  raw_spark_plan_files_copied_to_public_tree: false
+  raw_spark_plan_files_retained_through_mapping: false
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
+retained_core_assets: &id001
+- original_legacy_path: cases/PORT/PORT_0002/source.sql
+  public_release_path: cases/PORT/PORT_0002/sql/source.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: f21ef6df991276748948dc01830d6b8684a31ee2cf2b2c8f8369af79b62f1c67
+  sha256_public_copy: f21ef6df991276748948dc01830d6b8684a31ee2cf2b2c8f8369af79b62f1c67
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/rewrite_pos_01.sql
+  public_release_path: cases/PORT/PORT_0002/sql/positives/pos_01.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 1a2d08cc83098451a4035ab4c91018de76106d8ceabfb41564bfb16fab65afe2
+  sha256_public_copy: 1a2d08cc83098451a4035ab4c91018de76106d8ceabfb41564bfb16fab65afe2
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/rewrite_pos_02_spark.sql
+  public_release_path: cases/PORT/PORT_0002/sql/dialect_variants/spark/pos_02_spark.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 8685d56d2e0d42a876b4961a3065e2f21feb2bdad706f1d5cf567295c5c554dd
+  sha256_public_copy: 8685d56d2e0d42a876b4961a3065e2f21feb2bdad706f1d5cf567295c5c554dd
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/rewrite_neg_01.sql
+  public_release_path: cases/PORT/PORT_0002/sql/negatives/neg_01.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 3a739a0df5227860e74b1627146c0173bee38104e78d1063e7c913165cc64b0c
+  sha256_public_copy: 3a739a0df5227860e74b1627146c0173bee38104e78d1063e7c913165cc64b0c
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/rewrite_neg_02_spark.sql
+  public_release_path: cases/PORT/PORT_0002/sql/dialect_variants/spark/neg_02_spark.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 117af03eba9ee913ba0aff5916615cf6d1937ac4aab27f501469d9f14e70d83d
+  sha256_public_copy: 117af03eba9ee913ba0aff5916615cf6d1937ac4aab27f501469d9f14e70d83d
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/schema/ddl_pg.sql
+  public_release_path: cases/PORT/PORT_0002/schema/postgres/ddl.sql
+  evidence_role: schema_or_load_asset
+  sha256_legacy_source: c524e09bc9c1754172f634421032f9a2f3f7c1474538a452cb1c7b81b041127e
+  sha256_public_copy: c524e09bc9c1754172f634421032f9a2f3f7c1474538a452cb1c7b81b041127e
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/schema/ddl_mysql.sql
+  public_release_path: cases/PORT/PORT_0002/schema/mysql/ddl.sql
+  evidence_role: schema_or_load_asset
+  sha256_legacy_source: 74d31f725d649b3b06af68a6d178086615acd2717bfe3145fe59d7d7fe1936e5
+  sha256_public_copy: 74d31f725d649b3b06af68a6d178086615acd2717bfe3145fe59d7d7fe1936e5
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/schema/ddl_spark.sql
+  public_release_path: cases/PORT/PORT_0002/schema/spark/ddl.sql
+  evidence_role: schema_or_load_asset
+  sha256_legacy_source: b844c7d87d01944b9656c9762c2ac037396463429d72cbecaad51dd0026f0250
+  sha256_public_copy: b844c7d87d01944b9656c9762c2ac037396463429d72cbecaad51dd0026f0250
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/validation/witness_dataset.yaml
+  public_release_path: cases/PORT/PORT_0002/validation/witness_dataset.yaml
+  evidence_role: witness_metadata
+  sha256_legacy_source: d6377037a909f5db4ece5fcde1c7dcccf3396e669a5860f6917b77015e62639c
+  sha256_public_copy: d6377037a909f5db4ece5fcde1c7dcccf3396e669a5860f6917b77015e62639c
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/validation/checker.yaml
+  public_release_path: cases/PORT/PORT_0002/checker/checker.yaml
+  evidence_role: checker_asset
+  sha256_legacy_source: 61ccec33fc7a08a1fbdb2178eebeb651c83e56709e041bab134c54920a6d2086
+  sha256_public_copy: 61ccec33fc7a08a1fbdb2178eebeb651c83e56709e041bab134c54920a6d2086
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/provenance/parrot_bird_pg_res_entry0.json
+  public_release_path: cases/PORT/PORT_0002/metadata/source_provenance/parrot_bird_pg_res_entry0.json
+  evidence_role: provenance_asset
+  sha256_legacy_source: 1b89bb44b53b8a6a2dc79f15360ab1149354256b337f4f1c65f6a9d53a42c209
+  sha256_public_copy: 1b89bb44b53b8a6a2dc79f15360ab1149354256b337f4f1c65f6a9d53a42c209
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+- original_legacy_path: cases/PORT/PORT_0002/provenance/parrot_bird_pg_res_entry0_notes.txt
+  public_release_path: cases/PORT/PORT_0002/metadata/source_provenance/parrot_bird_pg_res_entry0_notes.txt
+  evidence_role: provenance_asset
+  sha256_legacy_source: a5ee885689b20a678dc71327946f4258e0838e542dc63a02b3b3455276646785
+  sha256_public_copy: a5ee885689b20a678dc71327946f4258e0838e542dc63a02b3b3455276646785
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo; copied public-safe core asset in
+    release repo
+legacy_manifest_run_references:
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/mysql/rewrite_neg_01.tsv
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/mysql/rewrite_pos_01.tsv
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/pg/source.tsv
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/plans/mysql/rewrite_neg_01.json
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/plans/mysql/rewrite_pos_01.json
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/plans/pg/source.json
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/plans/spark/rewrite_neg_02_spark.txt
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/plans/spark/rewrite_pos_02_spark.txt
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/spark/rewrite_neg_02_spark.tsv
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+- original_legacy_path: cases/PORT/PORT_0002/runs/port_0002/spark/rewrite_pos_02_spark.tsv
+  public_release_path: null
+  evidence_role: legacy_manifest_run_reference_not_present_in_case_package
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; no raw runs copied
+public_release_notes:
+  full_case_package_migrated: true
+  non_common_core: true
+  not_common_core_v0_member: true
+  not_track_a_denominator_member: true
+  no_paper_result_created: true
+retained_control_evidence: *id001
+do_not_delete:
+- original_legacy_path: cases/PORT/PORT_0002/manifest.yaml
+  evidence_role: legacy manifest source metadata
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repo

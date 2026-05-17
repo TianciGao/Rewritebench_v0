@@ -1,0 +1,39 @@
+type: cross_engine_portability_checker
+
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_tabs: true
+  normalize_numeric_format: true
+  normalize_null: true
+
+reference:
+  postgres_source: source.sql
+
+comparisons:
+  mysql:
+    equal_to_reference:
+      - rewrite_pos_01.sql
+    not_equal_to_reference:
+      - rewrite_neg_01.sql
+  spark:
+    equal_to_reference:
+      - rewrite_pos_02_spark.sql
+    not_equal_to_reference:
+      - rewrite_neg_02_spark.sql
+
+expected_results:
+  postgres_source:
+    - "1.5"
+  mysql_positive:
+    - "1.5"
+  mysql_negative:
+    - "1"
+  spark_positive:
+    - "1.5"
+  spark_negative:
+    - "1.0"
+
+notes:
+  - PostgreSQL source result is treated as semantic reference
+  - MySQL and Spark rewrites are judged against the PostgreSQL source result under value-normalized comparison

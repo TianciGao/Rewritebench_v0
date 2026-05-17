@@ -1,0 +1,2 @@
+-- PORT_0002 has no retained postgres load script in this non-Common-core wave package.
+-- This file is a canonical layout placeholder and is not DB validation evidence.

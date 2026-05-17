@@ -1,0 +1,17 @@
+case_id: PERF_0029
+pool: PERF
+engines:
+  postgres:
+    supported_by_legacy_assets: true
+    role: postgres_witness_only
+    db_validation_run: false
+  mysql:
+    supported_by_legacy_assets: false
+    role: not_supported_in_wave_001
+    db_validation_run: false
+  spark:
+    supported_by_legacy_assets: false
+    role: not_supported_in_wave_001
+    db_validation_run: false
+notes:
+- Engine support records retained legacy scope only; no DB validation was run.

@@ -1,0 +1,23 @@
+case_id: PERF_0029
+compare_config:
+  inputs:
+    source: source.sql
+    positive_rewrite: rewrite_pos_01.sql
+    negative_rewrite: rewrite_neg_01.sql
+  schema_profile:
+    pg_ddl: schema/ddl_pg.sql
+    data_profile: data_profile.json
+  expectations:
+    equal:
+    - source.sql
+    - rewrite_pos_01.sql
+    not_equal:
+    - source.sql
+    - rewrite_neg_01.sql
+  expected_results:
+    source: runs/pg/source.tsv
+    positive_rewrite: runs/pg/rewrite_pos_01.tsv
+    negative_rewrite: runs/pg/rewrite_neg_01.tsv
+db_validation_run: false
+notes:
+- Generated canonical comparison summary from legacy checker metadata.

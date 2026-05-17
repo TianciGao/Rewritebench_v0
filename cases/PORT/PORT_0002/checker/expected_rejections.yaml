@@ -1,0 +1,13 @@
+case_id: PORT_0002
+hard_negative_role: expected result divergence from source reference
+negatives:
+- id: neg_01
+  path: sql/negatives/neg_01.sql
+  source_legacy_path: cases/PORT/PORT_0002/rewrite_neg_01.sql
+  expected_behavior: not_equal_to_source_reference
+- id: neg_02_spark
+  path: sql/dialect_variants/spark/neg_02_spark.sql
+  source_legacy_path: cases/PORT/PORT_0002/rewrite_neg_02_spark.sql
+  expected_behavior: not_equal_to_source_reference
+notes:
+- Hard negatives are checker controls and not method-generated failures.

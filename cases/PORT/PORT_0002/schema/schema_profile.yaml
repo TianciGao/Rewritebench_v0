@@ -1,0 +1,16 @@
+case_id: PORT_0002
+pool: PORT
+engines:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+    supported_by_legacy_assets: true
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+    supported_by_legacy_assets: true
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+    supported_by_legacy_assets: true
+db_validation_run: false

@@ -1,0 +1,2 @@
+-- PERF_0029 has no retained spark DDL in this non-Common-core wave package.
+-- This file is a canonical layout placeholder and is not DB validation evidence.

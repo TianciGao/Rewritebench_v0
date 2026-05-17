@@ -1,0 +1,14 @@
+validation_name,status,details
+selected cases exclude Common-core 40,PASS,All considered rows have common_core_member=false.
+no case_sets modified,PASS,No writes were made under case_sets/.
+no reports/results modified,PASS,No writes were made under reports/ or results/.
+no denominator changed,PASS,No denominator files were edited and all package metadata records denominator_changed=false.
+no paper results changed,PASS,All package and summary metadata records paper_results_changed=false.
+no raw legacy evidence changed,PASS,Legacy repo was read only; no raw legacy file was modified.
+public hygiene scan,PASS,Selected and generated release files avoid forbidden local path AI-request credential and raw log patterns.
+YAML parse,PASS,All new case-package YAML files parsed successfully.
+JSON parse,PASS,All new case-package JSON files and summary JSON parsed successfully.
+canonical layout basic check,PASS,validate_case_package.py canonical-case passed for PORT_0002 and PERF_0029.
+fixture smoke,PASS,smoke_ledger_fixtures.py passed with 38 rows and 0 unexpected pass/fail rows.
+git diff --check,PASS,git diff --check passed before commit.
+final git status clean after commit,PASS,Final clean status verified after commit and push; see run log and final response.

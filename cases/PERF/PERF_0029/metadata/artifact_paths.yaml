@@ -1,0 +1,11 @@
+case_id: PERF_0029
+pool: PERF
+canonical_case_root: cases/PERF/PERF_0029
+legacy_case_root: cases/PERF/PERF_0029
+source_sql: sql/source.sql
+positive_sql: sql/positives/pos_01.sql
+negative_sql: sql/negatives/neg_01.sql
+runs_retention: evidence/runs_retention.yaml
+raw_runs_copied: false
+reports_changed: false
+results_changed: false

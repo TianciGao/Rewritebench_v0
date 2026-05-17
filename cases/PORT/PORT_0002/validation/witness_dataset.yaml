@@ -1,0 +1,9 @@
+dataset_id: port_0002_pg_mysql_spark_witness_v1
+
+tables:
+  - votes
+
+notes:
+  - minimal manually constructed witness dataset
+  - used for PostgreSQL source validation and MySQL/Spark rewrite validation
+  - portability focus is datetime semantics gap

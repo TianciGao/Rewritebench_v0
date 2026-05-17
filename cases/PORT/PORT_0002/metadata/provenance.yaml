@@ -1,0 +1,19 @@
+case_id: PORT_0002
+pool: PORT
+source_family: PARROT
+source_id: SRC_009
+source_name: PARROT BIRD
+source_entry: benchmark/BIRD/pg_res.json[0]
+legacy_case_path: cases/PORT/PORT_0002
+release_case_path: cases/PORT/PORT_0002
+migration_wave: overnight_non_common_core_case_package_standardization_wave_001
+non_common_core: true
+not_common_core_v0_member: true
+not_track_a_denominator_member: true
+db_validation_run: false
+evidence_regenerated: false
+metrics_computed: false
+paper_tables_rendered: false
+notes:
+- Registered non-Common-core staged preview case; zero static hygiene risk; no case-local
+  runs detected.

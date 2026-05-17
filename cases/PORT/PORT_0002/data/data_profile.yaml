@@ -1,0 +1,26 @@
+case_id: PORT_0002
+pool: PORT
+source_legacy_path: cases/PORT/PORT_0002/data_profile.json
+profile:
+  case_id: PORT_0002
+  dataset_id: port_0002_pg_mysql_spark_witness_v1
+  engine_validated:
+  - postgres
+  - mysql
+  - spark
+  required_tables:
+  - votes
+  row_counts:
+    votes: 6
+  notes:
+  - Minimal witness dataset manually constructed for PostgreSQL, MySQL, and Spark
+    validation
+  - PostgreSQL source.sql returned 1.5 on the witness dataset
+  - MySQL rewrite_pos_01.sql returned 1.5 on the witness dataset
+  - MySQL rewrite_neg_01.sql returned 1 on the witness dataset
+  - Spark rewrite_pos_02_spark.sql returned 1.5 on the witness dataset
+  - Spark rewrite_neg_02_spark.sql returned 1.0 on the witness dataset
+  - The negative rewrites use inclusive end-of-year range bounds and drop late-day
+    records such as 2010-12-31 23:59:59
+notes:
+- Converted from legacy data_profile.json during static migration only.

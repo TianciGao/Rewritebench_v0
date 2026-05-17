@@ -598,6 +598,22 @@ Membership and scaffold snapshot:
 - Metrics represented by a_line_final_renderer_input_package_v0: 10.
 - A-line ready for B-line handoff: yes.
 - Recommended next task after A-line renderer-input package: `b_line_reproduction_report_renderer_design_v0`.
+- overnight non-Common-core case package standardization wave completed: yes.
+- Cases considered by overnight non-Common-core wave 001: 30.
+- Cases attempted by overnight non-Common-core wave 001: 2.
+- Cases completed by overnight non-Common-core wave 001: 2.
+- Cases deferred by overnight non-Common-core wave 001: 28.
+- Completed case ids by overnight non-Common-core wave 001: `PORT_0002`, `PERF_0029`.
+- Deferred case ids by overnight non-Common-core wave 001: `PERF_0002`, `CONS_0031`, `CONS_0034`, `PERF_0009`, `PERF_0010`, `PERF_0011`, `PERF_0012`, `PERF_0014`, `PERF_0015`, `PERF_0016`, `PERF_0018`, `PERF_0020`, `PERF_0021`, `PERF_0022`, `PERF_0023`, `PERF_0025`, `PERF_0026`, `PERF_0036`, `PERF_0038`, `PERF_0043`, `PERF_0044`, `PERF_0047`, `PERF_0050`, `PERF_0053`, `PERF_0063`, `PERF_0065`, `PERF_0066`, `PERF_0076`.
+- Common-core modified by overnight non-Common-core wave 001: no.
+- case_sets changed by overnight non-Common-core wave 001: no.
+- Reports changed by overnight non-Common-core wave 001: no.
+- Results changed by overnight non-Common-core wave 001: no.
+- Denominator changed by overnight non-Common-core wave 001: no.
+- Paper results changed by overnight non-Common-core wave 001: no.
+- Raw legacy evidence changed by overnight non-Common-core wave 001: no.
+- Metrics computed by overnight non-Common-core wave 001: no.
+- Paper tables rendered by overnight non-Common-core wave 001: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -657,6 +673,7 @@ Membership and scaffold snapshot:
 - generation_rate_blocker_final_decision_v0 completed as a policy/evidence decision packet, deciding that Generation Rate should be reported as blocked for public v0, allowing only optional future diagnostic Generation/Readiness support under separate authorization, and not computing metrics, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - non_status_metric_na_backlog_closure_bundle_v0 completed as an A-line non-status metric closure packet, classifying Semantic Equivalence Rate as audit-only support, GM_Speedup and Speedup Ratio Percentiles as blocked, Attribution Coverage and Cross-Engine Execution/Consistency as post-release backlog, and Speedup Retention as N.A. for v0 without computing metrics, implementing adapters, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - a_line_final_renderer_input_package_v0 completed as the final A-line renderer-input package, representing all ten Metrics Contract v1 primary metrics as limited official inputs, blocked records, N.A. records, audit-only support, or post-release backlog for a future separately authorized renderer without computing new metrics, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- overnight_non_common_core_case_package_standardization_wave_001 completed as a bounded non-Common-core standardization batch, creating canonical packages for `PORT_0002` and `PERF_0029`, deferring 28 hygiene-risk candidates with dossiers, and passing static YAML/JSON, public hygiene, canonical-case validator, fixture smoke, and diff checks without changing `case_sets/`, reports/results, denominators, paper results, metrics, Common-core cases, or raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -679,4 +696,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Run `b_line_reproduction_report_renderer_design_v0` to design the reproduction/report renderer boundary and validation gates without rendering paper tables, writing `reports/` or `results/`, computing metrics, changing denominators, or changing paper results.
+Review wave 001 completed packages and deferred hygiene dossiers; decide whether to run `overnight_non_common_core_case_package_standardization_wave_002` or separately authorize staged/backlog membership governance without changing Common-core v0 membership, denominators, reports/results, paper results, metrics, or raw legacy evidence.

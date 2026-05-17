@@ -1,0 +1,17 @@
+case_id: PORT_0002
+pool: PORT
+engines:
+  postgres:
+    supported_by_legacy_assets: true
+    role: source_reference_engine
+    db_validation_run: false
+  mysql:
+    supported_by_legacy_assets: true
+    role: target_positive_and_negative_engine
+    db_validation_run: false
+  spark:
+    supported_by_legacy_assets: true
+    role: target_positive_and_negative_engine
+    db_validation_run: false
+notes:
+- Engine support records retained legacy scope only; no DB validation was run.

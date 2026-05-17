@@ -1,0 +1,80 @@
+case_id: PORT_0002
+pool: PORT
+taxonomy_source: cases/PORT/PORT_0002/taxonomy_trial_v0.2.yaml
+taxonomy:
+  case_id: PORT_0002
+  trial_version: '0.2'
+  status: admitted_common_core_case
+  candidate_primary_pool: portability
+  dataset_line_candidate: common-core
+  context:
+    purpose: 'This case is derived from a PARROT BIRD portability seed and is used
+      to validate the external portability seed-to-case pipeline.
+
+      '
+    note: 'PORT_0002 has now passed admission review and is treated as an admitted
+      external common-core portability case. The case records PostgreSQL source-side
+      validation plus MySQL and Spark target-side positive and negative rewrite validation.
+
+      '
+  sql_feature_tags:
+  - date_time_function
+  rewrite_opportunity_tags:
+  - dialect_adaptation
+  plan_operator_tags:
+    status: provisional_pg_mysql_spark_split
+    observed_in_postgres:
+    - scan
+    - aggregate
+    observed_in_mysql:
+    - scan
+    observed_in_spark:
+    - scan
+    - aggregate
+    - project
+  workload_realism_tags: []
+  portability_tags:
+  - datetime_semantics_gap
+  review_notes:
+  - PORT_0002 is sourced from PARROT benchmark/BIRD/pg_res.json entry 0.
+  - The source query uses PostgreSQL-style TO_CHAR(CAST(... AS TIMESTAMP), 'YYYY').
+  - The MySQL positive rewrite uses DATE_FORMAT(..., '%Y') and preserves the source
+    result.
+  - The MySQL negative rewrite uses inclusive end-of-year bounds and changes the result.
+  - The Spark positive rewrite uses Spark-compatible date_format(..., 'yyyy') and
+    preserves the source result.
+  - The Spark negative rewrite uses inclusive end-of-year bounds and changes the result.
+  - This case has now passed PORT_0002_ADMISSION_REVIEW_v1 and is treated as an admitted
+    external common-core case.
+  expected_outputs:
+    pg_source:
+    - '1.5'
+    mysql_positive:
+    - '1.5'
+    mysql_negative:
+    - '1'
+    spark_positive:
+    - '1.5'
+    spark_negative:
+    - '1.0'
+  evidence:
+    raw_record: cases/PORT/PORT_0002/provenance/parrot_bird_pg_res_entry0.json
+    provenance_notes: cases/PORT/PORT_0002/provenance/parrot_bird_pg_res_entry0_notes.txt
+    frozen_source: cases/PORT/PORT_0002/source.sql
+    positive_candidate_mysql: cases/PORT/PORT_0002/rewrite_pos_01.sql
+    negative_candidate_mysql: cases/PORT/PORT_0002/rewrite_neg_01.sql
+    positive_candidate_spark: cases/PORT/PORT_0002/rewrite_pos_02_spark.sql
+    negative_candidate_spark: cases/PORT/PORT_0002/rewrite_neg_02_spark.sql
+    data_profile: cases/PORT/PORT_0002/data_profile.json
+    pg_source_plan: runs/port_0002/plans/pg/source.json
+    mysql_positive_plan: runs/port_0002/plans/mysql/rewrite_pos_01.json
+    mysql_negative_plan: runs/port_0002/plans/mysql/rewrite_neg_01.json
+    spark_positive_plan: runs/port_0002/plans/spark/rewrite_pos_02_spark.txt
+    spark_negative_plan: runs/port_0002/plans/spark/rewrite_neg_02_spark.txt
+    pg_source_result: runs/port_0002/pg/source.tsv
+    mysql_positive_result: runs/port_0002/mysql/rewrite_pos_01.tsv
+    mysql_negative_result: runs/port_0002/mysql/rewrite_neg_01.tsv
+    spark_positive_result: runs/port_0002/spark/rewrite_pos_02_spark.tsv
+    spark_negative_result: runs/port_0002/spark/rewrite_neg_02_spark.tsv
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

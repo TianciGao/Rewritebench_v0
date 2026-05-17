@@ -1,0 +1,10 @@
+case_id: PORT_0002
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_tabs: true
+  normalize_numeric_format: true
+  normalize_null: true
+source: legacy checker normalization block
+notes:
+- Generated canonical summary from legacy checker metadata.

@@ -1,0 +1,11 @@
+{
+  "case_id": "PORT_0002",
+  "db_validation_run": false,
+  "hard_negative_sql": "sql/negatives/neg_01.sql",
+  "metrics_computed": false,
+  "notes": [
+    "Hard-negative SQL retained as checker control material only."
+  ],
+  "pool": "PORT",
+  "status": "indexed_from_legacy_sql_only"
+}

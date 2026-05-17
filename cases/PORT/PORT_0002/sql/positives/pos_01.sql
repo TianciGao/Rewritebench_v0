@@ -1,0 +1,1 @@
+SELECT CAST( SUM( CASE WHEN DATE_FORMAT(`creationdate`, '%Y') = '2010' THEN 1 ELSE 0 END ) AS REAL ) / NULLIF( SUM( CASE WHEN DATE_FORMAT(`creationdate`, '%Y') = '2011' THEN 1 ELSE 0 END ) , 0 ) FROM `votes`

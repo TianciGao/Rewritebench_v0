@@ -1,0 +1,29 @@
+case_id: PORT_0002
+compare_config:
+  reference:
+    postgres_source: source.sql
+  comparisons:
+    mysql:
+      equal_to_reference:
+      - rewrite_pos_01.sql
+      not_equal_to_reference:
+      - rewrite_neg_01.sql
+    spark:
+      equal_to_reference:
+      - rewrite_pos_02_spark.sql
+      not_equal_to_reference:
+      - rewrite_neg_02_spark.sql
+  expected_results:
+    postgres_source:
+    - '1.5'
+    mysql_positive:
+    - '1.5'
+    mysql_negative:
+    - '1'
+    spark_positive:
+    - '1.5'
+    spark_negative:
+    - '1.0'
+db_validation_run: false
+notes:
+- Generated canonical comparison summary from legacy checker metadata.

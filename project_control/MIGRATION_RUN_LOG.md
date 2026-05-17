@@ -5163,3 +5163,65 @@ Task result:
 
 Next safe action:
 - Run `b_line_reproduction_report_renderer_design_v0` to design the reproduction/report renderer boundary and validation gates without rendering paper tables, writing `reports/` or `results/`, computing metrics, changing denominators, or changing paper results.
+
+### 2026-05-18 · pending · overnight_non_common_core_case_package_standardization_wave_001
+
+Mode: bounded non-Common-core case package standardization; no case-set membership update; no metrics; no DB validation; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Considered 30 non-Common-core candidate cases from existing governance and staged/backlog preview artifacts.
+- Attempted two low-risk zero-hygiene-risk cases.
+- Created canonical package directories for `PORT_0002` and `PERF_0029`.
+- Deferred 28 considered cases because static governance flagged local-path, raw-log/debug, retained-runs, or public-hygiene risk.
+- Created wave 001 audit outputs under `audits/overnight_non_common_core_case_package_standardization_wave_001/`.
+- Did not update `case_sets/`, `inventory/`, reports, results, denominators, paper results, metrics, Common-core case packages, or raw legacy evidence.
+
+Files created:
+- `cases/PORT/PORT_0002/` canonical package directory with 44 files.
+- `cases/PERF/PERF_0029/` canonical package directory with 41 files.
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_summary.md`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_case_queue.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_completed_cases.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_deferred_cases.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_hygiene_findings.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_runs_retention_index.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_validation_results.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/overnight_wave_summary.json`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/future_followup_prompt.md`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/canonical_case_validator_results.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_001/canonical_case_validator_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/validate_case_package.py --mode canonical-case --case cases/PORT/PORT_0002 --case cases/PERF/PERF_0029`: passed, 2/2.
+- YAML/JSON/CSV invariant checks: passed.
+- Public hygiene scan: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `git diff --check`: passed.
+
+Task result:
+- cases considered: 30.
+- cases attempted: 2.
+- cases completed: 2.
+- cases deferred: 28.
+- completed case ids: `PORT_0002`, `PERF_0029`.
+- deferred case ids: `PERF_0002`, `CONS_0031`, `CONS_0034`, `PERF_0009`, `PERF_0010`, `PERF_0011`, `PERF_0012`, `PERF_0014`, `PERF_0015`, `PERF_0016`, `PERF_0018`, `PERF_0020`, `PERF_0021`, `PERF_0022`, `PERF_0023`, `PERF_0025`, `PERF_0026`, `PERF_0036`, `PERF_0038`, `PERF_0043`, `PERF_0044`, `PERF_0047`, `PERF_0050`, `PERF_0053`, `PERF_0063`, `PERF_0065`, `PERF_0066`, `PERF_0076`.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Review wave 001 completed packages and deferred hygiene dossiers; decide whether to run `overnight_non_common_core_case_package_standardization_wave_002` or separately authorize staged/backlog membership governance without changing Common-core v0 membership, denominators, reports/results, paper results, metrics, or raw legacy evidence.

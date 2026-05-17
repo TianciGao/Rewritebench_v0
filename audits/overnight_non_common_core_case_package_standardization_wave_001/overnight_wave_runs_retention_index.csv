@@ -1,0 +1,31 @@
+case_id,has_legacy_runs,runs_retention_yaml_created,retained_mapping_status,raw_runs_copied,unsafe_runs_deferred,notes
+PORT_0002,false,true,core_assets_mapped_no_case_local_runs_detected,false,false,Legacy manifest may reference historical runs paths but no case-local runs directory was detected or copied.
+PERF_0029,false,true,core_assets_mapped_no_case_local_runs_detected,false,false,Legacy manifest may reference historical runs paths but no case-local runs directory was detected or copied.
+PERF_0002,false,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+CONS_0031,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+CONS_0034,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0009,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0010,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0011,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0012,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0014,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0015,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0016,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0018,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0020,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0021,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0022,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0023,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0025,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0026,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0036,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0038,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0043,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0044,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0047,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0050,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0053,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0063,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0065,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0066,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
+PERF_0076,true,false,deferred_for_hygiene_review,false,true,No raw runs copied; case deferred.
