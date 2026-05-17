@@ -1,0 +1,10 @@
+check_name,status,details
+manifest file created,PASS,candidate_status_parser_input_manifest.csv written
+manifest has header,PASS,columns=25
+approved parser inputs = 0,PASS,approved_parser_inputs=0
+legacy files opened = false,PASS,manifest builder reads release metadata only
+production retained evidence parsed = false,PASS,no retained artifact content parsed
+timing inputs approved = false,PASS,timing stays separate
+prompt/token inputs approved = false,PASS,prompt/token risky inputs are not approved
+raw log inputs approved = false,PASS,raw log inputs are not approved
+header-only fail-closed manifest when no row-grain sources,PASS,no exact row-grain metadata source was approved

@@ -1,0 +1,15 @@
+check_name,status,details
+scaffold row count = 600,PASS,actual=600
+output row count = 600,PASS,actual=600
+only rewrite_candidate_cell emitted,PASS,record_types=['rewrite_candidate_cell']
+no timing fields filled,PASS,timed_non_na=0;timing_eligible_non_na=0;latency_values=0
+no speedup fields filled,PASS,speedup_values=0
+metric_input_authorized=false for all rows,PASS,values=['false']
+metrics_computed=false,PASS,values=['false']
+no reports/results changed,PASS,parser writes only under audits/candidate_status_parser_v0
+denominator unchanged,PASS,parser reads scaffold only and does not write case_sets
+paper results unchanged,PASS,no paper-facing outputs written
+route-level summaries not distributed,PASS,parser never distributes route-level counts
+ambiguous row-grain sources rejected,PASS,approved sources must pass exact row-grain validation before parsing
+all approved manifest inputs parsed or explicitly rejected,PASS,approved_manifest_inputs=0;rejected_manifest_inputs=0
+output passes ledger validator,PASS,validation_passed=True;errors=0;warnings=0

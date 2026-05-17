@@ -1,0 +1,27 @@
+{
+  "approved_parser_inputs": 0,
+  "expected_row_grain": "case_id x engine x rewrite_method x candidate_id x denominator_id",
+  "legacy_files_opened": false,
+  "manifest_rows": 0,
+  "metadata_source_category_counts": {
+    "artifact_inventory_metadata": 1,
+    "ledger_field_mapping_metadata": 1,
+    "retained_evidence_candidate_metadata": 1,
+    "source_group_inventory_metadata": 1
+  },
+  "metadata_sources_inspected": 4,
+  "methods_seen_in_metadata": [
+    "calcite_hep_fail_closed",
+    "direct_llm_original",
+    "direct_llm_repair_1",
+    "sqlglot_noop",
+    "sqlglot_optimize"
+  ],
+  "metrics_computed": false,
+  "parser_name": "candidate_status_parser_v0",
+  "production_retained_evidence_parsed": false,
+  "prompt_token_inputs_approved": false,
+  "raw_log_inputs_approved": false,
+  "rejected_or_deferred_inputs": 9865,
+  "timing_inputs_approved": false
+}

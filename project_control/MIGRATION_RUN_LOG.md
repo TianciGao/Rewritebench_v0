@@ -3601,3 +3601,101 @@ Authorization:
 
 Next safe action:
 - Maintainer should review `audits/candidate_retained_evidence_parser_approval_packet/approval_decision_template.md` and choose design-only approval, bounded non-timing parser implementation approval, deferral pending metric/team review, or rejection due to evidence ambiguity. If implementation is approved, require an explicit input manifest and validation gates; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · candidate_status_parser_v0 manifest-first bounded non-timing parser
+
+Mode: bounded non-timing candidate status parser; manifest-first; fail-closed; no timing fields; no metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Created `scripts/dev/build_candidate_status_parser_input_manifest.py`, a release-metadata-only manifest builder for candidate status parser inputs.
+- Created `scripts/dev/parse_candidate_status_from_manifest.py`, a manifest-first non-timing parser for the 600-row Track-A same-engine rewrite candidate scaffold.
+- Created `audits/candidate_status_parser_v0/` with a header-only approved input manifest, manifest summary/report/checks, 600-row parsed ledger output, parser summary/report/checks, input rejection log, limitations, and ledger validation outputs.
+- Created `docs/dev/CANDIDATE_STATUS_PARSER_V0.md`.
+- Inspected release-repo locator/mapping metadata only for manifest generation; no legacy files were opened.
+- Approved manifest inputs: 0.
+- Parser behavior: fail-closed/no-op; emitted 600 unresolved `rewrite_candidate_cell` rows with `parser_status=no_approved_row_level_inputs`.
+- Row-level candidate statuses filled: no, count 0.
+- Timing fields filled: no.
+- Metric input authorized: no, count 0.
+- Metrics computed: no.
+- Did not parse production retained evidence, read the legacy repo, copy legacy reports/results/runs, parse raw logs, parse timing arrays, implement timing/portability/verifier adapters, render paper tables, implement reproduction CLI/public runner, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_candidate_status_parser_input_manifest.py`
+- `scripts/dev/parse_candidate_status_from_manifest.py`
+- `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest.csv`
+- `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_summary.json`
+- `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_report.md`
+- `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_checks.csv`
+- `audits/candidate_status_parser_v0/candidate_status_parsed_ledger_v0.csv`
+- `audits/candidate_status_parser_v0/candidate_status_parser_v0_summary.json`
+- `audits/candidate_status_parser_v0/candidate_status_parser_v0_report.md`
+- `audits/candidate_status_parser_v0/candidate_status_parser_v0_checks.csv`
+- `audits/candidate_status_parser_v0/candidate_status_parser_input_rejection_log.csv`
+- `audits/candidate_status_parser_v0/candidate_status_parser_v0_limitations.md`
+- `audits/candidate_status_parser_v0/ledger_validation/ledger_validation_results.csv`
+- `audits/candidate_status_parser_v0/ledger_validation/ledger_validation_summary.json`
+- `audits/candidate_status_parser_v0/ledger_validation/ledger_validation_report.md`
+- `docs/dev/CANDIDATE_STATUS_PARSER_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_candidate_status_parser_input_manifest.py`: passed.
+- `python -m py_compile scripts/dev/parse_candidate_status_from_manifest.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_csv.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/build_candidate_status_parser_input_manifest.py --out-dir audits/candidate_status_parser_v0`: passed; manifest rows 0, approved parser inputs 0, rejected/deferred metadata candidates 9865.
+- `python scripts/dev/parse_candidate_status_from_manifest.py --scaffold audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv --manifest audits/candidate_status_parser_v0/candidate_status_parser_input_manifest.csv --out-dir audits/candidate_status_parser_v0`: passed; 600 rows emitted, 0 row-level statuses filled, 600 unresolved rows.
+- `python scripts/dev/validate_ledger_csv.py --ledger audits/candidate_status_parser_v0/candidate_status_parsed_ledger_v0.csv --case-set case_sets/common_core_v0/cases.csv --same-engine-denominator case_sets/common_core_v0/denominator_same_engine_120.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/candidate_status_parser_v0/ledger_validation`: passed; 600 rows checked, 0 errors, 0 warnings.
+- JSON invariant checks for manifest summary, parser summary, and ledger validation summary: passed.
+- CSV checks for manifest header, 600 parser output rows, `rewrite_candidate_cell` record type, false metric/safety flags, no numeric timing/speedup fields, fail-closed parser status, and ledger validation pass status: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit with only intended parser, audit, docs, and project-control changes.
+- `git diff --stat`: passed before commit.
+
+Parser result:
+- candidate_status_parser_v0 implemented: yes.
+- Input manifest created: yes.
+- Approved manifest inputs: 0.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Row-level statuses filled: 0.
+- Unresolved rows: 600.
+- Timing fields filled: no.
+- Metric-input-authorized rows: 0.
+- Metrics computed: no.
+- Generation Rate computed: no.
+- Execution Coverage Rate computed: no.
+- Result Consistency Rate computed: no.
+- Timing metrics computed: no.
+- Parser status summary: `no_approved_row_level_inputs=600`.
+- Rejected/deferred input summary: 9865 metadata candidates deferred by the manifest builder; no manifest rows were approved or rejected during parser execution.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- timing adapter authorized: no
+- portability adapter authorized: no
+- verifier support adapter authorized: no
+- metric input authorization changed: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_report.md` and decide whether to curate an explicit row-level non-timing retained-evidence input manifest for a future parser rerun. Keep the 600 candidate parser rows unresolved until exact row-grain input sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.

@@ -1,0 +1,28 @@
+{
+  "approved_manifest_inputs": 0,
+  "denominator_changed": false,
+  "exact_filled_rows": 0,
+  "executed_filled_rows": 0,
+  "generated_filled_rows": 0,
+  "legacy_repo_read": false,
+  "manifest_inputs_parsed": 0,
+  "manifest_inputs_rejected": 0,
+  "metric_input_authorized_rows": 0,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "parser_name": "candidate_status_parser_v0",
+  "parser_scope": "manifest_approved_non_timing_only",
+  "parser_status_counts": {
+    "no_approved_row_level_inputs": 600
+  },
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "ready_filled_rows": 0,
+  "reports_changed": false,
+  "results_changed": false,
+  "row_level_status_rows_filled": 0,
+  "rows_emitted": 600,
+  "scaffold_rows_expected": 600,
+  "timing_fields_filled": 0,
+  "unresolved_rows": 600
+}
