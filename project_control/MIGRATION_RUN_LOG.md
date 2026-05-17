@@ -3536,3 +3536,68 @@ Authorization:
 
 Next safe action:
 - Review `candidate_status_adapter_v0` unresolved overlay rows and input-use log before authorizing any production retained-evidence candidate adapter. Do not parse legacy/raw evidence, fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Candidate retained-evidence parser approval packet
+
+Mode: release-repo audit/design/approval-packet only; no production retained-evidence parsing; legacy not read
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `pending`
+Push: `pending`
+
+Summary:
+- Created `audits/candidate_retained_evidence_parser_approval_packet/` with an approval summary, unresolved-overlay review, input-use review, candidate field/source plan, route risk matrix, proposed parser scope, validation-gate checklist, and maintainer decision template.
+- Reviewed `candidate_status_adapter_v0` unresolved overlay outputs, `rewrite_candidate_input_surface_audit`, `rewrite_candidate_adapter_v0`, retained-evidence adapter design, ledger schema/validation rules, production ledger validation policy, and Metrics Contract v1.
+- Confirmed the existing overlay remains unresolved: 600 planned `rewrite_candidate_cell` rows, 600 unresolved rows, five Track-A routes, 0 row-level statuses filled, `result_status=evidence_not_adapted_yet`, and `metric_input_authorized=false`.
+- Confirmed the v0 input-use log inspected release-repo metadata only, found no row-level candidate evidence, did not open legacy paths, and did not parse production retained evidence.
+- Defined a proposed future non-timing parser scope that must remain separate from timing parsing, metric computation, paper rendering, and production ledger promotion.
+- Did not implement a parser, parse production retained evidence, read the legacy repo, fill candidate row statuses, fill timing fields, authorize metric input, compute metrics, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `audits/candidate_retained_evidence_parser_approval_packet/approval_packet_summary.md`
+- `audits/candidate_retained_evidence_parser_approval_packet/unresolved_overlay_review.csv`
+- `audits/candidate_retained_evidence_parser_approval_packet/input_use_log_review.csv`
+- `audits/candidate_retained_evidence_parser_approval_packet/candidate_field_to_source_plan.csv`
+- `audits/candidate_retained_evidence_parser_approval_packet/route_risk_matrix.csv`
+- `audits/candidate_retained_evidence_parser_approval_packet/proposed_candidate_status_parser_scope_v1.md`
+- `audits/candidate_retained_evidence_parser_approval_packet/validation_gate_checklist.csv`
+- `audits/candidate_retained_evidence_parser_approval_packet/approval_decision_template.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- CSV readability checks for all five new CSV audit files: passed.
+- Markdown sanity checks for the three new Markdown decision/scope/summary files: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit with only intended approval-packet and project-control changes.
+- `git diff --name-status`: passed before commit with only intended approval-packet and project-control changes.
+
+Audit result:
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Candidate row statuses filled: no.
+- Timing fields filled: no.
+- Metrics computed: no.
+- Metric input authorized: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- candidate retained-evidence parser implementation authorized: no
+- timing parser authorized: no
+- metric input authorization changed: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Maintainer should review `audits/candidate_retained_evidence_parser_approval_packet/approval_decision_template.md` and choose design-only approval, bounded non-timing parser implementation approval, deferral pending metric/team review, or rejection due to evidence ambiguity. If implementation is approved, require an explicit input manifest and validation gates; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, or modify raw legacy evidence without separate authorization.

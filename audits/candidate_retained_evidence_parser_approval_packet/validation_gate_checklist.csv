@@ -1,0 +1,15 @@
+gate_id,gate_name,purpose,required_before_parser_implementation,required_before_metric_use,pass_condition,failure_behavior
+schema_validation,Schema validation,Ensure output ledger columns and types match ledger schema,true,true,All required rewrite_candidate_cell fields present and type-compatible,Fail closed
+denominator_join,Denominator join,Ensure candidate rows join Track A same-engine denominator,true,true,Every row denominator_id joins denominator_same_engine_120.csv and matches case_id engine pool,Fail closed
+route_identity,Route identity,Prevent method/route conflation,true,true,Each row has one approved rewrite_method route_family and method_role,Fail closed or manual review
+no_global_leaderboard,No global leaderboard,Prevent incompatible route or denominator aggregation,true,true,No output collapses methods engines or record types into a leaderboard,Fail closed
+no_timing_fields,No timing fields in non-timing parser,Keep timing adapter separate,true,true,timed remains N.A. and latency_ms speedup_ratio timing_eligible remain blank or N.A.,Fail closed
+metric_input_false,metric_input_authorized remains false,Prevent premature metrics consumption,true,true,metric_input_authorized=false for every output row,Fail closed
+no_metric_computation,No metric computation,Prevent rate or aggregate generation,true,true,No Generation Rate Execution Coverage Result Consistency speedup attribution or diagnostic-rate outputs,Fail closed
+no_legacy_mutation,No legacy/raw evidence mutation,Preserve raw retained evidence,true,true,Legacy/raw evidence files are not modified,Fail closed and revert task outputs
+no_reports_results_mutation,No reports/results mutation,Prevent paper/result side effects,true,true,No writes under reports/ or results/,Fail closed
+no_paper_result_mutation,No paper-result mutation,Preserve paper claims,true,true,No paper result or paper table values changed,Fail closed
+public_hygiene,Public hygiene,Prevent unsafe paths and private traces,true,true,No absolute local paths secrets prompt traces or raw logs in output paths/notes,Fail closed or manual review
+manual_review_for_ambiguous_rows,Manual review for ambiguous rows,Prevent guessed status fills,true,true,Ambiguous rows remain unresolved or manual_review_required,Do not fill field
+row_grain_uniqueness,Row-grain uniqueness,Prevent duplicate candidate records,true,true,record_id and case_id engine method candidate denominator grain are unique,Fail closed
+input_manifest_approved,Input manifest approved,Restrict source surfaces,true,true,Maintainer-approved source manifest exists before parser implementation,Do not implement

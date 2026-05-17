@@ -1,0 +1,19 @@
+candidate_ledger_field,current_v0_support,future_source_group_needed,row_grain_requirement,timing_dependency,metric_dependency,safe_for_non_timing_parser,validation_gate_required
+generated,unresolved_N.A.,retained candidate generation/output records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,schema;denominator_join;route_identity;no_metric_computation
+ready,unresolved_N.A.,retained parse/preflight/readiness records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,schema;status_consistency;failure_bucket_policy
+executed,unresolved_N.A.,retained execution attempt/result records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,schema;denominator_join;execution_status_policy
+exact,unresolved_N.A.,retained checker/result-comparison records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,schema;checker_status_policy;no_metric_computation
+result_status,evidence_not_adapted_yet,retained normalized non-timing outcome records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,allowed_status_values;status_consistency;manual_review_on_ambiguity
+failure_stage,requires_production_retained_evidence,retained failure/preflight/execution/checker records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,failure_stage_vocabulary;manual_review_on_unknown
+failure_type,requires_production_retained_evidence,retained failure bucket records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,failure_type_vocabulary;no_silent_drop
+parse_status,requires_production_retained_evidence,retained parser/readiness records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,parse_status_vocabulary;public_hygiene
+checker_status,requires_production_retained_evidence,retained checker/result records,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,checker_status_vocabulary;result_status_consistency
+candidate_sql_path,blank,approved retained candidate SQL artifact mapping,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,public_hygiene;no_legacy_absolute_path
+retained_artifact_path,blank,approved public-safe retained artifact references,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,public_hygiene;artifact_manifest;no_reports_results_mutation
+evidence_source,release_summary_metadata_overlay,approved parser input source class,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,provenance_gate;input_manifest_gate
+notes,boundary note only,parser caveat and manual-review notes,case_id x engine x rewrite_method x candidate_id x denominator_id,no,no,yes,notes_required_for_unresolved_or_manual_review
+timed,N.A.,timing adapter input only,case_id x engine x rewrite_method x candidate_id x denominator_id,yes,no,no,no_timing_fields_in_non_timing_parser;timing_adapter_required
+latency_ms,blank,timing adapter input only,result-consistent timed candidate row grain,yes,yes,no,no_timing_fields_in_non_timing_parser;performance_policy_required
+speedup_ratio,blank,timing adapter input only,result-consistent timed candidate row grain,yes,yes,no,no_timing_fields_in_non_timing_parser;performance_policy_required
+timing_eligible,N.A.,timing eligibility policy and timing adapter,result-consistent timed candidate row grain,yes,no,no,no_timing_fields_in_non_timing_parser;timing_eligibility_gate
+metric_input_authorized,false,later metric-readiness authorization after validated ledger,validated ledger scope,no,yes,no,metric_input_authorized_must_remain_false_until_separate_approval

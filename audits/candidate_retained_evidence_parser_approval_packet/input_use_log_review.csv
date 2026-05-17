@@ -1,0 +1,11 @@
+input_path,source_category,row_level_evidence_used,legacy_path_opened,production_retained_evidence_parsed,safety_conclusion
+audits/retained_summary_adapter_v0/retained_summary_ledger_v0.csv,retained_summary_artifact_index,false,false,false,Safe as summary/provenance metadata only; no Track-A method row evidence used
+audits/reports_results_retained_evidence_map/reports_results_retained_evidence_summary.md,reports_results_summary,false,false,false,Safe as narrative metadata only; no row-level candidate facts used
+audits/reports_results_retained_evidence_map/reports_results_artifact_inventory.csv,artifact_inventory_metadata,false,false,false,Route/group metadata exists; unsafe to distribute into row statuses without future parser authorization
+audits/reports_results_retained_evidence_map/retained_evidence_candidate_map.csv,retained_evidence_candidate_metadata,false,false,false,Route/group metadata exists; candidate map is not production row evidence by itself
+audits/retained_evidence_ledger_mapping/retained_evidence_to_ledger_field_map.csv,ledger_field_mapping_metadata,false,false,false,Route/group mapping exists; future parser must prove exact row grain before field population
+audits/retained_evidence_ledger_mapping/common_core_ledger_source_inventory.csv,source_group_inventory_metadata,false,false,false,Source groups identified; parser approval must name exact source groups and public-hygiene gates
+audits/retained_evidence_ledger_mapping/metrics_dependency_matrix.csv,metric_dependency_metadata,false,false,false,Safe for dependency planning only; no metric computation or row status facts
+audits/metrics_contract_formalization/finalized_metric_table.csv,metric_contract_metadata,false,false,false,Safe for metric-boundary planning only; implementation_authorized remains false
+audits/common_core40_final_closeout/common_core40_final_case_status_matrix.csv,case_package_status_metadata,false,false,false,Safe for case package completeness context; not candidate method evidence
+audits/common_core40_registry_alignment/common_core40_registry_alignment_summary.md,registry_alignment_metadata,false,false,false,Safe for registry context only; no candidate status evidence
