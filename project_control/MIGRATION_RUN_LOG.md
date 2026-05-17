@@ -2783,13 +2783,13 @@ Authorization:
 Next safe action:
 - Review the developer-only smoke entrypoint and decide whether to add CI wiring for synthetic fixture validation or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · CI wiring for synthetic ledger fixture smoke validation
+### 2026-05-17 · 25d72ec · CI wiring for synthetic ledger fixture smoke validation
 
 Mode: release-repo CI/dev-smoke wiring for synthetic fixtures only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `25d72ece332c6808a0e43d0463bcefe78c29657b`
+Push: `origin/main` updated `010ef3d..25d72ec`
 
 Summary:
 - Created `.github/workflows/ledger-fixture-smoke.yml`, a lightweight GitHub Actions workflow for synthetic ledger fixture smoke validation.
@@ -2815,8 +2815,8 @@ Validation:
 - `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
 - `python scripts/dev/smoke_ledger_fixtures.py`: passed.
 - `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_summary.json` parse and invariant checks: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Smoke result:
 - Fixture rows checked: 38.
