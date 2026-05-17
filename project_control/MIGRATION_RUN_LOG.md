@@ -4440,13 +4440,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/status_inference_policy_v0/status_inference_rule_matrix.csv` and `audits/status_inference_policy_v0/inferred_status_candidate_overlay_preview.csv`. If accepted, separately authorize a status inference overlay or additional evidence parsing; keep official metrics and timing adapter work separate.
 
-### 2026-05-17 · PENDING · status_inference_overlay_v0 and normalized status-only metrics dry-run v2
+### 2026-05-17 · e08b145 · status_inference_overlay_v0 and normalized status-only metrics dry-run v2
 
 Mode: bounded audit-only inference overlay plus normalized status-only metrics dry run; no official metrics; no timing; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `e08b145e35118d322902804f576842dee782639e`
+Push: `origin/main` updated `84bf13b..e08b145`
 
 Summary:
 - Added `scripts/dev/build_status_inference_overlay.py`.
@@ -4489,8 +4489,8 @@ Validation:
 - `python scripts/dev/compute_normalized_status_only_metrics_dryrun_v2.py ...`: passed; used 130 authorized rows and 94 inferred-generated rows.
 - JSON invariant checks for overlay and v2 dry-run summaries: passed.
 - CSV checks for 94 overlay rows, official/paper/audit flags, required metric families, and v1-v2 inference deltas: passed.
-- `git diff --check`: pending final run.
-- `git status -sb`: pending final run.
+- `git diff --check`: passed.
+- `git status -sb`: only intended status inference overlay, v2 dry-run, docs, scripts, and project-control changes before commit.
 
 Task result:
 - status inference overlay completed: yes.
