@@ -4995,13 +4995,13 @@ Task result:
 Next safe action:
 - Run `generation_rate_blocker_final_decision_v0` as a policy/evidence decision packet with no metric computation, no paper rendering, and no reports/results writes.
 
-### 2026-05-18 · pending · generation_rate_blocker_final_decision_v0
+### 2026-05-18 · 1a3853a · generation_rate_blocker_final_decision_v0
 
 Mode: policy/evidence decision packet; no metrics computation; no paper tables; no reports/results; no denominator changes
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `1a3853aebc478d8815725f77f83fb6e742459f9f`
+Push: `origin/main` updated `2603198..1a3853a`
 
 Summary:
 - Created `audits/generation_rate_blocker_final_decision_v0/` decision packet.
