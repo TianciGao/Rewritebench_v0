@@ -1,0 +1,42 @@
+name: Ledger fixture smoke
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ledger-fixture-smoke:
+    name: Synthetic ledger fixture smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile fixture validators
+        run: |
+          python -m py_compile scripts/dev/validate_ledger_fixtures.py
+          python -m py_compile scripts/dev/smoke_ledger_fixtures.py
+
+      - name: Run synthetic ledger fixture smoke
+        run: python scripts/dev/smoke_ledger_fixtures.py
+
+      - name: Upload smoke outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ledger-fixture-smoke
+          path: |
+            audits/ledger_fixture_dev_smoke/ledger_fixture_hardening_summary.json
+            audits/ledger_fixture_dev_smoke/ledger_fixture_hardening_validation_results.csv
+            audits/ledger_fixture_dev_smoke/ledger_fixture_dev_smoke_report.md
+          if-no-files-found: warn

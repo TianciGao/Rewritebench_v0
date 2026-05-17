@@ -1,0 +1,9 @@
+check_name,status,details
+workflow_file_created,pass,.github/workflows/ledger-fixture-smoke.yml created
+workflow_uses_synthetic_fixture_smoke,pass,workflow runs python scripts/dev/smoke_ledger_fixtures.py
+no_db_engine_setup,pass,workflow does not install or start PostgreSQL MySQL Spark or other DB engines
+no_metrics_command,pass,workflow runs compile checks and synthetic fixture smoke only
+no_production_retained_evidence_path,pass,workflow does not reference legacy repo reports results runs retained evidence or production ledger paths
+local_py_compile_passed,pass,validate_ledger_fixtures.py and smoke_ledger_fixtures.py compile locally
+local_smoke_passed,pass,local smoke checked 38 synthetic rows with unexpected pass/fail 0/0
+git_diff_check_passed,pass,git diff --check passed locally

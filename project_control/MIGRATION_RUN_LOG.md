@@ -2782,3 +2782,66 @@ Authorization:
 
 Next safe action:
 - Review the developer-only smoke entrypoint and decide whether to add CI wiring for synthetic fixture validation or plan separately authorized production ledger validation gates; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · CI wiring for synthetic ledger fixture smoke validation
+
+Mode: release-repo CI/dev-smoke wiring for synthetic fixtures only; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `.github/workflows/ledger-fixture-smoke.yml`, a lightweight GitHub Actions workflow for synthetic ledger fixture smoke validation.
+- Workflow runs `python -m py_compile scripts/dev/validate_ledger_fixtures.py`, `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`, and `python scripts/dev/smoke_ledger_fixtures.py`.
+- Workflow triggers on `pull_request`, `push`, and `workflow_dispatch`, uses `ubuntu-latest` with Python 3.11, and uploads synthetic smoke outputs as artifacts.
+- Updated `docs/dev/LEDGER_FIXTURE_SMOKE.md` with a CI section.
+- Created CI smoke audit outputs under `audits/ledger_fixture_ci_smoke/`.
+- Did not parse production retained evidence, read legacy reports/results/runs, implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, implement paper table rendering, copy reports/results, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `.github/workflows/ledger-fixture-smoke.yml`
+- `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_summary.md`
+- `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_checks.csv`
+- `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_summary.json`
+
+Files modified:
+- `docs/dev/LEDGER_FIXTURE_SMOKE.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_summary.json` parse and invariant checks: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending.
+
+Smoke result:
+- Fixture rows checked: 38.
+- Expected-valid rows passed: 17/17.
+- Expected-invalid rows failed as expected: 21/21.
+- Unexpected pass/fail count: 0/0.
+- Production retained evidence parsed: no.
+- Metrics computed: no.
+- Adapter implemented: no.
+
+Paper/denominator impact:
+- production retained evidence parsed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Monitor the ledger fixture smoke workflow on subsequent pushes and pull requests, then plan production ledger validation gates only if separately authorized; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.

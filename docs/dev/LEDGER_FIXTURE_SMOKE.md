@@ -34,6 +34,24 @@ The default smoke run writes:
 - `audits/ledger_fixture_dev_smoke/ledger_fixture_dev_smoke_report.md`
 - `audits/ledger_fixture_dev_smoke/ledger_fixture_dev_smoke_summary.json`
 
+## CI
+
+GitHub Actions workflow: `Ledger fixture smoke`.
+
+The workflow runs on `pull_request`, `push`, and `workflow_dispatch`.
+
+It runs:
+
+```bash
+python -m py_compile scripts/dev/validate_ledger_fixtures.py
+python -m py_compile scripts/dev/smoke_ledger_fixtures.py
+python scripts/dev/smoke_ledger_fixtures.py
+```
+
+CI validates only the synthetic fixture validator path. It does not install database engines, run DB validation, parse production retained evidence, compute metrics, update reports/results, or render paper tables.
+
+CI failures should be interpreted as fixture/schema/validator smoke failures, not production benchmark-result failures. Check the uploaded `ledger-fixture-smoke` artifact and the files under `audits/ledger_fixture_dev_smoke/`.
+
 ## What It Validates
 
 - Synthetic fixture safety flags.

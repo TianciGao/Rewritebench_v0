@@ -1,0 +1,12 @@
+{
+  "adapter_implemented": false,
+  "ci_workflow_created": true,
+  "denominator_changed": false,
+  "local_smoke_passed": true,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false
+}
