@@ -1,0 +1,13 @@
+check_name,status,details
+metric_input_authorized rows = 0,PASS,actual=0
+metrics_computed=false,PASS,row_true_count=0;summary=False
+timed not filled,PASS,non_na_count=0
+latency_ms not filled,PASS,nonempty_count=0
+speedup_ratio not filled,PASS,nonempty_count=0
+timing_eligible not filled,PASS,non_na_count=0
+Generation Rate not computed,PASS,closeout reports counts only and no rate calculation
+Execution Coverage Rate not computed,PASS,closeout reports counts only and no rate calculation
+Result Consistency Rate not computed,PASS,closeout reports counts only and no rate calculation
+reports/results unchanged,PASS,writes restricted to audits/candidate_status_parser_v1_closeout and project_control
+denominator unchanged,PASS,case_sets not modified
+paper results unchanged,PASS,no paper-facing outputs modified

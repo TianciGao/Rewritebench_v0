@@ -77,6 +77,8 @@ Maintainer approval for `candidate_status_parser_v1` whitelist use has been reco
 
 `candidate_status_parser_v1` is complete under `scripts/dev/build_candidate_status_parser_v1_manifest.py`, `scripts/dev/parse_candidate_status_v1.py`, and `audits/candidate_status_parser_v1/`. It builds a five-row approved manifest from proposals `P001`, `P002`, `P003`, `P011`, and `P012`, opens only those approved legacy CSV sources, parses approved non-timing status columns only, emits 600 `rewrite_candidate_cell` audit rows, fills 175 row-level status rows, and leaves 425 rows unresolved. The parser records `production_retained_evidence_parsed=true` and `legacy_repo_read=true` in its audit summary because approved legacy sources were read, but it does not modify the legacy repo, copy reports/results, fill timing fields, authorize metric input, compute metrics, create a production ledger, change denominators, change paper results, change case membership, or modify raw legacy evidence. The output passed the non-mutating ledger validator with 600 rows checked, 0 errors, and 0 warnings.
 
+`candidate_status_parser_v1` closeout and unresolved-row review is complete under `audits/candidate_status_parser_v1_closeout/`. This release-repo-only closeout reviewed the existing 600-row parser-v1 audit ledger and related audit summaries, performed no new candidate status parsing, opened no new legacy files, filled no additional statuses, and computed no metrics. It confirms 175 row-level status rows filled by the prior parser-v1 run, 425 unresolved rows, approved inputs `P001`, `P002`, `P003`, `P011`, and `P012`, P001/P002 overlap on 26 Direct LLM original rows, P002/P003 overlap on 19 Repair-1 rows, no P011/P012 Calcite overlap, timing fields filled: no, `metric_input_authorized` rows: 0, reports/results changed: no, denominator changed: no, paper results changed: no, and raw legacy evidence changed: no.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -333,6 +335,21 @@ Membership and scaffold snapshot:
 - Denominator changed by candidate_status_parser_v1: no.
 - Paper results changed by candidate_status_parser_v1: no.
 - Raw legacy evidence changed by candidate_status_parser_v1: no.
+- candidate_status_parser_v1 closeout completed: yes.
+- New candidate status parsing performed by parser-v1 closeout: no.
+- Row-level status rows filled by prior parser-v1 run: 175.
+- Unresolved rows after parser-v1 closeout: 425.
+- Timing fields filled by parser-v1 closeout: no.
+- Metric input authorized rows after parser-v1 closeout: 0.
+- Metrics computed by parser-v1 closeout: no.
+- Generation Rate computed by parser-v1 closeout: no.
+- Execution Coverage Rate computed by parser-v1 closeout: no.
+- Result Consistency Rate computed by parser-v1 closeout: no.
+- Timing metrics computed by parser-v1 closeout: no.
+- Reports/results changed by parser-v1 closeout: no.
+- Denominator changed by parser-v1 closeout: no.
+- Paper results changed by parser-v1 closeout: no.
+- Raw legacy evidence changed by parser-v1 closeout: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -374,6 +391,7 @@ Membership and scaffold snapshot:
 - Candidate status whitelist triage completed as an audit-only maintainer-review packet, producing a small whitelist proposal, manifest preview, manual decision sheet, rejected-source list, and review guide without parsing candidate statuses, filling timing fields, computing metrics, creating a production ledger, changing reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
 - Candidate status parser v1 whitelist approval recorded for proposal IDs P001, P002, P003, P011, and P012 only, without implementing parser v1, parsing candidate statuses, filling timing fields, computing metrics, creating a production ledger, changing reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
 - candidate_status_parser_v1 completed as a bounded non-timing approved-source parser, filling 175 row-level audit statuses from five approved legacy CSV sources and leaving 425 rows unresolved, without filling timing fields, authorizing metric input, computing metrics, creating a production ledger, updating reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
+- candidate_status_parser_v1 closeout completed as an audit-only unresolved-row review, confirming 175 prior filled rows, 425 unresolved rows, approved-source contributions, documented non-blocking overlap warnings, all metric/timing boundary checks passing, and no new parsing, metric computation, reports/results changes, denominator changes, paper-result changes, or raw legacy evidence changes.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -384,7 +402,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts unless explicitly promoted by later tasks.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, retained_summary_adapter_v0 exists for release-repo summary artifacts only, control_cell_adapter_v0 exists for release case-package control rows, hard_negative_control_detail_adapter_v0 exists for release case-package hard-negative control detail rows only, source_positive_control_detail_adapter_v0 exists for release case-package source/positive control detail rows only, control-layer adapter closeout is complete, rewrite_candidate_adapter_v0 Track-A scaffold exists for planned candidate row grain only, candidate_status_adapter_v0 exists as a release-summary-only unresolved non-timing overlay, the candidate retained-evidence parser approval packet is available, candidate_status_parser_v0 exists as a fail-closed manifest-first non-timing parser with zero approved row-level inputs, and candidate status whitelist triage is available for maintainer manual review; production retained-evidence parsing beyond explicit manifest-approved row-level sources, general adapter implementation beyond the authorized bounded skeletons, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, production ledger validation-gate planning is complete, retained_summary_adapter_v0 exists for release-repo summary artifacts only, control_cell_adapter_v0 exists for release case-package control rows, hard_negative_control_detail_adapter_v0 exists for release case-package hard-negative control detail rows only, source_positive_control_detail_adapter_v0 exists for release case-package source/positive control detail rows only, control-layer adapter closeout is complete, rewrite_candidate_adapter_v0 Track-A scaffold exists for planned candidate row grain only, candidate_status_adapter_v0 exists as a release-summary-only unresolved non-timing overlay, the candidate retained-evidence parser approval packet is available, candidate_status_parser_v0 exists as a fail-closed manifest-first non-timing parser with zero approved row-level inputs, candidate status whitelist triage is available, candidate_status_parser_v1 filled 175 non-timing audit rows from five approved sources and left 425 rows unresolved, and parser-v1 closeout is complete; production retained-evidence parsing beyond explicit manifest-approved row-level sources, general adapter implementation beyond the authorized bounded skeletons, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -396,4 +414,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/candidate_status_parser_v1/candidate_status_parser_v1_report.md` and decide whether to authorize a validation-hardening or manual-review cleanup pass for the 425 unresolved rows. Do not authorize metric input, compute metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.
+Perform a metric-input readiness review for the 175 filled `candidate_status_parser_v1` audit rows and separately triage row-level evidence for the 425 unresolved rows. Do not authorize metrics, fill timing fields, render paper tables, update reports/results, change denominators, change paper results, change case membership, mutate the legacy repo, or modify raw legacy evidence without separate approval.

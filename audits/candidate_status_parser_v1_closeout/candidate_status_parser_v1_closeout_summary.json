@@ -1,0 +1,17 @@
+{
+  "approved_manifest_inputs": 5,
+  "closeout_task_completed": true,
+  "denominator_changed": false,
+  "legacy_repo_modified": false,
+  "metric_input_authorized_rows": 0,
+  "metrics_computed": false,
+  "new_candidate_status_parsing_performed": false,
+  "next_safe_action": "Perform a metric-input readiness review for the 175 filled audit rows and separately triage row-level evidence for the 425 unresolved rows; keep timing adapter and metrics authorization separate.",
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "row_level_status_rows_filled": 175,
+  "timing_fields_filled": false,
+  "unresolved_rows": 425
+}
