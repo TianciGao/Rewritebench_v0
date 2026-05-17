@@ -1,0 +1,2 @@
+metric_name,v0_treatment,official_metric_computed_now,paper_main_candidate,appendix_candidate,diagnostic_candidate,required_caveat,denominator_scope,no_global_leaderboard_guard,notes
+Generation Rate,report_as_blocked,false,false,true,true,inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap; inferred rows are audit-only and SQLGlot generated/ready evidence is incomplete,Track A same-engine planned candidate rows by method/pool/engine,true,Carry the blocked record into future renderer input packaging; do not compute or paper-render Generation Rate for v0.

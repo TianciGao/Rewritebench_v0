@@ -4994,3 +4994,54 @@ Task result:
 
 Next safe action:
 - Run `generation_rate_blocker_final_decision_v0` as a policy/evidence decision packet with no metric computation, no paper rendering, and no reports/results writes.
+
+### 2026-05-18 · pending · generation_rate_blocker_final_decision_v0
+
+Mode: policy/evidence decision packet; no metrics computation; no paper tables; no reports/results; no denominator changes
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `audits/generation_rate_blocker_final_decision_v0/` decision packet.
+- Reviewed Generation Rate blocker state from Metrics Contract v1, status inference policy, official limited status metrics, closeout, A-line closure, inference overlays, and dry-run v4 artifacts.
+- Recommended public v0 treatment: `report_as_blocked`.
+- Preserved audit-only status for 94 `inferred_generated=true` rows.
+- Confirmed Generation Rate was not computed and no official metrics were computed.
+- Confirmed no paper tables were rendered and no reports/results were changed.
+- Confirmed denominator values, paper results, case membership, and raw legacy evidence were unchanged.
+
+Files created:
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_blocker_decision_summary.md`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_decision_matrix.csv`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_evidence_gap_summary.csv`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_v0_treatment_record.csv`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_policy_questions_for_team.md`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_future_resolution_plan.md`
+- `audits/generation_rate_blocker_final_decision_v0/generation_rate_blocker_decision_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks: passed.
+- CSV checks: passed for Options A/B/C/D, `official_metric_computed_now=false`, no Generation Rate computation claims, no paper-rendering claims, and no global leaderboard allowance.
+- `git diff --check`: passed.
+
+Task result:
+- Generation Rate computed: no.
+- official metrics computed: no.
+- paper tables rendered: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- recommended v0 treatment: `report_as_blocked`.
+
+Next safe action:
+- Run `non_status_metric_na_backlog_closure_bundle_v0` to close Semantic Equivalence, performance, attribution, cross-engine, and Speedup Retention as blocked, N.A., or post-release without implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.

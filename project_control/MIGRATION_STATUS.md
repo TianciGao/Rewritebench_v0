@@ -566,6 +566,15 @@ Membership and scaffold snapshot:
 - N.A. metrics count after A-line closure plan: 1.
 - Post-release metrics count after A-line closure plan: 3.
 - Recommended remaining A-line tasks after closure plan: 3 core tasks.
+- generation_rate_blocker_final_decision_v0 completed: yes.
+- Generation Rate computed by generation_rate_blocker_final_decision_v0: no.
+- Official metrics computed by generation_rate_blocker_final_decision_v0: no.
+- Paper tables rendered by generation_rate_blocker_final_decision_v0: no.
+- Reports/results changed by generation_rate_blocker_final_decision_v0: no.
+- Denominator changed by generation_rate_blocker_final_decision_v0: no.
+- Paper results changed by generation_rate_blocker_final_decision_v0: no.
+- Raw legacy evidence changed by generation_rate_blocker_final_decision_v0: no.
+- Recommended v0 Generation Rate treatment: report_as_blocked.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -622,6 +631,7 @@ Membership and scaffold snapshot:
 - official_status_metrics_v0_limited completed as a limited official status-metrics computation, computing official Execution Coverage Rate and Result Consistency Rate only from the authorized normalized status rows, preserving the 600-row planned denominator, keeping 425 unauthorized/unresolved rows visible, blocking Generation Rate with `inferred_generated_policy_not_official_and_sqlglot_generated_ready_gap`, and forbidding global leaderboard output. It did not render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
 - official_status_metrics_v0_limited closeout completed as a decision packet, confirming no new metrics were computed, no paper tables were rendered, Execution Coverage Rate and Result Consistency Rate are safe for future renderer planning only with limited-scope and denominator caveats, Generation Rate remains blocked, and global leaderboard output remains forbidden.
 - A_line_final_metrics_closure_plan_v0 completed as an A-line planning packet, classifying all ten Metrics Contract v1 primary metrics and recommending the smallest remaining A-line task sequence before B-line handoff without computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.
+- generation_rate_blocker_final_decision_v0 completed as a policy/evidence decision packet, deciding that Generation Rate should be reported as blocked for public v0, allowing only optional future diagnostic Generation/Readiness support under separate authorization, and not computing metrics, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -644,4 +654,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Run `generation_rate_blocker_final_decision_v0` as a policy/evidence decision packet. It should compute no metrics, render no tables, write no reports/results, and decide the v0 treatment for Generation Rate before paper-facing renderer planning. Keep timing adapter work, reports/results updates, denominator changes, and paper-result changes separate.
+Run `non_status_metric_na_backlog_closure_bundle_v0` to close Semantic Equivalence, performance, attribution, cross-engine, and Speedup Retention as blocked, N.A., or post-release without implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or changing paper results.

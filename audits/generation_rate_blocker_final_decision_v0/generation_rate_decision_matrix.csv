@@ -1,0 +1,5 @@
+option_id,option_name,official_generation_rate_computed,uses_observed_generated,uses_inferred_generated,uses_ready_as_support,denominator_preserved,paper_main_allowed,appendix_allowed,diagnostic_allowed,risk_level,recommendation,notes
+A,Keep Generation Rate blocked,false,false,false,true,true,false,true,true,low,recommended_primary_v0,Preserves Metrics Contract v1 emitted-candidate meaning and keeps the blocker visible.
+B,Officialize inferred_generated with strict labeling,false,true,true,true,true,false,false,false,high,not_recommended_v0,Would require separate maintainer authorization and source-specific ready semantics before any official metric task.
+C,Diagnostic Generation Readiness support table,false,false,true,true,true,false,true,true,medium,recommended_optional_future_support,Useful only as a future diagnostic or appendix support artifact and not as the primary Generation Rate.
+D,Defer Generation Rate to post-release,false,false,false,false,true,false,false,false,low,acceptable_but_less_informative,Safe but hides a useful v0 blocker unless a blocked record is still reported.

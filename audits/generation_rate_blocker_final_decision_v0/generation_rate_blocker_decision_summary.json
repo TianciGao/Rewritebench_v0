@@ -1,0 +1,13 @@
+{
+  "task_completed": true,
+  "generation_rate_computed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "recommended_v0_treatment": "report_as_blocked",
+  "recommended_next_action": "Run non_status_metric_na_backlog_closure_bundle_v0 to close remaining non-status metrics as blocked, N.A., or post-release before final renderer input packaging."
+}
