@@ -1,0 +1,43 @@
+ledger_field,field_role,can_populate_from_scaffold,can_populate_from_release_summary,requires_production_retained_evidence,requires_legacy_raw_evidence,requires_metrics_computation,authorized_now,recommended_status_now,notes
+record_id,identity,true,false,false,false,false,true,scaffold_value_only,Stable scaffold IDs already exist.
+record_type,identity,true,false,false,false,false,true,rewrite_candidate_cell,Record type is fixed by scaffold.
+adapter_name,provenance,true,false,false,false,false,true,rewrite_candidate_adapter_v0,Existing scaffold provenance only.
+adapter_scope,provenance,true,false,false,false,false,true,track_a_same_engine_scaffold_only,Existing scaffold scope only.
+case_id,identity,true,false,false,false,false,true,scaffold_value_only,Joined from Common-core case set and denominator.
+pool,identity,true,false,false,false,false,true,scaffold_value_only,Joined from denominator and case registry.
+case_set,identity,true,false,false,false,false,true,common_core_v0,Fixed release case set.
+denominator_id,denominator,true,false,false,false,false,true,scaffold_value_only,Track A same-engine denominator ID already present.
+engine,denominator,true,false,false,false,false,true,scaffold_value_only,Joined from `denominator_same_engine_120.csv`.
+rewrite_method,method_identity,true,false,false,false,false,true,scaffold_value_only,Five authorized method routes only.
+rewrite_method_display_name,method_identity,true,false,false,false,false,true,scaffold_value_only,Display names from method scope.
+route,route_boundary,true,false,false,false,false,true,same_engine_rewrite,Same-engine candidate route only.
+route_family,method_identity,true,false,false,false,false,true,scaffold_value_only,Route family from method scope.
+method_role,method_identity,true,false,false,false,false,true,scaffold_value_only,Method role from approved scaffold list.
+candidate_id,row_identity,true,false,false,false,false,true,scaffold_candidate_id_only,Scaffold candidate IDs identify planned cells only.
+planned,denominator,true,false,false,false,false,true,true,Planned status comes from denominator scaffold.
+generated,candidate_status,false,false,true,true,false,false,N.A. or evidence_not_adapted_yet,Requires retained candidate generation evidence.
+ready,candidate_status,false,false,true,true,false,false,N.A. or evidence_not_adapted_yet,Requires readiness or parse/preflight evidence.
+executed,candidate_status,false,false,true,true,false,false,N.A. or evidence_not_adapted_yet,Requires retained execution evidence.
+exact,candidate_status,false,false,true,true,false,false,N.A. or evidence_not_adapted_yet,Requires checker/result evidence; not a metric yet.
+timed,timing_status,false,false,true,true,false,false,N.A. or evidence_not_adapted_yet,Requires separate timing adapter.
+result_status,candidate_status,false,false,true,true,false,false,evidence_not_adapted_yet,Requires retained status evidence and normalization.
+failure_stage,diagnostic,false,false,true,true,false,false,N.A.,Requires failure parsing or manual review.
+failure_type,diagnostic,false,false,true,true,false,false,N.A.,Requires approved failure bucket mapping.
+parse_status,diagnostic,false,false,true,true,false,false,N.A.,Requires parser/readiness evidence.
+checker_status,correctness_support,false,false,true,true,false,false,N.A.,Requires checker/result evidence.
+plan_available,explainability_support,false,false,true,true,false,false,N.A.,Requires plan-observability adapter.
+plan_artifact_path,explainability_support,false,false,true,true,false,false,blank,Requires public-safe plan artifact mapping.
+latency_ms,timing_value,false,false,true,true,false,false,blank,Requires timing adapter; missing timing is not zero.
+speedup_ratio,timing_value,false,false,true,true,true,false,blank,Requires timing evidence and later metrics computation; never compute here.
+timing_eligible,timing_status,false,false,true,true,false,false,N.A.,Requires timing eligibility policy and adapter.
+evidence_source,provenance,true,true,true,false,false,true,release_denominator_scaffold,Scaffold value is safe; real retained evidence source requires later adapter.
+retained_artifact_path,provenance,false,false,true,true,false,false,blank,Actual retained path requires approved public-safe artifact selection.
+metric_input_authorized,authorization,true,false,false,false,false,true,false,Must remain false for scaffold and any non-metric planning adapter.
+metrics_computed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+production_retained_evidence_parsed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+legacy_repo_read,safety_flag,true,false,false,false,false,true,false,Must remain false.
+reports_changed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+results_changed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+denominator_changed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+paper_results_changed,safety_flag,true,false,false,false,false,true,false,Must remain false.
+notes,diagnostic,true,true,false,false,false,true,boundary_note_only,Release summaries can support caveats and adapter planning notes.

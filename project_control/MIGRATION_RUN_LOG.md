@@ -3384,3 +3384,69 @@ Authorization:
 
 Next safe action:
 - Review the `rewrite_candidate_adapter_v0` scaffold row grain and method scope before authorizing any candidate evidence adapter that parses retained method outputs, fills generated/executed/exact/timed statuses, authorizes metric input, or computes metrics; do not parse production retained evidence, implement general candidate adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Candidate evidence input-surface audit for rewrite_candidate_adapter_v1
+
+Mode: input-surface audit / planning only; no adapter implementation; no production retained-evidence parsing; legacy not read
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending before commit
+Push: pending before push
+
+Summary:
+- Created `audits/rewrite_candidate_input_surface_audit/` with a candidate input-surface summary, method/field-group matrix, route input-surface matrix, field-readiness matrix, risk register, future prompt, and machine-readable summary.
+- Confirmed `rewrite_candidate_adapter_v0` scaffold exists and is validated: 600 planned `rewrite_candidate_cell` rows, 5 method routes, saved ledger validation passed with 600 rows checked, 0 errors, and 0 warnings.
+- Reviewed five Track-A methods: `direct_llm_original`, `direct_llm_repair_1`, `sqlglot_optimize`, `sqlglot_noop`, and `calcite_hep_fail_closed`.
+- Classified safe release-repo inputs as scaffold, denominator, inventory, specs, and audit metadata only.
+- Classified generated, ready, executed, exact, timing, plan, and retained artifact fields as requiring later bounded adapters or remaining `N.A.` / `evidence_not_adapted_yet`.
+- Recommended a separately authorized non-timing `candidate_status_adapter_v0` as the safest next bounded adapter.
+- Did not implement candidate adapters, fill candidate statuses, parse production retained evidence, read the legacy repo, parse legacy reports/results/runs, parse timing files, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `audits/rewrite_candidate_input_surface_audit/rewrite_candidate_input_surface_summary.md`
+- `audits/rewrite_candidate_input_surface_audit/rewrite_candidate_input_surface_matrix.csv`
+- `audits/rewrite_candidate_input_surface_audit/rewrite_candidate_route_input_surface.csv`
+- `audits/rewrite_candidate_input_surface_audit/candidate_field_readiness_matrix.csv`
+- `audits/rewrite_candidate_input_surface_audit/candidate_adapter_risk_register.md`
+- `audits/rewrite_candidate_input_surface_audit/candidate_status_adapter_v0_future_prompt.md`
+- `audits/rewrite_candidate_input_surface_audit/rewrite_candidate_input_surface_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `rewrite_candidate_input_surface_summary.json`: passed.
+- CSV checks for five methods, exactly five included route rows, required field-readiness rows, and no `metrics_computed=true` rows: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit with only intended audit/project-control changes.
+
+Audit result:
+- rewrite_candidate_adapter_v0 scaffold confirmed: yes.
+- Candidate statuses filled: no.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- Generation Rate computed: no.
+- Execution Coverage Rate computed: no.
+- Result Consistency Rate computed: no.
+- Timing metrics computed: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Request explicit maintainer authorization for a bounded `candidate_status_adapter_v0` that fills only non-timing, non-metric candidate status fields from approved release-repo summaries when row grain is unambiguous; otherwise keep candidate fields `N.A.` or `evidence_not_adapted_yet`. Do not parse legacy raw evidence, read legacy reports/results/runs, compute metrics, authorize metric input, render paper tables, update reports/results, change denominators, or modify raw legacy evidence.

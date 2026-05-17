@@ -63,6 +63,8 @@ Control-layer adapter closeout completed under `audits/control_layer_adapter_clo
 
 `rewrite_candidate_adapter_v0` Track-A scaffold is complete under `scripts/dev/build_rewrite_candidate_scaffold_ledger.py` and `audits/rewrite_candidate_adapter_v0/`. This bounded scaffold emits only `rewrite_candidate_cell` rows from release-repo Common-core Track-A denominator scaffolds and `inventory/case_registry.csv`. It emitted 600 planned scaffold rows: 120 same-engine denominator rows x five authorized main method routes (`direct_llm_original`, `direct_llm_repair_1`, `sqlglot_optimize`, `sqlglot_noop`, and `calcite_hep_fail_closed`). The scaffold records planned candidate row grain only; it does not parse production retained evidence, read the legacy repo, parse method outputs, parse timing files, compute Generation Rate, compute Execution Coverage Rate, compute Result Consistency Rate, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 
+Candidate evidence input-surface audit for `rewrite_candidate_adapter_v1` planning is complete under `audits/rewrite_candidate_input_surface_audit/`. This audit confirms the v0 rewrite candidate scaffold is complete and validated, classifies safe release-repo planning inputs versus unauthorized legacy/raw evidence surfaces, maps candidate ledger fields to future adapter needs, records route-specific risks for the five Track-A methods, and recommends a separately authorized non-timing `candidate_status_adapter_v0` as the safest next bounded adapter. It did not fill candidate statuses, parse production retained evidence, read the legacy repo, compute Generation Rate, compute Execution Coverage Rate, compute Result Consistency Rate, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -132,6 +134,8 @@ Membership and scaffold snapshot:
 - `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_method_scope.csv`: five included Track-A method routes and excluded prior/portability/verifier/user-run route examples.
 - `audits/rewrite_candidate_adapter_v0/rewrite_candidate_adapter_v0_summary.json`: scaffold summary recording `production_retained_evidence_parsed=false`, `legacy_repo_read=false`, `metrics_computed=false`, `metric_input_authorized=false`, and no metric rates computed.
 - `audits/rewrite_candidate_adapter_v0/ledger_validation/ledger_validation_summary.json`: validation output for the rewrite candidate scaffold; 600 rows checked, `validation_passed=true`.
+- `audits/rewrite_candidate_input_surface_audit/rewrite_candidate_input_surface_summary.json`: candidate input-surface audit summary; v0 scaffold confirmed, five Track-A methods reviewed, candidate statuses not filled, metrics not computed, production retained evidence not parsed, and legacy repo not read.
+- `audits/rewrite_candidate_input_surface_audit/candidate_field_readiness_matrix.csv`: candidate ledger fields classified by scaffold support, release-summary planning support, retained-evidence requirements, timing requirements, and current recommended status.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -216,6 +220,15 @@ Membership and scaffold snapshot:
 - Execution Coverage Rate computed by rewrite_candidate_adapter_v0 scaffold: no.
 - Result Consistency Rate computed by rewrite_candidate_adapter_v0 scaffold: no.
 - Timing metrics computed by rewrite_candidate_adapter_v0 scaffold: no.
+- Candidate evidence input-surface audit completed: yes.
+- Candidate statuses filled by input-surface audit: no.
+- Production retained evidence parsed by input-surface audit: no.
+- Legacy repo read by input-surface audit: no.
+- Metrics computed by input-surface audit: no.
+- Generation Rate computed by input-surface audit: no.
+- Execution Coverage Rate computed by input-surface audit: no.
+- Result Consistency Rate computed by input-surface audit: no.
+- Timing metrics computed by input-surface audit: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 

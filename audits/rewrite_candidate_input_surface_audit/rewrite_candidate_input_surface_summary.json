@@ -1,0 +1,26 @@
+{
+  "rewrite_candidate_scaffold_confirmed": true,
+  "methods_reviewed": [
+    "direct_llm_original",
+    "direct_llm_repair_1",
+    "sqlglot_optimize",
+    "sqlglot_noop",
+    "calcite_hep_fail_closed"
+  ],
+  "methods_reviewed_count": 5,
+  "candidate_status_filled": false,
+  "metrics_computed": false,
+  "generation_rate_computed": false,
+  "execution_coverage_rate_computed": false,
+  "result_consistency_rate_computed": false,
+  "timing_metrics_computed": false,
+  "production_retained_evidence_parsed": false,
+  "legacy_repo_read": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "recommended_next_adapter": "candidate_status_adapter_v0_release_summary_only_non_timing_if_explicitly_authorized",
+  "next_safe_action": "Request explicit maintainer authorization for a bounded candidate_status_adapter_v0 that fills only non-timing non-metric candidate status fields from approved release-repo summaries when row grain is unambiguous; otherwise keep candidate fields N.A. or evidence_not_adapted_yet."
+}
