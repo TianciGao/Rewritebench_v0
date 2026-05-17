@@ -3700,13 +3700,13 @@ Authorization:
 Next safe action:
 - Review `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_report.md` and decide whether to curate an explicit row-level non-timing retained-evidence input manifest for a future parser rerun. Keep the 600 candidate parser rows unresolved until exact row-grain input sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · PENDING · Candidate status whitelist triage for manual approval
+### 2026-05-17 · a633402 · Candidate status whitelist triage for manual approval
 
 Mode: manual-review triage; audit/design only; no candidate status parsing; no timing fields; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `a633402bae9e2bd30f94057235593204e110a172`
+Push: `origin/main` updated `0fac42f..a633402`
 
 Summary:
 - Created `audits/candidate_status_whitelist_triage/` with a maintainer-reviewable whitelist proposal for future `candidate_status_parser_v1`.
