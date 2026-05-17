@@ -4309,13 +4309,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/status_field_normalization_v0/normalized_candidate_status_overlay_v0.csv` and `audits/status_field_normalization_v0/status_normalization_readiness_by_method.csv`. If accepted, separately authorize a normalized status-only metrics dry-run v1; keep official metrics, overlap resolution, and timing adapter work separate.
 
-### 2026-05-17 · PENDING · normalized_status_only_metrics_dryrun_v1 from normalized candidate-status overlay
+### 2026-05-17 · 9be0625 · normalized_status_only_metrics_dryrun_v1 from normalized candidate-status overlay
 
 Mode: bounded audit-only normalized status metrics dry run; authorized normalized candidate-status rows only; no official metrics; no timing; no paper tables
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `9be06257ac06c88c1826a8a29b99dd38365f016c`
+Push: `origin/main` updated `d67b75c..9be0625`
 
 Summary:
 - Added `scripts/dev/compute_normalized_status_only_metrics_dryrun.py`.
@@ -4350,8 +4350,8 @@ Validation:
 - `python scripts/dev/compute_normalized_status_only_metrics_dryrun.py ...`: passed; wrote 180 dry-run table rows, used 130 authorized normalized input rows, and retained 425 unresolved rows in accounting outputs.
 - JSON invariant checks for `normalized_status_only_metrics_dryrun_summary.json`: passed.
 - CSV checks for required dry-run metrics, official/paper/audit flags, denominator preservation, excluded-row categories, caveat categories, and all PASS checks: passed.
-- `git diff --check`: pending final run.
-- `git status -sb`: pending final run.
+- `git diff --check`: passed.
+- `git status -sb`: only intended normalized dry-run audit, doc, script, and project-control changes before commit.
 
 Task result:
 - official metrics computed: no
