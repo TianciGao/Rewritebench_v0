@@ -496,6 +496,22 @@ Membership and scaffold snapshot:
 - Denominator changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
 - Paper results changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
 - Raw legacy evidence changed by overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3: no.
+- SQLGlot sanitized non-timing projection completed: yes.
+- SQLGlot candidate status parser completed: yes.
+- SQLGlot rows filled by sqlglot_candidate_status_parser_v1: 137.
+- SQLGlot rows unresolved after sqlglot_candidate_status_parser_v1: 103.
+- Combined candidate status overlay v2 completed: yes.
+- Combined candidate status overlay v2 filled rows: 312.
+- Combined candidate status overlay v2 unresolved rows: 288.
+- normalized_status_only_metrics_dryrun_v4 completed: yes.
+- Official metrics computed by normalized_status_only_metrics_dryrun_v4: no.
+- Audit-only dry-run metrics computed by normalized_status_only_metrics_dryrun_v4: yes.
+- Paper tables rendered by normalized_status_only_metrics_dryrun_v4: no.
+- Timing metrics computed by normalized_status_only_metrics_dryrun_v4: no.
+- Reports/results changed by SQLGlot projection/parser v1 and dry-run v4: no.
+- Denominator changed by SQLGlot projection/parser v1 and dry-run v4: no.
+- Paper results changed by SQLGlot projection/parser v1 and dry-run v4: no.
+- Raw legacy evidence changed by SQLGlot projection/parser v1 and dry-run v4: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -547,6 +563,7 @@ Membership and scaffold snapshot:
 - status_inference_overlay_v0 and normalized_status_only_metrics_dryrun_v2 completed as audit-only outputs, materializing 94 R1 inferred_generated rows as a separate overlay and creating v2 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables from 130 authorized rows while preserving 45 unauthorized overlap rows and 425 unresolved rows in denominator/accounting outputs. They did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 - candidate_status_evidence_completion_round1 completed as an audit-only evidence-completion triage, reviewing 45 overlap-denied candidate-status rows and eight SQLGlot candidate evidence sources, producing overlap-resolution proposals, SQLGlot manual decision materials, and ten pending SQLGlot manifest-preview rows without filling statuses, changing metric-input authorization, computing metrics, filling timing fields, updating reports/results, changing denominators, changing paper results, changing case membership, or modifying raw legacy evidence.
 - overlap_priority_overlay_v1 and normalized_status_only_metrics_dryrun_v3 completed as audit-only outputs, resolving all 45 overlap-denied candidate-status rows under maintainer-approved Option B, creating a combined 175-row metric-input authorization overlay, preserving 425 unresolved rows in denominator/accounting outputs, refreshing normalization for newly authorized overlap rows, and creating v3 Generation Rate, Execution Coverage Rate, and Result Consistency Rate dry-run tables. They did not compute official metrics, render paper tables, compute timing metrics, implement SQLGlot parsing, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+- SQLGlot sanitized non-timing projection and parser v1 completed as audit-only outputs, approving only SGL011 for sanitized non-timing status projection, creating two parser-ready SQLGlot projection files with 137 total rows, emitting 240 SQLGlot candidate-status rows with 137 filled and 103 unresolved, validating the SQLGlot ledger, building combined candidate status overlay v2 with 312 filled rows and 288 unresolved rows, and creating normalized status-only dry-run v4 outputs. It did not compute official metrics, render paper tables, compute timing/performance metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -569,4 +586,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_delta_vs_v2.csv` and `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_caveats.csv`. If accepted, separately authorize official metric-readiness review or SQLGlot status evidence parsing; keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
+Review `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_report.md`, `audits/combined_candidate_status_overlay_v2/combined_candidate_status_overlay_v2_summary.json`, and `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_dryrun_v4_delta_vs_v3.csv`. If accepted, separately decide whether to approve additional sanitized SQLGlot non-timing sources for the remaining 103 SQLGlot unresolved rows or move to an official metric-readiness review; keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.

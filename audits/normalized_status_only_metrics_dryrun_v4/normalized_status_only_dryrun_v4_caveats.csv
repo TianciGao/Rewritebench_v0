@@ -1,0 +1,5 @@
+caveat_type,affected_metric,affected_method,affected_rows,explanation,recommended_followup,notes
+sqlglot_projection_partial_coverage,all status-only dry-run families,sqlglot_optimize|sqlglot_noop,103,Only SGL011 projection matches are parsed; unmatched SQLGlot scaffold rows remain unresolved.,Review whether additional sanitized SQLGlot sources should be approved without raw-log/timing leakage.,SQLGlot parser v1 fills a subset of 240 SQLGlot rows.
+sqlglot_generated_ready_unobserved,Generation Rate,sqlglot_optimize|sqlglot_noop,137,"SGL011 checker events support executed/exact, not source-observed generated/ready.",Approve a deterministic non-timing preflight projection only if row grain is proven.,Generated/ready are not inferred from checker artifact path presence.
+no_official_metrics,all,all,600,All dry-run values are audit-only and not official metrics or paper results.,Separate official metric authorization remains required.,reports/ and results/ are unchanged.
+no_timing_metrics,timing/performance,all,0,"Timing, speedup, and latency fields are out of scope.",Keep timing adapter planning separate.,GM_Speedup and Speedup Ratio Percentiles are not computed.

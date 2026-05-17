@@ -1,0 +1,7 @@
+check_name,status,details
+combined rows preserve 600-row scaffold,PASS,600 rows
+SQLGlot overlay rows available,PASS,240 SQLGlot parser rows
+SQLGlot rows filled,PASS,137
+metrics computed,PASS,false
+timing fields filled,PASS,false
+reports/results changed,PASS,false

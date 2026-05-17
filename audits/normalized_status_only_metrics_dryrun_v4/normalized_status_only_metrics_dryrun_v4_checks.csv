@@ -1,0 +1,9 @@
+check_name,status,details
+dry-run table includes status-only metrics,PASS,"Generation Rate, Execution Coverage Rate, and Result Consistency Rate rows emitted"
+official_metric=false,PASS,all dry-run rows are non-official
+paper_result=false,PASS,all dry-run rows are non-paper
+denominator remains 600 planned candidate rows,PASS,600
+GM_Speedup not computed,PASS,not present
+Speedup Ratio Percentiles not computed,PASS,not present
+reports/results unchanged,PASS,false
+denominator unchanged,PASS,false

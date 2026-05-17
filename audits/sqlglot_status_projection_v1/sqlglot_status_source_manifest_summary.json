@@ -1,0 +1,11 @@
+{
+  "approved_parser_sources": 2,
+  "approved_projection_sources": 2,
+  "manifest_rows": 10,
+  "metrics_computed": false,
+  "pending_sources": 2,
+  "prompt_token_sources_approved": false,
+  "raw_log_sources_approved": false,
+  "rejected_sources": 6,
+  "timing_sources_approved": false
+}

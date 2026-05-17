@@ -1,0 +1,7 @@
+check_name,status,details
+SQLGlot scaffold rows emitted,PASS,240 rows emitted
+non-timing status rows filled,PASS,137 rows filled from sanitized projections
+unmatched rows left unresolved,PASS,103 SQLGlot rows remain unresolved
+timing fields filled,PASS,0 timing/speedup values filled
+metric_input_authorized rows,PASS,0
+metrics computed,PASS,false

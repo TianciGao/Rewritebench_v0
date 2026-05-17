@@ -248,6 +248,9 @@ def is_approved_candidate_status_parser_row(row: dict[str, str]) -> bool:
     return (
         row.get("parser_name") == "candidate_status_parser_v1"
         and row.get("parser_scope") == "approved_non_timing_whitelist_only"
+    ) or (
+        row.get("parser_name") == "sqlglot_candidate_status_parser_v1"
+        and row.get("parser_scope") == "sanitized_non_timing_projection_only"
     )
 
 

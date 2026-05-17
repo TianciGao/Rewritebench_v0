@@ -1,0 +1,3 @@
+projection_id,source_id,rewrite_method,projection_rows,matched_scaffold_rows,fields_filled,timing_fields_filled,metrics_computed,notes
+projection_SGL011_sqlglot_optimize,SGL011,sqlglot_optimize,65,65,executed|exact|result_status|failure_stage|failure_type|parse_status|checker_status|evidence_source|retained_artifact_path,0,false,sanitized projection rows loaded; scaffold matching is counted after parse
+projection_SGL011_sqlglot_noop,SGL011,sqlglot_noop,72,72,executed|exact|result_status|failure_stage|failure_type|parse_status|checker_status|evidence_source|retained_artifact_path,0,false,sanitized projection rows loaded; scaffold matching is counted after parse

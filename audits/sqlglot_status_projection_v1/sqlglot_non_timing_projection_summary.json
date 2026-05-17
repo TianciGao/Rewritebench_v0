@@ -1,0 +1,11 @@
+{
+  "metrics_computed": false,
+  "parser_ready_projection_count": 2,
+  "projection_rows_total": 137,
+  "projections_created": 2,
+  "prompt_token_columns_removed": false,
+  "raw_log_columns_removed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "timing_columns_removed": false
+}

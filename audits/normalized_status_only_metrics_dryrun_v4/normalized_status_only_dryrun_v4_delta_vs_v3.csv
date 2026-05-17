@@ -1,0 +1,181 @@
+metric_name,rewrite_method,pool,engine,v3_authorized_rows,v4_authorized_rows,v3_numerator_total_dry_run_rows,v4_numerator_total_dry_run_rows,delta_due_to_sqlglot_projection,notes
+Generation Rate,calcite_hep_fail_closed,CONS,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,CONS,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,CONS,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,CONS,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,CONS,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,CONS,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,CONS,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,CONS,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,CONS,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,LONGTAIL,mysql,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,LONGTAIL,mysql,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,LONGTAIL,mysql,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,LONGTAIL,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,LONGTAIL,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,LONGTAIL,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,LONGTAIL,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,LONGTAIL,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,LONGTAIL,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PERF,mysql,2,2,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PERF,mysql,2,2,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PERF,mysql,2,2,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PERF,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PERF,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PERF,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PERF,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PERF,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PERF,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PORT,mysql,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PORT,mysql,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PORT,mysql,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PORT,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PORT,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PORT,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,calcite_hep_fail_closed,PORT,spark,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,calcite_hep_fail_closed,PORT,spark,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,calcite_hep_fail_closed,PORT,spark,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,CONS,mysql,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,CONS,mysql,9,9,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,CONS,mysql,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,CONS,postgres,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,CONS,postgres,9,9,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,CONS,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,CONS,spark,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,CONS,spark,9,9,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,CONS,spark,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,LONGTAIL,mysql,6,6,6,6,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,LONGTAIL,mysql,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,LONGTAIL,mysql,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,LONGTAIL,postgres,6,6,6,6,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,LONGTAIL,postgres,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,LONGTAIL,postgres,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,LONGTAIL,spark,6,6,6,6,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,LONGTAIL,spark,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,LONGTAIL,spark,6,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PERF,mysql,16,16,16,16,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PERF,mysql,16,16,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PERF,mysql,16,16,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PERF,postgres,16,16,16,16,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PERF,postgres,16,16,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PERF,postgres,16,16,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PERF,spark,16,16,16,16,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PERF,spark,16,16,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PERF,spark,16,16,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PORT,mysql,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PORT,mysql,9,9,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PORT,mysql,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PORT,postgres,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PORT,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PORT,postgres,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_original,PORT,spark,9,9,9,9,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_original,PORT,spark,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_original,PORT,spark,9,9,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,CONS,mysql,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,CONS,mysql,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,CONS,mysql,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,CONS,postgres,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,CONS,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,CONS,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,CONS,spark,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,CONS,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,CONS,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,LONGTAIL,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,LONGTAIL,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,LONGTAIL,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,LONGTAIL,postgres,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,LONGTAIL,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,LONGTAIL,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,LONGTAIL,spark,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,LONGTAIL,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,LONGTAIL,spark,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PERF,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PERF,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PERF,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PERF,postgres,1,1,1,1,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PERF,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PERF,postgres,1,1,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PERF,spark,2,2,2,2,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PERF,spark,2,2,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PERF,spark,2,2,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PORT,mysql,5,5,3,3,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PORT,mysql,5,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PORT,mysql,5,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PORT,postgres,5,5,4,4,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PORT,postgres,5,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PORT,postgres,5,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,direct_llm_repair_1,PORT,spark,8,8,6,6,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,direct_llm_repair_1,PORT,spark,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,direct_llm_repair_1,PORT,spark,8,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,CONS,mysql,0,7,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,CONS,mysql,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,CONS,mysql,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,CONS,postgres,0,7,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,CONS,postgres,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,CONS,postgres,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,CONS,spark,0,7,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,CONS,spark,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,CONS,spark,0,7,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,LONGTAIL,mysql,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,LONGTAIL,mysql,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,LONGTAIL,mysql,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,LONGTAIL,postgres,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,LONGTAIL,postgres,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,LONGTAIL,postgres,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,LONGTAIL,spark,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,LONGTAIL,spark,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,LONGTAIL,spark,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PERF,mysql,0,13,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PERF,mysql,0,13,0,13,13,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PERF,mysql,0,13,0,13,13,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PERF,postgres,0,13,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PERF,postgres,0,13,0,13,13,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PERF,postgres,0,13,0,13,13,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PERF,spark,0,7,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PERF,spark,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PERF,spark,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PORT,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PORT,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PORT,mysql,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PORT,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PORT,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PORT,postgres,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_noop,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_noop,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_noop,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,CONS,mysql,0,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,CONS,mysql,0,5,0,5,5,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,CONS,mysql,0,5,0,5,5,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,CONS,postgres,0,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,CONS,postgres,0,5,0,5,5,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,CONS,postgres,0,5,0,5,5,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,CONS,spark,0,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,CONS,spark,0,5,0,5,5,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,CONS,spark,0,5,0,4,4,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,LONGTAIL,mysql,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,LONGTAIL,mysql,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,LONGTAIL,mysql,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,LONGTAIL,postgres,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,LONGTAIL,postgres,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,LONGTAIL,postgres,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,LONGTAIL,spark,0,6,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,LONGTAIL,spark,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,LONGTAIL,spark,0,6,0,6,6,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PERF,mysql,0,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PERF,mysql,0,8,0,8,8,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PERF,mysql,0,8,0,8,8,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PERF,postgres,0,8,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PERF,postgres,0,8,0,8,8,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PERF,postgres,0,8,0,8,8,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PERF,spark,0,7,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PERF,spark,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PERF,spark,0,7,0,7,7,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PORT,mysql,0,5,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PORT,mysql,0,5,0,4,4,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PORT,mysql,0,5,0,4,4,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PORT,postgres,0,4,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PORT,postgres,0,4,0,3,3,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PORT,postgres,0,4,0,3,3,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Generation Rate,sqlglot_optimize,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Execution Coverage Rate,sqlglot_optimize,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present
+Result Consistency Rate,sqlglot_optimize,PORT,spark,0,0,0,0,0,delta is audit-only and driven by sanitized SQLGlot projection inputs where present

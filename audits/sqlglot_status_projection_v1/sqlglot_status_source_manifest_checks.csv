@@ -1,0 +1,9 @@
+check_name,status,details
+manifest preview rows read,PASS,10 manifest rows from 10 preview rows
+SGL011 approved for sanitized projection,PASS,SGL011 is the canonical checker-event source for this bounded parser.
+P006 engine expansion not auto-approved,PASS,P006 requires explicit deterministic engine expansion approval.
+P007 excluded unless explicitly approved,PASS,round1 decision rows read: 8; P007 is not in parser preview manifest
+P008/P010 excluded,PASS,Mixed portability and route-level summary sources are not present in parser preview rows.
+raw log sources not approved,PASS,SGL013 raw stdout/stderr pointers remain excluded.
+timing sources approved,PASS,false
+metrics computed,PASS,false

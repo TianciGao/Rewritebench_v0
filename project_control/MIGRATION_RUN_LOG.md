@@ -4663,3 +4663,111 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_delta_vs_v2.csv` and `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_caveats.csv`; if accepted, separately authorize official metric-readiness review or SQLGlot status evidence parsing.
+
+### 2026-05-17 · pending · SQLGlot sanitized non-timing projection and parser v1
+
+Mode: bounded SQLGlot non-timing status projection and parser; audit-only dry-run v4; no official metrics; no timing/performance metrics; no reports/results; no paper tables
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until push is performed
+
+Summary:
+- Built a SQLGlot status source manifest from round1 triage/decision outputs.
+- Approved only SGL011 for sanitized non-timing projection/parser use.
+- Left P006 pending for deterministic engine expansion approval.
+- Rejected or held out P009, SGL012, SGL013, P007, P008, and P010 for mixed-scope, duplicate, raw-log, timing/path, or route-level risks.
+- Created two sanitized non-timing SQLGlot projections from SGL011 for `sqlglot_optimize` and `sqlglot_noop`.
+- Parsed SQLGlot candidate status rows from sanitized projections only.
+- Emitted 240 SQLGlot `rewrite_candidate_cell` audit rows.
+- Filled 137 SQLGlot row-level non-timing status rows and left 103 SQLGlot rows unresolved.
+- Built combined candidate status overlay v2 with 600 rows, 312 filled rows, and 288 unresolved rows.
+- Created normalized status-only dry-run v4 outputs over the combined overlay, preserving the 600 planned candidate denominator.
+- Did not compute official metrics, render paper tables, compute timing metrics, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_sqlglot_status_source_manifest.py`
+- `scripts/dev/build_sqlglot_non_timing_projection.py`
+- `scripts/dev/parse_sqlglot_candidate_status_v1.py`
+- `scripts/dev/build_combined_candidate_status_overlay_v2.py`
+- `scripts/dev/compute_normalized_status_only_metrics_dryrun_v4.py`
+- `audits/sqlglot_status_projection_v1/sqlglot_status_source_manifest.csv`
+- `audits/sqlglot_status_projection_v1/sqlglot_status_source_manifest_summary.json`
+- `audits/sqlglot_status_projection_v1/sqlglot_status_source_manifest_report.md`
+- `audits/sqlglot_status_projection_v1/sqlglot_status_source_manifest_checks.csv`
+- `audits/sqlglot_status_projection_v1/sqlglot_non_timing_projection_index.csv`
+- `audits/sqlglot_status_projection_v1/projection_SGL011_sqlglot_optimize_non_timing.csv`
+- `audits/sqlglot_status_projection_v1/projection_SGL011_sqlglot_noop_non_timing.csv`
+- `audits/sqlglot_status_projection_v1/sqlglot_non_timing_projection_summary.json`
+- `audits/sqlglot_status_projection_v1/sqlglot_non_timing_projection_report.md`
+- `audits/sqlglot_status_projection_v1/sqlglot_non_timing_projection_checks.csv`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_ledger_v1.csv`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_summary.json`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_report.md`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_checks.csv`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_source_use_log.csv`
+- `audits/sqlglot_candidate_status_parser_v1/sqlglot_candidate_status_parser_v1_limitations.md`
+- `audits/sqlglot_candidate_status_parser_v1/ledger_validation/ledger_validation_results.csv`
+- `audits/sqlglot_candidate_status_parser_v1/ledger_validation/ledger_validation_summary.json`
+- `audits/sqlglot_candidate_status_parser_v1/ledger_validation/ledger_validation_report.md`
+- `audits/combined_candidate_status_overlay_v2/combined_candidate_status_ledger_v2.csv`
+- `audits/combined_candidate_status_overlay_v2/combined_candidate_status_overlay_v2_summary.json`
+- `audits/combined_candidate_status_overlay_v2/combined_candidate_status_overlay_v2_report.md`
+- `audits/combined_candidate_status_overlay_v2/combined_candidate_status_overlay_v2_checks.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_metrics_dryrun_v4_table.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_dryrun_v4_denominator_audit.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_dryrun_v4_delta_vs_v3.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_dryrun_v4_caveats.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_metrics_dryrun_v4_report.md`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_metrics_dryrun_v4_checks.csv`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_metrics_dryrun_v4_summary.json`
+- `audits/normalized_status_only_metrics_dryrun_v4/normalized_status_only_metrics_dryrun_v4_limitations.md`
+- `docs/dev/SQLGLOT_STATUS_PROJECTION_AND_DRYRUN_V4.md`
+
+Files modified:
+- `scripts/dev/validate_ledger_csv.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_sqlglot_status_source_manifest.py`: passed.
+- `python -m py_compile scripts/dev/build_sqlglot_non_timing_projection.py`: passed.
+- `python -m py_compile scripts/dev/parse_sqlglot_candidate_status_v1.py`: passed.
+- `python -m py_compile scripts/dev/build_combined_candidate_status_overlay_v2.py`: passed.
+- `python -m py_compile scripts/dev/compute_normalized_status_only_metrics_dryrun_v4.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/build_sqlglot_status_source_manifest.py ...`: passed; 10 manifest rows, 2 approved projection rows, 2 approved parser rows.
+- `python scripts/dev/build_sqlglot_non_timing_projection.py ...`: passed; 2 projections, 137 total projection rows, 2 parser-ready projections.
+- `python scripts/dev/parse_sqlglot_candidate_status_v1.py ...`: passed; 240 SQLGlot rows emitted, 137 filled, 103 unresolved.
+- `python scripts/dev/validate_ledger_csv.py ...`: passed; 240 rows checked, 0 errors, 0 warnings.
+- `python scripts/dev/build_combined_candidate_status_overlay_v2.py ...`: passed; 600 rows, 137 SQLGlot rows filled, 312 total filled rows, 288 unresolved rows.
+- `python scripts/dev/compute_normalized_status_only_metrics_dryrun_v4.py ...`: passed; 312 dry-run input rows, 137 SQLGlot projection input rows, 600 planned candidate rows preserved.
+- JSON invariant checks: passed.
+- CSV checks: passed.
+- `git diff --check`: passed.
+- `git status -sb`: only intended SQLGlot projection/parser, combined overlay, dry-run v4, docs, scripts, validator-scope, and project-control changes before commit.
+
+Task result:
+- SQLGlot status source manifest completed: yes.
+- Sanitized non-timing projections created: yes.
+- SQLGlot candidate status parser completed: yes.
+- SQLGlot rows filled: 137.
+- SQLGlot rows unresolved: 103.
+- Combined candidate status overlay v2 completed: yes.
+- Combined filled rows: 312.
+- Combined unresolved rows: 288.
+- Official metrics computed: no.
+- Audit-only dry-run metrics computed: yes.
+- Paper tables rendered: no.
+- Timing metrics computed: no.
+
+Paper/denominator impact:
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Review SQLGlot parser coverage and dry-run v4 delta/caveats; then separately decide whether to authorize additional sanitized SQLGlot non-timing sources for the remaining 103 unresolved SQLGlot rows or proceed to official metric-readiness review. Keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.

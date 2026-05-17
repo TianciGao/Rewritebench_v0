@@ -1,0 +1,7 @@
+check_name,status,details
+only approved manifest rows projected,PASS,2 approved manifest rows produced 2 projections
+row grain verified,PASS,case_id x engine x rewrite_method x release denominator_id is unique within each projection
+timing fields retained,PASS,false
+prompt/token fields retained,PASS,false
+raw log fields retained,PASS,false
+metrics computed,PASS,false

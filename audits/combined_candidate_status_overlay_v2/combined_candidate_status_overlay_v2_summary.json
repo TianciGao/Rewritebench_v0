@@ -1,0 +1,12 @@
+{
+  "denominator_changed": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "sqlglot_rows_filled": 137,
+  "timing_fields_filled": false,
+  "total_filled_rows": 312,
+  "total_rows": 600,
+  "unresolved_rows": 288
+}

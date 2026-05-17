@@ -1,0 +1,19 @@
+{
+  "denominator_changed": false,
+  "methods_covered": [
+    "sqlglot_noop",
+    "sqlglot_optimize"
+  ],
+  "metric_input_authorized_rows": 0,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "parser_name": "sqlglot_candidate_status_parser_v1",
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "row_level_status_rows_filled": 137,
+  "rows_emitted": 240,
+  "scaffold_sqlglot_rows_expected": 240,
+  "timing_fields_filled": 0,
+  "unresolved_sqlglot_rows": 103
+}
