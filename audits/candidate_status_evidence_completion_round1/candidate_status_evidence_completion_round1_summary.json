@@ -1,0 +1,16 @@
+{
+  "task_completed": true,
+  "candidate_statuses_filled": false,
+  "metrics_computed": false,
+  "timing_fields_filled": false,
+  "overlap_rows_reviewed": 45,
+  "sqlglot_sources_reviewed": 8,
+  "sqlglot_manifest_preview_rows": 10,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Maintainer reviews overlap_rows_resolution_proposal.csv and sqlglot_candidate_manual_decision_sheet.csv; if accepted, separately authorize an overlap-priority authorization overlay v1 and/or a sanitized SQLGlot projection/parser task."
+}

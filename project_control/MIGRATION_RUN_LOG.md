@@ -4517,3 +4517,59 @@ Paper/denominator impact:
 
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_delta_vs_v1.csv` and `audits/normalized_status_only_metrics_dryrun_v2/normalized_status_only_dryrun_v2_caveats.csv`. If accepted, separately authorize official metric readiness review, additional evidence parsing, or overlap resolution; keep timing and paper rendering separate.
+
+### 2026-05-17 · pending · candidate_status_evidence_completion_round1
+
+Mode: targeted evidence-completion triage; audit-only; no candidate status parsing; no metric authorization; no metrics; no timing; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Reviewed 45 overlap-denied candidate-status rows from `metric_input_authorization_overlay_v0`.
+- Proposed overlap resolution policy for 26 `P001|P002` Direct-LLM original rows and 19 `P002|P003` Repair-1 rows.
+- Reviewed eight SQLGlot candidate evidence sources at release-metadata and safe header/schema-preview level only.
+- Created ten SQLGlot manifest-preview rows, all `approved_for_parser=false` and `approval_status=pending_maintainer_review`.
+- Did not fill candidate statuses, change metric-input authorization, parse unapproved legacy evidence into ledger rows, compute metrics, fill timing fields, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `audits/candidate_status_evidence_completion_round1/evidence_completion_round1_summary.md`
+- `audits/candidate_status_evidence_completion_round1/overlap_rows_resolution_proposal.csv`
+- `audits/candidate_status_evidence_completion_round1/overlap_policy_recommendation.md`
+- `audits/candidate_status_evidence_completion_round1/sqlglot_candidate_source_triage.csv`
+- `audits/candidate_status_evidence_completion_round1/sqlglot_candidate_manual_decision_sheet.csv`
+- `audits/candidate_status_evidence_completion_round1/sqlglot_parser_v1_manifest_preview.csv`
+- `audits/candidate_status_evidence_completion_round1/candidate_status_completion_round1_risk_register.md`
+- `audits/candidate_status_evidence_completion_round1/candidate_status_completion_round1_next_actions.md`
+- `audits/candidate_status_evidence_completion_round1/candidate_status_evidence_completion_round1_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `candidate_status_evidence_completion_round1_summary.json`: passed.
+- CSV checks for 45 overlap proposal rows, `would_change_metric_input_authorization=false`, SQLGlot headers, no approved manifest-preview rows, and no metric/status-fill claims: passed.
+- `git diff --check`: pending.
+- `git status -sb`: pending final pre-commit check.
+
+Task result:
+- candidate statuses filled: no
+- metrics computed: no
+- timing fields filled: no
+- overlap rows reviewed: 45
+- SQLGlot candidate sources reviewed: 8
+- SQLGlot manifest preview rows: 10
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Maintainer reviews `audits/candidate_status_evidence_completion_round1/overlap_rows_resolution_proposal.csv` and `audits/candidate_status_evidence_completion_round1/sqlglot_candidate_manual_decision_sheet.csv`; if accepted, separately authorize an overlap-priority authorization overlay v1 and/or a sanitized SQLGlot projection/parser task.
