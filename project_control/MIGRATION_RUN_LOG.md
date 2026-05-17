@@ -4887,13 +4887,13 @@ Task result:
 Next safe action:
 - Review the limited official status-metrics outputs, then separately decide whether to authorize SQLGlot metric-input expansion, resolve Generation Rate policy/evidence gaps, or prepare a paper-rendering decision packet.
 
-### 2026-05-18 · pending · official_status_metrics_v0_limited_closeout_and_paper_rendering_decision_packet
+### 2026-05-18 · 6a502bf · official_status_metrics_v0_limited_closeout_and_paper_rendering_decision_packet
 
 Mode: closeout and decision packet; no new metrics; no paper tables; no timing/performance metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `6a502bf6d74e9a0f54cb34961ffe29f9c35c4e12`
+Push: `origin/main` updated `f9afe3e..6a502bf`
 
 Summary:
 - Reviewed the existing `official_status_metrics_v0_limited` outputs without recomputing metrics.
