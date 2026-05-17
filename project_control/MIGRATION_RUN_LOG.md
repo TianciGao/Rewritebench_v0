@@ -3385,13 +3385,13 @@ Authorization:
 Next safe action:
 - Review the `rewrite_candidate_adapter_v0` scaffold row grain and method scope before authorizing any candidate evidence adapter that parses retained method outputs, fills generated/executed/exact/timed statuses, authorizes metric input, or computes metrics; do not parse production retained evidence, implement general candidate adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · Candidate evidence input-surface audit for rewrite_candidate_adapter_v1
+### 2026-05-17 · fae0fca · Candidate evidence input-surface audit for rewrite_candidate_adapter_v1
 
 Mode: input-surface audit / planning only; no adapter implementation; no production retained-evidence parsing; legacy not read
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending before commit
-Push: pending before push
+Commit: `fae0fca38d6b9ce92f5768e654918cb5a82bad94`
+Push: `origin/main` updated `79dac2b..fae0fca`
 
 Summary:
 - Created `audits/rewrite_candidate_input_surface_audit/` with a candidate input-surface summary, method/field-group matrix, route input-surface matrix, field-readiness matrix, risk register, future prompt, and machine-readable summary.
