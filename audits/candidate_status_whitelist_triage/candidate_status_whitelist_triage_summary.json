@@ -1,0 +1,15 @@
+{
+  "triage_task_completed": true,
+  "candidate_status_filled": false,
+  "metrics_computed": false,
+  "timing_fields_filled": false,
+  "production_ledger_created": false,
+  "legacy_repo_modified": false,
+  "raw_legacy_evidence_changed": false,
+  "files_reviewed": 28,
+  "whitelist_proposal_rows": 19,
+  "proposed_approve_count": 4,
+  "proposed_defer_count": 6,
+  "rejected_count": 8,
+  "next_safe_action": "Maintainer reviews audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv before any candidate_status_parser_v1 manifest is approved."
+}

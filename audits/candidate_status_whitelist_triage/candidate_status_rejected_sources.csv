@@ -1,0 +1,9 @@
+source_path,rejection_category,reason,future_adapter_or_action,notes
+legacy:reports/evaluation/common_core_v0/direct_llm_validity_summary_v1.csv,reject_route_level_only,Aggregate validity table lacks candidate row grain,retain_reference_only,Do not distribute numerator or denominator counts into rows.
+legacy:reports/evaluation/common_core_v0/direct_llm_same_engine_result_card_v1.csv,reject_timing_or_performance,Method card contains aggregate counts and timing or metric fields,retain_reference_only,Paper summary reference only.
+legacy:reports/evaluation/common_core_v0/runs/sqlglot_same_engine_port_execution_resolved_01/run_event_long.csv,reject_timing_or_performance,Event log exposes timing and speedup fields,requires_sanitized_non_timing_projection,Do not approve raw event log for non-timing parser.
+legacy:reports/evaluation/common_core_v0/sqlglot_same_engine_execution_summary_v1.csv,reject_route_level_only,Summary group count table lacks candidate row grain,retain_reference_only,Reference-only route summary.
+legacy:reports/evaluation/common_core_v0/calcite_hep_120_fail_closed_synthesis_v1.csv,reject_route_level_only,Aggregate synthesis table lacks candidate row grain,retain_reference_only,Do not convert aggregate exact counts into rows.
+legacy:reports/evaluation/common_core_v0/calcite_hep_validity_summary_v1.csv,reject_timing_or_performance,Validity summary contains aggregate rates and is not row-level,retain_reference_only,Metric-bearing summary.
+legacy:reports/evaluation/common_core_v0/runs/calcite_hep_120_recovery_round3c_numeric_scale_canary_02_01/run_results.json,reject_timing_or_performance,Run summary includes timing denominator and aggregate counts,retain_reference_only,Schema preview only.
+legacy:reports/evaluation/common_core_v0/direct_llm_same_engine_proposed_row_v1.csv,reject_timing_or_performance,Proposed method row contains aggregate counts and metric fields,retain_reference_only,Not a parser input.

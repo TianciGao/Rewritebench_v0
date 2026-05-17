@@ -3699,3 +3699,70 @@ Authorization:
 
 Next safe action:
 - Review `audits/candidate_status_parser_v0/candidate_status_parser_input_manifest_report.md` and decide whether to curate an explicit row-level non-timing retained-evidence input manifest for a future parser rerun. Keep the 600 candidate parser rows unresolved until exact row-grain input sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · PENDING · Candidate status whitelist triage for manual approval
+
+Mode: manual-review triage; audit/design only; no candidate status parsing; no timing fields; no metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `audits/candidate_status_whitelist_triage/` with a maintainer-reviewable whitelist proposal for future `candidate_status_parser_v1`.
+- Reviewed release metadata and selected legacy inventory paths only at path/header/schema-preview level.
+- Produced 19 proposal rows: 4 `approve_header_only_then_parser`, 6 `defer_manual_review`, 8 rejected parser inputs, and 1 reference-only locator row.
+- Created a preview manifest with all rows marked `pending_maintainer_review`; no row is approved by maintainer in this task.
+- Did not parse candidate statuses, fill generated/ready/executed/exact fields, fill timing fields, compute metrics, create a production ledger, update reports/results, change denominators, change paper results, change case membership, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_triage_summary.md`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_proposal.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_rejected_sources.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_review.md`
+- `audits/candidate_status_whitelist_triage/candidate_status_parser_v1_input_manifest_preview.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv`
+- `audits/candidate_status_whitelist_triage/candidate_status_whitelist_triage_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant checks for `candidate_status_whitelist_triage_summary.json`: passed.
+- CSV readability checks for proposal, manual decision sheet, manifest preview, and rejected-source files: passed.
+- `git diff --check`: passed.
+- `git status -sb`: only intended audit and project-control changes.
+- `git diff --name-status`: only intended project-control tracked changes before staging; new audit files were untracked until explicit add.
+
+Triage result:
+- Candidate statuses filled: no.
+- Timing fields filled: no.
+- Metrics computed: no.
+- Production ledger created: no.
+- Files reviewed: 28.
+- Whitelist proposal rows: 19.
+- Proposed approve-header-only count: 4.
+- Proposed defer count: 6.
+- Rejected count: 8.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- candidate status parsing authorized by this task: no
+- timing parser authorized: no
+- metric input authorization changed: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Maintainer reviews `audits/candidate_status_whitelist_triage/candidate_status_manual_decision_sheet.csv` and explicitly approves or rejects proposed candidate status parser inputs before any `candidate_status_parser_v1` manifest is created. Keep all 600 candidate parser rows unresolved until exact row-grain non-timing sources are approved; do not fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence without separate authorization.
