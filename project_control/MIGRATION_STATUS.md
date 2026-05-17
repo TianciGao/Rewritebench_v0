@@ -372,6 +372,22 @@ Membership and scaffold snapshot:
 - Paper results changed by metric_input_authorization_overlay_v0: no.
 - Raw legacy evidence changed by metric_input_authorization_overlay_v0: no.
 - Original parser ledger modified by metric_input_authorization_overlay_v0: no.
+- candidate status overlap review and status-only metrics dry-run plan completed: yes.
+- New candidate status parsing performed by overlap/dry-run plan: no.
+- Overlap rows reviewed by overlap/dry-run plan: 45.
+- Currently authorized rows for status-only metric input overlay: 130.
+- Unresolved candidate rows remain unauthorized after overlap/dry-run plan: 425.
+- Timing fields filled by overlap/dry-run plan: no.
+- Metric input authorization changed by overlap/dry-run plan: no.
+- Metrics computed by overlap/dry-run plan: no.
+- Generation Rate computed by overlap/dry-run plan: no.
+- Execution Coverage Rate computed by overlap/dry-run plan: no.
+- Result Consistency Rate computed by overlap/dry-run plan: no.
+- Timing metrics computed by overlap/dry-run plan: no.
+- Reports/results changed by overlap/dry-run plan: no.
+- Denominator changed by overlap/dry-run plan: no.
+- Paper results changed by overlap/dry-run plan: no.
+- Raw legacy evidence changed by overlap/dry-run plan: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -415,6 +431,7 @@ Membership and scaffold snapshot:
 - candidate_status_parser_v1 completed as a bounded non-timing approved-source parser, filling 175 row-level audit statuses from five approved legacy CSV sources and leaving 425 rows unresolved, without filling timing fields, authorizing metric input, computing metrics, creating a production ledger, updating reports/results, changing denominators, changing paper results, changing case membership, modifying the legacy repo, or modifying raw legacy evidence.
 - candidate_status_parser_v1 closeout completed as an audit-only unresolved-row and metric-input readiness review, confirming 175 prior filled rows, 425 unresolved rows, 130 filled rows structurally ready for a future status-only authorization overlay, 45 filled rows requiring source-overlap review, approved-source contributions, documented non-blocking closeout overlap warnings, all metric/timing boundary checks passing, and no new parsing, metric-input authorization, metric computation, reports/results changes, denominator changes, paper-result changes, or raw legacy evidence changes.
 - metric_input_authorization_overlay_v0 completed as an audit-only authorization overlay, authorizing 130 status-only non-timing parser-v1 rows, denying 45 overlap rows, leaving 425 unresolved rows unauthorized, and not rewriting the original parser ledger or computing metrics.
+- Candidate status overlap review and status-only metrics dry-run plan completed as an audit-only planning packet, reviewing the 45 overlap-blocked rows, recommending manual source-by-source overlap selection before authorization, and planning a future status-only dry run from the 130 currently authorized rows without computing metrics, changing metric-input authorization, filling timing fields, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -437,4 +454,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Do not compute metrics yet. Either perform manual overlap review for the 45 denied rows or prepare a status-only metrics dry-run plan that explicitly handles partial denominator coverage from the 130 authorized overlay rows. Keep timing adapter work separate; do not render paper tables, update reports/results, change denominators, change paper results, mutate the legacy repo, or modify raw legacy evidence without separate approval.
+Maintainer reviews `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review.csv` and chooses an overlap policy. Separately authorize any status-only metrics dry-run implementation before computing metrics; keep timing adapter work separate and do not render paper tables, update reports/results, change denominators, change paper results, mutate the legacy repo, or modify raw legacy evidence without separate approval.

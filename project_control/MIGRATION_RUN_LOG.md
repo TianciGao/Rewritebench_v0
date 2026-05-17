@@ -4112,3 +4112,62 @@ Paper/denominator impact:
 
 Next safe action:
 - Do not compute metrics yet. Either perform manual overlap review for the 45 denied rows or prepare a status-only metrics dry-run plan that explicitly handles partial denominator coverage from the 130 authorized overlay rows. Keep timing adapter work separate.
+
+### 2026-05-17 · PENDING · candidate status overlap review and status-only metrics dry-run plan
+
+Mode: release-repo audit/planning only; no new candidate status parsing; no metric input authorization change; no metrics; no timing
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Created `audits/candidate_status_overlap_and_metrics_dryrun_plan/`.
+- Reviewed 45 overlap-blocked rows from `metric_input_authorization_overlay_v0`.
+- Classified 26 P001/P002 rows as `overlap_resolvable_by_priority_rule`.
+- Classified 19 P002/P003 rows as `overlap_requires_manual_source_selection`.
+- Kept all overlap rows unauthorized; no actual metric-input authorization changed.
+- Planned a future status-only metrics dry run from the 130 currently authorized non-timing candidate-status rows.
+- Confirmed 425 unresolved rows remain unauthorized.
+- Did not perform new candidate status parsing, read new legacy evidence, fill timing fields, compute metrics, update reports/results, change denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review_summary.md`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review.csv`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_policy_options.md`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/status_only_metric_dryrun_scope.csv`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/status_only_metrics_dryrun_plan.md`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/denominator_handling_notes.md`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/metric_readiness_blockers.md`
+- `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_and_metrics_dryrun_plan_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PENDING`
+
+Task result:
+- new candidate status parsing performed: no
+- metrics computed: no
+- metric input authorization changed: no
+- overlap rows reviewed: 45
+- currently authorized rows: 130
+- unresolved rows: 425
+- timing fields filled: no
+- Generation Rate computed: no
+- Execution Coverage Rate computed: no
+- Result Consistency Rate computed: no
+- timing metrics computed: no
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Maintainer reviews `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review.csv` and chooses an overlap policy. Separately authorize any status-only metrics dry-run implementation before computing metrics; keep timing adapter work separate.

@@ -1,0 +1,23 @@
+{
+  "currently_authorized_rows": 130,
+  "denominator_changed": false,
+  "future_dryrun_metrics_planned": [
+    "Generation Rate",
+    "Execution Coverage Rate",
+    "Result Consistency Rate"
+  ],
+  "legacy_repo_modified": false,
+  "metric_input_authorized_changed": false,
+  "metrics_computed": false,
+  "new_candidate_status_parsing_performed": false,
+  "next_safe_action": "Maintainer reviews candidate_status_overlap_review.csv and chooses an overlap policy; separately authorize any status-only metrics dry-run implementation before computing metrics.",
+  "overlap_rows_reviewed": 45,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "recommended_overlap_option": "Option C: require manual source-by-source selection before authorizing any overlap rows",
+  "reports_changed": false,
+  "results_changed": false,
+  "task_completed": true,
+  "timing_fields_filled": false,
+  "unresolved_rows": 425
+}
