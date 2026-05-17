@@ -4314,7 +4314,7 @@ Next safe action:
 Mode: bounded audit-only normalized status metrics dry run; authorized normalized candidate-status rows only; no official metrics; no timing; no paper tables
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `9be06257ac06c88c1826a8a29b99dd38365f016c`
+Commit: `9be0625c96dcd46cf648349e2b92b571a11d3fc1`
 Push: `origin/main` updated `d67b75c..9be0625`
 
 Summary:
