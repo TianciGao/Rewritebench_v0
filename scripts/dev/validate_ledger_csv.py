@@ -123,12 +123,38 @@ REWRITE_CANDIDATE_ALLOWED_NA_VALUES = {"N.A.", "evidence_not_adapted_yet"}
 SAFETY_FALSE_FIELDS = {
     "metric_input_authorized",
     "metrics_computed",
-    "production_retained_evidence_parsed",
-    "legacy_repo_read",
     "reports_changed",
     "results_changed",
     "denominator_changed",
     "paper_results_changed",
+}
+
+SOURCE_READ_FLAGS = {
+    "production_retained_evidence_parsed",
+    "legacy_repo_read",
+}
+
+PARSED_CANDIDATE_OUTCOME_VALUES = {
+    "N.A.",
+    "evidence_not_adapted_yet",
+    "requires_production_retained_evidence",
+    "true",
+    "false",
+    "unknown",
+    "not_applicable",
+}
+
+PARSED_CANDIDATE_RESULT_STATUS_VALUES = {
+    "evidence_not_adapted_yet",
+    "ready",
+    "generated",
+    "exact",
+    "mismatch",
+    "failed",
+    "blocked",
+    "manual_review_required",
+    "unknown",
+    "not_run",
 }
 
 RETAINED_SUMMARY_REQUIRED_ANY = [
@@ -218,6 +244,13 @@ def value_is_false(value: str | None) -> bool:
     return (value or "").strip().lower() == "false"
 
 
+def is_approved_candidate_status_parser_row(row: dict[str, str]) -> bool:
+    return (
+        row.get("parser_name") == "candidate_status_parser_v1"
+        and row.get("parser_scope") == "approved_non_timing_whitelist_only"
+    )
+
+
 def validate_common(
     row: dict[str, str], fieldnames: list[str], row_number: int
 ) -> tuple[list[str], list[str]]:
@@ -238,9 +271,10 @@ def validate_common(
 
     if value_is_true(row.get("metrics_computed")):
         errors.append("metrics_computed_true")
-    if value_is_true(row.get("production_retained_evidence_parsed")):
+    approved_parser_row = is_approved_candidate_status_parser_row(row)
+    if value_is_true(row.get("production_retained_evidence_parsed")) and not approved_parser_row:
         errors.append("production_retained_evidence_parsed_true")
-    if value_is_true(row.get("legacy_repo_read")):
+    if value_is_true(row.get("legacy_repo_read")) and not approved_parser_row:
         errors.append("legacy_repo_read_true")
 
     row_id = row.get("record_id", "")
@@ -380,15 +414,26 @@ def validate_rewrite_candidate_cell(
     for column in SAFETY_FALSE_FIELDS & set(fieldnames):
         if not value_is_false(row.get(column)):
             errors.append(f"safety_flag_not_false:{column}={row.get(column)}")
+    for column in SOURCE_READ_FLAGS & set(fieldnames):
+        if not is_approved_candidate_status_parser_row(row) and not value_is_false(row.get(column)):
+            errors.append(f"safety_flag_not_false:{column}={row.get(column)}")
 
     if "planned" in fieldnames and (row.get("planned") or "").strip().lower() != "true":
         errors.append(f"planned_not_true:{row.get('planned')}")
 
+    parsed_candidate_row = is_approved_candidate_status_parser_row(row)
     for column in REWRITE_CANDIDATE_NA_FIELDS & set(fieldnames):
-        if row.get(column) not in REWRITE_CANDIDATE_ALLOWED_NA_VALUES:
+        allowed_values = REWRITE_CANDIDATE_ALLOWED_NA_VALUES
+        if parsed_candidate_row and column != "timed":
+            allowed_values = PARSED_CANDIDATE_OUTCOME_VALUES
+        if row.get(column) not in allowed_values:
             errors.append(f"rewrite_candidate_outcome_inferred:{column}={row.get(column)}")
-    if "result_status" in fieldnames and row.get("result_status") != "evidence_not_adapted_yet":
-        errors.append(f"rewrite_candidate_result_status_unexpected:{row.get('result_status')}")
+    if "result_status" in fieldnames:
+        if parsed_candidate_row:
+            if row.get("result_status") not in PARSED_CANDIDATE_RESULT_STATUS_VALUES:
+                errors.append(f"rewrite_candidate_result_status_unexpected:{row.get('result_status')}")
+        elif row.get("result_status") != "evidence_not_adapted_yet":
+            errors.append(f"rewrite_candidate_result_status_unexpected:{row.get('result_status')}")
 
     for column in ("latency_ms", "speedup_ratio"):
         if column in fieldnames and row.get(column) not in {"", "N.A."}:

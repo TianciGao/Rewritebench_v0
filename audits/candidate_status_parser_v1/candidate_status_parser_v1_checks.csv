@@ -1,0 +1,16 @@
+check_name,status,details
+scaffold row count = 600,PASS,actual=600
+output row count = 600,PASS,actual=600
+only rewrite_candidate_cell emitted,PASS,record_types=['rewrite_candidate_cell']
+only approved manifest files opened,PASS,"opened=['P001', 'P002', 'P003', 'P011', 'P012']"
+no unapproved sources opened,PASS,"opened=['P001', 'P002', 'P003', 'P011', 'P012']"
+no timing fields filled,PASS,timed/timing_eligible remain N.A. and latency_ms empty
+no speedup fields filled,PASS,speedup_ratio empty for all rows
+metric_input_authorized=false for all rows,PASS,values=['false']
+metrics_computed=false,PASS,values=['false']
+reports/results unchanged,PASS,parser writes only under audits/candidate_status_parser_v1
+denominator unchanged,PASS,parser reads scaffold and never writes case_sets
+paper results unchanged,PASS,no paper-facing outputs written
+route-level summaries not distributed,PASS,only approved row-level source rows were parsed
+ambiguous row-grain sources rejected,PASS,source-specific parsers reject missing or duplicate row grains
+output passes ledger validator,PASS,validation_passed=True;errors=0;warnings=0
