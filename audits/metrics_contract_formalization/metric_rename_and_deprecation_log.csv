@@ -1,0 +1,13 @@
+old_name,new_name_or_status,change_type,reason,implementation_impact,notes
+Generatable Rate,Generation Rate,rename_and_clarify,Approved scope uses candidate SQL emission as coverage metric,Use Generation Rate in public contract,Extraction/readiness not primary variants
+Exact Correctness Rate,Result Consistency Rate,rename_and_clarify,Approved scope separates result-level consistency from semantic equivalence,Use Result Consistency Rate in public contract,Does not overclaim formal proof
+Speedup Distribution,Speedup Ratio Percentiles,rename_and_clarify,Approved scope asks for percentile speedup summaries,Use P25 median/P50 P75 and optional IQR where implemented,Computed only on result-consistent timed cases
+Regression@20,diagnostic_or_legacy_comparison_only,removed_as_primary,Approved scope replaces threshold-first regression framing with Speedup Ratio Percentiles,Do not implement as primary performance metric,May be retained only as legacy diagnostic if separately requested
+Candidate Failure Rate,diagnostic failure buckets only,removed_as_primary,Approved scope removes failure rate as primary metric,Do not implement primary Candidate Failure Rate,Failure buckets remain diagnostic
+Observability / PlanFrontier,Attribution Coverage,replace_primary_metric,Approved scope defines explainability as operator-level attribution coverage,PlanFrontier/plan artifacts become support evidence,No internal optimizer overclaim
+PlanFrontier,diagnostic/support evidence,demoted,Plan artifacts support attribution but are not the main explainability metric,Do not implement PlanFrontier as primary metric without separate approval,May appear in diagnostics or report sections
+Support Layer,folded into correctness / semantic equivalence support,removed_independent_layer,Verifier evidence supports correctness rather than separate metric layer,No independent Support Layer implementation,Verifier support is not rewrite-generation baseline
+SupportRate,correctness support evidence,demoted,Support rate language risks implying a separate layer,Use only as semantic-equivalence support if approved,No global support leaderboard
+Interpretation,Description,wording_change,Approved public table wording prefers Description,Use Description in future public tables,Narrative wording only
+rewrite route,rewrite method,wording_change,Approved public wording prefers method where appropriate,Use rewrite method in user-facing metric wording,Route can remain internal ledger field
+rows,cases,wording_change,Approved public wording prefers cases where it avoids confusion,Use cases in public metric descriptions,Ledger may still use row for internal record type

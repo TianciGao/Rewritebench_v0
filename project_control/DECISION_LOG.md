@@ -365,3 +365,34 @@ Impact:
 - The clean release surface should retain canonical case packages, case sets, inventory, benchmark specs, user docs, curated reports/results, scripts, source package code, tests, and CI as appropriate.
 - Migration logs, future prompts, intermediate audits, scratch files, and internal coordination artifacts should not be assumed to belong in the final public surface.
 - If history cleanliness is required, create a clean export branch or clean public release repository from selected files.
+
+## D018: Metrics contract v1 formalized from maintainer/team-approved paper scope
+
+Decision:
+
+The SQL-RewriteBench public workbench metric contract is formalized in `repository_spec/metrics_contract_v1.md` from the maintainer/team-approved paper scope.
+
+The primary metric suite is:
+
+- Coverage: Generation Rate; Execution Coverage Rate.
+- Correctness: Result Consistency Rate; Semantic Equivalence Rate.
+- Performance: GM_Speedup; Speedup Ratio Percentiles.
+- Explainability: Attribution Coverage.
+- Generalization: Cross-Engine Execution; Cross-Engine Consistency; Speedup Retention.
+
+The older draft contract remains only as historical alignment context. Metrics implementation, retained-evidence adapter implementation, reproduction interface implementation, public runner implementation, paper table rendering, reports/results migration, denominator changes, paper-result changes, and case membership changes are not authorized by this decision.
+
+Reason:
+
+The maintainer/team-approved paper scope resolves the previous metric-decision packet. Candidate Failure Rate is removed as a primary metric, Regression@20 is demoted to optional legacy diagnostic/comparison status, broad Observability/PlanFrontier framing is replaced in the main suite by Attribution Coverage, and the independent Support Layer is folded into correctness and semantic-equivalence support.
+
+Impact:
+
+- Future metrics code and report rendering must use `repository_spec/metrics_contract_v1.md` as the governing metric contract.
+- Public wording should use `Generation Rate`, `Result Consistency Rate`, `Speedup Ratio Percentiles`, and `Description` where applicable.
+- Generation Rate means candidate SQL emission over planned cases; extraction/readiness remains diagnostic or optional support.
+- Semantic Equivalence Rate is limited to verifier-decidable result-consistent cases, with unknown or undecidable cases reported separately.
+- GM_Speedup and Speedup Ratio Percentiles are limited to result-consistent timed cases.
+- Speedup Retention is `N.A.` unless paired source-engine and target-engine timing exists.
+- Attribution Coverage is the main explainability metric, while atom-based rewrite opportunity observability and PlanFrontier remain support/diagnostic unless separately approved.
+- No global leaderboard is allowed.

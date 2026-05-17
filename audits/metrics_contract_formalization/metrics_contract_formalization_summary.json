@@ -1,0 +1,14 @@
+{
+  "adapter_implementation_authorized": false,
+  "denominator_changed": false,
+  "metrics_contract_v1_formalized": true,
+  "metrics_implementation_authorized": false,
+  "paper_results_changed": false,
+  "paper_table_rendering_authorized": false,
+  "primary_metric_count": 10,
+  "raw_legacy_evidence_changed": false,
+  "reproduction_interface_authorized": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "next_safe_action": "review Metrics Contract v1 and plan non-mutating retained-evidence adapter design/tests without computing metrics"
+}

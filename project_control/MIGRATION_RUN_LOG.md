@@ -2443,3 +2443,56 @@ Paper/denominator impact:
 
 Next safe action:
 - Continue redevelopment in the construction repository; before public v0 tagging, run a separate clean-export surface classification and verification task without deleting construction files, rewriting history, creating a release branch, migrating cases, changing denominators, updating reports/results, or modifying raw legacy evidence.
+
+### 2026-05-17 · pending · Formalize metrics contract v1 from approved paper scope
+
+Mode: release-repo metrics contract formalization/spec output; legacy untouched
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Formalized Metrics Contract v1 from the maintainer/team-approved paper scope in `repository_spec/metrics_contract_v1.md`.
+- Marked `repository_spec/metrics_contract_v1_draft.md` as superseded by the formal contract.
+- Added `repository_spec/explainability_attribution_policy_v1_draft.md` to define the Attribution Coverage boundary, support/pilot observability boundary, LLM annotation boundary, and no-speedup-without-runtime-evidence rule.
+- Created a metrics contract formalization audit with the finalized metric table, formula/denominator table, rename/deprecation log, implementation authorization boundary, and machine-readable summary.
+- Added D018 to `project_control/DECISION_LOG.md` because D017 is already used for the clean public release export strategy.
+- Did not implement metrics, implement retained-evidence adapters, implement a reproduction CLI, implement public runner outputs, render paper tables, copy reports/results, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, update case sets, modify case packages, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/metrics_contract_v1.md`
+- `repository_spec/explainability_attribution_policy_v1_draft.md`
+- `audits/metrics_contract_formalization/metrics_contract_formalization_summary.md`
+- `audits/metrics_contract_formalization/finalized_metric_table.csv`
+- `audits/metrics_contract_formalization/metric_formula_and_denominator_table.csv`
+- `audits/metrics_contract_formalization/metric_rename_and_deprecation_log.csv`
+- `audits/metrics_contract_formalization/implementation_authorization_boundary.md`
+- `audits/metrics_contract_formalization/metrics_contract_formalization_summary.json`
+
+Files modified:
+- `repository_spec/metrics_contract_v1_draft.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, finalized metric table coverage check, implementation-authorization false check, rename/deprecation coverage check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- metrics implementation authorized: no
+- retained-evidence adapter implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review Metrics Contract v1 and the attribution policy draft, then plan retained-evidence adapter design and validation gates without computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.

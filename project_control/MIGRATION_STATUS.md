@@ -29,6 +29,8 @@ Metrics finalization decision packet completed under `audits/metrics_finalizatio
 
 Metrics contract resolution draft completed under `repository_spec/metrics_contract_v1_draft.md` and `audits/metrics_contract_resolution/`. The aligned draft reflects the maintainer-provided updated paper scope: Generation Rate, Execution Coverage Rate, Result Consistency Rate, Semantic Equivalence Rate, GM_Speedup, Speedup Ratio Percentiles, Attribution Coverage, Cross-Engine Execution, Cross-Engine Consistency, and Speedup Retention. It remains draft-only and does not authorize metrics implementation, adapters, reproduction interfaces, public runners, paper table rendering, reports/results migration, denominator changes, or paper result changes.
 
+Metrics Contract v1 formalized under `repository_spec/metrics_contract_v1.md`, with supporting audit outputs under `audits/metrics_contract_formalization/` and an attribution policy draft under `repository_spec/explainability_attribution_policy_v1_draft.md`. The formal contract locks the approved paper-scope metric names, denominator boundaries, N.A. conditions, diagnostic/support boundaries, and no-global-leaderboard rule. Metrics implementation, retained-evidence adapter implementation, reproduction interface implementation, public runner implementation, paper table rendering, reports/results migration, denominator changes, paper-result changes, and case membership changes remain unauthorized.
+
 Whole-case universe governance audit completed under `audits/case_universe_governance/`. The audit detected 197 legacy case-like directories, reconciled them against 190 legacy registry rows, identified seven detected-but-unregistered directories, and classified the 157 non-Common-core directories for future staged/backlog/manual-review planning. It did not migrate cases, create staged/backlog membership files, update `case_sets/`, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
 
 Overnight governance and redevelopment investigation completed under `audits/overnight_investigation_bundle/`. The bundle refined planning labels for all 157 non-Common-core cases, inspected the seven unregistered legacy directories, inventoried 123 legacy script/tool files as redevelopment references, audited 24 public release skeleton components, and drafted future prompts for safe next tasks. It did not migrate cases, create official staged/backlog membership files, update `case_sets/`, update reports/results, implement scripts, compute metrics, change denominators, change paper results, or modify raw legacy evidence.
@@ -41,7 +43,7 @@ Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
 
-Important blocker: before implementing a unified reproduction CLI, paper table renderer, or metrics computation, the maintainer/team must confirm final metric definitions after team discussion.
+Important blocker: Metrics Contract v1 is formalized, but implementation remains unauthorized. Before implementing retained-evidence adapters, a unified reproduction CLI, public runner outputs, paper table rendering, or metrics computation, the maintainer/team must authorize the corresponding implementation phase and validation gates.
 
 ## Common-core Case-Package Counts
 
@@ -71,6 +73,8 @@ Membership and scaffold snapshot:
 - `audits/ledger_semantics_row_grain_policy/ledger_field_semantics_review.csv`: 28 draft ledger fields reviewed against record types and denominator boundaries.
 - `audits/metrics_finalization_decision_packet/metric_decision_table.csv`: 17 metric families reviewed for maintainer/team decision before implementation.
 - `audits/metrics_contract_resolution/resolved_metric_contract_table.csv`: 10 updated metric-scope rows aligned to the maintainer-provided paper scope.
+- `repository_spec/metrics_contract_v1.md`: formal metric contract v1 from approved paper scope.
+- `audits/metrics_contract_formalization/finalized_metric_table.csv`: 10 primary metrics plus diagnostic/support rows recorded with `implementation_authorized=false`.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -126,6 +130,7 @@ Membership and scaffold snapshot:
 - Evidence ledger semantics and adapter row-grain policy drafts completed without implementation.
 - Metrics finalization decision packet completed without implementing metrics, adapters, reproduction interfaces, public runners, or paper table rendering.
 - Metrics contract resolution draft completed without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, or paper table rendering.
+- Metrics Contract v1 formalized without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, denominator changes, paper-result changes, or paper table rendering.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -136,7 +141,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Final metric definitions are not approved for implementation.
+- Metrics Contract v1 is formalized; metrics implementation, retained-evidence adapter implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -148,4 +153,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Continue redevelopment in the construction repository. Before public v0 tagging, run a separate clean-export surface classification and verification task; do not delete construction files, rewrite history, create a release branch, migrate cases, update reports/results, change denominator values, or modify raw legacy evidence in the meantime.
+Review Metrics Contract v1 and the attribution policy draft. The next safe implementation-adjacent task is a non-mutating retained-evidence adapter design and validation plan; do not compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence.

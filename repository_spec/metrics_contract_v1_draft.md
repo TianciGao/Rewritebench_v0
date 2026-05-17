@@ -1,6 +1,8 @@
 # Metrics Contract v1 Draft
 
-Status: aligned draft, not implementation-authorizing
+Status: superseded by `repository_spec/metrics_contract_v1.md`
+
+This draft has been formalized into `repository_spec/metrics_contract_v1.md`. Keep this file as historical alignment context only. The v1 contract is the current metric policy source; neither this draft nor the v1 contract authorizes metrics implementation, retained-evidence adapter implementation, paper table rendering, report/result migration, DB validation, denominator changes, paper-result changes, or case membership changes.
 
 Purpose: define the public workbench metric contract direction after maintainer review of the updated paper metric scope.
 
