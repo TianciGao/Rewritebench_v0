@@ -2444,13 +2444,13 @@ Paper/denominator impact:
 Next safe action:
 - Continue redevelopment in the construction repository; before public v0 tagging, run a separate clean-export surface classification and verification task without deleting construction files, rewriting history, creating a release branch, migrating cases, changing denominators, updating reports/results, or modifying raw legacy evidence.
 
-### 2026-05-17 · pending · Formalize metrics contract v1 from approved paper scope
+### 2026-05-17 · e0a9907 · Formalize metrics contract v1 from approved paper scope
 
 Mode: release-repo metrics contract formalization/spec output; legacy untouched
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `e0a9907a9f6fd809f3e6f361eb64412c7b42ce3d`
+Push: `origin/main` updated `ced9879..e0a9907`
 
 Summary:
 - Formalized Metrics Contract v1 from the maintainer/team-approved paper scope in `repository_spec/metrics_contract_v1.md`.
