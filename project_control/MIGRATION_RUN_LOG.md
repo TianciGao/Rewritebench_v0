@@ -4664,13 +4664,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_delta_vs_v2.csv` and `audits/normalized_status_only_metrics_dryrun_v3/normalized_status_only_dryrun_v3_caveats.csv`; if accepted, separately authorize official metric-readiness review or SQLGlot status evidence parsing.
 
-### 2026-05-17 · pending · SQLGlot sanitized non-timing projection and parser v1
+### 2026-05-17 · 84c0c20 · SQLGlot sanitized non-timing projection and parser v1
 
 Mode: bounded SQLGlot non-timing status projection and parser; audit-only dry-run v4; no official metrics; no timing/performance metrics; no reports/results; no paper tables
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until push is performed
+Commit: `84c0c20c1effc15ddd4118905ad71e4e1786a0c3`
+Push: `origin/main` updated `c6922a2..84c0c20`
 
 Summary:
 - Built a SQLGlot status source manifest from round1 triage/decision outputs.
