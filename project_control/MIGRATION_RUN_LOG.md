@@ -3299,13 +3299,13 @@ Authorization:
 Next safe action:
 - Begin `rewrite_candidate_adapter_v0` planning only, or request explicit maintainer authorization for a bounded candidate adapter; do not parse production retained evidence, implement general candidate adapters, compute metrics, compute control rates, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
 
-### 2026-05-17 · pending · rewrite_candidate_adapter_v0 Track-A scaffold
+### 2026-05-17 · c9a7dd9 · rewrite_candidate_adapter_v0 Track-A scaffold
 
 Mode: bounded rewrite-candidate scaffold; no production retained-evidence parsing; legacy not read
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `pending`
-Push: `pending`
+Commit: `c9a7dd92a3c9b1e5731a8eb244fbb84fa90df756`
+Push: `origin/main` updated `6b74bbe..c9a7dd9`
 
 Summary:
 - Updated `scripts/dev/validate_ledger_csv.py` with minimal validation support for `record_type=rewrite_candidate_cell`.
@@ -3348,8 +3348,8 @@ Validation:
 - `python scripts/dev/validate_ledger_csv.py --ledger audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv --case-set case_sets/common_core_v0/cases.csv --same-engine-denominator case_sets/common_core_v0/denominator_same_engine_120.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/rewrite_candidate_adapter_v0/ledger_validation`: passed.
 - JSON invariant checks for adapter summary and ledger validation summary: passed.
 - CSV checks for 600 `rewrite_candidate_cell` rows and adapter checks: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending before commit.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Adapter result:
 - Rows emitted: 600.
