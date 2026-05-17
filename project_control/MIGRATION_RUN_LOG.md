@@ -4772,13 +4772,13 @@ Paper/denominator impact:
 Next safe action:
 - Review SQLGlot parser coverage and dry-run v4 delta/caveats; then separately decide whether to authorize additional sanitized SQLGlot non-timing sources for the remaining 103 unresolved SQLGlot rows or proceed to official metric-readiness review. Keep timing adapter work, reports/results updates, paper rendering, denominator changes, and paper-result changes separate.
 
-### 2026-05-17 · pending · official_status_metrics_readiness_gate_v0
+### 2026-05-17 · ba1f3e7 · official_status_metrics_readiness_gate_v0
 
 Mode: readiness-gate and decision packet; no official metrics; no paper tables; no timing/performance metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until push is performed
+Commit: `ba1f3e7a9d955e55b49f8bc21cfc1fede5e3e025`
+Push: `origin/main` updated `6a3357b..ba1f3e7`
 
 Summary:
 - Reviewed current audit-only candidate-status evidence after SQLGlot projection/parser v1 and normalized dry-run v4.
