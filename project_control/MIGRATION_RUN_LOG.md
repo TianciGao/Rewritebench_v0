@@ -3829,13 +3829,13 @@ Authorization:
 Next safe action:
 - Implement `candidate_status_parser_v1` from the five maintainer-approved whitelist entries only: `P001`, `P002`, `P003`, `P011`, and `P012`. The parser must remain non-timing, keep `metric_input_authorized=false`, compute no metrics, fail closed on row-grain ambiguity, leave unmatched rows unresolved, and avoid reports/results updates, denominator changes, paper-result changes, case membership changes, legacy repo mutation, and raw legacy evidence mutation.
 
-### 2026-05-17 · PENDING · candidate_status_parser_v1 bounded non-timing approved-source parser
+### 2026-05-17 · 7769d4b · candidate_status_parser_v1 bounded non-timing approved-source parser
 
 Mode: bounded non-timing approved-source parser; approved legacy CSV status columns only; no timing fields; no metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `7769d4b8943f9035fcd90a6aa7676e6470198d19`
+Push: `origin/main` updated `6932967..7769d4b`
 
 Summary:
 - Implemented `scripts/dev/build_candidate_status_parser_v1_manifest.py` to build a five-row manifest from maintainer-approved proposal IDs `P001`, `P002`, `P003`, `P011`, and `P012` only.
