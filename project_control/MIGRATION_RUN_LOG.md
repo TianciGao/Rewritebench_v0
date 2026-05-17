@@ -4176,13 +4176,13 @@ Paper/denominator impact:
 Next safe action:
 - Maintainer reviews `audits/candidate_status_overlap_and_metrics_dryrun_plan/candidate_status_overlap_review.csv` and chooses an overlap policy. Separately authorize any status-only metrics dry-run implementation before computing metrics; keep timing adapter work separate.
 
-### 2026-05-17 · PENDING · status_only_metrics_dryrun_v0 from authorized candidate-status rows
+### 2026-05-17 · a322b0a · status_only_metrics_dryrun_v0 from authorized candidate-status rows
 
 Mode: bounded audit-only metrics dry-run; status-only candidate rows; no official metrics; no paper tables; no timing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `a322b0a1b3b4e10b44b390040e46908f176a9d79`
+Push: `origin/main` updated `8ad99f5..a322b0a`
 
 Summary:
 - Added `scripts/dev/compute_status_only_metrics_dryrun.py`.
