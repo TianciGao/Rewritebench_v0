@@ -4829,13 +4829,13 @@ Task result:
 Next safe action:
 - Review the readiness matrix and decide whether to authorize a limited official status-only metrics implementation with caveats, approve another audit-only dry run, or defer until Generation Rate policy/evidence gaps and unresolved rows are reduced.
 
-### 2026-05-18 · pending · official_status_metrics_v0_limited_execution_consistency
+### 2026-05-18 · 38c0644 · official_status_metrics_v0_limited_execution_consistency
 
 Mode: limited official status-metrics computation; Execution Coverage Rate and Result Consistency Rate only; Generation Rate blocked; no paper tables; no timing/performance metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `38c0644293aa63754b098972e97a960ef690a0af`
+Push: `origin/main` updated `0d60a22..38c0644`
 
 Summary:
 - Implemented `scripts/dev/compute_official_status_metrics_limited.py`.
