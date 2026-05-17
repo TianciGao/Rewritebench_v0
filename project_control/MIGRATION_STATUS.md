@@ -33,6 +33,8 @@ Whole-case universe governance audit completed under `audits/case_universe_gover
 
 Overnight governance and redevelopment investigation completed under `audits/overnight_investigation_bundle/`. The bundle refined planning labels for all 157 non-Common-core cases, inspected the seven unregistered legacy directories, inventoried 123 legacy script/tool files as redevelopment references, audited 24 public release skeleton components, and drafted future prompts for safe next tasks. It did not migrate cases, create official staged/backlog membership files, update `case_sets/`, update reports/results, implement scripts, compute metrics, change denominators, change paper results, or modify raw legacy evidence.
 
+Staged/backlog membership preview completed under `audits/staged_backlog_membership_preview/`. The preview covers all 157 non-Common-core cases with 61 proposed staged rows, 76 proposed backlog rows, 13 manual-review rows, and 7 orphan/unregistered review rows. It did not create official `case_sets/staged_v0/` or `case_sets/backlog_v0/`, migrate cases, update `case_sets/`, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+
 Current phase: Workbench redevelopment phase.
 
 The next phase is redevelopment-led public workbench construction around canonical Common-core 40 packages, an evidence ledger schema, metrics contract, runner/output policy, retained evidence adapter, user-facing candidate runner, reproduction/report renderer, and public documentation. Legacy scripts, reports, and results are reference inputs, retained evidence sources, or adapter targets, not the architecture to copy wholesale.
@@ -71,6 +73,9 @@ Membership and scaffold snapshot:
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
 - `audits/overnight_investigation_bundle/public_release_skeleton_gap_audit.csv`: 24 intended public release layout components reviewed.
+- `audits/staged_backlog_membership_preview/proposed_staged_v0_cases_preview.csv`: 61 proposed staged preview rows; not official membership.
+- `audits/staged_backlog_membership_preview/proposed_backlog_v0_cases_preview.csv`: 76 proposed backlog preview rows; not official membership.
+- `audits/staged_backlog_membership_preview/manual_review_and_orphan_cases.csv`: 20 manual-review/orphan rows, including all seven unregistered directories.
 
 ## Explicit Boundaries
 
@@ -79,6 +84,8 @@ Membership and scaffold snapshot:
 - Paper results unchanged.
 - Case membership unchanged.
 - `case_sets/` aligned for fixed Common-core v0 membership; no membership change.
+- Official `case_sets/staged_v0/` created: no.
+- Official `case_sets/backlog_v0/` created: no.
 - `inventory/` aligned for fixed Common-core v0 scope.
 - `reports/` not updated by case-package migration or final closeout.
 - `results/` not updated by case-package migration or final closeout.
@@ -113,6 +120,7 @@ Membership and scaffold snapshot:
 - Metrics finalization decision packet completed without implementing metrics, adapters, reproduction interfaces, public runners, or paper table rendering.
 - Metrics contract resolution draft completed without implementing metrics, adapters, reproduction interfaces, public runners, reports/results migration, or paper table rendering.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
+- Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 
 ## Remaining Non-Case-Package Blockers
 
@@ -124,10 +132,11 @@ Membership and scaffold snapshot:
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
+- Staged/backlog preview is available for maintainer review; official staged/backlog membership remains unapproved and uncreated.
 - Public release skeleton gaps remain: README/docs/benchmark_spec, license/citation/contributing metadata, user/reproduction script namespaces, curated reports/results, tests, `src/`, and CI.
 - Paper tables/results were not regenerated or changed.
 - No release tag has been created.
 
 ## Current Next Safe Action
 
-Review the overnight investigation bundle, then run a bounded benchmark_spec/docs public skeleton formalization task or staged/backlog official membership preview. Do not migrate non-Common-core cases, create official staged/backlog case sets, implement metrics/runners/adapters, update reports/results, change denominator values, or modify raw legacy evidence yet.
+Review the staged/backlog membership preview and decide whether to approve criteria for a future official staged/backlog case-set task. Do not migrate non-Common-core cases, create official staged/backlog case sets, implement metrics/runners/adapters, update reports/results, change denominator values, or modify raw legacy evidence yet.

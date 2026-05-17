@@ -1,0 +1,18 @@
+{
+  "actual_case_migration_performed": false,
+  "case_sets_changed": false,
+  "defer_post_release_count": 0,
+  "denominator_changed": false,
+  "duplicate_or_alias_count": 0,
+  "exclude_private_or_scratch_count": 0,
+  "manual_review_count": 13,
+  "next_safe_action": "maintainer review of staged/backlog preview, then optional official membership-file task without denominator or Common-core changes",
+  "non_common_core_cases_reviewed": 157,
+  "orphan_or_unregistered_count": 7,
+  "paper_results_changed": false,
+  "proposed_backlog_count": 76,
+  "proposed_staged_count": 61,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "results_changed": false
+}

@@ -2352,3 +2352,53 @@ Paper/denominator impact:
 
 Next safe action:
 - Review the overnight investigation bundle, then run a bounded benchmark_spec/docs public skeleton formalization task or staged/backlog official membership preview without migration, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.
+
+### 2026-05-17 · pending · Staged/backlog membership preview for non-Common-core case universe
+
+Mode: release-repo membership preview/governance planning output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created a human-reviewable staged/backlog membership preview for all 157 non-Common-core cases using the case-universe governance audit and overnight investigation bundle.
+- Split preview rows into 61 proposed staged rows, 76 proposed backlog rows, and 20 manual-review/orphan rows.
+- Forced all seven detected-but-unregistered directories into `orphan_or_unregistered_review` until registry reconciliation occurs.
+- Created future prompt drafts for official staged/backlog case-set creation, staged low-risk batch migration planning, and manual-review/orphan reconciliation, all marked do-not-execute-now.
+- Did not migrate cases, create official `case_sets/staged_v0/` or `case_sets/backlog_v0/`, modify `case_sets/common_core_v0/`, modify inventory, update reports/results, implement scripts, compute metrics, run DB engines, run validation scripts, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, delete/move `runs/`, or modify raw legacy evidence.
+
+Files created:
+- `audits/staged_backlog_membership_preview/staged_backlog_membership_preview_summary.md`
+- `audits/staged_backlog_membership_preview/proposed_staged_v0_cases_preview.csv`
+- `audits/staged_backlog_membership_preview/proposed_backlog_v0_cases_preview.csv`
+- `audits/staged_backlog_membership_preview/manual_review_and_orphan_cases.csv`
+- `audits/staged_backlog_membership_preview/staged_backlog_pool_summary.csv`
+- `audits/staged_backlog_membership_preview/staged_backlog_membership_preview_checks.csv`
+- `audits/staged_backlog_membership_preview/staged_backlog_membership_preview_notes.md`
+- `audits/staged_backlog_membership_preview/future_official_membership_files_plan.md`
+- `audits/staged_backlog_membership_preview/staged_backlog_membership_preview_summary.json`
+- `audits/staged_backlog_membership_preview/future_prompts/create_official_staged_backlog_case_sets_prompt.md`
+- `audits/staged_backlog_membership_preview/future_prompts/staged_low_risk_batch_migration_planning_prompt.md`
+- `audits/staged_backlog_membership_preview/future_prompts/manual_review_orphan_reconciliation_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse, CSV coverage checks, Common-core exclusion check, unregistered-directory inclusion check, staged/backlog directory absence check, future-prompt marker check, git diff check, and git status check: passed.
+
+Paper/denominator impact:
+- official case_sets/staged_v0 created: no
+- official case_sets/backlog_v0 created: no
+- case_sets changed: no
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Next safe action:
+- Maintainer review of staged/backlog preview criteria and unregistered-directory disposition before any official staged/backlog case-set creation, migration planning, denominator changes, reports/results updates, metrics implementation, runner implementation, adapter implementation, or raw legacy evidence changes.

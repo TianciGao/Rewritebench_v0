@@ -1,0 +1,14 @@
+pool,proposed_membership_status,count,representative_cases,main_risks,recommended_future_action
+CONS,manual_review_required,4,CONS_0001;CONS_0002;CONS_0003;CONS_0004,manual_review:4,manual review before staged/backlog assignment
+CONS,proposed_backlog_v0,19,CONS_0008;CONS_0013;CONS_0014;CONS_0015;CONS_0016;CONS_0018;CONS_0019;CONS_0020,true:19,retain as governed backlog; prioritize evidence index and checker review
+CONS,proposed_staged_v0,8,CONS_0006;CONS_0017;CONS_0023;CONS_0029;CONS_0031;CONS_0032;CONS_0034;CONS_0040,true:8,"maintainer review, then possible official staged_v0 preview file in a separate task"
+LONGTAIL,manual_review_required,2,LONGTAIL_0001;LONGTAIL_0002,manual_review:2,manual review before staged/backlog assignment
+LONGTAIL,orphan_or_unregistered_review,2,LONGTAIL_0006;LONGTAIL_0017,manual_review:2,registry reconciliation before any membership decision
+LONGTAIL,proposed_backlog_v0,14,LONGTAIL_0003;LONGTAIL_0004;LONGTAIL_0005;LONGTAIL_0007;LONGTAIL_0008;LONGTAIL_0009;LONGTAIL_0010;LONGTAIL_0014,true:14,retain as governed backlog; prioritize evidence index and checker review
+PERF,manual_review_required,6,PERF_0001;PERF_0003;PERF_0004;PERF_0005;PERF_0046;PERF_0048,manual_review:6,manual review before staged/backlog assignment
+PERF,orphan_or_unregistered_review,4,PERF_0079;PERF_0087;PERF_0092;PERF_0100,manual_review:4,registry reconciliation before any membership decision
+PERF,proposed_backlog_v0,43,PERF_0027;PERF_0028;PERF_0029;PERF_0030;PERF_0031;PERF_0032;PERF_0037;PERF_0039,false:1; true:42,retain as governed backlog; prioritize evidence index and checker review
+PERF,proposed_staged_v0,36,PERF_0002;PERF_0009;PERF_0010;PERF_0011;PERF_0012;PERF_0014;PERF_0015;PERF_0016,true:36,"maintainer review, then possible official staged_v0 preview file in a separate task"
+PORT,manual_review_required,1,PORT_0001,manual_review:1,manual review before staged/backlog assignment
+PORT,orphan_or_unregistered_review,1,PORT_0007,manual_review:1,registry reconciliation before any membership decision
+PORT,proposed_staged_v0,17,PORT_0002;PORT_0006;PORT_0009;PORT_0010;PORT_0011;PORT_0014;PORT_0015;PORT_0016,false:1; true:16,"maintainer review, then possible official staged_v0 preview file in a separate task"

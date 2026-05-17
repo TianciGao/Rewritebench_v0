@@ -1,0 +1,11 @@
+check_name,status,details
+non_common_core_rows_covered,pass,covered=157; expected=157; missing=[]
+common_core_excluded_from_preview,pass,common_core_overlap=[]
+proposed_staged_count,pass,count=61
+proposed_backlog_count,pass,count=76
+manual_review_count,pass,manual_review_required=13
+unregistered_count,pass,orphan_or_unregistered_review=7; unregistered=LONGTAIL_0006;LONGTAIL_0017;PERF_0079;PERF_0087;PERF_0092;PERF_0100;PORT_0007
+no_case_sets_modified,pass,official staged/backlog case_sets directories absent
+no_denominator_change,pass,preview writes no denominator files and changes no denominator values
+no_reports_results_change,pass,preview writes no reports/ or results/ files
+no_raw_legacy_change,pass,legacy repository inspected only through prior audits/read-only context; no writes
