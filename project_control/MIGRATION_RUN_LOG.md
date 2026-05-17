@@ -2601,13 +2601,13 @@ Authorization:
 Next safe action:
 - Review the ledger schema model and synthetic validation fixtures, then design or prototype a non-mutating validator that reads only synthetic fixtures without parsing production retained evidence, implementing adapters, computing metrics, rendering paper tables, updating reports/results, changing denominators, or modifying raw legacy evidence.
 
-### 2026-05-17 · pending · Ledger fixture validator skeleton
+### 2026-05-17 · 9882090 · Ledger fixture validator skeleton
 
 Mode: release-repo developer validator skeleton for synthetic fixtures only; legacy read-only
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `9882090eb22c98acc193a850e382130e06f4a1fd`
+Push: `origin/main` updated `715bc5c..9882090`
 
 Summary:
 - Created `scripts/dev/validate_ledger_fixtures.py`, a non-mutating developer validator that reads only synthetic ledger fixture CSVs and static Common-core denominator/control scaffolds.
@@ -2630,8 +2630,8 @@ Validation:
 - `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
 - `python scripts/dev/validate_ledger_fixtures.py --fixtures-dir audits/ledger_schema_validation_fixtures --out-dir audits/ledger_fixture_validator_skeleton`: passed.
 - JSON parse and CSV row checks: passed.
-- `git diff --check`: pending.
-- `git status -sb`: pending.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
 
 Paper/denominator impact:
 - production retained evidence parsed: no
