@@ -1,0 +1,36 @@
+{
+  "adapter_name": "candidate_status_adapter_v0",
+  "adapter_scope": "release_summary_only_non_timing_overlay",
+  "denominator_changed": false,
+  "execution_coverage_computed": false,
+  "generation_rate_computed": false,
+  "legacy_repo_read": false,
+  "methods_emitted": [
+    "direct_llm_original",
+    "direct_llm_repair_1",
+    "sqlglot_optimize",
+    "sqlglot_noop",
+    "calcite_hep_fail_closed"
+  ],
+  "metric_input_authorized": false,
+  "metrics_computed": false,
+  "paper_results_changed": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_emitted": [
+    "rewrite_candidate_cell"
+  ],
+  "reports_changed": false,
+  "result_consistency_rate_computed": false,
+  "results_changed": false,
+  "route_level_summary_only_rows": 600,
+  "row_level_status_rows_filled": 0,
+  "rows_emitted": 600,
+  "scaffold_rows_emitted": 600,
+  "scaffold_rows_expected": 600,
+  "status_fill_level_counts": {
+    "release_summary_route_level_only": 600
+  },
+  "timing_metrics_computed": false,
+  "unresolved_status_rows": 600
+}

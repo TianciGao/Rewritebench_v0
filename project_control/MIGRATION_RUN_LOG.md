@@ -3450,3 +3450,89 @@ Authorization:
 
 Next safe action:
 - Request explicit maintainer authorization for a bounded `candidate_status_adapter_v0` that fills only non-timing, non-metric candidate status fields from approved release-repo summaries when row grain is unambiguous; otherwise keep candidate fields `N.A.` or `evidence_not_adapted_yet`. Do not parse legacy raw evidence, read legacy reports/results/runs, compute metrics, authorize metric input, render paper tables, update reports/results, change denominators, or modify raw legacy evidence.
+
+### 2026-05-17 · pending · candidate_status_adapter_v0 release-summary-only non-timing overlay
+
+Mode: bounded rewrite-candidate status overlay; release-summary-only; no production retained-evidence parsing; legacy not read
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending before commit
+Push: pending before push
+
+Summary:
+- Created `scripts/dev/build_candidate_status_ledger.py`, a bounded release-summary-only non-timing overlay adapter for the existing 600-row Track-A same-engine rewrite candidate scaffold.
+- Created `audits/candidate_status_adapter_v0/` with a 600-row `rewrite_candidate_cell` overlay ledger, summary, report, checks, limitations, input-use log, and ledger-validator outputs.
+- Created developer documentation at `docs/dev/CANDIDATE_STATUS_ADAPTER_V0.md`.
+- Read only the existing scaffold and allowed release-repo audit metadata inputs.
+- Did not open legacy paths referenced inside release audit CSVs.
+- Emitted 600 rows, preserving the five scaffold method routes: `direct_llm_original`, `direct_llm_repair_1`, `sqlglot_optimize`, `sqlglot_noop`, and `calcite_hep_fail_closed`.
+- Filled 0 row-level candidate statuses because no exact case_id x engine x rewrite_method release evidence was available from the allowed metadata.
+- Marked 600 rows unresolved with `result_status=evidence_not_adapted_yet`, `metric_input_authorized=false`, and `metrics_computed=false`.
+- Detected route-level summary metadata for 600 rows and did not distribute route-level counts/statuses into row-level statuses.
+- Did not parse production retained evidence, read the legacy repo, parse legacy reports/results/runs, parse method raw outputs, parse timing files, implement timing adapters, implement portability adapters, implement verifier support adapters, compute Generation Rate, compute Execution Coverage Rate, compute Result Consistency Rate, compute Semantic Equivalence Rate, compute GM_Speedup, compute Speedup Ratio Percentiles, compute Attribution Coverage, compute Cross-Engine metrics, render paper tables, implement a reproduction CLI, copy reports/results, create `results/retained`, create `reports/evaluation`, update denominators, change paper results, change case membership, or modify raw legacy evidence.
+
+Files created:
+- `scripts/dev/build_candidate_status_ledger.py`
+- `audits/candidate_status_adapter_v0/candidate_status_ledger_v0.csv`
+- `audits/candidate_status_adapter_v0/candidate_status_adapter_v0_summary.json`
+- `audits/candidate_status_adapter_v0/candidate_status_adapter_v0_report.md`
+- `audits/candidate_status_adapter_v0/candidate_status_adapter_v0_checks.csv`
+- `audits/candidate_status_adapter_v0/candidate_status_adapter_v0_limitations.md`
+- `audits/candidate_status_adapter_v0/candidate_status_input_use_log.csv`
+- `audits/candidate_status_adapter_v0/ledger_validation/ledger_validation_results.csv`
+- `audits/candidate_status_adapter_v0/ledger_validation/ledger_validation_summary.json`
+- `audits/candidate_status_adapter_v0/ledger_validation/ledger_validation_report.md`
+- `docs/dev/CANDIDATE_STATUS_ADAPTER_V0.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python -m py_compile scripts/dev/build_candidate_status_ledger.py`: passed.
+- `python -m py_compile scripts/dev/build_rewrite_candidate_scaffold_ledger.py`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_csv.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- `python scripts/dev/build_candidate_status_ledger.py --scaffold audits/rewrite_candidate_adapter_v0/rewrite_candidate_scaffold_ledger_v0.csv --out-dir audits/candidate_status_adapter_v0`: passed.
+- `python scripts/dev/validate_ledger_csv.py --ledger audits/candidate_status_adapter_v0/candidate_status_ledger_v0.csv --case-set case_sets/common_core_v0/cases.csv --same-engine-denominator case_sets/common_core_v0/denominator_same_engine_120.csv --controls case_sets/common_core_v0/controls_360.csv --out-dir audits/candidate_status_adapter_v0/ledger_validation`: passed, 600 rows checked, 0 errors, 0 warnings.
+- JSON invariant checks for adapter summary and ledger validation summary: passed.
+- CSV checks for 600 `rewrite_candidate_cell` rows, false safety flags, no timing/speedup values, adapter checks, and validation pass status: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit with only intended candidate-status adapter, audit, docs, and project-control changes.
+
+Adapter result:
+- Rows emitted: 600.
+- Record types emitted: `rewrite_candidate_cell`.
+- Row-level status rows filled: 0.
+- Unresolved status rows: 600.
+- Status fill levels: 600 `release_summary_route_level_only`.
+- Input-use log: 10 release metadata files inspected; 0 row-level evidence files found; 4 route-level/group-level metadata files found; `legacy_paths_opened=false` for every row.
+- Adapter validation: passed, 600 rows checked, 0 errors, 0 warnings.
+- Fixture smoke: passed, 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, 0 unexpected pass/fail rows.
+- Production retained evidence parsed: no.
+- Legacy repo read: no.
+- Metrics computed: no.
+- Generation Rate computed: no.
+- Execution Coverage Rate computed: no.
+- Result Consistency Rate computed: no.
+- Timing metrics computed: no.
+- Metric input authorized: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- general retained-evidence adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review `candidate_status_adapter_v0` unresolved overlay rows and input-use log before authorizing any production retained-evidence candidate adapter. Do not parse legacy/raw evidence, fill timing fields, authorize metric input, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
