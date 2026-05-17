@@ -1,0 +1,22 @@
+{
+  "audit_only_metrics_computed": true,
+  "authorized_input_rows": 130,
+  "denominator_changed": false,
+  "dryrun_task_completed": true,
+  "execution_coverage_dryrun_created": true,
+  "generation_rate_dryrun_created": true,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review normalized dry-run outputs and caveats; separately authorize official metric computation or additional evidence parsing before producing benchmark results.",
+  "normalized_overlay_rows": 130,
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "result_consistency_dryrun_created": true,
+  "results_changed": false,
+  "rows_with_manual_mapping_needed": 0,
+  "timing_metrics_computed": false,
+  "unauthorized_overlap_rows": 45,
+  "unresolved_rows": 425
+}

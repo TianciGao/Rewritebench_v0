@@ -1,0 +1,14 @@
+check_name,status,details
+normalized overlay rows = 130,PASS,normalized overlay rows=130
+only authorized overlay rows used,PASS,authorized normalized input rows=130
+overlap rows excluded,PASS,overlap rows excluded=45
+unresolved rows preserved in denominator accounting,PASS,unresolved rows=425; denominator preserved rows=60/60
+timing fields ignored,PASS,"timed, latency_ms, speedup_ratio, and timing_eligible are not read or output as metric inputs"
+GM_Speedup not computed,PASS,performance metrics are outside this dry-run scope
+Speedup Ratio Percentiles not computed,PASS,performance metrics are outside this dry-run scope
+paper_result=false,PASS,all dry-run table rows set paper_result=false
+audit_only=true,PASS,all dry-run table rows set audit_only=true
+reports/results unchanged,PASS,script writes only to audits/normalized_status_only_metrics_dryrun_v1
+denominator unchanged,PASS,denominator CSV is read-only; no case_sets files are written
+paper results unchanged,PASS,no paper result file or table is written
+no global leaderboard output,PASS,"dry-run rows are grouped by metric, method, pool, and engine"
