@@ -50,6 +50,8 @@ python scripts/dev/smoke_ledger_fixtures.py
 
 CI validates only the synthetic fixture validator path. It does not install database engines, run DB validation, parse production retained evidence, compute metrics, update reports/results, or render paper tables.
 
+Production ledger validation gates are planned separately in `repository_spec/production_ledger_validation_policy_v1_draft.md`; fixture smoke is only the pre-production smoke layer.
+
 CI failures should be interpreted as fixture/schema/validator smoke failures, not production benchmark-result failures. Check the uploaded `ledger-fixture-smoke` artifact and the files under `audits/ledger_fixture_dev_smoke/`.
 
 ## What It Validates

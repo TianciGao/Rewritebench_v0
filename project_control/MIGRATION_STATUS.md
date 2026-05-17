@@ -49,6 +49,8 @@ The next phase is redevelopment-led public workbench construction around canonic
 
 Important blocker: Metrics Contract v1 is formalized, but implementation remains unauthorized. Before implementing retained-evidence adapters, a unified reproduction CLI, public runner outputs, paper table rendering, or metrics computation, the maintainer/team must authorize the corresponding implementation phase and validation gates.
 
+Production ledger validation-gate planning is complete under `repository_spec/production_ledger_validation_policy_v1_draft.md` and `audits/production_ledger_validation_gates/`. The plan defines schema, record-type, denominator, status/N.A., metric-readiness, public-hygiene, mutation-boundary, no-global-leaderboard, provenance, and CI-smoke gates for future production ledgers. It does not implement a production ledger validator, parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, change paper results, or modify raw legacy evidence.
+
 ## Common-core Case-Package Counts
 
 | Pool | Canonical complete | Common-core total | Status |
@@ -92,6 +94,10 @@ Membership and scaffold snapshot:
 - `audits/ledger_fixture_dev_smoke/ledger_fixture_hardening_summary.json`: latest developer smoke output; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and no production retained evidence parsed.
 - `.github/workflows/ledger-fixture-smoke.yml`: lightweight GitHub Actions workflow running the synthetic ledger fixture smoke validator on push, pull request, and manual dispatch.
 - `audits/ledger_fixture_ci_smoke/ledger_fixture_ci_smoke_summary.json`: CI smoke wiring audit summary; workflow created and local smoke passed without production retained evidence parsing.
+- `repository_spec/production_ledger_validation_policy_v1_draft.md`: policy-only future production ledger validation gate plan.
+- `audits/production_ledger_validation_gates/production_ledger_gate_matrix.csv`: 24 proposed validation gates across schema, record-type, denominator, status/N.A., metric-readiness, public hygiene, mutation boundary, no-global-leaderboard, provenance, and CI-smoke families.
+- `audits/production_ledger_validation_gates/record_type_production_gate_matrix.csv`: seven ledger record types covered by future production validation gates.
+- `audits/production_ledger_validation_gates/metric_readiness_gate_matrix.csv`: 10 Metrics Contract v1 primary metrics mapped to pre-computation readiness gates, with `can_compute_without_gate=false`.
 - `audits/case_universe_governance/case_universe_index.csv`: 197 detected legacy case-like directories indexed for governance; 40 Common-core and 157 non-Common-core.
 - `audits/overnight_investigation_bundle/proposed_staged_backlog_membership_matrix.csv`: 157 non-Common-core planning rows; planning labels only, not official membership.
 - `audits/overnight_investigation_bundle/legacy_script_reference_inventory.csv`: 123 legacy script/tool files classified for redevelopment reference.
@@ -130,6 +136,8 @@ Membership and scaffold snapshot:
 - Production retained evidence parsed by hardened ledger fixture validator: no.
 - Production retained evidence parsed by developer smoke entrypoint: no.
 - Production retained evidence parsed by ledger fixture CI smoke workflow: no.
+- Production retained evidence parsed by production ledger validation-gate planning: no.
+- Production ledger validator implemented: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -158,6 +166,7 @@ Membership and scaffold snapshot:
 - Ledger fixture validator hardening and dev-smoke documentation completed for synthetic fixtures only, without parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Developer-only ledger fixture smoke entrypoint completed, wrapping the hardened synthetic validator without parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Ledger fixture CI smoke workflow completed, running synthetic fixture validation only and not parsing production retained evidence, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
+- Production ledger validation-gate planning completed without parsing production retained evidence, implementing a production ledger validator, implementing adapters, computing metrics, implementing a reproduction interface, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -168,7 +177,7 @@ Membership and scaffold snapshot:
 - Validation scripts are retained legacy assets, not final public user runners.
 - Public runner and output policy are not done.
 - Evidence ledger schema, metrics contract, retained evidence adapter, and script redevelopment plan are draft/planning artifacts only.
-- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, and CI wiring for synthetic fixture smoke exists; production retained-evidence parsing, adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
+- Metrics Contract v1 is formalized, retained-evidence adapter design is complete, synthetic ledger schema validation fixtures exist, a hardened synthetic-only fixture validator exists, a developer-only smoke entrypoint exists, CI wiring for synthetic fixture smoke exists, and production ledger validation-gate planning is complete; production retained-evidence parsing, production ledger validator implementation, adapter implementation, metrics implementation, reproduction interface implementation, public runner implementation, and paper table rendering still require explicit authorization.
 - Script inventory and reproduction path are not done.
 - Case universe governance audit is complete; staged/backlog membership decisions are not yet approved.
 - Overnight staged/backlog planning labels are available, but official staged/backlog membership files are not approved or created.
@@ -180,4 +189,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Monitor the ledger fixture smoke workflow on subsequent pushes and pull requests. The next safe planning task is production ledger validation-gate design only; do not parse production retained evidence, implement retained-evidence adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.
+Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter. Do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominator values, or modify raw legacy evidence without separate authorization.

@@ -1,0 +1,17 @@
+{
+  "adapter_implementation_authorized": false,
+  "denominator_changed": false,
+  "gates_defined_count": 24,
+  "metrics_covered": 10,
+  "metrics_implementation_authorized": false,
+  "next_safe_action": "Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter.",
+  "paper_results_changed": false,
+  "paper_table_rendering_authorized": false,
+  "production_ledger_validator_implemented": false,
+  "production_retained_evidence_parsed": false,
+  "raw_legacy_evidence_changed": false,
+  "record_types_covered": 7,
+  "reports_changed": false,
+  "reproduction_interface_authorized": false,
+  "results_changed": false
+}

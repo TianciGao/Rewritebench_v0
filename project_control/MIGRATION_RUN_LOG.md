@@ -2845,3 +2845,69 @@ Authorization:
 
 Next safe action:
 - Monitor the ledger fixture smoke workflow on subsequent pushes and pull requests, then plan production ledger validation gates only if separately authorized; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
+
+### 2026-05-17 · pending · Production ledger validation gates planning
+
+Mode: release-repo validation-gate planning/spec output; legacy read-only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `repository_spec/production_ledger_validation_policy_v1_draft.md`, a policy-only future production ledger validation gate plan.
+- Created production-ledger validation gate audit outputs under `audits/production_ledger_validation_gates/`.
+- Defined 24 proposed gates covering schema, record type, denominator, status/N.A., metric-readiness, public hygiene, mutation boundary, no-global-leaderboard, provenance, and CI-smoke checks.
+- Covered all seven evidence ledger record types and all 10 Metrics Contract v1 primary metrics.
+- Minimally updated `docs/dev/LEDGER_FIXTURE_SMOKE.md` to point from synthetic fixture smoke to the production gate policy.
+- Did not parse production retained evidence, read legacy reports/results/runs as adapter inputs, implement a production ledger validator, implement retained-evidence adapters, implement metrics computation, implement a reproduction CLI, implement public runner outputs, implement paper table rendering, copy reports/results, write case-local runs, run DB engines, run LLM calls, run timing workloads, change denominator values, change paper results, change case membership, modify case sets, modify migrated case packages, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/production_ledger_validation_policy_v1_draft.md`
+- `audits/production_ledger_validation_gates/production_ledger_validation_gates_summary.md`
+- `audits/production_ledger_validation_gates/production_ledger_gate_matrix.csv`
+- `audits/production_ledger_validation_gates/record_type_production_gate_matrix.csv`
+- `audits/production_ledger_validation_gates/metric_readiness_gate_matrix.csv`
+- `audits/production_ledger_validation_gates/production_ledger_validator_future_cli_design.md`
+- `audits/production_ledger_validation_gates/production_ledger_validation_failure_policy.md`
+- `audits/production_ledger_validation_gates/production_ledger_validation_gates_summary.json`
+
+Files modified:
+- `docs/dev/LEDGER_FIXTURE_SMOKE.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `audits/production_ledger_validation_gates/production_ledger_validation_gates_summary.json` parse and invariant checks: passed.
+- CSV checks for gate families, record types, metric coverage, and `can_compute_without_gate=false`: passed.
+- `python -m py_compile scripts/dev/validate_ledger_fixtures.py`: passed.
+- `python -m py_compile scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- `git diff --check`: passed.
+- `git status -sb`: passed before commit.
+
+Planning result:
+- Gates defined: 24.
+- Record types covered: 7.
+- Metrics covered: 10.
+- Production retained evidence parsed: no.
+- Production ledger validator implemented: no.
+
+Paper/denominator impact:
+- reports changed: no
+- results changed: no
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Authorization:
+- production ledger validator implemented: no
+- adapter implementation authorized: no
+- metrics implementation authorized: no
+- reproduction interface implementation authorized: no
+- public runner implementation authorized: no
+- paper table rendering authorized: no
+
+Next safe action:
+- Review and approve the production ledger validation gate policy before implementing any production ledger validator or retained-evidence adapter; do not parse production retained evidence, implement adapters, compute metrics, render paper tables, update reports/results, change denominators, or modify raw legacy evidence without separate authorization.
