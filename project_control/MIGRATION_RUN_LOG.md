@@ -4242,13 +4242,13 @@ Paper/denominator impact:
 Next safe action:
 - Review `audits/status_only_metrics_dryrun_v0/status_only_metrics_dryrun_table.csv` and its status-normalization caveats. If accepted, separately authorize status normalization and any official metric-computation task; keep overlap resolution and timing adapter work separate.
 
-### 2026-05-17 · PENDING · status_field_normalization_v0 for authorized candidate-status rows
+### 2026-05-17 · c78ba6a · status_field_normalization_v0 for authorized candidate-status rows
 
 Mode: bounded audit-only status normalization; authorized candidate-status rows only; no metrics; no timing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `c78ba6ab3b47a50268814d660c49f1f1828bc14d`
+Push: `origin/main` updated `e6f4420..c78ba6a`
 
 Summary:
 - Added `scripts/dev/normalize_candidate_status_fields.py`.
