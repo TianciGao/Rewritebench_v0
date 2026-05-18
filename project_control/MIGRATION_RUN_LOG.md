@@ -5722,13 +5722,13 @@ Task result:
 Next safe action:
 - Authorize b_line_user_entry_mvp_v0 to implement a minimal non-DB user runner skeleton that writes only to `runs/user/<run_id>/` and keeps case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
 
-### 2026-05-18 · PENDING · b_line_user_entry_mvp_v0
+### 2026-05-18 · a469ab8 · b_line_user_entry_mvp_v0
 
 Mode: B-line user entry MVP implementation; minimal non-DB public runner skeleton; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no case migration
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until commit is pushed
+Commit: `a469ab8a824c850655f2b318cac487d652305923`
+Push: succeeded; updated `origin/main` from `5b088ca` to `a469ab8`
 
 Summary:
 - Implemented a module-first user runner skeleton under `src/sql_rewrite_bench/`.
