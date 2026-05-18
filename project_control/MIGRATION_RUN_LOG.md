@@ -5611,13 +5611,13 @@ Task result:
 Next safe action:
 - Prepare a separately authorized wave 004 blocker-resolution packet for the remaining manual-review, missing-checker backlog, and orphan/unregistered rows before any further package migration, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
 
-### 2026-05-18 · PENDING · wave004_blocker_resolution_packet_v0
+### 2026-05-18 · 886a2ff · wave004_blocker_resolution_packet_v0
 
 Mode: blocker-resolution and next-wave policy packet; no case migration; no case-set membership update; no denominator update; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until commit is pushed
+Commit: `886a2fffb3f1e6579e8100618d474ab8c77352ee`
+Push: succeeded; updated `origin/main` from `6dd4f7c` to `886a2ff`
 
 Summary:
 - Reviewed all 97 remaining non-Common-core rows from `audits/wave003_closeout_and_wave004_selection_v0/wave004_candidate_selection.csv`.
