@@ -1,0 +1,19 @@
+{
+  "backlog_defer_cases": 77,
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "manual_review_cases": 13,
+  "metrics_computed": false,
+  "new_case_migrations_performed": false,
+  "next_safe_action": "Prepare a manual checker/schema/hard-negative and orphan registry reconciliation packet before any wave004 migration; do not migrate cases until source/positive/checker core assets and registry identity are resolved.",
+  "orphan_registry_review_cases": 7,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "policy_questions_reviewed": 7,
+  "policy_unlocked_candidates": 0,
+  "raw_legacy_evidence_changed": false,
+  "remaining_candidates_reviewed": 97,
+  "reports_changed": false,
+  "results_changed": false,
+  "task_completed": true
+}

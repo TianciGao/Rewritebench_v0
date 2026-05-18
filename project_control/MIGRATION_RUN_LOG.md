@@ -5610,3 +5610,60 @@ Task result:
 
 Next safe action:
 - Prepare a separately authorized wave 004 blocker-resolution packet for the remaining manual-review, missing-checker backlog, and orphan/unregistered rows before any further package migration, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
+
+### 2026-05-18 · PENDING · wave004_blocker_resolution_packet_v0
+
+Mode: blocker-resolution and next-wave policy packet; no case migration; no case-set membership update; no denominator update; no metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until commit is pushed
+
+Summary:
+- Reviewed all 97 remaining non-Common-core rows from `audits/wave003_closeout_and_wave004_selection_v0/wave004_candidate_selection.csv`.
+- Reviewed 7 policy questions covering missing checker, missing retained evidence, hard-negative review, schema/load gaps, orphan/unregistered registry reconciliation, public hygiene, and minimum package policy.
+- Recommended 0 policy-unlocked wave004 migration candidates.
+- Kept 13 rows in manual review, 77 rows in backlog defer, and 7 rows in orphan/registry review.
+- Did not migrate cases, modify case packages, update `case_sets/`, update reports/results, change denominators, change paper results, compute metrics, render paper tables, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/wave004_blocker_resolution_packet_v0/wave004_blocker_resolution_summary.md`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_remaining_case_blocker_matrix.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_policy_resolution_matrix.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_policy_unlocked_candidates.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_manual_review_cases.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_backlog_defer_cases.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_orphan_registry_review_cases.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_candidate_selection_after_blocker_resolution.csv`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_batch_plan_after_blocker_resolution.md`
+- `audits/wave004_blocker_resolution_packet_v0/future_wave004_policy_approved_prompt.md`
+- `audits/wave004_blocker_resolution_packet_v0/wave004_blocker_resolution_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- CSV reconciliation checks: passed; blocker matrix and after-resolution selection each cover all 97 remaining candidates, manual/backlog/orphan counts reconcile to 13/77/7, and policy-unlocked candidates count is 0.
+
+Task result:
+- New case migrations performed: no.
+- Remaining candidates reviewed: 97.
+- Policy-unlocked candidates: 0.
+- Manual review cases: 13.
+- Backlog defer cases: 77.
+- Orphan/registry review cases: 7.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Prepare a manual checker/schema/hard-negative and orphan registry reconciliation packet before any wave004 migration; do not migrate cases until source/positive/checker core assets and registry identity are resolved, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
