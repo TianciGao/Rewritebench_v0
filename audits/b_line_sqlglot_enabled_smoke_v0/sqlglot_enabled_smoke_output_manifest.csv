@@ -1,0 +1,23 @@
+smoke_run,route,expected_file,exists,candidate_generated,notes
+sqlglot_enabled_noop_dry_run,noop,config.yaml,true,false,Dry-run output file present.
+sqlglot_enabled_noop_dry_run,noop,selected_cases.csv,true,false,Dry-run output file present.
+sqlglot_enabled_noop_dry_run,noop,ledger.csv,true,false,Dry-run ledger present with skipped_dry_run extraction status.
+sqlglot_enabled_noop_dry_run,noop,summary.json,true,false,Dry-run summary reported selected_rows=2 and candidate_generated_rows=0.
+sqlglot_enabled_noop_dry_run,noop,failures.csv,true,false,Dry-run failures file present.
+sqlglot_enabled_noop_dry_run,noop,report.md,true,false,Dry-run report present.
+sqlglot_enabled_noop_smoke,noop,config.yaml,true,true,Real no-op output file present.
+sqlglot_enabled_noop_smoke,noop,selected_cases.csv,true,true,Real no-op selected cases file present.
+sqlglot_enabled_noop_smoke,noop,ledger.csv,true,true,Real no-op ledger reported candidate_generated=true for 2 rows.
+sqlglot_enabled_noop_smoke,noop,summary.json,true,true,Real no-op summary reported candidate_generated_rows=2.
+sqlglot_enabled_noop_smoke,noop,failures.csv,true,true,Real no-op failures file present.
+sqlglot_enabled_noop_smoke,noop,report.md,true,true,Real no-op report present.
+sqlglot_enabled_noop_smoke,noop,candidate_sql/PERF_0006__postgres.sql,true,true,Real no-op candidate SQL file present.
+sqlglot_enabled_noop_smoke,noop,candidate_sql/PERF_0007__postgres.sql,true,true,Real no-op candidate SQL file present.
+sqlglot_enabled_optimize_smoke,optimize,config.yaml,true,true,Real optimize output file present.
+sqlglot_enabled_optimize_smoke,optimize,selected_cases.csv,true,true,Real optimize selected cases file present.
+sqlglot_enabled_optimize_smoke,optimize,ledger.csv,true,true,Real optimize ledger reported candidate_generated=true for 2 rows.
+sqlglot_enabled_optimize_smoke,optimize,summary.json,true,true,Real optimize summary reported candidate_generated_rows=2.
+sqlglot_enabled_optimize_smoke,optimize,failures.csv,true,true,Real optimize failures file present.
+sqlglot_enabled_optimize_smoke,optimize,report.md,true,true,Real optimize report present.
+sqlglot_enabled_optimize_smoke,optimize,candidate_sql/PERF_0006__postgres.sql,true,true,Real optimize candidate SQL file present.
+sqlglot_enabled_optimize_smoke,optimize,candidate_sql/PERF_0007__postgres.sql,true,true,Real optimize candidate SQL file present.

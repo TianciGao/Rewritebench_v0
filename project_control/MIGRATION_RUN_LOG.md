@@ -6104,3 +6104,80 @@ Task result:
 
 Next safe action:
 - Optionally authorize a SQLGlot-enabled environment smoke that installs `.[sqlglot]` and runs real no-op and optimize adapter routes without DB execution, checker execution, official metrics, paper rendering, retained-evidence updates, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
+
+### 2026-05-18 · TBD · b_line_sqlglot_enabled_smoke_v0
+
+Mode: B-line SQLGlot enabled smoke; optional dependency verification and real non-DB SQLGlot adapter smoke only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no retained-evidence parsing
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: TBD
+
+Summary:
+- Created an isolated temporary clone under `/tmp/sqlrb_sqlglot_enabled_smoke/Rewritebench_v0_sqlglot_smoke`.
+- Created a temporary virtual environment and installed the release package with `python -m pip install -e ".[sqlglot]"`.
+- Confirmed SQLGlot import with observed version `30.8.0`.
+- Confirmed SQLGlot adapter help works.
+- Ran user-entry dry-run with the SQLGlot no-op adapter command over `PERF_0006` and `PERF_0007` postgres rows.
+- Ran real non-DB SQLGlot no-op and optimize adapter smokes over `PERF_0006` and `PERF_0007` postgres rows.
+- Verified candidate SQL files were generated under temporary-clone `runs/user/<run_id>/candidate_sql/`.
+- Verified real smoke ledgers reported `candidate_generated=true` and preserved `not_run_non_db_mvp`, `not_evaluated_non_db_mvp`, and `not_timed_non_db_mvp` status boundaries.
+- Verified temporary smoke outputs stayed under ignored `runs/user/` and protected paths were unchanged.
+- Did not implement features, execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, create a global leaderboard, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/b_line_sqlglot_enabled_smoke_v0/b_line_sqlglot_enabled_smoke_summary.md`
+- `audits/b_line_sqlglot_enabled_smoke_v0/b_line_sqlglot_enabled_smoke_validation_results.csv`
+- `audits/b_line_sqlglot_enabled_smoke_v0/b_line_sqlglot_enabled_smoke_summary.json`
+- `audits/b_line_sqlglot_enabled_smoke_v0/sqlglot_enabled_smoke_command_log.md`
+- `audits/b_line_sqlglot_enabled_smoke_v0/sqlglot_enabled_smoke_output_manifest.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Temporary clone and virtual environment creation: passed.
+- `python -m pip install -e ".[sqlglot]"`: passed.
+- SQLGlot import: passed with version `30.8.0`.
+- `python baselines/sqlglot/sqlglot_user_adapter.py --help`: passed.
+- SQLGlot no-op dry-run user-run smoke: passed with 2 selected rows, 0 adapter invocations, and 0 candidates.
+- Real SQLGlot no-op user-run smoke: passed with 2 selected rows and 2 candidate SQL files.
+- Real SQLGlot optimize user-run smoke: passed with 2 selected rows and 2 candidate SQL files.
+- Candidate SQL, summary, and ledger checks: passed.
+- Temporary clone protected-path and `runs/user` output hygiene checks: passed.
+- `PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- SQLGlot enabled smoke task: yes.
+- SQLGlot extra install passed: yes.
+- SQLGlot dependency available: yes.
+- SQLGlot import passed: yes.
+- Adapter help passed: yes.
+- Dry-run smoke passed: yes.
+- Real SQLGlot no-op smoke passed: yes.
+- Real SQLGlot optimize smoke passed: yes.
+- Candidate SQL generated: yes.
+- Non-DB statuses preserved: yes.
+- Output hygiene passed: yes.
+- Smoke outputs staged: no.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Use the SQLGlot-enabled smoke result as validation that optional candidate-generation adapters can plug into the non-DB user-entry runner; separately authorize any DB execution, checker execution, timing, official metrics, retained-evidence integration, paper reproduction, or leaderboard design before implementation.

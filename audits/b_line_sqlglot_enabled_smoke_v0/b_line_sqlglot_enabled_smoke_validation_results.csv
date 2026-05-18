@@ -1,0 +1,31 @@
+validation_name,status,details
+release repo preflight passed,PASS,Release repo started clean on main tracking origin/main.
+temporary clone created,PASS,Created /tmp/sqlrb_sqlglot_enabled_smoke/Rewritebench_v0_sqlglot_smoke from the release repo.
+venv created,PASS,Created .venv-sqlglot-smoke inside the temporary clone.
+editable install with sqlglot extra passed,PASS,"python -m pip install -e "".[sqlglot]"" succeeded in the temporary venv."
+SQLGlot import passed,PASS,SQLGlot imported successfully with observed version 30.8.0.
+adapter help passed,PASS,python baselines/sqlglot/sqlglot_user_adapter.py --help succeeded.
+dry-run smoke passed,PASS,SQLGlot no-op command in dry-run selected 2 rows and invoked no adapters.
+no-op real smoke passed,PASS,SQLGlot no-op route selected 2 rows and generated 2 candidate SQL files.
+optimize real smoke passed,PASS,SQLGlot optimize route selected 2 rows and generated 2 candidate SQL files.
+candidate SQL generated,PASS,Candidate SQL files existed under candidate_sql/ for both real smoke routes.
+ledger candidate_generated rows present,PASS,Both real smoke ledgers reported candidate_generated=true for successful rows.
+non-DB statuses preserved,PASS,"Execution, checker, exact, and timed statuses remained non-DB MVP values."
+output under runs/user only,PASS,Temporary smoke outputs were under runs/user/<run_id>/ only.
+smoke output not staged,PASS,git status --short runs/user in the temporary clone produced no tracked or staged output.
+no files under cases changed,PASS,git status --short cases in the temporary clone and release repo produced no protected-path output.
+no files under case_sets changed,PASS,git status --short case_sets in the temporary clone and release repo produced no protected-path output.
+no files under inventory changed,PASS,git status --short inventory in the temporary clone and release repo produced no protected-path output.
+no reports/results changed,PASS,git status --short reports results in the temporary clone and release repo produced no protected-path output.
+no denominator changed,PASS,No denominator files were modified.
+no paper results changed,PASS,No paper-result files or reports/results files were modified.
+no DB execution implemented,PASS,The smoke only invoked candidate-generation adapters through the non-DB user-entry runner.
+no checker execution implemented,PASS,Checker status remained not_run_non_db_mvp and no checker was executed.
+no official metrics computed,PASS,No official metrics were computed.
+no paper tables rendered,PASS,No paper tables were rendered.
+no reproduction CLI implemented,PASS,No paper reproduction CLI was implemented.
+no retained-evidence adapter implemented,PASS,No retained-evidence adapter was implemented or invoked.
+fixture smoke passed in release repo,PASS,python scripts/dev/smoke_ledger_fixtures.py passed.
+user-entry CI smoke passed in release repo,PASS,PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py passed.
+summary JSON parse passed,PASS,Audit summary JSON parsed and required boundary assertions passed.
+git diff --check passed,PASS,git diff --check passed.
