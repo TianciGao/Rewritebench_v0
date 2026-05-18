@@ -6105,13 +6105,13 @@ Task result:
 Next safe action:
 - Optionally authorize a SQLGlot-enabled environment smoke that installs `.[sqlglot]` and runs real no-op and optimize adapter routes without DB execution, checker execution, official metrics, paper rendering, retained-evidence updates, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
 
-### 2026-05-18 · TBD · b_line_sqlglot_enabled_smoke_v0
+### 2026-05-18 · 26e8849 · b_line_sqlglot_enabled_smoke_v0
 
 Mode: B-line SQLGlot enabled smoke; optional dependency verification and real non-DB SQLGlot adapter smoke only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no retained-evidence parsing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: TBD
+Commit: `26e88495d3dbdcf3b7f2d0cd57299da66e3876cd`
+Push: succeeded; updated `origin/main` from `33d80f5` to `26e8849`
 
 Summary:
 - Created an isolated temporary clone under `/tmp/sqlrb_sqlglot_enabled_smoke/Rewritebench_v0_sqlglot_smoke`.
