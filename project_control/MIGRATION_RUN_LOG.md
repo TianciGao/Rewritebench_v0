@@ -6182,13 +6182,13 @@ Task result:
 Next safe action:
 - Use the SQLGlot-enabled smoke result as validation that optional candidate-generation adapters can plug into the non-DB user-entry runner; separately authorize any DB execution, checker execution, timing, official metrics, retained-evidence integration, paper reproduction, or leaderboard design before implementation.
 
-### 2026-05-18 · TBD · b_line_db_checker_execution_design_v0
+### 2026-05-18 · 3c16980 · b_line_db_checker_execution_design_v0
 
 Mode: B-line DB/checker execution design only; no DB execution implementation; no checker execution implementation; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: TBD
+Commit: `3c16980d3a3d53d38456eda0f0716891843e3a88`
+Push: succeeded; updated `origin/main` from `c4aa1cd` to `3c16980`
 
 Summary:
 - Designed a future local DB/checker execution layer for user-run outputs.
