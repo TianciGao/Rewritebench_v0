@@ -1,0 +1,13 @@
+report_section,required_for_mvp,input_source,purpose,no_leaderboard_boundary,notes
+run_config_panel,true,config.yaml,Show run id selectors adapter command and output root,true,Must warn that this is local user output.
+selected_scope_summary,true,selected_cases.csv,Show selected case count pools engines and denominator rows,true,Selection summary is not a ranking.
+denominator_funnel,true,ledger.csv,Show planned selected generated executed exact timed diagnostic funnel,true,Funnel is diagnostic and not a benchmark aggregate.
+pool_breakdown,true,ledger.csv,Show counts by PERF CONS PORT LONGTAIL,true,Do not compare pools as leaderboard categories.
+engine_breakdown,true,ledger.csv,Show counts by postgres mysql spark,true,Do not collapse engines without labels.
+failure_bucket_table,true,failures.csv and ledger.csv,Expose adapter extraction execution checker timing failure buckets,true,Failures are local diagnostics not paper evidence.
+case_failure_drilldown,true,ledger.csv and failures.csv,Help users debug per-case failures,true,No paper-result or retained-evidence claims.
+artifact_links,true,ledger.csv,Link candidate SQL logs and local artifacts,true,Links must stay inside run output root.
+paper_evidence_separation_warning,true,static text,State that user outputs are not retained paper evidence,true,Required in every report.
+no_global_leaderboard_warning,true,static text,State that the workbench does not create a global leaderboard,true,Required in every report.
+environment_panel,false,config.yaml or future env check,Record local environment diagnostics,true,Future extension only.
+html_visualization,false,ledger.csv and summary.json,Provide richer charts after MVP,true,No paper outputs.

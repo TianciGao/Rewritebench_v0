@@ -5667,3 +5667,57 @@ Task result:
 
 Next safe action:
 - Prepare a manual checker/schema/hard-negative and orphan registry reconciliation packet before any wave004 migration; do not migrate cases until source/positive/checker core assets and registry identity are resolved, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
+
+### 2026-05-18 · PENDING · b_line_user_entry_contract_v0
+
+Mode: B-line public workbench design and user-entry contract; design-only; no public runner implementation; no reproduction CLI implementation; no metrics; no paper tables; no case migration
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until commit is pushed
+
+Summary:
+- Defined the future user-facing command model for running external SQL rewrite algorithms against selected benchmark cases.
+- Defined case selection semantics for `--case-set`, `--pool`, `--case-list`, and `--engine` using `case_sets/` and inventory metadata rather than physical directory guessing.
+- Defined the user algorithm adapter contract, local output policy, user-run ledger/output schema, report/visualization minimum contents, and no-global-leaderboard/paper-evidence separation boundaries.
+- Classified proposed B-line files by lifecycle class.
+- Drafted the next MVP implementation task and future prompt.
+- Did not implement a public runner, implement a reproduction CLI, compute metrics, render paper tables, migrate cases, update `case_sets/`, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/b_line_user_entry_contract_v0/b_line_user_entry_contract_summary.md`
+- `audits/b_line_user_entry_contract_v0/user_entry_case_selection_contract.csv`
+- `audits/b_line_user_entry_contract_v0/user_algorithm_adapter_contract.csv`
+- `audits/b_line_user_entry_contract_v0/user_run_output_schema.csv`
+- `audits/b_line_user_entry_contract_v0/user_run_report_contract.csv`
+- `audits/b_line_user_entry_contract_v0/b_line_file_lifecycle_matrix.csv`
+- `audits/b_line_user_entry_contract_v0/user_entry_mvp_task_plan.md`
+- `audits/b_line_user_entry_contract_v0/future_b_line_user_entry_mvp_prompt.md`
+- `audits/b_line_user_entry_contract_v0/b_line_user_entry_contract_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- CSV checks: passed; all required CSV files have headers, lifecycle classes are represented, `ledger.csv` and `summary.json` are present in the output schema, and CSV rows do not claim metric computation, paper table rendering, or retained-result updates.
+- Boundary checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, or `results/` changed.
+- `git diff --check`: passed before staging and commit.
+
+Task result:
+- Case migration performed: no.
+- Public runner implemented: no.
+- Reproduction CLI implemented: no.
+- Metrics computed: no.
+- Paper tables rendered: no.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize b_line_user_entry_mvp_v0 to implement a minimal non-DB user runner skeleton that writes only to `runs/user/<run_id>/` and keeps case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.

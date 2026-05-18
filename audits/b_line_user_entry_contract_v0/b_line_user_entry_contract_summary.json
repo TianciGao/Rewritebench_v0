@@ -1,0 +1,16 @@
+{
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "design_only": true,
+  "legacy_repo_modified": false,
+  "metrics_computed": false,
+  "next_safe_action": "Authorize b_line_user_entry_mvp_v0 to implement a minimal non-DB user runner skeleton that writes only to runs/user/<run_id> and keeps case_sets, denominators, reports/results, paper results, retained evidence, and case packages unchanged.",
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "public_runner_implemented": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "reproduction_cli_implemented": false,
+  "results_changed": false,
+  "task_completed": true
+}

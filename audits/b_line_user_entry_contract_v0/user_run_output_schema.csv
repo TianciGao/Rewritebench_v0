@@ -1,0 +1,28 @@
+output_file_or_field,type,required_for_mvp,producer,consumer,public_status,notes
+runs/user/<run_id>/,directory,true,user runner,user and local report,PRIVATE_ONLY,Local output root should be gitignored and not committed by default.
+config.yaml,file,true,user runner,user report and rerun diagnostics,PRIVATE_ONLY,Captures command args adapter command case selection and output policy.
+selected_cases.csv,file,true,user runner,user report and ledger builder,PRIVATE_ONLY,Records selected case-engine rows after metadata resolution.
+candidate_sql/,directory,true,user adapter via runner,user report and optional validators,PRIVATE_ONLY,Stores user-generated candidate SQL outside case packages.
+ledger.csv,file,true,user runner,user report and future validator,PRIVATE_ONLY,Contains user_run_candidate_cell rows and no official metric aggregates.
+summary.json,file,true,user runner,user report,PRIVATE_ONLY,Contains local diagnostic counts only and no paper result claims.
+failures.csv,file,true,user runner,user report,PRIVATE_ONLY,Lists adapter selection extraction execution or checker failures when applicable.
+report.md,file,true,user runner,user,PRIVATE_ONLY,Static local user report for MVP.
+report.html,file,false,user runner,user,PRIVATE_ONLY,Optional later richer report.
+run_id,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Stable local run id.
+case_id,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Selected case id from metadata.
+pool,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Selected pool from metadata.
+engine,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Selected engine.
+denominator_id,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Join key from denominator scaffold when available.
+planned,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Reflects planned denominator row and does not compute metrics.
+selected,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,True when selected by user run filters.
+adapter_invoked,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,True if adapter command was attempted.
+candidate_generated,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Diagnostic generation status not official Generation Rate.
+candidate_sql_path,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Path under runs/user/<run_id>/candidate_sql or workspace.
+extraction_status,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Values such as extracted;empty;adapter_failed;not_run.
+execution_status,ledger_field,false,future executor,ledger consumer,PRIVATE_ONLY,Not required for skeleton MVP and not official Execution Coverage Rate.
+checker_status,ledger_field,false,future checker,ledger consumer,PRIVATE_ONLY,Not required for skeleton MVP and not official Result Consistency Rate.
+exact_status,ledger_field,false,future checker,ledger consumer,PRIVATE_ONLY,Diagnostic only unless later validator and metric task authorize use.
+timed_status,ledger_field,false,future timing layer,ledger consumer,PRIVATE_ONLY,Timing remains out of MVP scope.
+failure_bucket,ledger_field,true,user runner,ledger consumer,PRIVATE_ONLY,Stable local diagnostic failure bucket.
+artifact_path,ledger_field,false,user runner,ledger consumer,PRIVATE_ONLY,Local artifact link under run root only.
+notes,ledger_field,false,user runner,ledger consumer,PRIVATE_ONLY,Must not contain raw secrets or paper-result claims.

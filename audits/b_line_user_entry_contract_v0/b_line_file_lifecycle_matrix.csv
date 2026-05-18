@@ -1,0 +1,13 @@
+proposed_file_or_directory,intended_role,lifecycle_class,promote_condition,drop_or_archive_condition,notes
+audits/b_line_user_entry_contract_v0/,Construction design evidence,MAINTAINER_ARCHIVE,Promote selected content into final docs only after implementation decisions,Archive or omit from clean public export by default,This audit packet is not final public docs by default.
+repository_spec/user_entry_contract_v1.md,Future final user-entry contract,PUBLIC_SUPPORT,Create from this packet after maintainer approval,Do not create until contract is promoted,Not written by this task.
+src/sql_rewrite_bench/user_run.py,Future public user runner module,PUBLIC_FINAL,Implement and validate in separately authorized MVP task,Drop or refactor if CLI namespace changes,Not implemented by this task.
+scripts/user/run_user_adapter.py,Future script wrapper or compatibility entrypoint,PUBLIC_FINAL,Add only if chosen as public command surface,Drop if module CLI is the only supported entry,Not implemented by this task.
+runs/user/<run_id>/,Local user run output root,PRIVATE_ONLY,Never promote wholesale; only curated examples may be documented,Must be gitignored or excluded from clean export,User output must not enter retained evidence.
+runs/.gitignore,Local-output placeholder and ignore guard,PUBLIC_SUPPORT,Add when runner implementation creates runs namespace,Drop if output-root policy uses external directory only,Not written by this task.
+tests/user_entry/,Future runner contract tests,PUBLIC_FINAL,Create with MVP implementation and CI smoke,Drop or refactor if runner design changes,Not implemented by this task.
+docs/user_runner_quickstart.md,Future public user guide,PUBLIC_FINAL,Create after MVP command behavior is stable,Drop before v0 if runner is not released,Not written by this task.
+reports/evaluation/,Curated paper-facing reports,PRIVATE_ONLY,Use only after separate reports/results authorization,Do not let user runner write here,User report output must stay in runs/user.
+results/retained/,Curated retained paper evidence,PRIVATE_ONLY,Use only after retained-evidence migration authorization,Do not let user runner write here,User outputs are not retained evidence.
+case_sets/common_core_v0/,Selection source for MVP,PUBLIC_FINAL,Already fixed as release scaffold,Never mutated by user runner,Read-only input.
+inventory/case_registry.csv,Selection metadata source,PUBLIC_FINAL,Already fixed as release scaffold,Never mutated by user runner,Read-only input.

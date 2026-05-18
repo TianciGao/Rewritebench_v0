@@ -1,0 +1,14 @@
+interface_field,direction,required_for_mvp,description,example_value,validation_rule,notes
+case_id,input,true,Stable selected case id,PERF_0006,Must exist in resolved selection metadata,Passed as env var or JSON payload.
+pool,input,true,Selected pool,PERF,Must match selected case metadata,Do not infer pool from path only.
+engine,input,true,Selected engine,postgres,Must be one of postgres;mysql;spark,Engine all expands before adapter invocation.
+source_sql_path,input,true,Path to canonical source SQL,cases/PERF/PERF_0006/sql/source.sql,File must exist and be readable,Path is repository-relative or absolute resolved by runner.
+schema_path_or_profile,input,false,Engine schema directory or schema profile,cases/PERF/PERF_0006/schema/postgres,If present path must stay inside case package,May be absent for skeleton-only MVP diagnostics.
+checker_config_path,input,false,Checker configuration path,cases/PERF/PERF_0006/checker/checker.yaml,If present path must stay inside case package,Checker execution is not required for skeleton MVP.
+run_workspace_path,input,true,Per-case output workspace under run root,runs/user/<run_id>/work/track_a_same_engine_PERF_0006_postgres,Must be under configured --out root,Adapter may write candidate.sql here.
+adapter_command,input,true,User-provided command,python my_rewriter.py,Runner must invoke without shell injection risk in implementation,Contract only; not implemented here.
+candidate_sql_stdout,output,true,Adapter may emit candidate SQL to stdout,select count(*) from lineitem;,Captured as candidate.sql when non-empty,MVP can treat empty stdout as no_candidate.
+candidate_sql_path,output,false,Adapter may write candidate SQL file,candidate.sql,If used file must be under run workspace,Alternative to stdout.
+status_json_path,output,false,Optional structured adapter status,status.json,If present must be JSON and local to workspace,Diagnostic only for MVP.
+stderr_log,output,false,Adapter stderr capture,adapter_stderr.txt,Stored under run workspace only and scanned for hygiene before publication,Local user output not retained evidence.
+exit_code,output,true,Process exit code,0,Non-zero maps to failure_bucket adapter_failed,Does not create official metric status.
