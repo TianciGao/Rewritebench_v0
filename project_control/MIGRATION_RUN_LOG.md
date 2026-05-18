@@ -5225,3 +5225,64 @@ Task result:
 
 Next safe action:
 - Review wave 001 completed packages and deferred hygiene dossiers; decide whether to run `overnight_non_common_core_case_package_standardization_wave_002` or separately authorize staged/backlog membership governance without changing Common-core v0 membership, denominators, reports/results, paper results, metrics, or raw legacy evidence.
+
+### 2026-05-18 · pending · wave001_readme_public_polish_and_wave002_selection
+
+Mode: public README polish plus wave review/selection; no case migration; no metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Rewrote the public-facing README files for `PORT_0002` and `PERF_0029` to remove construction-process wording and describe stable package scope, contents, evidence boundary, and benchmark boundary.
+- Reviewed wave 001 completed and deferred dossiers.
+- Classified all 28 wave 001 deferred cases as `wave_002_policy_approval_needed`.
+- Identified 0 current auto-migration candidates under the existing fail-closed hygiene policy.
+- Prepared a wave 002 batch plan, policy questions, candidate selection CSV, and future prompt.
+- Did not migrate cases, update `case_sets/`, update reports/results, change denominators, change paper results, compute metrics, render paper tables, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/wave001_readme_public_polish_and_wave002_selection/readme_public_polish_summary.md`
+- `audits/wave001_readme_public_polish_and_wave002_selection/readme_public_polish_checks.csv`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave001_review_summary.md`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave001_deferred_reason_groups.csv`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave002_candidate_selection.csv`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave002_batch_plan.md`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave002_policy_approval_questions.md`
+- `audits/wave001_readme_public_polish_and_wave002_selection/wave002_selection_summary.json`
+- `audits/wave001_readme_public_polish_and_wave002_selection/future_wave002_prompt.md`
+
+Files modified:
+- `cases/PORT/PORT_0002/README.md`
+- `cases/PERF/PERF_0029/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- JSON invariant check: passed.
+- README forbidden-term checks: passed.
+- CSV checks: passed; README check rows are PASS for both files, wave 002 selection covers all 28 deferred cases, and summary counts match the CSV.
+- Boundary checks: passed; no files under `case_sets/`, `reports/`, or `results/` changed.
+- `git diff --check`: passed.
+
+Task result:
+- READMEs polished: `PORT_0002`, `PERF_0029`.
+- Wave 001 deferred cases reviewed: 28.
+- Wave 002 auto candidates: 0.
+- Wave 002 policy approval needed: 28.
+- Wave 002 manual review required: 0.
+- Wave 002 backlog defer: 0.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Answer the wave 002 policy approval questions, then authorize `overnight_non_common_core_case_package_standardization_wave_002` only for policy-approved cases while keeping Common-core v0 membership, `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.

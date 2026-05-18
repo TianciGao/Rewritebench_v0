@@ -1,0 +1,19 @@
+file_path,check_name,status,details
+cases/PORT/PORT_0002/README.md,no overnight wave,PASS,Forbidden phrase absent.
+cases/PORT/PORT_0002/README.md,no wave 001,PASS,Forbidden phrase absent.
+cases/PORT/PORT_0002/README.md,no Codex,PASS,Forbidden phrase absent.
+cases/PORT/PORT_0002/README.md,no internal task name,PASS,No migration task name appears.
+cases/PORT/PORT_0002/README.md,has release scope,PASS,Release Scope section is present.
+cases/PORT/PORT_0002/README.md,has evidence boundary,PASS,Evidence Boundary section is present.
+cases/PORT/PORT_0002/README.md,has benchmark boundary,PASS,Benchmark Boundary section is present.
+cases/PORT/PORT_0002/README.md,no denominator change claim beyond boundary note,PASS,README states no denominator change.
+cases/PORT/PORT_0002/README.md,no paper result claim beyond boundary note,PASS,README states no paper-result contribution.
+cases/PERF/PERF_0029/README.md,no overnight wave,PASS,Forbidden phrase absent.
+cases/PERF/PERF_0029/README.md,no wave 001,PASS,Forbidden phrase absent.
+cases/PERF/PERF_0029/README.md,no Codex,PASS,Forbidden phrase absent.
+cases/PERF/PERF_0029/README.md,no internal task name,PASS,No migration task name appears.
+cases/PERF/PERF_0029/README.md,has release scope,PASS,Release Scope section is present.
+cases/PERF/PERF_0029/README.md,has evidence boundary,PASS,Evidence Boundary section is present.
+cases/PERF/PERF_0029/README.md,has benchmark boundary,PASS,Benchmark Boundary section is present.
+cases/PERF/PERF_0029/README.md,no denominator change claim beyond boundary note,PASS,README states no denominator change.
+cases/PERF/PERF_0029/README.md,no paper result claim beyond boundary note,PASS,README states no paper-result contribution.

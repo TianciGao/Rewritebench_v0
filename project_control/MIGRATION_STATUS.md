@@ -614,6 +614,22 @@ Membership and scaffold snapshot:
 - Raw legacy evidence changed by overnight non-Common-core wave 001: no.
 - Metrics computed by overnight non-Common-core wave 001: no.
 - Paper tables rendered by overnight non-Common-core wave 001: no.
+- wave001_readme_public_polish_and_wave002_selection completed: yes.
+- READMEs polished: `PORT_0002`, `PERF_0029`.
+- Wave 001 completed cases reviewed: 2.
+- Wave 001 deferred cases reviewed: 28.
+- Wave 002 auto candidates count: 0.
+- Wave 002 policy approval needed count: 28.
+- Wave 002 manual review count: 0.
+- Wave 002 backlog defer count: 0.
+- case_sets changed by wave001 README polish / wave002 selection: no.
+- Reports changed by wave001 README polish / wave002 selection: no.
+- Results changed by wave001 README polish / wave002 selection: no.
+- Denominator changed by wave001 README polish / wave002 selection: no.
+- Paper results changed by wave001 README polish / wave002 selection: no.
+- Raw legacy evidence changed by wave001 README polish / wave002 selection: no.
+- Metrics computed by wave001 README polish / wave002 selection: no.
+- Paper tables rendered by wave001 README polish / wave002 selection: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -696,4 +712,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review wave 001 completed packages and deferred hygiene dossiers; decide whether to run `overnight_non_common_core_case_package_standardization_wave_002` or separately authorize staged/backlog membership governance without changing Common-core v0 membership, denominators, reports/results, paper results, metrics, or raw legacy evidence.
+Answer the wave 002 policy approval questions, then authorize `overnight_non_common_core_case_package_standardization_wave_002` only for policy-approved cases while keeping Common-core v0 membership, `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.

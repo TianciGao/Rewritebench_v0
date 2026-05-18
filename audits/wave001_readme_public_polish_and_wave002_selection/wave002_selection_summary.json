@@ -1,0 +1,27 @@
+{
+  "task_completed": true,
+  "readmes_polished": 2,
+  "readme_case_ids": [
+    "PORT_0002",
+    "PERF_0029"
+  ],
+  "wave001_completed_cases": 2,
+  "wave001_completed_case_ids": [
+    "PORT_0002",
+    "PERF_0029"
+  ],
+  "wave001_deferred_cases": 28,
+  "wave002_auto_candidates": 0,
+  "wave002_policy_approval_needed": 28,
+  "wave002_manual_review_required": 0,
+  "wave002_backlog_defer": 0,
+  "case_sets_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "metrics_computed": false,
+  "paper_tables_rendered": false,
+  "next_safe_action": "Answer the wave 002 policy approval questions, then authorize wave 002 to migrate only approved cases while keeping case_sets, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged."
+}
