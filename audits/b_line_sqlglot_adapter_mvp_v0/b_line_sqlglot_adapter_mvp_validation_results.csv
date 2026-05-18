@@ -1,0 +1,27 @@
+validation_name,status,details
+adapter file created,PASS,baselines/sqlglot/sqlglot_user_adapter.py created
+adapter README created,PASS,baselines/sqlglot/README.md created
+adapter help passed,PASS,python baselines/sqlglot/sqlglot_user_adapter.py --help passed
+user guide updated,PASS,docs/USER_BENCHMARK_GUIDE.md includes optional SQLGlot adapter section
+optional dependency metadata checked,PASS,pyproject.toml adds sqlglot optional extra only
+missing dependency guard passed,PASS,adapter exits nonzero with clear SQLGlot not installed message
+route validation passed,PASS,invalid route exits nonzero through argparse choices
+dry-run user-run compatibility passed,PASS,SQLGlot adapter command works in user-run dry-run without invoking adapter
+real sqlglot noop smoke skipped,SKIP,SQLGlot is not installed in this environment
+real sqlglot optimize smoke skipped,SKIP,SQLGlot is not installed in this environment
+candidate SQL capture skipped,SKIP,real SQLGlot adapter smoke skipped because dependency is unavailable
+no DB execution implemented,PASS,adapter only emits candidate SQL
+no checker execution implemented,PASS,adapter does not run checkers
+no official metrics computed,PASS,no metrics were computed
+no paper tables rendered,PASS,no paper tables were rendered
+no reproduction CLI implemented,PASS,no reproduction CLI was implemented
+no retained-evidence adapter implemented,PASS,no retained-evidence adapter was implemented
+no files under cases changed,PASS,git status --short cases returned no output
+no files under case_sets changed,PASS,git status --short case_sets returned no output
+no files under inventory changed,PASS,git status --short inventory returned no output
+no reports/results changed,PASS,git status --short reports results returned no output
+no denominator changed,PASS,no denominator files were modified
+no paper results changed,PASS,no paper-result files were modified
+fixture smoke passed,PASS,python scripts/dev/smoke_ledger_fixtures.py passed
+user-entry CI smoke script passed,PASS,PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py passed
+git diff --check passed,PASS,git diff --check passed

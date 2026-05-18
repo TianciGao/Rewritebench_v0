@@ -6034,3 +6034,73 @@ Task result:
 
 Next safe action:
 - Use the B-line user-entry smoke workflow as a push/PR guard, or separately authorize a B-line publication-surface closeout or DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
+
+### 2026-05-18 · TBD · b_line_sqlglot_adapter_mvp_v0
+
+Mode: B-line SQLGlot non-DB adapter MVP; candidate SQL generation only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no retained-evidence parsing
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: pending
+
+Summary:
+- Added optional SQLGlot user-entry adapters under `baselines/sqlglot/`.
+- Added `sqlglot_noop` route via `python baselines/sqlglot/sqlglot_user_adapter.py --route noop`.
+- Added `sqlglot_optimize` route via `python baselines/sqlglot/sqlglot_user_adapter.py --route optimize`.
+- The adapter reads source SQL from `SQLRB_SOURCE_SQL_PATH`, infers dialect from `SQLRB_ENGINE`, writes candidate SQL to `SQLRB_CANDIDATE_SQL_PATH`, and exits nonzero on missing environment, missing source, unsupported engine, missing SQLGlot dependency, parse failure, or emit failure.
+- Added optional SQLGlot extra metadata in `pyproject.toml`; SQLGlot remains optional and was not installed by this task.
+- Updated `docs/USER_BENCHMARK_GUIDE.md` with optional SQLGlot adapter usage examples and boundaries.
+- Added user-entry tests for adapter help, missing environment variables, route validation, missing dependency guard, dry-run compatibility, and conditional real SQLGlot no-op/optimize smoke when the dependency is available.
+- Did not modify the user-runner core, execute SQL, run database engines, run checkers, collect timing, compute official metrics, compute speedup, render paper tables, implement paper reproduction, implement retained-evidence adapters, parse candidate status retained evidence, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, create a global leaderboard, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `baselines/sqlglot/README.md`
+- `baselines/sqlglot/sqlglot_user_adapter.py`
+- `tests/user_entry/test_sqlglot_adapter.py`
+- `audits/b_line_sqlglot_adapter_mvp_v0/b_line_sqlglot_adapter_mvp_summary.md`
+- `audits/b_line_sqlglot_adapter_mvp_v0/b_line_sqlglot_adapter_mvp_validation_results.csv`
+- `audits/b_line_sqlglot_adapter_mvp_v0/b_line_sqlglot_adapter_mvp_summary.json`
+- `audits/b_line_sqlglot_adapter_mvp_v0/sqlglot_adapter_command_log.md`
+- `audits/b_line_sqlglot_adapter_mvp_v0/sqlglot_adapter_smoke_manifest.csv`
+
+Files modified:
+- `docs/USER_BENCHMARK_GUIDE.md`
+- `pyproject.toml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python baselines/sqlglot/sqlglot_user_adapter.py --help`: passed.
+- `PYTHONPATH=src python -m unittest discover -s tests/user_entry -v`: passed; 19 tests run, 2 skipped because SQLGlot is not installed.
+- `python -m py_compile baselines/sqlglot/sqlglot_user_adapter.py tests/user_entry/test_sqlglot_adapter.py`: passed.
+- Missing SQLGlot dependency guard: passed with expected nonzero exit and clear dependency message.
+- Route validation: passed with expected nonzero exit for invalid route.
+- SQLGlot dry-run user-run compatibility: passed with 1 selected row, 0 adapter invocations, and 0 candidates.
+- Real SQLGlot no-op smoke: skipped because SQLGlot is not installed.
+- Real SQLGlot optimize smoke: skipped because SQLGlot is not installed.
+- `PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- SQLGlot adapter MVP: yes.
+- SQLGlot dependency available: no.
+- Real SQLGlot smoke passed/skipped: skipped.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Optionally authorize a SQLGlot-enabled environment smoke that installs `.[sqlglot]` and runs real no-op and optimize adapter routes without DB execution, checker execution, official metrics, paper rendering, retained-evidence updates, reports/results updates, denominator changes, paper-result changes, or leaderboard output.

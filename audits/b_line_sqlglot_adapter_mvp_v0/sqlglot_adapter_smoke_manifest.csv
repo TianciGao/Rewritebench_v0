@@ -1,0 +1,7 @@
+smoke_name,route,dependency_available,command,status,output_dir,candidate_generated,notes
+adapter_help,none,false,python baselines/sqlglot/sqlglot_user_adapter.py --help,PASS,,false,adapter help works
+dependency_guard,noop,false,python baselines/sqlglot/sqlglot_user_adapter.py --route noop,PASS,,false,expected nonzero exit with SQLGlot not installed message
+route_validation,invalid,false,python baselines/sqlglot/sqlglot_user_adapter.py --route invalid,PASS,,false,expected nonzero exit from argparse
+dry_run_compatibility,noop,false,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --pool PERF --engine postgres --case-list <temp file> --adapter-command ""python baselines/sqlglot/sqlglot_user_adapter.py --route noop"" --out runs/user/sqlglot_noop_dry_run_smoke --dry-run",PASS,runs/user/sqlglot_noop_dry_run_smoke,false,dry-run does not invoke adapter
+real_noop_smoke,noop,false,"PYTHONPATH=src python -m sql_rewrite_bench.user_run ... --adapter-command ""python baselines/sqlglot/sqlglot_user_adapter.py --route noop""",SKIP,runs/user/sqlglot_noop_adapter_smoke,false,SQLGlot dependency unavailable
+real_optimize_smoke,optimize,false,"PYTHONPATH=src python -m sql_rewrite_bench.user_run ... --adapter-command ""python baselines/sqlglot/sqlglot_user_adapter.py --route optimize""",SKIP,runs/user/sqlglot_optimize_adapter_smoke,false,SQLGlot dependency unavailable

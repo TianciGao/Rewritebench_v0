@@ -107,6 +107,55 @@ Adapters can produce candidate SQL in either of two ways:
 
 If both are present, workspace `candidate.sql` takes precedence over stdout.
 
+## Optional SQLGlot Adapter Examples
+
+The repository includes optional SQLGlot user-entry adapters for candidate generation only. They do not execute SQL, run checkers, collect timing, compute official metrics, update paper results, update retained evidence, or create a leaderboard.
+
+Dry-run does not require SQLGlot because the adapter is not invoked:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engine postgres \
+  --case-list path/to/case_ids.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
+  --out runs/user/sqlglot_noop_dry_run \
+  --dry-run
+```
+
+Install optional SQLGlot support before running the real adapter routes:
+
+```bash
+python -m pip install -e ".[sqlglot]"
+```
+
+SQLGlot no-op route:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engine postgres \
+  --case-list path/to/case_ids.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
+  --out runs/user/sqlglot_noop_demo
+```
+
+SQLGlot optimize route:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engine postgres \
+  --case-list path/to/case_ids.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize" \
+  --out runs/user/sqlglot_optimize_demo
+```
+
+Both routes write candidate SQL to the per-row user-run workspace path supplied by `SQLRB_CANDIDATE_SQL_PATH`. If SQLGlot is unavailable or parsing fails, the adapter exits nonzero instead of silently falling back to raw source SQL.
+
 ## Adapter Environment Variables
 
 The runner provides these variables to each adapter invocation:
@@ -157,7 +206,8 @@ Each run writes:
 - No paper result updates.
 - No retained evidence updates.
 - No leaderboard.
-- No SQLGlot, Calcite, or R-Bot baseline adapter implementation.
+- SQLGlot adapters are candidate-generation only and optional.
+- No Calcite or R-Bot baseline adapter implementation.
 - No paper reproduction CLI.
 - No non-Common-core selection in the MVP.
 
