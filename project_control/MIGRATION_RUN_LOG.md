@@ -6035,13 +6035,13 @@ Task result:
 Next safe action:
 - Use the B-line user-entry smoke workflow as a push/PR guard, or separately authorize a B-line publication-surface closeout or DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
 
-### 2026-05-18 · TBD · b_line_sqlglot_adapter_mvp_v0
+### 2026-05-18 · 2e39ab5 · b_line_sqlglot_adapter_mvp_v0
 
 Mode: B-line SQLGlot non-DB adapter MVP; candidate SQL generation only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no retained-evidence parsing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: pending
+Commit: `2e39ab57fc660bdd03a7db437db185e63b5f2e2c`
+Push: succeeded; updated `origin/main` from `af3df38` to `2e39ab5`
 
 Summary:
 - Added optional SQLGlot user-entry adapters under `baselines/sqlglot/`.
