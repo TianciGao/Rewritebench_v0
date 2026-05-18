@@ -5482,13 +5482,13 @@ Task result:
 Next safe action:
 - Run a separately authorized `overnight_non_common_core_case_package_standardization_wave_003` task using only `wave_003_policy_approved_candidate` rows from `audits/wave002_closeout_and_wave003_selection_v0/wave003_candidate_selection.csv`, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
 
-### 2026-05-18 · PENDING · overnight_non_common_core_case_package_standardization_wave_003_policy_approved
+### 2026-05-18 · e58e2c9 · overnight_non_common_core_case_package_standardization_wave_003_policy_approved
 
 Mode: bounded policy-approved non-Common-core case package standardization; no Common-core migration; no case-set membership update; no denominator update; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `e58e2c935dec48baa2d50ce7b7327c9c20a1ded2`
+Push: succeeded; updated `origin/main` from `872b8cc` to `e58e2c9`
 
 Summary:
 - Used `audits/wave002_closeout_and_wave003_selection_v0/wave003_candidate_selection.csv` as the only candidate source.
