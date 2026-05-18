@@ -630,6 +630,23 @@ Membership and scaffold snapshot:
 - Raw legacy evidence changed by wave001 README polish / wave002 selection: no.
 - Metrics computed by wave001 README polish / wave002 selection: no.
 - Paper tables rendered by wave001 README polish / wave002 selection: no.
+- wave002_policy_readme_schema_guard_v0 completed: yes.
+- READMEs standardized by wave002 policy/readme/schema guard: 42.
+- package_validation_summary schema guard created: yes.
+- package_validation_summary files audited: 42.
+- package_validation_summary files modified: no.
+- Wave 002 policy questions answered: 9.
+- Wave 002 auto/policy-approved candidates count: 28.
+- Wave 002 manual review count after policy: 0.
+- Wave 002 backlog defer count after policy: 0.
+- case_sets changed by wave002 policy/readme/schema guard: no.
+- Reports changed by wave002 policy/readme/schema guard: no.
+- Results changed by wave002 policy/readme/schema guard: no.
+- Denominator changed by wave002 policy/readme/schema guard: no.
+- Paper results changed by wave002 policy/readme/schema guard: no.
+- Raw legacy evidence changed by wave002 policy/readme/schema guard: no.
+- Metrics computed by wave002 policy/readme/schema guard: no.
+- Paper tables rendered by wave002 policy/readme/schema guard: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -712,4 +729,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Answer the wave 002 policy approval questions, then authorize `overnight_non_common_core_case_package_standardization_wave_002` only for policy-approved cases while keeping Common-core v0 membership, `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
+Run `overnight_non_common_core_case_package_standardization_wave_002_policy_approved` using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.

@@ -1,36 +1,41 @@
 # CONS_0024
 
-`CONS_0024` is a canonical public-release case package for a CONS semantic-guard case. It is designed to test checker strictness and hard-negative rejection. It is not a performance claim.
+## Purpose
 
-## Case Design
+CONS_0024 is a semantic consistency and checker-control SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `Calcite`.
 
-`sql/source.sql` is the source semantic-guard query. `sql/positives/pos_01.sql` is the trusted positive rewrite or adaptation. `sql/negatives/neg_01.sql` is an intentional hard negative.
+The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
 
-The source query preserves left-side employee rows through a LEFT JOIN with an aggregate EXISTS/HAVING condition in the join predicate. The positive rewrite returns the preserved employee rows. The hard negative changes that row-preserving join into an INNER JOIN constrained by the aggregate condition, filtering rows that should remain.
+## Release Scope
 
-Maintainer-approved expected rejection reason: rewrite_neg_01 changes a LEFT JOIN that preserves left-side employee rows into an INNER JOIN constrained by aggregate EXISTS/HAVING logic. This filters out employee rows that should have been preserved. Therefore neg_01 is an intentional hard negative and should be rejected by the checker.
+- Common-core v0 member: yes.
+- Track A same-engine denominator member: yes.
+- Common-core membership is governed by `case_sets/`, not by this README.
+- Denominator role is governed by denominator and case-set files, not by this README.
+- Paper-result contributor: governed by official metric/report artifacts, not this README.
+- Metrics computed in this package: no.
+- Public release role: Common-core v0 canonical case package.
 
-Therefore `neg_01` should be rejected by the checker. The approved expected-rejection record is in `checker/expected_rejections.yaml`.
+## Package Contents
 
-## Package Scope
-
-- Source SQL is in `sql/source.sql`.
-- Positive rewrite SQL is in `sql/positives/pos_01.sql`.
-- Hard-negative SQL is in `sql/negatives/neg_01.sql`.
-- Engine DDL and witness load files are in `schema/`.
-- Checker configuration is in `checker/`.
-- Retained public evidence is under `evidence/`.
-- Stable metadata is under `metadata/`.
-- Human notes are under `notes/`.
+- `manifest.yaml` is the package index.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
+- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
+- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
+- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
 ## Evidence Boundary
 
-Raw legacy run artifacts remain mapped through `evidence/runs_retention.yaml`. Raw legacy runs are mapped and retained, not deleted. Spark plan text files with local temporary path traces are not published raw; sanitized public copies are under `evidence/retained_plans/spark/`.
+Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
-## Validation Asset Caveat
+New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
 
-The scripts in `validation/` are retained legacy validation assets. They were not executed during migration, are not yet final public user runners, and future public runner output must not write to case-local `runs/` by default.
+## Benchmark Boundary
 
-## Claim Boundary
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
-This migration did not run DB engines, did not regenerate evidence, denominator unchanged, paper results unchanged, Common-core membership unchanged, case admission status unchanged, and no global leaderboard is introduced.
+## Notes / Future Review Status
+
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.

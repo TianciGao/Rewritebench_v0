@@ -1,25 +1,41 @@
-# PERF_0006 Canonical Case Package
+# PERF_0006
 
-## Case Summary
+## Purpose
 
-PERF_0006 is a PERF case package derived from TPC-H Query 1. It is a performance-sensitive analytical rewrite case that tests predicate placement and filter isolation before aggregation. The package is organized for correctness-gated rewrite evaluation and plan observability; this migration does not create a new speedup claim.
+PERF_0006 is a performance-oriented SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `TPC-H`.
 
-## Case Design
+The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
 
-`sql/source.sql` is the original analytical aggregation query. `sql/positives/pos_01.sql` isolates the cutoff filter in a derived relation before aggregation. `sql/negatives/neg_01.sql` changes the cutoff predicate from `<=` to `<`. The hard negative is intentional because it excludes the cutoff-date witness row. The checker should accept source/positive equivalence and reject the hard negative.
+## Release Scope
 
-## Performance Boundary
+- Common-core v0 member: yes.
+- Track A same-engine denominator member: yes.
+- Common-core membership is governed by `case_sets/`, not by this README.
+- Denominator role is governed by denominator and case-set files, not by this README.
+- Paper-result contributor: governed by official metric/report artifacts, not this README.
+- Metrics computed in this package: no.
+- Public release role: Common-core v0 canonical case package.
 
-PERF_0006 is performance-sensitive by design. No timing run was executed during migration. No speedup, latency, timing, ranking, leaderboard, or paper-result claim is created by this migration. Any performance interpretation must come only from retained denominator-aware paper evidence.
+## Package Contents
 
-## Public Release Boundary
+- `manifest.yaml` is the package index.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
+- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
+- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
+- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
-No DB rerun was performed during migration. No evidence was regenerated. Denominator unchanged. Paper results unchanged. Common-core membership unchanged. No global leaderboard is introduced.
+## Evidence Boundary
 
-## Evidence Map
+Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
-The evidence map is `evidence/runs_retention.yaml`. The expected hard-negative rejection is `checker/expected_rejections.yaml`. Raw legacy runs are mapped and retained in the legacy repo; they are not deleted and were not copied wholesale into this canonical package.
+New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
 
-## Validation Script Caveat
+## Benchmark Boundary
 
-The scripts in `validation/` are retained legacy validation assets. They were not executed during migration and are not final public user runners. Future public runners must not write to case-local runs/ by default.
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
+
+## Notes / Future Review Status
+
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.

@@ -5286,3 +5286,70 @@ Task result:
 
 Next safe action:
 - Answer the wave 002 policy approval questions, then authorize `overnight_non_common_core_case_package_standardization_wave_002` only for policy-approved cases while keeping Common-core v0 membership, `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
+
+### 2026-05-18 · pending · wave002_policy_approval_readme_standardization_and_validation_schema_guard_v0
+
+Mode: policy approval plus README standardization and package-validation schema guard; no case migration; no metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created `repository_spec/case_readme_public_template_v1.md`.
+- Created `repository_spec/package_validation_summary_schema_v1.md`.
+- Standardized 42 existing case README files under `cases/*/*/README.md`.
+- Audited 42 case-local `evidence/package_validation_summary.json` files without modifying them.
+- Answered nine wave 002 policy questions in batch.
+- Reclassified all 28 wave 001 deferred cases as wave 002 policy-approved candidates for a future separately authorized package generation task.
+- Did not migrate cases, update `case_sets/`, update reports/results, change denominators, change paper results, compute metrics, render paper tables, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `repository_spec/case_readme_public_template_v1.md`
+- `repository_spec/package_validation_summary_schema_v1.md`
+- `audits/wave002_policy_readme_schema_guard_v0/readme_standardization_summary.md`
+- `audits/wave002_policy_readme_schema_guard_v0/readme_standardization_checks.csv`
+- `audits/wave002_policy_readme_schema_guard_v0/package_validation_summary_audit.csv`
+- `audits/wave002_policy_readme_schema_guard_v0/package_validation_summary_schema_guard_report.md`
+- `audits/wave002_policy_readme_schema_guard_v0/wave002_policy_approval_record.md`
+- `audits/wave002_policy_readme_schema_guard_v0/wave002_policy_approval_matrix.csv`
+- `audits/wave002_policy_readme_schema_guard_v0/wave002_candidate_selection_after_policy.csv`
+- `audits/wave002_policy_readme_schema_guard_v0/wave002_policy_unlocked_batch_plan.md`
+- `audits/wave002_policy_readme_schema_guard_v0/future_wave002_policy_approved_prompt.md`
+- `audits/wave002_policy_readme_schema_guard_v0/wave002_policy_readme_schema_guard_summary.json`
+
+Files modified:
+- 42 case README files under `cases/*/*/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- README forbidden-term and required-section checks: passed for 42 case README files.
+- CSV checks: passed; README checks cover every case README, package-validation audit covers all 42 package summaries, after-policy selection covers all 28 deferred wave 001 cases, and the policy matrix records nine decisions.
+- Boundary checks: passed; no `case_sets/`, `reports/`, `results/`, denominator, paper-result, raw legacy evidence, or package-validation-summary JSON files were modified.
+- JSON parse checks: passed for the new summary JSON and all existing case-local package-validation summaries.
+- `git diff --check`: passed.
+
+Task result:
+- READMEs standardized: 42.
+- package_validation_summary schema guard created: yes.
+- package_validation_summary files audited: 42.
+- package_validation_summary files modified: no.
+- Wave 002 policy questions answered: 9.
+- Wave 002 auto/policy-approved candidates: 28.
+- Wave 002 manual review required: 0.
+- Wave 002 backlog defer: 0.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Run `overnight_non_common_core_case_package_standardization_wave_002_policy_approved` using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.

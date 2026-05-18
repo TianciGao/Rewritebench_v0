@@ -1,27 +1,41 @@
-# LONGTAIL_0011 Canonical Case Package
+# LONGTAIL_0011
 
-## Case Summary
+## Purpose
 
-LONGTAIL_0011 is a LONGTAIL case package for realistic-structure SQL. It tests structurally complex SQL rather than workload frequency. The source query includes a CTE pipeline, window ranking, joins, aggregate/order logic, and tie-sensitive ranking behavior. The package is organized for correctness, hard-negative checking, and plan/failure observability. This migration does not create workload-frequency, production-frequency, timing, speedup, ranking, leaderboard, or paper-result claims.
+LONGTAIL_0011 is a structural robustness and long-tail SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `SQLStorm`.
 
-## Case Design
+The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
 
-`sql/source.sql` is the original long-tail query. `sql/positives/pos_01.sql` is the trusted positive rewrite/adaptation. `sql/negatives/neg_01.sql` is an intentional hard negative.
+## Release Scope
 
-`neg_01.sql` replaces `DENSE_RANK()` with `ROW_NUMBER()`. This breaks tie-sensitive ranking semantics because tied rows no longer share the same rank. `DENSE_RANK()` preserves tied rows at the same rank, while `ROW_NUMBER()` assigns a unique order and can collapse tied worst-score rows. Therefore `neg_01` should be rejected by the checker.
+- Common-core v0 member: yes.
+- Track A same-engine denominator member: yes.
+- Common-core membership is governed by `case_sets/`, not by this README.
+- Denominator role is governed by denominator and case-set files, not by this README.
+- Paper-result contributor: governed by official metric/report artifacts, not this README.
+- Metrics computed in this package: no.
+- Public release role: Common-core v0 canonical case package.
 
-## Long-Tail Boundary
+## Package Contents
 
-LONGTAIL_0011 is a controlled structural robustness case. It should not be interpreted as production workload frequency evidence, and it does not claim that this structure is common in real workloads.
+- `manifest.yaml` is the package index.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
+- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
+- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
+- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
-## Public Release Boundary
+## Evidence Boundary
 
-No DB rerun was performed during migration. No evidence was regenerated. Denominator unchanged. Paper results unchanged. Common-core membership unchanged. No global leaderboard is introduced.
+Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
-## Evidence Map
+New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
 
-The evidence map is `evidence/runs_retention.yaml`. The expected hard-negative rejection is recorded in `checker/expected_rejections.yaml`. Raw legacy runs are mapped and retained in the legacy repo; they are not deleted and were not copied wholesale into this canonical package.
+## Benchmark Boundary
 
-## Validation Script Caveat
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
-The scripts in `validation/` are retained legacy validation assets. They were not executed during migration and are not final public user runners. Future public runners must not write to case-local runs/ by default.
+## Notes / Future Review Status
+
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.

@@ -1,39 +1,41 @@
 # LONGTAIL_0023
 
-## Case Summary
+## Purpose
 
-LONGTAIL_0023 is a LONGTAIL structural robustness case. Manual Stack-substrate query with separate outbound and inbound PostLinks aggregations and left-side post preservation. It is packaged for correctness-gated rewrite evaluation, hard-negative checking, and plan observability.
+LONGTAIL_0023 is a structural robustness and long-tail SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `Stack Queries`.
 
-Canonical package status: canonical public-release case package.
+The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
 
-This case contributes structural robustness evidence only. It must not be described as workload-frequency or production-frequency evidence, and this migration creates no new benchmark result.
+## Release Scope
 
-## Case Design
+- Common-core v0 member: yes.
+- Track A same-engine denominator member: yes.
+- Common-core membership is governed by `case_sets/`, not by this README.
+- Denominator role is governed by denominator and case-set files, not by this README.
+- Paper-result contributor: governed by official metric/report artifacts, not this README.
+- Metrics computed in this package: no.
+- Public release role: Common-core v0 canonical case package.
 
-- Source query: `sql/source.sql`.
-- Positive rewrite: `sql/positives/pos_01.sql`. The positive rewrite keeps outbound and inbound link directions as separate aggregate inputs and preserves posts with either direction present.
-- Hard negative: `sql/negatives/neg_01.sql`. The hard negative collapses directed inbound and outbound semantics by counting only one PostLinks direction and mirroring it into both output counts.
+## Package Contents
 
-The maintainer-approved expected rejection reason for `neg_01` is `directed_postlink_inbound_outbound_semantics_collapsed`. The hard negative is a checker control, not a method-generated failure.
+- `manifest.yaml` is the package index.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
+- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
+- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
+- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
-## LONGTAIL Structure Boundary
+## Evidence Boundary
 
-The case remains part of the frozen Common-core LONGTAIL six-case set. Its interpretation is structural robustness for directed graph relation aggregation with left-side post preservation; workload_frequency_claim_created is false and production_frequency_claim_created is false.
+Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
-## Public Release Boundary
+New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
 
-No database run was performed during migration. No evidence was regenerated. The denominator is unchanged, paper results are unchanged, Common-core membership is unchanged, case_sets are unchanged, reports are unchanged, results are unchanged, and raw legacy evidence is unchanged. No global leaderboard is established by this package.
+## Benchmark Boundary
 
-## Evidence Map
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
-- Retention policy and legacy artifact map: `evidence/runs_retention.yaml`.
-- Expected hard-negative rejection: `checker/expected_rejections.yaml`.
-- Retained source and positive outputs: `evidence/retained_controls/`.
-- Retained hard-negative outputs: `evidence/hard_negative/`.
-- Retained plan evidence: `evidence/retained_plans/`, with Spark plan text published only as sanitized copies.
+## Notes / Future Review Status
 
-Raw legacy runs are mapped and retained in the legacy source repository. They were not deleted, rewritten, or copied wholesale into this public package.
-
-## Validation Script Caveat
-
-The copied validation scripts are retained legacy validation assets. They are not final public user runners and were not executed during migration. Future public runners should write outputs outside case-local `runs/` by default.
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.

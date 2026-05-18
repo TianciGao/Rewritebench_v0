@@ -1,31 +1,41 @@
 # PORT_0004
 
-`PORT_0004` is a canonical public-release PORT case package for portability and cross-engine adaptation review. It is packaged for correctness, portability-boundary evidence, hard-negative checking, and plan/failure observability.
+## Purpose
 
-## Case Summary
+PORT_0004 is a portability-focused SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `PARROT`.
 
-MySQL-oriented source computes a female-patient percentage for diagnosis RA in birth year 1980; the PostgreSQL positive preserves the year predicate under dialect adaptation. The package records dialect and engine portability risk using retained static evidence; this migration does not create new cross-engine execution results.
+The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
 
-## Case Design
+## Release Scope
 
-- Source SQL: `sql/source.sql`.
-- Positive rewrite/adaptation: `sql/positives/pos_01.sql`.
-- Hard negative: `sql/negatives/neg_01.sql`.
+- Common-core v0 member: yes.
+- Track A same-engine denominator member: yes.
+- Common-core membership is governed by `case_sets/`, not by this README.
+- Denominator role is governed by denominator and case-set files, not by this README.
+- Paper-result contributor: governed by official metric/report artifacts, not this README.
+- Metrics computed in this package: no.
+- Public release role: Common-core v0 canonical case package.
 
-The hard negative changes the year literal from 1980 to 1981, changing the filtered patient cohort. The expected rejection reason is `year_filter_literal_changed` and is static-inferred from SQL plus retained result evidence. The approval status is recorded in `checker/expected_rejections.yaml`.
+## Package Contents
 
-## Portability Boundary
+- `manifest.yaml` is the package index.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
+- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
+- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
+- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
-No DB rerun was performed during migration. No new cross-engine execution result, transfer-speed claim, complete nine-case PORT result claim, ranking claim, or leaderboard claim was created. Any cross-engine interpretation must come only from retained evidence and the paper protocol.
+## Evidence Boundary
 
-## Public Release Boundary
+Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
-No evidence was regenerated. Denominator unchanged. Paper results unchanged. Common-core membership unchanged. No global leaderboard is established. Raw legacy evidence was not modified.
+New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
 
-## Evidence Map
+## Benchmark Boundary
 
-Retained evidence is indexed in `evidence/runs_retention.yaml`. Hard-negative expectation metadata is in `checker/expected_rejections.yaml`. Raw legacy runs are mapped and retained as do-not-delete originals; they were not copied wholesale.
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
-## Validation Script Caveat
+## Notes / Future Review Status
 
-The copied validation scripts are retained legacy validation assets. They are not final public user runners. Future public runners should write outputs outside case-local `runs/` by default.
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.

@@ -1,0 +1,20 @@
+{
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "metrics_computed": false,
+  "next_safe_action": "Run overnight_non_common_core_case_package_standardization_wave_002_policy_approved using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing case_sets, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.",
+  "package_validation_summaries_audited": 42,
+  "package_validation_summaries_modified": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "readme_files_checked": 42,
+  "readmes_standardized": 42,
+  "reports_changed": false,
+  "results_changed": false,
+  "task_completed": true,
+  "wave002_auto_or_policy_approved_candidates": 28,
+  "wave002_backlog_defer": 0,
+  "wave002_manual_review_required": 0,
+  "wave002_policy_questions_answered": 9
+}
