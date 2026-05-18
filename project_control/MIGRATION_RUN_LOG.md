@@ -5226,13 +5226,13 @@ Task result:
 Next safe action:
 - Review wave 001 completed packages and deferred hygiene dossiers; decide whether to run `overnight_non_common_core_case_package_standardization_wave_002` or separately authorize staged/backlog membership governance without changing Common-core v0 membership, denominators, reports/results, paper results, metrics, or raw legacy evidence.
 
-### 2026-05-18 · pending · wave001_readme_public_polish_and_wave002_selection
+### 2026-05-18 · d3a4df7 · wave001_readme_public_polish_and_wave002_selection
 
 Mode: public README polish plus wave review/selection; no case migration; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `d3a4df7b876d839b0a2db1a5639b23bbc28b71f9`
+Push: `origin/main` updated `5023601..d3a4df7`
 
 Summary:
 - Rewrote the public-facing README files for `PORT_0002` and `PERF_0029` to remove construction-process wording and describe stable package scope, contents, evidence boundary, and benchmark boundary.
