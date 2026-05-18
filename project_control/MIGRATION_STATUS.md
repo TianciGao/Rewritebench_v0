@@ -663,6 +663,25 @@ Membership and scaffold snapshot:
 - Raw legacy evidence changed by wave002 policy-approved standardization: no.
 - Metrics computed by wave002 policy-approved standardization: no.
 - Paper tables rendered by wave002 policy-approved standardization: no.
+- wave002 closeout and wave003 selection completed: yes.
+- New case migrations performed by wave002 closeout: no.
+- Wave 002 completed cases reviewed by closeout: 28.
+- Known non-Common-core candidates: 157.
+- Standardized non-Common-core count: 30.
+- Remaining not-yet-standardized count: 127.
+- Wave 003 auto candidates count: 0.
+- Wave 003 policy-approved candidates count: 30.
+- Wave 003 manual-review count: 13.
+- Wave 003 backlog-defer count: 77.
+- Orphan/unregistered review count: 7.
+- case_sets changed by wave002 closeout/wave003 selection: no.
+- Reports changed by wave002 closeout/wave003 selection: no.
+- Results changed by wave002 closeout/wave003 selection: no.
+- Denominator changed by wave002 closeout/wave003 selection: no.
+- Paper results changed by wave002 closeout/wave003 selection: no.
+- Raw legacy evidence changed by wave002 closeout/wave003 selection: no.
+- Metrics computed by wave002 closeout/wave003 selection: no.
+- Paper tables rendered by wave002 closeout/wave003 selection: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -723,6 +742,7 @@ Membership and scaffold snapshot:
 - non_status_metric_na_backlog_closure_bundle_v0 completed as an A-line non-status metric closure packet, classifying Semantic Equivalence Rate as audit-only support, GM_Speedup and Speedup Ratio Percentiles as blocked, Attribution Coverage and Cross-Engine Execution/Consistency as post-release backlog, and Speedup Retention as N.A. for v0 without computing metrics, implementing adapters, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - a_line_final_renderer_input_package_v0 completed as the final A-line renderer-input package, representing all ten Metrics Contract v1 primary metrics as limited official inputs, blocked records, N.A. records, audit-only support, or post-release backlog for a future separately authorized renderer without computing new metrics, rendering paper tables, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - overnight_non_common_core_case_package_standardization_wave_001 completed as a bounded non-Common-core standardization batch, creating canonical packages for `PORT_0002` and `PERF_0029`, deferring 28 hygiene-risk candidates with dossiers, and passing static YAML/JSON, public hygiene, canonical-case validator, fixture smoke, and diff checks without changing `case_sets/`, reports/results, denominators, paper results, metrics, Common-core cases, or raw legacy evidence.
+- wave002_closeout_and_wave003_selection_v0 completed as an audit-only closeout, reviewing all 28 wave 002 non-Common-core packages, confirming 30 standardized non-Common-core packages across waves 001 and 002, preserving all denominator and case-set boundaries, and selecting 30 policy-approved wave 003 candidates without migrating cases, modifying case packages, computing metrics, rendering paper tables, updating reports/results, or modifying raw legacy evidence.
 - Overnight governance and redevelopment investigation completed without migration, official staged/backlog membership creation, reports/results changes, script implementation, metrics computation, denominator changes, or raw legacy evidence changes.
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
@@ -745,4 +765,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Review the 28 wave 002 policy-approved standardized non-Common-core packages and decide whether to run a narrower manual-review follow-up, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
+Run a separately authorized `overnight_non_common_core_case_package_standardization_wave_003` task using only `wave_003_policy_approved_candidate` rows from `audits/wave002_closeout_and_wave003_selection_v0/wave003_candidate_selection.csv`, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.

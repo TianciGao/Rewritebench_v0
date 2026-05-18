@@ -1,0 +1,23 @@
+{
+  "task_completed": true,
+  "new_case_migrations_performed": false,
+  "wave002_completed_cases_reviewed": 28,
+  "wave002_review_passed": true,
+  "known_non_common_core_candidates": 157,
+  "standardized_non_common_core_count": 30,
+  "remaining_not_yet_standardized_count": 127,
+  "wave003_auto_candidates": 0,
+  "wave003_policy_approved_candidates": 30,
+  "wave003_manual_review_required": 13,
+  "wave003_backlog_defer": 77,
+  "orphan_or_unregistered_review": 7,
+  "case_sets_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "metrics_computed": false,
+  "paper_tables_rendered": false,
+  "next_safe_action": "Run a separately authorized wave003 package standardization task using only wave_003_policy_approved_candidate rows, with case_sets, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged."
+}

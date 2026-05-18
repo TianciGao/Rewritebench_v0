@@ -5417,3 +5417,67 @@ Task result:
 
 Next safe action:
 - Review the 28 wave 002 policy-approved standardized non-Common-core packages and decide whether to run a narrower manual-review follow-up, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
+
+### 2026-05-18 · pending · wave002_closeout_and_wave003_selection_v0
+
+Mode: wave closeout and next-wave selection; no case migration; no case-set membership update; no denominator update; no metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until main closeout commit is created
+Push: pending until main closeout commit is pushed
+
+Summary:
+- Reviewed all 28 wave 002 policy-approved standardized non-Common-core packages at static metadata level.
+- Confirmed current release package count: 70 packages under `cases/*/*`.
+- Confirmed current standardized non-Common-core count: 30 packages, covering `PORT_0002`, `PERF_0029`, and the 28 wave 002 packages.
+- Built the 157-row non-Common-core standardization progress matrix from existing governance/preview artifacts.
+- Selected 30 `wave_003_policy_approved_candidate` rows for a separately authorized wave 003 package-standardization task.
+- Classified remaining rows as 13 manual-review, 77 backlog-defer, and 7 orphan/unregistered review rows.
+- Did not migrate cases, modify case packages, update `case_sets/`, update reports/results, change denominators, change paper results, compute metrics, render paper tables, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/wave002_closeout_and_wave003_selection_v0/wave002_closeout_summary.md`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave002_completed_package_review.csv`
+- `audits/wave002_closeout_and_wave003_selection_v0/non_common_core_standardization_progress.csv`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave003_candidate_selection.csv`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave003_batch_plan.md`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave003_policy_or_manual_questions.md`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave003_future_prompt.md`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave002_closeout_validation_results.csv`
+- `audits/wave002_closeout_and_wave003_selection_v0/wave002_closeout_and_wave003_selection_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- CSV checks: passed; wave 002 package review has 28 rows, progress matrix has 157 rows, wave 003 selection has 127 rows, and validation results have no FAIL rows.
+- Boundary checks: passed; no files under `case_sets/`, `reports/`, `results/`, or `cases/` changed.
+- `git diff --check`: pending final validation before commit.
+
+Task result:
+- New case migrations performed: no.
+- Wave 002 completed cases reviewed: 28.
+- Wave 002 review passed: yes.
+- Known non-Common-core candidates: 157.
+- Standardized non-Common-core count: 30.
+- Remaining not-yet-standardized count: 127.
+- Wave 003 auto candidates: 0.
+- Wave 003 policy-approved candidates: 30.
+- Wave 003 manual-review required: 13.
+- Wave 003 backlog-defer: 77.
+- Orphan/unregistered review: 7.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Run a separately authorized `overnight_non_common_core_case_package_standardization_wave_003` task using only `wave_003_policy_approved_candidate` rows from `audits/wave002_closeout_and_wave003_selection_v0/wave003_candidate_selection.csv`, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.

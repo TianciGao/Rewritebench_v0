@@ -1,0 +1,14 @@
+validation_name,status,details
+wave002 completed cases reviewed = 28,PASS,28 reviewed rows
+all reviewed packages exist,PASS,All wave002 release package directories exist.
+README template checks,PASS,All reviewed READMEs have required public sections and no forbidden terms.
+package_validation_summary schema checks,PASS,All reviewed package validation summaries follow schema guard and contain claim boundaries.
+no Common-core cases modified,PASS,This task created audit outputs only and did not edit case packages.
+no case_sets modified,PASS,No case_sets writes are part of this task.
+no reports/results modified,PASS,No reports/ or results/ writes are part of this task.
+no denominator changed,PASS,Denominator files were not modified.
+no paper results changed,PASS,Paper-result artifacts were not modified.
+no raw legacy evidence changed,PASS,Legacy repo was inspected read-only; no legacy writes were performed.
+JSON/YAML parse,PASS,"Manifest, runs_retention, provenance, and denominator eligibility YAML parsed for all reviewed packages; package summaries parsed as JSON."
+git diff --check,PASS,git diff --check passed before project-control staging; rerun after this CSV update also passed.
+fixture smoke,PASS,"python scripts/dev/smoke_ledger_fixtures.py passed; 38 fixture rows checked, 17 expected-valid passed, 21 expected-invalid failed as expected, unexpected pass/fail 0/0."
