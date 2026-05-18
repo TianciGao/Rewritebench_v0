@@ -5668,13 +5668,13 @@ Task result:
 Next safe action:
 - Prepare a manual checker/schema/hard-negative and orphan registry reconciliation packet before any wave004 migration; do not migrate cases until source/positive/checker core assets and registry identity are resolved, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
 
-### 2026-05-18 · PENDING · b_line_user_entry_contract_v0
+### 2026-05-18 · 807037c · b_line_user_entry_contract_v0
 
 Mode: B-line public workbench design and user-entry contract; design-only; no public runner implementation; no reproduction CLI implementation; no metrics; no paper tables; no case migration
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until commit is created
-Push: pending until commit is pushed
+Commit: `807037cf2fef63ca9c6f33a07320ae0a507d3a5c`
+Push: succeeded; updated `origin/main` from `fa3138f` to `807037c`
 
 Summary:
 - Defined the future user-facing command model for running external SQL rewrite algorithms against selected benchmark cases.
