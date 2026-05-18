@@ -1,0 +1,35 @@
+case_id: PERF_0026
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0026
+  status: pg_witness_validated
+  dataset_line: TPC-H
+  seed: TPC-H-Q22
+  required_tables:
+    customer:
+    - c_custkey
+    - c_phone
+    - c_acctbal
+    orders:
+    - o_custkey
+  witness_data:
+    status: created
+    path: validation/pg_witness_data.sql
+    row_counts:
+      customer: 3
+      orders: 1
+    notes: Tiny PostgreSQL-only witness dataset for first validation.
+  validation:
+    postgresql: validated
+    mysql: not_run
+    spark: not_run
+  validation_artifacts:
+    postgresql: runs/pg/result_check.json
+  plan_artifacts:
+    postgresql:
+      plan_check: runs/pg/plans/plan_check.json
+      source_plan: runs/pg/plans/source.json
+      positive_rewrite_plan: runs/pg/plans/rewrite_pos_01.json
+      negative_rewrite_plan: runs/pg/plans/rewrite_neg_01.json

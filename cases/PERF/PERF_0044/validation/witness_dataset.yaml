@@ -1,0 +1,10 @@
+dataset_id: perf_0044_pg_minimal_witness_v0
+engine: postgres
+row_counts:
+  store_sales: 1
+  date_dim: 1
+  item: 1
+  store: 1
+notes:
+  - Minimal PostgreSQL witness data only; not a TPC-DS scale dataset.
+  - Designed to make source and positive match while negative differs.

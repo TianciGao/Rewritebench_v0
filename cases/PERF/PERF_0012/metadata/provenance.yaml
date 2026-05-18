@@ -1,0 +1,10 @@
+case_id: PERF_0012
+pool: PERF
+source_family: TPC-H
+source_id: SRC_001
+legacy_case_path: cases/PERF/PERF_0012
+legacy_manifest_path: cases/PERF/PERF_0012/manifest.yaml
+source_path: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/2.sql
+public_package_role: staged_backlog_canonical_package_candidate
+db_validation_run_by_package_creation: false
+evidence_regenerated_by_package_creation: false

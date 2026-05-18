@@ -1,0 +1,17 @@
+case_id: PERF_0012
+engines:
+- postgres
+- mysql
+- spark
+schema_assets:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+profile_source: legacy data profile when available; otherwise static package metadata
+legacy_data_profile_present: true

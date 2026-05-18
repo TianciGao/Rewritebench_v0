@@ -1,0 +1,32 @@
+case_id: PERF_0002
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0002
+  dataset_id: tpcds_sf1_perf0002_pg_mysql_spark_minimal
+  engine_validated:
+  - postgres
+  - mysql
+  - spark
+  required_tables:
+  - date_dim
+  - item
+  - store
+  - store_sales
+  row_counts:
+    date_dim: 73049
+    item: 18000
+    store: 12
+    store_sales: 2880404
+  file_sizes_bytes:
+    date_dim.dat: 10244389
+    item.dat: 5033899
+    store.dat: 3143
+    store_sales.dat: 385565005
+  notes:
+  - Minimal subset generated from TPC-DS SF1 using dsdgen
+  - Source, positive rewrite, and negative rewrite are now validated on PostgreSQL,
+    MySQL, and Spark
+  - Source and positive rewrite are value-normalized equivalent across all three engines
+  - Negative rewrite changes the result set across all three engines

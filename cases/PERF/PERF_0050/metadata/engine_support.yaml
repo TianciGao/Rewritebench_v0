@@ -1,0 +1,16 @@
+case_id: PERF_0050
+engines:
+  postgres:
+    schema: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    schema: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    schema: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+engine_scope:
+- postgres
+- mysql
+- spark
+db_validation_run_by_package_creation: false

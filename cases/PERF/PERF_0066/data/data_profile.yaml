@@ -1,0 +1,41 @@
+case_id: PERF_0066
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0066
+  status: postgres_witness_validated
+  dataset_id: perf_0066_pg_minimal_witness_v0
+  data_rows_added: true
+  data_loaded: true
+  engine_validated:
+  - postgres
+  required_tables:
+  - date_dim
+  - store_sales
+  - item
+  - customer
+  - customer_address
+  - store
+  row_counts:
+    date_dim: 1
+    store_sales: 1
+    item: 1
+    customer: 1
+    customer_address: 1
+    store: 1
+  data_source:
+    source_id: SRC_002
+    source_name: TPC-DS
+    seed_id: TPCDS_QUERY19_DSQGEN_COUNT1_SCALE1_ANSI_V0
+    generation_or_load_path: validation/pg_witness_data.sql
+  postgres_outputs:
+    source: runs/pg/source.tsv
+    positive_rewrite: runs/pg/rewrite_pos_01.tsv
+    negative_rewrite: runs/pg/rewrite_neg_01.tsv
+    result_check: runs/pg/result_check.json
+  notes:
+  - Minimal PostgreSQL witness data only; not a TPC-DS scale dataset.
+  - MySQL and Spark validation remain unvalidated.
+  - PostgreSQL plan artifacts are intentionally not collected in this construction
+    step.

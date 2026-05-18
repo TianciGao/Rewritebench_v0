@@ -1,0 +1,14 @@
+case_id: PERF_0022
+pool: PERF
+canonical_case_root: cases/PERF/PERF_0022
+legacy_case_root_reference: cases/PERF/PERF_0022
+manifest: manifest.yaml
+sql:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+schema: schema/
+checker: checker/
+validation: validation/
+evidence: evidence/
+metadata: metadata/

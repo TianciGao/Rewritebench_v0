@@ -647,6 +647,22 @@ Membership and scaffold snapshot:
 - Raw legacy evidence changed by wave002 policy/readme/schema guard: no.
 - Metrics computed by wave002 policy/readme/schema guard: no.
 - Paper tables rendered by wave002 policy/readme/schema guard: no.
+- wave002 policy-approved non-Common-core standardization completed: yes.
+- Wave 002 cases considered: 28.
+- Wave 002 cases attempted: 28.
+- Wave 002 cases completed: 28.
+- Wave 002 cases deferred: 0.
+- Wave 002 completed case ids: `PERF_0002`, `CONS_0031`, `CONS_0034`, `PERF_0009`, `PERF_0010`, `PERF_0011`, `PERF_0012`, `PERF_0014`, `PERF_0015`, `PERF_0016`, `PERF_0018`, `PERF_0020`, `PERF_0021`, `PERF_0022`, `PERF_0023`, `PERF_0025`, `PERF_0026`, `PERF_0036`, `PERF_0038`, `PERF_0043`, `PERF_0044`, `PERF_0047`, `PERF_0050`, `PERF_0053`, `PERF_0063`, `PERF_0065`, `PERF_0066`, `PERF_0076`.
+- Wave 002 deferred case ids: none.
+- Common-core modified by wave002 policy-approved standardization: no.
+- case_sets changed by wave002 policy-approved standardization: no.
+- Reports changed by wave002 policy-approved standardization: no.
+- Results changed by wave002 policy-approved standardization: no.
+- Denominator changed by wave002 policy-approved standardization: no.
+- Paper results changed by wave002 policy-approved standardization: no.
+- Raw legacy evidence changed by wave002 policy-approved standardization: no.
+- Metrics computed by wave002 policy-approved standardization: no.
+- Paper tables rendered by wave002 policy-approved standardization: no.
 - No global leaderboard.
 - No new DB validation, timing rerun, evidence regeneration, benchmark result row, workload-frequency claim, production-frequency claim, speedup claim, ranking claim, or cross-engine result was created by case-package migration or final closeout.
 
@@ -729,4 +745,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Run `overnight_non_common_core_case_package_standardization_wave_002_policy_approved` using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
+Review the 28 wave 002 policy-approved standardized non-Common-core packages and decide whether to run a narrower manual-review follow-up, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.

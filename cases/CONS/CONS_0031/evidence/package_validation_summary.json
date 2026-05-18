@@ -1,0 +1,28 @@
+{
+  "canonical_layout_status": "pass",
+  "case_id": "CONS_0031",
+  "checker_asset_status": "present",
+  "claim_boundaries": {
+    "db_validation_run": false,
+    "evidence_regenerated": false,
+    "leaderboard_created": false,
+    "metrics_computed": false,
+    "new_runtime_outputs_created": false,
+    "paper_tables_rendered": false
+  },
+  "known_local_package_caveats": [
+    "Non-Common-core package; staged/backlog status requires separate governance approval.",
+    "Database validation is not run by package creation.",
+    "Legacy run outputs are indexed, not copied wholesale."
+  ],
+  "metadata_asset_status": "present",
+  "pool": "CONS",
+  "public_hygiene_status": "pass",
+  "retained_evidence_index_status": "present",
+  "schema_asset_status": "present",
+  "sql_asset_status": "present",
+  "static_validation_status": "pass",
+  "summary_type": "case_package_validation_summary",
+  "validation_asset_status": "static_entrypoints_present_not_executed",
+  "validation_scope": "static_package_validation_only"
+}

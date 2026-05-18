@@ -1,0 +1,48 @@
+case_id: PERF_0023
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0023
+  status: pg_witness_validated
+  dataset_id: pg_minimal_witness
+  data_rows_added: true
+  data_loaded: true
+  engine_validated:
+  - postgres
+  required_tables:
+  - lineitem
+  - part
+  required_columns:
+    lineitem:
+    - l_partkey
+    - l_extendedprice
+    - l_discount
+    - l_quantity
+    - l_shipmode
+    - l_shipinstruct
+    part:
+    - p_partkey
+    - p_brand
+    - p_container
+    - p_size
+  row_counts:
+    lineitem: 1
+    part: 1
+  data_source:
+    source_id: SRC_001
+    source_name: TPC-H
+    seed_id: TPC-H-Q19
+    generation_or_load_path: validation/pg_witness_data.sql
+  validation_artifacts:
+    postgresql: runs/pg/result_check.json
+  plan_artifacts:
+    postgresql:
+      plan_check: runs/pg/plans/plan_check.json
+      source_plan: runs/pg/plans/source.json
+      positive_rewrite_plan: runs/pg/plans/rewrite_pos_01.json
+      negative_rewrite_plan: runs/pg/plans/rewrite_neg_01.json
+  notes:
+  - DDL covers only tables and columns referenced by source.sql and rewrite candidates.
+  - PostgreSQL witness validation and PostgreSQL plan collection only; no MySQL/Spark
+    validation, admission claim, or promotion claim is implied.

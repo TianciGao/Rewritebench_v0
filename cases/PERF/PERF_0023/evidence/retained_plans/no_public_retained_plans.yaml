@@ -1,0 +1,4 @@
+case_id: PERF_0023
+status: no_public_plan_outputs_copied
+reason: Raw plan artifacts are archive-mapped or excluded from public copy under the
+  policy guard.

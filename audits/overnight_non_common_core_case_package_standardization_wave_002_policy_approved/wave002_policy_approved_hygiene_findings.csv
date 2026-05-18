@@ -1,0 +1,56 @@
+case_id,file_path,risk_type,action_taken,public_copy_created,raw_legacy_retained,notes
+PERF_0002,cases/PERF/PERF_0002,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+CONS_0031,cases/CONS/CONS_0031,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+CONS_0031,cases/CONS/CONS_0031/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+CONS_0034,cases/CONS/CONS_0034,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+CONS_0034,cases/CONS/CONS_0034/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0009,cases/PERF/PERF_0009,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0009,cases/PERF/PERF_0009/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0010,cases/PERF/PERF_0010,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0010,cases/PERF/PERF_0010/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0011,cases/PERF/PERF_0011,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0011,cases/PERF/PERF_0011/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0012,cases/PERF/PERF_0012,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0012,cases/PERF/PERF_0012/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0014,cases/PERF/PERF_0014,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0014,cases/PERF/PERF_0014/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0015,cases/PERF/PERF_0015,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0015,cases/PERF/PERF_0015/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0016,cases/PERF/PERF_0016,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0016,cases/PERF/PERF_0016/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0018,cases/PERF/PERF_0018,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0018,cases/PERF/PERF_0018/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0020,cases/PERF/PERF_0020,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0020,cases/PERF/PERF_0020/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0021,cases/PERF/PERF_0021,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0021,cases/PERF/PERF_0021/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0022,cases/PERF/PERF_0022,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0022,cases/PERF/PERF_0022/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0023,cases/PERF/PERF_0023,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0023,cases/PERF/PERF_0023/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0025,cases/PERF/PERF_0025,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0025,cases/PERF/PERF_0025/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0026,cases/PERF/PERF_0026,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0026,cases/PERF/PERF_0026/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0036,cases/PERF/PERF_0036,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0036,cases/PERF/PERF_0036/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0038,cases/PERF/PERF_0038,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0038,cases/PERF/PERF_0038/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0043,cases/PERF/PERF_0043,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0043,cases/PERF/PERF_0043/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0044,cases/PERF/PERF_0044,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0044,cases/PERF/PERF_0044/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0047,cases/PERF/PERF_0047,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0047,cases/PERF/PERF_0047/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0050,cases/PERF/PERF_0050,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0050,cases/PERF/PERF_0050/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0053,cases/PERF/PERF_0053,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0053,cases/PERF/PERF_0053/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0063,cases/PERF/PERF_0063,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0063,cases/PERF/PERF_0063/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0065,cases/PERF/PERF_0065,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0065,cases/PERF/PERF_0065/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0066,cases/PERF/PERF_0066,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0066,cases/PERF/PERF_0066/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.
+PERF_0076,cases/PERF/PERF_0076,public_hygiene_scan,package scanned; no forbidden case-package patterns found,true,true,Core public-safe assets copied; raw runs/logs/traces excluded.
+PERF_0076,cases/PERF/PERF_0076/runs/,legacy_runs_present,archive-mapped in runs_retention; not copied,false,true,Raw run directory stayed in legacy repository only.

@@ -1,0 +1,3 @@
+case_id: PERF_0065
+status: no_public_control_outputs_copied
+reason: Legacy run outputs are archive-mapped through evidence/runs_retention.yaml.

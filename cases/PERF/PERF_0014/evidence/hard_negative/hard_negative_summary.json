@@ -1,0 +1,9 @@
+{
+  "case_id": "PERF_0014",
+  "hard_negative_sql": "sql/negatives/neg_01.sql",
+  "notes": [
+    "Static-inferred hard-negative role is retained as package metadata only."
+  ],
+  "paper_facing_approval": false,
+  "review_status": "needs_review_for_paper_facing_approval"
+}

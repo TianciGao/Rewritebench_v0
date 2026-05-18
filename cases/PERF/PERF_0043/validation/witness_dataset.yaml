@@ -1,0 +1,13 @@
+dataset_id: perf_0043_pg_minimal_witness_v0
+engine: postgres
+row_counts:
+  customer: 1
+  customer_address: 1
+  customer_demographics: 1
+  date_dim: 1
+  store_sales: 1
+  web_sales: 1
+  catalog_sales: 0
+notes:
+  - Minimal PostgreSQL witness data only; not a TPC-DS scale dataset.
+  - Designed to make source and positive match while negative differs.

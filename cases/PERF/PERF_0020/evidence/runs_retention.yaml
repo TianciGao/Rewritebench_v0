@@ -1,0 +1,166 @@
+case_id: PERF_0020
+pool: PERF
+policy_version: runs_retention_policy_v1
+status: non_common_core_policy_approved_standardized
+canonical_full_case_migration:
+  status: copy_first_non_common_core_standardization
+  full_case_package_migrated: true
+  full_case_package_migration_scope: PERF_0020_only
+  canonical_layout_tested: true
+full_case_package_migrated: true
+full_case_package_migration_scope: PERF_0020_only
+legacy_repo: sql-rewrite-bench-artifact-clean
+public_release_repo: Rewritebench_v0
+original_legacy_case_path: cases/PERF/PERF_0020
+public_release_case_path: cases/PERF/PERF_0020
+legacy_runs_root: cases/PERF/PERF_0020/runs/
+legacy_runs_detected: true
+denominator_changed: false
+paper_results_changed: false
+common_core_membership_changed: false
+raw_legacy_evidence_changed: false
+db_validation_run: false
+evidence_regenerated: false
+metrics_computed: false
+paper_tables_rendered: false
+raw_runs_policy:
+  raw_runs_wholesale_copy: false
+  public_safe_run_outputs_promoted_to_evidence: false
+  raw_spark_plan_files_copied_to_public_tree: false
+  raw_spark_plan_files_retained_through_mapping: true
+  future_public_runner_outputs_must_not_write_to_case_local_runs_by_default: true
+retained_core_assets: &id001
+- original_legacy_path: cases/PERF/PERF_0020/source.sql
+  public_release_path: cases/PERF/PERF_0020/sql/source.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 4c4b662a0cf667ca40bb922080f6f4b5f6d2328c68c2f28edaa5118d6ba252ba
+  sha256_public_copy: 4c4b662a0cf667ca40bb922080f6f4b5f6d2328c68c2f28edaa5118d6ba252ba
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/rewrite_pos_01.sql
+  public_release_path: cases/PERF/PERF_0020/sql/positives/pos_01.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 273bbada902dd97fa8ff531dbfd9098590f8b43957797808869ffdadcebca019
+  sha256_public_copy: 273bbada902dd97fa8ff531dbfd9098590f8b43957797808869ffdadcebca019
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/rewrite_neg_01.sql
+  public_release_path: cases/PERF/PERF_0020/sql/negatives/neg_01.sql
+  evidence_role: sql_asset
+  sha256_legacy_source: 3a5d64ce1dac6de9103fd63633a645b10f859936de9b97c31284258f05b89be7
+  sha256_public_copy: 3a5d64ce1dac6de9103fd63633a645b10f859936de9b97c31284258f05b89be7
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/schema/ddl_pg.sql
+  public_release_path: cases/PERF/PERF_0020/schema/postgres/ddl.sql
+  evidence_role: schema_asset
+  sha256_legacy_source: 05b869de7c2ac6d60c27245b01758558e42e0a247a86962132c12fbaff93abce
+  sha256_public_copy: 05b869de7c2ac6d60c27245b01758558e42e0a247a86962132c12fbaff93abce
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/validation/pg_witness_data.sql
+  public_release_path: cases/PERF/PERF_0020/schema/postgres/load.sql
+  evidence_role: witness_load_asset
+  sha256_legacy_source: 73eb2c0ea2724c4a279d9f11f56be0403b20ae7c77f056a6c3600f82235c7960
+  sha256_public_copy: 73eb2c0ea2724c4a279d9f11f56be0403b20ae7c77f056a6c3600f82235c7960
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/schema/ddl_mysql.sql
+  public_release_path: cases/PERF/PERF_0020/schema/mysql/ddl.sql
+  evidence_role: schema_asset
+  sha256_legacy_source: 7b95a23dd35d86066d3970d801fec5418913bc6c37b055a53b81e9ee2a76be71
+  sha256_public_copy: 7b95a23dd35d86066d3970d801fec5418913bc6c37b055a53b81e9ee2a76be71
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/validation/mysql_witness_data.sql
+  public_release_path: cases/PERF/PERF_0020/schema/mysql/load.sql
+  evidence_role: witness_load_asset
+  sha256_legacy_source: 524268a620e00914a3d213cf27def771e7c7ecf8fd187e46378585e5c88d9d07
+  sha256_public_copy: 524268a620e00914a3d213cf27def771e7c7ecf8fd187e46378585e5c88d9d07
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/schema/ddl_spark.sql
+  public_release_path: cases/PERF/PERF_0020/schema/spark/ddl.sql
+  evidence_role: schema_asset
+  sha256_legacy_source: 739083a8a85bd272c4510809103f7349726a994eefeba8b9a8deb8d48bd1b738
+  sha256_public_copy: 739083a8a85bd272c4510809103f7349726a994eefeba8b9a8deb8d48bd1b738
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/validation/spark_witness_data.sql
+  public_release_path: cases/PERF/PERF_0020/schema/spark/load.sql
+  evidence_role: witness_load_asset
+  sha256_legacy_source: 5b94828900b35dc913198946b0a3aca0ded5eabbe29f2c5610977af372c1d06a
+  sha256_public_copy: 5b94828900b35dc913198946b0a3aca0ded5eabbe29f2c5610977af372c1d06a
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+- original_legacy_path: cases/PERF/PERF_0020/validation/checker.yaml
+  public_release_path: cases/PERF/PERF_0020/checker/checker.yaml
+  evidence_role: checker_asset_path_normalized
+  sha256_legacy_source: 259e84ce8bbcfd4ba435fb1302fb0b4eb33a22767d3604593ab4a8c6a98b1910
+  sha256_public_copy: e6862775e6a42da226037bb34af4c3849c654f45998c73c9f681757e3197c638
+  sha256_matches_source: false
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; release copy normalizes paths
+    away from legacy run outputs
+  source_transformation: public_copy_whitespace_normalized_for_release_diff_hygiene
+- original_legacy_path: cases/PERF/PERF_0020/validation/witness_dataset.yaml
+  public_release_path: cases/PERF/PERF_0020/validation/witness_dataset.yaml
+  evidence_role: witness_metadata
+  sha256_legacy_source: c786423963e1e2d26639305d987c95124d251de0386e919f806db9f7dc955fcd
+  sha256_public_copy: c786423963e1e2d26639305d987c95124d251de0386e919f806db9f7dc955fcd
+  sha256_matches_source: true
+  public_safe: true
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository; copied public-safe package
+    asset in release repository
+legacy_run_archive_mapping:
+- original_legacy_path: cases/PERF/PERF_0020/runs/
+  public_release_path: null
+  evidence_role: legacy_run_directory_archive_mapped_not_public_copied
+  public_safe: false
+  do_not_delete_original: true
+  archive_policy: reference only; raw run directory not copied into release package
+public_release_notes:
+  full_case_package_migrated: true
+  non_common_core: true
+  not_common_core_v0_member: true
+  not_track_a_denominator_member: true
+  no_paper_result_created: true
+retained_control_evidence: *id001
+do_not_delete:
+- original_legacy_path: cases/PERF/PERF_0020/manifest.yaml
+  evidence_role: legacy_manifest_source_metadata
+  do_not_delete_original: true
+  archive_policy: retain original in legacy repository
+excluded_from_public_copy:
+- original_legacy_path: cases/PERF/PERF_0020/runs/
+  reason: raw run outputs and local-machine artifacts are excluded from public package
+    copy

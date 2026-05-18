@@ -1,0 +1,11 @@
+dataset_id: perf_0076_pg_minimal_witness_v0
+engine: postgres
+purpose: prove source/positive equivalence and source/negative divergence for query31.tpl
+tables:
+  store_sales: 3
+  web_sales: 3
+  date_dim: 3
+  customer_address: 1
+notes:
+  - Minimal witness data only.
+  - Not a TPC-DS scale dataset.

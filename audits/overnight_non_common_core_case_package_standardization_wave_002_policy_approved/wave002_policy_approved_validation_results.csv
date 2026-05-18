@@ -1,0 +1,20 @@
+validation_name,status,details
+selected cases come only from wave002 after-policy queue,PASS,completed=28 allowed=28
+no Common-core case modified,PASS,Only new non-Common-core wave002 package directories under cases/CONS and cases/PERF were created; no existing Common-core package paths were modified.
+no case_sets modified,PASS,No changed path under case_sets/.
+no reports/results modified,PASS,No changed path under reports/ or results/.
+no denominator changed,PASS,No denominator files changed and no case_sets files changed.
+no paper results changed,PASS,No reports/results or paper result artifacts changed.
+no raw legacy evidence changed,PASS,Legacy repository was read-only; release package copies only public-safe core assets.
+no raw logs copied,PASS,none
+no prompt/token/API traces copied,PASS,none
+no raw runs copied wholesale,PASS,none
+no raw local-path artifacts copied,PASS,none
+README template checks,PASS,checked=28
+package_validation_summary schema checks,PASS,checked=28
+public hygiene scan,PASS,Case-package public scan found no forbidden patterns.
+YAML parse,PASS,Parsed all new YAML files successfully.
+JSON parse,PASS,Parsed all new JSON files successfully.
+canonical layout basic check,PASS,validate_case_package.py --mode canonical-case passed for 28/28 completed cases.
+fixture smoke,PASS,smoke_ledger_fixtures.py passed: 38 rows checked; 0 unexpected pass/fail.
+git diff --check,PASS,git diff --check and git diff --cached --check passed after explicit staging.

@@ -5353,3 +5353,67 @@ Task result:
 
 Next safe action:
 - Run `overnight_non_common_core_case_package_standardization_wave_002_policy_approved` using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
+
+### 2026-05-18 · pending · overnight_non_common_core_case_package_standardization_wave_002_policy_approved
+
+Mode: bounded policy-approved non-Common-core case package standardization; no case-set membership update; no denominator update; no metrics; no reports/results
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending before main migration commit
+Push: pending before main migration push
+
+Summary:
+- Used `audits/wave002_policy_readme_schema_guard_v0/wave002_candidate_selection_after_policy.csv` as the only candidate source.
+- Attempted all 28 `wave_002_policy_approved_candidate` cases.
+- Completed canonical package standardization for 28 non-Common-core cases: `PERF_0002`, `CONS_0031`, `CONS_0034`, `PERF_0009`, `PERF_0010`, `PERF_0011`, `PERF_0012`, `PERF_0014`, `PERF_0015`, `PERF_0016`, `PERF_0018`, `PERF_0020`, `PERF_0021`, `PERF_0022`, `PERF_0023`, `PERF_0025`, `PERF_0026`, `PERF_0036`, `PERF_0038`, `PERF_0043`, `PERF_0044`, `PERF_0047`, `PERF_0050`, `PERF_0053`, `PERF_0063`, `PERF_0065`, `PERF_0066`, and `PERF_0076`.
+- Deferred cases: none.
+- Created public-facing case packages with README template v1, package-validation summary schema v1, canonical SQL/schema/checker/evidence/metadata/validation layout, and archive-mapped legacy run retention.
+- Did not copy raw legacy run directories wholesale.
+- Did not copy raw logs, stdout/stderr/debug payloads, private runtime traces, or raw local-path artifacts.
+- Did not update `case_sets/`, update reports/results, change denominators, change paper results, compute metrics, render paper tables, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- 28 case package directories under `cases/CONS/` and `cases/PERF/` for the completed wave 002 cases.
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_summary.md`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_case_queue.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_completed_cases.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_deferred_cases.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_hygiene_findings.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_runs_retention_index.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_package_validation_summary_audit.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_readme_checks.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_validation_results.csv`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave002_policy_approved_summary.json`
+- `audits/overnight_non_common_core_case_package_standardization_wave_002_policy_approved/wave003_followup_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `python scripts/dev/validate_case_package.py --mode canonical-case`: passed for 28/28 completed cases.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- YAML/JSON parse checks: passed for new package and audit files.
+- README forbidden-term checks: passed for 28 completed package READMEs.
+- package_validation_summary schema checks: passed for 28 completed package summaries.
+- Boundary checks: passed; no `case_sets/`, `reports/`, `results/`, denominator, paper-result, raw legacy evidence, or Common-core package files were modified.
+- `git diff --check` and `git diff --cached --check`: passed.
+
+Task result:
+- Cases considered: 28.
+- Cases attempted: 28.
+- Cases completed: 28.
+- Cases deferred: 0.
+- case_sets changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- case membership changed: no.
+- raw legacy evidence changed: no.
+- metrics computed: no.
+- paper tables rendered: no.
+
+Next safe action:
+- Review the 28 wave 002 policy-approved standardized non-Common-core packages and decide whether to run a narrower manual-review follow-up, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.

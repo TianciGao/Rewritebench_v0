@@ -1,0 +1,10 @@
+case_id: PERF_0066
+pool: PERF
+source_family: TPC-DS
+source_id: SRC_002
+legacy_case_path: cases/PERF/PERF_0066
+legacy_manifest_path: cases/PERF/PERF_0066/manifest.yaml
+source_path: datasets/raw/tpcds/DSGen-software-code-4.0.0/query_templates/query19.tpl
+public_package_role: staged_backlog_canonical_package_candidate
+db_validation_run_by_package_creation: false
+evidence_regenerated_by_package_creation: false

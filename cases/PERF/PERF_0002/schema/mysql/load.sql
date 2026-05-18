@@ -1,0 +1,1 @@
+-- PERF_0002: no public case-local load SQL retained for mysql.

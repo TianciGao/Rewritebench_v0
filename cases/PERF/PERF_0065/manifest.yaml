@@ -1,0 +1,104 @@
+case_id: PERF_0065
+pool: PERF
+status: non_common_core_policy_approved_standardized
+canonical_layout: true
+source_family: TPC-DS
+benchmark_scope:
+  benchmark_unit: case_package
+  migration_scope: PERF_0065_only
+  common_core_v0_membership_reference: case_sets/common_core_v0/cases.csv
+  common_core_membership_changed: false
+  case_admission_status_changed: false
+  db_validation_run: false
+  evidence_regenerated: false
+denominator_eligibility:
+  case_id: PERF_0065
+  pool: PERF
+  common_core_v0_member: false
+  not_common_core_v0_member: true
+  preview_classification: staged_or_backlog_preview_only
+  track_a_same_engine_candidate: false
+  not_track_a_denominator_member: true
+  denominator_changed: false
+  paper_results_changed: false
+  case_membership_changed: false
+  common_core_membership_changed: false
+  no_global_leaderboard: true
+  no_paper_result_created: true
+engine_support:
+  postgres:
+    metadata: metadata/engine_support.yaml
+  mysql:
+    metadata: metadata/engine_support.yaml
+  spark:
+    metadata: metadata/engine_support.yaml
+sql:
+  source: sql/source.sql
+  positives:
+  - id: pos_01
+    path: sql/positives/pos_01.sql
+    role: positive_rewrite
+  negatives:
+  - id: neg_01
+    path: sql/negatives/neg_01.sql
+    role: hard_negative
+    expected_behavior: result_divergence_from_source_reference
+  dialect_variants: {}
+schema:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+  profile: schema/schema_profile.yaml
+checker:
+  checker: checker/checker.yaml
+  normalization: checker/normalization.yaml
+  compare_config: checker/compare_config.yaml
+  expected_rejections: checker/expected_rejections.yaml
+validation:
+  postgres_validation: validation/run_postgres_validation.sh
+  mysql_validation: validation/run_mysql_validation.sh
+  spark_validation: validation/run_spark_validation.sh
+  postgres_plan_collection: validation/run_postgres_plan_collection.sh
+  mysql_plan_collection: validation/run_mysql_plan_collection.sh
+  spark_plan_collection: validation/run_spark_plan_collection.sh
+  execution_policy: not_run_during_migration
+  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+evidence:
+  runs_retention: evidence/runs_retention.yaml
+  retained_controls:
+  - evidence/retained_controls/no_public_retained_controls.yaml
+  retained_plans:
+  - evidence/retained_plans/no_public_retained_plans.yaml
+  hard_negative:
+  - evidence/hard_negative/hard_negative_summary.json
+  package_validation_summary: evidence/package_validation_summary.json
+metadata:
+  provenance: metadata/provenance.yaml
+  taxonomy: metadata/taxonomy.yaml
+  engine_support: metadata/engine_support.yaml
+  denominator_eligibility: metadata/denominator_eligibility.yaml
+  artifact_paths: metadata/artifact_paths.yaml
+notes:
+  migration_notes: notes/migration_notes.md
+  witness_design_notes: notes/witness_design_notes.md
+  risk_notes: notes/risk_notes.md
+claim_boundaries:
+  actual_migration_performed: true
+  non_common_core: true
+  full_case_package_migrated: true
+  denominator_changed: false
+  paper_results_changed: false
+  common_core_membership_changed: false
+  case_membership_changed: false
+  raw_legacy_evidence_changed: false
+  no_global_leaderboard: true
+  db_validation_run: false
+  evidence_regenerated: false
+  metrics_computed: false
+  paper_tables_rendered: false

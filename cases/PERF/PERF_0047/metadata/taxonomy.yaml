@@ -1,0 +1,37 @@
+case_id: PERF_0047
+pool: PERF
+taxonomy_source: legacy_manifest_tags_when_available
+tags:
+  sql_feature:
+    primary:
+    - cte
+    - window_function
+    - set_operation
+    secondary:
+    - subquery_in_from
+  rewrite_opportunity:
+    primary:
+    - aggregation_rewrite
+    secondary:
+    - cte_strategy
+  plan_operator:
+    present:
+    - scan
+    - join
+    - aggregate
+    - sort
+    - limit
+    - window
+    - set_op
+    - materialize
+    - subquery
+    delta_relevant: []
+  workload_realism:
+    source_inherited:
+    - classic_analytical_baseline
+    case_specific:
+    - long_tail_structure
+  portability:
+    confirmed: []
+    suspected: []
+review_status: staged_backlog_preview_only

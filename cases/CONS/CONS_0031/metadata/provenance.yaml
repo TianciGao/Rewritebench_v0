@@ -1,0 +1,10 @@
+case_id: CONS_0031
+pool: CONS
+source_family: VeriEQL
+source_id: null
+legacy_case_path: cases/CONS/CONS_0031
+legacy_manifest_path: cases/CONS/CONS_0031/manifest.yaml
+source_path: datasets/raw/verieql/staged/VeriEQL/benchmarks/calcite/calcite2.jsonlines#index=23
+public_package_role: staged_backlog_canonical_package_candidate
+db_validation_run_by_package_creation: false
+evidence_regenerated_by_package_creation: false

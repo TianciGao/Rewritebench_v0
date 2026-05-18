@@ -1,0 +1,49 @@
+-- PERF_0015 minimal MySQL schema.
+-- Covers only tables and columns referenced by source.sql and rewrite candidates.
+-- No data rows, load path, execution success, or validation result is implied.
+
+CREATE TABLE `part` (
+  `p_partkey` int NOT NULL,
+  `p_type` varchar(55) DEFAULT NULL,
+  PRIMARY KEY (`p_partkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `supplier` (
+  `s_suppkey` int NOT NULL,
+  `s_nationkey` int DEFAULT NULL,
+  PRIMARY KEY (`s_suppkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `lineitem` (
+  `l_partkey` int DEFAULT NULL,
+  `l_suppkey` int DEFAULT NULL,
+  `l_orderkey` int DEFAULT NULL,
+  `l_extendedprice` decimal(15,2) DEFAULT NULL,
+  `l_discount` decimal(15,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `orders` (
+  `o_orderkey` int NOT NULL,
+  `o_custkey` int DEFAULT NULL,
+  `o_orderdate` date DEFAULT NULL,
+  PRIMARY KEY (`o_orderkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `customer` (
+  `c_custkey` int NOT NULL,
+  `c_nationkey` int DEFAULT NULL,
+  PRIMARY KEY (`c_custkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `nation` (
+  `n_nationkey` int NOT NULL,
+  `n_name` varchar(25) DEFAULT NULL,
+  `n_regionkey` int DEFAULT NULL,
+  PRIMARY KEY (`n_nationkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `region` (
+  `r_regionkey` int NOT NULL,
+  `r_name` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`r_regionkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

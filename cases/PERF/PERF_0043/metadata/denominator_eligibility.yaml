@@ -1,0 +1,13 @@
+case_id: PERF_0043
+pool: PERF
+common_core_v0_member: false
+not_common_core_v0_member: true
+track_a_same_engine_candidate: false
+not_track_a_denominator_member: true
+staged_or_backlog_preview_only: true
+denominator_changed: false
+paper_results_changed: false
+case_membership_changed: false
+common_core_membership_changed: false
+no_global_leaderboard: true
+no_paper_result_created: true

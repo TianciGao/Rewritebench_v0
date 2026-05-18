@@ -1,0 +1,12 @@
+dataset_id: tpcds_sf1_perf0002_pg_mysql_spark_minimal
+
+tables:
+  - date_dim
+  - item
+  - store
+  - store_sales
+
+notes:
+  - minimal TPC-DS SF1 subset used for PERF_0002 validation
+  - source and positive rewrite are value-normalized equivalent across PostgreSQL, MySQL, and Spark
+  - negative rewrite changes the result set across PostgreSQL, MySQL, and Spark

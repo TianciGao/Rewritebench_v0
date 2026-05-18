@@ -1,0 +1,10 @@
+case_id: PERF_0076
+pool: PERF
+source_family: tpcds_query_templates
+source_id: SRC_002
+legacy_case_path: cases/PERF/PERF_0076
+legacy_manifest_path: cases/PERF/PERF_0076/manifest.yaml
+source_path: null
+public_package_role: staged_backlog_canonical_package_candidate
+db_validation_run_by_package_creation: false
+evidence_regenerated_by_package_creation: false

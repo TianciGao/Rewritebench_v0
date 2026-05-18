@@ -1,0 +1,28 @@
+case_id: CONS_0034
+pool: CONS
+taxonomy_source: legacy_manifest_tags_when_available
+tags:
+  sql_feature:
+    primary:
+    - outer_join
+    - expression_complexity
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - aggregation_rewrite
+    secondary:
+    - expression_simplification
+  plan_operator:
+    present:
+    - aggregate
+    - join
+    - scan
+    delta_relevant: []
+  workload_realism:
+    source_inherited: []
+    case_specific:
+    - complex_expression_density
+  portability:
+    confirmed: []
+    suspected: []
+review_status: staged_backlog_preview_only

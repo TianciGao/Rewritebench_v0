@@ -1,0 +1,43 @@
+case_id: PERF_0020
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0020
+  status: pg_witness_validated
+  dataset_id: pg_minimal_witness_v1
+  data_rows_added: true
+  data_loaded: true
+  engine_validated:
+  - postgres
+  required_tables:
+  - partsupp
+  - part
+  - supplier
+  required_columns:
+    partsupp:
+    - ps_partkey
+    - ps_suppkey
+    part:
+    - p_partkey
+    - p_brand
+    - p_type
+    - p_size
+    supplier:
+    - s_suppkey
+    - s_comment
+  row_counts:
+    partsupp: 5
+    part: 4
+    supplier: 2
+  data_source:
+    source_id: SRC_001
+    source_name: TPC-H
+    seed_id: TPC-H-Q16
+    generation_or_load_path: validation/pg_witness_data.sql
+  notes:
+  - Minimal PostgreSQL witness data is case-local and deliberately tiny.
+  - DDL covers only tables and columns referenced by source.sql and rewrite candidates.
+  - PostgreSQL result check is captured in runs/pg/result_check.json.
+  - PostgreSQL plan evidence is captured under runs/pg/plans/.
+  - No MySQL or Spark validation, admission claim, or promotion claim is implied.

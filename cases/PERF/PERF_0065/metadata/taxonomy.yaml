@@ -1,0 +1,32 @@
+case_id: PERF_0065
+pool: PERF
+taxonomy_source: legacy_manifest_tags_when_available
+tags:
+  sql_feature:
+    primary:
+    - expression_complexity
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - aggregation_rewrite
+    secondary:
+    - join_reorder
+  plan_operator:
+    present:
+    - scan
+    - join
+    - aggregate
+    - sort
+    - limit
+    delta_relevant: []
+  workload_realism:
+    source_inherited:
+    - classic_analytical_baseline
+    case_specific:
+    - high_join_count
+    - complex_expression_density
+  portability:
+    confirmed: []
+    suspected:
+    - type_semantics_gap
+review_status: staged_backlog_preview_only
