@@ -5546,13 +5546,13 @@ Task result:
 Next safe action:
 - Review the 30 wave 003 policy-approved standardized non-Common-core packages and prepare a separately authorized wave 004 selection/closeout packet from the remaining non-Common-core backlog, while keeping `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
 
-### 2026-05-18 · PENDING · wave003_closeout_and_wave004_selection_v0
+### 2026-05-18 · df2249c · wave003_closeout_and_wave004_selection_v0
 
 Mode: wave closeout and next-wave selection; no case migration; no case-set membership update; no denominator update; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `df2249c42e30a6c9ffea27a394c93f6247013a79`
+Push: succeeded; updated `origin/main` from `cd9d1d6` to `df2249c`
 
 Summary:
 - Reviewed all 30 wave 003 policy-approved standardized non-Common-core packages at static metadata level.
