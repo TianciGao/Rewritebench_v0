@@ -1,0 +1,14 @@
+validation_name,status,details
+wave003 completed cases reviewed = 30,PASS,30 review rows written.
+all reviewed packages exist,PASS,All wave003 release paths exist.
+README template checks,PASS,All reviewed READMEs include required sections and no forbidden terms.
+package_validation_summary schema checks,PASS,All package summaries include claim_boundaries and no disallowed global fields.
+no Common-core cases modified,PASS,This closeout writes only audit/project-control files and reviewed non-Common-core wave003 cases.
+no case_sets modified,PASS,No case_sets writes performed.
+no reports/results modified,PASS,No reports/ or results/ writes performed.
+no denominator changed,PASS,No denominator files modified.
+no paper results changed,PASS,No paper-result files modified.
+no raw legacy evidence changed,PASS,Legacy repo was not modified.
+fixture smoke,PASS,"python scripts/dev/smoke_ledger_fixtures.py passed; 38 fixture rows checked, 17 expected-valid passed, 21 expected-invalid failed as expected, unexpected pass/fail 0/0."
+JSON/YAML parse,PASS,Reviewed package JSON/YAML and generated JSON parsed successfully.
+git diff --check,PASS,git diff --check passed before staging and commit.

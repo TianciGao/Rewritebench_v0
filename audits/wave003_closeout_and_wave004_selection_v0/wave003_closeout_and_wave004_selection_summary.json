@@ -1,0 +1,23 @@
+{
+  "case_sets_changed": false,
+  "denominator_changed": false,
+  "known_non_common_core_candidates": 157,
+  "metrics_computed": false,
+  "new_case_migrations_performed": false,
+  "next_safe_action": "Prepare a separately authorized wave 004 blocker-resolution packet for remaining manual-review, missing-checker backlog, and orphan/unregistered rows before any further package migration.",
+  "orphan_or_unregistered_review": 7,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "raw_legacy_evidence_changed": false,
+  "remaining_not_yet_standardized_count": 97,
+  "reports_changed": false,
+  "results_changed": false,
+  "standardized_non_common_core_count": 60,
+  "task_completed": true,
+  "wave003_completed_cases_reviewed": 30,
+  "wave003_review_passed": true,
+  "wave004_auto_candidates": 0,
+  "wave004_backlog_defer": 77,
+  "wave004_manual_review_required": 13,
+  "wave004_policy_approved_candidates": 0
+}
