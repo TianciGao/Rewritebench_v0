@@ -5418,13 +5418,13 @@ Task result:
 Next safe action:
 - Review the 28 wave 002 policy-approved standardized non-Common-core packages and decide whether to run a narrower manual-review follow-up, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
 
-### 2026-05-18 · pending · wave002_closeout_and_wave003_selection_v0
+### 2026-05-18 · fa62608 · wave002_closeout_and_wave003_selection_v0
 
 Mode: wave closeout and next-wave selection; no case migration; no case-set membership update; no denominator update; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending until main closeout commit is created
-Push: pending until main closeout commit is pushed
+Commit: `fa6260819e7d724a7157163d76e1f76e16050082`
+Push: first SSH attempt failed with `kex_exchange_identification: read: Connection reset by peer`; retry succeeded and updated `origin/main` from `de95c65` to `fa62608`
 
 Summary:
 - Reviewed all 28 wave 002 policy-approved standardized non-Common-core packages at static metadata level.
@@ -5455,7 +5455,7 @@ Validation:
 - Summary JSON invariant check: passed.
 - CSV checks: passed; wave 002 package review has 28 rows, progress matrix has 157 rows, wave 003 selection has 127 rows, and validation results have no FAIL rows.
 - Boundary checks: passed; no files under `case_sets/`, `reports/`, `results/`, or `cases/` changed.
-- `git diff --check`: pending final validation before commit.
+- `git diff --check` and `git diff --cached --check`: passed.
 
 Task result:
 - New case migrations performed: no.
