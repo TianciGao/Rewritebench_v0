@@ -1,0 +1,4 @@
+case_id: PORT_0006
+status: witness_dataset_metadata_not_retained
+notes:
+- No public case-local witness dataset metadata retained.

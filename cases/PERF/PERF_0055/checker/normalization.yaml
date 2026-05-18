@@ -1,0 +1,8 @@
+case_id: PERF_0055
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_tabs: true
+  normalize_numeric_format: true
+  normalize_null: true
+status: public_package_static_config

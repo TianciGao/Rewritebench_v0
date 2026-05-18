@@ -1,0 +1,21 @@
+case_id: PERF_0073
+pool: PERF
+source_family: tpcds_query_templates
+source_id: SRC_002
+source_name: TPC-DS
+source_entry: query_templates/query28.tpl materialized by repo-local dsqgen with COUNT=1,
+  QUALIFY=Y, SCALE=1, DIALECT=ansi
+seed_id: query_templates/query28.tpl materialized by repo-local dsqgen with COUNT=1,
+  QUALIFY=Y, SCALE=1, DIALECT=ansi
+legacy_case_path: cases/PERF/PERF_0073
+release_case_path: cases/PERF/PERF_0073
+non_common_core: true
+not_common_core_v0_member: true
+not_track_a_denominator_member: true
+db_validation_run: false
+evidence_regenerated: false
+metrics_computed: false
+paper_tables_rendered: false
+notes:
+- Provenance is summarized from the legacy manifest. Raw provenance files with local-path
+  risk are not copied into the public package.

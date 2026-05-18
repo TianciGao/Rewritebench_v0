@@ -1,0 +1,4 @@
+case_id: PERF_0070
+status: no_public_retained_control_outputs_copied
+reason: Raw run outputs are archive-mapped or excluded from public copy.
+metrics_computed: false

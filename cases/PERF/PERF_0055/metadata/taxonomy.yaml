@@ -1,0 +1,46 @@
+case_id: PERF_0055
+pool: PERF
+taxonomy_source: cases/PERF/PERF_0055/manifest.yaml
+taxonomy:
+  tags:
+    sql_feature:
+      primary:
+      - cte
+      - set_operation
+      secondary:
+      - expression_complexity
+    rewrite_opportunity:
+      primary:
+      - materialization_strategy
+      secondary:
+      - cte_strategy
+    plan_operator:
+      present:
+      - scan
+      - join
+      - aggregate
+      - sort
+      - limit
+      - set_op
+      - materialize
+      delta_relevant: []
+    workload_realism:
+      source_inherited:
+      - classic_analytical_baseline
+      case_specific:
+      - long_query_text
+      - long_tail_structure
+    portability:
+      confirmed: []
+      suspected:
+      - type_semantics_gap
+  features:
+  - cte
+  - union_all
+  - aggregate
+  - self_join
+  - ratio
+  - order_by
+  - limit
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

@@ -1,0 +1,7 @@
+case_id: PERF_0057
+witness_assets:
+  postgres: schema/postgres/load.sql
+  mysql: schema/mysql/load.sql
+  spark: schema/spark/load.sql
+witness_dataset_metadata_present: true
+validation_execution_status: not_run_by_package_creation

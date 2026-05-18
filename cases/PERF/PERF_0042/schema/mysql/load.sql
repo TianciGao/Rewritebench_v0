@@ -1,0 +1,2 @@
+-- PERF_0042: no public case-local load SQL retained for mysql.
+-- Placeholder preserves canonical package layout only; it is not execution evidence.

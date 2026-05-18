@@ -1,0 +1,8 @@
+case_id: PORT_0006
+pool: PORT
+status: public_package_profile
+legacy_data_profile_present: false
+legacy_data_profile_summary:
+  status: not_retained
+notes:
+- Data profile is retained for package context only; no new validation was run.

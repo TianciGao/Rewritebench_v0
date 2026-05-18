@@ -1,0 +1,7 @@
+dataset_id: perf_0032_pg_minimal_witness_v0
+engine: postgres
+load_script: validation/pg_witness_data.sql
+scope: case_local_minimal_witness
+notes:
+  - Covers only rows needed for PostgreSQL source/positive equality and negative divergence.
+  - Does not represent a TPC-DS scale dataset.

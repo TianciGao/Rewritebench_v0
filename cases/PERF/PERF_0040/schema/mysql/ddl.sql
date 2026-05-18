@@ -1,0 +1,2 @@
+-- PERF_0040: no public case-local DDL retained for mysql.
+-- Placeholder preserves canonical package layout only; it is not execution evidence.

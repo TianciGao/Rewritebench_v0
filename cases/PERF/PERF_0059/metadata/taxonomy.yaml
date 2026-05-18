@@ -1,0 +1,33 @@
+case_id: PERF_0059
+pool: PERF
+taxonomy_source: cases/PERF/PERF_0059/manifest.yaml
+taxonomy:
+  tags:
+    sql_feature:
+      primary:
+      - expression_complexity
+      secondary: []
+    rewrite_opportunity:
+      primary:
+      - aggregation_rewrite
+      secondary:
+      - expression_simplification
+    plan_operator:
+      present:
+      - scan
+      - aggregate
+      delta_relevant: []
+    workload_realism:
+      source_inherited:
+      - classic_analytical_baseline
+      case_specific:
+      - complex_expression_density
+    portability:
+      confirmed: []
+      suspected: []
+  features:
+  - scalar_subquery
+  - case_when
+  - aggregate
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

@@ -1,0 +1,19 @@
+validation_name,status,details
+selected cases come only from wave003 selection eligible buckets,PASS,30 considered cases came from eligible buckets only.
+no Common-core case modified,PASS,Selected cases exclude Common-core members; Common-core package paths were not written.
+no case_sets modified,PASS,No case_sets writes performed.
+no reports/results modified,PASS,No reports/ or results/ writes performed.
+no denominator changed,PASS,Denominator files were not modified.
+no paper results changed,PASS,Paper-result files were not modified.
+no raw legacy evidence changed,PASS,Legacy repo was read-only; no raw evidence changed.
+no raw logs copied,PASS,No .log files or runtime payloads were copied into release packages.
+no prompt/token/API traces copied,PASS,Public package hygiene scan found no private runtime trace patterns.
+no raw runs copied wholesale,PASS,Case-local runs directories contain only README boundary files.
+README template checks,PASS,30 README files checked.
+package_validation_summary schema checks,PASS,30 package summaries checked.
+public hygiene scan,PASS,Generated public package files passed local forbidden-pattern scan.
+YAML parse,PASS,All YAML files under completed wave003 packages parsed successfully.
+JSON parse,PASS,All JSON files under completed wave003 packages and summary JSON parsed successfully.
+canonical layout basic check,PASS,python scripts/dev/validate_case_package.py --mode canonical-case passed for 30/30 completed cases.
+fixture smoke,PASS,"python scripts/dev/smoke_ledger_fixtures.py passed; 38 fixture rows checked, 17 expected-valid passed, 21 expected-invalid failed as expected, unexpected pass/fail 0/0."
+git diff --check,PASS,git diff --check passed before staging and commit.

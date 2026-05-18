@@ -1,0 +1,34 @@
+case_id: PORT_0006
+pool: PORT
+taxonomy_source: cases/PORT/PORT_0006/manifest.yaml
+taxonomy:
+  tags:
+    sql_feature:
+      primary:
+      - expression_complexity
+      secondary: []
+    rewrite_opportunity:
+      primary:
+      - dialect_adaptation
+      secondary:
+      - expression_simplification
+    plan_operator:
+      present:
+      - scan
+      - filter
+      - aggregate
+      delta_relevant: []
+    workload_realism:
+      source_inherited:
+      - realistic_query_style
+      case_specific:
+      - complex_expression_density
+    portability:
+      confirmed:
+      - identifier_quoting
+      - boolean_semantics_gap
+      - type_semantics_gap
+      suspected: []
+  features: []
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

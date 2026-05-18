@@ -1,0 +1,2 @@
+-- PERF_0037: no public case-local DDL retained for spark.
+-- Placeholder preserves canonical package layout only; it is not execution evidence.

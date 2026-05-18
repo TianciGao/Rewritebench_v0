@@ -1,0 +1,19 @@
+case_id: PERF_0031
+pool: PERF
+source_family: TPC-H
+source_id: SRC_001
+source_name: TPC-H
+source_entry: datasets/raw/tpch/TPC-H V3.0.1/dbgen/variants/15a.sql
+seed_id: TPC-H-Q15A
+legacy_case_path: cases/PERF/PERF_0031
+release_case_path: cases/PERF/PERF_0031
+non_common_core: true
+not_common_core_v0_member: true
+not_track_a_denominator_member: true
+db_validation_run: false
+evidence_regenerated: false
+metrics_computed: false
+paper_tables_rendered: false
+notes:
+- Provenance is summarized from the legacy manifest. Raw provenance files with local-path
+  risk are not copied into the public package.

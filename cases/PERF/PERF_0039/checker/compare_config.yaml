@@ -1,0 +1,8 @@
+case_id: PERF_0039
+comparison_mode: value_normalized_result_equivalence
+source: sql/source.sql
+positive_rewrite: sql/positives/pos_01.sql
+negative_rewrite: sql/negatives/neg_01.sql
+expected_positive_relation: equal_to_source_reference
+expected_negative_relation: not_equal_to_source_reference
+db_validation_run_by_package_creation: false

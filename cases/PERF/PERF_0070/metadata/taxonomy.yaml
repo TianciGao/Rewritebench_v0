@@ -1,0 +1,34 @@
+case_id: PERF_0070
+pool: PERF
+taxonomy_source: cases/PERF/PERF_0070/manifest.yaml
+taxonomy:
+  tags:
+    sql_feature:
+      primary:
+      - cte
+      secondary: []
+    rewrite_opportunity:
+      primary:
+      - materialization_strategy
+      secondary:
+      - cte_strategy
+    plan_operator:
+      present:
+      - aggregate
+      - join
+      - materialize
+      - scan
+      - sort
+      - subquery
+      delta_relevant: []
+    workload_realism:
+      source_inherited:
+      - classic_analytical_baseline
+      case_specific:
+      - long_tail_structure
+    portability:
+      confirmed: []
+      suspected: []
+  features: []
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

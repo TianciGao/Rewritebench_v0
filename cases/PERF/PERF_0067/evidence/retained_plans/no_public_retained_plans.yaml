@@ -1,0 +1,4 @@
+case_id: PERF_0067
+status: no_public_retained_plan_outputs_copied
+reason: Raw or local-path plan artifacts are archive-mapped rather than copied.
+raw_plan_files_copied: false

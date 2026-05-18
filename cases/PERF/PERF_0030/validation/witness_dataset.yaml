@@ -1,0 +1,8 @@
+dataset_id: pg_minimal_witness_v1
+engine_scope:
+  - postgres
+load_script: validation/pg_witness_data.sql
+purpose: PostgreSQL-only source/positive equality and source/negative divergence check.
+notes:
+  - This witness dataset is case-local and deliberately tiny.
+  - It is not a TPC-H scale dataset and does not imply MySQL or Spark readiness.

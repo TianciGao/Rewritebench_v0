@@ -1,0 +1,10 @@
+case_id: PERF_0060
+hard_negative_role: expected result divergence from source reference
+negatives:
+- id: neg_01
+  path: sql/negatives/neg_01.sql
+  source_legacy_path: cases/PERF/PERF_0060/rewrite_neg_01.sql
+  expected_behavior: not_equal_to_source_reference
+  review_status: needs_review_not_paper_facing_approval
+notes:
+- Hard negatives are checker controls and not method-generated failures.

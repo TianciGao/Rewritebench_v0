@@ -1,0 +1,7 @@
+dataset_id: perf_0040_pg_minimal_witness_v0
+engine: postgres
+data_file: validation/pg_witness_data.sql
+scope: minimal witness data for source/positive equality and source/negative divergence
+notes:
+  - Not a TPC-DS scale dataset.
+  - Designed only for PostgreSQL witness validation in this case package.

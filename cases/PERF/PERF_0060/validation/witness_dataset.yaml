@@ -1,0 +1,10 @@
+case_id: PERF_0060
+engine: postgres
+dataset_id: perf_0060_pg_minimal_witness_v0
+row_counts:
+  customer: 1
+  store_sales: 2
+  web_sales: 2
+  date_dim: 2
+notes:
+  - Minimal PostgreSQL witness dataset only; not a TPC-DS scale dataset.

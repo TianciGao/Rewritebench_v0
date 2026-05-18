@@ -1,0 +1,13 @@
+case_id: PERF_0064
+engine: postgres
+dataset_id: perf_0064_pg_minimal_witness_v0
+description: Minimal witness order with two warehouses for the materialized TPC-DS query16 instance.
+tables:
+  - catalog_sales
+  - date_dim
+  - customer_address
+  - call_center
+  - catalog_returns
+expected_behavior:
+  source_positive_equal: true
+  source_negative_different: true

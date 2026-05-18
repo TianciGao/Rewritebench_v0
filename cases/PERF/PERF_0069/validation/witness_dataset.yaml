@@ -1,0 +1,14 @@
+case_id: PERF_0069
+engine: postgres
+dataset_id: perf_0069_pg_minimal_witness_v0
+description: Minimal witness rows for the materialized TPC-DS query23 instance.
+tables:
+  - store_sales
+  - date_dim
+  - item
+  - customer
+  - catalog_sales
+  - web_sales
+expected_behavior:
+  source_positive_equal: true
+  source_negative_different: true

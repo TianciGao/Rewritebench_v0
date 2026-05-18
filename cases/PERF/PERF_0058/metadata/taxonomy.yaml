@@ -1,0 +1,47 @@
+case_id: PERF_0058
+pool: PERF
+taxonomy_source: cases/PERF/PERF_0058/manifest.yaml
+taxonomy:
+  tags:
+    sql_feature:
+      primary:
+      - set_operation
+      - subquery_in_from
+      secondary:
+      - string_function
+    rewrite_opportunity:
+      primary:
+      - materialization_strategy
+      secondary:
+      - predicate_pushdown
+    plan_operator:
+      present:
+      - scan
+      - join
+      - aggregate
+      - sort
+      - limit
+      - set_op
+      - subquery
+      delta_relevant: []
+    workload_realism:
+      source_inherited:
+      - classic_analytical_baseline
+      case_specific:
+      - long_query_text
+      - long_tail_structure
+    portability:
+      confirmed: []
+      suspected:
+      - string_function_gap
+      - set_operation_gap
+  features:
+  - subquery
+  - intersect
+  - aggregate
+  - join
+  - group_by
+  - order_by
+  - limit
+notes:
+- Taxonomy retained from legacy metadata for non-Common-core preview only.

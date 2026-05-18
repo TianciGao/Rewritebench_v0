@@ -1,0 +1,22 @@
+case_id: PERF_0071
+engines:
+  postgres:
+    schema: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+    schema_source_retained: true
+    load_source_retained: true
+  mysql:
+    schema: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+    schema_source_retained: true
+    load_source_retained: true
+  spark:
+    schema: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+    schema_source_retained: true
+    load_source_retained: true
+engine_scope:
+- postgres
+- mysql
+- spark
+db_validation_run_by_package_creation: false

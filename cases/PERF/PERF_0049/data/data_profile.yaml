@@ -1,0 +1,62 @@
+case_id: PERF_0049
+pool: PERF
+status: public_package_profile
+legacy_data_profile_present: true
+legacy_data_profile_summary:
+  case_id: PERF_0049
+  status: postgres_witness_validated
+  dataset_id: perf_0049_pg_minimal_witness_v0
+  data_rows_added: true
+  data_loaded: true
+  engine_validated:
+  - postgres
+  required_tables:
+  - store_sales
+  - store_returns
+  - catalog_sales
+  - catalog_returns
+  - web_sales
+  - web_returns
+  - date_dim
+  - store
+  - catalog_page
+  - web_site
+  - item
+  - promotion
+  row_counts:
+    store_sales: 1
+    store_returns: 0
+    catalog_sales: 0
+    catalog_returns: 0
+    web_sales: 0
+    web_returns: 0
+    date_dim: 1
+    store: 1
+    catalog_page: 0
+    web_site: 0
+    item: 1
+    promotion: 1
+  data_source:
+    source_id: SRC_002
+    source_name: TPC-DS
+    seed_id: TPCDS_QUERY80A_DSQGEN_COUNT1_SCALE1_ANSI_V0
+    generation_or_load_path: validation/pg_witness_data.sql
+  postgres_outputs:
+    source: runs/pg/source.tsv
+    positive_rewrite: runs/pg/rewrite_pos_01.tsv
+    negative_rewrite: runs/pg/rewrite_neg_01.tsv
+    result_check: runs/pg/result_check.json
+  postgres_plan_artifacts:
+    source: runs/pg/plans/source.json
+    positive_rewrite: runs/pg/plans/rewrite_pos_01.json
+    negative_rewrite: runs/pg/plans/rewrite_neg_01.json
+    plan_check: runs/pg/plans/plan_check.json
+  notes:
+  - Minimal PostgreSQL witness data only; not a TPC-DS scale dataset.
+  - PostgreSQL execution produced source, positive rewrite, and negative rewrite result
+    captures.
+  - MySQL and Spark validation remain unvalidated.
+  - PostgreSQL EXPLAIN (FORMAT JSON) plan artifacts were collected for source, positive
+    rewrite, and negative rewrite.
+notes:
+- Data profile is retained for package context only; no new validation was run.

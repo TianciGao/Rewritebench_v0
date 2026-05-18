@@ -1,0 +1,31 @@
+case_id,file_path,risk_type,action_taken,public_copy_created,raw_legacy_retained,notes
+PERF_0027,cases/PERF/PERF_0027/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0028,cases/PERF/PERF_0028/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0030,cases/PERF/PERF_0030/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0031,cases/PERF/PERF_0031/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0032,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0037,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0039,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0040,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0041,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0042,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0045,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0049,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0051,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0055,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0057,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0058,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0059,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0060,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0061,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0064,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0067,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0068,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0069,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0070,none,no_public_hygiene_issue_found,none_needed,false,true,No legacy runs directory detected; core assets copied only after public hygiene scan.
+PERF_0071,cases/PERF/PERF_0071/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0072,cases/PERF/PERF_0072/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0073,cases/PERF/PERF_0073/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0074,cases/PERF/PERF_0074/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PERF_0075,cases/PERF/PERF_0075/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.
+PORT_0006,cases/PORT/PORT_0006/runs/,raw_legacy_runs_or_local_path_risk,archive_mapped_not_copied,false,true,Raw run directory is referenced in runs_retention only.

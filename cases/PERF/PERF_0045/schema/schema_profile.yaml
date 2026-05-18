@@ -1,0 +1,24 @@
+case_id: PERF_0045
+engines:
+- postgres
+- mysql
+- spark
+schema_assets:
+  postgres:
+    ddl: schema/postgres/ddl.sql
+    load: schema/postgres/load.sql
+    ddl_source_retained: true
+    load_source_retained: true
+  mysql:
+    ddl: schema/mysql/ddl.sql
+    load: schema/mysql/load.sql
+    ddl_source_retained: false
+    load_source_retained: false
+  spark:
+    ddl: schema/spark/ddl.sql
+    load: schema/spark/load.sql
+    ddl_source_retained: false
+    load_source_retained: false
+profile_source: legacy schema assets when available; placeholders mark unavailable
+  engine-local assets
+legacy_data_profile_present: true

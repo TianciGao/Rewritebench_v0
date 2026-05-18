@@ -1,0 +1,24 @@
+type: value_normalized_result_equivalence_checker
+status: public_package_static_checker_config
+normalization:
+  sort_rows: true
+  trim_whitespace: true
+  normalize_tabs: true
+  normalize_numeric_format: true
+  normalize_null: true
+inputs:
+  source: sql/source.sql
+  positive_rewrite: sql/positives/pos_01.sql
+  negative_rewrite: sql/negatives/neg_01.sql
+expectations:
+  equal:
+  - sql/source.sql
+  - sql/positives/pos_01.sql
+  not_equal:
+  - sql/source.sql
+  - sql/negatives/neg_01.sql
+evidence_boundary: Legacy run outputs are indexed through evidence/runs_retention.yaml
+  and are not copied wholesale.
+notes:
+- Hard negatives are checker controls and not method-generated failures.
+- This checker file is a public-safe path-normalized package configuration.

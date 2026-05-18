@@ -1,0 +1,14 @@
+case_id: PORT_0006
+pool: PORT
+canonical_case_root: cases/PORT/PORT_0006
+legacy_case_root_reference: cases/PORT/PORT_0006
+manifest: manifest.yaml
+sql:
+  source: sql/source.sql
+  positive: sql/positives/pos_01.sql
+  negative: sql/negatives/neg_01.sql
+schema: schema/
+checker: checker/
+validation: validation/
+evidence: evidence/
+metadata: metadata/

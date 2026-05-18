@@ -1,0 +1,10 @@
+{
+  "case_id": "PERF_0039",
+  "hard_negative_sql": "sql/negatives/neg_01.sql",
+  "notes": [
+    "Hard negatives are retained as checker controls, not method-generated failures."
+  ],
+  "paper_facing_approval": false,
+  "review_status": "needs_review",
+  "role": "checker_control"
+}
