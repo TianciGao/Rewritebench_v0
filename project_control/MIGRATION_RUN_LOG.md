@@ -5287,13 +5287,13 @@ Task result:
 Next safe action:
 - Answer the wave 002 policy approval questions, then authorize `overnight_non_common_core_case_package_standardization_wave_002` only for policy-approved cases while keeping Common-core v0 membership, `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, and raw legacy evidence unchanged.
 
-### 2026-05-18 · pending · wave002_policy_approval_readme_standardization_and_validation_schema_guard_v0
+### 2026-05-18 · dd7f387 · wave002_policy_approval_readme_standardization_and_validation_schema_guard_v0
 
 Mode: policy approval plus README standardization and package-validation schema guard; no case migration; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `dd7f387552dfafcf9646c5d74ef7df074423f42f`
+Push: `origin/main` updated `ee50168..dd7f387`
 
 Summary:
 - Created `repository_spec/case_readme_public_template_v1.md`.
