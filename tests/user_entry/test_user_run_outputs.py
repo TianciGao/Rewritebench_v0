@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+import uuid
 from argparse import Namespace
 from pathlib import Path
 
@@ -18,7 +19,14 @@ def _case_list(tmp_path: Path, *case_ids: str) -> Path:
     return path
 
 
-def _args(out: Path, case_list: Path, adapter: Path) -> Namespace:
+def _args(
+    out: Path,
+    case_list: Path,
+    adapter: Path,
+    *,
+    dry_run: bool = False,
+    adapter_timeout: int = 30,
+) -> Namespace:
     return Namespace(
         case_set="common_core_v0",
         pool="PERF",
@@ -27,8 +35,13 @@ def _args(out: Path, case_list: Path, adapter: Path) -> Namespace:
         adapter_command=f"{sys.executable} {adapter}",
         out=out,
         run_id=None,
-        adapter_timeout=30,
+        adapter_timeout=adapter_timeout,
+        dry_run=dry_run,
     )
+
+
+def _unique_out(name: str) -> Path:
+    return Path("runs/user") / f"{name}_{uuid.uuid4().hex}"
 
 
 class UserRunOutputTests(unittest.TestCase):
@@ -40,17 +53,17 @@ class UserRunOutputTests(unittest.TestCase):
             Path("results/retained/demo"),
             Path("reports/evaluation/demo"),
             Path("/tmp/demo"),
+            Path("../demo"),
             Path("../somewhere"),
             Path("runs/user"),
         ]:
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, "runs/user"):
                 validate_output_root(invalid, REPO_ROOT)
 
     def test_user_run_writes_required_outputs_under_runs_user(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             case_list = _case_list(Path(temp_dir), "PERF_0006", "PERF_0007")
-            run_name = "unittest_user_entry_success"
-            out = Path("runs/user") / run_name
+            out = _unique_out("unittest_user_entry_success")
             adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "dummy_adapter.py"
             summary = run_user_benchmark(_args(out, case_list, adapter), REPO_ROOT)
         out_dir = REPO_ROOT / out
@@ -71,6 +84,7 @@ class UserRunOutputTests(unittest.TestCase):
             rows = list(csv.DictReader(f))
         self.assertEqual(len(rows), 2)
         self.assertEqual({row["candidate_generated"] for row in rows}, {"true"})
+        self.assertEqual({row["extraction_status"] for row in rows}, {"captured_from_candidate_file"})
         self.assertEqual({row["execution_status"] for row in rows}, {"not_run_non_db_mvp"})
         self.assertTrue(all(row["candidate_sql_path"].startswith("runs/user/") for row in rows))
         with (out_dir / "failures.csv").open(newline="", encoding="utf-8") as f:
@@ -81,16 +95,75 @@ class UserRunOutputTests(unittest.TestCase):
         self.assertIs(payload["paper_tables_rendered"], False)
         self.assertIs(payload["case_sets_changed"], False)
         self.assertIs(payload["no_global_leaderboard"], True)
+        self.assertIs(payload["dry_run"], False)
 
         report = (out_dir / "report.md").read_text(encoding="utf-8")
-        self.assertIn("local user-run output, not retained paper evidence", report)
+        self.assertIn("local user-run output only", report)
+        self.assertIn("not retained paper evidence", report)
         self.assertIn("No global leaderboard is created", report)
         self.assertIn("Official metrics are not computed", report)
+        self.assertIn("Dry-run mode", report)
+
+    def test_dry_run_writes_outputs_without_invoking_adapter(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            case_list = _case_list(Path(temp_dir), "PERF_0006")
+            out = _unique_out("unittest_user_entry_dry_run")
+            adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "dummy_adapter.py"
+            summary = run_user_benchmark(
+                _args(out, case_list, adapter, dry_run=True),
+                REPO_ROOT,
+            )
+        out_dir = REPO_ROOT / out
+        self.assertEqual(summary["selected_rows"], 1)
+        self.assertEqual(summary["adapter_invoked_rows"], 0)
+        self.assertEqual(summary["candidate_generated_rows"], 0)
+        self.assertIs(summary["dry_run"], True)
+        with (out_dir / "ledger.csv").open(newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual(rows[0]["adapter_invoked"], "false")
+        self.assertEqual(rows[0]["candidate_generated"], "false")
+        self.assertEqual(rows[0]["extraction_status"], "skipped_dry_run")
+        self.assertEqual(rows[0]["failure_bucket"], "none")
+        with (out_dir / "failures.csv").open(newline="", encoding="utf-8") as f:
+            self.assertEqual(list(csv.DictReader(f)), [])
+        report = (out_dir / "report.md").read_text(encoding="utf-8")
+        self.assertIn("Dry-run mode: `True`", report)
+
+    def test_stdout_adapter_records_stdout_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            case_list = _case_list(Path(temp_dir), "PERF_0006")
+            out = _unique_out("unittest_user_entry_stdout")
+            adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "stdout_adapter.py"
+            summary = run_user_benchmark(_args(out, case_list, adapter), REPO_ROOT)
+        self.assertEqual(summary["candidate_generated_rows"], 1)
+        with (REPO_ROOT / out / "ledger.csv").open(newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual(rows[0]["candidate_generated"], "true")
+        self.assertEqual(rows[0]["extraction_status"], "captured_from_stdout")
+        self.assertEqual(rows[0]["failure_bucket"], "none")
+        self.assertTrue((REPO_ROOT / rows[0]["candidate_sql_path"]).exists())
+
+    def test_failing_adapter_records_adapter_failed(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            case_list = _case_list(Path(temp_dir), "PERF_0006")
+            out = _unique_out("unittest_user_entry_failed")
+            adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "failing_adapter.py"
+            summary = run_user_benchmark(_args(out, case_list, adapter), REPO_ROOT)
+        self.assertEqual(summary["selected_rows"], 1)
+        self.assertEqual(summary["candidate_generated_rows"], 0)
+        self.assertEqual(summary["adapter_failed_rows"], 1)
+        with (REPO_ROOT / out / "ledger.csv").open(newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual(rows[0]["adapter_invoked"], "true")
+        self.assertEqual(rows[0]["adapter_exit_code"], "7")
+        self.assertEqual(rows[0]["candidate_generated"], "false")
+        self.assertEqual(rows[0]["extraction_status"], "adapter_failed")
+        self.assertEqual(rows[0]["failure_bucket"], "adapter_failed")
 
     def test_empty_adapter_records_no_candidate_failure(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             case_list = _case_list(Path(temp_dir), "PERF_0006")
-            out = Path("runs/user/unittest_user_entry_empty")
+            out = _unique_out("unittest_user_entry_empty")
             adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "empty_adapter.py"
             summary = run_user_benchmark(_args(out, case_list, adapter), REPO_ROOT)
         self.assertEqual(summary["selected_rows"], 1)
@@ -100,6 +173,23 @@ class UserRunOutputTests(unittest.TestCase):
             failures = list(csv.DictReader(f))
         self.assertEqual(len(failures), 1)
         self.assertEqual(failures[0]["failure_bucket"], "no_candidate_sql")
+
+    def test_slow_adapter_records_timeout(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            case_list = _case_list(Path(temp_dir), "PERF_0006")
+            out = _unique_out("unittest_user_entry_timeout")
+            adapter = REPO_ROOT / "tests" / "user_entry" / "fixtures" / "slow_adapter.py"
+            summary = run_user_benchmark(
+                _args(out, case_list, adapter, adapter_timeout=1),
+                REPO_ROOT,
+            )
+        self.assertEqual(summary["candidate_generated_rows"], 0)
+        with (REPO_ROOT / out / "ledger.csv").open(newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual(rows[0]["adapter_invoked"], "true")
+        self.assertEqual(rows[0]["candidate_generated"], "false")
+        self.assertEqual(rows[0]["extraction_status"], "adapter_failed")
+        self.assertEqual(rows[0]["failure_bucket"], "adapter_timeout")
 
 
 if __name__ == "__main__":

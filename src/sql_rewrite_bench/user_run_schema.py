@@ -51,6 +51,7 @@ EXTRACTION_CAPTURED_FROM_STDOUT = "captured_from_stdout"
 EXTRACTION_NO_CANDIDATE_SQL = "no_candidate_sql"
 EXTRACTION_ADAPTER_FAILED = "adapter_failed"
 EXTRACTION_SKIPPED = "skipped"
+EXTRACTION_SKIPPED_DRY_RUN = "skipped_dry_run"
 
 EXECUTION_STATUS_NON_DB = "not_run_non_db_mvp"
 CHECKER_STATUS_NON_DB = "not_run_non_db_mvp"

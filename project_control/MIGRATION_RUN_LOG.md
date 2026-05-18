@@ -5786,3 +5786,68 @@ Task result:
 
 Next safe action:
 - Authorize a B-line user-entry hardening task to add packaging/CLI documentation, stable tests, output hygiene checks, and optional dry-run mode while keeping DB execution, checker execution, timing, official metrics, paper reproduction, retained evidence, reports/results, denominators, case sets, and raw legacy evidence unchanged.
+
+### 2026-05-18 · pending · b_line_user_entry_hardening_v0
+
+Mode: B-line user entry hardening; non-DB MVP only; dry-run and usability hardening; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no case migration
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Added or verified `--dry-run` for the non-DB user-entry MVP.
+- Added `scripts/user/run_user_benchmark.py` as a thin wrapper around `sql_rewrite_bench.user_run`.
+- Strengthened output-root guard messaging for invalid output paths outside `runs/user/<run_id>/`.
+- Expanded tests for candidate file output, stdout output, nonzero adapter exit, empty adapter output, timeout handling, dry-run rows, and invalid output roots.
+- Improved `report.md` with command summary, dry-run flag, selected row count, pool and engine breakdowns, adapter/candidate counts, failure table, artifact links, and local/no-paper/no-metrics/no-leaderboard warnings.
+- Added a user-guide preview under the hardening audit directory.
+- Did not execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `scripts/user/run_user_benchmark.py`
+- `tests/user_entry/fixtures/stdout_adapter.py`
+- `tests/user_entry/fixtures/failing_adapter.py`
+- `tests/user_entry/fixtures/slow_adapter.py`
+- `audits/b_line_user_entry_hardening_v0/b_line_user_entry_hardening_summary.md`
+- `audits/b_line_user_entry_hardening_v0/b_line_user_entry_hardening_validation_results.csv`
+- `audits/b_line_user_entry_hardening_v0/b_line_user_entry_hardening_summary.json`
+- `audits/b_line_user_entry_hardening_v0/user_guide_preview.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/user_run_schema.py`
+- `tests/user_entry/test_user_run_outputs.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/user_entry -q`: passed; 10 tests.
+- Dry-run smoke: passed; 2 selected rows, 0 adapter invocations, 0 candidate rows, `skipped_dry_run` extraction status.
+- Dummy adapter success smoke: passed; 2 selected rows and 2 captured candidate SQL files.
+- Thin wrapper help command: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- Public runner skeleton implemented: yes.
+- Hardening task: yes.
+- Dry-run mode added or verified: yes.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize documentation and packaging stabilization for the B-line user-entry MVP, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.

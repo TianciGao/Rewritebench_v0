@@ -1,0 +1,22 @@
+{
+  "case_sets_changed": false,
+  "checker_execution_implemented": false,
+  "db_execution_implemented": false,
+  "denominator_changed": false,
+  "dry_run_mode_added_or_verified": true,
+  "hardening_task": true,
+  "inventory_changed": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a documentation and packaging stabilization task for the B-line user-entry MVP, or separately authorize a future DB/checker execution design packet while keeping case packages, case_sets, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.",
+  "non_db_mvp_only": true,
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "public_runner_skeleton_implemented": true,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "reproduction_cli_implemented": false,
+  "results_changed": false,
+  "retained_evidence_adapter_implemented": false,
+  "task_completed": true
+}

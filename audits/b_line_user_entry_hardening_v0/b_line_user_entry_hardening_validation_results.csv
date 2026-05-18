@@ -1,0 +1,23 @@
+validation_name,status,details
+unit tests passed,PASS,PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/user_entry -q passed with 10 tests
+dry-run smoke passed,PASS,runs/user/smoke_user_entry_hardening_dry_run produced 2 selected rows 0 adapter invocations 0 candidate rows and skipped_dry_run ledger status
+dummy adapter success smoke passed,PASS,runs/user/smoke_user_entry_hardening_adapter produced 2 selected rows and 2 candidate SQL files
+failing adapter test passed,PASS,test_failing_adapter_records_adapter_failed covers nonzero exit with adapter_failed bucket
+empty adapter test passed,PASS,test_empty_adapter_records_no_candidate_failure covers zero exit with no candidate SQL
+output-root guard tests passed,PASS,invalid case-local results reports absolute and parent-relative outputs are rejected with runs/user guidance
+selected_cases.csv generated,PASS,required output generated in dry-run and adapter smokes
+ledger.csv generated,PASS,required output generated in dry-run and adapter smokes
+summary.json generated,PASS,required output generated in dry-run and adapter smokes
+failures.csv generated,PASS,required output generated in dry-run and adapter smokes
+report.md generated,PASS,required output generated in dry-run and adapter smokes with local/no-paper/no-metrics/no-leaderboard warnings
+no files under cases changed,PASS,no tracked changes under cases/
+no files under case_sets changed,PASS,no tracked changes under case_sets/
+no files under inventory changed,PASS,no tracked changes under inventory/
+no reports/results changed,PASS,no tracked changes under reports/ or results/
+no denominator changed,PASS,no denominator files changed
+no paper results changed,PASS,no paper result files changed
+no official metrics computed,PASS,runner writes local diagnostic counts only
+no DB execution implemented,PASS,user runner does not execute SQL or invoke DB engines
+no checker execution implemented,PASS,user runner does not run checkers
+fixture smoke passed,PASS,python scripts/dev/smoke_ledger_fixtures.py passed with 38 synthetic rows and no metrics
+git diff --check passed,PASS,git diff --check passed before staging

@@ -34,6 +34,7 @@ from .user_run_schema import (
     EXTRACTION_CAPTURED_FROM_CANDIDATE_FILE,
     EXTRACTION_CAPTURED_FROM_STDOUT,
     EXTRACTION_NO_CANDIDATE_SQL,
+    EXTRACTION_SKIPPED_DRY_RUN,
     FAILURE_ADAPTER_FAILED,
     FAILURE_ADAPTER_TIMEOUT,
     FAILURE_FIELDS,
@@ -58,6 +59,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--adapter-timeout", type=int, default=120)
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Resolve selection and write local run files without invoking the adapter.",
+    )
     return parser.parse_args(argv)
 
 
@@ -71,7 +77,7 @@ def validate_output_root(out_dir: Path, repo_root: Path) -> Path:
     if out_dir.is_absolute():
         raise ValueError("--out must be a relative path under runs/user/")
     if ".." in out_dir.parts:
-        raise ValueError("--out must not contain '..'")
+        raise ValueError("--out must be under runs/user/<run_id>/ and must not contain '..'")
     parts = out_dir.parts
     if len(parts) < 3 or parts[0] != "runs" or parts[1] != "user":
         raise ValueError("--out must be under runs/user/<run_id>/")
@@ -177,6 +183,27 @@ def _ledger_base(run_id: str, row: SelectedCaseEngineRow, artifact_path: str) ->
         "artifact_path": artifact_path,
         "notes": "non_db_mvp_adapter_capture_only",
     }
+
+
+def _dry_run_ledger_for_row(
+    *, run_id: str, row: SelectedCaseEngineRow, repo_root: Path, out_dir: Path
+) -> dict[str, object]:
+    workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
+    workspace_dir.mkdir(parents=True, exist_ok=True)
+    artifact_path = _relative_to_repo(workspace_dir, repo_root)
+    ledger = _ledger_base(run_id, row, artifact_path)
+    ledger.update(
+        {
+            "adapter_invoked": "false",
+            "adapter_exit_code": "",
+            "candidate_generated": "false",
+            "candidate_sql_path": "",
+            "extraction_status": EXTRACTION_SKIPPED_DRY_RUN,
+            "failure_bucket": FAILURE_NONE,
+            "notes": "dry_run_selection_only_no_adapter_invoked",
+        }
+    )
+    return ledger
 
 
 def _run_adapter_for_row(
@@ -290,11 +317,14 @@ def _run_adapter_for_row(
     return ledger
 
 
-def _summary_payload(run_id: str, ledger_rows: list[dict[str, object]]) -> dict[str, object]:
+def _summary_payload(
+    run_id: str, ledger_rows: list[dict[str, object]], *, dry_run: bool
+) -> dict[str, object]:
     failure_counts = Counter(row["failure_bucket"] for row in ledger_rows)
     return {
         "run_id": run_id,
         "task_type": "user_entry_mvp_non_db",
+        "dry_run": dry_run,
         "selected_rows": len(ledger_rows),
         "adapter_invoked_rows": sum(row["adapter_invoked"] == "true" for row in ledger_rows),
         "candidate_generated_rows": sum(
@@ -331,9 +361,17 @@ def _write_report(
     lines = [
         f"# SQL-RewriteBench User Run: {config['run_id']}",
         "",
-        "This is local user-run output, not retained paper evidence.",
+        "This is local user-run output only.",
+        "This is not retained paper evidence.",
         "No global leaderboard is created.",
         "Official metrics are not computed in this MVP.",
+        "",
+        "## Command Summary",
+        "",
+        "- Command form: `python -m sql_rewrite_bench.user_run ...`",
+        f"- Adapter command: `{config['adapter_command']}`",
+        f"- Dry-run mode: `{config.get('dry_run', False)}`",
+        f"- Output root: `{config['out_dir']}`",
         "",
         "## Run Config",
         "",
@@ -349,6 +387,7 @@ def _write_report(
             f"- Unique cases: {len({row['case_id'] for row in selected_rows})}",
             f"- Pools: {', '.join(sorted(pool_counts)) if pool_counts else 'none'}",
             f"- Engines: {', '.join(sorted(engine_counts)) if engine_counts else 'none'}",
+            f"- Dry-run mode: {config.get('dry_run', False)}",
             "",
             "## Denominator Funnel",
             "",
@@ -387,7 +426,8 @@ def _write_report(
             "",
             "## Required Warnings",
             "",
-            "- This is local user-run output, not retained paper evidence.",
+            "- This is local user-run output only.",
+            "- This is not retained paper evidence.",
             "- No global leaderboard is created.",
             "- Official metrics are not computed in this MVP.",
             "",
@@ -426,6 +466,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         "adapter_command": args.adapter_command,
         "out_dir": _relative_to_repo(out_dir, repo_root),
         "mvp_mode": "non_db_adapter_capture_only",
+        "dry_run": bool(getattr(args, "dry_run", False)),
         "official_metrics_computed": False,
         "paper_results_updated": False,
         "retained_evidence_updated": False,
@@ -436,17 +477,23 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
     selected_case_rows = _selected_case_rows(run_id, selected)
     _write_csv(out_dir / "selected_cases.csv", selected_case_rows, SELECTED_CASE_FIELDS)
 
-    ledger_rows = [
-        _run_adapter_for_row(
-            run_id=run_id,
-            row=row,
-            adapter_command=args.adapter_command,
-            repo_root=repo_root,
-            out_dir=out_dir,
-            timeout=args.adapter_timeout,
-        )
-        for row in selected
-    ]
+    if getattr(args, "dry_run", False):
+        ledger_rows = [
+            _dry_run_ledger_for_row(run_id=run_id, row=row, repo_root=repo_root, out_dir=out_dir)
+            for row in selected
+        ]
+    else:
+        ledger_rows = [
+            _run_adapter_for_row(
+                run_id=run_id,
+                row=row,
+                adapter_command=args.adapter_command,
+                repo_root=repo_root,
+                out_dir=out_dir,
+                timeout=args.adapter_timeout,
+            )
+            for row in selected
+        ]
     _write_csv(out_dir / "ledger.csv", ledger_rows, LEDGER_FIELDS)
 
     failure_rows = [
@@ -465,7 +512,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
     ]
     _write_csv(out_dir / "failures.csv", failure_rows, FAILURE_FIELDS)
 
-    summary = _summary_payload(run_id, ledger_rows)
+    summary = _summary_payload(run_id, ledger_rows, dry_run=bool(getattr(args, "dry_run", False)))
     (out_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
