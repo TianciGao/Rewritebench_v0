@@ -1,5 +1,7 @@
 import csv
 import json
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -7,7 +9,7 @@ import uuid
 from argparse import Namespace
 from pathlib import Path
 
-from sql_rewrite_bench.user_run import run_user_benchmark, validate_output_root
+from sql_rewrite_bench.user_run import parse_args, run_user_benchmark, validate_output_root
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -44,7 +46,71 @@ def _unique_out(name: str) -> Path:
     return Path("runs/user") / f"{name}_{uuid.uuid4().hex}"
 
 
+def _pythonpath_env() -> dict[str, str]:
+    env = dict(os.environ)
+    env["PYTHONPATH"] = str(REPO_ROOT / "src")
+    return env
+
+
 class UserRunOutputTests(unittest.TestCase):
+    def test_module_and_wrapper_help_work(self) -> None:
+        commands = [
+            [sys.executable, "-m", "sql_rewrite_bench.user_run", "--help"],
+            [sys.executable, "scripts/user/run_user_benchmark.py", "--help"],
+        ]
+        for command in commands:
+            completed = subprocess.run(
+                command,
+                cwd=REPO_ROOT,
+                env=_pythonpath_env(),
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertIn("--case-set", completed.stdout)
+            self.assertIn("--adapter-command", completed.stdout)
+            self.assertIn("--dry-run", completed.stdout)
+
+    def test_documented_examples_match_current_cli_options(self) -> None:
+        guide = (REPO_ROOT / "docs" / "USER_BENCHMARK_GUIDE.md").read_text(
+            encoding="utf-8"
+        )
+        for option in [
+            "--case-set",
+            "--pool",
+            "--engine",
+            "--case-list",
+            "--adapter-command",
+            "--out",
+            "--dry-run",
+        ]:
+            self.assertIn(option, guide)
+        self.assertIn("python -m sql_rewrite_bench.user_run", guide)
+        self.assertIn("python scripts/user/run_user_benchmark.py", guide)
+
+        parsed = parse_args(
+            [
+                "--case-set",
+                "common_core_v0",
+                "--pool",
+                "PERF",
+                "--engine",
+                "postgres",
+                "--case-list",
+                "path/to/case_ids.txt",
+                "--adapter-command",
+                "python my_rewriter.py",
+                "--out",
+                "runs/user/demo_dry_run",
+                "--dry-run",
+            ]
+        )
+        self.assertEqual(parsed.case_set, "common_core_v0")
+        self.assertEqual(parsed.pool, "PERF")
+        self.assertEqual(parsed.engine, "postgres")
+        self.assertTrue(parsed.dry_run)
+
     def test_output_root_guard_accepts_only_runs_user(self) -> None:
         resolved = validate_output_root(Path("runs/user/demo"), REPO_ROOT)
         self.assertEqual(resolved, (REPO_ROOT / "runs" / "user" / "demo").resolve())

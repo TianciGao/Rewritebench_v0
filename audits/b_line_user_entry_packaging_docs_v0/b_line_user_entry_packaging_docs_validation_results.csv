@@ -1,0 +1,22 @@
+validation_name,status,details
+unit tests passed,PASS,pytest unavailable; fallback command PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/user_entry -q passed with 12 tests
+module help works,PASS,PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m sql_rewrite_bench.user_run --help returned 0 and exposed current CLI options
+wrapper help works,PASS,PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python scripts/user/run_user_benchmark.py --help returned 0 and exposed current CLI options
+dry-run smoke passed,PASS,runs/user/smoke_user_entry_packaging_dry_run produced 2 selected rows 0 adapter invocations 0 candidate rows and skipped_dry_run status
+dummy adapter smoke passed,PASS,runs/user/smoke_user_entry_packaging_adapter produced 2 selected rows and 2 captured candidate SQL files
+docs created or updated,PASS,docs/USER_BENCHMARK_GUIDE.md and docs/RUN_ARTIFACT_POLICY.md created; README.md linked guide
+pyproject check passed,PASS,pyproject.toml created with src package discovery and no runtime dependencies
+no DB execution implemented,PASS,no DB execution code or dependency added
+no checker execution implemented,PASS,no checker execution code added
+no official metrics computed,PASS,only local diagnostic smoke counts generated under ignored runs/user
+no paper tables rendered,PASS,no paper table output generated
+no reproduction CLI implemented,PASS,only user-entry wrapper remains in scope
+no retained-evidence adapter implemented,PASS,no retained-evidence adapter implementation added
+no files under cases changed,PASS,no tracked changes under cases/
+no files under case_sets changed,PASS,no tracked changes under case_sets/
+no files under inventory changed,PASS,no tracked changes under inventory/
+no reports/results changed,PASS,no tracked changes under reports/ or results/
+no denominator changed,PASS,no denominator files changed
+no paper results changed,PASS,no paper result files changed
+fixture smoke passed,PASS,python scripts/dev/smoke_ledger_fixtures.py passed with 38 synthetic rows and no metrics
+git diff --check passed,PASS,git diff --check passed before staging

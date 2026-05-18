@@ -5851,3 +5851,68 @@ Task result:
 
 Next safe action:
 - Authorize documentation and packaging stabilization for the B-line user-entry MVP, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
+
+### 2026-05-18 · pending · b_line_user_entry_packaging_docs_v0
+
+Mode: B-line user entry packaging/docs stabilization; non-DB MVP only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no reproduction CLI; no retained-evidence adapter
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Promoted the hardening user-guide preview into `docs/USER_BENCHMARK_GUIDE.md`.
+- Created `docs/RUN_ARTIFACT_POLICY.md` to document user-run output placement and retained-evidence/report/result boundaries.
+- Added minimal `pyproject.toml` metadata for editable local use with `src` package discovery and no runtime dependencies.
+- Added a short README pointer to the user benchmark guide and current non-DB MVP limitations.
+- Kept `scripts/user/run_user_benchmark.py` as a thin wrapper and validated module and wrapper `--help` behavior.
+- Extended user-entry tests for module help, wrapper help, and documented CLI option alignment.
+- Did not execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement SQLGlot/Calcite/R-Bot baselines, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `pyproject.toml`
+- `docs/USER_BENCHMARK_GUIDE.md`
+- `docs/RUN_ARTIFACT_POLICY.md`
+- `audits/b_line_user_entry_packaging_docs_v0/b_line_user_entry_packaging_docs_summary.md`
+- `audits/b_line_user_entry_packaging_docs_v0/b_line_user_entry_packaging_docs_validation_results.csv`
+- `audits/b_line_user_entry_packaging_docs_v0/b_line_user_entry_packaging_docs_summary.json`
+- `audits/b_line_user_entry_packaging_docs_v0/user_entry_public_surface_matrix.csv`
+
+Files modified:
+- `README.md`
+- `tests/user_entry/test_user_run_outputs.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/user_entry -q`: passed; 12 tests.
+- `python -m pytest tests/user_entry -q`: not run as primary validation because pytest is not installed in this environment.
+- Module help check: passed.
+- Wrapper help check: passed.
+- Dry-run smoke: passed; 2 selected rows, 0 adapter invocations, 0 candidate rows, `skipped_dry_run` extraction status.
+- Dummy adapter success smoke: passed; 2 selected rows and 2 captured candidate SQL files.
+- `pyproject.toml` parse/check: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- Packaging/docs task: yes.
+- Public runner skeleton implemented: yes.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize a B-line user-entry release-smoke task to verify editable install behavior and local output hygiene in a fresh checkout, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.

@@ -1,0 +1,19 @@
+file_or_directory,role,public_surface_class,final_release_candidate,notes
+docs/USER_BENCHMARK_GUIDE.md,Public guide for the non-DB user-entry MVP,PUBLIC_FINAL,true,Documents adapter capture only and does not claim full benchmark scoring.
+docs/RUN_ARTIFACT_POLICY.md,Public policy for run-output placement and retained-evidence boundaries,PUBLIC_FINAL,true,Separates local user outputs from case-local retained evidence reports and results.
+README.md,Top-level discovery pointer for user-entry docs,PUBLIC_FINAL,true,Short pointer only; no full release or scoring claim.
+pyproject.toml,Minimal editable-install package metadata,PUBLIC_SUPPORT,true,Uses src package discovery and no runtime dependencies.
+scripts/user/run_user_benchmark.py,Thin CLI wrapper for the module runner,PUBLIC_FINAL,true,Delegates to sql_rewrite_bench.user_run and duplicates no core logic.
+src/sql_rewrite_bench/user_run.py,Non-DB user-runner implementation,PUBLIC_FINAL,true,Adapter capture only; no DB checker timing metric or retained-evidence behavior.
+src/sql_rewrite_bench/case_selection.py,Metadata-driven Common-core v0 case selection,PUBLIC_SUPPORT,true,Reads case_sets metadata rather than scanning physical directories for membership.
+src/sql_rewrite_bench/user_run_schema.py,User-run local ledger/status constants,PUBLIC_SUPPORT,true,Defines local diagnostic statuses only.
+tests/user_entry/,User-entry tests and dummy adapters,PUBLIC_SUPPORT,true,Validates selection output-root help dry-run and adapter failure paths.
+audits/b_line_user_entry_contract_v0/,Construction contract packet,MAINTAINER_ARCHIVE,false,Useful for traceability but not final public docs by default.
+audits/b_line_user_entry_mvp_v0/,Construction MVP implementation audit,MAINTAINER_ARCHIVE,false,Useful for traceability but not final public docs by default.
+audits/b_line_user_entry_hardening_v0/,Construction hardening audit,MAINTAINER_ARCHIVE,false,Useful for traceability but not final public docs by default.
+audits/b_line_user_entry_packaging_docs_v0/,Construction packaging/docs audit,MAINTAINER_ARCHIVE,false,Useful for traceability but not final public docs by default.
+runs/user/,Local user-run output root,PRIVATE_ONLY,false,Ignored local experiment output; never commit smoke/user runs wholesale.
+case_sets/common_core_v0/,Read-only user-run selection metadata,PUBLIC_FINAL,true,User runner reads this scope and must not mutate it.
+inventory/case_registry.csv,Read-only release registry metadata,PUBLIC_FINAL,true,Public metadata surface; user runner must not mutate inventory.
+reports/,Curated report namespace not used by user runner,PRIVATE_ONLY,false,User-run reports must remain under runs/user.
+results/,Curated results namespace not used by user runner,PRIVATE_ONLY,false,User-run outputs must not enter retained results.
