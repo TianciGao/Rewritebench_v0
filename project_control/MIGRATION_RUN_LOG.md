@@ -5979,13 +5979,13 @@ Task result:
 Next safe action:
 - Authorize a B-line user-entry publication-surface closeout or CI smoke wiring task, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
 
-### 2026-05-18 · TBD · b_line_user_entry_ci_smoke_v0
+### 2026-05-18 · c8a9476 · b_line_user_entry_ci_smoke_v0
 
 Mode: B-line user entry CI/dev-smoke wiring; lightweight public-surface guard; no feature implementation; no DB execution; no checker execution; no timing; no official metrics; no paper tables
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: pending
+Commit: `c8a9476e09925f33317e166da48740f977443625`
+Push: succeeded; updated `origin/main` from `ae3cd3e` to `c8a9476`
 
 Summary:
 - Added `scripts/dev/run_user_entry_ci_smoke.py` as a current-checkout dev-smoke for the non-DB B-line user-entry MVP.
