@@ -5917,13 +5917,13 @@ Task result:
 Next safe action:
 - Authorize a B-line user-entry release-smoke task to verify editable install behavior and local output hygiene in a fresh checkout, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
 
-### 2026-05-18 · pending · b_line_user_entry_release_smoke_v0
+### 2026-05-18 · fe76808 · b_line_user_entry_release_smoke_v0
 
 Mode: B-line user entry release-smoke verification; fresh-checkout editable-install smoke; no feature implementation; no DB execution; no checker execution; no timing; no official metrics; no paper tables
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `fe7680824243209a74e362d28b062b361ae9d180`
+Push: succeeded; updated `origin/main` from `6971a8d` to `fe76808`
 
 Summary:
 - Created a temporary local clone at `/tmp/sqlrb_user_entry_release_smoke/Rewritebench_v0_smoke`.
