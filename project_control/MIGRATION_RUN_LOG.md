@@ -5787,13 +5787,13 @@ Task result:
 Next safe action:
 - Authorize a B-line user-entry hardening task to add packaging/CLI documentation, stable tests, output hygiene checks, and optional dry-run mode while keeping DB execution, checker execution, timing, official metrics, paper reproduction, retained evidence, reports/results, denominators, case sets, and raw legacy evidence unchanged.
 
-### 2026-05-18 · pending · b_line_user_entry_hardening_v0
+### 2026-05-18 · 7114c51 · b_line_user_entry_hardening_v0
 
 Mode: B-line user entry hardening; non-DB MVP only; dry-run and usability hardening; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no case migration
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `7114c51e5081b21a9560578780c738b25306b887`
+Push: succeeded; updated `origin/main` from `c241311` to `7114c51`
 
 Summary:
 - Added or verified `--dry-run` for the non-DB user-entry MVP.
