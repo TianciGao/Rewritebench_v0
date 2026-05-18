@@ -1,0 +1,27 @@
+validation_name,status,details
+dev-smoke script created,PASS,scripts/dev/run_user_entry_ci_smoke.py created
+GitHub Actions workflow created,PASS,.github/workflows/user_entry_smoke.yml created
+local dev-smoke passed,PASS,PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py passed
+user-entry tests passed,PASS,dev-smoke ran tests/user_entry via unittest successfully
+module help passed,PASS,python -m sql_rewrite_bench.user_run --help passed inside dev-smoke
+wrapper help passed,PASS,python scripts/user/run_user_benchmark.py --help passed inside dev-smoke
+dry-run smoke passed,PASS,ci_smoke_dry_run selected 2 rows and invoked 0 adapters
+dummy adapter smoke passed,PASS,ci_smoke_adapter selected 2 rows and generated 2 candidates
+output hygiene passed,PASS,smoke outputs written only under runs/user
+smoke output not staged,PASS,git status --short runs/user returned no output during dev-smoke
+fixture smoke passed,PASS,python scripts/dev/smoke_ledger_fixtures.py passed
+workflow YAML parse passed,PASS,PyYAML parsed .github/workflows/user_entry_smoke.yml
+no DB execution implemented,PASS,task added CI/dev-smoke wiring only
+no checker execution implemented,PASS,task added CI/dev-smoke wiring only
+no official metrics computed,PASS,dev-smoke and workflow do not compute official metrics
+no paper tables rendered,PASS,dev-smoke and workflow do not render paper tables
+no reproduction CLI implemented,PASS,task added no reproduction CLI
+no retained-evidence adapter implemented,PASS,task added no retained-evidence adapter
+no files under cases changed,PASS,git status --short cases returned no output
+no files under case_sets changed,PASS,git status --short case_sets returned no output
+no files under inventory changed,PASS,git status --short inventory returned no output
+no reports/results changed,PASS,git status --short reports results returned no output
+no denominator changed,PASS,no denominator files were modified
+no paper results changed,PASS,no reports/results or paper-result files were modified
+raw legacy evidence unchanged,PASS,legacy repository was not inspected or modified
+git diff --check passed,PASS,git diff --check passed

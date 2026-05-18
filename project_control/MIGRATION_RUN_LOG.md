@@ -5978,3 +5978,59 @@ Task result:
 
 Next safe action:
 - Authorize a B-line user-entry publication-surface closeout or CI smoke wiring task, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
+
+### 2026-05-18 · TBD · b_line_user_entry_ci_smoke_v0
+
+Mode: B-line user entry CI/dev-smoke wiring; lightweight public-surface guard; no feature implementation; no DB execution; no checker execution; no timing; no official metrics; no paper tables
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: pending
+
+Summary:
+- Added `scripts/dev/run_user_entry_ci_smoke.py` as a current-checkout dev-smoke for the non-DB B-line user-entry MVP.
+- Added `.github/workflows/user_entry_smoke.yml` to run editable install, the user-entry dev-smoke, the synthetic ledger fixture smoke, whitespace diff checks, and protected-path checks on push, pull request, and manual dispatch.
+- The dev-smoke verifies module help, wrapper help, user-entry tests, dry-run smoke, dummy-adapter smoke, expected local output files, `runs/user` output hygiene, and clean protected paths.
+- Did not implement new runner features, execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement SQLGlot/Calcite/R-Bot baselines, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `.github/workflows/user_entry_smoke.yml`
+- `scripts/dev/run_user_entry_ci_smoke.py`
+- `audits/b_line_user_entry_ci_smoke_v0/b_line_user_entry_ci_smoke_summary.md`
+- `audits/b_line_user_entry_ci_smoke_v0/b_line_user_entry_ci_smoke_validation_results.csv`
+- `audits/b_line_user_entry_ci_smoke_v0/b_line_user_entry_ci_smoke_summary.json`
+- `audits/b_line_user_entry_ci_smoke_v0/ci_smoke_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed; module help, wrapper help, user-entry tests, dry-run smoke, dummy adapter smoke, output hygiene, protected-path checks, and unstaged `runs/user` checks passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Workflow YAML parse: passed with PyYAML.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- CI/dev-smoke wiring task: yes.
+- Local dev-smoke passed: yes.
+- Fixture smoke passed: yes.
+- Public runner skeleton implemented: yes.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Use the B-line user-entry smoke workflow as a push/PR guard, or separately authorize a B-line publication-surface closeout or DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.

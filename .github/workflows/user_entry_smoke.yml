@@ -1,0 +1,40 @@
+name: user-entry-smoke
+
+"on":
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  user-entry-smoke:
+    name: B-line user-entry smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install editable package
+        run: python -m pip install -e .
+
+      - name: Run B-line user-entry smoke
+        run: python scripts/dev/run_user_entry_ci_smoke.py
+
+      - name: Run synthetic ledger fixture smoke
+        run: python scripts/dev/smoke_ledger_fixtures.py
+
+      - name: Check diff whitespace
+        run: git diff --check
+
+      - name: Verify protected paths and user smoke outputs are clean
+        run: |
+          test -z "$(git status --short cases case_sets inventory reports results)"
+          test -z "$(git status --short runs/user)"
