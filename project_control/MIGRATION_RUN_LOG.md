@@ -5354,13 +5354,13 @@ Task result:
 Next safe action:
 - Run `overnight_non_common_core_case_package_standardization_wave_002_policy_approved` using the after-policy candidate queue, README template v1, and package_validation_summary schema guard, without changing `case_sets/`, denominators, reports/results, paper results, metrics, paper tables, or raw legacy evidence.
 
-### 2026-05-18 · pending · overnight_non_common_core_case_package_standardization_wave_002_policy_approved
+### 2026-05-18 · 5608bba · overnight_non_common_core_case_package_standardization_wave_002_policy_approved
 
 Mode: bounded policy-approved non-Common-core case package standardization; no case-set membership update; no denominator update; no metrics; no reports/results
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending before main migration commit
-Push: pending before main migration push
+Commit: `5608bba57ee02943ac8e69594920160fcac9f65d`
+Push: `origin/main` updated `9f3b050..5608bba`
 
 Summary:
 - Used `audits/wave002_policy_readme_schema_guard_v0/wave002_candidate_selection_after_policy.csv` as the only candidate source.
