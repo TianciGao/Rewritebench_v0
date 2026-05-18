@@ -5852,13 +5852,13 @@ Task result:
 Next safe action:
 - Authorize documentation and packaging stabilization for the B-line user-entry MVP, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
 
-### 2026-05-18 · pending · b_line_user_entry_packaging_docs_v0
+### 2026-05-18 · a12af20 · b_line_user_entry_packaging_docs_v0
 
 Mode: B-line user entry packaging/docs stabilization; non-DB MVP only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no reproduction CLI; no retained-evidence adapter
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `a12af20f28c47d3ba01171ed09ca2276df02bed7`
+Push: succeeded; updated `origin/main` from `ccb3bb2` to `a12af20`
 
 Summary:
 - Promoted the hardening user-guide preview into `docs/USER_BENCHMARK_GUIDE.md`.
