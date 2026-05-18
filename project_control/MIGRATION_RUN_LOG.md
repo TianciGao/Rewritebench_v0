@@ -5721,3 +5721,68 @@ Task result:
 
 Next safe action:
 - Authorize b_line_user_entry_mvp_v0 to implement a minimal non-DB user runner skeleton that writes only to `runs/user/<run_id>/` and keeps case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
+
+### 2026-05-18 · PENDING · b_line_user_entry_mvp_v0
+
+Mode: B-line user entry MVP implementation; minimal non-DB public runner skeleton; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no case migration
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending until commit is created
+Push: pending until commit is pushed
+
+Summary:
+- Implemented a module-first user runner skeleton under `src/sql_rewrite_bench/`.
+- Implemented Common-core v0 metadata selection from `case_sets/common_core_v0/cases.csv` and `case_sets/common_core_v0/denominator_same_engine_120.csv`.
+- Implemented `--pool`, `--case-list`, and `--engine` filtering without physical directory membership guessing.
+- Implemented adapter invocation with `shell=False`, environment-variable context, per-row workspaces, stdout/stderr capture, and candidate SQL capture from workspace `candidate.sql` or stdout.
+- Implemented local outputs under `runs/user/<run_id>/`: `config.yaml`, `selected_cases.csv`, `candidate_sql/`, `workspaces/`, `ledger.csv`, `summary.json`, `failures.csv`, and `report.md`.
+- Added `runs/.gitignore` so local smoke/user outputs are not committed by default.
+- Added standard-library tests and dummy/empty adapters under `tests/user_entry/`.
+- Did not execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `src/sql_rewrite_bench/__init__.py`
+- `src/sql_rewrite_bench/case_selection.py`
+- `src/sql_rewrite_bench/user_run_schema.py`
+- `src/sql_rewrite_bench/user_run.py`
+- `tests/user_entry/test_case_selection.py`
+- `tests/user_entry/test_user_run_outputs.py`
+- `tests/user_entry/fixtures/dummy_adapter.py`
+- `tests/user_entry/fixtures/empty_adapter.py`
+- `runs/.gitignore`
+- `audits/b_line_user_entry_mvp_v0/b_line_user_entry_mvp_summary.md`
+- `audits/b_line_user_entry_mvp_v0/b_line_user_entry_mvp_validation_results.csv`
+- `audits/b_line_user_entry_mvp_v0/b_line_user_entry_mvp_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONPATH=src python -m unittest discover -s tests/user_entry -q`: passed; 6 tests.
+- Dummy adapter smoke run: passed; 2 selected rows and 2 captured candidate SQL files under ignored `runs/user/smoke_user_entry_mvp/`.
+- Smoke output checks: passed; `config.yaml`, `selected_cases.csv`, `ledger.csv`, `summary.json`, `failures.csv`, and `report.md` generated.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- Boundary checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, or `results/` changed.
+
+Task result:
+- Case migration performed: no.
+- Public runner skeleton implemented: yes.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize a B-line user-entry hardening task to add packaging/CLI documentation, stable tests, output hygiene checks, and optional dry-run mode while keeping DB execution, checker execution, timing, official metrics, paper reproduction, retained evidence, reports/results, denominators, case sets, and raw legacy evidence unchanged.

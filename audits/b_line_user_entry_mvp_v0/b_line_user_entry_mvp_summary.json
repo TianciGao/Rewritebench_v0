@@ -1,0 +1,20 @@
+{
+  "case_sets_changed": false,
+  "checker_execution_implemented": false,
+  "db_execution_implemented": false,
+  "denominator_changed": false,
+  "inventory_changed": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a B-line user-entry hardening task to add packaging/CLI documentation, stable tests, output hygiene checks, and optional dry-run mode while keeping DB execution, checker execution, timing, official metrics, paper reproduction, retained evidence, reports/results, denominators, case sets, and raw legacy evidence unchanged.",
+  "non_db_mvp_only": true,
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "paper_tables_rendered": false,
+  "public_runner_skeleton_implemented": true,
+  "raw_legacy_evidence_changed": false,
+  "reports_changed": false,
+  "reproduction_cli_implemented": false,
+  "results_changed": false,
+  "retained_evidence_adapter_implemented": false,
+  "task_completed": true
+}

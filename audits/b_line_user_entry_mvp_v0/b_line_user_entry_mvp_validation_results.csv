@@ -1,0 +1,19 @@
+validation_name,status,details
+unit tests passed,PASS,PYTHONPATH=src python -m unittest discover -s tests/user_entry -q passed with 6 tests
+dummy adapter run passed,PASS,PYTHONPATH=src python -m sql_rewrite_bench.user_run smoke completed with 2 selected rows and 2 captured candidates
+selected_cases.csv generated,PASS,runs/user/smoke_user_entry_mvp/selected_cases.csv generated during smoke and ignored by git
+ledger.csv generated,PASS,runs/user/smoke_user_entry_mvp/ledger.csv generated during smoke and ignored by git
+summary.json generated,PASS,runs/user/smoke_user_entry_mvp/summary.json generated during smoke and ignored by git
+failures.csv generated,PASS,runs/user/smoke_user_entry_mvp/failures.csv generated during smoke and ignored by git
+report.md generated,PASS,runs/user/smoke_user_entry_mvp/report.md generated during smoke and ignored by git
+output under runs/user only,PASS,output-root guard rejects cases reports results absolute and parent-relative paths
+no cases changed,PASS,no tracked files under cases changed
+no case_sets changed,PASS,no tracked files under case_sets changed
+no inventory changed,PASS,no tracked files under inventory changed
+no reports/results changed,PASS,no tracked files under reports or results changed
+no denominator changed,PASS,case_sets denominator files unchanged
+no paper results changed,PASS,no paper result files changed
+no official metrics computed,PASS,runner writes diagnostic local counts only
+no paper tables rendered,PASS,runner writes local report.md only
+fixture smoke,PASS,python scripts/dev/smoke_ledger_fixtures.py passed
+git diff --check,PASS,git diff --check passed before staging
