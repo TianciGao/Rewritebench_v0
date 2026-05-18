@@ -5916,3 +5916,65 @@ Task result:
 
 Next safe action:
 - Authorize a B-line user-entry release-smoke task to verify editable install behavior and local output hygiene in a fresh checkout, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.
+
+### 2026-05-18 · pending · b_line_user_entry_release_smoke_v0
+
+Mode: B-line user entry release-smoke verification; fresh-checkout editable-install smoke; no feature implementation; no DB execution; no checker execution; no timing; no official metrics; no paper tables
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created a temporary local clone at `/tmp/sqlrb_user_entry_release_smoke/Rewritebench_v0_smoke`.
+- Created `.venv-smoke/` in the temporary clone and ran editable install with `.venv-smoke/bin/python -m pip install -e .`.
+- Verified module help with `.venv-smoke/bin/python -m sql_rewrite_bench.user_run --help`.
+- Verified wrapper help with `.venv-smoke/bin/python scripts/user/run_user_benchmark.py --help`.
+- Ran dry-run smoke on `PERF_0006` and `PERF_0007`; selected 2 rows, invoked 0 adapters, generated 0 candidates, and wrote expected local run files.
+- Ran dummy adapter smoke on `PERF_0006` and `PERF_0007`; selected 2 rows, invoked 2 adapters, generated 2 candidates, and wrote expected local run files.
+- Confirmed smoke outputs are under `runs/user/`, ignored/unstaged in the temporary clone, and protected paths `cases/`, `case_sets/`, `inventory/`, `reports/`, and `results/` had no changes.
+- Did not implement features, execute SQL, run database engines, run checkers, collect timing, compute official metrics, render paper tables, implement SQLGlot/Calcite/R-Bot baselines, implement paper reproduction, implement retained-evidence adapters, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/b_line_user_entry_release_smoke_v0/b_line_user_entry_release_smoke_summary.md`
+- `audits/b_line_user_entry_release_smoke_v0/b_line_user_entry_release_smoke_validation_results.csv`
+- `audits/b_line_user_entry_release_smoke_v0/b_line_user_entry_release_smoke_summary.json`
+- `audits/b_line_user_entry_release_smoke_v0/release_smoke_command_log.md`
+- `audits/b_line_user_entry_release_smoke_v0/release_smoke_output_manifest.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Fresh-checkout smoke passed: yes.
+- Editable install passed: yes.
+- Module help passed: yes.
+- Wrapper help passed: yes.
+- Dry-run smoke passed: yes.
+- Dummy adapter smoke passed: yes.
+- Output hygiene passed: yes.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed; 38 synthetic fixture rows checked, 17 expected-valid rows passed, 21 expected-invalid rows failed as expected, and 0 unexpected pass/fail rows.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- Release-smoke task: yes.
+- Public runner skeleton implemented: yes.
+- Non-DB MVP only: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize a B-line user-entry publication-surface closeout or CI smoke wiring task, or separately authorize a future DB/checker execution design packet while keeping case packages, `case_sets/`, inventory, denominators, reports/results, paper results, retained evidence, and raw legacy evidence unchanged.

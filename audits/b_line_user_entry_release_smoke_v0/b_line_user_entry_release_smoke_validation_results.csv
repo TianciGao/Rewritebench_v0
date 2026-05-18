@@ -1,0 +1,26 @@
+validation_name,status,details
+release repo preflight passed,PASS,release repo on main with origin/main tracking and clean status before audit writes
+temporary fresh checkout created,PASS,git clone from release repo to /tmp/sqlrb_user_entry_release_smoke/Rewritebench_v0_smoke succeeded
+editable install passed,PASS,.venv-smoke/bin/python -m pip install -e . succeeded in temporary clone
+module help passed,PASS,.venv-smoke/bin/python -m sql_rewrite_bench.user_run --help returned 0
+wrapper help passed,PASS,.venv-smoke/bin/python scripts/user/run_user_benchmark.py --help returned 0
+dry-run smoke passed,PASS,release_smoke_dry_run selected 2 rows invoked 0 adapters generated 0 candidates and used skipped_dry_run status
+dummy adapter smoke passed,PASS,release_smoke_adapter selected 2 rows invoked 2 adapters and generated 2 candidates
+dry-run output files present,PASS,config.yaml selected_cases.csv ledger.csv summary.json failures.csv and report.md present under runs/user/release_smoke_dry_run
+adapter output files present,PASS,config.yaml selected_cases.csv ledger.csv summary.json failures.csv and report.md present under runs/user/release_smoke_adapter
+smoke output under runs/user only,PASS,user-run smoke outputs were under runs/user/release_smoke_dry_run and runs/user/release_smoke_adapter
+smoke output not staged,PASS,git status --short runs/user produced no tracked changes in temporary clone
+no files under cases changed,PASS,git status --short cases was empty in temporary clone and release repo diff has no cases changes
+no files under case_sets changed,PASS,git status --short case_sets was empty in temporary clone and release repo diff has no case_sets changes
+no files under inventory changed,PASS,git status --short inventory was empty in temporary clone and release repo diff has no inventory changes
+no reports/results changed,PASS,git status --short reports results was empty in temporary clone and release repo diff has no reports/results changes
+no denominator changed,PASS,no case_sets denominator files changed
+no paper results changed,PASS,no paper result files changed
+no DB execution implemented,PASS,smoke invoked only non-DB user runner help dry-run and dummy adapter capture
+no checker execution implemented,PASS,no checker command or DB checker path was run
+no official metrics computed,PASS,only local diagnostic summary counts were generated under ignored runs/user in temporary clone
+no paper tables rendered,PASS,no paper table output was generated
+no reproduction CLI implemented,PASS,no reproduction CLI feature was implemented or invoked
+no retained-evidence adapter implemented,PASS,no retained-evidence adapter feature was implemented or invoked
+fixture smoke passed in release repo,PASS,python scripts/dev/smoke_ledger_fixtures.py passed with 38 synthetic rows and no metrics
+git diff --check passed,PASS,git diff --check passed before staging

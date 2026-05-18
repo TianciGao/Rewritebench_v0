@@ -1,0 +1,15 @@
+smoke_run,expected_file,exists,notes
+release_smoke_dry_run,runs/user/release_smoke_dry_run/config.yaml,true,required dry-run output file present in temporary clone
+release_smoke_dry_run,runs/user/release_smoke_dry_run/selected_cases.csv,true,required dry-run output file present in temporary clone
+release_smoke_dry_run,runs/user/release_smoke_dry_run/ledger.csv,true,required dry-run output file present in temporary clone
+release_smoke_dry_run,runs/user/release_smoke_dry_run/summary.json,true,required dry-run output file present in temporary clone
+release_smoke_dry_run,runs/user/release_smoke_dry_run/failures.csv,true,required dry-run output file present in temporary clone
+release_smoke_dry_run,runs/user/release_smoke_dry_run/report.md,true,required dry-run output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/config.yaml,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/selected_cases.csv,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/ledger.csv,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/summary.json,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/failures.csv,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/report.md,true,required adapter output file present in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/candidate_sql/PERF_0006__postgres.sql,true,candidate SQL captured from dummy adapter in temporary clone
+release_smoke_adapter,runs/user/release_smoke_adapter/candidate_sql/PERF_0007__postgres.sql,true,candidate SQL captured from dummy adapter in temporary clone
