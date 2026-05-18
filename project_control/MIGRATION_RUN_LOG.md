@@ -6246,3 +6246,65 @@ Task result:
 
 Next safe action:
 - Authorize `b_line_db_checker_execution_mvp_v0` only if a bounded postgres-only Common-core PERF local execution/checker MVP is desired, keeping outputs under `runs/user/` and preserving all official-metric, retained-evidence, reports/results, denominator, paper-result, and leaderboard boundaries.
+
+### 2026-05-18 · TBD · b_line_db_checker_execution_mvp_v0
+
+Mode: bounded B-line DB/checker execution MVP environment preflight; blocked audit packet only; no DB execution implementation; no checker execution implementation; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Attempted the bounded postgres-only Common-core PERF DB/checker MVP preflight.
+- Confirmed `psql` is available with observed version `psql (PostgreSQL) 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)`.
+- Confirmed no allowed Postgres connection configuration was present: `SQLRB_POSTGRES_DSN`, `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, and `PGPASSWORD` were unset.
+- Reviewed `PERF_0006` package assets read-only and confirmed the intended future smoke case has source SQL, positive SQL, checker config, normalization config, compare config, and Postgres schema/load files.
+- Failed closed before implementation as required by task policy. No DB/checker code, tests, runner flags, ledger extensions, live DB smoke outputs, or fake execution artifacts were created.
+- Did not modify the legacy repo, case packages, `case_sets/`, inventory, reports/results, denominators, paper results, retained evidence, raw legacy evidence, or case-local `runs/`.
+- Did not compute official metrics, collect timing, render paper tables, implement paper reproduction, implement retained-evidence adapters, or create a global leaderboard.
+
+Files created:
+- `audits/b_line_db_checker_execution_mvp_v0/b_line_db_checker_execution_mvp_summary.md`
+- `audits/b_line_db_checker_execution_mvp_v0/b_line_db_checker_execution_mvp_validation_results.csv`
+- `audits/b_line_db_checker_execution_mvp_v0/b_line_db_checker_execution_mvp_summary.json`
+- `audits/b_line_db_checker_execution_mvp_v0/db_checker_execution_mvp_command_log.md`
+- `audits/b_line_db_checker_execution_mvp_v0/db_checker_execution_mvp_smoke_manifest.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Environment preflight: blocked because no allowed Postgres connection configuration was available.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/user_entry -v`: passed, with two SQLGlot dependency smokes skipped because SQLGlot is not installed in the base environment.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `PYTHONDONTWRITEBYTECODE=1 python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- Protected-path checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, `results/`, or `runs/user` changed or were staged by this task.
+- `git diff --check`: passed before staging.
+
+Task result:
+- DB/checker execution MVP: blocked.
+- Postgres-only: yes.
+- Common-core PERF only: yes.
+- Live Postgres smoke attempted: no.
+- Live Postgres smoke passed: N.A.
+- Source/candidate/checker artifacts captured: N.A.
+- Local execution only: yes.
+- Official metrics computed: no.
+- Timing implemented: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- Global leaderboard created: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Provide local Postgres connection configuration through `SQLRB_POSTGRES_DSN` or libpq environment variables in the same shell, verify connection without logging secrets, then rerun or reauthorize `b_line_db_checker_execution_mvp_v0`.
