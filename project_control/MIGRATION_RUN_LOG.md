@@ -6110,7 +6110,7 @@ Next safe action:
 Mode: B-line SQLGlot enabled smoke; optional dependency verification and real non-DB SQLGlot adapter smoke only; no DB execution; no checker execution; no timing; no official metrics; no paper tables; no retained-evidence parsing
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `26e88495d3dbdcf3b7f2d0cd57299da66e3876cd`
+Commit: `26e8849d2ed99c962df9ebeb973e99e795d714f6`
 Push: succeeded; updated `origin/main` from `33d80f5` to `26e8849`
 
 Summary:
