@@ -1,0 +1,39 @@
+vocabulary_group,status_value,meaning,terminal_status,failure_bucket_mapping,notes
+execution,not_run_non_db_mvp,Execution was not part of the current non-DB MVP,true,none,Existing placeholder.
+execution,execution_not_enabled,DB execution was disabled for this run or row,true,none,Future dry-run or capture-only mode.
+execution,source_execution_success,Source SQL executed and produced a local result artifact,false,none,Source phase succeeded and candidate phase may continue.
+execution,candidate_execution_success,Candidate SQL executed and produced a local result artifact,false,none,Candidate phase succeeded and checker may continue.
+execution,source_execution_failed,Source SQL execution or setup failed,true,source_execution_failed,Checker should not run.
+execution,candidate_execution_failed,Candidate SQL execution failed,true,candidate_execution_failed,Checker should not run for exactness.
+execution,execution_timeout,Schema setup or SQL execution timed out,true,execution_timeout,Timeout policy must be explicit.
+execution,execution_unsupported,Selected engine or case configuration is unsupported,true,unsupported_engine,Use for engines outside authorized MVP scope.
+execution,execution_internal_error,Runner encountered an internal execution-layer error,true,internal_runner_error,Fail closed and keep artifacts local.
+checker,not_run_non_db_mvp,Checker was not part of the current non-DB MVP,true,none,Existing placeholder.
+checker,checker_not_enabled,Checker execution was disabled for this run or row,true,none,Allowed when execution-only diagnostics are authorized later.
+checker,checker_success,Checker completed and source/candidate results matched,true,none,Pairs with exact.
+checker,checker_mismatch,Checker completed and found mismatch,true,mismatch,Pairs with mismatch.
+checker,checker_failed,Checker invocation failed,true,checker_failed,Use checker_failure_class for specifics.
+checker,checker_timeout,Checker invocation timed out,true,checker_timeout,Timeout policy must be explicit.
+checker,checker_unsupported,Checker semantics unsupported for this case or engine,true,checker_failed,Fail closed.
+checker,checker_config_missing,Required checker config is missing,true,checker_config_missing,Do not infer semantics.
+checker,normalization_config_missing,Required normalization config is missing,true,checker_config_missing,Do not compare raw outputs unless separately authorized.
+checker,checker_internal_error,Runner encountered an internal checker-layer error,true,internal_runner_error,Fail closed and keep artifacts local.
+exact,not_evaluated_non_db_mvp,Exactness was not evaluated in the non-DB MVP,true,none,Existing placeholder.
+exact,exact,Checker concluded candidate result equals source result,true,none,Local diagnostic only.
+exact,mismatch,Checker concluded candidate result differs from source result,true,mismatch,Local diagnostic only.
+exact,not_exact_due_to_execution_failure,Exactness cannot be evaluated because source or candidate execution failed,true,source_execution_failed|candidate_execution_failed,Failure bucket chooses the failing phase.
+exact,not_exact_due_to_checker_failure,Exactness cannot be evaluated because checker failed,true,checker_failed,Local diagnostic only.
+exact,not_exact_due_to_timeout,Exactness cannot be evaluated because execution or checker timed out,true,execution_timeout|checker_timeout,Failure bucket chooses the timeout phase.
+exact,not_evaluated_checker_missing,Exactness cannot be evaluated because checker or normalization config is missing,true,checker_config_missing,Fail closed.
+failure_bucket,none,No failure for the row,true,none,Success or intentionally skipped non-failure.
+failure_bucket,adapter_failed,Adapter command failed before execution,true,adapter_failed,Existing MVP bucket.
+failure_bucket,no_candidate_sql,No candidate SQL was generated,true,no_candidate_sql,Existing MVP bucket.
+failure_bucket,source_execution_failed,Source SQL execution failed,true,source_execution_failed,Future DB MVP bucket.
+failure_bucket,candidate_execution_failed,Candidate SQL execution failed,true,candidate_execution_failed,Future DB MVP bucket.
+failure_bucket,execution_timeout,DB execution timed out,true,execution_timeout,Future DB MVP bucket.
+failure_bucket,checker_config_missing,Checker or normalization config missing,true,checker_config_missing,Future checker MVP bucket.
+failure_bucket,checker_failed,Checker failed,true,checker_failed,Future checker MVP bucket.
+failure_bucket,checker_timeout,Checker timed out,true,checker_timeout,Future checker MVP bucket.
+failure_bucket,mismatch,Checker found mismatch,true,mismatch,Not a runner crash; local diagnostic result.
+failure_bucket,unsupported_engine,Engine outside authorized scope,true,unsupported_engine,Fail closed.
+failure_bucket,internal_runner_error,Unexpected runner error,true,internal_runner_error,Fail closed.

@@ -1,0 +1,19 @@
+gate_id,gate_name,required_before_implementation,rationale,validation_method,stop_condition,notes
+G001,maintainer_authorization,yes,DB/checker execution crosses beyond candidate capture,Explicit task authorization absent_or_ambiguous_authorization,Implementation must not begin without a separate prompt.
+G002,engine_environment_availability,yes,DB execution needs a local engine and safe configuration,Non-mutating env check engine_unavailable,Future MVP should start postgres only.
+G003,local_secrets_policy,yes,DB credentials must not be committed,Check env/local ignored config only credentials_in_repo_or_output,No credentials in repo or audit outputs.
+G004,output_root_guard,yes,User outputs must remain under runs/user,Unit and smoke tests output_path_outside_runs_user,Reject absolute paths parent traversal reports results cases.
+G005,db_timeout_policy,yes,Execution must fail closed and not hang,Config review and timeout tests no_timeout_or_unbounded_execution,No timing metric collection implied.
+G006,schema_setup_policy,yes,DDL/load setup must be isolated and cleanup-safe,Design review and MVP smoke schema_missing_or_cleanup_unsafe,No writes to case packages.
+G007,checker_config_policy,yes,Checker semantics must come from case package config,Static path checks checker_config_missing,Fail closed rather than infer.
+G008,normalization_config_policy,yes,Comparison must be config-driven,Static path checks normalization_config_missing,Fail closed rather than raw text compare.
+G009,compare_config_policy,yes,Expected comparison roles must be explicit,Static path checks compare_config_missing,Fail closed rather than infer source/candidate roles.
+G010,no_reports_results_writes,yes,User runs are not curated release outputs,git status protected-path check reports_or_results_changed,Stop if reports/results changes appear.
+G011,no_case_package_writes,yes,User runs must not modify canonical packages,git status cases check cases_changed,Stop if case package files change.
+G012,no_case_sets_or_inventory_writes,yes,Execution does not change membership or registry facts,git status case_sets inventory check case_sets_or_inventory_changed,Stop if membership/registry files change.
+G013,no_denominator_or_paper_result_change,yes,Local execution does not alter paper scope,git diff protected file check denominator_or_paper_result_changed,Stop if denominator/paper-result files change.
+G014,no_official_metrics,yes,Future MVP is local diagnostics only,Ledger boundary check official_metric_input_not_false,Rows must keep official_metric_input=false.
+G015,no_retained_evidence_update,yes,User outputs are not paper retained evidence,Ledger boundary and path check retained_evidence_input_not_false,Rows must keep retained_evidence_input=false.
+G016,no_global_leaderboard,yes,Project policy forbids global leaderboard,Report content check leaderboard_claim_present,Reports may summarize one local run only.
+G017,ci_non_db_default,yes,Default CI must not require local DB,Workflow review default_ci_invokes_db,DB smoke should be manual opt-in if later added.
+G018,public_hygiene_check,yes,Outputs must not expose secrets or private paths,Static scan of local artifacts unsafe_secret_or_private_path,Fail closed and keep artifacts local.

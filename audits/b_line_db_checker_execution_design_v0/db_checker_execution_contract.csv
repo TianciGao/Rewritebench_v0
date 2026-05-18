@@ -1,0 +1,27 @@
+contract_area,field_or_behavior,required_for_future_mvp,source_of_truth,output_location,failure_behavior,notes
+scope,case_set_common_core_v0,yes,case_sets/common_core_v0/cases.csv,runs/user/<run_id>/selected_cases.csv,selection_error,Future MVP is Common-core v0 only.
+scope,postgres_only_initial_engine,yes,case_sets/common_core_v0/denominator_same_engine_120.csv,runs/user/<run_id>/selected_cases.csv,execution_unsupported,MySQL and Spark are later phases.
+scope,initial_perf_cases,yes,case_sets/common_core_v0/cases.csv,runs/user/<run_id>/selected_cases.csv,selection_error,Start with 1-2 PERF cases such as PERF_0006 and PERF_0007.
+engine_runner,engine_id,yes,selected_cases.csv,runs/user/<run_id>/ledger.csv,execution_unsupported,Must be an authorized engine id.
+engine_runner,connection_config_source,yes,environment_or_gitignored_local_config,runs/user/<run_id>/config.yaml,execution_not_enabled,DB credentials must never be committed.
+engine_runner,schema_setup_command_boundary,yes,cases/<POOL>/<CASE_ID>/schema/<engine>/ddl.sql and load.sql,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/,source_execution_failed,Schema setup is local user-run setup only.
+engine_runner,source_sql_execution_command_boundary,yes,cases/<POOL>/<CASE_ID>/sql/source.sql,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_result.jsonl,source_execution_failed,Source execution creates local reference output for the run.
+engine_runner,candidate_sql_execution_command_boundary,yes,runs/user/<run_id>/candidate_sql/<case_id>__<engine>.sql,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_result.jsonl,candidate_execution_failed,Candidate SQL must already be captured before execution.
+engine_runner,timeout_policy,yes,task_config_or_default_policy,runs/user/<run_id>/ledger.csv,execution_timeout,Timeout applies to schema setup and SQL execution.
+engine_runner,result_capture_format,yes,db_checker_design_contract,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/*.jsonl,execution_internal_error,Prefer JSONL rows for checker input.
+engine_runner,error_capture_format,yes,db_checker_design_contract,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/*_error.txt,source_execution_failed_or_candidate_execution_failed,Do not expose credentials or private endpoints.
+engine_runner,cleanup_policy,yes,db_checker_design_contract,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/cleanup_log.txt,execution_internal_error,Cleanup failure is local diagnostic and not retained evidence.
+checker_runner,checker_config_path,yes,cases/<POOL>/<CASE_ID>/checker/checker.yaml,runs/user/<run_id>/ledger.csv,checker_config_missing,Do not infer checker semantics when missing.
+checker_runner,normalization_config_path,yes,cases/<POOL>/<CASE_ID>/checker/normalization.yaml,runs/user/<run_id>/ledger.csv,normalization_config_missing,Fail closed when normalization is required and missing.
+checker_runner,compare_config_path,yes,cases/<POOL>/<CASE_ID>/checker/compare_config.yaml,runs/user/<run_id>/ledger.csv,checker_config_missing,Compare config maps source/candidate expectations.
+checker_runner,source_result_artifact,yes,source_execution_output,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_result.jsonl,not_exact_due_to_execution_failure,Checker consumes local result artifact.
+checker_runner,candidate_result_artifact,yes,candidate_execution_output,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_result.jsonl,not_exact_due_to_execution_failure,Checker consumes local result artifact.
+checker_runner,checker_result,yes,checker_runner_contract,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/checker_result.json,checker_failed,Local user-run checker output only.
+checker_runner,mismatch_summary,yes,checker_runner_contract,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/mismatch_summary.json,mismatch,Created only for local diagnostics.
+normalization,row_ordering,yes,checker/normalization.yaml,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/normalized_*.jsonl,checker_failed,Sort only when case config allows.
+normalization,duplicate_handling,yes,checker/normalization.yaml,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/normalized_*.jsonl,checker_failed,Preserve duplicates unless config says set semantics.
+normalization,numeric_tolerance,yes,checker/normalization.yaml,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/checker_result.json,checker_failed,Use case-local tolerance only.
+normalization,null_date_string_rules,yes,checker/normalization.yaml,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/checker_result.json,checker_failed,Do not silently coerce ambiguous values.
+boundary,local_execution_only,yes,run_artifact_policy,runs/user/<run_id>/ledger.csv,internal_runner_error,Must be true for future user-run DB/checker MVP.
+boundary,official_metric_input_false,yes,metrics_contract_v1,runs/user/<run_id>/ledger.csv,internal_runner_error,Future MVP rows are not official metric input.
+boundary,retained_evidence_input_false,yes,RUN_ARTIFACT_POLICY,runs/user/<run_id>/ledger.csv,internal_runner_error,Future MVP rows are not retained paper evidence.

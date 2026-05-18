@@ -1,0 +1,22 @@
+field_name,field_type,required_for_future_mvp,allowed_values,producer,consumer,official_metric_input,retained_evidence_input,notes
+execution_enabled,boolean,yes,true|false,user_run_db_checker_runner,local_report,false,false,True only when DB execution is explicitly enabled for the row.
+checker_enabled,boolean,yes,true|false,user_run_db_checker_runner,local_report,false,false,True only when checker execution is explicitly enabled for the row.
+source_execution_status,enum,yes,execution_not_enabled|source_execution_success|source_execution_failed|execution_timeout|execution_unsupported|execution_internal_error,engine_runner,checker_runner_and_local_report,false,false,Source SQL execution status for local run diagnostics.
+candidate_execution_status,enum,yes,execution_not_enabled|candidate_execution_success|candidate_execution_failed|execution_timeout|execution_unsupported|execution_internal_error,engine_runner,checker_runner_and_local_report,false,false,Candidate SQL execution status for local run diagnostics.
+source_result_path,path,yes,blank_or_runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_result.jsonl,engine_runner,checker_runner,false,false,Must stay under runs/user.
+candidate_result_path,path,yes,blank_or_runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_result.jsonl,engine_runner,checker_runner,false,false,Must stay under runs/user.
+source_error_path,path,yes,blank_or_runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_error.txt,engine_runner,local_report,false,false,Must not contain credentials or private endpoints.
+candidate_error_path,path,yes,blank_or_runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_error.txt,engine_runner,local_report,false,false,Must not contain credentials or private endpoints.
+checker_config_path,path,yes,cases/<POOL>/<CASE_ID>/checker/checker.yaml,user_run_db_checker_runner,checker_runner,false,false,Read-only case package path.
+normalization_config_path,path,yes,cases/<POOL>/<CASE_ID>/checker/normalization.yaml,user_run_db_checker_runner,checker_runner,false,false,Missing required config fails closed.
+compare_config_path,path,yes,cases/<POOL>/<CASE_ID>/checker/compare_config.yaml,user_run_db_checker_runner,checker_runner,false,false,Missing required config fails closed.
+checker_status,enum,yes,checker_not_enabled|checker_success|checker_mismatch|checker_failed|checker_timeout|checker_unsupported|checker_config_missing|normalization_config_missing|checker_internal_error,checker_runner,local_report,false,false,Extends existing checker status beyond non-DB placeholder.
+exact_status,enum,yes,not_evaluated_non_db_mvp|exact|mismatch|not_exact_due_to_execution_failure|not_exact_due_to_checker_failure|not_exact_due_to_timeout|not_evaluated_checker_missing,checker_runner,local_report,false,false,Local diagnostic exactness only.
+execution_failure_class,string,yes,none|schema_setup_failed|source_query_failed|candidate_query_failed|connection_unavailable|timeout|unsupported_engine|internal_runner_error,engine_runner,local_report,false,false,More specific local execution failure classification.
+checker_failure_class,string,yes,none|checker_config_missing|normalization_config_missing|compare_config_missing|normalization_failed|comparison_failed|timeout|internal_runner_error,checker_runner,local_report,false,false,More specific local checker failure classification.
+mismatch_artifact_path,path,yes,blank_or_runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/mismatch_summary.json,checker_runner,local_report,false,false,Created only when mismatch details are safe and local.
+db_artifact_dir,path,yes,runs/user/<run_id>/workspaces/<case_id>/<engine>/execution,engine_runner,local_report,false,false,Directory for local execution artifacts.
+checker_artifact_dir,path,yes,runs/user/<run_id>/workspaces/<case_id>/<engine>/checker,checker_runner,local_report,false,false,Directory for local checker artifacts.
+local_execution_only,boolean,yes,true,user_run_db_checker_runner,local_report,false,false,Must be true for the future user-run MVP.
+official_metric_input,boolean,yes,false,user_run_db_checker_runner,validators,false,false,Must remain false unless a separate metric-input authorization task exists.
+retained_evidence_input,boolean,yes,false,user_run_db_checker_runner,validators,false,false,Must remain false unless a separate retained-evidence task exists.

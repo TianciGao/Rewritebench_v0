@@ -1,0 +1,22 @@
+{
+  "task_completed": true,
+  "design_only": true,
+  "db_checker_execution_design": true,
+  "db_execution_implemented": false,
+  "checker_execution_implemented": false,
+  "timing_implemented": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reproduction_cli_implemented": false,
+  "retained_evidence_adapter_implemented": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize b_line_db_checker_execution_mvp_v0 only if a bounded postgres-only Common-core PERF local execution/checker MVP is desired; keep output under runs/user, keep official_metric_input=false and retained_evidence_input=false, and keep case packages, case_sets, inventory, reports, results, denominators, paper results, retained evidence, raw legacy evidence, timing, paper reproduction, and leaderboard output unchanged."
+}

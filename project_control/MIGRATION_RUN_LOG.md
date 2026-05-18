@@ -6181,3 +6181,68 @@ Task result:
 
 Next safe action:
 - Use the SQLGlot-enabled smoke result as validation that optional candidate-generation adapters can plug into the non-DB user-entry runner; separately authorize any DB execution, checker execution, timing, official metrics, retained-evidence integration, paper reproduction, or leaderboard design before implementation.
+
+### 2026-05-18 · TBD · b_line_db_checker_execution_design_v0
+
+Mode: B-line DB/checker execution design only; no DB execution implementation; no checker execution implementation; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: TBD
+
+Summary:
+- Designed a future local DB/checker execution layer for user-run outputs.
+- Defined a conservative future MVP scope: Common-core v0 only, postgres only, 1-2 PERF cases first, SQLGlot no-op candidate first, local `runs/user/<run_id>/` output only, no timing, no official metrics, no retained evidence, no reports/results updates, no denominator changes, and no leaderboard.
+- Defined engine runner boundaries for connection config, schema setup, source execution, candidate execution, timeout policy, result capture, error capture, cleanup, and local artifact directories.
+- Defined checker invocation inputs and outputs, including source/candidate result artifacts, checker config, normalization config, compare config, mismatch summaries, normalized result artifacts, and fail-closed behavior.
+- Defined result-normalization expectations for row ordering, duplicates, numeric tolerance, NULL rendering, date/time values, string/case rules, and engine-specific caveats.
+- Defined future ledger extension fields with `local_execution_only=true`, `official_metric_input=false`, and `retained_evidence_input=false` for the user-run MVP.
+- Defined execution/checker/exact status vocabularies, failure buckets, output policy, implementation safety gates, SQLGlot/Calcite/R-Bot relationship, and official metrics boundaries.
+- Reviewed representative Common-core case structures read-only for `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Did not implement DB execution, run DB engines, implement checker execution, run checkers, collect timing, compute official metrics, render paper tables, implement paper reproduction, implement retained-evidence adapters, evaluate SQLGlot outputs, migrate cases, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, create a global leaderboard, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/b_line_db_checker_execution_design_v0/b_line_db_checker_execution_design_summary.md`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_execution_contract.csv`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_ledger_extension.csv`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_status_vocabulary.csv`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_output_policy.csv`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_safety_gates.csv`
+- `audits/b_line_db_checker_execution_design_v0/future_b_line_db_checker_execution_mvp_prompt.md`
+- `audits/b_line_db_checker_execution_design_v0/b_line_db_checker_execution_design_summary.json`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_execution_design_command_log.md`
+- `audits/b_line_db_checker_execution_design_v0/db_checker_representative_case_structure_review.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- CSV header/content checks: passed.
+- Protected-path checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, `results/`, or `runs/user` changed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- Design-only task: yes.
+- DB/checker execution design completed: yes.
+- DB execution implemented: no.
+- Checker execution implemented: no.
+- Timing implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- Global leaderboard created: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize `b_line_db_checker_execution_mvp_v0` only if a bounded postgres-only Common-core PERF local execution/checker MVP is desired, keeping outputs under `runs/user/` and preserving all official-metric, retained-evidence, reports/results, denominator, paper-result, and leaderboard boundaries.

@@ -1,0 +1,23 @@
+output_path_pattern,producer,consumer,git_status,allowed_for_future_mvp,prohibited_use,notes
+runs/user/<run_id>/config.yaml,user_run_db_checker_runner,user,false_or_ignored_local_output,true,official_report_or_retained_evidence,Local run configuration only.
+runs/user/<run_id>/selected_cases.csv,user_run_db_checker_runner,user,false_or_ignored_local_output,true,case_set_membership_update,Selection record only; does not alter case_sets.
+runs/user/<run_id>/candidate_sql/<case_id>__<engine>.sql,user_adapter_or_user_run_runner,engine_runner,false_or_ignored_local_output,true,retained_paper_candidate_without_authorization,Candidate SQL is local user output.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/candidate.sql,user_adapter,engine_runner,false_or_ignored_local_output,true,case_package_sql_asset,Per-row local workspace candidate.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/adapter_stdout.txt,user_run_runner,user,false_or_ignored_local_output,true,public_retained_log,Local diagnostic only; do not expose secrets.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/adapter_stderr.txt,user_run_runner,user,false_or_ignored_local_output,true,public_retained_log,Local diagnostic only; do not expose secrets.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_result.jsonl,engine_runner,checker_runner,false_or_ignored_local_output,true,retained_paper_evidence,Local source execution result only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_result.jsonl,engine_runner,checker_runner,false_or_ignored_local_output,true,retained_paper_evidence,Local candidate execution result only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/source_error.txt,engine_runner,user,false_or_ignored_local_output,true,public_raw_log,Local error diagnostic only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/execution/candidate_error.txt,engine_runner,user,false_or_ignored_local_output,true,public_raw_log,Local error diagnostic only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/checker_result.json,checker_runner,user,false_or_ignored_local_output,true,official_metric_input,Local checker result only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/mismatch_summary.json,checker_runner,user,false_or_ignored_local_output,true,paper_result_or_leaderboard,Local mismatch diagnostic only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/normalized_source_result.jsonl,checker_runner,user,false_or_ignored_local_output,true,retained_paper_evidence,Local normalization output only.
+runs/user/<run_id>/workspaces/<case_id>/<engine>/checker/normalized_candidate_result.jsonl,checker_runner,user,false_or_ignored_local_output,true,retained_paper_evidence,Local normalization output only.
+runs/user/<run_id>/ledger.csv,user_run_db_checker_runner,user,false_or_ignored_local_output,true,official_metric_ledger_without_authorization,Local diagnostic ledger with official_metric_input=false.
+runs/user/<run_id>/summary.json,user_run_db_checker_runner,user,false_or_ignored_local_output,true,paper_result_summary,Local diagnostic summary only.
+runs/user/<run_id>/failures.csv,user_run_db_checker_runner,user,false_or_ignored_local_output,true,paper_failure_table,Local failure diagnostics only.
+runs/user/<run_id>/report.md,user_run_db_checker_runner,user,false_or_ignored_local_output,true,global_leaderboard_or_paper_table,Must warn local-output only and no leaderboard.
+cases/<POOL>/<CASE_ID>/runs/,none,none,tracked_or_legacy_retained_surface,false,new_user_run_output,Case-local runs remains legacy retained evidence only.
+results/retained/,none,none,tracked_release_surface,false,user_run_output,Reserved for separately authorized curated retained evidence.
+reports/evaluation/,none,none,tracked_release_surface,false,user_run_report,Reserved for separately authorized curated reports.
+reports/paper/,none,none,tracked_release_surface,false,user_run_report_or_paper_table,Reserved for separately authorized paper reports.
