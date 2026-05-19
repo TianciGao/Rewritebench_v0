@@ -35,7 +35,7 @@ Optional case-local assets include:
 - compatibility case-local `schema/<engine>/ddl.sql` and `schema/<engine>/load.sql` copies during branch adoption
 - compatibility `evidence/` index files during branch adoption
 - `notes/` for stable package caveats
-- case-local `runs/` as legacy retained evidence only
+- case-local `runs/` as optional compatibility only after content classification
 
 ## Default-excluded Files
 
@@ -156,9 +156,18 @@ Runtime user-run checking defaults to source-as-oracle comparison: execute sourc
 
 ## Case-local Runs Policy
 
-Case-local `runs/` is legacy retained evidence only.
+Case-local `runs/` is not automatically retained evidence in v2. It must be classified by observed contents:
 
-It must not be used for new user-run outputs. It must not be deleted, rewritten, or moved without retention mapping and explicit approval.
+- absent `runs/`: no cleanup needed
+- empty `runs/`: not retained evidence
+- placeholder-only `runs/`: not retained evidence unless the placeholder explicitly documents retained artifacts stored in that directory
+- retained-evidence-present `runs/`: retention mapping required before deletion
+- sensitive/private/local-path/raw-trace `runs/`: private/archive mapping required; do not public-copy
+- manual-review `runs/`: deletion forbidden until reviewed
+
+Case-local `runs/` must not be used for new user-run outputs. New user-run outputs stay under top-level `runs/user/<run_id>/`.
+
+D005 protection remains in force for non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace `runs/` directories. Those directories must not be deleted, rewritten, or moved without retention/archive mapping and explicit approval.
 
 ## No-global-leaderboard Boundary
 

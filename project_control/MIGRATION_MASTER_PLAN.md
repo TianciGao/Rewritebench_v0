@@ -35,7 +35,7 @@
 - PORT bounded evidence 不能写成 full PORT9；
 - SpeedupTransferRate 当前不计算；
 - verifier support 不是 rewrite-generation baseline；
-- runs/ 是 legacy retained evidence，不能无 retention mapping 删除。
+- case-local runs/ 需要按内容分类；empty/placeholder-only 不是 retained evidence，non-empty/uncertain runs/ 不能无 retention/archive mapping 删除。
 
 ## 3. 已知 legacy facts
 
@@ -139,8 +139,10 @@ cases/<POOL>/<CASE_ID>/
 其中：
 
 manifest.yaml 是主索引；
-runs/ 是 legacy retained evidence；
-evidence/runs_retention.yaml 用于解释 runs/；
+case-local runs/ 需要按内容分类；
+empty 或 placeholder-only runs/ 不是 retained evidence；
+non-empty 或不确定 runs/ 在没有 retention mapping 前继续按 legacy retained evidence 保护；
+evidence/runs_retention.yaml 用于解释 retained 或 archived runs 状态；
 新运行输出不再写入 case-local runs/；
 Common-core membership 由 case_sets/ 控制，不通过物理目录复制 case。
 
@@ -166,7 +168,7 @@ cases/<POOL>/<CASE_ID>/
   schema/schema_profile.yaml
   checker/
   validation/
-  runs/  # legacy retained evidence only
+  runs/  # optional compatibility only; empty/placeholder-only is not retained evidence
 ```
 
 Case-local `schema/` remains in clean v2 only for `schema/schema_profile.yaml`. This file is a case-facing schema profile and summary, not executable DDL or load data. It records the `schema_id`, external schema profile linkage, source family, relevant tables, columns, column types, primary keys, foreign keys, dialect differences, fixture/data notes when needed, and engine support summary.
@@ -230,7 +232,7 @@ Runtime witness/source-as-oracle policy:
 Artifact boundary policy:
 
 - `runs/user/<run_id>/` is local user-run output only. It is not retained paper evidence, not `results/retained/`, and not a leaderboard input.
-- case-local `runs/` is legacy retained evidence only and must not receive new user-run output.
+- case-local `runs/` must be classified by content. Empty or placeholder-only case-local `runs/` is not retained evidence; non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace `runs/` remains protected and must not receive new user-run output.
 - `results/retained/` is a curated retained-evidence/reporting surface only after separate authorization.
 - `evidence/cases/` is retained case evidence/reference material, not user-run output and not paper table output.
 
@@ -247,15 +249,27 @@ Branch-only adoption roadmap:
 
 ## 7. runs/ 政策
 
-runs/ 在迁移期定义为 legacy retained evidence surface。
+case-local runs/ 在迁移期必须按内容分类，而不是自动视为 retained evidence。
+
+当前 v2 branch reality audit 显示：current release branch 中大多数 case-local runs/ 只是 README placeholder，未包含 retained evidence payload。因此 v2 cleanup policy 区分：
+
+- absent runs/: 无需 cleanup；
+- empty runs/: 不是 retained evidence；
+- placeholder-only runs/: 不是 retained evidence，除非 placeholder 明确说明 retained artifacts 存在于该目录内；
+- non-empty runs/: 删除前必须分类；
+- retained-evidence-present runs/: 删除前必须有 retention mapping；
+- sensitive/private/local-path/raw-trace runs/: 不得 public-copy，需要 private/archive mapping；
+- manual-review runs/: 人工复核前不得删除。
+
+D005 仍适用于 non-empty、uncertain、retained-evidence-present、sensitive/private/raw-trace runs candidates。
 
 没有 retention mapping 前，不允许：
 
-删除 runs/；
-清空 runs/；
-批量移动 runs/；
-全部外迁 runs/；
-静默改写 runs/；
+删除 non-empty/uncertain retained-evidence runs/；
+清空 non-empty/uncertain retained-evidence runs/；
+批量移动 non-empty/uncertain retained-evidence runs/；
+全部外迁 non-empty/uncertain retained-evidence runs/；
+静默改写 non-empty/uncertain retained-evidence runs/；
 隐藏 failed / unsupported / mismatch / timing-missing evidence。
 
 每个迁移后的 case 应逐步增加：

@@ -7768,3 +7768,64 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
+
+### 2026-05-19 · pending · case_package_v2_runs_reality_audit_and_policy_update_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only case-local runs reality audit and v2 policy refinement; no cleanup execution; no runs deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Inspected all 100 current case-package directories under `cases/<POOL>/<CASE_ID>/`.
+- Classified 1 case as `runs/` absent and 99 cases as placeholder-only `runs/`.
+- Found 0 empty `runs/` directories, 0 retained-evidence-present `runs/` directories, 0 sensitive/private/raw-trace `runs/` directories, and 0 manual-review `runs/` directories.
+- Performed a v2 policy update because placeholder-only `runs/` directories are common in the current branch.
+- Added D027 and refined the v2 master plan/specs so empty or placeholder-only case-local `runs/` is not automatically retained evidence, while D005 remains valid for non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace runs candidates.
+- Did not modify case packages, delete runs, delete evidence, modify schemas, change `case_sets/`, inventory, reports/results, denominators, paper results, DB/checker outputs, official metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_runs_reality_audit_v0/runs_reality_audit_summary.md`
+- `audits/case_package_v2_runs_reality_audit_v0/case_local_runs_inventory.csv`
+- `audits/case_package_v2_runs_reality_audit_v0/runs_classification_summary.csv`
+- `audits/case_package_v2_runs_reality_audit_v0/runs_policy_refinement_matrix.csv`
+- `audits/case_package_v2_runs_reality_audit_v0/future_case_package_v2_empty_runs_cleanup_prompt.md`
+- `audits/case_package_v2_runs_reality_audit_v0/runs_reality_audit_summary.json`
+- `audits/case_package_v2_runs_reality_audit_v0/runs_reality_audit_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+- `repository_spec/case_package_contract_v2_draft.md`
+- `repository_spec/external_evidence_contract_v1_draft.md`
+
+Validation:
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no cases, runs, evidence, schemas, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, official metrics, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Runs reality audit: yes.
+- Total cases inspected: 100.
+- Runs absent count: 1.
+- Runs empty count: 0.
+- Runs placeholder-only count: 99.
+- Runs retained-evidence-present count: 0.
+- Runs sensitive/private/raw count: 0.
+- Manual-review count: 0.
+- Policy update performed: yes.
+- Case files modified: no.
+- Runs deleted: no.
+- Evidence deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_empty_runs_cleanup_v0` only to delete audited empty or placeholder-only case-local `runs/` directories after policy acceptance, with no retained-evidence deletion.

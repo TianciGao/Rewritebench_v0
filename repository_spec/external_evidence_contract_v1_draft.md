@@ -45,7 +45,7 @@ It must not contain task run logs, commit/push metadata, private paths, prompts,
 
 `runs_retention.yaml` may move to external evidence when case-local evidence is minimized. It records retained evidence roles, do-not-delete mappings, public/private status, and compatibility notes.
 
-Case-local `runs/` remains legacy retained evidence and is not moved or deleted by default.
+Case-local `runs/` must be classified before cleanup. Empty or placeholder-only case-local `runs/` is not retained evidence unless the placeholder explicitly documents retained artifacts stored in that directory. Non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace `runs/` remains protected and is not moved or deleted by default.
 
 ## retained_controls / hard_negative / plans Roles
 
@@ -69,7 +69,16 @@ Copying evidence into `evidence/cases/` does not by itself create paper results,
 
 ## Case-local Runs Retention Policy
 
-Case-local `runs/` must not be deleted without:
+Case-local `runs/` is classified before any cleanup:
+
+- absent: no cleanup needed
+- empty directory: not retained evidence
+- placeholder-only: not retained evidence unless the placeholder explicitly documents retained artifacts stored in that directory
+- retained evidence present: retention mapping required
+- sensitive/private/local-path/raw trace present: private/archive mapping required and no public copy
+- manual review required: deletion forbidden until reviewed
+
+Non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace case-local `runs/` must not be deleted without:
 
 - retention mapping
 - public/private classification
@@ -78,4 +87,4 @@ Case-local `runs/` must not be deleted without:
 
 ## No Deletion Without Retention Mapping
 
-No branch-adoption task may delete case-local runs, raw retained evidence, or compatibility evidence directories unless the task explicitly includes retention mapping and approval.
+No branch-adoption task may delete retained-evidence-present, sensitive/private, raw-trace, uncertain, or manual-review case-local runs, raw retained evidence, or compatibility evidence directories unless the task explicitly includes retention/archive mapping and approval. Audited empty or placeholder-only case-local runs may be removed only by a separate cleanup task after policy acceptance and protected-boundary checks.

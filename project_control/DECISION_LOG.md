@@ -622,3 +622,29 @@ Impact:
 - Future writable conversion should add or normalize case-local wrapper scripts, not copy implementation logic per case.
 - Shared module creation remains separately authorized future work; this decision records the plan only.
 - This decision does not authorize DB/checker execution expansion, official metrics, timing, reports/results migration, denominator changes, paper-result changes, retained-evidence updates, or leaderboard output.
+
+## D027: Case-local runs/ reality-based v2 cleanup policy
+
+Decision:
+
+D005 remains valid for non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace case-local `runs/` candidates. Those directories must not be deleted, cleared, moved, public-copied, or silently rewritten without classification, retention/archive mapping, and explicit approval.
+
+Case package v2 cleanup may distinguish empty or placeholder-only case-local `runs/` from retained-evidence runs:
+
+- absent `runs/` requires no cleanup;
+- empty `runs/` is not retained evidence;
+- placeholder-only `runs/` is not retained evidence unless the placeholder explicitly documents retained artifacts stored in that directory;
+- non-empty `runs/` must be classified before deletion;
+- retained-evidence-present `runs/` requires retention mapping before deletion;
+- sensitive/private/local-path/raw-trace `runs/` requires private/archive mapping and must not be public-copied;
+- new user-run outputs remain under top-level `runs/user/<run_id>/`, not case-local `runs/`.
+
+Reason:
+
+The branch-local `case_package_v2_runs_reality_audit_and_policy_update_v0` inspected 100 current case-package directories and found 99 placeholder-only case-local `runs/` directories, 1 absent `runs/` directory, and 0 retained-evidence-present, sensitive/private/raw-trace, or manual-review `runs/` directories. Treating every placeholder-only `runs/` directory as retained evidence is too broad for v2 cleanup, while D005 remains necessary for non-empty or uncertain cases.
+
+Impact:
+
+- A future cleanup task may delete audited empty or placeholder-only case-local `runs/` directories after policy acceptance and protected-boundary checks.
+- The cleanup task must stop if any target `runs/` directory contains non-placeholder files or changes classification.
+- No retained-evidence deletion, case-local evidence deletion, reports/results migration, denominator change, paper-result change, official metric computation, DB/checker execution, or leaderboard output is authorized by this decision.
