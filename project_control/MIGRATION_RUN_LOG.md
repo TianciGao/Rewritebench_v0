@@ -6681,14 +6681,14 @@ Task result:
 Next safe action:
 - Review the `PERF_0006` v2 external-schema branch pilot. If accepted, authorize a branch-only expansion to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main` until v2 validator and runner `schema_ref` compatibility is approved.
 
-### 2026-05-19 · TBD · case_package_v2_masterplan_assets_strategy_v0
+### 2026-05-19 · 18f85c7 · case_package_v2_masterplan_assets_strategy_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: case package v2 master plan and assets strategy; policy/spec-only; no case conversion; no DB execution; no checker execution; no timing; no official metrics; no reports/results migration
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `18f85c76e42bd96f73790e817cfdeb40b7e6bfe7`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Recorded the case package v2 assets strategy after the `PERF_0006` external-schema branch pilot.
@@ -6720,14 +6720,14 @@ Files modified:
 - `project_control/MIGRATION_RUN_LOG.md`
 
 Validation:
-- Branch check: pending final check.
-- Master-plan addendum check: pending final check.
-- Decision-log check: pending final check.
-- Repository spec existence check: pending final check.
-- Audit CSV header check: pending final check.
-- Summary JSON parse check: pending final check.
-- Protected-boundary checks: pending final check.
-- `git diff --check`: pending final check.
+- Branch check: passed; current branch is `feature/case-package-v2-external-schema`.
+- Master-plan addendum check: passed; `MIGRATION_MASTER_PLAN.md` contains the case package v2 target addendum.
+- Decision-log check: passed; D020-D024 are present.
+- Repository spec existence check: passed; all five draft specs exist.
+- Audit CSV header check: passed.
+- Summary JSON parse check: passed.
+- Protected-boundary checks: passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
 
 Task result:
 - Master plan updated: yes.
