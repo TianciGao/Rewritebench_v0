@@ -6939,14 +6939,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_batch_converter_plan_v0` as a read-only converter dry-run over `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` before any additional writable conversion.
 
-### 2026-05-19 · pending · case_package_v2_batch_converter_plan_v0
+### 2026-05-19 · 813171f · case_package_v2_batch_converter_plan_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only converter dry-run planning; no writable case conversion; no cleanup; no schema/evidence deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `813171f9bbe75c7b77fd1f3c3aaae1b7624329b6`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Produced a read-only v2 batch conversion plan for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
