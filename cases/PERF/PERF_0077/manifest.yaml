@@ -20,7 +20,7 @@ source_query_identity:
   identity: JOB 3a.sql
 source_path: manual_review_required
 draft_origin:
-  recovery_status: manual_review_required
+  recovery_status: accepted_non_blocking_release_caveat
   origin_id: JOB 3a.sql
   origin_type: source_query_identity_fallback
   recovery_sources:
@@ -80,7 +80,7 @@ evidence_policy:
 status: manual_review_required
 known_caveats:
 - source_path_not_recovered
-- draft_origin_not_explicitly_recovered
+- draft_origin_not_explicitly_recovered_nonblocking
 artifact_warning:
   case_membership_changed: false
   denominator_changed: false

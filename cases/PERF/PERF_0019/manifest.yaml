@@ -17,7 +17,7 @@ source_query_identity:
   source_seed: TPC-H-Q13
 source_path: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/13.sql
 draft_origin:
-  recovery_status: manual_review_required
+  recovery_status: accepted_non_blocking_release_caveat
   origin_id: TPC-H-Q13
   origin_type: source_query_identity_fallback
   recovery_sources:
@@ -71,9 +71,9 @@ evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts
   retained_static_artifacts: none
-status: manual_review_required
+status: repaired_v2_manifest_contract_with_nonblocking_provenance_caveat
 known_caveats:
-- draft_origin_not_explicitly_recovered
+- draft_origin_not_explicitly_recovered_nonblocking
 artifact_warning:
   case_membership_changed: false
   denominator_changed: false

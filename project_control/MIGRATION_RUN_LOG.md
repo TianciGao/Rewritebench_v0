@@ -8695,3 +8695,64 @@ Task result:
 
 Next safe action:
 - Resolve manifest manual-review provenance caveats in a bounded follow-up, or run Wave C planning without inventing unrecovered source fields.
+
+### 2026-05-20 · pending · case_package_v2_manifest_caveat_closeout_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only manifest caveat closeout; no Wave C conversion; no new case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending task commit
+Push: pending
+
+Summary:
+- Reviewed the 32 already converted v2 manifests from the accepted pilots, Wave A, and Wave B.
+- Reviewed 19 retained provenance caveat rows from `case_package_v2_manifest_contract_repair_v0`.
+- Reclassified 17 draft-origin fallback caveats as accepted non-blocking release caveats without inventing a distinct draft artifact.
+- Applied 1 safe field-level repair: `PORT_0003` `draft_origin.origin_id` now uses the branch-history `source_entry_pointer` fallback instead of the literal `manual_review_required` placeholder.
+- Retained 2 manual-review caveats for `PERF_0077` and `PERF_0082` `source_path`; branch-history provenance leaves `source_entry` blank and records only legacy case-local source materialization.
+- Did not update validator code or tests.
+- Did not restore deleted schema/evidence/runs/metadata/notes/data directories, case-local evidence, top-level `evidence/cases/`, old validation scripts, or per-case Python checker scripts.
+- Did not modify `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_closeout_summary.md`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_inventory.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_repair_actions.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_remaining_manual_review.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_nonblocking_acceptance.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_validator_results.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_protected_boundary_checks.csv`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/future_case_package_v2_wave_c_or_caveat_followup_prompt.md`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_closeout_summary.json`
+- `audits/case_package_v2_manifest_caveat_closeout_v0/manifest_caveat_closeout_command_log.md`
+
+Validation:
+- Static v2 validators passed for all 32 target cases.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 15 tests.
+- Summary JSON assertion: passed.
+- CSV header/row parse check: passed.
+- `git diff --check`: passed.
+- Boundary checks found no `case_sets/`, inventory, reports/results, schema, evidence, denominator, paper-result, official-metric, DB/checker execution, or leaderboard changes.
+
+Task result:
+- Manifest caveat closeout: yes.
+- Cases reviewed: 32.
+- Caveats reviewed: 19.
+- Caveats repaired: 1.
+- Caveats accepted nonblocking: 17.
+- Caveats remaining manual review: 2.
+- Wave C allowed after closeout: yes.
+- Case files modified: yes, manifest files only for 17 target cases.
+- Validator updated: no.
+- Tests updated: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_wave_c_manual_review_plan_v0` for remaining PORT/manual-review planning, with a separate narrow source-path provenance follow-up for `PERF_0077` and `PERF_0082` before final public source-path closeout.
