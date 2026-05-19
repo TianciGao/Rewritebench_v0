@@ -6882,14 +6882,14 @@ Task result:
 Next safe action:
 - Authorize a branch-only multi-pool v2 pilot using normalized `PERF_0006` as the canonical example, limited to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`, without merging to `main`.
 
-### 2026-05-19 · pending · case_package_v2_conversion_rulebook_v0
+### 2026-05-19 · 3ba7d95 · case_package_v2_conversion_rulebook_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only case package v2 conversion rulebook; no case conversion; no schema modification; no DB/checker execution; no official metrics; no paper rendering
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `3ba7d95533c390380ec7f44fff2544d2c9f76722`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Created a detailed v2 conversion rulebook for turning v1 and v1-compatible case packages into the v2 template shape.
