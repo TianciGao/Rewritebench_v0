@@ -6458,3 +6458,68 @@ Task result:
 
 Next safe action:
 - Authorize a bounded DB/checker hardening task under the same local-only boundaries, or authorize a separate narrowly scoped `PERF_0007` expansion smoke.
+
+### 2026-05-19 · TBD · b_line_db_checker_batch_plan_v0
+
+Mode: B-line DB/checker batch expansion planning; design/selection only; no batch execution; no DB/checker execution; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Planned the first bounded postgres PERF DB/checker batch expansion after the successful `PERF_0006` MVP and release smoke.
+- Built the candidate universe from `case_sets/common_core_v0/cases.csv` and `case_sets/common_core_v0/denominator_same_engine_120.csv`, filtering to Common-core PERF postgres rows only.
+- Static-readiness reviewed all 16 Common-core PERF candidates for source SQL, postgres DDL/load, checker config, normalization config, compare config, and denominator-eligibility file presence without modifying case packages.
+- Marked `PERF_0006` as the prior canary verified by DB/checker release smoke and excluded it from the new batch selection.
+- Recommended a four-case first batch: `PERF_0007`, `PERF_0008`, `PERF_0013`, and `PERF_0017`.
+- Drafted a future `b_line_postgres_perf_batch_smoke_v0` prompt that executes only selected rows under `runs/user/` with SQLGlot no-op, postgres only, no timing, no official metrics, no retained evidence, no reports/results updates, no denominator changes, no paper-result changes, and no leaderboard.
+- Did not run DB execution, run checkers, collect timing, compute official metrics, render paper tables, implement paper reproduction, implement retained-evidence adapters, update reports/results, update `case_sets/`, update inventory, change denominators, change paper results, modify case packages, modify the legacy repo, or modify raw legacy evidence.
+
+Files created:
+- `audits/b_line_db_checker_batch_plan_v0/b_line_db_checker_batch_plan_summary.md`
+- `audits/b_line_db_checker_batch_plan_v0/common_core_perf_postgres_candidate_readiness.csv`
+- `audits/b_line_db_checker_batch_plan_v0/postgres_perf_batch_selection.csv`
+- `audits/b_line_db_checker_batch_plan_v0/postgres_perf_batch_stop_conditions.csv`
+- `audits/b_line_db_checker_batch_plan_v0/future_b_line_postgres_perf_batch_smoke_prompt.md`
+- `audits/b_line_db_checker_batch_plan_v0/b_line_db_checker_batch_plan_summary.json`
+- `audits/b_line_db_checker_batch_plan_v0/db_checker_batch_plan_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `PYTHONDONTWRITEBYTECODE=1 python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- CSV content checks: passed; readiness covers all 16 Common-core PERF postgres candidates, selected batch size is 4, `PERF_0006` is prior canary and not selected, selected rows have required assets, and required stop-condition families are present.
+- Protected-path checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, `results/`, or tracked `runs/user` changed.
+- `git diff --check`: passed.
+
+Task result:
+- Batch plan task: yes.
+- Design-only task: yes.
+- Batch execution performed: no.
+- Candidate universe: Common-core PERF postgres.
+- Recommended batch size: 4.
+- Recommended batch case IDs: `PERF_0007`, `PERF_0008`, `PERF_0013`, and `PERF_0017`.
+- Prior canary case IDs: `PERF_0006`.
+- DB execution implemented by this task: no.
+- Checker execution implemented by this task: no.
+- Timing implemented: no.
+- Official metrics computed: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- Global leaderboard created: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize `b_line_postgres_perf_batch_smoke_v0` to execute only the selected postgres PERF SQLGlot no-op batch under `runs/user/`, with no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.

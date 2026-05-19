@@ -1,0 +1,34 @@
+{
+  "task_completed": true,
+  "batch_plan_task": true,
+  "design_only": true,
+  "batch_execution_performed": false,
+  "candidate_universe": "common_core_perf_postgres",
+  "recommended_batch_size": 4,
+  "recommended_batch_case_ids": [
+    "PERF_0007",
+    "PERF_0008",
+    "PERF_0013",
+    "PERF_0017"
+  ],
+  "prior_canary_case_ids": [
+    "PERF_0006"
+  ],
+  "db_execution_implemented": false,
+  "checker_execution_implemented": false,
+  "timing_implemented": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reproduction_cli_implemented": false,
+  "retained_evidence_adapter_implemented": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize b_line_postgres_perf_batch_smoke_v0 to execute the selected postgres PERF SQLGlot no-op batch under runs/user/ only, with no timing, official metrics, retained evidence, reports/results, denominator, paper-result, or leaderboard changes."
+}

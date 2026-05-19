@@ -1,0 +1,17 @@
+stop_condition_id,stop_condition,severity,detection_method,required_action,notes
+SC001,Postgres connection unavailable or connection test fails,blocker,Preflight `psql -c "select 1;"`,Stop before execution and record blocked audit packet,Do not fake execution results.
+SC002,Selected row writes output outside runs/user/<run_id>/,blocker,Output-root guard plus post-run path inspection,Stop and discard local run output before committing,User-run artifacts must remain local.
+SC003,Any file under cases/ changes,blocker,`git status --short cases`,Stop and investigate before continuing,Case packages are read-only for batch smoke.
+SC004,Any file under case_sets/ changes,blocker,`git status --short case_sets`,Stop and investigate before continuing,No membership or denominator-scope changes.
+SC005,Any file under inventory/ changes,blocker,`git status --short inventory`,Stop and investigate before continuing,Inventory is out of scope.
+SC006,Any reports/results path changes,blocker,`git status --short reports results`,Stop and investigate before continuing,User-run output must not update curated reports or results.
+SC007,Any denominator file changes,blocker,Diff scan for denominator files,Stop and revert unauthorized changes,The future batch must not alter denominator values or membership.
+SC008,Any paper result file changes,blocker,Diff scan for paper-result surfaces,Stop and revert unauthorized changes,The future batch must not update paper results.
+SC009,Retained evidence update attempted,blocker,Diff scan and run-output manifest review,Stop and reject the run as out of scope,Local diagnostics are not retained paper evidence.
+SC010,Official metric computation attempted,blocker,Command review and output scan for official metric artifacts,Stop and reject the run as out of scope,Do not compute Generation Rate Execution Coverage Rate Result Consistency Rate speedup or paper metrics.
+SC011,Timing output collected or reported,blocker,Output manifest and ledger/report scan,Stop and reject the run as out of scope,Timing remains unauthorized.
+SC012,Global leaderboard output or ranking created,blocker,Report/output scan for leaderboard ranking or method winner claims,Stop and reject the run as out of scope,No global leaderboard boundary must be preserved.
+SC013,Source candidate or checker artifact missing for selected row,high,Post-run manifest and ledger validation,Stop the batch and record failed row details,Do not proceed to broader execution when required local artifacts are missing.
+SC014,DB credential leakage detected in logs audit files or reports,blocker,Manual redaction review and grep for DSN/password tokens,Stop and redact before any commit,Do not store DB passwords or full DSNs.
+SC015,Repeated schema setup failure across selected rows,high,Ledger execution_failure_class review,Stop batch expansion and diagnose environment/schema setup,Batch smoke should not mask systemic setup failures.
+SC016,Checker config normalization config or compare config missing for selected row,blocker,Static preflight and checker status review,Stop before execution for that selection,Selected first-batch rows must have all checker assets.
