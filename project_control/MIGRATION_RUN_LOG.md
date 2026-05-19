@@ -8584,7 +8584,7 @@ Mode: branch-only read-only Common-core Wave B post-conversion parity review; no
 Legacy repo modified: no
 Release repo branch modified: yes
 Commit: `9d6310d8`
-Push: pending
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Reviewed exactly 22 converted Wave B cases: `PERF_0033`, `PERF_0034`, `PERF_0035`, `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, `PERF_0082`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`.
