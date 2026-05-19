@@ -1,0 +1,18 @@
+validation_name,status,details
+PERF_0006 v2 validator,pass,overall_status=pass; db_execution_run=false; checker_execution_run=false; official_metrics_computed=false
+PERF_0007 v2 validator,pass,overall_status=pass; db_execution_run=false; checker_execution_run=false; official_metrics_computed=false
+CONS_0005 v2 validator,pass,overall_status=pass; db_execution_run=false; checker_execution_run=false; official_metrics_computed=false
+PORT_0003 v2 validator,pass,overall_status=pass; db_execution_run=false; checker_execution_run=false; official_metrics_computed=false
+LONGTAIL_0011 v2 validator,pass,overall_status=pass; db_execution_run=false; checker_execution_run=false; official_metrics_computed=false
+unit tests,pass,PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v passed 9 tests
+retained evidence deleted,pass,false; only placeholder-only runs README/marker directories were deleted
+evidence deleted,pass,false
+schemas deleted,pass,false
+case_sets changed,pass,false
+inventory changed,pass,false
+reports/results changed,pass,false
+denominator changed,pass,false
+paper results changed,pass,false
+official metrics computed,pass,false
+DB/checker execution run,pass,false
+global leaderboard created,pass,false

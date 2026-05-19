@@ -7829,3 +7829,61 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_empty_runs_cleanup_v0` only to delete audited empty or placeholder-only case-local `runs/` directories after policy acceptance, with no retained-evidence deletion.
+
+### 2026-05-19 · pending · case_package_v2_empty_runs_cleanup_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only cleanup limited to audited placeholder-only case-local `runs/` directories; no retained-evidence deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Read the accepted runs reality audit and D027 policy refinement.
+- Selected only 99 case-local `runs/` directories classified as `placeholder_only` in `audits/case_package_v2_runs_reality_audit_v0/case_local_runs_inventory.csv`.
+- Reconfirmed each selected directory existed and contained only placeholder/README/marker content before deletion.
+- Deleted 99 placeholder-only case-local `runs/` directories.
+- Skipped 0 placeholder-only candidates. The audited absent `PORT_0008/runs/` path was not a deletion candidate and remained absent.
+- Did not delete retained evidence, case-local evidence, schemas, reports, results, `case_sets/`, inventory, denominator inputs, paper-result inputs, DB/checker outputs, official metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_cleanup_summary.md`
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_cleanup_candidates.csv`
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_deleted_manifest.csv`
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_cleanup_skipped.csv`
+- `audits/case_package_v2_empty_runs_cleanup_v0/post_empty_runs_cleanup_validation_results.csv`
+- `audits/case_package_v2_empty_runs_cleanup_v0/future_case_package_v2_post_empty_runs_parity_review_prompt.md`
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_cleanup_summary.json`
+- `audits/case_package_v2_empty_runs_cleanup_v0/empty_runs_cleanup_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Files deleted:
+- 99 tracked `cases/<POOL>/<CASE_ID>/runs/README.md` placeholder files, removing the corresponding placeholder-only case-local `runs/` directories from tracked content.
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no retained evidence, evidence, schemas, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, official metrics, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Empty runs cleanup: yes.
+- Audited placeholder-only runs candidates: 99.
+- Runs deleted count: 99.
+- Runs skipped count: 0.
+- Retained evidence deleted: no.
+- Evidence deleted: no.
+- Schemas deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_post_empty_runs_parity_review_v0` as a read-only parity review after placeholder-only case-local `runs/` cleanup.

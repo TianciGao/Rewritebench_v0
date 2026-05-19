@@ -1,0 +1,22 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "empty_runs_cleanup": true,
+  "audited_placeholder_runs_candidates": 99,
+  "runs_deleted_count": 99,
+  "runs_skipped_count": 0,
+  "retained_evidence_deleted": false,
+  "evidence_deleted": false,
+  "schemas_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_post_empty_runs_parity_review_v0 as a read-only parity review after placeholder-only runs cleanup."
+}
