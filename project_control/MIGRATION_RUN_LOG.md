@@ -7769,14 +7769,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
 
-### 2026-05-19 · pending · case_package_v2_clean_template_gap_closure_execution_v0
+### 2026-05-19 · a053cf5 · case_package_v2_clean_template_gap_closure_execution_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable clean-template gap closure for five v2 pilot cases; no Common-core 40 conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `a053cf5c0b9475d792269fdbe3933d039e525ff6`
+Push: succeeded to `origin/feature/case-package-v2-external-schema` (`e8d3a61..a053cf5`)
 
 Summary:
 - Closed safe clean-template gaps for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
