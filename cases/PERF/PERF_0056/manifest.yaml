@@ -1,121 +1,76 @@
 case_id: PERF_0056
 pool: PERF
-status: canonical_full_case_migration_batch_pilot
-canonical_layout: true
-batch_id: perf_wave_2_final_batch
+case_package_standard: v2_clean_template_minimal
+status: converted_common_core40_wave_b
+canonical_layout: clean_template_minimal_v2
 source_family: TPC-DS
 source_id: SRC_002
 source_name: TPC-DS
-source_seed: TPCDS_QUERY6_DSQGEN_COUNT1_SCALE1_ANSI_V0
-source_template: query6.tpl
-source_entry: datasets/raw/tpcds/DSGen-software-code-4.0.0/query_templates/query6.tpl
-source_materialization: postgres_normalized_from_tpcds_ansi
+sql:
+  source: sql/source.sql
+  positives:
+  - sql/pos_01.sql
+  negatives:
+  - sql/neg_01.sql
+schema_ref:
+  schema_id: tpcds_perf0056_v0
+  profile: schemas/tpcds_perf0056_v0/schema_profile.yaml
+checker:
+  config: checker/checker.yaml
+  normalization: checker/normalization.yaml
+  compare_config: checker/compare_config.yaml
+  expected_rejections: checker/expected_rejections.yaml
+validation:
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
 benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: PERF_0056_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
+  case_membership_changed: false
+  denominator_changed: false
+  paper_results_changed: false
+  official_metrics_computed: false
+  global_leaderboard_created: false
 denominator_eligibility:
   track_a_same_engine_candidate: true
   denominator_changed: false
   paper_results_changed: false
   no_global_leaderboard: true
 engine_support:
-  postgres:
-    supported: true
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    supported: true
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    supported: true
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-    raw_plan_publication_policy: sanitized_public_copy_only
-sql:
-  source: sql/source.sql
-  positives:
-  - id: pos_01
-    path: sql/positives/pos_01.sql
-    role: positive_rewrite
-    rewrite_pressure:
-    - subquery_decorrelation
-    - predicate_pushdown
-    - join_normalization
-  negatives:
-  - id: neg_01
-    path: sql/negatives/neg_01.sql
-    role: hard_negative
-    expected_rejection: checker/expected_rejections.yaml
-schema:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-  profile: schema/schema_profile.yaml
-checker:
-  checker: checker/checker.yaml
-  normalization: checker/normalization.yaml
-  compare_config: checker/compare_config.yaml
-  expected_rejections: checker/expected_rejections.yaml
-validation:
-  postgres_validation: validation/run_postgres_validation.sh
-  mysql_validation: validation/run_mysql_validation.sh
-  spark_validation: validation/run_spark_validation.sh
-  postgres_plan_collection: validation/run_postgres_plan_collection.sh
-  mysql_plan_collection: validation/run_mysql_plan_collection.sh
-  spark_plan_collection: validation/run_spark_plan_collection.sh
-  execution_policy: not_run_during_migration
-  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
-evidence:
-  runs_retention: evidence/runs_retention.yaml
-  package_validation_summary: evidence/package_validation_summary.json
+  policy: schema_ref_profile_first
+  supported_engines:
+  - postgres
+  - mysql
+  - spark
+  case_local_engine_assets: removed_after_external_schema_verification
 metadata:
-  provenance: metadata/provenance.yaml
-  taxonomy: metadata/taxonomy.yaml
-  engine_support: metadata/engine_support.yaml
-  denominator_eligibility: metadata/denominator_eligibility.yaml
-  artifact_paths: metadata/artifact_paths.yaml
+  status: merged_or_represented_in_manifest_and_project_sources
+  case_local_metadata_directory: removed_in_wave_b_conversion
 notes:
-  witness_design_notes: notes/witness_design_notes.md
-  risk_notes: notes/risk_notes.md
-  schema_notes: notes/schema_notes.md
-  promotion_checklist: notes/promotion_checklist.md
-  migration_notes: notes/migration_notes.md
+  status: not_required_for_clean_template_minimal
+  case_local_notes_directory: removed_in_wave_b_conversion
 artifact_paths:
-  legacy_case_root: cases/PERF/PERF_0056
-  public_release_case_root: cases/PERF/PERF_0056
-  raw_legacy_runs_root: cases/PERF/PERF_0056/runs
-  raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
-performance_boundary:
-  performance_sensitive_case: true
-  timing_evidence_created: false
-  speedup_claim_created: false
-  retained_timing_artifacts_present: false
-  interpretation_policy: retained denominator-aware paper evidence only
+  source_sql: sql/source.sql
+  positive_sql: sql/pos_01.sql
+  negative_sql: sql/neg_01.sql
+  schema_profile: schema/schema_profile.yaml
+  external_schema_profile: schemas/tpcds_perf0056_v0/schema_profile.yaml
 claim_boundaries:
-  actual_migration_performed: true
-  preview_only: false
-  full_case_package_migrated: true
-  denominator_changed: false
-  paper_results_changed: false
-  common_core_membership_changed: false
-  case_membership_changed: false
-  raw_legacy_evidence_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
-  timing_evidence_created: false
-  migration_scope: PERF_0056 only
+  db_checker_execution_run: false
+  official_metrics_computed: false
+  reports_or_results_changed: false
+compatibility:
+  wave: common_core40_wave_b
+  legacy_nested_sql_dirs: removed_after_direct_sql_paths_created
+  legacy_case_local_schema_engine_dirs: removed_after_external_schema_copy_verification
+  legacy_static_case_evidence_surface: removed_under_regeneration_first_policy
+  legacy_metadata_notes_data_surfaces: removed_after manifest and policy representation
+  legacy_engine_validation_entrypoints: removed_after v2 wrapper replacement
+  case_local_run_output_surface: absent_or_removed_if_placeholder_only

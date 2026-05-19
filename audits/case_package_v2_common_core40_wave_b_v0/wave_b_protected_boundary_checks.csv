@@ -1,0 +1,15 @@
+check_name,status,details
+only Wave B cases modified,pass,case path diff set contains exactly the 22 Wave B target cases
+pilot cases unchanged,pass,accepted five pilot case directories were not modified
+Wave A cases unchanged,pass,five Wave A case directories were not modified
+PORT manual-review cases unchanged,pass,PORT cases were not modified
+no case_sets changed,pass,case_sets/ unchanged
+no inventory changed,pass,inventory/ unchanged
+no reports/results changed,pass,reports/ and results/ unchanged
+no denominator changed,pass,denominator files unchanged
+no paper results changed,pass,paper-facing results unchanged
+no official metrics computed,pass,no metrics computation was run
+no DB/checker execution,pass,only static validators and unit tests were run
+no global leaderboard,pass,no leaderboard output created
+no evidence/cases created,pass,no top-level evidence/cases surfaces created
+no case-local runs retained unless blocker recorded,pass,case-local runs absent after conversion for all 22 Wave B cases

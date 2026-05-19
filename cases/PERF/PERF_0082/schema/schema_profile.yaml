@@ -1,28 +1,42 @@
+schema_profile_version: case_schema_profile_v2
 case_id: PERF_0082
-profile_version: canonical_case_package_layout_v1
-source_kind: generated_from_legacy_schema_and_witness
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-required_tables:
-- company_type
-- info_type
-- movie_companies
-- movie_info
-- title
-row_counts_from_legacy_witness:
-  company_type: 2
-  info_type: 1
-  movie_companies: 3
-  movie_info: 3
-  title: 3
-claim_boundary:
-  db_validation_run_during_migration: false
-  new_experimental_claim_created: false
+pool: PERF
+schema_ref:
+  schema_id: job_imdb_perf0082_v0
+  profile: schemas/job_imdb_perf0082_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
+source_family: JOB/IMDB
+tables:
+- name: company_type
+  columns:
+  - id
+  - kind
+  row_count: 2
+- name: info_type
+  columns:
+  - id
+  row_count: 1
+- name: movie_companies
+  columns:
+  - id
+  - company_type_id
+  - movie_id
+  - note
+  row_count: 3
+- name: movie_info
+  columns:
+  - id
+  - info_type_id
+  - info
+  - movie_id
+  row_count: 3
+- name: title
+  columns:
+  - id
+  - production_year
+  - title
+  row_count: 3
+engine_assets:
+  postgres: schemas/job_imdb_perf0082_v0/postgres/ddl.sql
+  mysql: schemas/job_imdb_perf0082_v0/mysql/ddl.sql
+  spark: schemas/job_imdb_perf0082_v0/spark/ddl.sql

@@ -1,0 +1,41 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: tpcds_perf0035_v0
+case_ids:
+- PERF_0035
+source_family: TPC-DS
+engines:
+  postgres:
+    ddl: schemas/tpcds_perf0035_v0/postgres/ddl.sql
+    load: schemas/tpcds_perf0035_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpcds_perf0035_v0/mysql/ddl.sql
+    load: schemas/tpcds_perf0035_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpcds_perf0035_v0/spark/ddl.sql
+    load: schemas/tpcds_perf0035_v0/spark/load.sql
+tables:
+- name: item
+  columns:
+  - i_item_sk
+  - i_category
+  - i_brand
+  row_count: 1
+- name: catalog_sales
+  columns:
+  - cs_item_sk
+  - cs_sold_date_sk
+  - cs_call_center_sk
+  - cs_sales_price
+  row_count: 4
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  - d_moy
+  row_count: 4
+- name: call_center
+  columns:
+  - cc_call_center_sk
+  - cc_name
+  row_count: 1
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

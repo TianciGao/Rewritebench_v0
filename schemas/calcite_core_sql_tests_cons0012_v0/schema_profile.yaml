@@ -1,0 +1,23 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: calcite_core_sql_tests_cons0012_v0
+case_ids:
+- CONS_0012
+source_family: Calcite
+engines:
+  postgres:
+    ddl: schemas/calcite_core_sql_tests_cons0012_v0/postgres/ddl.sql
+    load: schemas/calcite_core_sql_tests_cons0012_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/calcite_core_sql_tests_cons0012_v0/mysql/ddl.sql
+    load: schemas/calcite_core_sql_tests_cons0012_v0/mysql/load.sql
+  spark:
+    ddl: schemas/calcite_core_sql_tests_cons0012_v0/spark/ddl.sql
+    load: schemas/calcite_core_sql_tests_cons0012_v0/spark/load.sql
+tables:
+- name: dept
+  columns:
+  - deptno
+- name: emp
+  columns:
+  - empno
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

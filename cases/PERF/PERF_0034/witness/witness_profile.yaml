@@ -1,0 +1,16 @@
+witness_profile_version: runtime_witness_policy_v1
+case_id: PERF_0034
+pool: PERF
+mode: source_as_oracle
+data_profile_status: external_or_generated
+correct_result_status: not_required_for_runtime_checker
+source_sql: sql/source.sql
+positive_sql: sql/pos_01.sql
+negative_sql: sql/neg_01.sql
+schema_ref:
+  schema_id: tpcds_perf0034_v0
+  profile: schemas/tpcds_perf0034_v0/schema_profile.yaml
+static_witness_files:
+  correct_result_csv: not_required
+  data_profile: external_or_generated
+dataset_id: perf_0034_pg_minimal_witness_v0

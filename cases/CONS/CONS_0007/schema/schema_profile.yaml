@@ -1,20 +1,17 @@
+schema_profile_version: case_schema_profile_v2
 case_id: CONS_0007
-profile_version: canonical_case_package_layout_v1
-source_kind: generated_from_legacy_schema_and_witness
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-required_tables:
-- tmp_emps
-row_counts_from_legacy_witness:
-  tmp_emps: 6
-claim_boundary:
-  db_validation_run_during_migration: false
-  new_experimental_claim_created: false
+pool: CONS
+schema_ref:
+  schema_id: calcite_core_sql_tests_cons0007_v0
+  profile: schemas/calcite_core_sql_tests_cons0007_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
+source_family: Calcite
+tables:
+- name: tmp_emps
+  columns:
+  - empid
+  row_count: 6
+engine_assets:
+  postgres: schemas/calcite_core_sql_tests_cons0007_v0/postgres/ddl.sql
+  mysql: schemas/calcite_core_sql_tests_cons0007_v0/mysql/ddl.sql
+  spark: schemas/calcite_core_sql_tests_cons0007_v0/spark/ddl.sql

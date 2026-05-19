@@ -1,28 +1,42 @@
+schema_profile_version: case_schema_profile_v2
 case_id: PERF_0056
-profile_version: canonical_case_package_layout_v1
-source_kind: generated_from_legacy_schema_and_witness
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-required_tables:
-- customer_address
-- customer
-- store_sales
-- date_dim
-- item
-row_counts_from_legacy_witness:
-  customer_address: 10
-  customer: 10
-  store_sales: 10
-  date_dim: 1
-  item: 2
-claim_boundary:
-  db_validation_run_during_migration: false
-  new_experimental_claim_created: false
+pool: PERF
+schema_ref:
+  schema_id: tpcds_perf0056_v0
+  profile: schemas/tpcds_perf0056_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
+source_family: TPC-DS
+tables:
+- name: customer_address
+  columns:
+  - ca_address_sk
+  - ca_state
+  row_count: 10
+- name: customer
+  columns:
+  - c_customer_sk
+  - c_current_addr_sk
+  row_count: 10
+- name: store_sales
+  columns:
+  - ss_customer_sk
+  - ss_sold_date_sk
+  - ss_item_sk
+  row_count: 10
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  - d_moy
+  - d_month_seq
+  row_count: 1
+- name: item
+  columns:
+  - i_item_sk
+  - i_current_price
+  - i_category
+  row_count: 2
+engine_assets:
+  postgres: schemas/tpcds_perf0056_v0/postgres/ddl.sql
+  mysql: schemas/tpcds_perf0056_v0/mysql/ddl.sql
+  spark: schemas/tpcds_perf0056_v0/spark/ddl.sql

@@ -1,0 +1,24 @@
+# Wave B Conversion Command Log
+
+- `pwd`: confirmed `/home/tianci_gao/code/Rewritebench_v0`.
+- `git branch --show-current`: confirmed `feature/case-package-v2-external-schema`.
+- `git remote -v`: confirmed origin remote.
+- `git status -sb`: clean before conversion.
+- `git log --oneline -5`: reviewed recent branch history.
+- Read project-control files, Common-core plan outputs, Wave A review outputs, v2 specs, accepted templates, and Wave B case directories.
+- Schema hash audit: found 22 distinct Wave B DDL/load tuples; case-specific external schemas selected.
+- Conversion script: converted 22 Wave B cases to clean-template-minimal v2 shape and created 22 external schema packages.
+- Sample validator for `PERF_0033`: initially failed due relative engine paths in new external schema profile.
+- Schema profile update script: normalized external profile engine paths to repository-relative `schemas/<SCHEMA_ID>/<engine>/...` paths.
+- Sample validator for `PERF_0033`: passed after schema path normalization.
+- Full validator matrix: passed for 22 Wave B cases, five accepted pilot cases, and five Wave A cases.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 11 tests.
+- Audit generation script: wrote Wave B conversion audit outputs.
+- Summary JSON assertion: passed.
+- Boundary checks: no `case_sets/`, inventory, reports/results, denominator, paper-result, top-level evidence, pilot, Wave A, or PORT manual-review changes found.
+- `git diff --check`: passed.
+- `git diff --shortstat`: 1274 files changed, 3738 insertions, 69678 deletions before staging.
+- Removed untracked Python `__pycache__/` directories created by unit tests.
+- Explicit `git add` of the 22 Wave B case dirs, 22 schema dirs, audit dir, and two project-control files: completed.
+- `git diff --cached --check`: passed.
+- `git diff --cached --shortstat`: 1373 files changed, 6073 insertions, 66654 deletions.

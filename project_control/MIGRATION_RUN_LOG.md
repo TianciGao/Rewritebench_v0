@@ -8518,3 +8518,61 @@ Task result:
 
 Next safe action:
 - Authorize a bounded `case_package_v2_common_core40_wave_b_v0` conversion for schema-grouped non-PORT Wave B cases only.
+
+### 2026-05-20 · pending · case_package_v2_common_core40_wave_b_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only bounded writable Common-core Wave B v2 conversion; no DB/checker execution; no official metrics; no reports/results migration
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Converted exactly 22 Wave B Common-core cases: `PERF_0033`, `PERF_0034`, `PERF_0035`, `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, `PERF_0082`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`.
+- Used the accepted clean-template-minimal pilot cases and Wave A cases as canonical templates.
+- Normalized manifests to canonical v2 shape with direct SQL path lists, profile-first `schema_ref`, config-only checker refs, thin validation wrappers, source-as-oracle witness policy, and regeneration-first `evidence_policy`.
+- Created 22 case-specific external schema packages because exact Wave B DDL/load assets differed by case; no unsafe grouped schema reuse was performed.
+- Removed clean-template-disallowed compatibility surfaces from only the 22 Wave B case packages after direct paths, external schemas, and policy references were established.
+- Did not modify pilot cases, Wave A cases, PORT manual-review cases, `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- Direct SQL files, thin validation wrappers, and witness profiles under the 22 Wave B case packages.
+- External schema packages under the 22 new Wave B schema IDs.
+- Audit outputs under `audits/case_package_v2_common_core40_wave_b_v0/`.
+
+Files modified/deleted:
+- Modified only the 22 Wave B case packages, new external schema packages, Wave B audit outputs, and project-control files.
+- Deleted nested SQL compatibility directories, case-local engine schema directories, case-local evidence/metadata/notes/data compatibility directories, and old engine-specific validation scripts for the 22 Wave B cases.
+
+Validation:
+- Static v2 validators passed for all 22 Wave B cases.
+- Static v2 validators passed for the five accepted pilot cases.
+- Static v2 validators passed for the five Wave A cases.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 11 tests.
+- Summary JSON assertion passed.
+- Protected boundary checks passed.
+- `git diff --check`: pending final run before commit.
+
+Task result:
+- Common-core 40 Wave B conversion: yes.
+- Converted case IDs: all 22 target cases.
+- Deferred case IDs: none.
+- Clean-template-minimal cases: all 22 target cases.
+- Manifest consistency passed: yes.
+- Schemas created/reused: 22 case-specific external schema packages.
+- Case files modified: yes.
+- Schemas modified: yes.
+- Evidence modified: no top-level evidence changes.
+- `evidence/cases/` created: no.
+- Runs deleted/absent: case-local runs absent or removed for clean v2.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run `case_package_v2_common_core40_wave_b_post_conversion_review_v0` as a bounded read-only review before authorizing Wave C/manual-review conversion.

@@ -1,0 +1,56 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: tpcds_perf0062_v0
+case_ids:
+- PERF_0062
+source_family: TPC-DS
+engines:
+  postgres:
+    ddl: schemas/tpcds_perf0062_v0/postgres/ddl.sql
+    load: schemas/tpcds_perf0062_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpcds_perf0062_v0/mysql/ddl.sql
+    load: schemas/tpcds_perf0062_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpcds_perf0062_v0/spark/ddl.sql
+    load: schemas/tpcds_perf0062_v0/spark/load.sql
+tables:
+- name: store_sales
+  columns:
+  - ss_store_sk
+  - ss_sold_date_sk
+  - ss_cdemo_sk
+  - ss_hdemo_sk
+  - ss_addr_sk
+  - ss_quantity
+  - ss_ext_sales_price
+  - ss_ext_wholesale_cost
+  - ss_sales_price
+  - ss_net_profit
+  row_count: 1
+- name: store
+  columns:
+  - s_store_sk
+  row_count: 1
+- name: customer_demographics
+  columns:
+  - cd_demo_sk
+  - cd_marital_status
+  - cd_education_status
+  row_count: 1
+- name: household_demographics
+  columns:
+  - hd_demo_sk
+  - hd_dep_count
+  row_count: 1
+- name: customer_address
+  columns:
+  - ca_address_sk
+  - ca_country
+  - ca_state
+  row_count: 1
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  row_count: 1
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

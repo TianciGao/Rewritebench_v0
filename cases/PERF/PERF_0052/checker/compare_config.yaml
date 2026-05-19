@@ -1,12 +1,15 @@
+compare_config_version: canonical_case_package_layout_v2
 case_id: PERF_0052
-compare_config_version: canonical_case_package_layout_v1
-source_reference: evidence/retained_controls/postgres/source.tsv
-positive_evidence:
-- evidence/retained_controls/mysql/rewrite_pos_01.tsv
-- evidence/retained_controls/spark/rewrite_pos_01.tsv
-negative_evidence:
-- evidence/hard_negative/mysql/rewrite_neg_01.tsv
-- evidence/hard_negative/spark/rewrite_neg_01.tsv
-expected:
-  source_positive_equal: true
-  source_negative_different: true
+pool: PERF
+inputs:
+  source_sql: sql/source.sql
+  positive_sql: sql/pos_01.sql
+  negative_sql: sql/neg_01.sql
+oracle_policy: source_as_oracle
+result_comparison:
+  mode: semantic_equivalence
+  static_evidence_required: false
+  regenerate_outputs: true
+outputs:
+  committed_case_local_outputs: not_allowed
+  user_outputs: top_level_user_run_workspace_only

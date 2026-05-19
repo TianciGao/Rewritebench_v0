@@ -1,14 +1,18 @@
+expected_rejections_version: canonical_case_package_layout_v2
 case_id: CONS_0011
 pool: CONS
-expected_rejections_version: v1
-approval_status: maintainer_approved_for_migration
-approved_by: maintainer
-approval_scope: public_release_migration
+source_sql_path: sql/source.sql
+positive_sql_path: sql/pos_01.sql
+negative_sql_path: sql/neg_01.sql
+rejection_policy: negative_query_must_not_be_accepted_as_equivalent
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
 hard_negatives:
 - hard_negative_id: neg_01
   source_sql_path: sql/source.sql
-  positive_sql_path: sql/positives/pos_01.sql
-  negative_sql_path: sql/negatives/neg_01.sql
+  positive_sql_path: sql/pos_01.sql
+  negative_sql_path: sql/neg_01.sql
   expected_rejection_reason: outer_join_null_preservation_changed
   semantic_risk_type:
   - outer_join_semantics
@@ -19,25 +23,9 @@ hard_negatives:
     source_positive_semantics: source and positive test for existence of a NULL-preserved row from a LEFT JOIN
     negative_semantics: negative replaces the NULL-preserving test with an INNER JOIN match count
     witness_discriminator: retained negative output drops BOB while source and positive return ALICE and BOB
-  evidence_paths:
-    retained_controls:
-    - evidence/retained_controls/postgres/source.tsv
-    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
-    - evidence/retained_controls/mysql/source.tsv
-    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    - evidence/retained_controls/spark/source.tsv
-    - evidence/retained_controls/spark/rewrite_pos_01.tsv
-    hard_negative:
-    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-    - evidence/hard_negative/spark/rewrite_neg_01.tsv
-    result_checks:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/postgres/result_check.json
-    - evidence/retained_controls/mysql/result_check.json
-    - evidence/retained_controls/spark/result_check.json
-    plan_evidence:
-    - evidence/retained_plans/plan_check.json
   approval_status: maintainer_approved_for_migration
   approved_by: maintainer
   approval_scope: public_release_migration
+  id: neg_01
+  expected_status: reject_or_not_equivalent
+  static_evidence_status: not_required
