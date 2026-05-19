@@ -7521,3 +7521,62 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_clean_template_cleanup_pilot_v0` only for cleanup actions marked `ready_for_cleanup=true`, with explicit path staging, no retained-evidence deletion without mapping, and no protected benchmark-surface changes.
+
+### 2026-05-19 · PENDING · case_package_v2_clean_template_cleanup_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only clean-template cleanup pilot for five v2 pilot cases; cleanup limited to `ready_for_cleanup=true` candidates; no retained-evidence deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Reviewed cleanup candidates marked `ready_for_cleanup=true` in `audits/case_package_v2_template_parity_gap_review_v0/template_parity_cleanup_readiness.csv`.
+- Considered only nested SQL compatibility directories, copied case-local notes, and placeholder-only case-local `runs/` for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Removed no files because live manifest, README, checker, metadata, validation-script, or dev-script references still point at those compatibility paths.
+- Skipped 15 cleanup candidates and recorded required future compatibility-reference cleanup actions.
+- Did not delete retained evidence, case-local evidence, schema engine files, metadata, data fixtures, validation engine-specific scripts, non-empty runs, `case_sets/`, inventory, reports/results, denominators, paper results, DB/checker outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/clean_template_cleanup_pilot_summary.md`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/cleanup_candidate_manifest.csv`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/files_removed_manifest.csv`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/cleanup_skipped_manifest.csv`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/cleanup_validation_results.csv`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/post_cleanup_v2_validator_results.csv`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/future_case_package_v2_pilot_acceptance_or_common_core40_plan_prompt.md`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/clean_template_cleanup_pilot_summary.json`
+- `audits/case_package_v2_clean_template_cleanup_pilot_v0/clean_template_cleanup_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, retained-evidence deletion, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Clean-template cleanup pilot: yes.
+- Cleanup limited to `ready_for_cleanup=true`: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Files removed: none.
+- Files skipped: 15 cleanup candidates.
+- Retained evidence deleted: no.
+- Case-local evidence deleted without mapping: no.
+- Schema engine files deleted: no.
+- Metadata deleted: no.
+- Data fixtures deleted: no.
+- Validation engine-specific scripts deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize a narrow compatibility-reference cleanup planning task before deleting the ready template paths, or authorize a cleanup task that can update manifest/README/checker/metadata/validation references before removing now-unreferenced compatibility paths.
