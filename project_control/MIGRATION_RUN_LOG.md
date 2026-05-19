@@ -6995,14 +6995,14 @@ Task result:
 Next safe action:
 - Resolve manual-review blockers in `audits/case_package_v2_batch_converter_plan_v0/v2_batch_converter_stop_conditions.csv` before authorizing a writable `case_package_v2_batch_conversion_pilot_v0`.
 
-### 2026-05-19 · pending · case_package_v2_rulebook_refinement_folder_order_v0
+### 2026-05-19 · 2364b12 · case_package_v2_rulebook_refinement_folder_order_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only v2 rulebook refinement and folder-ordered conversion planning; no case conversion; no schema modification; no DB/checker execution; no official metrics; no paper rendering
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `2364b12289886773317da1ff285d0f471696421e`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Refined the v2 master plan and repository specs before writable conversion.
