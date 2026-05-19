@@ -13,3 +13,5 @@ Commands are summarized without secrets, private environment values, long stdout
 - Summary JSON boundary assertions: passed.
 - Protected path checks: passed; no tracked changes under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results.
 - `git diff --check`: passed.
+- `git commit -m "dev: support profile-first v2 schema refs"`: created commit `dc07170d9b2776aeff17ffebdce0b5239b181ca3`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded.

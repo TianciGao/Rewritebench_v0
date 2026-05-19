@@ -7132,14 +7132,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_profile_first_validator_compatibility_v0` to update the static resolver/tests for profile-first `schema_ref` before checker/validation layer conversion.
 
-### 2026-05-19 · pending · case_package_v2_profile_first_validator_compatibility_v0
+### 2026-05-19 · dc07170 · case_package_v2_profile_first_validator_compatibility_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only validator/resolver compatibility task; no case conversion; no schema modification; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending finalization
-Push: pending finalization
+Commit: `dc07170d9b2776aeff17ffebdce0b5239b181ca3`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Updated the static v2 resolver to support profile-first `schema_ref` by loading `schema_ref.profile` and resolving engine DDL/load paths from external `schemas/<SCHEMA_ID>/schema_profile.yaml`.
