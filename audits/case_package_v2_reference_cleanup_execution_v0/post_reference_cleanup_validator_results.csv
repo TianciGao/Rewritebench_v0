@@ -1,0 +1,6 @@
+case_id,validator_status,direct_sql_paths_ok,schema_ref_ok,checker_refs_ok,validation_refs_ok,evidence_ref_ok,forbidden_deleted_refs_found,notes
+PERF_0006,pass,true,true,true,true,true,false,"overall_status=pass; no DB/checker execution; nested SQL dirs and case-local notes removed."
+PERF_0007,pass,true,true,true,true,true,false,"overall_status=pass; no DB/checker execution; nested SQL dirs and case-local notes removed."
+CONS_0005,pass,true,true,true,true,true,false,"overall_status=pass; no DB/checker execution; nested SQL dirs and case-local notes removed."
+PORT_0003,pass,true,true,true,true,true,false,"overall_status=pass; no DB/checker execution; nested SQL dirs and case-local notes removed; dialect variants untouched."
+LONGTAIL_0011,pass,true,true,true,true,true,false,"overall_status=pass; no DB/checker execution; nested SQL dirs and case-local notes removed."

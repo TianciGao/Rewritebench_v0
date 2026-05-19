@@ -7638,3 +7638,73 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_reference_cleanup_execution_v0` to update live compatibility references and delete only candidates classified as `deletion_ready_after_reference_update`, while keeping retained evidence and protected benchmark surfaces out of scope.
+
+### 2026-05-19 · pending · case_package_v2_reference_cleanup_execution_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable compatibility-reference cleanup execution; deletes only candidates classified as `deletion_ready_after_reference_update`; no retained-evidence deletion; no runs cleanup; no schema cleanup; no metadata source-of-truth cleanup; no validation engine-specific script deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Selected exactly 10 cleanup candidates from the reference cleanup plan: nested SQL compatibility directories and copied case-local notes for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Updated 62 live manifest, README, checker, metadata, and validation-script references away from deleted compatibility paths.
+- Deleted only the selected nested SQL compatibility directories and copied case-local notes candidates.
+- Skipped 5 placeholder-only case-local `runs/` candidates because they require later mapping/approval handling and are out of scope for this execution task.
+- Did not delete retained evidence, case-local evidence, case-local runs, schema engine files, metadata files, data fixtures, validation engine-specific scripts, `case_sets/`, inventory, reports/results, denominator inputs, paper-result inputs, DB/checker outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_reference_cleanup_execution_v0/reference_cleanup_execution_summary.md`
+- `audits/case_package_v2_reference_cleanup_execution_v0/reference_updates_applied.csv`
+- `audits/case_package_v2_reference_cleanup_execution_v0/cleanup_deletions_executed.csv`
+- `audits/case_package_v2_reference_cleanup_execution_v0/cleanup_execution_skipped.csv`
+- `audits/case_package_v2_reference_cleanup_execution_v0/post_reference_cleanup_validator_results.csv`
+- `audits/case_package_v2_reference_cleanup_execution_v0/reference_cleanup_execution_protected_boundary_checks.csv`
+- `audits/case_package_v2_reference_cleanup_execution_v0/future_case_package_v2_post_cleanup_parity_review_prompt.md`
+- `audits/case_package_v2_reference_cleanup_execution_v0/reference_cleanup_execution_summary.json`
+- `audits/case_package_v2_reference_cleanup_execution_v0/reference_cleanup_execution_command_log.md`
+
+Files modified:
+- Five pilot case `manifest.yaml` files.
+- Five pilot case `README.md` files.
+- Selected checker config files for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Selected metadata artifact-path files for `PERF_0006`, `PERF_0007`, `CONS_0005`, and `PORT_0003`.
+- Selected validation compatibility scripts for `PERF_0006`, `PERF_0007`, `CONS_0005`, and `LONGTAIL_0011`.
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Files deleted:
+- Selected `sql/positives/` and `sql/negatives/` compatibility files for all five pilot cases.
+- Selected copied case-local `notes/` files for all five pilot cases.
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no retained evidence, runs, evidence, schema engine files, metadata files, data fixtures, validation engine-specific scripts, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, or leaderboard deletion/change was detected.
+- `git diff --check`: passed.
+
+Task result:
+- Reference cleanup execution: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Selected candidates count: 10.
+- References updated count: 62.
+- Deleted candidates count: 10.
+- Skipped candidates count: 5.
+- Retained evidence deleted: no.
+- Runs deleted: no.
+- Evidence deleted: no.
+- Schema engine files deleted: no.
+- Metadata deleted: no.
+- Data deleted: no.
+- Validation engine-specific scripts deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_post_cleanup_parity_review_v0` to re-run a read-only parity/gap review after the first safe compatibility-reference cleanup.

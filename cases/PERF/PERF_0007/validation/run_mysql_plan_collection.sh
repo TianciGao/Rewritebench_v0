@@ -2,7 +2,7 @@
 # Canonical migration caveat:
 # This retained legacy validation asset was not executed during migration.
 # It is not a final public user runner. Future public runner output must not write to case-local runs/ by default.
-# See notes/migration_notes.md and evidence/runs_retention.yaml.
+# See evidence/cases/PERF/PERF_0007/notes/migration_notes.md and evidence/runs_retention.yaml.
 set -euo pipefail
 
 CASE_ID="PERF_0007"
@@ -49,8 +49,8 @@ collect_plan() {
 }
 
 collect_plan "$CASE_DIR/sql/source.sql" "$PLAN_DIR/source.json"
-collect_plan "$CASE_DIR/sql/positives/pos_01.sql" "$PLAN_DIR/rewrite_pos_01.json"
-collect_plan "$CASE_DIR/sql/negatives/neg_01.sql" "$PLAN_DIR/rewrite_neg_01.json"
+collect_plan "$CASE_DIR/sql/pos_01.sql" "$PLAN_DIR/rewrite_pos_01.json"
+collect_plan "$CASE_DIR/sql/neg_01.sql" "$PLAN_DIR/rewrite_neg_01.json"
 
 source_plan_present=false
 positive_plan_present=false
@@ -74,8 +74,8 @@ cat > "$PLAN_DIR/plan_check.json" <<JSON
   "schema": "$SCHEMA",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "schema/mysql/load.sql"
   },
   "outputs": {

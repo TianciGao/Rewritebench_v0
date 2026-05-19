@@ -7,8 +7,8 @@ manifest: manifest.yaml
 runs_retention: evidence/runs_retention.yaml
 sql:
   source: sql/source.sql
-  positive: sql/positives/pos_01.sql
-  negative: sql/negatives/neg_01.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
 evidence:
   retained_controls: evidence/retained_controls/
   retained_plans: evidence/retained_plans/

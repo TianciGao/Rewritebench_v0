@@ -11,5 +11,5 @@ canonical_sections:
   validation: validation/
   evidence: evidence/
   metadata: metadata/
-  notes: notes/
+  notes: evidence/cases/PORT/PORT_0003/notes/
 raw_runs_publication_policy: do_not_copy_raw_runs_wholesale

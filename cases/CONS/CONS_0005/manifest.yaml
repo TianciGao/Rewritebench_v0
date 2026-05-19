@@ -75,11 +75,11 @@ metadata:
   denominator_eligibility: metadata/denominator_eligibility.yaml
   artifact_paths: metadata/artifact_paths.yaml
 notes:
-  witness_design_notes: notes/witness_design_notes.md
-  risk_notes: notes/risk_notes.md
-  schema_notes: notes/schema_notes.md
-  promotion_checklist: notes/promotion_checklist.md
-  migration_notes: notes/migration_notes.md
+  witness_design_notes: evidence/cases/CONS/CONS_0005/notes/witness_design_notes.md
+  risk_notes: evidence/cases/CONS/CONS_0005/notes/risk_notes.md
+  schema_notes: evidence/cases/CONS/CONS_0005/notes/schema_notes.md
+  promotion_checklist: evidence/cases/CONS/CONS_0005/notes/promotion_checklist.md
+  migration_notes: evidence/cases/CONS/CONS_0005/notes/migration_notes.md
 artifact_paths:
   legacy_case_root: cases/CONS/CONS_0005
   public_release_case_root: cases/CONS/CONS_0005
@@ -117,12 +117,12 @@ compatibility:
   sql_legacy:
     positives:
       pos_01:
-        legacy_compatibility_path: sql/positives/pos_01.sql
+        removed_nested_compatibility_path: removed_in_reference_cleanup_execution_v0
         direct_v2_path: sql/pos_01.sql
         role: positive_rewrite
     negatives:
       neg_01:
-        legacy_compatibility_path: sql/negatives/neg_01.sql
+        removed_nested_compatibility_path: removed_in_reference_cleanup_execution_v0
         direct_v2_path: sql/neg_01.sql
         role: hard_negative
         expected_rejection: checker/expected_rejections.yaml#neg_01
@@ -201,16 +201,16 @@ compatibility:
     artifact_paths: metadata/artifact_paths.yaml
     engine_support: metadata/engine_support.yaml
   notes_legacy:
-    status: copy_first_externalized_public_safe_subset
-    deletion_status: not_deleted_in_this_task
-    case_local_notes: notes/
+    status: externalized_public_safe_subset
+    deletion_status: deleted_in_reference_cleanup_execution_v0
+    case_local_notes_status: removed_in_reference_cleanup_execution_v0
     external_notes: evidence/cases/CONS/CONS_0005/notes/
-    copied_notes:
-    - notes/migration_notes.md
-    - notes/promotion_checklist.md
-    - notes/risk_notes.md
-    - notes/schema_notes.md
-    - notes/witness_design_notes.md
+    copied_notes_external:
+    - evidence/cases/CONS/CONS_0005/notes/migration_notes.md
+    - evidence/cases/CONS/CONS_0005/notes/promotion_checklist.md
+    - evidence/cases/CONS/CONS_0005/notes/risk_notes.md
+    - evidence/cases/CONS/CONS_0005/notes/schema_notes.md
+    - evidence/cases/CONS/CONS_0005/notes/witness_design_notes.md
   runs_legacy:
     case_local_runs: runs/
     classification: placeholder_only

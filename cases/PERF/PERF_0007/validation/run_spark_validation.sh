@@ -2,7 +2,7 @@
 # Canonical migration caveat:
 # This retained legacy validation asset was not executed during migration.
 # It is not a final public user runner. Future public runner output must not write to case-local runs/ by default.
-# See notes/migration_notes.md and evidence/runs_retention.yaml.
+# See evidence/cases/PERF/PERF_0007/notes/migration_notes.md and evidence/runs_retention.yaml.
 set -euo pipefail
 
 CASE_ID="PERF_0007"
@@ -95,8 +95,8 @@ try:
         spark.sql(statement)
 
     source_lines = collect_lines(spark, case_dir / "sql/source.sql")
-    positive_lines = collect_lines(spark, case_dir / "sql/positives/pos_01.sql")
-    negative_lines = collect_lines(spark, case_dir / "sql/negatives/neg_01.sql")
+    positive_lines = collect_lines(spark, case_dir / "sql/pos_01.sql")
+    negative_lines = collect_lines(spark, case_dir / "sql/neg_01.sql")
 
     write_lines(run_dir / "source.tsv", source_lines)
     write_lines(run_dir / "rewrite_pos_01.tsv", positive_lines)
@@ -115,8 +115,8 @@ try:
         "schema": "spark_catalog.default",
         "inputs": {
             "source": "sql/source.sql",
-            "positive_rewrite": "sql/positives/pos_01.sql",
-            "negative_rewrite": "sql/negatives/neg_01.sql",
+            "positive_rewrite": "sql/pos_01.sql",
+            "negative_rewrite": "sql/neg_01.sql",
             "witness_data": "schema/spark/load.sql",
         },
         "outputs": {

@@ -25,5 +25,5 @@ run_query() {
 ' "${MYSQL_DATABASE}"; cat "${CASE_DIR}/${sql_file}"; } | mysql_cmd --batch --raw --skip-column-names > "${RUN_DIR}/${out_file}"
 }
 run_query "sql/source.sql" "source.tsv"
-run_query "sql/positives/pos_01.sql" "rewrite_pos_01.tsv"
-run_query "sql/negatives/neg_01.sql" "rewrite_neg_01.tsv"
+run_query "sql/pos_01.sql" "rewrite_pos_01.tsv"
+run_query "sql/neg_01.sql" "rewrite_neg_01.tsv"

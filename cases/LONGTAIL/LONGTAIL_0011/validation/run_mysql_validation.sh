@@ -56,8 +56,8 @@ run_query() {
 }
 
 run_query "${CASE_DIR}/sql/source.sql" "${RUN_DIR}/source.tsv"
-run_query "${CASE_DIR}/sql/positives/pos_01.sql" "${RUN_DIR}/rewrite_pos_01.tsv"
-run_query "${CASE_DIR}/sql/negatives/neg_01.sql" "${RUN_DIR}/rewrite_neg_01.tsv"
+run_query "${CASE_DIR}/sql/pos_01.sql" "${RUN_DIR}/rewrite_pos_01.tsv"
+run_query "${CASE_DIR}/sql/neg_01.sql" "${RUN_DIR}/rewrite_neg_01.tsv"
 
 source_positive_equal=false
 source_negative_different=false
@@ -84,8 +84,8 @@ cat > "${RUN_DIR}/result_check.json" <<JSON
   "schema": "${MYSQL_DATABASE}",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "schema/mysql/load.sql"
   },
   "outputs": {

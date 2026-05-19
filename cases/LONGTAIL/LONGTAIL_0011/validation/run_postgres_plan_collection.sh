@@ -48,8 +48,8 @@ collect_plan() {
 }
 
 collect_plan "sql/source.sql" "source.json"
-collect_plan "sql/positives/pos_01.sql" "rewrite_pos_01.json"
-collect_plan "sql/negatives/neg_01.sql" "rewrite_neg_01.json"
+collect_plan "sql/pos_01.sql" "rewrite_pos_01.json"
+collect_plan "sql/neg_01.sql" "rewrite_neg_01.json"
 
 source_plan_present=false
 positive_plan_present=false
@@ -74,8 +74,8 @@ cat > "${PLAN_DIR}/plan_check.json" <<JSON
   "schema": "${SCHEMA_NAME}",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "schema/postgres/load.sql"
   },
   "outputs": {

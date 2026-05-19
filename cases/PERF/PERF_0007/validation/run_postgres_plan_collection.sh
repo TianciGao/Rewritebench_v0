@@ -2,7 +2,7 @@
 # Canonical migration caveat:
 # This retained legacy validation asset was not executed during migration.
 # It is not a final public user runner. Future public runner output must not write to case-local runs/ by default.
-# See notes/migration_notes.md and evidence/runs_retention.yaml.
+# See evidence/cases/PERF/PERF_0007/notes/migration_notes.md and evidence/runs_retention.yaml.
 set -euo pipefail
 
 case_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -42,8 +42,8 @@ collect_plan() {
 }
 
 collect_plan "sql/source.sql" "source.json"
-collect_plan "sql/positives/pos_01.sql" "rewrite_pos_01.json"
-collect_plan "sql/negatives/neg_01.sql" "rewrite_neg_01.json"
+collect_plan "sql/pos_01.sql" "rewrite_pos_01.json"
+collect_plan "sql/neg_01.sql" "rewrite_neg_01.json"
 
 cat > "${plan_dir}/plan_check.json" <<JSON
 {
@@ -54,8 +54,8 @@ cat > "${plan_dir}/plan_check.json" <<JSON
   "schema": "${schema_name}",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "schema/postgres/load.sql"
   },
   "outputs": {

@@ -38,8 +38,8 @@ run_query() {
 }
 
 run_query "sql/source.sql" "source.tsv"
-run_query "sql/positives/pos_01.sql" "rewrite_pos_01.tsv"
-run_query "sql/negatives/neg_01.sql" "rewrite_neg_01.tsv"
+run_query "sql/pos_01.sql" "rewrite_pos_01.tsv"
+run_query "sql/neg_01.sql" "rewrite_neg_01.tsv"
 
 source_positive_equal=false
 source_negative_different=false
@@ -66,8 +66,8 @@ cat > "${RUN_DIR}/result_check.json" <<JSON
   "schema": "${SCHEMA_NAME}",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "schema/postgres/load.sql"
   },
   "outputs": {

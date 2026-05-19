@@ -88,8 +88,8 @@ try:
         spark.sql(statement)
 
     source_text = collect_plan_text(spark, case_dir / "sql/source.sql")
-    positive_text = collect_plan_text(spark, case_dir / "sql/positives/pos_01.sql")
-    negative_text = collect_plan_text(spark, case_dir / "sql/negatives/neg_01.sql")
+    positive_text = collect_plan_text(spark, case_dir / "sql/pos_01.sql")
+    negative_text = collect_plan_text(spark, case_dir / "sql/neg_01.sql")
 
     (plan_dir / "source.txt").write_text(source_text)
     (plan_dir / "rewrite_pos_01.txt").write_text(positive_text)
@@ -109,8 +109,8 @@ try:
         "schema": "spark_catalog.default",
         "inputs": {
             "source": "sql/source.sql",
-            "positive_rewrite": "sql/positives/pos_01.sql",
-            "negative_rewrite": "sql/negatives/neg_01.sql",
+            "positive_rewrite": "sql/pos_01.sql",
+            "negative_rewrite": "sql/neg_01.sql",
             "witness_data": "schema/spark/load.sql",
         },
         "outputs": {

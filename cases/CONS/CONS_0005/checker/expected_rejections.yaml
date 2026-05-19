@@ -7,8 +7,8 @@ hard_negatives:
     source_sql_path: sql/source.sql
     positive_sql_path: sql/pos_01.sql
     negative_sql_path: sql/neg_01.sql
-    legacy_positive_sql_path: sql/positives/pos_01.sql
-    legacy_negative_sql_path: sql/negatives/neg_01.sql
+    compatibility_positive_sql_path: sql/pos_01.sql
+    compatibility_negative_sql_path: sql/neg_01.sql
     expected_rejection_reason: null_semantics_not_preserved_for_correlated_not_in
     semantic_risk_type:
       - null_semantics

@@ -2,7 +2,7 @@
 # Canonical migration caveat:
 # This retained legacy validation asset was not executed during migration.
 # It is not a final public user runner. Future public runner output must not write to case-local runs/ by default.
-# See notes/migration_notes.md and evidence/runs_retention.yaml.
+# See evidence/cases/PERF/PERF_0006/notes/migration_notes.md and evidence/runs_retention.yaml.
 set -euo pipefail
 
 case_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -33,8 +33,8 @@ run_query() {
 }
 
 run_query "sql/source.sql" "source.tsv"
-run_query "sql/positives/pos_01.sql" "rewrite_pos_01.tsv"
-run_query "sql/negatives/neg_01.sql" "rewrite_neg_01.tsv"
+run_query "sql/pos_01.sql" "rewrite_pos_01.tsv"
+run_query "sql/neg_01.sql" "rewrite_neg_01.tsv"
 
 if cmp -s "${run_dir}/source.tsv" "${run_dir}/rewrite_pos_01.tsv"; then
   source_positive_equal=true
@@ -65,8 +65,8 @@ cat > "${run_dir}/result_check.json" <<JSON
   "schema": "${schema_name}",
   "inputs": {
     "source": "sql/source.sql",
-    "positive_rewrite": "sql/positives/pos_01.sql",
-    "negative_rewrite": "sql/negatives/neg_01.sql",
+    "positive_rewrite": "sql/pos_01.sql",
+    "negative_rewrite": "sql/neg_01.sql",
     "witness_data": "validation/pg_witness_data.sql"
   },
   "outputs": {

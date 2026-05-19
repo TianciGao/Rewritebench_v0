@@ -30,7 +30,7 @@ PERF_0007 is part of the branch-only case-package v2 pilot on `feature/case-pack
 - Validation policy: `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin wrappers. New outputs must not be written to case-local `runs/`.
 - Witness policy: runtime checking uses source-as-oracle. Static witness files are optional.
 - Evidence policy: `evidence_ref` points to `evidence/cases/PERF/PERF_0007/`. Case-local `evidence/` remains compatibility retained evidence only.
-- Metadata and notes policy: case-local `metadata/` and `notes/` remain compatibility/reference assets; public-safe notes are also copied under `evidence/cases/PERF/PERF_0007/notes/`.
+- Metadata and notes policy: case-local `metadata/` remains a compatibility/reference asset; public-safe notes are externalized under `evidence/cases/PERF/PERF_0007/notes/`.
 - Runs policy: case-local `runs/` is legacy retained evidence only. User runs belong under top-level `runs/user/<run_id>/`.
 - Benchmark boundary: no denominator change, paper-result change, official metric computation, or global leaderboard is authorized by this package.
 
@@ -42,7 +42,7 @@ PERF_0007 is part of the branch-only case-package v2 pilot on `feature/case-pack
 - `checker/` contains comparison, normalization, and expected-rejection configuration.
 - `validation/` contains v2 wrapper entrypoints plus retained engine-specific compatibility scripts where present.
 - `witness/` contains optional witness metadata/static files.
-- `evidence/`, `metadata/`, `notes/`, and `runs/` remain compatibility or retained-reference surfaces, not new run-output locations.
+- `evidence/`, `metadata/`, and `runs/` remain compatibility or retained-reference surfaces, not new run-output locations. Public-safe notes are externalized under `evidence/cases/PERF/PERF_0007/notes/`.
 
 ## Benchmark Boundary
 

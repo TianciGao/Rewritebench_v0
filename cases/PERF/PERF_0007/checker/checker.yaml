@@ -6,8 +6,8 @@ inputs:
   source: sql/source.sql
   positive_rewrite: sql/pos_01.sql
   negative_rewrite: sql/neg_01.sql
-  legacy_positive_rewrite: sql/positives/pos_01.sql
-  legacy_negative_rewrite: sql/negatives/neg_01.sql
+  compatibility_positive_rewrite: sql/pos_01.sql
+  compatibility_negative_rewrite: sql/neg_01.sql
 expectations:
   equal:
   - source
