@@ -8637,14 +8637,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_c_manual_review_plan_v0` as a bounded planning task before any Wave C/PORT manual-review conversion execution.
 
-### 2026-05-20 · pending · case_package_v2_manifest_contract_repair_v0
+### 2026-05-20 · f32456b0 · case_package_v2_manifest_contract_repair_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable manifest semantic-contract repair; no Wave C conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending at writeback time
-Push: pending at writeback time
+Commit: `f32456b0`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Repaired `manifest.yaml` for 32 already converted v2 cases: five accepted pilots, five Wave A cases, and 22 Wave B cases.
