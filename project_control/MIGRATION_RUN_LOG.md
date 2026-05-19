@@ -6752,3 +6752,69 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_runner_validator_compatibility_v0` on `feature/case-package-v2-external-schema` to add non-destructive `schema_ref` and `evidence_ref` validation and recheck `PERF_0006` without bulk case conversion.
+
+### 2026-05-19 · TBD · case_package_v2_runner_validator_compatibility_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only non-destructive v2 resolver and validator compatibility; `PERF_0006` recheck only; no case conversion; no DB/checker execution; no timing; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Added `src/sql_rewrite_bench/case_package_v2_resolver.py`, a static resolver for v2 direct SQL paths, checker references, `schema_ref`, optional `evidence_ref`, witness metadata paths, and validation entrypoints.
+- Added `scripts/dev/validate_case_package_v2_refs.py`, a developer validator that performs path existence, path safety, and internal-format checks without executing DB engines, running checkers, parsing retained evidence, computing metrics, or writing into case packages.
+- Added unit tests under `tests/case_package_v2/` for valid synthetic v2 manifests, missing schema paths, optional witness warnings, absolute path failure, and read-only `PERF_0006` validation.
+- Rechecked `PERF_0006` only in read-only mode. Required references resolved safely and existed; internal-format compatibility findings were warning-only.
+- Generated audit outputs under `audits/case_package_v2_runner_validator_compatibility_v0/`.
+- Did not modify any case package files, schema asset files, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, or the legacy repo.
+
+Files created:
+- `src/sql_rewrite_bench/case_package_v2_resolver.py`
+- `scripts/dev/validate_case_package_v2_refs.py`
+- `tests/case_package_v2/test_case_package_v2_resolver.py`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_runner_validator_compatibility_summary.md`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_ref_validation_results.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/perf0006_v2_ref_check.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_internal_format_contract.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/perf0006_internal_format_check.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_format_inconsistency_findings.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/perf0006_directory_classification.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_compatibility_gaps.csv`
+- `audits/case_package_v2_runner_validator_compatibility_v0/future_case_package_v2_multi_pool_pilot_prompt.md`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_runner_validator_compatibility_summary.json`
+- `audits/case_package_v2_runner_validator_compatibility_v0/v2_runner_validator_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 5 tests.
+- `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PERF/PERF_0006`: passed.
+- `PERF_0006` recheck status: pass; 17 resolved references, 40 internal checks, 19 warning-only format findings.
+- Summary JSON parse and boundary assertions: pending final check.
+- Protected-boundary checks: pending final check.
+- `git diff --check`: pending final check.
+
+Task result:
+- Resolver created: yes.
+- Validator created: yes.
+- `PERF_0006` rechecked: yes.
+- Internal format guard added: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports/results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- paper tables rendered: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize a branch-only `case_package_v2_multi_pool_pilot_v0` using the new static validator, optionally first normalizing `PERF_0006` manifest internal shape to canonical v2, then pilot-converting only `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main`.

@@ -1,0 +1,11 @@
+directory,current_role,v2_role,keep_now,delete_later_condition,notes
+checker/,case-local checker config,case-local required checker policy,true,none; keep as v2 case-local asset,exists
+data/,v1 case-local data profile,optional compatibility metadata,true,after external/generated witness policy is validated,exists
+evidence/,v1 case-local retained evidence index/payload,compatibility copy pending evidence_ref,true,after evidence_ref mapping and retention review,exists
+metadata/,case-local governance metadata,case-local or manifest-folded metadata,true,after manifest/reference migration is approved,exists
+notes/,case-local notes,optional stable case notes,true,after public docs/hygiene review,exists
+runs/,legacy retained evidence,legacy retained evidence only,true,only with retention mapping and explicit approval,exists
+schema/,v1 case-local schema,compatibility copy pending schema_ref,true,after runner and validator schema_ref compatibility pass,exists
+sql/,case SQL assets,case-local required direct SQL assets,true,none; keep as v2 case-local asset,exists
+validation/,case validation scripts,thin wrapper entrypoints plus compatibility scripts,true,after wrapper validation and shared logic approval,exists
+witness/,v2 pilot witness metadata/static result,optional lightweight witness metadata,true,after source-as-oracle policy and external evidence mapping are stable,exists

@@ -1,0 +1,23 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "resolver_created": true,
+  "validator_created": true,
+  "perf0006_rechecked": true,
+  "internal_format_guard_added": true,
+  "cases_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "paper_tables_rendered": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a branch-only case_package_v2_multi_pool_pilot_v0 using the new static validator, optionally first normalizing PERF_0006 manifest internal shape to canonical v2 without changing denominators, reports/results, retained evidence, or main."
+}

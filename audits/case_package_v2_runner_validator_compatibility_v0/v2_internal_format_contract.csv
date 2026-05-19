@@ -1,0 +1,22 @@
+field_group,canonical_field,required_for_v2,allowed_shape_or_values,path_base,failure_behavior,notes
+sql,sql.source,true,sql/source.sql,case,fail_on_missing_or_unsafe,Direct case-local source SQL path.
+sql,sql.positives,when_positive_exists,list of direct paths such as sql/pos_01.sql,case,fail_on_missing_or_unsafe_warn_on_mapping_shape,Mapping entries are compatibility warnings during branch adoption.
+sql,sql.negatives,when_negative_exists,list of direct paths such as sql/neg_01.sql,case,fail_on_missing_or_unsafe_warn_on_mapping_shape,Hard negatives are checker controls.
+checker,checker.config,true,checker/checker.yaml,case,fail_on_missing_or_unsafe,Compatibility fallback from checker.checker is warned.
+checker,checker.normalization,true,checker/normalization.yaml,case,fail_on_missing_or_unsafe,Required for local checker comparison.
+checker,checker.compare_config,true,checker/compare_config.yaml,case,fail_on_missing_or_unsafe,Required for local checker comparison.
+checker,checker.expected_rejections,when_negative_exists,checker/expected_rejections.yaml,case,fail_on_missing_or_unsafe,Required when hard negatives are present.
+schema_ref,schema_ref.schema_id,true,non-empty lowercase schema id,manifest,fail_on_missing,Identifies top-level schema package.
+schema_ref,schema_ref.engines.<engine>.ddl,true,schemas/<SCHEMA_ID>/<engine>/ddl.sql,repo,fail_on_missing_or_unsafe_warn_on_compat_shape,Top-level schema_ref.<engine> is compatibility fallback only.
+schema_ref,schema_ref.engines.<engine>.load,true,schemas/<SCHEMA_ID>/<engine>/load.sql,repo,fail_on_missing_or_unsafe_warn_on_compat_shape,Top-level schema_ref.<engine> is compatibility fallback only.
+evidence_ref,evidence_ref.package_validation_summary,target_v2,evidence/cases/<POOL>/<CASE_ID>/package_validation_summary.json,repo,warn_if_missing_until_evidence_externalization,Policy recorded; not yet required for PERF_0006 recheck.
+evidence_ref,evidence_ref.runs_retention,target_v2,evidence/cases/<POOL>/<CASE_ID>/runs_retention.yaml,repo,warn_if_missing_until_evidence_externalization,Policy recorded; not yet required for PERF_0006 recheck.
+evidence_ref,evidence_ref.retained_controls,false,evidence/cases/<POOL>/<CASE_ID>/retained_controls/,repo,warn_if_present_and_missing,Optional external retained control evidence.
+evidence_ref,evidence_ref.hard_negative,false,evidence/cases/<POOL>/<CASE_ID>/hard_negative/,repo,warn_if_present_and_missing,Optional external hard-negative evidence.
+evidence_ref,evidence_ref.plans,false,evidence/cases/<POOL>/<CASE_ID>/plans/,repo,warn_if_present_and_missing,Optional external plan evidence.
+witness,witness.mode,true,source_as_oracle | static_reference | external_reference,manifest,warn_if_missing,Runtime user-run checker defaults to source_as_oracle.
+witness,witness.data_profile_status,true,optional | generated | external | materialized | unavailable,manifest,warn_if_missing,Data profile is optional/generated/external.
+witness,witness.correct_result_status,true,optional | generated | external | materialized | unavailable,manifest,warn_if_missing,Correct result is optional for runtime source-as-oracle checking.
+validation,validation.run_validation,true,validation/run_validation.sh,case,fail_on_missing_or_unsafe,Stable v2 validation wrapper.
+validation,validation.run_plan_collection,true,validation/run_plan_collection.sh,case,fail_on_missing_or_unsafe,Stable v2 plan-collection wrapper.
+readme,README section order,true,Purpose > Release Scope > Package Contents > Evidence Boundary > Benchmark Boundary > Notes / Future Review Status,case,warn_on_order_mismatch,Public template alignment check.

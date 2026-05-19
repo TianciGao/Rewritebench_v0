@@ -1,0 +1,9 @@
+gap_id,gap,current_status,required_next_action,blocks_bulk_conversion,notes
+G001,Canonical schema_ref engines nesting,PERF_0006 resolves through compatibility schema_ref.<engine>,Normalize manifest to schema_ref.engines.<engine>.ddl/load or keep warning policy explicit,true,Do not bulk-convert until canonical shape decision is made.
+G002,Canonical checker.config field,PERF_0006 resolves checker.config from checker.checker compatibility key,Normalize checker reference key to checker.config,true,No checker execution was run.
+G003,Canonical SQL list item shape,PERF_0006 positives/negatives use metadata mappings with path fields,Decide whether canonical v2 permits mapping entries or requires string-only entries,true,Mapping preserves useful role and legacy path metadata.
+G004,evidence_ref absent,PERF_0006 still uses case-local evidence block,Add evidence_ref only after external evidence root policy is ready,true,No evidence was moved by this task.
+G005,Witness policy fields incomplete,PERF_0006 lacks witness.mode and witness.data_profile_status,Add canonical witness policy fields in a separate case manifest normalization task,false,Existing witness files are optional and present.
+G006,Engine-specific validation entries retained,PERF_0006 manifest still lists engine-specific validation scripts,Keep as compatibility assets until wrappers are validated,false,No validation scripts were executed.
+G007,Runner DB/checker schema path compatibility,current DB/checker execution code still resolves case-local schema paths,Implement schema_ref resolver in runner only after separate authorization,true,This task only adds static validation.
+G008,Validator breadth,current validator rechecks PERF_0006 only,Run multi-pool branch pilot only after accepting this compatibility result,true,No additional cases were converted.
