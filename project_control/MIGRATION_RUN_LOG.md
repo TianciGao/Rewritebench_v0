@@ -8458,14 +8458,14 @@ Task result:
 Next safe action:
 - Run `case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0` as a bounded read-only review before authorizing Wave B or wider Common-core conversion.
 
-### 2026-05-20 · pending · case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0
+### 2026-05-20 · 4c5afe5d · case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only Wave A post-conversion parity review; no writable conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `4c5afe5d`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Reviewed exactly five converted Wave A cases: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
