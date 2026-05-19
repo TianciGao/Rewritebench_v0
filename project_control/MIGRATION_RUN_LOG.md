@@ -7468,14 +7468,14 @@ Task result:
 Next safe action:
 - Review and accept the five-case v2 pilot closeout on `feature/case-package-v2-external-schema`; if accepted, authorize a branch-only Common-core 40 conversion plan using the folder-ordered rulebook, without merging to `main`, protected benchmark-surface changes, DB/checker execution, official metrics, paper rendering, or leaderboard output.
 
-### 2026-05-19 · PENDING · case_package_v2_template_parity_gap_review_v0
+### 2026-05-19 · 15afa8c · case_package_v2_template_parity_gap_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only template parity and clean-v2 gap review; no case conversion; no cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `15afa8c2ea69b9dd70f7dc8b8b09df2ae5a1eb48`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Compared `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` against the clean v2 case-local template.
