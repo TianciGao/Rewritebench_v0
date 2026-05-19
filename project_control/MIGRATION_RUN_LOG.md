@@ -7887,3 +7887,61 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_post_empty_runs_parity_review_v0` as a read-only parity review after placeholder-only case-local `runs/` cleanup.
+
+### 2026-05-19 · pending · case_package_v2_post_empty_runs_parity_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only parity review after placeholder-only case-local `runs/` cleanup; no cleanup execution; no case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Re-ran clean-template parity review for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` after audited placeholder-only case-local `runs/` cleanup.
+- Confirmed all five pilot cases retain every clean-template-required asset and pass static v2 validation.
+- Confirmed no tracked case-local `runs/` files remain for the five pilot cases.
+- Recalculated remaining tracked extra path groups at 61.
+- Recalculated remaining retention blockers at 5, all from case-local `evidence/`.
+- Classified all five pilot cases as functional v2 with compatibility gaps, not clean-template-minimal.
+- Confirmed Common-core 40 conversion planning is safe as a read-only planning task using the five-case pilot as a functional v2 template.
+- Did not modify cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominators, paper results, DB/checker outputs, official metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_parity_review_summary.md`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_template_parity_case_summary.csv`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_path_gap_matrix.csv`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_evidence_schema_metadata_gap_matrix.csv`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_remaining_action_plan.csv`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/future_case_package_v2_clean_template_or_common_core40_plan_prompt.md`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_parity_review_summary.json`
+- `audits/case_package_v2_post_empty_runs_parity_review_v0/post_empty_runs_parity_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no cases, schemas, evidence, runs deletion, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, official metrics, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Post-empty-runs parity review: yes.
+- Pilot case IDs: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases modified: no.
+- Remaining extra path groups: 61.
+- Remaining retention blockers: 5.
+- Clean-template-minimal status: not clean-template-minimal.
+- Functional v2 status: accepted with compatibility gaps.
+- Ready for Common-core 40 plan: yes, planning only.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.

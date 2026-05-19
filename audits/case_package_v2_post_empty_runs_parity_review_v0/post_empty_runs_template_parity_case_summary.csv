@@ -1,0 +1,6 @@
+case_id,pool,clean_required_assets_present,remaining_extra_paths_count,remaining_retention_blockers_count,case_classification,clean_template_minimal_status,ready_for_common_core40_plan,notes
+PERF_0006,PERF,yes,12,1,functional_v2_with_compatibility_gaps,not_clean_template_minimal,yes,"Runs cleanup removed tracked case-local runs placeholders; remaining extras are compatibility, retained evidence, or manual-review assets."
+PERF_0007,PERF,yes,12,1,functional_v2_with_compatibility_gaps,not_clean_template_minimal,yes,"Runs cleanup removed tracked case-local runs placeholders; remaining extras are compatibility, retained evidence, or manual-review assets."
+CONS_0005,CONS,yes,12,1,functional_v2_with_compatibility_gaps,not_clean_template_minimal,yes,"Runs cleanup removed tracked case-local runs placeholders; remaining extras are compatibility, retained evidence, or manual-review assets."
+PORT_0003,PORT,yes,13,1,functional_v2_with_compatibility_gaps,not_clean_template_minimal,yes,"Runs cleanup removed tracked case-local runs placeholders; remaining extras are compatibility, retained evidence, or manual-review assets."
+LONGTAIL_0011,LONGTAIL,yes,12,1,functional_v2_with_compatibility_gaps,not_clean_template_minimal,yes,"Runs cleanup removed tracked case-local runs placeholders; remaining extras are compatibility, retained evidence, or manual-review assets."

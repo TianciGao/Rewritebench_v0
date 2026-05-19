@@ -1,0 +1,32 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "post_empty_runs_parity_review": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "remaining_extra_paths_count": 61,
+  "remaining_retention_blockers_count": 5,
+  "clean_template_minimal_status": "not_clean_template_minimal",
+  "functional_v2_acceptance_status": "accepted_functional_v2_with_compatibility_gaps",
+  "ready_for_common_core40_plan": true,
+  "cases_modified": false,
+  "schemas_modified": false,
+  "evidence_modified": false,
+  "runs_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_common_core40_conversion_plan_v0 as a read-only planning task using the five-case pilot as a functional v2 template."
+}
