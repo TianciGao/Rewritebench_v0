@@ -7343,14 +7343,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_metadata_notes_runs_layers_pilot_v0` to handle only metadata, notes, and runs cleanup for the same five pilot cases on the feature branch, without DB/checker execution, retained-evidence deletion without mapping, protected benchmark-surface changes, official metrics, or leaderboard output.
 
-### 2026-05-19 · pending · case_package_v2_metadata_notes_runs_layers_pilot_v0
+### 2026-05-19 · c3deaa9 · case_package_v2_metadata_notes_runs_layers_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable v2 pilot conversion for metadata, notes, and runs classification only; no README/validator closeout; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending before commit
-Push: pending before push
+Commit: `c3deaa9e1061a68b8c01969d28a965635044032c`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Classified metadata, notes, and runs layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
