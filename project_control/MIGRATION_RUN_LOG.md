@@ -7581,14 +7581,14 @@ Task result:
 Next safe action:
 - Authorize a narrow compatibility-reference cleanup planning task before deleting the ready template paths, or authorize a cleanup task that can update manifest/README/checker/metadata/validation references before removing now-unreferenced compatibility paths.
 
-### 2026-05-19 · PENDING · case_package_v2_reference_cleanup_plan_v0
+### 2026-05-19 · dbc5ace · case_package_v2_reference_cleanup_plan_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only compatibility-reference cleanup planning; no deletion; no case conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `dbc5ace1dcbe53656a988a045514fdbd72bb6167`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Reviewed the 15 skipped cleanup candidates from `case_package_v2_clean_template_cleanup_pilot_v0`.
