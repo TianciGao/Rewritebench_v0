@@ -27,4 +27,7 @@ Commands and outcomes:
 - `git diff --check`: passed.
 - `git diff --stat`: reviewed deletion-only case footprint before staging.
 - `git status -sb`: reviewed pending intended changes before staging.
-- Commit and push results are finalized after commit.
+- `perl -pi -e 's/\r$//' audits/case_package_v2_empty_runs_cleanup_v0/*.csv`: normalized generated CSV line endings after staged whitespace check found CRLF-style trailing whitespace.
+- `git diff --cached --check`: passed after CSV normalization.
+- `git commit -m "cleanup: remove placeholder-only case-local runs"`: created commit `356c7fbe56089574869da1bd322827a61c75c2ad`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded (`6f139cc..356c7fb`).

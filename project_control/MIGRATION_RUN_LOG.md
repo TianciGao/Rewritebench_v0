@@ -7830,14 +7830,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_empty_runs_cleanup_v0` only to delete audited empty or placeholder-only case-local `runs/` directories after policy acceptance, with no retained-evidence deletion.
 
-### 2026-05-19 · pending · case_package_v2_empty_runs_cleanup_v0
+### 2026-05-19 · 356c7fb · case_package_v2_empty_runs_cleanup_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only cleanup limited to audited placeholder-only case-local `runs/` directories; no retained-evidence deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `356c7fbe56089574869da1bd322827a61c75c2ad`
+Push: succeeded to `origin/feature/case-package-v2-external-schema` (`6f139cc..356c7fb`)
 
 Summary:
 - Read the accepted runs reality audit and D027 policy refinement.
