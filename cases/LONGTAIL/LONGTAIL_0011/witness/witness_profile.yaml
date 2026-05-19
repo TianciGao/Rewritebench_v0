@@ -1,0 +1,14 @@
+case_id: LONGTAIL_0011
+witness_model: source_as_oracle
+source_as_oracle_policy: runtime_source_result_is_oracle_for_local_checker
+dataset_id: sqlstorm_stackoverflow_longtail0011_v0
+required_tables:
+  - Users
+  - Posts
+positive_expectation: positive_rewrite_should_match_source_result_under_same_schema
+negative_expectation: hard_negative_expected_to_preserve_tie_sensitive_ranking_boundary
+static_reference_status: static_correct_result_not_materialized
+runtime_oracle_status: source_sql_result_required_for_runtime_checker
+notes:
+  - Structural long-tail evidence is retained for robustness diagnostics only, not official metrics.
+  - No DB/checker execution or official metric computation was performed while creating this profile.

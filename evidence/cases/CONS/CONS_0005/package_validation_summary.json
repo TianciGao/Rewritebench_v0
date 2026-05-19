@@ -1,0 +1,17 @@
+{
+  "case_id": "CONS_0005",
+  "migration_status": "canonical_full_case_migration_pilot",
+  "db_validation_run_during_migration": false,
+  "evidence_regenerated": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "common_core_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "hard_negative_expected_rejection_approval": "maintainer_approved_for_migration",
+  "retained_witness_behavior": {
+    "source_output": "empty",
+    "positive_output": "empty",
+    "negative_output": "1\\t3"
+  },
+  "spark_plan_publication": "sanitized_public_copies_only"
+}

@@ -1,0 +1,105 @@
+== Physical Plan ==
+AdaptiveSparkPlan (19)
++- Sort (18)
+   +- Exchange (17)
+      +- Project (16)
+         +- Filter (15)
+            +- Window (14)
+               +- WindowGroupLimit (13)
+                  +- Sort (12)
+                     +- Exchange (11)
+                        +- WindowGroupLimit (10)
+                           +- Sort (9)
+                              +- Project (8)
+                                 +- BroadcastHashJoin Inner BuildRight (7)
+                                    :- Project (3)
+                                    :  +- Filter (2)
+                                    :     +- Scan parquet spark_catalog.default.posts (1)
+                                    +- BroadcastExchange (6)
+                                       +- Filter (5)
+                                          +- Scan parquet spark_catalog.default.users (4)
+
+
+(1) Scan parquet spark_catalog.default.posts
+Output [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerUserId#46, PostTypeId#47]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(PostTypeId), IsNotNull(CreationDate), EqualTo(PostTypeId,1), GreaterThanOrEqual(CreationDate,2022-01-01), IsNotNull(OwnerUserId)]
+ReadSchema: struct<Title:string,CreationDate:string,Score:int,ViewCount:int,OwnerUserId:int,PostTypeId:int>
+
+(2) Filter
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerUserId#46, PostTypeId#47]
+Condition : ((((isnotnull(PostTypeId#47) AND isnotnull(CreationDate#43)) AND (PostTypeId#47 = 1)) AND (CreationDate#43 >= 2022-01-01)) AND isnotnull(OwnerUserId#46))
+
+(3) Project
+Output [5]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerUserId#46]
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerUserId#46, PostTypeId#47]
+
+(4) Scan parquet spark_catalog.default.users
+Output [2]: [Id#48, DisplayName#49]
+Batched: true
+Location: InMemoryFileIndex [<LOCAL_TMP_PATH_REDACTED>]
+PushedFilters: [IsNotNull(Id)]
+ReadSchema: struct<Id:int,DisplayName:string>
+
+(5) Filter
+Input [2]: [Id#48, DisplayName#49]
+Condition : isnotnull(Id#48)
+
+(6) BroadcastExchange
+Input [2]: [Id#48, DisplayName#49]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=226]
+
+(7) BroadcastHashJoin
+Left keys [1]: [OwnerUserId#46]
+Right keys [1]: [Id#48]
+Join type: Inner
+Join condition: None
+
+(8) Project
+Output [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, DisplayName#49 AS OwnerDisplayName#128, OwnerUserId#46]
+Input [7]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerUserId#46, Id#48, DisplayName#49]
+
+(9) Sort
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: [OwnerUserId#46 ASC NULLS FIRST, Score#44 ASC NULLS FIRST], false, 0
+
+(10) WindowGroupLimit
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: [OwnerUserId#46], [Score#44 ASC NULLS FIRST], dense_rank(Score#44), 1, Partial
+
+(11) Exchange
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: hashpartitioning(OwnerUserId#46, 1), ENSURE_REQUIREMENTS, [plan_id=233]
+
+(12) Sort
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: [OwnerUserId#46 ASC NULLS FIRST, Score#44 ASC NULLS FIRST], false, 0
+
+(13) WindowGroupLimit
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: [OwnerUserId#46], [Score#44 ASC NULLS FIRST], dense_rank(Score#44), 1, Final
+
+(14) Window
+Input [6]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46]
+Arguments: [dense_rank(Score#44) windowspecdefinition(OwnerUserId#46, Score#44 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS WorstRank#129], [OwnerUserId#46], [Score#44 ASC NULLS FIRST]
+
+(15) Filter
+Input [7]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46, WorstRank#129]
+Condition : (WorstRank#129 = 1)
+
+(16) Project
+Output [5]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128]
+Input [7]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128, OwnerUserId#46, WorstRank#129]
+
+(17) Exchange
+Input [5]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128]
+Arguments: rangepartitioning(Score#44 DESC NULLS LAST, ViewCount#45 DESC NULLS LAST, 1), ENSURE_REQUIREMENTS, [plan_id=240]
+
+(18) Sort
+Input [5]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128]
+Arguments: [Score#44 DESC NULLS LAST, ViewCount#45 DESC NULLS LAST], true, 0
+
+(19) AdaptiveSparkPlan
+Output [5]: [Title#42, CreationDate#43, Score#44, ViewCount#45, OwnerDisplayName#128]
+Arguments: isFinalPlan=false

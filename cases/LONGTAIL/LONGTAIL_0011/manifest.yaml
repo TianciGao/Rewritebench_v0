@@ -119,6 +119,19 @@ case_package_standard: v2_folder_ordered_manifest_sql_schema_pilot
 schema_ref:
   schema_id: sqlstorm_stackoverflow_longtail0011_v0
   profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
+evidence_ref:
+  externalization_status: copy_first_or_pending
+  package_validation_summary: evidence/cases/LONGTAIL/LONGTAIL_0011/package_validation_summary.json
+  runs_retention: evidence/cases/LONGTAIL/LONGTAIL_0011/runs_retention.yaml
+  retained_controls: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/
+  hard_negative: evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/
+  plans: evidence/cases/LONGTAIL/LONGTAIL_0011/plans/
+  notes: evidence/cases/LONGTAIL/LONGTAIL_0011/notes/
 compatibility:
   sql_legacy:
     positives:
@@ -172,6 +185,43 @@ compatibility:
     spark_plan_collection: validation/run_spark_plan_collection.sh
     execution_policy: not_run_during_migration
     output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+  witness_legacy:
+    status: optional_static_witness_not_materialized
+  evidence_legacy:
+    case_local_evidence: evidence/
+    case_local_runs: runs/
+    externalization_status: copy_first_externalized_public_safe_subset
+    deletion_status: not_deleted_in_this_task
+    package_validation_summary: evidence/package_validation_summary.json
+    runs_retention: evidence/runs_retention.yaml
+    retained_controls:
+    - evidence/retained_controls/postgres/result_check.json
+    - evidence/retained_controls/postgres/source.tsv
+    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
+    - evidence/retained_controls/mysql/result_check.json
+    - evidence/retained_controls/mysql/source.tsv
+    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/result_check.json
+    - evidence/retained_controls/spark/source.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    hard_negative:
+    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    - evidence/hard_negative/hard_negative_summary.json
+    plans:
+    - evidence/retained_plans/postgres/plan_check.json
+    - evidence/retained_plans/postgres/source.json
+    - evidence/retained_plans/postgres/rewrite_pos_01.json
+    - evidence/retained_plans/postgres/rewrite_neg_01.json
+    - evidence/retained_plans/mysql/plan_check.json
+    - evidence/retained_plans/mysql/source.json
+    - evidence/retained_plans/mysql/rewrite_pos_01.json
+    - evidence/retained_plans/mysql/rewrite_neg_01.json
+    - evidence/retained_plans/spark/plan_check.json
+    - evidence/retained_plans/spark/source.sanitized.txt
+    - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+    - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
   manifest_legacy_context:
     source_workload: stackoverflow
     source_query_identity: 6625.sql

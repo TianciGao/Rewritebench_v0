@@ -1,0 +1,16 @@
+{
+  "case_id": "PORT_0003",
+  "hard_negative_id": "neg_01",
+  "expected_rejection_reason": "order_limit_direction_changed",
+  "approval_status": "migration_planning_static_inference_needs_review_if_not_explicit_in_legacy",
+  "static_sql_difference_summary": "The hard negative flips the absolute-longitude ORDER BY direction and can select the wrong top-1 school.",
+  "source_positive_behavior": "source and positive select the highest absolute longitude after dialect adaptation",
+  "negative_behavior": "negative orders the absolute longitude ascending and changes the selected LIMIT 1 row",
+  "retained_evidence_basis": [
+    "evidence/hard_negative/hard_negative_summary.json",
+    "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "evidence/hard_negative/spark/rewrite_neg_02_spark.tsv",
+    "evidence/retained_controls/result_check.json"
+  ],
+  "db_validation_run_during_migration": false
+}

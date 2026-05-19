@@ -1,0 +1,19 @@
+{
+  "approval_status": "maintainer_approved_for_migration",
+  "case_id": "LONGTAIL_0011",
+  "claim_boundaries": {
+    "db_validation_run": false,
+    "evidence_regenerated": false
+  },
+  "expected_rejection_reason": "tie_sensitive_ranking_semantics_not_preserved",
+  "hard_negative_id": "neg_01",
+  "retained_evidence": {
+    "mysql_negative_output": "evidence/hard_negative/mysql/rewrite_neg_01.tsv",
+    "mysql_result_check": "evidence/retained_controls/mysql/result_check.json",
+    "postgres_negative_output": "evidence/hard_negative/postgres/rewrite_neg_01.tsv",
+    "postgres_result_check": "evidence/retained_controls/postgres/result_check.json",
+    "spark_negative_output": "evidence/hard_negative/spark/rewrite_neg_01.tsv",
+    "spark_result_check": "evidence/retained_controls/spark/result_check.json"
+  },
+  "semantic_summary": "rewrite_neg_01 replaces DENSE_RANK with ROW_NUMBER and can collapse tied worst-score rows."
+}
