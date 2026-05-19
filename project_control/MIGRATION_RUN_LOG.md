@@ -7775,7 +7775,7 @@ Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable clean-template gap closure for five v2 pilot cases; no Common-core 40 conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: `a053cf5c0b9475d792269fdbe3933d039e525ff6`
+Commit: `a053cf5a2129879fd58cf9bf738edb3c773f92cb`
 Push: succeeded to `origin/feature/case-package-v2-external-schema` (`e8d3a61..a053cf5`)
 
 Summary:
