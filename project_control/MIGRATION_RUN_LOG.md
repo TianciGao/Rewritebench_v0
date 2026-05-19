@@ -6459,13 +6459,13 @@ Task result:
 Next safe action:
 - Authorize a bounded DB/checker hardening task under the same local-only boundaries, or authorize a separate narrowly scoped `PERF_0007` expansion smoke.
 
-### 2026-05-19 · TBD · b_line_db_checker_batch_plan_v0
+### 2026-05-19 · 35a30dd · b_line_db_checker_batch_plan_v0
 
 Mode: B-line DB/checker batch expansion planning; design/selection only; no batch execution; no DB/checker execution; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `35a30dd8c856ed4610483326ec2f1fec206eb67f`
+Push: succeeded; updated `origin/main` from `e3a76e1` to `35a30dd`
 
 Summary:
 - Planned the first bounded postgres PERF DB/checker batch expansion after the successful `PERF_0006` MVP and release smoke.
