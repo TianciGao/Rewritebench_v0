@@ -16,9 +16,9 @@ hard_negatives:
       negative_semantics: cutoff filter uses strict less-than boundary
       witness_discriminator: cutoff-date row is excluded by negative
     evidence_paths:
-      - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-      - evidence/hard_negative/spark/rewrite_neg_01.tsv
-      - evidence/hard_negative/hard_negative_summary.json
+      - evidence/cases/PERF/PERF_0006/hard_negative/mysql/rewrite_neg_01.tsv
+      - evidence/cases/PERF/PERF_0006/hard_negative/spark/rewrite_neg_01.tsv
+      - evidence/cases/PERF/PERF_0006/hard_negative/hard_negative_summary.json
     approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
 claim_boundary:
   no_db_validation_run_during_migration: true

@@ -12,9 +12,9 @@ comparison_model:
   compatibility_hard_negatives:
     - sql/neg_01.sql
 retained_evidence:
-  postgres_result_check: evidence/retained_controls/postgres/result_check.json
-  mysql_result_check: evidence/retained_controls/mysql/result_check.json
-  spark_result_check: evidence/retained_controls/spark/result_check.json
+  postgres_result_check: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/postgres/result_check.json
+  mysql_result_check: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/mysql/result_check.json
+  spark_result_check: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/spark/result_check.json
 expected_behavior:
   source_positive_equal: true
   source_negative_different: true

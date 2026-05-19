@@ -8020,3 +8020,67 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
+
+### 2026-05-19 · pending · case_package_v2_validation_evidence_unblock_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only targeted validation/evidence reference unblock; no deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Updated the five v2 pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Updated 10 v2 validation wrappers to fail closed with future shared-runner messaging and no delegation to old engine-specific scripts.
+- Confirmed wrappers do not reference case-local `schema/<engine>/` paths and still refuse case-local `runs/` outputs.
+- Retargeted live manifest/checker/witness evidence references to external `evidence/cases/<POOL>/<CASE_ID>/` packages.
+- Updated README wording so case-local evidence, schema engine dirs, and old validation scripts are compatibility-only cleanup candidates, not current required assets.
+- Did not delete schema engine dirs, case-local evidence, metadata, data, old validation scripts, dialect variants, retained evidence, reports/results, or protected benchmark surfaces.
+
+Files created:
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_evidence_unblock_summary.md`
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_reference_unblock_results.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/evidence_reference_unblock_results.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/schema_cleanup_readiness_after_unblock.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/legacy_validation_script_cleanup_readiness.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_evidence_unblock_remaining_blockers.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_evidence_unblock_protected_boundary_checks.csv`
+- `audits/case_package_v2_validation_evidence_unblock_v0/future_case_package_v2_second_clean_template_cleanup_prompt.md`
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_evidence_unblock_summary.json`
+- `audits/case_package_v2_validation_evidence_unblock_v0/validation_evidence_unblock_command_log.md`
+
+Files modified:
+- Five pilot `manifest.yaml` files.
+- Five pilot `README.md` files.
+- Ten pilot v2 validation wrapper files.
+- Checker config YAML files with stale case-local evidence references.
+- `cases/PERF/PERF_0006/witness/data_profile.yaml`.
+- `project_control/MIGRATION_STATUS.md`.
+- `project_control/MIGRATION_RUN_LOG.md`.
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- External evidence reference existence check passed for 371 references.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Validation/evidence unblock: yes.
+- Validation wrappers updated: yes.
+- Evidence references updated: yes.
+- Schema dirs deleted: no.
+- Case-local evidence deleted: no.
+- Metadata deleted: no.
+- Data deleted: no.
+- Old validation scripts deleted: no.
+- Dialect variants deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_second_clean_template_cleanup_v0` to delete only readiness-marked legacy validation scripts, case-local schema engine dirs after legacy script deletion, and case-local evidence after final external mapping check; keep `PORT_0003` dialect variants unless separately approved.

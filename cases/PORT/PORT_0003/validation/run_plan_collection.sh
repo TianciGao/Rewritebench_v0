@@ -9,9 +9,9 @@ usage() {
 Usage: $0 --engine <postgres|mysql|spark> --target <source|positive|negative|all> --out <local_output_dir>
 
 Thin v2 plan-collection wrapper for ${CASE_ID}.
-This branch task does not collect plans. Future implementation should dispatch
-to shared plan/evidence artifact logic and write only to the explicit --out
-directory, never to case-local runs/.
+Future shared plan collection must resolve executable schema through manifest
+schema_ref.profile and the external schema package. This wrapper does not call
+legacy engine-specific scripts and must not write to case-local runs/.
 USAGE
 }
 
@@ -49,6 +49,6 @@ if [[ "${out_dir}" == "${CASE_DIR}/runs" || "${out_dir}" == "${CASE_DIR}/runs/"*
   exit 2
 fi
 
-echo "${CASE_ID}: v2 plan-collection wrapper is present but shared plan collection is not implemented in this branch task." >&2
-echo "No DB engines, plan collection, official metrics, paper outputs, retained evidence, or leaderboard outputs were run or written." >&2
+echo "${CASE_ID}: shared v2 plan collection runner not implemented; use future shared runner." >&2
+echo "No legacy engine-specific scripts, case-local schema/<engine>/ paths, DB engines, plan collection, official metrics, paper outputs, retained evidence, or leaderboard outputs were run or written." >&2
 exit 2

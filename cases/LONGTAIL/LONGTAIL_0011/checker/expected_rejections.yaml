@@ -19,8 +19,8 @@ expected_rejections:
       negative_semantics: ROW_NUMBER assigns unique row numbers and can collapse tied rows
       witness_discriminator: tied worst-score rows are distinguished by DENSE_RANK but not by ROW_NUMBER
     evidence_paths:
-      - evidence/retained_controls/postgres/result_check.json
-      - evidence/retained_controls/mysql/result_check.json
-      - evidence/retained_controls/spark/result_check.json
-      - evidence/hard_negative/hard_negative_summary.json
+      - evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/postgres/result_check.json
+      - evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/mysql/result_check.json
+      - evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/spark/result_check.json
+      - evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/hard_negative_summary.json
     approval_status: maintainer_approved_for_migration

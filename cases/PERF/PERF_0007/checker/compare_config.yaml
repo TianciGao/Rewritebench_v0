@@ -1,20 +1,20 @@
 case_id: PERF_0007
 compare_config_version: canonical_case_package_layout_v1
 reference_engine: postgres
-reference_output: evidence/retained_controls/postgres/source.tsv
+reference_output: evidence/cases/PERF/PERF_0007/retained_controls/postgres/source.tsv
 positive_checks:
 - engine: mysql
-  output: evidence/retained_controls/mysql/rewrite_pos_01.tsv
+  output: evidence/cases/PERF/PERF_0007/retained_controls/mysql/rewrite_pos_01.tsv
   expected: equals_reference
 - engine: spark
-  output: evidence/retained_controls/spark/rewrite_pos_01.tsv
+  output: evidence/cases/PERF/PERF_0007/retained_controls/spark/rewrite_pos_01.tsv
   expected: equals_reference
 negative_checks:
 - engine: mysql
-  output: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  output: evidence/cases/PERF/PERF_0007/hard_negative/mysql/rewrite_neg_01.tsv
   expected: differs_from_reference
 - engine: spark
-  output: evidence/hard_negative/spark/rewrite_neg_01.tsv
+  output: evidence/cases/PERF/PERF_0007/hard_negative/spark/rewrite_neg_01.tsv
   expected: differs_from_reference
 claim_boundary:
   compared_existing_outputs_only: true

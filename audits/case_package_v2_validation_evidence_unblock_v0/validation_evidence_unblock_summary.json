@@ -1,0 +1,31 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "validation_evidence_unblock": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "validation_wrappers_updated": true,
+  "evidence_references_updated": true,
+  "schema_dirs_deleted": false,
+  "case_local_evidence_deleted": false,
+  "metadata_deleted": false,
+  "data_deleted": false,
+  "old_validation_scripts_deleted": false,
+  "dialect_variants_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_second_clean_template_cleanup_v0 to delete only readiness-marked legacy validation scripts, schema engine dirs after script deletion, and case-local evidence after final external mapping check; keep PORT_0003 dialect variants unless separately approved."
+}

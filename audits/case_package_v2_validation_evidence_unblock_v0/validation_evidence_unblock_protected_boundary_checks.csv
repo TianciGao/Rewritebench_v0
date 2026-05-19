@@ -1,0 +1,15 @@
+check_name,status,details
+no schema engine dirs deleted,pass,No case-local schema/<engine>/ directory was deleted.
+no case-local evidence deleted,pass,No case-local evidence/ directory or retained evidence file was deleted.
+no metadata deleted,pass,No metadata/ directory was deleted in this task.
+no data deleted,pass,No data/ directory was deleted in this task.
+no old validation scripts deleted,pass,Old engine-specific validation scripts were retained.
+no dialect variants deleted,pass,PORT_0003 dialect variants were not modified or deleted.
+no case_sets changed,pass,No writes under case_sets/.
+no inventory changed,pass,No writes under inventory/.
+no reports/results changed,pass,No writes under reports/ or results/.
+no denominator changed,pass,No denominator values changed.
+no paper results changed,pass,No paper-result artifacts changed.
+no official metrics computed,pass,No official metric computation was run.
+no DB/checker execution,pass,Only static validators and unit tests were run.
+no global leaderboard,pass,No leaderboard output was created.

@@ -2,17 +2,17 @@ case_id: CONS_0005
 compare_config_version: v1
 engines:
   postgres:
-    source: evidence/retained_controls/postgres/source.tsv
-    positive: evidence/retained_controls/postgres/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    source: evidence/cases/CONS/CONS_0005/retained_controls/postgres/source.tsv
+    positive: evidence/cases/CONS/CONS_0005/retained_controls/postgres/rewrite_pos_01.tsv
+    negative: evidence/cases/CONS/CONS_0005/hard_negative/postgres/rewrite_neg_01.tsv
   mysql:
-    source: evidence/retained_controls/mysql/source.tsv
-    positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    source: evidence/cases/CONS/CONS_0005/retained_controls/mysql/source.tsv
+    positive: evidence/cases/CONS/CONS_0005/retained_controls/mysql/rewrite_pos_01.tsv
+    negative: evidence/cases/CONS/CONS_0005/hard_negative/mysql/rewrite_neg_01.tsv
   spark:
-    source: evidence/retained_controls/spark/source.tsv
-    positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
+    source: evidence/cases/CONS/CONS_0005/retained_controls/spark/source.tsv
+    positive: evidence/cases/CONS/CONS_0005/retained_controls/spark/rewrite_pos_01.tsv
+    negative: evidence/cases/CONS/CONS_0005/hard_negative/spark/rewrite_neg_01.tsv
 expected:
   source_equals_positive: true
   source_differs_from_negative: true

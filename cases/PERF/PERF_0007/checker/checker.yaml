@@ -16,11 +16,11 @@ expectations:
   - source
   - neg_01
 retained_evidence:
-  source_reference: evidence/retained_controls/postgres/source.tsv
-  mysql_positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  spark_positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
-  mysql_negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  spark_negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
+  source_reference: evidence/cases/PERF/PERF_0007/retained_controls/postgres/source.tsv
+  mysql_positive: evidence/cases/PERF/PERF_0007/retained_controls/mysql/rewrite_pos_01.tsv
+  spark_positive: evidence/cases/PERF/PERF_0007/retained_controls/spark/rewrite_pos_01.tsv
+  mysql_negative: evidence/cases/PERF/PERF_0007/hard_negative/mysql/rewrite_neg_01.tsv
+  spark_negative: evidence/cases/PERF/PERF_0007/hard_negative/spark/rewrite_neg_01.tsv
 normalization: checker/normalization.yaml
 compare_config: checker/compare_config.yaml
 expected_rejections: checker/expected_rejections.yaml

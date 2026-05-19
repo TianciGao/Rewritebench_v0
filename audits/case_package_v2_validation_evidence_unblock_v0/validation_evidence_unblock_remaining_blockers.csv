@@ -1,0 +1,2 @@
+case_id,blocker_area,blocker_path,blocker_reason,required_future_action,notes
+PORT_0003,dialect_variants,sql/dialect_variants/,semantically retained optional v2 portability asset,keep unless a future portability review proves variants stale,This task did not modify or delete PORT_0003 dialect variants.

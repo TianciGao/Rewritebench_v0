@@ -2,17 +2,17 @@ case_id: LONGTAIL_0011
 pool: LONGTAIL
 compare_config_version: canonical_static_summary_v1
 source_outputs:
-  postgres: evidence/retained_controls/postgres/source.tsv
-  mysql: evidence/retained_controls/mysql/source.tsv
-  spark: evidence/retained_controls/spark/source.tsv
+  postgres: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/postgres/source.tsv
+  mysql: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/mysql/source.tsv
+  spark: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/spark/source.tsv
 positive_outputs:
-  postgres: evidence/retained_controls/postgres/rewrite_pos_01.tsv
-  mysql: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  spark: evidence/retained_controls/spark/rewrite_pos_01.tsv
+  postgres: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/postgres/rewrite_pos_01.tsv
+  mysql: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/mysql/rewrite_pos_01.tsv
+  spark: evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/spark/rewrite_pos_01.tsv
 negative_outputs:
-  postgres: evidence/hard_negative/postgres/rewrite_neg_01.tsv
-  mysql: evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  spark: evidence/hard_negative/spark/rewrite_neg_01.tsv
+  postgres: evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/postgres/rewrite_neg_01.tsv
+  mysql: evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/mysql/rewrite_neg_01.tsv
+  spark: evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/spark/rewrite_neg_01.tsv
 expected_checks:
   source_positive_equal: true
   source_negative_different: true

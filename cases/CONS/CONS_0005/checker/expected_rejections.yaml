@@ -21,18 +21,18 @@ hard_negatives:
       witness_discriminator: table2.i contains NULL
     evidence_paths:
       retained_controls:
-        - evidence/retained_controls/postgres/source.tsv
-        - evidence/retained_controls/postgres/rewrite_pos_01.tsv
-        - evidence/retained_controls/mysql/source.tsv
-        - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-        - evidence/retained_controls/spark/source.tsv
-        - evidence/retained_controls/spark/rewrite_pos_01.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/postgres/source.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/postgres/rewrite_pos_01.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/mysql/source.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/mysql/rewrite_pos_01.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/spark/source.tsv
+        - evidence/cases/CONS/CONS_0005/retained_controls/spark/rewrite_pos_01.tsv
       hard_negative:
-        - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-        - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-        - evidence/hard_negative/spark/rewrite_neg_01.tsv
+        - evidence/cases/CONS/CONS_0005/hard_negative/postgres/rewrite_neg_01.tsv
+        - evidence/cases/CONS/CONS_0005/hard_negative/mysql/rewrite_neg_01.tsv
+        - evidence/cases/CONS/CONS_0005/hard_negative/spark/rewrite_neg_01.tsv
       result_checks:
-        - evidence/retained_controls/result_check.json
-        - evidence/retained_controls/postgres/result_check.json
-        - evidence/retained_controls/mysql/result_check.json
-        - evidence/retained_controls/spark/result_check.json
+        - evidence/cases/CONS/CONS_0005/retained_controls/result_check.json
+        - evidence/cases/CONS/CONS_0005/retained_controls/postgres/result_check.json
+        - evidence/cases/CONS/CONS_0005/retained_controls/mysql/result_check.json
+        - evidence/cases/CONS/CONS_0005/retained_controls/spark/result_check.json

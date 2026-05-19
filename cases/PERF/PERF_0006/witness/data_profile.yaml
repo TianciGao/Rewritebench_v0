@@ -18,7 +18,7 @@ data_source:
 correct_result:
   path: witness/correct_result.csv
   status: materialized_from_retained_postgres_source_reference
-  source_retained_output: evidence/retained_controls/postgres/source.tsv
+  source_retained_output: evidence/cases/PERF/PERF_0006/retained_controls/postgres/source.tsv
   generated_by_db_execution_during_pilot: false
 claim_boundary:
   no_new_data_generation: true

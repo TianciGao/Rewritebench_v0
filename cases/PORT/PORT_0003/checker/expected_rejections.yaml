@@ -24,21 +24,21 @@ hard_negatives:
       negative divergence for the top-1 row
   evidence_paths:
     retained_controls:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/postgres/source.tsv
-    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    - evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
+    - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
     hard_negative:
-    - evidence/hard_negative/hard_negative_summary.json
-    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-    - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
+    - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
+    - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
     result_checks:
-    - evidence/retained_controls/result_check.json
+    - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
     plan_evidence:
-    - evidence/retained_plans/plan_check.json
-    - evidence/retained_plans/postgres/source.json
-    - evidence/retained_plans/mysql/rewrite_pos_01.json
-    - evidence/retained_plans/mysql/rewrite_neg_01.json
-    - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
-    - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+    - evidence/cases/PORT/PORT_0003/plans/plan_check.json
+    - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
+    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
+    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
+    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
+    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
   approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy

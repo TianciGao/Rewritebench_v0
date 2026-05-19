@@ -54,24 +54,24 @@ validation:
   run_validation: validation/run_validation.sh
   run_plan_collection: validation/run_plan_collection.sh
 evidence:
-  runs_retention: evidence/runs_retention.yaml
+  runs_retention: evidence/cases/PORT/PORT_0003/runs_retention.yaml
   retained_controls:
-  - evidence/retained_controls/result_check.json
-  - evidence/retained_controls/postgres/source.tsv
-  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  - evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+  - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
+  - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
+  - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
+  - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
   retained_plans:
-  - evidence/retained_plans/plan_check.json
-  - evidence/retained_plans/postgres/source.json
-  - evidence/retained_plans/mysql/rewrite_pos_01.json
-  - evidence/retained_plans/mysql/rewrite_neg_01.json
-  - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
-  - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+  - evidence/cases/PORT/PORT_0003/plans/plan_check.json
+  - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
+  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
+  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
+  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
+  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
   hard_negative:
-  - evidence/hard_negative/hard_negative_summary.json
-  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
-  package_validation_summary: evidence/package_validation_summary.json
+  - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
+  - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
+  package_validation_summary: evidence/cases/PORT/PORT_0003/package_validation_summary.json
 metadata:
   status: merged_or_represented_for_clean_template_gap_closure_v0
   provenance: represented_by_source_fields_and_claim_boundaries
@@ -138,66 +138,48 @@ compatibility:
       - sql/dialect_variants/spark/pos_02_spark.sql
       - sql/dialect_variants/spark/neg_02_spark.sql
   case_local_schema:
-    pilot_status: retained_case_local_copy_for_v1_compatibility
-    deletion_status: not_deleted_in_folder_ordered_manifest_sql_schema_pilot
-    profile: schema/schema_profile.yaml
-    postgres:
-      ddl: schema/postgres/ddl.sql
-      load: schema/postgres/load.sql
-    mysql:
-      ddl: schema/mysql/ddl.sql
-      load: schema/mysql/load.sql
-    spark:
-      ddl: schema/spark/ddl.sql
-      load: schema/spark/load.sql
-    previous_manifest_shape:
-      postgres:
-        ddl: schema/postgres/ddl.sql
-        load: schema/postgres/load.sql
-      mysql:
-        ddl: schema/mysql/ddl.sql
-        load: schema/mysql/load.sql
-      spark:
-        ddl: schema/spark/ddl.sql
-        load: schema/spark/load.sql
-      profile: schema/schema_profile.yaml
+    status: external_schema_profile_resolves_executable_schema
+    case_local_profile: schema/schema_profile.yaml
+    case_local_engine_dirs_status: retained_compatibility_pending_second_cleanup
+    external_schema_profile: schemas/parrot_bird_port0003_v0/schema_profile.yaml
+    deletion_readiness: ready_after_legacy_validation_scripts_deleted
+    deletion_status: not_deleted_in_this_task
   checker_legacy:
     legacy_config_key: checker.checker
     legacy_config_path: checker/checker.yaml
   validation_legacy:
-    postgres_validation: validation/run_postgres_validation.sh
-    mysql_validation: validation/run_mysql_validation.sh
-    spark_validation: validation/run_spark_validation.sh
-    postgres_plan_collection: validation/run_postgres_plan_collection.sh
-    mysql_plan_collection: validation/run_mysql_plan_collection.sh
-    spark_plan_collection: validation/run_spark_plan_collection.sh
-    execution_policy: not_run_during_migration
-    output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+    status: legacy_engine_specific_scripts_retained_compatibility
+    wrapper_dependency_status: v2_wrappers_do_not_call_legacy_scripts
+    cleanup_readiness: deletion_ready_after_wrapper_update
+    shared_runner_status: not_implemented_wrappers_fail_closed
+    deletion_status: not_deleted_in_this_task
   witness_legacy:
     status: optional_static_witness_not_materialized
   evidence_legacy:
-    case_local_evidence: evidence/
-    externalization_status: copy_first_externalized_public_safe_subset
-    deletion_status: not_deleted_in_this_task
-    package_validation_summary: evidence/package_validation_summary.json
-    runs_retention: evidence/runs_retention.yaml
+    externalization_status: copy_first_externalized_public_safe_subset_verified
+    deletion_status: not_deleted_in_this_task_ready_after_reference_cleanup
+    package_validation_summary: evidence/cases/PORT/PORT_0003/package_validation_summary.json
+    runs_retention: evidence/cases/PORT/PORT_0003/runs_retention.yaml
     retained_controls:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/postgres/source.tsv
-    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    - evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
+    - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
     hard_negative:
-    - evidence/hard_negative/hard_negative_summary.json
-    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-    - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
+    - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
+    - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
     plans:
-    - evidence/retained_plans/plan_check.json
-    - evidence/retained_plans/postgres/source.json
-    - evidence/retained_plans/mysql/rewrite_pos_01.json
-    - evidence/retained_plans/mysql/rewrite_neg_01.json
-    - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
-    - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+    - evidence/cases/PORT/PORT_0003/plans/plan_check.json
+    - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
+    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
+    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
+    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
+    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
     case_local_runs_status: removed_placeholder_only_in_empty_runs_cleanup_v0
+    status: external_evidence_is_canonical_case_local_copy_retained_compatibility
+    case_local_evidence_status: retained_compatibility_pending_second_cleanup
+    external_evidence: evidence/cases/PORT/PORT_0003/
   metadata_legacy:
     status: stable_metadata_merged_or_represented_elsewhere
     deletion_status: deleted_in_clean_template_gap_closure_execution_v0
@@ -228,3 +210,14 @@ compatibility:
     status: represented_by_external_schema_loads_and_witness_policy
     deletion_status: deleted_in_clean_template_gap_closure_execution_v0
     source_of_truth: schema_ref_external_schema_profile_and_witness_source_as_oracle_policy
+  schema_legacy:
+    status: external_schema_profile_resolves_executable_schema
+    case_local_profile: schema/schema_profile.yaml
+    case_local_engine_dirs_status: retained_compatibility_pending_second_cleanup
+    external_schema_profile: schemas/parrot_bird_port0003_v0/schema_profile.yaml
+    deletion_readiness: ready_after_legacy_validation_scripts_deleted
+    deletion_status: not_deleted_in_this_task
+  validation_policy:
+    schema_resolution_policy: manifest_schema_ref_profile_first
+    legacy_script_dependency_status: v2_wrappers_do_not_call_legacy_scripts
+    wrapper_fail_closed_message: shared_v2_validation_runner_not_implemented_use_future_shared_runner
