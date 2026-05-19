@@ -271,6 +271,17 @@ def _resolve_path(
     )
 
 
+def _load_resolved_yaml_mapping(ref: ResolvedReference) -> dict[str, Any] | None:
+    """Load a resolved YAML reference after path safety/existence checks pass."""
+
+    if ref.status == "fail" or not ref.resolved_path:
+        return None
+    try:
+        return load_yaml_file(Path(ref.resolved_path))
+    except Exception:
+        return None
+
+
 def _check(
     checks: list[InternalFormatCheck],
     findings: list[FormatFinding],
@@ -487,6 +498,104 @@ def resolve_case_package_v2(
         notes="schema id identifies external schema package",
     )
     engines = schema_ref.get("engines") if isinstance(schema_ref, dict) else None
+    engines_present = isinstance(engines, dict)
+    profile_value = schema_ref.get("profile") if isinstance(schema_ref, dict) else None
+    profile_ref = _resolve_path(
+        repo_root=repo_root,
+        case_dir=case_dir,
+        field_group="schema_ref",
+        field="schema_ref.profile",
+        observed_value=profile_value,
+        path_base="repo",
+        required=not engines_present,
+    )
+    references.append(profile_ref)
+    expected_profile = (
+        f"schemas/{schema_id}/schema_profile.yaml"
+        if isinstance(schema_id, str)
+        else "schemas/<SCHEMA_ID>/schema_profile.yaml"
+    )
+    profile_first_ok = profile_value == expected_profile and profile_ref.status != "fail"
+    profile_or_legacy_engine_ok = profile_first_ok or engines_present
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="schema_ref",
+        field="schema_ref.profile",
+        observed_value=profile_value,
+        expected_shape=expected_profile,
+        ok=profile_or_legacy_engine_ok,
+        warning=bool(profile_value) or engines_present,
+        finding_type="schema_ref_profile_shape",
+        notes="profile-first schema_ref should point to external schema_profile.yaml"
+        if not engines_present
+        else "legacy schema_ref.engines compatibility accepted",
+    )
+
+    case_schema_profile_ref = _resolve_path(
+        repo_root=repo_root,
+        case_dir=case_dir,
+        field_group="schema",
+        field="schema.schema_profile",
+        observed_value="schema/schema_profile.yaml",
+        path_base="case",
+        required=True,
+        notes="case-local profile-only schema summary",
+    )
+    references.append(case_schema_profile_ref)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="schema",
+        field="schema.schema_profile",
+        observed_value="schema/schema_profile.yaml" if case_schema_profile_ref.exists else "",
+        expected_shape="schema/schema_profile.yaml",
+        ok=case_schema_profile_ref.status != "fail",
+        finding_type="case_local_schema_profile",
+        notes="clean v2 keeps only schema/schema_profile.yaml case-local",
+    )
+
+    external_schema_profile = _load_resolved_yaml_mapping(profile_ref)
+    external_engines = (
+        external_schema_profile.get("engines")
+        if isinstance(external_schema_profile, dict)
+        and isinstance(external_schema_profile.get("engines"), dict)
+        else None
+    )
+    if profile_value and profile_ref.status != "fail":
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="schema_ref",
+            field="schema_ref.profile.parse",
+            observed_value="mapping" if external_schema_profile is not None else "unparseable",
+            expected_shape="external schema_profile.yaml mapping with engines",
+            ok=external_schema_profile is not None and isinstance(external_engines, dict),
+            finding_type="schema_profile_parse",
+            notes="external profile must be a mapping with engines.<engine>.ddl/load",
+        )
+        if isinstance(external_schema_profile, dict):
+            profile_schema_id = external_schema_profile.get("schema_id")
+            _check(
+                checks,
+                findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                field_group="schema_ref",
+                field="schema_ref.profile.schema_id",
+                observed_value=profile_schema_id,
+                expected_shape="matches schema_ref.schema_id",
+                ok=profile_schema_id == schema_id,
+                finding_type="schema_profile_schema_id",
+                notes="external profile schema_id must match manifest schema_ref.schema_id",
+            )
+
     _check(
         checks,
         findings,
@@ -495,18 +604,25 @@ def resolve_case_package_v2(
         field_group="schema_ref",
         field="schema_ref.engines",
         observed_value="present" if isinstance(engines, dict) else "missing",
-        expected_shape="schema_ref.engines.<engine>.ddl/load",
-        ok=isinstance(engines, dict),
+        expected_shape="profile-first schema_ref.profile or compatibility schema_ref.engines.<engine>.ddl/load",
+        ok=isinstance(engines, dict) or profile_first_ok,
         warning=True,
         finding_type="schema_ref_shape",
-        notes="compatibility top-level engine shape is accepted for read-only branch recheck"
-        if not isinstance(engines, dict)
-        else "",
+        notes="profile-first schema_ref resolves engines through external schema_profile.yaml"
+        if not isinstance(engines, dict) and profile_first_ok
+        else "compatibility schema_ref.engines shape accepted",
     )
     for engine in SUPPORTED_SCHEMA_ENGINES:
         canonical_engine = engines.get(engine) if isinstance(engines, dict) else None
         fallback_engine = schema_ref.get(engine) if isinstance(schema_ref, dict) else None
-        engine_map = canonical_engine if isinstance(canonical_engine, dict) else fallback_engine
+        profile_engine = external_engines.get(engine) if isinstance(external_engines, dict) else None
+        engine_map = (
+            canonical_engine
+            if isinstance(canonical_engine, dict)
+            else profile_engine
+            if isinstance(profile_engine, dict)
+            else fallback_engine
+        )
         for leaf in ("ddl", "load"):
             value = engine_map.get(leaf) if isinstance(engine_map, dict) else None
             references.append(
@@ -518,7 +634,9 @@ def resolve_case_package_v2(
                     observed_value=value,
                     path_base="repo",
                     required=True,
-                    notes="compatibility fallback from schema_ref.<engine>"
+                    notes="resolved through schema_ref.profile external schema_profile.yaml"
+                    if isinstance(profile_engine, dict) and not isinstance(canonical_engine, dict)
+                    else "compatibility fallback from schema_ref.<engine>"
                     if not isinstance(canonical_engine, dict) and value
                     else "",
                 )
@@ -532,12 +650,12 @@ def resolve_case_package_v2(
                 field=f"schema_ref.engines.{engine}.{leaf}",
                 observed_value=value,
                 expected_shape=f"schemas/<SCHEMA_ID>/{engine}/{leaf}.sql",
-                ok=isinstance(canonical_engine, dict)
-                and isinstance(value, str)
-                and value == f"schemas/{schema_id}/{engine}/{leaf}.sql",
+                ok=isinstance(value, str) and value == f"schemas/{schema_id}/{engine}/{leaf}.sql",
                 warning=isinstance(value, str),
                 finding_type="schema_ref_engine_shape",
-                notes="canonical engines nesting missing; resolved through compatibility fallback"
+                notes="resolved through profile-first external schema profile"
+                if isinstance(profile_engine, dict) and not isinstance(canonical_engine, dict)
+                else "canonical engines nesting missing; resolved through compatibility fallback"
                 if not isinstance(canonical_engine, dict) and value
                 else "",
             )
@@ -556,7 +674,7 @@ def resolve_case_package_v2(
             ok=False,
             warning=True,
             finding_type="missing_evidence_ref",
-            notes="policy recorded but not yet added to PERF_0006 manifest",
+            notes="policy recorded but not yet added to this case manifest",
         )
     elif isinstance(evidence_ref, dict):
         for key in ("package_validation_summary", "runs_retention"):
@@ -645,7 +763,8 @@ def resolve_case_package_v2(
                 field=f"validation.{key}",
                 observed_value=value,
                 path_base="case",
-                required=True,
+                required=False,
+                notes="validation layer conversion is pending" if value is None else "",
             )
         )
         _check(
@@ -658,7 +777,11 @@ def resolve_case_package_v2(
             observed_value=value,
             expected_shape=expected,
             ok=value == expected,
-            notes="v2 validation entrypoint",
+            warning=True,
+            finding_type="validation_layer_pending",
+            notes="v2 validation entrypoint missing; validation layer conversion is pending"
+            if value is None
+            else "v2 validation entrypoint",
         )
     for key in sorted(validation):
         if key not in CANONICAL_VALIDATION_ENTRYPOINTS and key.endswith(("validation", "plan_collection")):
@@ -779,10 +902,10 @@ def classify_case_directories(case_dir: Path) -> list[DirectoryClassification]:
             "only with retention mapping and explicit approval",
         ),
         "schema": (
-            "v1 case-local schema",
-            "compatibility copy pending schema_ref",
+            "case-local schema profile plus retained v1 executable schema copies",
+            "schema/schema_profile.yaml in clean v2; executable DDL/load resolve through external schema profile",
             True,
-            "after runner and validator schema_ref compatibility pass",
+            "after external schema profile resolution and compatibility cleanup are separately approved",
         ),
         "sql": (
             "case SQL assets",

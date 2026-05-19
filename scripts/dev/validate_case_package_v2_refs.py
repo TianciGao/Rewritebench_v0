@@ -162,6 +162,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"reference_rows={len(result.references)}")
     print(f"internal_checks={len(result.internal_checks)}")
     print(f"format_findings={len(result.findings)}")
+    print("profile_first_schema_ref_supported=true")
     print("db_execution_run=false")
     print("checker_execution_run=false")
     print("official_metrics_computed=false")

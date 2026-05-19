@@ -7131,3 +7131,62 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_profile_first_validator_compatibility_v0` to update the static resolver/tests for profile-first `schema_ref` before checker/validation layer conversion.
+
+### 2026-05-19 · pending · case_package_v2_profile_first_validator_compatibility_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only validator/resolver compatibility task; no case conversion; no schema modification; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending finalization
+Push: pending finalization
+
+Summary:
+- Updated the static v2 resolver to support profile-first `schema_ref` by loading `schema_ref.profile` and resolving engine DDL/load paths from external `schemas/<SCHEMA_ID>/schema_profile.yaml`.
+- Preserved legacy `schema_ref.engines.<engine>.ddl/load` as compatibility input for existing validation context.
+- Added case-local `schema/schema_profile.yaml` validation.
+- Changed missing validation wrapper references to warning-only findings because checker/validation layers are intentionally not converted yet.
+- Updated the dev validator output to record profile-first support.
+- Updated v2 resolver tests for profile-first resolution, legacy compatibility, missing profile failures, missing external engine path failures, absolute path rejection, optional witness warnings, and all five pilot cases.
+- Revalidated `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Did not modify case files, schemas, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_validator_compatibility_summary.md`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_ref_validation_results.csv`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_validator_test_results.csv`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_compatibility_gaps.csv`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/future_case_package_v2_checker_validation_layers_prompt.md`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_validator_compatibility_summary.json`
+- `audits/case_package_v2_profile_first_validator_compatibility_v0/profile_first_validator_command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/case_package_v2_resolver.py`
+- `scripts/dev/validate_case_package_v2_refs.py`
+- `tests/case_package_v2/test_case_package_v2_resolver.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Static validator passed for all five pilot cases.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
+
+Task result:
+- Profile-first schema_ref supported: yes.
+- Resolver updated: yes.
+- Validator updated: yes.
+- Tests updated: yes.
+- Pilot cases revalidated: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Case files modified: no.
+- Schemas modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_checker_validation_layers_pilot_v0` to convert only checker and validation layers for the five pilot cases on the feature branch, without DB/checker execution or protected benchmark-surface changes.

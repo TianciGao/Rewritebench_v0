@@ -1,0 +1,28 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "profile_first_schema_ref_supported": true,
+  "resolver_updated": true,
+  "validator_updated": true,
+  "tests_updated": true,
+  "pilot_cases_revalidated": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "case_files_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_checker_validation_layers_pilot_v0 to convert only checker and validation layers for the five pilot cases, branch-only and without DB/checker execution or protected benchmark-surface changes."
+}
