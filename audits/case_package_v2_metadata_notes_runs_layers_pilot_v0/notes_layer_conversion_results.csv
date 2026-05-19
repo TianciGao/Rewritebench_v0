@@ -1,0 +1,6 @@
+case_id,notes_dir_exists,notes_classification,external_notes_dir,notes_copied_to_evidence,notes_deleted,manifest_evidence_ref_notes_updated,status,notes
+PERF_0006,true,human_readable_public_safe_notes,evidence/cases/PERF/PERF_0006/notes/,true,false,true,converted,evidence_ref.notes already existed; compatibility.notes_legacy added and notes copied.
+PERF_0007,true,human_readable_public_safe_notes,evidence/cases/PERF/PERF_0007/notes/,true,false,true,converted,evidence_ref.notes already existed; compatibility.notes_legacy added and notes copied.
+CONS_0005,true,human_readable_public_safe_notes,evidence/cases/CONS/CONS_0005/notes/,true,false,true,converted,evidence_ref.notes already existed; compatibility.notes_legacy added and notes copied.
+PORT_0003,true,human_readable_public_safe_notes,evidence/cases/PORT/PORT_0003/notes/,true,false,true,converted,evidence_ref.notes already existed; compatibility.notes_legacy added and notes copied.
+LONGTAIL_0011,true,human_readable_public_safe_notes,evidence/cases/LONGTAIL/LONGTAIL_0011/notes/,true,false,true,converted,evidence_ref.notes already existed; compatibility.notes_legacy added and notes copied.

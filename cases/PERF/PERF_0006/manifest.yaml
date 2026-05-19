@@ -151,6 +151,32 @@ compatibility:
     - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
     - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
     timing_evidence: []
+  metadata_legacy:
+    status: retained_case_local_metadata_mapped_not_deleted
+    deletion_status: not_deleted_in_this_task
+    provenance: metadata/provenance.yaml
+    taxonomy: metadata/taxonomy.yaml
+    denominator_eligibility: metadata/denominator_eligibility.yaml
+    artifact_paths: metadata/artifact_paths.yaml
+    engine_support: metadata/engine_support.yaml
+  notes_legacy:
+    status: copy_first_externalized_public_safe_subset
+    deletion_status: not_deleted_in_this_task
+    case_local_notes: notes/
+    external_notes: evidence/cases/PERF/PERF_0006/notes/
+    copied_notes:
+    - notes/migration_notes.md
+    - notes/promotion_checklist.md
+    - notes/risk_notes.md
+    - notes/schema_notes.md
+    - notes/witness_design_notes.md
+  runs_legacy:
+    case_local_runs: runs/
+    classification: placeholder_only
+    tracked_files:
+    - runs/README.md
+    deletion_status: not_deleted_in_this_task
+    future_cleanup_action: remove_empty_runs_after_approval
 metadata:
   provenance: metadata/provenance.yaml
   taxonomy: metadata/taxonomy.yaml

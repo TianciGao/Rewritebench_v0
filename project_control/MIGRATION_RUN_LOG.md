@@ -7342,3 +7342,70 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_metadata_notes_runs_layers_pilot_v0` to handle only metadata, notes, and runs cleanup for the same five pilot cases on the feature branch, without DB/checker execution, retained-evidence deletion without mapping, protected benchmark-surface changes, official metrics, or leaderboard output.
+
+### 2026-05-19 · pending · case_package_v2_metadata_notes_runs_layers_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable v2 pilot conversion for metadata, notes, and runs classification only; no README/validator closeout; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending before commit
+Push: pending before push
+
+Summary:
+- Classified metadata, notes, and runs layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Added `compatibility.metadata_legacy`, `compatibility.notes_legacy`, and `compatibility.runs_legacy` mappings to the five manifests.
+- Copy-first copied public-safe case-local notes into `evidence/cases/<POOL>/<CASE_ID>/notes/`.
+- Classified all five case-local `runs/` directories as `placeholder_only` with one tracked `runs/README.md`.
+- Deleted no metadata files, no case-local notes, no case-local evidence, and no runs files.
+- Did not modify README files, validator code, SQL, schema, schemas, checker, validation, witness, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution outputs, or leaderboard outputs.
+
+Files created:
+- Public-safe note copies under `evidence/cases/PERF/PERF_0006/notes/`, `evidence/cases/PERF/PERF_0007/notes/`, `evidence/cases/CONS/CONS_0005/notes/`, `evidence/cases/PORT/PORT_0003/notes/`, and `evidence/cases/LONGTAIL/LONGTAIL_0011/notes/`.
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_notes_runs_layers_pilot_summary.md`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_layer_conversion_results.csv`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/notes_layer_conversion_results.csv`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/runs_layer_classification_results.csv`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_notes_runs_manual_review_blockers.csv`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_notes_runs_protected_boundary_checks.csv`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/future_case_package_v2_readme_validator_closeout_prompt.md`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_notes_runs_layers_pilot_summary.json`
+- `audits/case_package_v2_metadata_notes_runs_layers_pilot_v0/metadata_notes_runs_layers_pilot_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/manifest.yaml`
+- `cases/PERF/PERF_0007/manifest.yaml`
+- `cases/CONS/CONS_0005/manifest.yaml`
+- `cases/PORT/PORT_0003/manifest.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/manifest.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no `case_sets/`, inventory, reports/results, denominator, paper-result, case-local evidence deletion, non-empty runs deletion, DB/checker output, README/validator conversion, or leaderboard change was detected.
+- `git diff --check`: passed.
+
+Task result:
+- Writable conversion pilot: yes.
+- Converted layers: metadata, notes, runs.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases converted: all five.
+- Cases deferred: none.
+- Metadata modified: yes.
+- Notes modified: yes.
+- Runs classified: yes.
+- Runs deleted: no.
+- Non-empty runs deleted: no.
+- Case-local evidence deleted: no.
+- README/validator modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_readme_validator_closeout_pilot_v0` to update README wording and validator expectations only for the same five pilot cases on the feature branch, without DB/checker execution, retained-evidence deletion, non-empty runs deletion, protected benchmark-surface changes, official metrics, or leaderboard output.

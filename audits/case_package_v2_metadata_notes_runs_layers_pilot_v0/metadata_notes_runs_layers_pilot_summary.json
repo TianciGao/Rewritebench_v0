@@ -1,0 +1,44 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "writable_conversion_pilot": true,
+  "converted_layers": [
+    "metadata",
+    "notes",
+    "runs"
+  ],
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_converted": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_deferred": [],
+  "metadata_modified": true,
+  "notes_modified": true,
+  "runs_classified": true,
+  "runs_deleted": false,
+  "non_empty_runs_deleted": false,
+  "case_local_evidence_deleted": false,
+  "readme_modified": false,
+  "validator_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_readme_validator_closeout_pilot_v0 to update README wording and validator expectations only for the same five pilot cases, branch-only, with no DB/checker execution, evidence deletion, non-empty runs deletion, reports/results updates, denominator changes, paper-result changes, case_sets/inventory changes, official metrics, or leaderboard output."
+}
