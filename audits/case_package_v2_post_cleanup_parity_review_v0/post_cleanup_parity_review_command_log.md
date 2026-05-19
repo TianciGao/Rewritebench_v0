@@ -26,4 +26,6 @@ Commands and outcomes:
 - `git diff --check`: passed.
 - `git diff --stat`: reviewed audit/project-control-only diff before staging.
 - `git status -sb`: confirmed pending changes were limited to the new audit directory and project-control files.
-- Commit and push results are finalized after commit.
+- `git commit -m "audit: review post-cleanup v2 template parity"`: created commit `2f4a9e7fac59d3b3cd1d490a08d14d4631832a02`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded; pushed `0dba7b5..2f4a9e7`.
+- Run-log finalization commit and push are recorded separately.

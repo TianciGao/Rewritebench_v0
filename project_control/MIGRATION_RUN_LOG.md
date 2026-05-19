@@ -7709,14 +7709,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_post_cleanup_parity_review_v0` to re-run a read-only parity/gap review after the first safe compatibility-reference cleanup.
 
-### 2026-05-19 · pending · case_package_v2_post_cleanup_parity_review_v0
+### 2026-05-19 · 2f4a9e7 · case_package_v2_post_cleanup_parity_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only post-cleanup parity review; no cleanup execution; no case conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `2f4a9e7fac59d3b3cd1d490a08d14d4631832a02`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Re-ran clean-template parity review after `case_package_v2_reference_cleanup_execution_v0`.
