@@ -1,9 +1,9 @@
 case_id: PERF_0008
-expected_rejections_version: canonical_case_package_layout_v1
+expected_rejections_version: canonical_case_package_layout_v2
 hard_negatives:
 - hard_negative_id: neg_01
   source_sql_path: sql/source.sql
-  negative_sql_path: sql/negatives/neg_01.sql
+  negative_sql_path: sql/neg_01.sql
   expected_rejection_reason: customer_segment_predicate_changed
   semantic_risk_type:
   - predicate_boundary
@@ -13,13 +13,17 @@ hard_negatives:
   observed_static_basis:
     source_positive_semantics: source and positive filter customer segment to MACHINERY
     negative_semantics: negative filters customer segment to BUILDING
-    witness_discriminator: segment-discriminator rows distinguish the intended customer
-      slice from the negative slice
+    witness_discriminator: segment-discriminator rows distinguish the intended customer slice
+      from the negative slice
   evidence_paths:
-  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/hard_negative/spark/rewrite_neg_01.tsv
-  - evidence/hard_negative/hard_negative_summary.json
+  - runtime_negative_result
+  - regenerated_hard_negative_summary
   approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
 claim_boundary:
   no_db_validation_run_during_migration: true
   no_new_semantic_claim_beyond_static_evidence: true
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

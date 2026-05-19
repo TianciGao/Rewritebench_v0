@@ -8399,3 +8399,61 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_a_v0` as a bounded writable Wave A conversion for `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024` only.
+
+### 2026-05-19 · pending · case_package_v2_common_core40_wave_a_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only bounded writable Common-core Wave A v2 conversion; no DB/checker execution; no official metrics; no reports/results migration
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Converted exactly five Wave A Common-core cases: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
+- Used the accepted clean-template-minimal pilot cases as the canonical manifest and case-local structure examples.
+- Normalized manifests to canonical v2 shape with direct SQL path lists, profile-first `schema_ref`, config-only checker refs, thin validation wrappers, source-as-oracle witness policy, and regeneration-first `evidence_policy`.
+- Created case-specific external schema packages after verifying Wave A DDL/load assets differed by case.
+- Removed clean-template-disallowed compatibility surfaces from the five Wave A case packages after references and validators were updated.
+- Did not modify pilot cases, `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- Direct SQL files, thin validation wrappers, and witness profiles under the five Wave A case packages.
+- External schema packages under `schemas/tpch_perf0008_v0/`, `schemas/tpch_perf0013_v0/`, `schemas/tpch_perf0017_v0/`, `schemas/tpch_perf0019_v0/`, and `schemas/tpch_perf0024_v0/`.
+- Audit outputs under `audits/case_package_v2_common_core40_wave_a_v0/`.
+
+Files modified/deleted:
+- Modified only the five Wave A case packages, the five new external schema packages, Wave A audit outputs, and project-control files.
+- Deleted nested SQL compatibility directories, case-local engine schema directories, case-local evidence/metadata/notes/data compatibility directories, and old engine-specific validation scripts for the five Wave A cases.
+
+Validation:
+- Static v2 validators passed for all five Wave A cases.
+- Static v2 validators passed for the five accepted pilot cases.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed.
+- Summary JSON assertion passed.
+- Audit CSV header parse check passed.
+- Protected boundary checks passed.
+- `git diff --check`: passed.
+
+Task result:
+- Common-core 40 Wave A conversion: yes.
+- Converted case IDs: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, `PERF_0024`.
+- Deferred case IDs: none.
+- Clean-template-minimal cases: all five Wave A cases.
+- Manifest consistency passed: yes.
+- Schemas created/reused: `tpch_perf0008_v0`, `tpch_perf0013_v0`, `tpch_perf0017_v0`, `tpch_perf0019_v0`, `tpch_perf0024_v0`.
+- Case files modified: yes.
+- Schemas modified: yes.
+- Evidence modified: no top-level evidence changes.
+- `evidence/cases/` created: no.
+- Runs deleted/absent: all five Wave A case-local `runs/` directories absent.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run `case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0` as a bounded read-only review before authorizing Wave B or wider Common-core conversion.

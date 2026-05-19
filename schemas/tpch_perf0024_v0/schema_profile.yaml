@@ -1,0 +1,56 @@
+schema_id: tpch_perf0024_v0
+source_family: TPC-H
+case_ids:
+- PERF_0024
+schema_profile_version: case_package_v2_external_schema_v1
+source_schema_basis: cases/PERF/PERF_0024/schema/<engine>/ddl.sql copied during Common-core
+  Wave A conversion
+required_tables:
+- supplier
+- nation
+- partsupp
+- part
+- lineitem
+required_columns:
+  supplier:
+  - s_suppkey
+  - s_name
+  - s_address
+  - s_nationkey
+  nation:
+  - n_nationkey
+  - n_name
+  partsupp:
+  - ps_partkey
+  - ps_suppkey
+  - ps_availqty
+  part:
+  - p_partkey
+  - p_name
+  lineitem:
+  - l_partkey
+  - l_suppkey
+  - l_quantity
+  - l_shipdate
+row_counts:
+  supplier: 2
+  nation: 2
+  partsupp: 2
+  part: 2
+  lineitem: 2
+engines:
+  postgres:
+    ddl: schemas/tpch_perf0024_v0/postgres/ddl.sql
+    load: schemas/tpch_perf0024_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpch_perf0024_v0/mysql/ddl.sql
+    load: schemas/tpch_perf0024_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpch_perf0024_v0/spark/ddl.sql
+    load: schemas/tpch_perf0024_v0/spark/load.sql
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

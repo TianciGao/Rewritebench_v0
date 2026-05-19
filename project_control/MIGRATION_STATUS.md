@@ -791,6 +791,8 @@ Membership and scaffold snapshot:
 - Staged/backlog membership preview completed without creating official staged/backlog case sets, migrating cases, modifying inventory, updating reports/results, changing denominators, changing paper results, or modifying raw legacy evidence.
 - Clean public release export strategy adopted without deletion, history rewrite, release branch creation, migration, reports/results changes, case-set changes, denominator changes, paper-result changes, or raw legacy evidence changes.
 
+- case_package_v2_common_core40_wave_a_v0 completed on branch `feature/case-package-v2-external-schema` as a bounded writable Wave A conversion for exactly `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`. Converted case IDs: all five. Deferred case IDs: none. Clean-template-minimal cases: all five. Manifest consistency passed: yes. Schemas created/reused: `tpch_perf0008_v0`, `tpch_perf0013_v0`, `tpch_perf0017_v0`, `tpch_perf0019_v0`, and `tpch_perf0024_v0`; case-specific schemas were used because the Wave A DDL/load assets differ by case. Case files modified: yes. Schemas modified: yes. Top-level evidence modified: no. `evidence/cases/` created: no. Runs deleted/absent: placeholder/static runs absent from converted case packages. `case_sets/` changed: no. Inventory changed: no. Reports/results changed: no. Denominator changed: no. Paper results changed: no. Official metrics computed: no. DB/checker execution run: no. Global leaderboard created: no. Next safe action: run a bounded Wave A post-conversion parity review before Wave B planning or conversion.
+
 ## Remaining Non-Case-Package Blockers
 
 - Public reports/results retained-evidence migration has not copied approved artifacts yet.
@@ -809,4 +811,4 @@ Membership and scaffold snapshot:
 
 ## Current Next Safe Action
 
-Authorize `case_package_v2_common_core40_wave_a_v0` as a bounded writable Wave A conversion for `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024` only.
+Run `case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0` as a bounded read-only parity review for the five converted Wave A cases before Wave B planning or conversion.

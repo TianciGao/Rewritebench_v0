@@ -1,0 +1,44 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "common_core40_wave_a_conversion": true,
+  "converted_case_ids": [
+    "PERF_0008",
+    "PERF_0013",
+    "PERF_0017",
+    "PERF_0019",
+    "PERF_0024"
+  ],
+  "deferred_case_ids": [],
+  "clean_template_minimal_cases": [
+    "PERF_0008",
+    "PERF_0013",
+    "PERF_0017",
+    "PERF_0019",
+    "PERF_0024"
+  ],
+  "manifest_consistency_passed": true,
+  "schemas_created_or_reused": [
+    "tpch_perf0008_v0",
+    "tpch_perf0013_v0",
+    "tpch_perf0017_v0",
+    "tpch_perf0019_v0",
+    "tpch_perf0024_v0"
+  ],
+  "case_files_modified": true,
+  "schemas_modified": true,
+  "evidence_modified": false,
+  "evidence_cases_created": false,
+  "runs_deleted_or_absent": "absent_or_removed_for_clean_v2",
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Run a bounded Wave A post-conversion parity review before Wave B planning or conversion."
+}

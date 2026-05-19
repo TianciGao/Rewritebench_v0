@@ -1,0 +1,13 @@
+check_name,status,details
+only five Wave A cases modified,pass,"case path modifications are limited to PERF_0008, PERF_0013, PERF_0017, PERF_0019, PERF_0024"
+pilot cases unchanged,pass,accepted pilot case paths were validated but not modified
+no case_sets changed,pass,case_sets/ not modified
+no inventory changed,pass,inventory/ not modified
+no reports/results changed,pass,reports/ and results/ not modified
+no denominator changed,pass,denominator files not modified
+no paper results changed,pass,paper results not changed
+no official metrics computed,pass,no metric computation command run
+no DB/checker execution,pass,only static validators and unit tests planned/run
+no global leaderboard,pass,no leaderboard output created
+no evidence/cases created,pass,top-level evidence/cases not created or modified
+no case-local runs retained unless blocker recorded,pass,no runs/ directories remain in converted Wave A case packages

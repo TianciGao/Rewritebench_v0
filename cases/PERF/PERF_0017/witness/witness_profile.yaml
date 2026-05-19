@@ -1,0 +1,22 @@
+case_id: PERF_0017
+witness_profile_version: case_package_v2_source_as_oracle_v1
+witness_model: source_as_oracle
+source_as_oracle_policy: runtime_source_sql_result_is_reference
+dataset_id: pg_minimal_witness_v1
+required_tables: []
+row_counts:
+  customer: 2
+  orders: 3
+  lineitem: 3
+  nation: 2
+positive_expectation: positive_rewrite_matches_runtime_source_result
+negative_expectation: negative_rewrite_differs_or_is_rejected_by_checker
+static_reference_status: not_required_for_runtime_checker
+runtime_oracle_status: source_sql_result_is_oracle
+notes:
+- Static correct_result.csv is not fabricated for clean v2.
+- Minimal witness data is represented by external schema load files.
+claim_boundary:
+  no_db_validation_run_during_migration: true
+  official_metrics_computed: false
+  paper_results_changed: false
