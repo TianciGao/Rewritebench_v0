@@ -8335,3 +8335,67 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only Common-core 40 planning task before any wider conversion execution.
+
+### 2026-05-19 · pending · case_package_v2_common_core40_conversion_plan_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Common-core 40 v2 conversion planning; no writable conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Planned clean-template-minimal v2 conversion for all 40 Common-core cases using the five accepted pilot cases as the canonical template.
+- Reviewed `case_sets/common_core_v0/cases.csv`, `denominator_same_engine_120.csv`, `controls_360.csv`, and `inventory/case_registry.csv`.
+- Confirmed 40 Common-core cases reviewed and five accepted pilots used.
+- Classified 5 cases as already converted pilots, 5 cases as Wave A auto clean-template conversion, 22 cases as Wave B schema-grouped conversion, 1 case as Wave C manual schema/dialect review, and 7 PORT cases as blocked manual review.
+- Defined folder-order plan: `manifest -> sql -> schema -> checker -> validation -> witness -> evidence_policy -> metadata -> notes -> runs -> README/validator`.
+- Defined schema grouping and regeneration-first evidence-policy plans.
+- Drafted future Wave A prompt for only `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
+- No case files, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs were changed.
+
+Files created:
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_v2_conversion_plan_summary.md`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_v2_case_readiness.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_v2_folder_order_plan.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_schema_grouping_plan.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_evidence_policy_plan.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_conversion_waves.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_manual_review_blockers.csv`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/future_case_package_v2_common_core40_wave_a_prompt.md`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_v2_conversion_plan_summary.json`
+- `audits/case_package_v2_common_core40_conversion_plan_v0/common_core40_v2_conversion_plan_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Summary JSON parse and boundary assertions passed.
+- CSV headers parse passed.
+- `git diff --check`: passed.
+
+Task result:
+- Read-only Common-core 40 v2 plan: yes.
+- Common-core cases reviewed: 40.
+- Pilot cases used: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, `LONGTAIL_0011`.
+- Clean-template-minimal gate used: yes.
+- Planned future wave count: 3.
+- Wave A case count: 5.
+- Wave B case count: 22.
+- Wave C/manual-review count: 8.
+- Case files modified: no.
+- Schemas modified: no.
+- Evidence modified: no.
+- Runs deleted: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_wave_a_v0` as a bounded writable Wave A conversion for `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024` only.
