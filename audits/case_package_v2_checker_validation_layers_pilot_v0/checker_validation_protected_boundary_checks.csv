@@ -1,0 +1,13 @@
+check_name,status,details
+no case_sets changed,passed,"No files under case_sets/ changed."
+no inventory changed,passed,"No inventory files changed."
+no reports/results changed,passed,"No files under reports/ or results/ changed."
+no denominator changed,passed,"No denominator files changed."
+no paper results changed,passed,"No paper result files changed."
+no official metrics computed,passed,"Static validation only; no metric scripts run."
+no DB/checker execution,passed,"No DB engines or checker execution were run."
+no global leaderboard,passed,"No leaderboard output was created."
+no case-local runs deleted,passed,"No case-local runs directories were deleted."
+no evidence deleted,passed,"No evidence files or directories were deleted."
+no witness/metadata/notes/runs converted in this task,passed,"Only checker, validation, and minimal manifest refs were changed."
+no per-case Python checker implementations added,passed,"No .py, .sh, run_checks.sh, or __pycache__ files were added under checker/."

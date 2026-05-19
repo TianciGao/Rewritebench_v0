@@ -4,8 +4,12 @@ checker_version: canonical_static_summary_v1
 comparison_model:
   source_reference: sql/source.sql
   positive_rewrites:
-    - sql/positives/pos_01.sql
+    - sql/pos_01.sql
   hard_negatives:
+    - sql/neg_01.sql
+  legacy_positive_rewrites:
+    - sql/positives/pos_01.sql
+  legacy_hard_negatives:
     - sql/negatives/neg_01.sql
 retained_evidence:
   postgres_result_check: evidence/retained_controls/postgres/result_check.json

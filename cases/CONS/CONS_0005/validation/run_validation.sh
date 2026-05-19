@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CASE_ID="PERF_0006"
+CASE_ID="CONS_0005"
 CASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 usage() {
   cat <<USAGE
 Usage: $0 --engine <postgres|mysql|spark> --target <source|positive|negative|all> --out <local_output_dir>
 
-Thin v2 plan-collection wrapper for ${CASE_ID}.
-This branch task does not collect plans. Future implementation should dispatch
-to shared plan/evidence artifact logic and write only to the explicit --out
-directory, never to case-local runs/.
+Thin v2 validation wrapper for ${CASE_ID}.
+This branch task does not run DB engines or checkers. Future implementation
+should dispatch to shared repository logic and write only to the explicit
+--out directory, never to case-local runs/.
 USAGE
 }
 
@@ -45,10 +45,10 @@ if [[ -z "${out_dir}" ]]; then
 fi
 
 if [[ "${out_dir}" == "${CASE_DIR}/runs" || "${out_dir}" == "${CASE_DIR}/runs/"* ]]; then
-  echo "Refusing to write plan output to case-local runs/." >&2
+  echo "Refusing to write validation output to case-local runs/." >&2
   exit 2
 fi
 
-echo "${CASE_ID}: v2 plan-collection wrapper is present but shared plan collection is not implemented in this branch task." >&2
-echo "No DB engines, plan collection, official metrics, paper outputs, retained evidence, or leaderboard outputs were run or written." >&2
+echo "${CASE_ID}: v2 validation wrapper is present but shared validation execution is not implemented in this branch task." >&2
+echo "No DB engines, checkers, official metrics, paper outputs, retained evidence, or leaderboard outputs were run or written." >&2
 exit 2

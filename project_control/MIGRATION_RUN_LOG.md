@@ -7190,3 +7190,83 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_checker_validation_layers_pilot_v0` to convert only checker and validation layers for the five pilot cases on the feature branch, without DB/checker execution or protected benchmark-surface changes.
+
+### 2026-05-19 · pending · case_package_v2_checker_validation_layers_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable v2 pilot conversion for checker and validation layers only; no witness/evidence/metadata/notes/runs cleanup; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending finalization
+Push: pending finalization
+
+Summary:
+- Converted or verified the checker and validation layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Ensured each pilot case has canonical checker refs for `checker/checker.yaml`, `checker/normalization.yaml`, `checker/compare_config.yaml`, and `checker/expected_rejections.yaml`.
+- Aligned stale checker SQL references to direct v2 paths where they remained, while preserving old nested SQL paths as explicit compatibility metadata.
+- Added canonical manifest validation refs where missing.
+- Added or normalized `validation/run_validation.sh` and `validation/run_plan_collection.sh` as thin fail-closed wrappers.
+- Retained all old engine-specific validation and plan-collection scripts as compatibility assets.
+- Added no per-case Python checker implementations.
+- Did not modify witness, evidence, metadata, notes, runs, sql, schema, `schemas/`, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution outputs, or leaderboard outputs.
+
+Files created:
+- `cases/PERF/PERF_0007/validation/run_validation.sh`
+- `cases/PERF/PERF_0007/validation/run_plan_collection.sh`
+- `cases/CONS/CONS_0005/validation/run_validation.sh`
+- `cases/CONS/CONS_0005/validation/run_plan_collection.sh`
+- `cases/PORT/PORT_0003/validation/run_validation.sh`
+- `cases/PORT/PORT_0003/validation/run_plan_collection.sh`
+- `cases/LONGTAIL/LONGTAIL_0011/validation/run_validation.sh`
+- `cases/LONGTAIL/LONGTAIL_0011/validation/run_plan_collection.sh`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_validation_layers_pilot_summary.md`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_layer_conversion_results.csv`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/validation_layer_conversion_results.csv`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_validation_manual_review_blockers.csv`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_validation_protected_boundary_checks.csv`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/future_case_package_v2_witness_evidence_layers_prompt.md`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_validation_layers_pilot_summary.json`
+- `audits/case_package_v2_checker_validation_layers_pilot_v0/checker_validation_layers_pilot_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/validation/run_validation.sh`
+- `cases/PERF/PERF_0006/validation/run_plan_collection.sh`
+- `cases/PERF/PERF_0007/manifest.yaml`
+- `cases/PERF/PERF_0007/checker/checker.yaml`
+- `cases/PERF/PERF_0007/checker/expected_rejections.yaml`
+- `cases/CONS/CONS_0005/manifest.yaml`
+- `cases/CONS/CONS_0005/checker/expected_rejections.yaml`
+- `cases/PORT/PORT_0003/manifest.yaml`
+- `cases/PORT/PORT_0003/checker/checker.yaml`
+- `cases/PORT/PORT_0003/checker/compare_config.yaml`
+- `cases/PORT/PORT_0003/checker/expected_rejections.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/manifest.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/checker/checker.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/checker/expected_rejections.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no `case_sets/`, inventory, reports/results, denominator, paper-result, evidence deletion, case-local runs deletion, DB/checker output, or leaderboard change was detected.
+- `git diff --check`: passed.
+
+Task result:
+- Writable conversion pilot: yes.
+- Converted layers: checker, validation.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases converted: all five.
+- Cases deferred: none.
+- Witness/evidence/metadata/notes/runs untouched: yes.
+- Runs deleted: no.
+- Per-case Python checker scripts added: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_witness_evidence_layers_pilot_v0` to convert only witness and evidence references for the five pilot cases on the feature branch, without DB/checker execution, evidence deletion, case-local runs deletion, or protected benchmark-surface changes.

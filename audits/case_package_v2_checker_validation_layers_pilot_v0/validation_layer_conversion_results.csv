@@ -1,0 +1,6 @@
+case_id,run_validation_sh_exists,run_plan_collection_sh_exists,old_engine_specific_scripts_present,old_engine_specific_scripts_deleted,wrapper_is_thin,writes_case_local_runs,status,notes
+PERF_0006,true,true,true,false,true,false,normalized,"Existing generic wrappers replaced with argument-documenting fail-closed thin wrappers."
+PERF_0007,true,true,true,false,true,false,converted,"Added canonical generic wrappers; old engine-specific scripts retained."
+CONS_0005,true,true,true,false,true,false,converted,"Added canonical generic wrappers; old engine-specific scripts retained."
+PORT_0003,true,true,true,false,true,false,converted,"Added canonical generic wrappers; old engine-specific scripts retained."
+LONGTAIL_0011,true,true,true,false,true,false,converted,"Added canonical generic wrappers; old engine-specific scripts retained."

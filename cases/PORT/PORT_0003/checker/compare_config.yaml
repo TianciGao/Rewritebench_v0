@@ -1,8 +1,10 @@
 case_id: PORT_0003
 inputs:
   source: sql/source.sql
-  positive: sql/positives/pos_01.sql
-  negative: sql/negatives/neg_01.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
+  legacy_positive: sql/positives/pos_01.sql
+  legacy_negative: sql/negatives/neg_01.sql
 expected:
   source_equals_positive: true
   source_differs_from_negative: true

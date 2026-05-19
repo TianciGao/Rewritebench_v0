@@ -50,6 +50,9 @@ checker:
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
+validation:
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
 evidence:
   runs_retention: evidence/runs_retention.yaml
   retained_controls:
