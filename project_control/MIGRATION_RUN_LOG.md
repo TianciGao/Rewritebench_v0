@@ -7580,3 +7580,61 @@ Task result:
 
 Next safe action:
 - Authorize a narrow compatibility-reference cleanup planning task before deleting the ready template paths, or authorize a cleanup task that can update manifest/README/checker/metadata/validation references before removing now-unreferenced compatibility paths.
+
+### 2026-05-19 · PENDING · case_package_v2_reference_cleanup_plan_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only compatibility-reference cleanup planning; no deletion; no case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: `PENDING`
+Push: `PENDING`
+
+Summary:
+- Reviewed the 15 skipped cleanup candidates from `case_package_v2_clean_template_cleanup_pilot_v0`.
+- Built a reference matrix for nested SQL compatibility dirs, copied case-local notes, and placeholder-only `runs/` across `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Classified 50 live reference blockers and 30 historical/documentation exclusions.
+- Classified 10 candidates as deletion-ready after reference update and 5 placeholder-runs candidates as deletion-ready only after retained-runs mapping/approval handling.
+- Did not modify cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominators, paper results, DB/checker outputs, metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_reference_cleanup_plan_v0/reference_cleanup_plan_summary.md`
+- `audits/case_package_v2_reference_cleanup_plan_v0/skipped_cleanup_candidate_reference_matrix.csv`
+- `audits/case_package_v2_reference_cleanup_plan_v0/cleanup_unblock_plan.csv`
+- `audits/case_package_v2_reference_cleanup_plan_v0/historical_reference_exclusions.csv`
+- `audits/case_package_v2_reference_cleanup_plan_v0/deletion_readiness_after_reference_cleanup.csv`
+- `audits/case_package_v2_reference_cleanup_plan_v0/future_case_package_v2_reference_cleanup_execution_prompt.md`
+- `audits/case_package_v2_reference_cleanup_plan_v0/reference_cleanup_plan_summary.json`
+- `audits/case_package_v2_reference_cleanup_plan_v0/reference_cleanup_plan_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Summary JSON parse and boundary assertions passed.
+- CSV headers parsed successfully.
+- Protected path checks passed; no cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Reference cleanup plan: yes.
+- Skipped candidates reviewed: 15.
+- Live reference blockers found: 50.
+- Historical references excluded: 30.
+- Deletion-ready after reference update count: 10.
+- Deletion-ready after retention mapping count: 5.
+- Manual-review remaining count: 0 for the skipped ready candidates.
+- Cases modified: no.
+- Schemas modified: no.
+- Evidence modified: no.
+- Runs deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_reference_cleanup_execution_v0` to update live compatibility references and delete only candidates classified as `deletion_ready_after_reference_update`, while keeping retained evidence and protected benchmark surfaces out of scope.
