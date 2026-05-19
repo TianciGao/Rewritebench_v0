@@ -6881,3 +6881,60 @@ Task result:
 
 Next safe action:
 - Authorize a branch-only multi-pool v2 pilot using normalized `PERF_0006` as the canonical example, limited to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`, without merging to `main`.
+
+### 2026-05-19 · pending · case_package_v2_conversion_rulebook_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only case package v2 conversion rulebook; no case conversion; no schema modification; no DB/checker execution; no official metrics; no paper rendering
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Created a detailed v2 conversion rulebook for turning v1 and v1-compatible case packages into the v2 template shape.
+- Recorded final v2 case-local target structure, external schema target, external evidence target, user-run output boundary, and paper retained/reporting boundary.
+- Recorded file disposition rules for current package paths including SQL, checker, schema, data/witness, validation, evidence, metadata, notes, runs, reports, and results.
+- Recorded canonical manifest field contract, validation wrapper consolidation policy, evidence/runs cleanup policy, batch conversion algorithm, stop conditions, and future converter dry-run prompt.
+- Did not modify case files, schemas, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution code, or leaderboard outputs.
+
+Files created:
+- `repository_spec/case_package_v2_conversion_rulebook_draft.md`
+- `audits/case_package_v2_conversion_rulebook_v0/case_package_v2_conversion_rulebook_summary.md`
+- `audits/case_package_v2_conversion_rulebook_v0/v2_file_disposition_matrix.csv`
+- `audits/case_package_v2_conversion_rulebook_v0/v2_manifest_field_contract.csv`
+- `audits/case_package_v2_conversion_rulebook_v0/v2_validation_consolidation_matrix.csv`
+- `audits/case_package_v2_conversion_rulebook_v0/v2_evidence_runs_disposition_matrix.csv`
+- `audits/case_package_v2_conversion_rulebook_v0/v2_batch_conversion_algorithm.md`
+- `audits/case_package_v2_conversion_rulebook_v0/future_case_package_v2_batch_converter_plan_prompt.md`
+- `audits/case_package_v2_conversion_rulebook_v0/case_package_v2_conversion_rulebook_summary.json`
+- `audits/case_package_v2_conversion_rulebook_v0/case_package_v2_conversion_rulebook_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Branch check: passed.
+- Required rulebook file existence check: passed.
+- CSV header checks: passed.
+- Summary JSON parse and boundary assertions: passed.
+- Protected-boundary checks: passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
+
+Task result:
+- Conversion rulebook created: yes.
+- Validation consolidation policy recorded: yes.
+- Evidence/runs disposition recorded: yes.
+- Manifest field contract recorded: yes.
+- Batch conversion algorithm recorded: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_batch_converter_plan_v0` as a read-only converter dry-run over `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` before any additional writable conversion.

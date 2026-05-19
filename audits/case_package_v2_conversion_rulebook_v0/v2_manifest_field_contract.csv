@@ -1,0 +1,32 @@
+manifest_section,field_path,required_for_v2,allowed_shape_or_values,source_of_truth,generated_or_manual,compatibility_allowed,notes
+root,case_id,true,CASE_POOL_NNNN,case registry and case path,manual,no,Must match case directory.
+root,pool,true,PERF|CONS|PORT|LONGTAIL,case path and inventory,manual,no,Does not change case membership.
+sql,sql.source,true,sql/source.sql,case-local SQL,manual,no,Required direct path.
+sql,sql.positives,when_positive_exists,list of sql/pos_NN.sql strings,case-local SQL,manual,no,Do not use mapping entries in canonical v2.
+sql,sql.negatives,when_negative_exists,list of sql/neg_NN.sql strings,case-local SQL,manual,no,Do not use mapping entries in canonical v2.
+schema_ref,schema_ref.schema_id,true,lowercase schema id,external schema package,manual,no,Example tpch_common_core_v0.
+schema_ref,schema_ref.profile,true,schemas/<SCHEMA_ID>/schema_profile.yaml,external schema package,manual,no,Repository-relative path.
+schema_ref,schema_ref.engines.<engine>.ddl,true_for_supported_engine,schemas/<SCHEMA_ID>/<engine>/ddl.sql,external schema package,manual,no,Supported engines currently postgres mysql spark.
+schema_ref,schema_ref.engines.<engine>.load,true_for_supported_engine,schemas/<SCHEMA_ID>/<engine>/load.sql,external schema package,manual,no,Do not execute during conversion.
+checker,checker.config,true,checker/checker.yaml,case-local checker config,manual,no,Canonical field replaces checker.checker.
+checker,checker.normalization,true,checker/normalization.yaml,case-local checker config,manual,no,Required for result normalization.
+checker,checker.compare_config,true,checker/compare_config.yaml,case-local checker config,manual,no,Required for comparison policy.
+checker,checker.expected_rejections,when_negative_exists,checker/expected_rejections.yaml,case-local checker config,manual,no,Required when hard negatives exist.
+witness,witness.mode,true,source_as_oracle|static_reference|external_reference,manifest policy,manual,no,Default is source_as_oracle.
+witness,witness.data_profile_status,true,optional|generated|external|external_or_generated|materialized|unavailable,manifest policy,manual,no,Lowercase status string.
+witness,witness.correct_result_status,true,optional|generated|external|materialized|unavailable,manifest policy,manual,no,Absence must not block source-as-oracle.
+witness,witness.data_profile,false,case-relative path when present,case-local lightweight witness or generated output,manual,yes,Optional only.
+witness,witness.correct_result,false,case-relative path when present,case-local or external static witness,manual,yes,Do not fabricate.
+evidence_ref,evidence_ref.externalization_status,true,pending_copy_first_externalization|externalized|not_available|manual_review_required,manifest policy,manual,no,Records evidence migration state.
+evidence_ref,evidence_ref.package_validation_summary,true,repository-relative path,external evidence package,manual,yes,Can point to case-local compatibility path during pilot.
+evidence_ref,evidence_ref.runs_retention,true_when_runs_or_retained_evidence_exists,repository-relative path,external evidence package,manual,yes,Required before retained runs cleanup.
+evidence_ref,evidence_ref.retained_controls,false,repository-relative directory path,external evidence package,manual,yes,Public-safe retained controls only.
+evidence_ref,evidence_ref.hard_negative,false,repository-relative directory path,external evidence package,manual,yes,Public-safe hard-negative evidence only.
+evidence_ref,evidence_ref.plans,false,repository-relative directory path,external evidence package,manual,yes,Sanitized plans only.
+validation,validation.run_validation,true,validation/run_validation.sh,case-local validation wrapper,manual,no,Thin wrapper.
+validation,validation.run_plan_collection,true,validation/run_plan_collection.sh,case-local validation wrapper,manual,no,Thin wrapper.
+compatibility,compatibility.sql_legacy,false,mapping of old nested SQL metadata,legacy case package,manual,yes,Temporary metadata only.
+compatibility,compatibility.case_local_schema,false,mapping of old schema paths,legacy case package,manual,yes,Delete only after schema_ref compatibility approval.
+compatibility,compatibility.validation_legacy,false,mapping of engine-specific scripts,legacy case package,manual,yes,Delete only after wrapper validation.
+compatibility,compatibility.evidence_legacy,false,mapping of case-local evidence paths,legacy case package,manual,yes,Retain until evidence_ref externalization completes.
+compatibility,compatibility.metadata,false,governance metadata preserved from v1,legacy case package,manual,yes,Use when metadata cannot yet be flattened safely.

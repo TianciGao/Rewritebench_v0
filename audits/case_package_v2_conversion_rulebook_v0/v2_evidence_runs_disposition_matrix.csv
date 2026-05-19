@@ -1,0 +1,19 @@
+current_asset,classification,v2_target_location,action,delete_allowed,retention_mapping_required,public_copy_allowed,notes
+case-local empty runs/,empty placeholder,none,delete-after-audit,yes,no,no,Only after audit proves empty.
+case-local placeholder-only runs/,placeholder,none,delete-after-audit,yes,no,no,README-only placeholder can be removed in cleanup phase.
+case-local non-empty runs/,legacy retained evidence,evidence/cases/<POOL>/<CASE_ID>/runs_retention.yaml and archive mapping,retain-until-mapped,no,yes,conditional,Do not delete without explicit approval.
+case-local runs with raw logs,possibly sensitive retained evidence,none,manual-review,no,yes,no,Do not copy stdout stderr debug logs by default.
+case-local runs with prompt/token/API traces,sensitive retained evidence,none,stop,no,yes,no,Must not enter public evidence.
+case-local runs with private local paths,sensitive retained evidence,none,manual-review,no,yes,no,Redact or exclude before public evidence.
+evidence/package_validation_summary.json,public-safe validation summary,evidence/cases/<POOL>/<CASE_ID>/package_validation_summary.json,copy-first,after external copy validated,no,yes,Must not include task logs or credentials.
+evidence/runs_retention.yaml,retention map,evidence/cases/<POOL>/<CASE_ID>/runs_retention.yaml,copy-first,no,yes,yes,Required before retained runs cleanup.
+evidence/retained_controls/,retained control evidence,evidence/cases/<POOL>/<CASE_ID>/retained_controls/,copy-first,after retention mapping,yes,conditional,Copy only public-safe curated artifacts.
+evidence/hard_negative/,hard-negative retained evidence,evidence/cases/<POOL>/<CASE_ID>/hard_negative/,copy-first,after retention mapping,yes,conditional,Keep expected rejection evidence public-safe.
+evidence/retained_plans/,plan evidence,evidence/cases/<POOL>/<CASE_ID>/plans/,copy-first,after sanitization,yes,conditional,Only sanitized plans should be copied.
+evidence/private_debug/,private debug evidence,none,exclude,no,yes,no,Do not publish.
+data/data_profile.yaml,data profile metadata,schemas/<SCHEMA_ID>/schema_profile.yaml or evidence notes,externalize,after equivalent external/profile mapping,no,yes,Not required case-local.
+witness/correct_result.csv,static witness,evidence/cases/<POOL>/<CASE_ID>/correct_result.csv or witness compatibility,optional,after source-as-oracle policy and retention mapping,no,conditional,Do not fabricate.
+notes/,case notes,evidence/cases/<POOL>/<CASE_ID>/notes/ or manifest compatibility,copy-or-merge,after public hygiene review,no,yes,Keep stable notes only.
+results/retained/,paper retained results,results/retained/,do-not-touch,no,n/a,no,Separate authorization required.
+reports/,paper/report output,reports/,do-not-touch,no,n/a,no,No paper rendering in v2 conversion.
+runs/user/<run_id>/,local user-run output,runs/user/<run_id>/,keep-ignored,no,n/a,no,Must remain ignored and unstaged.
