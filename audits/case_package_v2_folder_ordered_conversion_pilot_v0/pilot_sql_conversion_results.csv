@@ -1,0 +1,6 @@
+case_id,source_sql_exists,pos_01_sql_exists,neg_01_sql_exists,old_positive_path,old_negative_path,old_nested_paths_deleted,status,notes
+PERF_0006,true,true,true,sql/positives/pos_01.sql,sql/negatives/neg_01.sql,false,converted_or_verified,"Direct files already existed and were verified; nested paths retained."
+PERF_0007,true,true,true,sql/positives/pos_01.sql,sql/negatives/neg_01.sql,false,converted,"Direct files copied from nested compatibility paths; nested paths retained."
+CONS_0005,true,true,true,sql/positives/pos_01.sql,sql/negatives/neg_01.sql,false,converted,"Direct files copied from nested compatibility paths; nested paths retained."
+PORT_0003,true,true,true,sql/positives/pos_01.sql,sql/negatives/neg_01.sql,false,converted,"Direct files copied from nested compatibility paths; nested paths and dialect variants retained."
+LONGTAIL_0011,true,true,true,sql/positives/pos_01.sql,sql/negatives/neg_01.sql,false,converted,"Direct files copied from nested compatibility paths; nested paths retained."

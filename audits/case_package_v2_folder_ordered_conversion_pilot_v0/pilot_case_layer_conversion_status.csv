@@ -1,0 +1,6 @@
+case_id,pool,manifest_status,sql_status,schema_status,converted_layers,deferred_layers,manual_review_required,notes
+PERF_0006,PERF,converted_profile_first,already_direct_paths_verified,converted_reused_external_schema,"manifest;sql;schema",none,false,"Reused tpch_common_core_v0; removed manifest-level schema_ref engines and retained previous paths in compatibility."
+PERF_0007,PERF,converted_profile_first,converted_direct_paths,converted_new_external_schema,"manifest;sql;schema",checker_validation_witness_evidence_metadata_notes_runs,false,"Created tpch_perf0007_v0 because schema differs from PERF_0006."
+CONS_0005,CONS,converted_profile_first,converted_direct_paths,converted_new_external_schema,"manifest;sql;schema",checker_validation_witness_evidence_metadata_notes_runs,false,"Created calcite_core_sql_tests_cons0005_v0."
+PORT_0003,PORT,converted_profile_first,converted_direct_paths,converted_new_external_schema,"manifest;sql;schema",checker_validation_witness_evidence_metadata_notes_runs,false,"Created parrot_bird_port0003_v0; retained dialect variants in compatibility."
+LONGTAIL_0011,LONGTAIL,converted_profile_first,converted_direct_paths,converted_new_external_schema,"manifest;sql;schema",checker_validation_witness_evidence_metadata_notes_runs,false,"Created sqlstorm_stackoverflow_longtail0011_v0."

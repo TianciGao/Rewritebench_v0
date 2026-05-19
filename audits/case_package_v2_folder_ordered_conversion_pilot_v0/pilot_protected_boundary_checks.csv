@@ -1,0 +1,15 @@
+check_name,status,details
+no case_sets changed,pass,No files under case_sets/ changed.
+no inventory changed,pass,No files under inventory/ changed.
+no reports/results changed,pass,No files under reports/ or results/ changed.
+no denominator changed,pass,No denominator files changed.
+no paper results changed,pass,No paper result files changed.
+no official metrics computed,pass,No metric computation was run or recorded.
+no DB/checker execution,pass,No DB engines or checkers were executed.
+no global leaderboard,pass,No leaderboard output was created.
+no case-local runs deleted,pass,No case-local runs/ directory or file was deleted.
+no evidence deleted,pass,No evidence/ files were deleted or modified.
+no checker/validation/witness/evidence/metadata/notes/runs converted in this task,pass,Only manifest/sql/schema files and external schemas were changed; later layer directories were untouched.
+v2 validator profile-first compatibility,expected_gap,Existing validator fails because profile-first schema_ref no longer carries schema_ref.engines.
+case_package_v2 unit tests,expected_gap,Existing PERF_0006 validator-status test fails for the same profile-first schema_ref compatibility gap.
+git diff --check,pass,Whitespace/error check passed.

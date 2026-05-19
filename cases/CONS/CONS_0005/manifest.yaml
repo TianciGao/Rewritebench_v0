@@ -3,10 +3,6 @@ pool: CONS
 status: copy_first_canonical_layout_full_case_migration_pilot
 canonical_layout: true
 source_family: Calcite
-source_workload: core_sql_tests
-source_query_identity: blank.iq correlated NOT IN table1/table2
-source_path: datasets/raw/calcite/calcite/core/src/test/resources/sql/blank.iq
-draft_origin: CONS_CALCITE_DRAFT_0001
 benchmark_scope:
   benchmark_unit: case_package
   migration_scope: CONS_0005_only
@@ -37,62 +33,37 @@ engine_support:
 sql:
   source: sql/source.sql
   positives:
-    - id: pos_01
-      path: sql/positives/pos_01.sql
-      role: positive_rewrite
+  - sql/pos_01.sql
   negatives:
-    - id: neg_01
-      path: sql/negatives/neg_01.sql
-      role: hard_negative
-      expected_rejection: checker/expected_rejections.yaml#neg_01
-schema:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-  profile: schema/schema_profile.yaml
+  - sql/neg_01.sql
 checker:
-  checker: checker/checker.yaml
+  config: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
-validation:
-  postgres_validation: validation/run_postgres_validation.sh
-  mysql_validation: validation/run_mysql_validation.sh
-  spark_validation: validation/run_spark_validation.sh
-  postgres_plan_collection: validation/run_postgres_plan_collection.sh
-  mysql_plan_collection: validation/run_mysql_plan_collection.sh
-  spark_plan_collection: validation/run_spark_plan_collection.sh
-  execution_policy: not_run_during_migration
-  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
 evidence:
   runs_retention: evidence/runs_retention.yaml
   retained_controls:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/postgres/result_check.json
-    - evidence/retained_controls/mysql/result_check.json
-    - evidence/retained_controls/spark/result_check.json
+  - evidence/retained_controls/result_check.json
+  - evidence/retained_controls/postgres/result_check.json
+  - evidence/retained_controls/mysql/result_check.json
+  - evidence/retained_controls/spark/result_check.json
   retained_plans:
-    - evidence/retained_plans/plan_check.json
-    - evidence/retained_plans/postgres/source.json
-    - evidence/retained_plans/postgres/rewrite_pos_01.json
-    - evidence/retained_plans/postgres/rewrite_neg_01.json
-    - evidence/retained_plans/mysql/source.json
-    - evidence/retained_plans/mysql/rewrite_pos_01.json
-    - evidence/retained_plans/mysql/rewrite_neg_01.json
-    - evidence/retained_plans/spark/source.sanitized.txt
-    - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
-    - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+  - evidence/retained_plans/plan_check.json
+  - evidence/retained_plans/postgres/source.json
+  - evidence/retained_plans/postgres/rewrite_pos_01.json
+  - evidence/retained_plans/postgres/rewrite_neg_01.json
+  - evidence/retained_plans/mysql/source.json
+  - evidence/retained_plans/mysql/rewrite_pos_01.json
+  - evidence/retained_plans/mysql/rewrite_neg_01.json
+  - evidence/retained_plans/spark/source.sanitized.txt
+  - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+  - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
   hard_negative:
-    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-    - evidence/hard_negative/spark/rewrite_neg_01.tsv
-    - evidence/hard_negative/hard_negative_summary.json
+  - evidence/hard_negative/postgres/rewrite_neg_01.tsv
+  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+  - evidence/hard_negative/spark/rewrite_neg_01.tsv
+  - evidence/hard_negative/hard_negative_summary.json
   package_validation_summary: evidence/package_validation_summary.json
 metadata:
   provenance: metadata/provenance.yaml
@@ -122,3 +93,61 @@ claim_boundaries:
   db_validation_run: false
   evidence_regenerated: false
   hard_negative_expected_rejection_approval: maintainer_approved_for_migration
+case_package_standard: v2_folder_ordered_manifest_sql_schema_pilot
+schema_ref:
+  schema_id: calcite_core_sql_tests_cons0005_v0
+  profile: schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml
+compatibility:
+  sql_legacy:
+    positives:
+      pos_01:
+        legacy_compatibility_path: sql/positives/pos_01.sql
+        direct_v2_path: sql/pos_01.sql
+        role: positive_rewrite
+    negatives:
+      neg_01:
+        legacy_compatibility_path: sql/negatives/neg_01.sql
+        direct_v2_path: sql/neg_01.sql
+        role: hard_negative
+        expected_rejection: checker/expected_rejections.yaml#neg_01
+  case_local_schema:
+    pilot_status: retained_case_local_copy_for_v1_compatibility
+    deletion_status: not_deleted_in_folder_ordered_manifest_sql_schema_pilot
+    profile: schema/schema_profile.yaml
+    postgres:
+      ddl: schema/postgres/ddl.sql
+      load: schema/postgres/load.sql
+    mysql:
+      ddl: schema/mysql/ddl.sql
+      load: schema/mysql/load.sql
+    spark:
+      ddl: schema/spark/ddl.sql
+      load: schema/spark/load.sql
+    previous_manifest_shape:
+      postgres:
+        ddl: schema/postgres/ddl.sql
+        load: schema/postgres/load.sql
+      mysql:
+        ddl: schema/mysql/ddl.sql
+        load: schema/mysql/load.sql
+      spark:
+        ddl: schema/spark/ddl.sql
+        load: schema/spark/load.sql
+      profile: schema/schema_profile.yaml
+  checker_legacy:
+    legacy_config_key: checker.checker
+    legacy_config_path: checker/checker.yaml
+  validation_legacy:
+    postgres_validation: validation/run_postgres_validation.sh
+    mysql_validation: validation/run_mysql_validation.sh
+    spark_validation: validation/run_spark_validation.sh
+    postgres_plan_collection: validation/run_postgres_plan_collection.sh
+    mysql_plan_collection: validation/run_mysql_plan_collection.sh
+    spark_plan_collection: validation/run_spark_plan_collection.sh
+    execution_policy: not_run_during_migration
+    output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+  manifest_legacy_context:
+    source_workload: core_sql_tests
+    source_query_identity: blank.iq correlated NOT IN table1/table2
+    source_path: datasets/raw/calcite/calcite/core/src/test/resources/sql/blank.iq
+    draft_origin: CONS_CALCITE_DRAFT_0001

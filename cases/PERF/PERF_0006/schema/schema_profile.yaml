@@ -1,39 +1,46 @@
-case_id: PERF_0006
-schema_profile_version: canonical_case_package_layout_v1
-case_package_v2_external_schema_pilot:
-  status: retained_case_local_copy_for_compatibility
-  external_schema_ref: schemas/tpch_common_core_v0/schema_profile.yaml
-  source_case_schema_deleted: false
-  notes:
-    - External schema assets are copied to schemas/tpch_common_core_v0/ for the branch pilot.
-    - This case-local schema directory is retained until v2 validators and runners adopt schema_ref.
-source_legacy_files:
-  postgres: cases/PERF/PERF_0006/schema/ddl_pg.sql
-  mysql: cases/PERF/PERF_0006/schema/ddl_mysql.sql
-  spark: cases/PERF/PERF_0006/schema/ddl_spark.sql
-required_tables:
-  - lineitem
-required_columns:
+schema_id: tpch_common_core_v0
+external_schema_profile: schemas/tpch_common_core_v0/schema_profile.yaml
+source_family: TPC-H
+relevant_tables:
+- lineitem
+columns:
   lineitem:
-    - l_returnflag
-    - l_linestatus
-    - l_quantity
-    - l_extendedprice
-    - l_discount
-    - l_tax
-    - l_shipdate
-engine_paths:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-witness_row_count:
-  lineitem: 4
+  - l_returnflag
+  - l_linestatus
+  - l_quantity
+  - l_extendedprice
+  - l_discount
+  - l_tax
+  - l_shipdate
+column_types:
+  lineitem:
+    l_returnflag: char/string
+    l_linestatus: char/string
+    l_quantity: numeric/decimal
+    l_extendedprice: numeric/decimal
+    l_discount: numeric/decimal
+    l_tax: numeric/decimal
+    l_shipdate: date
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Spark DDL uses string-compatible text columns where needed; numeric precision is represented with DECIMAL where supported.
+engine_support:
+  postgres: supported
+  mysql: supported
+  spark: supported
+fixture_notes:
+- Four-row lineitem fixture retained from pilot schema copy.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/tpch_common_core_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: true
+  case_local_engine_files_deleted: false
+  notes: Case-local per-engine ddl/load files are retained as compatibility copies for this pilot.
 claim_boundary:
-  summarizes_existing_witness_context_only: true
   db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

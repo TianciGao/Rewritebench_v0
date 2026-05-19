@@ -1,49 +1,43 @@
-schema_id: tpch_common_core_v0
+schema_id: tpch_perf0007_v0
 schema_profile_version: case_package_v2_folder_ordered_conversion_pilot
 source_family: TPC-H
 public_release_status: external_reusable_schema_copy_first_pilot
 pilot_case_ids:
-- PERF_0006
+- PERF_0007
 engines:
   postgres:
-    ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
-    load: schemas/tpch_common_core_v0/postgres/load.sql
+    ddl: schemas/tpch_perf0007_v0/postgres/ddl.sql
+    load: schemas/tpch_perf0007_v0/postgres/load.sql
   mysql:
-    ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
-    load: schemas/tpch_common_core_v0/mysql/load.sql
+    ddl: schemas/tpch_perf0007_v0/mysql/ddl.sql
+    load: schemas/tpch_perf0007_v0/mysql/load.sql
   spark:
-    ddl: schemas/tpch_common_core_v0/spark/ddl.sql
-    load: schemas/tpch_common_core_v0/spark/load.sql
+    ddl: schemas/tpch_perf0007_v0/spark/ddl.sql
+    load: schemas/tpch_perf0007_v0/spark/load.sql
 relevant_tables:
 - lineitem
 columns:
   lineitem:
-  - l_returnflag
-  - l_linestatus
+  - l_shipdate
+  - l_discount
   - l_quantity
   - l_extendedprice
-  - l_discount
-  - l_tax
-  - l_shipdate
 column_types:
   lineitem:
-    l_returnflag: char/string
-    l_linestatus: char/string
+    l_shipdate: date
+    l_discount: numeric/decimal
     l_quantity: numeric/decimal
     l_extendedprice: numeric/decimal
-    l_discount: numeric/decimal
-    l_tax: numeric/decimal
-    l_shipdate: date
 primary_keys: []
 foreign_keys: []
 dialect_differences:
-- Spark DDL uses string-compatible text columns where needed; numeric precision is represented with DECIMAL where supported.
+- Postgres uses numeric(15, 2); MySQL uses decimal(15, 2); Spark uses DECIMAL(15,2).
 engine_support:
   postgres: supported
   mysql: supported
   spark: supported
 fixture_notes:
-- Four-row lineitem fixture retained from pilot schema copy.
+- Five-row lineitem fixture distinguishes discount, date, and quantity boundary behavior.
 adoption_mode: copy_first_external_schema_pilot
 claim_boundary:
   source_case_schema_deleted: false

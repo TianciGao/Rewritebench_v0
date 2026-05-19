@@ -2,7 +2,7 @@ case_id: PERF_0006
 pool: PERF
 status: canonical_full_case_migration_pilot
 canonical_layout: true
-case_package_standard: v2_external_schema_branch_pilot
+case_package_standard: v2_folder_ordered_manifest_sql_schema_pilot
 source_family: TPC-H
 source_id: SRC_001
 source_name: TPC-H
@@ -41,22 +41,12 @@ engine_support:
 sql:
   source: sql/source.sql
   positives:
-    - sql/pos_01.sql
+  - sql/pos_01.sql
   negatives:
-    - sql/neg_01.sql
+  - sql/neg_01.sql
 schema_ref:
   schema_id: tpch_common_core_v0
   profile: schemas/tpch_common_core_v0/schema_profile.yaml
-  engines:
-    postgres:
-      ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
-      load: schemas/tpch_common_core_v0/postgres/load.sql
-    mysql:
-      ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
-      load: schemas/tpch_common_core_v0/mysql/load.sql
-    spark:
-      ddl: schemas/tpch_common_core_v0/spark/ddl.sql
-      load: schemas/tpch_common_core_v0/spark/load.sql
 witness:
   mode: source_as_oracle
   data_profile_status: external_or_generated
@@ -79,42 +69,44 @@ evidence_ref:
     package_validation_summary: evidence/package_validation_summary.json
     runs_retention: evidence/runs_retention.yaml
     retained_controls:
-      - evidence/retained_controls/result_check.json
-      - evidence/retained_controls/postgres/source.tsv
-      - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-      - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    - evidence/retained_controls/result_check.json
+    - evidence/retained_controls/postgres/source.tsv
+    - evidence/retained_controls/mysql/rewrite_pos_01.tsv
+    - evidence/retained_controls/spark/rewrite_pos_01.tsv
     hard_negative:
-      - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-      - evidence/hard_negative/spark/rewrite_neg_01.tsv
-      - evidence/hard_negative/hard_negative_summary.json
+    - evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    - evidence/hard_negative/hard_negative_summary.json
     plans:
-      - evidence/retained_plans/plan_check.json
-      - evidence/retained_plans/postgres/source.json
-      - evidence/retained_plans/mysql/rewrite_pos_01.json
-      - evidence/retained_plans/mysql/rewrite_neg_01.json
-      - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
-      - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
+    - evidence/retained_plans/plan_check.json
+    - evidence/retained_plans/postgres/source.json
+    - evidence/retained_plans/mysql/rewrite_pos_01.json
+    - evidence/retained_plans/mysql/rewrite_neg_01.json
+    - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
+    - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
     timing_evidence: []
 compatibility:
   sql_legacy:
     positives:
       pos_01:
         legacy_compatibility_path: sql/positives/pos_01.sql
+        direct_v2_path: sql/pos_01.sql
         source_legacy_path: cases/PERF/PERF_0006/rewrite_pos_01.sql
         role: positive_rewrite
         rewrite_pressure:
-          - predicate_pushdown
-          - materialization_strategy
+        - predicate_pushdown
+        - materialization_strategy
     negatives:
       neg_01:
         legacy_compatibility_path: sql/negatives/neg_01.sql
+        direct_v2_path: sql/neg_01.sql
         source_legacy_path: cases/PERF/PERF_0006/rewrite_neg_01.sql
         role: hard_negative
         expected_rejection: checker/expected_rejections.yaml
         expected_behavior: result_divergence_from_source_reference
   case_local_schema:
     pilot_status: retained_case_local_copy_for_v1_compatibility
-    deletion_status: not_deleted_in_v2_branch_pilot
+    deletion_status: not_deleted_in_folder_ordered_manifest_sql_schema_pilot
     profile: schema/schema_profile.yaml
     postgres:
       ddl: schema/postgres/ddl.sql
@@ -125,6 +117,16 @@ compatibility:
     spark:
       ddl: schema/spark/ddl.sql
       load: schema/spark/load.sql
+    previous_schema_ref_engines:
+      postgres:
+        ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
+        load: schemas/tpch_common_core_v0/postgres/load.sql
+      mysql:
+        ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
+        load: schemas/tpch_common_core_v0/mysql/load.sql
+      spark:
+        ddl: schemas/tpch_common_core_v0/spark/ddl.sql
+        load: schemas/tpch_common_core_v0/spark/load.sql
   validation_legacy:
     postgres_validation: validation/run_postgres_validation.sh
     mysql_validation: validation/run_mysql_validation.sh

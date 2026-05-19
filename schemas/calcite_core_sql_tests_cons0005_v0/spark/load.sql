@@ -1,0 +1,2 @@
+INSERT INTO table1 VALUES (1, 2), (1, 3);
+INSERT INTO table2 VALUES (NULL, 1), (2, 1);

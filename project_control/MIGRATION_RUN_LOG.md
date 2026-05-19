@@ -7056,3 +7056,78 @@ Task result:
 
 Next safe action:
 - Authorize a branch-only folder-ordered writable pilot that starts with manifest and SQL layers, then adds `schema/schema_profile.yaml` plus external schema references before converting checker, validation, witness, evidence, metadata, notes, runs, README, or validator expectations.
+
+### 2026-05-19 · pending · case_package_v2_folder_ordered_conversion_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable v2 pilot conversion for first three layers only; manifest, sql, and schema; no checker conversion; no validation conversion; no witness/evidence/metadata/notes/runs cleanup; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Converted exactly the first three v2 folder-order layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Normalized manifests to canonical direct SQL paths and profile-first `schema_ref` with only `schema_id` and `profile`.
+- Created or verified direct SQL paths `sql/source.sql`, `sql/pos_01.sql`, and `sql/neg_01.sql`.
+- Created or normalized case-local `schema/schema_profile.yaml` files as case-facing schema summaries.
+- Reused `schemas/tpch_common_core_v0/` for `PERF_0006`.
+- Created copy-first external schema packages for `tpch_perf0007_v0`, `calcite_core_sql_tests_cons0005_v0`, `parrot_bird_port0003_v0`, and `sqlstorm_stackoverflow_longtail0011_v0`.
+- Preserved old nested SQL paths, case-local per-engine schema files, evidence, metadata, notes, validation scripts, checker files, witness files, and case-local runs.
+- Did not modify `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution code, or leaderboard outputs.
+
+Files created:
+- Direct SQL aliases for `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- External schema packages under `schemas/tpch_perf0007_v0/`, `schemas/calcite_core_sql_tests_cons0005_v0/`, `schemas/parrot_bird_port0003_v0/`, and `schemas/sqlstorm_stackoverflow_longtail0011_v0/`.
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/folder_ordered_conversion_pilot_summary.md`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_case_layer_conversion_status.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_manifest_conversion_results.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_sql_conversion_results.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_schema_conversion_results.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_manual_review_blockers.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/pilot_protected_boundary_checks.csv`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/future_case_package_v2_checker_validation_layers_prompt.md`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/folder_ordered_conversion_pilot_summary.json`
+- `audits/case_package_v2_folder_ordered_conversion_pilot_v0/folder_ordered_conversion_pilot_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/manifest.yaml`
+- `cases/PERF/PERF_0006/schema/schema_profile.yaml`
+- `cases/PERF/PERF_0007/manifest.yaml`
+- `cases/PERF/PERF_0007/schema/schema_profile.yaml`
+- `cases/CONS/CONS_0005/manifest.yaml`
+- `cases/CONS/CONS_0005/schema/schema_profile.yaml`
+- `cases/PORT/PORT_0003/manifest.yaml`
+- `cases/PORT/PORT_0003/schema/schema_profile.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/manifest.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/schema/schema_profile.yaml`
+- `schemas/tpch_common_core_v0/schema_profile.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Manifest/SQL/schema sanity check: passed for all five cases.
+- Protected later-layer directory check: passed; checker, validation, witness, evidence, metadata, notes, and runs directories were not modified.
+- Protected repository surface check: passed; no files under `case_sets/`, inventory, reports, or results changed.
+- Existing v2 validator: ran for all five cases and returned expected failures because it still requires `schema_ref.engines` and later validation wrappers are intentionally not converted.
+- Existing case_package_v2 unit tests: ran; one existing `PERF_0006` read-only validator-status assertion failed because profile-first `schema_ref` is not yet supported by the validator/test expectation.
+- Summary JSON parse and boundary assertions: passed.
+- Protected path checks for `case_sets/`, inventory, reports, results, evidence, and case-local runs: passed.
+- `git diff --check`: passed.
+
+Task result:
+- Writable conversion pilot: yes.
+- Converted layers: manifest, sql, schema.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases converted: all five.
+- Cases deferred: none.
+- Checker/validation/witness/evidence/metadata/notes untouched: yes.
+- Runs deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_profile_first_validator_compatibility_v0` to update the static resolver/tests for profile-first `schema_ref` before checker/validation layer conversion.
