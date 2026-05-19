@@ -2,64 +2,111 @@
 
 ## Purpose and Scope
 
-This packet records the bounded `b_line_db_checker_execution_mvp_v0` attempt. The authorized implementation scope was postgres-only, Common-core v0 PERF-only smoke, SQLGlot no-op candidate generation first, and local user-run output under `runs/user/<run_id>/` only.
+This packet records the bounded `b_line_db_checker_execution_mvp_v0` implementation. The implemented scope is intentionally narrow:
 
-The task was blocked before implementation by the required environment preflight. `psql` is installed, but no allowed Postgres connection configuration was available through `SQLRB_POSTGRES_DSN` or libpq environment variables. Per the fail-closed task rule, no DB execution module, checker module, runner flag, ledger extension, or live DB smoke was implemented.
+- case set: `common_core_v0`
+- engine execution MVP: postgres only
+- smoke pool: PERF only
+- smoke case: `PERF_0006`
+- candidate route: SQLGlot no-op
+- output root: `runs/user/<run_id>/` only
+- timing: not collected
+- official metrics: not computed
+- retained evidence: not updated
+- reports/results: not updated
+- denominator and case-set files: unchanged
+- leaderboard: not created
 
 ## Implementation Summary
 
-No source code was changed. No tests were added. No case packages, case sets, inventory files, reports, results, denominator files, paper results, retained evidence, or raw legacy evidence were modified.
+The user runner now has explicit opt-in DB/checker flags:
 
-The preflight confirmed that the selected initial smoke case, `PERF_0006`, has the expected read-only package structure for a future run:
+- `--enable-db-execution`
+- `--enable-checker`
+- `--postgres-dsn-env`
+- `--execution-timeout-sec`
+- `--db-schema-prefix`
 
-- `manifest.yaml`
-- `sql/source.sql`
-- `sql/positives/pos_01.sql`
-- `checker/checker.yaml`
-- `checker/normalization.yaml`
-- `checker/compare_config.yaml`
-- `schema/postgres/ddl.sql`
-- `schema/postgres/load.sql`
+DB execution never runs unless `--enable-db-execution` is present. Checker execution never runs unless both `--enable-db-execution` and `--enable-checker` are present. Existing non-DB adapter-capture behavior remains the default.
 
-This structure review does not claim execution readiness. It only confirms that the intended future smoke case has the static assets needed for a later authorized attempt after local Postgres configuration is supplied.
+Files added:
+
+- `src/sql_rewrite_bench/postgres_execution.py`
+- `src/sql_rewrite_bench/local_result_checker.py`
+- `tests/user_entry/test_db_checker_execution_mvp.py`
+
+Files modified:
+
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/user_run_schema.py`
 
 ## Environment Preflight Result
 
-- Release repository: `/home/tianci_gao/code/Rewritebench_v0`
-- Branch: `main`
-- Initial git state: clean and aligned with `origin/main`
 - `psql` availability: available
-- Observed `psql` version: `psql (PostgreSQL) 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)`
-- Allowed DSN variable: `SQLRB_POSTGRES_DSN` was unset
-- Allowed libpq variables: `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, and `PGPASSWORD` were unset
-
-No connection test was attempted because there was no allowed connection configuration to test. No credentials, passwords, or full DSNs were printed or stored.
+- Observed version: `psql (PostgreSQL) 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)`
+- Postgres connection check: `psql -c "select 1;"` passed
+- Connection source: libpq environment variables were present
+- Credential policy: no DB passwords or full DSNs were printed or stored
 
 ## DB Config Source Used
 
-No DB config source was used. The task did not create a local config file and did not commit or infer credentials.
+The live smoke used libpq environment variables from the shell. Audit files record only set/unset state, not values.
 
-Safe redaction summary:
+Redacted source summary:
 
-- `SQLRB_POSTGRES_DSN`: not present
-- `PGHOST` / `PGPORT` / `PGDATABASE` / `PGUSER` / `PGPASSWORD`: not present
-- Stored credential material: none
+- `SQLRB_POSTGRES_DSN`: unset
+- `PGHOST`: set
+- `PGPORT`: set
+- `PGDATABASE`: set
+- `PGUSER`: set
+- `PGPASSWORD`: set
 
 ## Local Postgres Smoke Result
 
-Live Postgres smoke was not attempted. The smoke was blocked before execution because no allowed Postgres connection configuration was available.
+The bounded live smoke passed for `PERF_0006`:
 
-No files were created under `runs/user/db_checker_postgres_perf0006_smoke/`. No source result, candidate result, checker result, DB artifact directory, or DB diagnostic file was produced.
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engine postgres \
+  --case-list /tmp/sqlrb_db_checker_perf0006_cases.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
+  --out runs/user/db_checker_postgres_perf0006_smoke \
+  --enable-db-execution \
+  --enable-checker
+```
+
+The command completed with one selected row and one generated candidate. Because Python subprocess access to `psql` was sandbox-constrained, the successful live smoke was run with approved escalation so the runner subprocess could use the shell's Postgres environment.
+
+Captured local artifacts:
+
+- `runs/user/db_checker_postgres_perf0006_smoke/workspaces/PERF_0006/postgres/execution/source_result.jsonl`
+- `runs/user/db_checker_postgres_perf0006_smoke/workspaces/PERF_0006/postgres/execution/candidate_result.jsonl`
+- `runs/user/db_checker_postgres_perf0006_smoke/workspaces/PERF_0006/postgres/checker/checker_result.json`
+- `runs/user/db_checker_postgres_perf0006_smoke/workspaces/PERF_0006/postgres/checker/normalized_source_result.jsonl`
+- `runs/user/db_checker_postgres_perf0006_smoke/workspaces/PERF_0006/postgres/checker/normalized_candidate_result.jsonl`
+
+Ledger status:
+
+- `source_execution_status=source_execution_success`
+- `candidate_execution_status=candidate_execution_success`
+- `checker_status=checker_success`
+- `exact_status=exact`
+- `failure_bucket=none`
+- `local_execution_only=true`
+- `official_metric_input=false`
+- `retained_evidence_input=false`
 
 ## Checker Behavior Result
 
-Checker execution was not implemented and not run. The future checker behavior remains the design from `audits/b_line_db_checker_execution_design_v0/`: fail closed on missing checker, normalization, or compare config; write only local user-run checker artifacts; and never create official metric or retained-evidence inputs without separate authorization.
+The local checker consumed the local source and candidate JSONL result artifacts plus the case-local checker, normalization, and compare config files. It performed conservative local normalization and exact JSONL comparison. For the SQLGlot no-op smoke, the checker returned `checker_success` and `exact`.
+
+This checker is a local MVP diagnostic only. It is not an official semantic-equivalence verifier, does not compute official metrics, and does not create retained paper evidence.
 
 ## Ledger Extension Summary
 
-The requested DB/checker ledger extension was not implemented because the environment preflight failed before code changes. Existing non-DB user-run ledger behavior remains unchanged.
-
-The future implementation should still add the design-packet fields only after a usable local Postgres configuration is available:
+The user-run `ledger.csv` now preserves the existing row grain and adds these local DB/checker fields:
 
 - `execution_enabled`
 - `checker_enabled`
@@ -78,22 +125,15 @@ The future implementation should still add the design-packet fields only after a
 - `official_metric_input`
 - `retained_evidence_input`
 
+For non-DB runs, the new fields are populated with non-DB defaults and official metric / retained evidence flags remain false.
+
 ## Output Hygiene Summary
 
-No DB/checker smoke output was created. Existing ignored user-run smoke outputs under `runs/user/` were not staged. No case-local `runs/` path was touched.
+All DB/checker smoke output was written under:
 
-The blocked packet preserved the intended output policy:
+`runs/user/db_checker_postgres_perf0006_smoke/`
 
-- local user-run outputs only under `runs/user/<run_id>/`
-- no writes to case packages
-- no writes to `case_sets/`
-- no writes to `inventory/`
-- no writes to `reports/`
-- no writes to `results/`
-- no denominator changes
-- no paper-result changes
-- no retained-evidence updates
-- no global leaderboard
+The smoke output is ignored and was not staged. No case-local `runs/` directory was written.
 
 ## Protected Boundary Summary
 
@@ -116,14 +156,13 @@ The task did not compute official metrics, collect timing, render paper tables, 
 
 The following remain unsupported and require separate authorization:
 
-- DB execution implementation
-- checker execution implementation
+- MySQL execution
+- Spark execution
 - timing collection
 - official metric computation
 - paper table rendering
 - paper reproduction CLI
 - retained-evidence adapter integration
-- MySQL and Spark execution
 - broad Common-core execution
 - SQLGlot paper evaluation
 - Calcite and R-Bot adapters
@@ -131,4 +170,4 @@ The following remain unsupported and require separate authorization:
 
 ## Exact Next Safe Action
 
-Set a local Postgres connection configuration in the same shell using either `SQLRB_POSTGRES_DSN` or libpq environment variables (`PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, and if needed `PGPASSWORD`), verify the connection without logging secrets, then rerun or reauthorize `b_line_db_checker_execution_mvp_v0`. Do not implement or run the DB/checker MVP until the connection preflight passes.
+Authorize a DB/checker MVP hardening or release-smoke task that reruns the postgres-only local execution/checker path in a fresh environment, then optionally expands only to `PERF_0007` under the same local-only, no-timing, no-official-metrics, no-retained-evidence, no-reports/results, no-denominator-change, and no-leaderboard boundaries.

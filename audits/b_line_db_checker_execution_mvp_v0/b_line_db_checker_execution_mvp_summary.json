@@ -1,16 +1,13 @@
 {
-  "task_completed": false,
-  "blocked": true,
-  "blocked_reason": "postgres_connection_configuration_unavailable",
+  "task_completed": true,
   "db_checker_execution_mvp": true,
-  "mvp_implemented": false,
   "postgres_only": true,
   "common_core_perf_only": true,
-  "live_postgres_smoke_attempted": false,
-  "live_postgres_smoke_passed": null,
-  "source_execution_result_captured": null,
-  "candidate_execution_result_captured": null,
-  "checker_result_captured": null,
+  "live_postgres_smoke_attempted": true,
+  "live_postgres_smoke_passed": true,
+  "source_execution_result_captured": true,
+  "candidate_execution_result_captured": true,
+  "checker_result_captured": true,
   "local_execution_only": true,
   "official_metrics_computed": false,
   "timing_implemented": false,
@@ -26,5 +23,5 @@
   "raw_legacy_evidence_changed": false,
   "global_leaderboard_created": false,
   "legacy_repo_modified": false,
-  "next_safe_action": "Provide local Postgres connection configuration through SQLRB_POSTGRES_DSN or libpq environment variables in the same shell, verify connection without logging secrets, then rerun or reauthorize b_line_db_checker_execution_mvp_v0."
+  "next_safe_action": "Authorize a DB/checker MVP hardening or release-smoke task that reruns the postgres-only local execution/checker path in a fresh environment, then optionally expands only to PERF_0007 under the same local-only boundaries."
 }

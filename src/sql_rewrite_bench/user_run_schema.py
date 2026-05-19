@@ -1,4 +1,4 @@
-"""Schemas and status constants for the non-DB user-run MVP."""
+"""Schemas and status constants for local user-run outputs."""
 
 from __future__ import annotations
 
@@ -22,6 +22,22 @@ LEDGER_FIELDS = [
     "failure_bucket",
     "artifact_path",
     "notes",
+    "execution_enabled",
+    "checker_enabled",
+    "source_execution_status",
+    "candidate_execution_status",
+    "source_result_path",
+    "candidate_result_path",
+    "checker_config_path",
+    "normalization_config_path",
+    "compare_config_path",
+    "execution_failure_class",
+    "checker_failure_class",
+    "mismatch_artifact_path",
+    "db_artifact_dir",
+    "local_execution_only",
+    "official_metric_input",
+    "retained_evidence_input",
 ]
 
 SELECTED_CASE_FIELDS = [
@@ -54,12 +70,97 @@ EXTRACTION_SKIPPED = "skipped"
 EXTRACTION_SKIPPED_DRY_RUN = "skipped_dry_run"
 
 EXECUTION_STATUS_NON_DB = "not_run_non_db_mvp"
+EXECUTION_STATUS_NOT_ENABLED = "execution_not_enabled"
+EXECUTION_STATUS_SOURCE_SUCCESS = "source_execution_success"
+EXECUTION_STATUS_CANDIDATE_SUCCESS = "candidate_execution_success"
+EXECUTION_STATUS_SOURCE_FAILED = "source_execution_failed"
+EXECUTION_STATUS_CANDIDATE_FAILED = "candidate_execution_failed"
+EXECUTION_STATUS_TIMEOUT = "execution_timeout"
+EXECUTION_STATUS_UNSUPPORTED = "execution_unsupported"
+EXECUTION_STATUS_INTERNAL_ERROR = "execution_internal_error"
+
 CHECKER_STATUS_NON_DB = "not_run_non_db_mvp"
+CHECKER_STATUS_NOT_ENABLED = "checker_not_enabled"
+CHECKER_STATUS_SUCCESS = "checker_success"
+CHECKER_STATUS_MISMATCH = "checker_mismatch"
+CHECKER_STATUS_FAILED = "checker_failed"
+CHECKER_STATUS_TIMEOUT = "checker_timeout"
+CHECKER_STATUS_UNSUPPORTED = "checker_unsupported"
+CHECKER_STATUS_CONFIG_MISSING = "checker_config_missing"
+CHECKER_STATUS_NORMALIZATION_MISSING = "normalization_config_missing"
+CHECKER_STATUS_INTERNAL_ERROR = "checker_internal_error"
+
 EXACT_STATUS_NON_DB = "not_evaluated_non_db_mvp"
+EXACT_STATUS_EXACT = "exact"
+EXACT_STATUS_MISMATCH = "mismatch"
+EXACT_STATUS_EXECUTION_FAILURE = "not_exact_due_to_execution_failure"
+EXACT_STATUS_CHECKER_FAILURE = "not_exact_due_to_checker_failure"
+EXACT_STATUS_TIMEOUT = "not_exact_due_to_timeout"
+EXACT_STATUS_CHECKER_MISSING = "not_evaluated_checker_missing"
+
 TIMED_STATUS_NON_DB = "not_timed_non_db_mvp"
 
 FAILURE_NONE = "none"
 FAILURE_ADAPTER_FAILED = "adapter_failed"
 FAILURE_NO_CANDIDATE_SQL = "no_candidate_sql"
 FAILURE_ADAPTER_TIMEOUT = "adapter_timeout"
+FAILURE_SOURCE_EXECUTION_FAILED = "source_execution_failed"
+FAILURE_CANDIDATE_EXECUTION_FAILED = "candidate_execution_failed"
+FAILURE_EXECUTION_TIMEOUT = "execution_timeout"
+FAILURE_CHECKER_CONFIG_MISSING = "checker_config_missing"
+FAILURE_CHECKER_FAILED = "checker_failed"
+FAILURE_CHECKER_TIMEOUT = "checker_timeout"
+FAILURE_MISMATCH = "mismatch"
+FAILURE_UNSUPPORTED_ENGINE = "unsupported_engine"
 FAILURE_INTERNAL_RUNNER_ERROR = "internal_runner_error"
+
+EXECUTION_STATUS_VALUES = {
+    EXECUTION_STATUS_NON_DB,
+    EXECUTION_STATUS_NOT_ENABLED,
+    EXECUTION_STATUS_SOURCE_SUCCESS,
+    EXECUTION_STATUS_CANDIDATE_SUCCESS,
+    EXECUTION_STATUS_SOURCE_FAILED,
+    EXECUTION_STATUS_CANDIDATE_FAILED,
+    EXECUTION_STATUS_TIMEOUT,
+    EXECUTION_STATUS_UNSUPPORTED,
+    EXECUTION_STATUS_INTERNAL_ERROR,
+}
+
+CHECKER_STATUS_VALUES = {
+    CHECKER_STATUS_NON_DB,
+    CHECKER_STATUS_NOT_ENABLED,
+    CHECKER_STATUS_SUCCESS,
+    CHECKER_STATUS_MISMATCH,
+    CHECKER_STATUS_FAILED,
+    CHECKER_STATUS_TIMEOUT,
+    CHECKER_STATUS_UNSUPPORTED,
+    CHECKER_STATUS_CONFIG_MISSING,
+    CHECKER_STATUS_NORMALIZATION_MISSING,
+    CHECKER_STATUS_INTERNAL_ERROR,
+}
+
+EXACT_STATUS_VALUES = {
+    EXACT_STATUS_NON_DB,
+    EXACT_STATUS_EXACT,
+    EXACT_STATUS_MISMATCH,
+    EXACT_STATUS_EXECUTION_FAILURE,
+    EXACT_STATUS_CHECKER_FAILURE,
+    EXACT_STATUS_TIMEOUT,
+    EXACT_STATUS_CHECKER_MISSING,
+}
+
+FAILURE_BUCKET_VALUES = {
+    FAILURE_NONE,
+    FAILURE_ADAPTER_FAILED,
+    FAILURE_NO_CANDIDATE_SQL,
+    FAILURE_ADAPTER_TIMEOUT,
+    FAILURE_SOURCE_EXECUTION_FAILED,
+    FAILURE_CANDIDATE_EXECUTION_FAILED,
+    FAILURE_EXECUTION_TIMEOUT,
+    FAILURE_CHECKER_CONFIG_MISSING,
+    FAILURE_CHECKER_FAILED,
+    FAILURE_CHECKER_TIMEOUT,
+    FAILURE_MISMATCH,
+    FAILURE_UNSUPPORTED_ENGINE,
+    FAILURE_INTERNAL_RUNNER_ERROR,
+}

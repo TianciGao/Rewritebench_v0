@@ -1,8 +1,9 @@
-"""Minimal non-DB user runner for SQL-RewriteBench.
+"""User runner for SQL-RewriteBench local experiment outputs.
 
-This MVP invokes a user adapter over selected Common-core v0 case-engine rows
-and captures candidate SQL as local user output. It does not execute SQL, run
-checkers, collect timing, compute official metrics, or write retained evidence.
+By default this invokes a user adapter and captures candidate SQL without DB
+execution. A bounded opt-in postgres/checker MVP can run local diagnostics under
+``runs/user/<run_id>/``. It does not collect timing, compute official metrics,
+write retained evidence, update reports/results, or create a leaderboard.
 """
 
 from __future__ import annotations
@@ -26,10 +27,19 @@ from .case_selection import (
     repo_root_from_module,
     resolve_common_core_selection,
 )
+from .local_result_checker import run_local_checker
+from .postgres_execution import execute_postgres_case
 from .user_run_schema import (
     CHECKER_STATUS_NON_DB,
+    CHECKER_STATUS_NOT_ENABLED,
+    CHECKER_STATUS_SUCCESS,
     EXACT_STATUS_NON_DB,
+    EXACT_STATUS_EXACT,
+    EXACT_STATUS_EXECUTION_FAILURE,
     EXECUTION_STATUS_NON_DB,
+    EXECUTION_STATUS_NOT_ENABLED,
+    EXECUTION_STATUS_SOURCE_SUCCESS,
+    EXECUTION_STATUS_CANDIDATE_SUCCESS,
     EXTRACTION_ADAPTER_FAILED,
     EXTRACTION_CAPTURED_FROM_CANDIDATE_FILE,
     EXTRACTION_CAPTURED_FROM_STDOUT,
@@ -39,8 +49,10 @@ from .user_run_schema import (
     FAILURE_ADAPTER_TIMEOUT,
     FAILURE_FIELDS,
     FAILURE_INTERNAL_RUNNER_ERROR,
+    FAILURE_MISMATCH,
     FAILURE_NO_CANDIDATE_SQL,
     FAILURE_NONE,
+    FAILURE_SOURCE_EXECUTION_FAILED,
     LEDGER_FIELDS,
     SELECTED_CASE_FIELDS,
     TIMED_STATUS_NON_DB,
@@ -64,6 +76,19 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Resolve selection and write local run files without invoking the adapter.",
     )
+    parser.add_argument(
+        "--enable-db-execution",
+        action="store_true",
+        help="Opt in to bounded local postgres execution after candidate capture.",
+    )
+    parser.add_argument(
+        "--enable-checker",
+        action="store_true",
+        help="Opt in to local checker comparison; requires --enable-db-execution.",
+    )
+    parser.add_argument("--postgres-dsn-env", default="SQLRB_POSTGRES_DSN")
+    parser.add_argument("--execution-timeout-sec", type=int, default=30)
+    parser.add_argument("--db-schema-prefix", default="sqlrb_user")
     return parser.parse_args(argv)
 
 
@@ -182,6 +207,22 @@ def _ledger_base(run_id: str, row: SelectedCaseEngineRow, artifact_path: str) ->
         "failure_bucket": FAILURE_NO_CANDIDATE_SQL,
         "artifact_path": artifact_path,
         "notes": "non_db_mvp_adapter_capture_only",
+        "execution_enabled": "false",
+        "checker_enabled": "false",
+        "source_execution_status": EXECUTION_STATUS_NON_DB,
+        "candidate_execution_status": EXECUTION_STATUS_NON_DB,
+        "source_result_path": "",
+        "candidate_result_path": "",
+        "checker_config_path": "",
+        "normalization_config_path": "",
+        "compare_config_path": "",
+        "execution_failure_class": "",
+        "checker_failure_class": "",
+        "mismatch_artifact_path": "",
+        "db_artifact_dir": "",
+        "local_execution_only": "true",
+        "official_metric_input": "false",
+        "retained_evidence_input": "false",
     }
 
 
@@ -271,7 +312,7 @@ def _run_adapter_for_row(
                     "candidate_sql_path": _relative_to_repo(canonical_candidate, repo_root),
                     "extraction_status": EXTRACTION_CAPTURED_FROM_CANDIDATE_FILE,
                     "failure_bucket": FAILURE_NONE,
-                    "notes": "candidate captured from workspace candidate.sql; SQL was not evaluated",
+                    "notes": "candidate captured from workspace candidate.sql",
                 }
             )
         elif (completed.stdout or "").strip():
@@ -282,7 +323,7 @@ def _run_adapter_for_row(
                     "candidate_sql_path": _relative_to_repo(canonical_candidate, repo_root),
                     "extraction_status": EXTRACTION_CAPTURED_FROM_STDOUT,
                     "failure_bucket": FAILURE_NONE,
-                    "notes": "candidate captured from adapter stdout; SQL was not evaluated",
+                    "notes": "candidate captured from adapter stdout",
                 }
             )
         else:
@@ -317,13 +358,119 @@ def _run_adapter_for_row(
     return ledger
 
 
+def _apply_db_checker_for_row(
+    *,
+    ledger: dict[str, object],
+    run_id: str,
+    row: SelectedCaseEngineRow,
+    repo_root: Path,
+    out_dir: Path,
+    enable_checker: bool,
+    postgres_dsn_env: str,
+    execution_timeout_sec: int,
+    db_schema_prefix: str,
+) -> dict[str, object]:
+    """Run optional local postgres execution/checker for a generated candidate."""
+
+    ledger["execution_enabled"] = "true"
+    ledger["checker_enabled"] = "true" if enable_checker else "false"
+    ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+    ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+    if ledger.get("candidate_generated") != "true" or not ledger.get("candidate_sql_path"):
+        ledger["notes"] = str(ledger.get("notes", "")) + "; db execution skipped because no candidate SQL was generated"
+        return ledger
+
+    workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
+    candidate_sql_path = repo_root / str(ledger["candidate_sql_path"])
+    execution = execute_postgres_case(
+        repo_root=repo_root,
+        run_id=run_id,
+        row=row,
+        candidate_sql_path=candidate_sql_path,
+        workspace_dir=workspace_dir,
+        timeout_sec=execution_timeout_sec,
+        schema_prefix=db_schema_prefix,
+        dsn_env=postgres_dsn_env,
+    )
+    ledger.update(
+        {
+            "execution_status": execution.candidate_execution_status,
+            "source_execution_status": execution.source_execution_status,
+            "candidate_execution_status": execution.candidate_execution_status,
+            "source_result_path": _relative_to_repo(execution.source_result_path, repo_root)
+            if execution.source_result_path
+            else "",
+            "candidate_result_path": _relative_to_repo(execution.candidate_result_path, repo_root)
+            if execution.candidate_result_path
+            else "",
+            "execution_failure_class": execution.execution_failure_class,
+            "db_artifact_dir": _relative_to_repo(execution.db_artifact_dir, repo_root),
+            "notes": str(ledger.get("notes", "")) + "; " + execution.notes,
+        }
+    )
+    if execution.failure_bucket != FAILURE_NONE:
+        ledger["failure_bucket"] = execution.failure_bucket
+        if execution.failure_bucket == FAILURE_SOURCE_EXECUTION_FAILED:
+            ledger["exact_status"] = EXACT_STATUS_EXECUTION_FAILURE
+        return ledger
+
+    if not enable_checker:
+        ledger["checker_status"] = CHECKER_STATUS_NOT_ENABLED
+        ledger["exact_status"] = EXACT_STATUS_NON_DB
+        return ledger
+
+    case_dir = repo_root / row.case_path
+    checker_dir = workspace_dir / "checker"
+    checker = run_local_checker(
+        case_dir=case_dir,
+        source_result_path=execution.source_result_path,
+        candidate_result_path=execution.candidate_result_path,
+        checker_dir=checker_dir,
+    )
+    ledger.update(
+        {
+            "checker_config_path": _relative_to_repo(case_dir / "checker" / "checker.yaml", repo_root),
+            "normalization_config_path": _relative_to_repo(
+                case_dir / "checker" / "normalization.yaml", repo_root
+            ),
+            "compare_config_path": _relative_to_repo(
+                case_dir / "checker" / "compare_config.yaml", repo_root
+            ),
+            "checker_status": checker.checker_status,
+            "exact_status": checker.exact_status,
+            "checker_failure_class": checker.checker_failure_class,
+            "mismatch_artifact_path": _relative_to_repo(checker.mismatch_artifact_path, repo_root)
+            if checker.mismatch_artifact_path
+            else "",
+            "notes": str(ledger.get("notes", "")) + "; " + checker.notes,
+        }
+    )
+    if checker.failure_bucket != FAILURE_NONE:
+        ledger["failure_bucket"] = checker.failure_bucket
+    elif (
+        execution.source_execution_status == EXECUTION_STATUS_SOURCE_SUCCESS
+        and execution.candidate_execution_status == EXECUTION_STATUS_CANDIDATE_SUCCESS
+        and checker.checker_status == CHECKER_STATUS_SUCCESS
+        and checker.exact_status == EXACT_STATUS_EXACT
+    ):
+        ledger["failure_bucket"] = FAILURE_NONE
+    return ledger
+
+
 def _summary_payload(
-    run_id: str, ledger_rows: list[dict[str, object]], *, dry_run: bool
+    run_id: str,
+    ledger_rows: list[dict[str, object]],
+    *,
+    dry_run: bool,
+    db_execution_enabled: bool,
+    checker_enabled: bool,
 ) -> dict[str, object]:
     failure_counts = Counter(row["failure_bucket"] for row in ledger_rows)
     return {
         "run_id": run_id,
-        "task_type": "user_entry_mvp_non_db",
+        "task_type": "user_entry_db_checker_mvp_local"
+        if db_execution_enabled
+        else "user_entry_mvp_non_db",
         "dry_run": dry_run,
         "selected_rows": len(ledger_rows),
         "adapter_invoked_rows": sum(row["adapter_invoked"] == "true" for row in ledger_rows),
@@ -332,6 +479,23 @@ def _summary_payload(
         ),
         "adapter_failed_rows": failure_counts[FAILURE_ADAPTER_FAILED],
         "no_candidate_sql_rows": failure_counts[FAILURE_NO_CANDIDATE_SQL],
+        "db_execution_enabled": db_execution_enabled,
+        "checker_enabled": checker_enabled,
+        "source_execution_success_rows": sum(
+            row.get("source_execution_status") == EXECUTION_STATUS_SOURCE_SUCCESS
+            for row in ledger_rows
+        ),
+        "candidate_execution_success_rows": sum(
+            row.get("candidate_execution_status") == EXECUTION_STATUS_CANDIDATE_SUCCESS
+            for row in ledger_rows
+        ),
+        "checker_success_rows": sum(
+            row.get("checker_status") == CHECKER_STATUS_SUCCESS for row in ledger_rows
+        ),
+        "checker_mismatch_rows": failure_counts[FAILURE_MISMATCH],
+        "exact_rows_local": sum(row.get("exact_status") == EXACT_STATUS_EXACT for row in ledger_rows),
+        "mismatch_rows_local": failure_counts[FAILURE_MISMATCH],
+        "local_execution_only": True,
         "official_metrics_computed": False,
         "paper_tables_rendered": False,
         "reports_changed": False,
@@ -395,8 +559,9 @@ def _write_report(
             f"- Selected rows: {selected}",
             f"- Adapter invoked rows: {summary['adapter_invoked_rows']}",
             f"- Candidate generated rows: {generated}",
-            "- Executed rows: 0 (not_run_non_db_mvp)",
-            "- Exact rows: 0 (not_evaluated_non_db_mvp)",
+            f"- Source execution success rows: {summary.get('source_execution_success_rows', 0)}",
+            f"- Candidate execution success rows: {summary.get('candidate_execution_success_rows', 0)}",
+            f"- Local exact rows: {summary.get('exact_rows_local', 0)}",
             "- Timed rows: 0 (not_timed_non_db_mvp)",
             "",
             "## Pool Breakdown",
@@ -408,6 +573,26 @@ def _write_report(
     lines.extend(f"- {engine}: {count}" for engine, count in sorted(engine_counts.items()))
     lines.extend(["", "## Failure Bucket Table", ""])
     lines.extend(f"- {bucket}: {count}" for bucket, count in sorted(failure_counts.items()))
+    if summary.get("db_execution_enabled"):
+        lines.extend(
+            [
+                "",
+                "## DB/Checker MVP",
+                "",
+                "- DB execution enabled: `True`",
+                f"- Checker enabled: `{summary.get('checker_enabled')}`",
+                f"- Source execution success rows: {summary.get('source_execution_success_rows', 0)}",
+                f"- Candidate execution success rows: {summary.get('candidate_execution_success_rows', 0)}",
+                f"- Checker success rows: {summary.get('checker_success_rows', 0)}",
+                f"- Checker mismatch rows: {summary.get('checker_mismatch_rows', 0)}",
+                f"- Local exact rows: {summary.get('exact_rows_local', 0)}",
+                f"- Local mismatch rows: {summary.get('mismatch_rows_local', 0)}",
+                "- DB/checker artifacts are local user-run diagnostics only.",
+                "- Official metrics are not computed.",
+                "- Retained evidence is not updated.",
+                "- No global leaderboard is created.",
+            ]
+        )
     lines.extend(["", "## Artifact Links", ""])
     for row in ledger_rows:
         candidate = row["candidate_sql_path"] or "no candidate SQL"
@@ -437,6 +622,11 @@ def _write_report(
 
 
 def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, object]:
+    enable_db_execution = bool(getattr(args, "enable_db_execution", False))
+    enable_checker = bool(getattr(args, "enable_checker", False))
+    if enable_checker and not enable_db_execution:
+        raise ValueError("--enable-checker requires --enable-db-execution")
+
     out_dir = validate_output_root(args.out, repo_root)
     run_id = args.run_id or args.out.name
     if not run_id:
@@ -465,8 +655,15 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         "case_list": args.case_list.as_posix() if args.case_list else "",
         "adapter_command": args.adapter_command,
         "out_dir": _relative_to_repo(out_dir, repo_root),
-        "mvp_mode": "non_db_adapter_capture_only",
+        "mvp_mode": "postgres_db_checker_mvp_local"
+        if enable_db_execution
+        else "non_db_adapter_capture_only",
         "dry_run": bool(getattr(args, "dry_run", False)),
+        "db_execution_enabled": enable_db_execution,
+        "checker_enabled": enable_checker,
+        "postgres_dsn_env": getattr(args, "postgres_dsn_env", "SQLRB_POSTGRES_DSN"),
+        "execution_timeout_sec": getattr(args, "execution_timeout_sec", 30),
+        "db_schema_prefix": getattr(args, "db_schema_prefix", "sqlrb_user"),
         "official_metrics_computed": False,
         "paper_results_updated": False,
         "retained_evidence_updated": False,
@@ -494,6 +691,27 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
             )
             for row in selected
         ]
+    if enable_db_execution and not getattr(args, "dry_run", False):
+        ledger_rows = [
+            _apply_db_checker_for_row(
+                ledger=ledger,
+                run_id=run_id,
+                row=row,
+                repo_root=repo_root,
+                out_dir=out_dir,
+                enable_checker=enable_checker,
+                postgres_dsn_env=getattr(args, "postgres_dsn_env", "SQLRB_POSTGRES_DSN"),
+                execution_timeout_sec=getattr(args, "execution_timeout_sec", 30),
+                db_schema_prefix=getattr(args, "db_schema_prefix", "sqlrb_user"),
+            )
+            for ledger, row in zip(ledger_rows, selected, strict=True)
+        ]
+    elif enable_db_execution:
+        for ledger in ledger_rows:
+            ledger["execution_enabled"] = "true"
+            ledger["checker_enabled"] = "true" if enable_checker else "false"
+            ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+            ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
     _write_csv(out_dir / "ledger.csv", ledger_rows, LEDGER_FIELDS)
 
     failure_rows = [
@@ -512,7 +730,13 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
     ]
     _write_csv(out_dir / "failures.csv", failure_rows, FAILURE_FIELDS)
 
-    summary = _summary_payload(run_id, ledger_rows, dry_run=bool(getattr(args, "dry_run", False)))
+    summary = _summary_payload(
+        run_id,
+        ledger_rows,
+        dry_run=bool(getattr(args, "dry_run", False)),
+        db_execution_enabled=enable_db_execution,
+        checker_enabled=enable_checker,
+    )
     (out_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
