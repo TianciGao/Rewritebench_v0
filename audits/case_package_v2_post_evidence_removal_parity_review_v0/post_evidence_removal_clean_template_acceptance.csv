@@ -1,0 +1,12 @@
+acceptance_check,status,details
+clean_required_assets_present,pass,All five pilot cases have required tracked clean-template assets.
+evidence_policy_present,pass,All five manifests use regeneration-first evidence_policy.
+evidence_ref_absent,pass,All five manifests omit evidence_ref.
+static_evidence_surfaces_absent,pass,Case-local evidence directories and five pilot top-level evidence/cases packages are absent.
+only_tracked_extra_path_is_port_dialect_variants,pass,The only counted tracked extra path group is PORT_0003 sql/dialect_variants/spark/.
+dialect_variants_optional_semantic_asset,pass,PORT_0003 dialect variants are retained as optional semantic v2 assets and are not blockers.
+remaining_blockers_zero,pass,No blocker remains before Common-core 40 planning.
+functional_v2_pilot_accepted,pass,The five-case pilot remains validator-clean after static evidence removal.
+clean_template_minimal_accepted,pass,Clean-template-minimal achieved with optional PORT dialect variants retained.
+ready_for_common_core40_plan,pass,Common-core 40 conversion planning is safe as a read-only planning task.
+protected_surfaces_unchanged,pass,No cases schemas evidence case_sets inventory reports results denominators paper results metrics DB/checker execution or leaderboard changes were made by this review.

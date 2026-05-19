@@ -1,0 +1,6 @@
+case_id,pool,clean_required_assets_present,evidence_policy_present,evidence_ref_absent,case_local_evidence_absent,top_level_static_evidence_absent,remaining_extra_paths_count,remaining_extra_paths,optional_dialect_variants_retained,remaining_blockers_count,clean_template_minimal_status,ready_for_common_core40_plan,notes
+PERF_0006,PERF,true,true,true,true,true,0,none,false,0,clean_template_minimal,true,Required tracked assets present; no tracked extra path remains.
+PERF_0007,PERF,true,true,true,true,true,0,none,false,0,clean_template_minimal,true,Required tracked assets present; no tracked extra path remains.
+CONS_0005,CONS,true,true,true,true,true,0,none,false,0,clean_template_minimal,true,Required tracked assets present; no tracked extra path remains.
+PORT_0003,PORT,true,true,true,true,true,1,sql/dialect_variants/spark/,true,0,clean_template_minimal_with_optional_dialect_variants,true,Only tracked extra path is optional semantic dialect variants.
+LONGTAIL_0011,LONGTAIL,true,true,true,true,true,0,none,false,0,clean_template_minimal,true,Required tracked assets present; no tracked extra path remains.

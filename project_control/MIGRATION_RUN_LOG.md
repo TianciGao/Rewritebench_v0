@@ -8278,3 +8278,60 @@ Task result:
 
 Next safe action:
 - Run `case_package_v2_post_evidence_removal_parity_review_v0` as a read-only parity review before Common-core 40 planning.
+
+### 2026-05-19 · pending · case_package_v2_post_evidence_removal_parity_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only parity review after static evidence reference removal; no cleanup execution; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Rechecked the five v2 pilot cases after `evidence_ref` was replaced with regeneration-first `evidence_policy` and the five top-level static evidence packages were deleted.
+- Confirmed all five pilot cases have required tracked clean-template assets.
+- Confirmed all five manifests have `evidence_policy` and omit `evidence_ref`.
+- Confirmed case-local evidence and the five pilot top-level `evidence/cases/` packages are absent.
+- Confirmed the only counted tracked extra path group is `cases/PORT/PORT_0003/sql/dialect_variants/spark/`, retained as an optional semantic v2 asset.
+- Confirmed zero remaining blockers before Common-core 40 planning.
+- No case files, schemas, evidence, `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs were changed.
+
+Files created:
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_parity_review_summary.md`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_case_summary.csv`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_path_gap_matrix.csv`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_clean_template_acceptance.csv`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/future_case_package_v2_common_core40_plan_prompt.md`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_parity_review_summary.json`
+- `audits/case_package_v2_post_evidence_removal_parity_review_v0/post_evidence_removal_parity_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Post evidence removal parity review: yes.
+- Clean-template-minimal achieved: yes.
+- Remaining tracked extra path groups: 1.
+- Remaining blockers count: 0.
+- Optional dialect variants retained: yes.
+- Ready for Common-core 40 plan: yes.
+- Cases modified: no.
+- Evidence modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only Common-core 40 planning task before any wider conversion execution.
