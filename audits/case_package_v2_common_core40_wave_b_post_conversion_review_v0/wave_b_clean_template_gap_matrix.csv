@@ -1,0 +1,793 @@
+case_id,path,exists,clean_template_status,current_role,blocker,next_action,notes
+PERF_0033,cases/PERF/PERF_0033/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0033,cases/PERF/PERF_0033/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0033,cases/PERF/PERF_0033/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0033,cases/PERF/PERF_0033/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0034,cases/PERF/PERF_0034/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0034,cases/PERF/PERF_0034/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0034,cases/PERF/PERF_0034/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0035,cases/PERF/PERF_0035/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0035,cases/PERF/PERF_0035/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0035,cases/PERF/PERF_0035/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0052,cases/PERF/PERF_0052/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0052,cases/PERF/PERF_0052/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0052,cases/PERF/PERF_0052/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0054,cases/PERF/PERF_0054/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0054,cases/PERF/PERF_0054/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0054,cases/PERF/PERF_0054/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0056,cases/PERF/PERF_0056/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0056,cases/PERF/PERF_0056/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0056,cases/PERF/PERF_0056/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0062,cases/PERF/PERF_0062/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0062,cases/PERF/PERF_0062/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0062,cases/PERF/PERF_0062/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0077,cases/PERF/PERF_0077/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0077,cases/PERF/PERF_0077/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0077,cases/PERF/PERF_0077/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+PERF_0082,cases/PERF/PERF_0082/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+PERF_0082,cases/PERF/PERF_0082/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+PERF_0082,cases/PERF/PERF_0082/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0007,cases/CONS/CONS_0007/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0007,cases/CONS/CONS_0007/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0007,cases/CONS/CONS_0007/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0009,cases/CONS/CONS_0009/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0009,cases/CONS/CONS_0009/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0009,cases/CONS/CONS_0009/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0010,cases/CONS/CONS_0010/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0010,cases/CONS/CONS_0010/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0010,cases/CONS/CONS_0010/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0011,cases/CONS/CONS_0011/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0011,cases/CONS/CONS_0011/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0011,cases/CONS/CONS_0011/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0012,cases/CONS/CONS_0012/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0012,cases/CONS/CONS_0012/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0012,cases/CONS/CONS_0012/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0024,cases/CONS/CONS_0024/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0024,cases/CONS/CONS_0024/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0024,cases/CONS/CONS_0024/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0036,cases/CONS/CONS_0036/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0036,cases/CONS/CONS_0036/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0036,cases/CONS/CONS_0036/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+CONS_0037,cases/CONS/CONS_0037/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+CONS_0037,cases/CONS/CONS_0037/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+CONS_0037,cases/CONS/CONS_0037/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/README.md,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/manifest.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/sql/source.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/sql/pos_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/sql/neg_01.sql,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/schema/schema_profile.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/checker.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/normalization.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/compare_config.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/expected_rejections.yaml,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_validation.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_plan_collection.sh,true,required_present,clean_v2_required,none,none,required clean-template path
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/witness/witness_profile.yaml,true,optional_present,v2_optional_witness_metadata,none,none,optional witness asset; absence would not block clean v2
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/evidence,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/runs,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/metadata,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/notes,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/data,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/schema/postgres,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/schema/mysql,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/schema/spark,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/sql/positives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/sql/negatives,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_postgres_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_mysql_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_spark_validation.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_postgres_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_mysql_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/validation/run_spark_plan_collection.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/check_results.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/check_sql_consistency.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/check_plan_artifacts.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/run_checks.sh,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/checker/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/run_engine_queries.py,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/__pycache__,false,forbidden_absent,clean_v2_excluded_surface,none,none,excluded from clean-template-minimal v2 case-local surface

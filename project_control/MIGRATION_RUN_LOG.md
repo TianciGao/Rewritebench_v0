@@ -8576,3 +8576,63 @@ Task result:
 
 Next safe action:
 - Run `case_package_v2_common_core40_wave_b_post_conversion_review_v0` as a bounded read-only review before authorizing Wave C/manual-review conversion.
+
+### 2026-05-20 · pending · case_package_v2_common_core40_wave_b_post_conversion_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Common-core Wave B post-conversion parity review; no writable conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Reviewed exactly 22 converted Wave B cases: `PERF_0033`, `PERF_0034`, `PERF_0035`, `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, `PERF_0082`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`.
+- Rechecked accepted pilot cases for validator non-regression: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Rechecked Wave A cases for validator non-regression: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
+- Confirmed Wave B clean-template-minimal structure, manifest consistency, schema policy, evidence policy, and absence of v1 compatibility surfaces for all 22 Wave B cases.
+- Confirmed remaining Wave B gaps: none.
+- Did not modify case files, schemas, `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_post_conversion_review_summary.md`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_post_conversion_case_summary.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_manifest_consistency_recheck.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_clean_template_gap_matrix.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_schema_policy_recheck.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_non_mutation_recheck.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_protected_boundary_checks.csv`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/future_case_package_v2_wave_c_manual_review_prompt.md`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_post_conversion_review_summary.json`
+- `audits/case_package_v2_common_core40_wave_b_post_conversion_review_v0/wave_b_post_conversion_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validators passed for all 22 Wave B cases.
+- Static v2 validators passed for all five accepted pilot cases.
+- Static v2 validators passed for all five Wave A cases.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 11 tests.
+- Summary JSON assertion: pending final run.
+- `git diff --check`: pending final run.
+
+Task result:
+- Wave B post-conversion review: yes.
+- Wave B clean-template-minimal passed: yes.
+- Manifest consistency passed: yes.
+- Remaining Wave B gaps: none.
+- Ready for Wave C planning: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_wave_c_manual_review_plan_v0` as a bounded planning task before any Wave C/PORT manual-review conversion execution.
