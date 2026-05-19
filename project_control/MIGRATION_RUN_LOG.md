@@ -7410,14 +7410,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_readme_validator_closeout_pilot_v0` to update README wording and validator expectations only for the same five pilot cases on the feature branch, without DB/checker execution, retained-evidence deletion, non-empty runs deletion, protected benchmark-surface changes, official metrics, or leaderboard output.
 
-### 2026-05-19 · PENDING · case_package_v2_readme_validator_closeout_pilot_v0
+### 2026-05-19 · 2ddc824 · case_package_v2_readme_validator_closeout_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only README/validator closeout for five v2 pilot cases; no structural conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `2ddc8242dc531763160999e5cbfdbcd6c4231277`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Updated README wording for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` to document the finalized v2 pilot structure and compatibility boundaries.
