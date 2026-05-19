@@ -6523,3 +6523,76 @@ Task result:
 
 Next safe action:
 - Authorize `b_line_postgres_perf_batch_smoke_v0` to execute only the selected postgres PERF SQLGlot no-op batch under `runs/user/`, with no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
+
+### 2026-05-19 · TBD · b_line_postgres_perf_batch_smoke_v0
+
+Mode: bounded B-line Postgres PERF DB/checker batch smoke; local user-run output only; SQLGlot no-op adapter command only; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Executed the first bounded local Postgres PERF DB/checker batch after the `PERF_0006` canary and release smoke.
+- Used exactly four Common-core PERF postgres cases: `PERF_0007`, `PERF_0008`, `PERF_0013`, and `PERF_0017`.
+- Used the existing method-agnostic user runner with adapter command `python baselines/sqlglot/sqlglot_user_adapter.py --route noop`.
+- Wrote local run output only under `runs/user/postgres_perf_sqlglot_noop_batch_smoke/`; this output remained ignored and unstaged.
+- Confirmed all four rows generated candidate SQL, captured source execution results, captured candidate execution results, ran the local checker, and recorded local exact results.
+- Did not modify source implementation files, tests, docs, pyproject, case packages, `case_sets/`, inventory, reports/results, denominators, paper results, retained evidence, raw legacy evidence, or the legacy repo.
+- Did not compute official metrics, collect timing, render paper tables, implement paper reproduction, implement retained-evidence adapters, or create a global leaderboard.
+
+Files created:
+- `audits/b_line_postgres_perf_batch_smoke_v0/postgres_perf_batch_cases.txt`
+- `audits/b_line_postgres_perf_batch_smoke_v0/b_line_postgres_perf_batch_smoke_summary.md`
+- `audits/b_line_postgres_perf_batch_smoke_v0/b_line_postgres_perf_batch_smoke_results.csv`
+- `audits/b_line_postgres_perf_batch_smoke_v0/b_line_postgres_perf_batch_smoke_validation_results.csv`
+- `audits/b_line_postgres_perf_batch_smoke_v0/b_line_postgres_perf_batch_smoke_summary.json`
+- `audits/b_line_postgres_perf_batch_smoke_v0/postgres_perf_batch_smoke_command_log.md`
+- `audits/b_line_postgres_perf_batch_smoke_v0/postgres_perf_batch_smoke_manifest.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Postgres preflight: passed with `psql --version` and `psql -c "select 1;"`; DB credentials and environment values were not recorded.
+- SQLGlot import: passed.
+- Batch runner command: passed; selected rows 4 and candidate-generated rows 4.
+- Row verification: passed; source/candidate/checker artifacts exist for all four selected rows.
+- Ledger local-only checks: passed; every row has `local_execution_only=true`, `official_metric_input=false`, and `retained_evidence_input=false`.
+- Status vocabulary and failure buckets: passed; all four rows recorded source/candidate execution success, checker success, exact, and failure bucket `none`.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `PYTHONDONTWRITEBYTECODE=1 python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- CSV checks: passed; results CSV has exactly four data rows, selected case IDs match, local-only flags are correct, and no timing/speedup columns were introduced.
+- Protected-path checks: passed; no files under `cases/`, `case_sets/`, `inventory/`, `reports/`, `results/`, or tracked `runs/user` changed.
+- `git diff --check`: passed.
+
+Task result:
+- Batch execution performed: yes.
+- Selected case IDs: `PERF_0007`, `PERF_0008`, `PERF_0013`, and `PERF_0017`.
+- Selected rows: 4.
+- Candidate-generated rows: 4.
+- Source execution success rows: 4.
+- Candidate execution success rows: 4.
+- Checker success rows: 4.
+- Checker mismatch rows: 0.
+- Exact rows local: 4.
+- Mismatch rows local: 0.
+- Local execution only: yes.
+- Official metrics computed: no.
+- Timing implemented: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- Global leaderboard created: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Review the four-row local batch smoke. If acceptable, authorize a separate bounded follow-up for either another small PERF postgres batch or DB/checker hardening, still with local `runs/user/` output only and no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
