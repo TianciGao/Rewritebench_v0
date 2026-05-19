@@ -6309,13 +6309,13 @@ Task result:
 Next safe action:
 - Provide local Postgres connection configuration through `SQLRB_POSTGRES_DSN` or libpq environment variables in the same shell, verify connection without logging secrets, then rerun or reauthorize `b_line_db_checker_execution_mvp_v0`.
 
-### 2026-05-18 · TBD · b_line_db_checker_execution_mvp_v0_rerun
+### 2026-05-18 · 13433bd · b_line_db_checker_execution_mvp_v0_rerun
 
 Mode: bounded B-line DB/checker execution MVP implementation; postgres-only local execution; local checker only; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `13433bd64d2cb18a37a3d9495009ad3a8830cf21`
+Push: succeeded; updated `origin/main` from `9256c54` to `13433bd`
 
 Summary:
 - Reauthorized the bounded postgres-only Common-core PERF DB/checker MVP after local Postgres preflight became available in the same shell.
