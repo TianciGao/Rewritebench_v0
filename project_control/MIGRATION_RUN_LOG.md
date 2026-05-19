@@ -6680,3 +6680,75 @@ Task result:
 
 Next safe action:
 - Review the `PERF_0006` v2 external-schema branch pilot. If accepted, authorize a branch-only expansion to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main` until v2 validator and runner `schema_ref` compatibility is approved.
+
+### 2026-05-19 · TBD · case_package_v2_masterplan_assets_strategy_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: case package v2 master plan and assets strategy; policy/spec-only; no case conversion; no DB execution; no checker execution; no timing; no official metrics; no reports/results migration
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Recorded the case package v2 assets strategy after the `PERF_0006` external-schema branch pilot.
+- Updated `project_control/MIGRATION_MASTER_PLAN.md` with a v2 target addendum that keeps v1 as compatibility context and defines v2 target case-local layout, external schema layout, external evidence layout, `schema_ref`, `evidence_ref`, validation entrypoints, source-as-oracle witness policy, artifact boundaries, and branch-only adoption roadmap.
+- Added decision log entries D020 through D024 for v2 target layout, external schema strategy, external evidence strategy, validation entrypoint consolidation, and runtime source-as-oracle witness policy.
+- Created repository spec drafts for the v2 case package contract, external schema contract, external evidence contract, validation entrypoint policy, and runtime witness policy.
+- Created audit outputs for asset boundaries, manifest references, migration roadmap, open questions, future runner/validator compatibility prompt, summary JSON, and command log.
+- Did not modify case packages, schema asset contents, `case_sets/`, inventory, reports/results, denominator files, paper result files, raw legacy evidence, or the legacy repo.
+
+Files created:
+- `repository_spec/case_package_contract_v2_draft.md`
+- `repository_spec/external_schema_contract_v1_draft.md`
+- `repository_spec/external_evidence_contract_v1_draft.md`
+- `repository_spec/validation_entrypoint_policy_v1_draft.md`
+- `repository_spec/runtime_witness_policy_v1_draft.md`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/case_package_v2_assets_strategy_summary.md`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/v2_asset_boundary_matrix.csv`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/v2_manifest_reference_model.csv`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/v2_migration_roadmap.csv`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/v2_open_questions.csv`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/future_case_package_v2_runner_validator_compatibility_prompt.md`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/case_package_v2_assets_strategy_summary.json`
+- `audits/case_package_v2_masterplan_assets_strategy_v0/case_package_v2_assets_strategy_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Branch check: pending final check.
+- Master-plan addendum check: pending final check.
+- Decision-log check: pending final check.
+- Repository spec existence check: pending final check.
+- Audit CSV header check: pending final check.
+- Summary JSON parse check: pending final check.
+- Protected-boundary checks: pending final check.
+- `git diff --check`: pending final check.
+
+Task result:
+- Master plan updated: yes.
+- Decision log updated: yes.
+- Repository spec drafts created: yes.
+- Case package v2 strategy recorded: yes.
+- External schema strategy recorded: yes.
+- External evidence strategy recorded: yes.
+- Validation consolidation strategy recorded: yes.
+- Runtime witness policy recorded: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports/results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+- official metrics computed: no.
+- paper tables rendered: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_runner_validator_compatibility_v0` on `feature/case-package-v2-external-schema` to add non-destructive `schema_ref` and `evidence_ref` validation and recheck `PERF_0006` without bulk case conversion.

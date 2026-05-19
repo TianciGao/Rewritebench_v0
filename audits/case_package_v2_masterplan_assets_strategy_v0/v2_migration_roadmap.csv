@@ -1,0 +1,9 @@
+phase_id,phase_name,scope,allowed_changes,required_validation,stop_conditions,notes
+P0,masterplan/spec update,feature branch policy only,project_control repository_spec audits,static checks and JSON parse,any case or schema asset modification,Completed by this task.
+P1,runner/validator schema_ref compatibility,PERF_0006 compatibility only,source validator code if authorized and tests,non-destructive path resolution tests,bulk case conversion or DB expansion,Must support v1 fallback while v2 branch is evaluated.
+P2,PERF_0006 compatibility recheck,PERF_0006 only,audit outputs and optional tests,manifest schema_ref evidence_ref and runner static compatibility,protected path mutation beyond authorized files,No broad conversion.
+P3,multi-pool pilot,PERF_0007 CONS_0005 PORT_0003 LONGTAIL_0011,case package branch-only copy-first edits,static v2 validator and compatibility checks,case_sets denominator reports results changes,Only after P1 and P2 pass.
+P4,Common-core 40 conversion plan,Common-core cases planning only,audit and selection outputs,readiness matrix and stop conditions,actual bulk conversion,Plan before execution.
+P5,evidence externalization copy-first,selected pilot evidence only,external evidence copies and evidence_ref if authorized,public hygiene and retention mapping,case-local runs deletion,No results/retained promotion by default.
+P6,case-local compatibility cleanup,pilot cases after compatibility accepted,remove compatibility assets only if separately authorized,validator runner evidence traceability checks,missing retention mapping,Deletion is not default.
+P7,clean export alignment,public release surface,classification and export planning,public surface matrix and hygiene checks,history rewrite or deletion without approval,Separates construction audits from final public surface.

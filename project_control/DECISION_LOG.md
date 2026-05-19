@@ -429,3 +429,127 @@ Impact:
 - `PERF_0006` is the only case authorized for the first v2 external-schema pilot.
 - Copy-first external schema adoption is allowed; destructive deletion of case-local schema or retained runs is not required and is not authorized by this decision.
 - Existing denominators, Common-core membership, reports/results, paper results, retained evidence, and no-global-leaderboard boundaries remain unchanged.
+
+## D020: Case package v2 target layout
+
+Decision:
+
+Case package v2 is the branch-adoption target on `feature/case-package-v2-external-schema`.
+
+The v2 case package keeps only case-local case assets by default:
+
+- `README.md`
+- `manifest.yaml`
+- `sql/source.sql`
+- `sql/pos_01.sql`
+- `sql/neg_01.sql`
+- `checker/`
+- `validation/`
+- optional lightweight witness policy metadata
+- case-local `runs/` only as legacy retained evidence
+
+The v2 case package does not require case-local `schema/`, does not require case-local `data_profile.yaml`, does not require case-local `correct_result.csv`, and minimizes case-local `evidence/`.
+
+Reason:
+
+The PERF_0006 branch pilot showed that direct SQL paths and manifest references are clearer than the v1 nested SQL/schema/evidence layout, but broad conversion needs a fixed target before validators and runners are updated.
+
+Impact:
+
+- v1 remains compatibility context until the branch pilot and compatibility tasks are accepted.
+- Future v2 case conversion prompts must not drift back to v1-only path assumptions.
+- This decision does not authorize bulk case conversion, denominator changes, case-set changes, reports/results changes, official metrics, paper tables, retained-evidence deletion, or leaderboard output.
+
+## D021: External schema strategy through schema_ref
+
+Decision:
+
+Schema assets move to top-level reusable schema packages:
+
+`schemas/<SCHEMA_ID>/`
+
+Case manifests reference schema assets through `schema_ref`. After validator and runner compatibility are implemented, `schema_ref` is the source of truth for DB/checker execution schema resolution.
+
+Case-local `schema/` directories remain compatibility artifacts until safe removal is separately authorized.
+
+Reason:
+
+Many cases share source-family schemas. Repeating DDL/load files inside every case package makes package maintenance noisy and makes DB/checker compatibility harder to reason about.
+
+Impact:
+
+- External schema adoption is copy-first until validator and runner compatibility is proven.
+- Case-local schema deletion requires explicit retention/compatibility review.
+- No DB/checker execution expansion is authorized by this decision.
+- Denominators, Common-core membership, paper results, reports/results, retained evidence, and leaderboard policy remain unchanged.
+
+## D022: External evidence strategy through evidence_ref
+
+Decision:
+
+Heavy case evidence moves to, or is referenced through:
+
+`evidence/cases/<POOL>/<CASE_ID>/`
+
+Case manifests reference external evidence through `evidence_ref`.
+
+`evidence/` is not the same as `results/retained/`. `evidence/` is not user-run output. User-run outputs remain under `runs/user/<run_id>/`.
+
+Case-local `runs/` remains legacy retained evidence and must not be deleted without retention mapping and explicit approval.
+
+Reason:
+
+Case packages should stay reviewable and portable. Heavy retained controls, plans, hard-negative artifacts, package validation summaries, and retention maps need stable references without turning each case package into an output archive.
+
+Impact:
+
+- Future evidence externalization must be copy-first and manifest-referenced.
+- `results/retained/` remains curated retained-evidence/reporting surface only after separate authorization.
+- User-run outputs must not be promoted to retained evidence without a separate retained-evidence policy task.
+- No reports/results migration, paper-result update, raw evidence deletion, or leaderboard output is authorized.
+
+## D023: Validation entrypoint consolidation
+
+Decision:
+
+Case package v2 validation entrypoints should converge to:
+
+- `validation/run_validation.sh`
+- `validation/run_plan_collection.sh`
+
+Case-local scripts should be thin wrappers. Shared validation and plan-collection logic should live in `scripts/` or `src/`.
+
+Validation wrappers must resolve SQL paths, `schema_ref`, checker configuration, and `evidence_ref` through the manifest.
+
+Existing engine-specific scripts are compatibility assets until wrapper validation is complete.
+
+Reason:
+
+The v1 layout has engine-specific validation scripts and case-local path assumptions. A small stable entrypoint set reduces public user confusion and gives validators one policy to enforce.
+
+Impact:
+
+- v2 wrappers must not write new output into case-local `runs/` by default.
+- Runner/validator compatibility work must be non-destructive and manifest-driven.
+- Existing compatibility scripts remain until a later cleanup task is authorized.
+
+## D024: Runtime source-as-oracle witness policy
+
+Decision:
+
+For user-run DB/checker execution, the checker oracle defaults to the runtime source SQL result.
+
+`data_profile.yaml` is optional, generated, or external. `correct_result.csv` is optional and is not required for runtime checker execution.
+
+Retained static witness files may still exist under `evidence/` when available. Missing static witness files must not block user-run execution when source-as-oracle execution is available.
+
+Reason:
+
+The bounded DB/checker MVP compares source and candidate results in a local run. Requiring a static correct-result file for every case would block useful user-run diagnostics and duplicate information that can be produced by executing source SQL in the same local schema.
+
+Impact:
+
+- Runtime checker paths should compare `source_result` to `candidate_result`.
+- Static witness assets remain useful for audits and retained controls but are not mandatory for local user-run execution.
+- If source execution or checker configuration is unavailable, the runner must fail closed and report local diagnostic status, not infer correctness.
+- This decision does not authorize official metrics, paper result updates, retained-evidence updates, or leaderboard output.

@@ -1,0 +1,31 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "master_plan_updated": true,
+  "decision_log_updated": true,
+  "repository_spec_drafts_created": [
+    "repository_spec/case_package_contract_v2_draft.md",
+    "repository_spec/external_schema_contract_v1_draft.md",
+    "repository_spec/external_evidence_contract_v1_draft.md",
+    "repository_spec/validation_entrypoint_policy_v1_draft.md",
+    "repository_spec/runtime_witness_policy_v1_draft.md"
+  ],
+  "case_package_v2_strategy_recorded": true,
+  "external_schema_strategy_recorded": true,
+  "external_evidence_strategy_recorded": true,
+  "validation_consolidation_strategy_recorded": true,
+  "runtime_witness_policy_recorded": true,
+  "case_files_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_runner_validator_compatibility_v0 on feature/case-package-v2-external-schema to add non-destructive schema_ref and evidence_ref validation and recheck PERF_0006 without bulk conversion."
+}

@@ -1,0 +1,22 @@
+asset_type,current_v1_location,proposed_v2_location,manifest_ref_key,required_for_v2,migration_mode,deletion_allowed_now,notes
+source SQL,cases/<POOL>/<CASE_ID>/sql/source.sql,cases/<POOL>/<CASE_ID>/sql/source.sql,sql.source,true,keep,false,Case-local source SQL remains required.
+positive SQL,cases/<POOL>/<CASE_ID>/sql/positives/pos_01.sql,cases/<POOL>/<CASE_ID>/sql/pos_01.sql,sql.positives,when_positive_exists,copy_first,false,Legacy nested path may remain during branch adoption.
+negative SQL,cases/<POOL>/<CASE_ID>/sql/negatives/neg_01.sql,cases/<POOL>/<CASE_ID>/sql/neg_01.sql,sql.negatives,when_negative_exists,copy_first,false,Legacy nested path may remain during branch adoption.
+schema DDL/load,cases/<POOL>/<CASE_ID>/schema/<engine>/ddl.sql and load.sql,schemas/<SCHEMA_ID>/<engine>/ddl.sql and load.sql,schema_ref,true,copy_first,false,Case-local schema remains compatibility copy until resolver support lands.
+schema_profile,cases/<POOL>/<CASE_ID>/schema/schema_profile.yaml,schemas/<SCHEMA_ID>/schema_profile.yaml,schema_ref.profile,true,copy_first,false,External profile describes reusable schema context.
+data_profile,cases/<POOL>/<CASE_ID>/data/data_profile.yaml,evidence/cases/<POOL>/<CASE_ID>/data_profile.yaml or generated,witness.mode,false,external_or_generated,false,Not required for runtime source-as-oracle checking.
+correct_result,cases/<POOL>/<CASE_ID>/witness/correct_result.csv or evidence retained source,evidence/cases/<POOL>/<CASE_ID>/correct_result.csv when available,witness.mode,false,external_or_optional,false,Do not fabricate static correct results.
+checker config,cases/<POOL>/<CASE_ID>/checker/checker.yaml,cases/<POOL>/<CASE_ID>/checker/checker.yaml,checker.config,true,keep,false,Checker config remains case-local.
+normalization config,cases/<POOL>/<CASE_ID>/checker/normalization.yaml,cases/<POOL>/<CASE_ID>/checker/normalization.yaml,checker.normalization,true,keep,false,Required when checker uses normalization.
+compare config,cases/<POOL>/<CASE_ID>/checker/compare_config.yaml,cases/<POOL>/<CASE_ID>/checker/compare_config.yaml,checker.compare_config,true,keep,false,Required for local checker comparison.
+expected rejections,cases/<POOL>/<CASE_ID>/checker/expected_rejections.yaml,cases/<POOL>/<CASE_ID>/checker/expected_rejections.yaml,checker.expected_rejections,when_negative_exists,keep,false,Hard negatives remain checker controls.
+validation scripts,cases/<POOL>/<CASE_ID>/validation/run_<engine>_validation.sh,cases/<POOL>/<CASE_ID>/validation/run_validation.sh and run_plan_collection.sh,validation.entrypoints,true,thin_wrapper,false,Old engine scripts remain compatibility assets.
+package_validation_summary,cases/<POOL>/<CASE_ID>/evidence/package_validation_summary.json,evidence/cases/<POOL>/<CASE_ID>/package_validation_summary.json,evidence_ref.package_validation_summary,false,copy_first,false,External evidence placement preferred.
+runs_retention,cases/<POOL>/<CASE_ID>/evidence/runs_retention.yaml,evidence/cases/<POOL>/<CASE_ID>/runs_retention.yaml,evidence_ref.runs_retention,true_when_runs_exist,copy_first,false,Needed before any retained runs cleanup.
+retained controls,cases/<POOL>/<CASE_ID>/evidence/retained_controls/,evidence/cases/<POOL>/<CASE_ID>/retained_controls/,evidence_ref.retained_controls,false,copy_first,false,Retained evidence not user-run output.
+hard-negative evidence,cases/<POOL>/<CASE_ID>/evidence/hard_negative/,evidence/cases/<POOL>/<CASE_ID>/hard_negative/,evidence_ref.hard_negative,false,copy_first,false,Hard-negative evidence is control evidence.
+plan evidence,cases/<POOL>/<CASE_ID>/evidence/retained_plans/,evidence/cases/<POOL>/<CASE_ID>/plans/,evidence_ref.plans,false,copy_first,false,Sanitized public-safe plan evidence only.
+case-local runs,cases/<POOL>/<CASE_ID>/runs/,cases/<POOL>/<CASE_ID>/runs/,none,false,retain_legacy_only,false,Legacy retained evidence only.
+user-run outputs,runs/user/<run_id>/,runs/user/<run_id>/,none,false,local_only,false,Ignored local experiment output.
+paper retained results,results/retained/,results/retained/,none,false,curated_only,false,Separate authorization required.
+reports,reports/evaluation/ and reports/paper/,reports/evaluation/ and reports/paper/,none,false,curated_only,false,No paper table rendering in v2 strategy.

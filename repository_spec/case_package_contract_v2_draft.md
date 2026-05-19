@@ -1,0 +1,124 @@
+# Case Package Contract v2 Draft
+
+Status: draft policy for `feature/case-package-v2-external-schema`
+
+This contract defines the target v2 case-local package shape. It is a branch-adoption contract, not authorization for bulk conversion, denominator changes, report/result updates, metric computation, retained-evidence deletion, or leaderboard output.
+
+## Required Case-local Files
+
+Each v2 case package should contain:
+
+```text
+cases/<POOL>/<CASE_ID>/
+  README.md
+  manifest.yaml
+  sql/source.sql
+  checker/
+  validation/
+```
+
+When positive rewrites or hard negatives exist, use direct SQL files:
+
+```text
+sql/pos_01.sql
+sql/neg_01.sql
+```
+
+Additional numbered files may use the same direct naming pattern, for example `pos_02.sql` or `neg_02.sql`.
+
+## Optional Case-local Files
+
+Optional case-local assets include:
+
+- lightweight `witness/` policy metadata
+- compatibility `schema/` copies during branch adoption
+- compatibility `evidence/` index files during branch adoption
+- `notes/` for stable package caveats
+- case-local `runs/` as legacy retained evidence only
+
+## Default-excluded Files
+
+The v2 case package does not require:
+
+- case-local `schema/`
+- case-local `data/data_profile.yaml`
+- case-local `witness/correct_result.csv`
+- heavy case-local `evidence/` payloads
+- local user-run outputs
+- generated DB results, checker logs, timing output, or scratch workspaces
+
+These assets should be externalized or kept as explicitly marked compatibility artifacts.
+
+## Manifest Roles
+
+`manifest.yaml` is the source of truth for:
+
+- case identity and pool
+- direct SQL path references
+- checker config path references
+- validation entrypoint references
+- `schema_ref`
+- `evidence_ref`
+- witness mode
+- compatibility notes
+
+Manifest references do not change Common-core membership, denominators, paper results, reports/results, metric authorization, or leaderboard policy.
+
+## SQL Path Convention
+
+The target convention is:
+
+```yaml
+sql:
+  source: sql/source.sql
+  positives:
+    - sql/pos_01.sql
+  negatives:
+    - sql/neg_01.sql
+```
+
+During branch adoption, manifests may include `legacy_compatibility_path` values for the v1 nested paths.
+
+## Checker Path Convention
+
+Checker configuration remains case-local by default:
+
+```text
+checker/checker.yaml
+checker/normalization.yaml
+checker/compare_config.yaml
+checker/expected_rejections.yaml
+```
+
+The checker config may refer to direct v2 SQL paths. Any compatibility fallback must be explicit and temporary.
+
+## Validation Path Convention
+
+The target validation entrypoints are:
+
+```text
+validation/run_validation.sh
+validation/run_plan_collection.sh
+```
+
+Case-local validation scripts should be thin wrappers. Shared logic should live in `scripts/` or `src/` after separate authorization.
+
+## Witness Policy
+
+Runtime user-run checking defaults to source-as-oracle comparison: execute source SQL and candidate SQL in the same local context, then compare their results.
+
+`data_profile.yaml` and `correct_result.csv` are optional. They may be generated, externalized, or retained under evidence when useful, but they are not required for local runtime checking when source-as-oracle execution is available.
+
+## Case-local Runs Policy
+
+Case-local `runs/` is legacy retained evidence only.
+
+It must not be used for new user-run outputs. It must not be deleted, rewritten, or moved without retention mapping and explicit approval.
+
+## No-global-leaderboard Boundary
+
+Case packages do not define leaderboard ranking. Reports must remain denominator-aware and role-aware. v2 conversion does not authorize official metric computation, timing collection, report rendering, paper-result changes, or global leaderboard output.
+
+## v1 Compatibility During Branch Adoption
+
+v1 assets may remain during branch adoption as compatibility artifacts. Compatibility assets should be documented in the manifest, audit outputs, or schema/evidence references. Cleanup is a separate task after validator and runner compatibility pass.

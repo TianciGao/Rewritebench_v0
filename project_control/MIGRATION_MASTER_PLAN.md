@@ -144,6 +144,87 @@ evidence/runs_retention.yaml 用于解释 runs/；
 新运行输出不再写入 case-local runs/；
 Common-core membership 由 case_sets/ 控制，不通过物理目录复制 case。
 
+## 6A. Case package v2 target addendum
+
+case package v1 was the prior migration target and remains compatibility context. Case package v2 is the new branch-adoption target on:
+
+`feature/case-package-v2-external-schema`
+
+v2 is not merged to `main` until the branch pilot, validator compatibility, and runner compatibility are explicitly approved.
+
+v2 does not change Common-core membership, denominators, paper results, reports/results, retained evidence, or no-global-leaderboard policy.
+
+Target v2 case-local structure:
+
+```text
+cases/<POOL>/<CASE_ID>/
+  README.md
+  manifest.yaml
+  sql/source.sql
+  sql/pos_01.sql
+  sql/neg_01.sql
+  checker/
+  validation/
+  runs/  # legacy retained evidence only
+```
+
+External schema structure:
+
+```text
+schemas/<SCHEMA_ID>/
+  schema_profile.yaml
+  postgres/ddl.sql
+  postgres/load.sql
+  mysql/ddl.sql
+  mysql/load.sql
+  spark/ddl.sql
+  spark/load.sql
+```
+
+External evidence structure:
+
+```text
+evidence/cases/<POOL>/<CASE_ID>/
+  package_validation_summary.json
+  runs_retention.yaml
+  retained_controls/
+  hard_negative/
+  plans/
+```
+
+Manifest reference policy:
+
+- `schema_ref` points from a case manifest to reusable `schemas/<SCHEMA_ID>/` assets and becomes the source of truth after validator and runner compatibility are implemented.
+- `evidence_ref` points from a case manifest to external case evidence under `evidence/cases/<POOL>/<CASE_ID>/`.
+- `sql.source`, `sql.positives`, and `sql.negatives` point to direct case-local SQL files under `sql/`.
+- Checker paths remain case-local by default under `checker/`.
+- Validation entrypoints converge to `validation/run_validation.sh` and `validation/run_plan_collection.sh`.
+
+Runtime witness/source-as-oracle policy:
+
+- User-run DB/checker execution should default to comparing runtime source SQL results against candidate SQL results.
+- `data_profile.yaml` is optional, generated, or external.
+- `correct_result.csv` is optional and not required for runtime checker execution when source-as-oracle execution is available.
+- Missing static witness files must fail closed only when source execution or checker configuration is unavailable.
+
+Artifact boundary policy:
+
+- `runs/user/<run_id>/` is local user-run output only. It is not retained paper evidence, not `results/retained/`, and not a leaderboard input.
+- case-local `runs/` is legacy retained evidence only and must not receive new user-run output.
+- `results/retained/` is a curated retained-evidence/reporting surface only after separate authorization.
+- `evidence/cases/` is retained case evidence/reference material, not user-run output and not paper table output.
+
+Branch-only adoption roadmap:
+
+1. Record v2 master plan and repository specs on `feature/case-package-v2-external-schema`.
+2. Implement non-destructive validator and runner compatibility for `schema_ref` and `evidence_ref`.
+3. Recheck `PERF_0006` without modifying additional cases.
+4. Expand branch-only pilot to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` if authorized.
+5. Plan Common-core 40 conversion only after validator/runner compatibility and pilot review pass.
+6. Externalize evidence copy-first and keep compatibility mappings.
+7. Clean up case-local compatibility assets only after explicit retention mapping and approval.
+8. Align the clean public export surface after v2 package boundaries are stable.
+
 ## 7. runs/ 政策
 
 runs/ 在迁移期定义为 legacy retained evidence surface。
