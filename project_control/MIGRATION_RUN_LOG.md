@@ -6597,14 +6597,14 @@ Task result:
 Next safe action:
 - Review the four-row local batch smoke. If acceptable, authorize a separate bounded follow-up for either another small PERF postgres batch or DB/checker hardening, still with local `runs/user/` output only and no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
 
-### 2026-05-19 · TBD · case_package_v2_external_schema_branch_pilot_v0
+### 2026-05-19 · 58eb7d6 · case_package_v2_external_schema_branch_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: major case package standard upgrade branch pilot; PERF_0006 only; external schema copy-first adoption; B-line user-entry development frozen; no DB execution; no checker execution; no timing; no official metrics; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `58eb7d694fbdd4ea9ff72cfdaa52f77f8827a2a7`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Created and worked on branch `feature/case-package-v2-external-schema` from updated `main`.
