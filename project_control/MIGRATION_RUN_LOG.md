@@ -8400,14 +8400,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_a_v0` as a bounded writable Wave A conversion for `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024` only.
 
-### 2026-05-19 · pending · case_package_v2_common_core40_wave_a_v0
+### 2026-05-19 · 15385da0 · case_package_v2_common_core40_wave_a_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only bounded writable Common-core Wave A v2 conversion; no DB/checker execution; no official metrics; no reports/results migration
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `15385da0`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Converted exactly five Wave A Common-core cases: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
