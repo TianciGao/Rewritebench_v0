@@ -8211,14 +8211,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_evidence_reference_removal_execution_v0` to replace live five-case static evidence references with regeneration-first `evidence_policy` and delete only unreferenced static evidence surfaces after protected-boundary checks.
 
-### 2026-05-19 · pending · case_package_v2_evidence_reference_removal_execution_v0
+### 2026-05-19 · 6198b7df · case_package_v2_evidence_reference_removal_execution_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable evidence-reference removal and static evidence cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `6198b7df`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Updated the five pilot manifests from mandatory `evidence_ref` to regeneration-first `evidence_policy`.
