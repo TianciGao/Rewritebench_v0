@@ -8336,14 +8336,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only Common-core 40 planning task before any wider conversion execution.
 
-### 2026-05-19 · pending · case_package_v2_common_core40_conversion_plan_v0
+### 2026-05-19 · 51aebd6a · case_package_v2_common_core40_conversion_plan_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only Common-core 40 v2 conversion planning; no writable conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `51aebd6a`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Planned clean-template-minimal v2 conversion for all 40 Common-core cases using the five accepted pilot cases as the canonical template.
