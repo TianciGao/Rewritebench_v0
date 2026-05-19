@@ -7467,3 +7467,57 @@ Task result:
 
 Next safe action:
 - Review and accept the five-case v2 pilot closeout on `feature/case-package-v2-external-schema`; if accepted, authorize a branch-only Common-core 40 conversion plan using the folder-ordered rulebook, without merging to `main`, protected benchmark-surface changes, DB/checker execution, official metrics, paper rendering, or leaderboard output.
+
+### 2026-05-19 · PENDING · case_package_v2_template_parity_gap_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only template parity and clean-v2 gap review; no case conversion; no cleanup; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Compared `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` against the clean v2 case-local template.
+- Confirmed every clean-template-required asset is present for all five pilot cases.
+- Classified optional witness assets, externalized schema/evidence assets, temporary v1 compatibility directories, retained evidence, placeholder runs, cleanup readiness, and manual-review blockers.
+- Confirmed all five pilot cases still pass the static v2 validator.
+- Did not modify case packages, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_gap_review_summary.md`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_case_summary.csv`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_path_gap_matrix.csv`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_witness_gap_matrix.csv`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_evidence_runs_gap_matrix.csv`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_cleanup_readiness.csv`
+- `audits/case_package_v2_template_parity_gap_review_v0/future_case_package_v2_clean_template_cleanup_pilot_prompt.md`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_gap_review_summary.json`
+- `audits/case_package_v2_template_parity_gap_review_v0/template_parity_gap_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Summary JSON parse and boundary assertions passed.
+- CSV header checks passed.
+- Protected path checks passed; no cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Template parity gap review: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases modified: no.
+- Schemas modified: no.
+- Evidence modified: no.
+- Runs deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_clean_template_cleanup_pilot_v0` only for cleanup actions marked `ready_for_cleanup=true`, with explicit path staging, no retained-evidence deletion without mapping, and no protected benchmark-surface changes.

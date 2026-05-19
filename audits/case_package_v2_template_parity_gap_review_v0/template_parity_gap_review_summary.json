@@ -1,0 +1,27 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "template_parity_gap_review": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_modified": false,
+  "schemas_modified": false,
+  "evidence_modified": false,
+  "runs_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_clean_template_cleanup_pilot_v0 only for cleanup actions marked ready_for_cleanup=true, with explicit path staging, no retained-evidence deletion without mapping, and no protected benchmark-surface changes."
+}
