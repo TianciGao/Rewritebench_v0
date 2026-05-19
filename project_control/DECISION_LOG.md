@@ -553,3 +553,72 @@ Impact:
 - Static witness assets remain useful for audits and retained controls but are not mandatory for local user-run execution.
 - If source execution or checker configuration is unavailable, the runner must fail closed and report local diagnostic status, not infer correctness.
 - This decision does not authorize official metrics, paper result updates, retained-evidence updates, or leaderboard output.
+
+## D025: Case-local schema profile-only policy for v2
+
+Decision:
+
+Case package v2 retains case-local `schema/` only for:
+
+- `schema/schema_profile.yaml`
+
+Clean v2 case packages do not store executable per-engine DDL/load files under case-local `schema/`. Executable schema assets remain external under:
+
+- `schemas/<SCHEMA_ID>/<engine>/ddl.sql`
+- `schemas/<SCHEMA_ID>/<engine>/load.sql`
+
+The case-local `schema/schema_profile.yaml` records the case-facing schema summary and linkage:
+
+- `schema_id`
+- external schema profile path
+- source family
+- relevant tables
+- columns and types
+- primary keys
+- foreign keys
+- dialect differences
+- fixture/data notes when needed
+- engine support summary
+
+Runner and validator compatibility should resolve executable schema through the case manifest, case-local schema profile, and external `schemas/` package. Case-local per-engine DDL/load files may remain only as compatibility artifacts until a cleanup task proves safe removal.
+
+Reason:
+
+The prior v2 wording minimized or externalized `schema/` entirely, but writable conversion planning showed that reviewers still need a lightweight case-local schema summary. Keeping only `schema/schema_profile.yaml` preserves reviewability without duplicating executable DDL/load across cases.
+
+Impact:
+
+- Future v2 conversion must create or normalize `schema/schema_profile.yaml` before deleting any case-local per-engine schema files.
+- External `schemas/<SCHEMA_ID>/` remains the executable schema source.
+- This decision does not change denominators, `case_sets/`, reports/results, paper results, retained evidence, raw legacy evidence, official metrics, DB/checker execution authorization, or leaderboard policy.
+
+## D026: Shared checker and validation modules for v2
+
+Decision:
+
+Case-local `checker/` stores configuration only:
+
+- `checker.yaml`
+- `normalization.yaml`
+- `compare_config.yaml`
+- `expected_rejections.yaml`
+
+Shared checker and validation implementation belongs under `src/sql_rewrite_bench/` or shared repository scripts, not duplicated inside each case package.
+
+Current and planned shared modules:
+
+- `src/sql_rewrite_bench/local_result_checker.py`: existing local result comparison implementation.
+- `src/sql_rewrite_bench/sql_shape_validator.py`: future shared SQL static shape validator.
+- `src/sql_rewrite_bench/plan_artifact_validator.py`: future shared plan/evidence artifact validator.
+
+Case-local `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin wrappers over shared logic. Clean v2 packages must not carry duplicated per-case implementations such as `run_engine_queries.py`, `check_results.py`, `check_sql_consistency.py`, or `check_plan_artifacts.py`; any legacy copies remain compatibility assets until shared wrappers are validated.
+
+Reason:
+
+The v2 conversion rulebook needs folder-ordered conversion by asset layer. Duplicating Python checker or validator implementation into each case would make conversion noisy and inconsistent, while shared modules keep execution/checking behavior auditable.
+
+Impact:
+
+- Future writable conversion should add or normalize case-local wrapper scripts, not copy implementation logic per case.
+- Shared module creation remains separately authorized future work; this decision records the plan only.
+- This decision does not authorize DB/checker execution expansion, official metrics, timing, reports/results migration, denominator changes, paper-result changes, retained-evidence updates, or leaderboard output.

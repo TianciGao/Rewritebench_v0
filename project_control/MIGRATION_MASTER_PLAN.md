@@ -163,10 +163,13 @@ cases/<POOL>/<CASE_ID>/
   sql/source.sql
   sql/pos_01.sql
   sql/neg_01.sql
+  schema/schema_profile.yaml
   checker/
   validation/
   runs/  # legacy retained evidence only
 ```
+
+Case-local `schema/` remains in clean v2 only for `schema/schema_profile.yaml`. This file is a case-facing schema profile and summary, not executable DDL or load data. It records the `schema_id`, external schema profile linkage, source family, relevant tables, columns, column types, primary keys, foreign keys, dialect differences, fixture/data notes when needed, and engine support summary.
 
 External schema structure:
 
@@ -194,11 +197,28 @@ evidence/cases/<POOL>/<CASE_ID>/
 
 Manifest reference policy:
 
-- `schema_ref` points from a case manifest to reusable `schemas/<SCHEMA_ID>/` assets and becomes the source of truth after validator and runner compatibility are implemented.
+- `schema_ref` points from a case manifest to reusable `schemas/<SCHEMA_ID>/` executable DDL/load assets and becomes the source of truth after validator and runner compatibility are implemented.
+- The case manifest also references case-local `schema/schema_profile.yaml`; that profile links back to the external schema profile and executable DDL/load paths.
 - `evidence_ref` points from a case manifest to external case evidence under `evidence/cases/<POOL>/<CASE_ID>/`.
 - `sql.source`, `sql.positives`, and `sql.negatives` point to direct case-local SQL files under `sql/`.
 - Checker paths remain case-local by default under `checker/`.
 - Validation entrypoints converge to `validation/run_validation.sh` and `validation/run_plan_collection.sh`.
+
+Folder-ordered v2 conversion sequence:
+
+`manifest -> sql -> schema -> checker -> validation -> witness -> evidence -> metadata -> notes -> runs -> README/validator`
+
+1. `manifest`: normalize canonical v2 references and compatibility blocks first.
+2. `sql`: create direct `sql/source.sql`, `sql/pos_01.sql`, and `sql/neg_01.sql` paths.
+3. `schema`: create/update case-local `schema/schema_profile.yaml` and external `schemas/<SCHEMA_ID>/<engine>/ddl.sql` and `load.sql` references.
+4. `checker`: retain case-local checker configuration only.
+5. `validation`: add thin `run_validation.sh` and `run_plan_collection.sh` wrappers.
+6. `witness`: record source-as-oracle and optional/generated witness policy.
+7. `evidence`: add copy-first `evidence_ref` plans without deleting retained evidence.
+8. `metadata`: merge stable governance metadata into manifest or compatibility blocks.
+9. `notes`: classify notes for README, manifest notes, or external evidence notes.
+10. `runs`: classify case-local runs as legacy retained evidence; never write new outputs there.
+11. `README/validator`: update package documentation and run static validator checks after the structural layers are stable.
 
 Runtime witness/source-as-oracle policy:
 

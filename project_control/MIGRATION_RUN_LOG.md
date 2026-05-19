@@ -6994,3 +6994,65 @@ Task result:
 
 Next safe action:
 - Resolve manual-review blockers in `audits/case_package_v2_batch_converter_plan_v0/v2_batch_converter_stop_conditions.csv` before authorizing a writable `case_package_v2_batch_conversion_pilot_v0`.
+
+### 2026-05-19 · pending · case_package_v2_rulebook_refinement_folder_order_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only v2 rulebook refinement and folder-ordered conversion planning; no case conversion; no schema modification; no DB/checker execution; no official metrics; no paper rendering
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Refined the v2 master plan and repository specs before writable conversion.
+- Recorded that clean v2 retains case-local `schema/` only for `schema/schema_profile.yaml`, while executable DDL/load remain external under `schemas/<SCHEMA_ID>/<engine>/`.
+- Added decision log entries for case-local schema profile-only policy and shared checker/validation modules.
+- Recorded that case-local `checker/` stores configuration only and shared logic belongs under `src/sql_rewrite_bench/`.
+- Recorded the folder-ordered conversion sequence: `manifest -> sql -> schema -> checker -> validation -> witness -> evidence -> metadata -> notes -> runs -> README/validator`.
+- Created audit outputs for folder order, schema profile policy, shared module policy, validation call graph, future folder-ordered prompt, and summary JSON.
+- Did not modify case files, schemas, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution code, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_rulebook_refinement_summary.md`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_folder_order_conversion_sequence.csv`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_schema_profile_policy.csv`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_shared_checker_validation_modules.csv`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_validation_call_graph.md`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/future_case_package_v2_folder_ordered_conversion_prompt.md`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_rulebook_refinement_summary.json`
+- `audits/case_package_v2_rulebook_refinement_folder_order_v0/v2_rulebook_refinement_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+- `repository_spec/case_package_contract_v2_draft.md`
+- `repository_spec/external_schema_contract_v1_draft.md`
+- `repository_spec/validation_entrypoint_policy_v1_draft.md`
+- `repository_spec/external_evidence_contract_v1_draft.md`
+
+Validation:
+- Branch check: passed.
+- Master-plan schema profile-only policy check: passed.
+- Repository spec shared-module checks: passed.
+- CSV header and folder-order checks: passed.
+- Summary JSON parse and boundary assertions: passed.
+- Protected-boundary checks: passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
+
+Task result:
+- Schema profile-only policy recorded: yes.
+- Shared checker/validation module plan recorded: yes.
+- Folder-ordered conversion sequence recorded: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize a branch-only folder-ordered writable pilot that starts with manifest and SQL layers, then adds `schema/schema_profile.yaml` plus external schema references before converting checker, validation, witness, evidence, metadata, notes, runs, README, or validator expectations.

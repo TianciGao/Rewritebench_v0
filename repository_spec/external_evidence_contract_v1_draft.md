@@ -55,6 +55,8 @@ Case-local `runs/` remains legacy retained evidence and is not moved or deleted 
 
 These are retained evidence/reference assets, not new user-run output.
 
+Future plan and evidence artifact validation should be implemented as shared repository logic, not as per-case checker code. The planned shared module is `src/sql_rewrite_bench/plan_artifact_validator.py`; it should consume `evidence_ref`, case-local checker configuration, and public-safe retained evidence paths without copying raw private logs, prompts, credentials, or local machine paths into public evidence.
+
 ## Distinction From results/retained/
 
 `evidence/cases/` is case evidence/reference material. `results/retained/` is a curated retained-result/reporting surface only after separate authorization.

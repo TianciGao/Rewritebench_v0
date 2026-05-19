@@ -49,6 +49,16 @@ Case-local scripts should:
 
 Case-local scripts should not contain large duplicated runner logic.
 
+They should also avoid duplicated per-case implementations of:
+
+- `run_engine_queries.py`
+- `check_results.py`
+- `check_sql_consistency.py`
+- `check_plan_artifacts.py`
+- `run_checks.sh`
+
+Those names may exist only as compatibility assets or templates until shared modules replace them.
+
 ## Shared Logic Location
 
 Shared validation and plan-collection behavior should live in:
@@ -57,6 +67,21 @@ Shared validation and plan-collection behavior should live in:
 - `src/` for importable library code
 
 Adding shared logic requires a separate implementation task.
+
+## Shared Module Call Graph
+
+Clean v2 validation wrappers should follow this shared call graph:
+
+1. User or maintainer invokes `validation/run_validation.sh` or `validation/run_plan_collection.sh`.
+2. Wrapper resolves the repository root and case `manifest.yaml`.
+3. Manifest resolution loads direct SQL paths, `schema_ref`, case-local `schema/schema_profile.yaml`, checker config paths, and `evidence_ref`.
+4. Engine query execution, when authorized by a separate task, dispatches to shared engine-runner logic such as future `src/sql_rewrite_bench/engine_query_runner.py`.
+5. Result comparison dispatches to existing `src/sql_rewrite_bench/local_result_checker.py`.
+6. SQL static shape checks dispatch to future `src/sql_rewrite_bench/sql_shape_validator.py`.
+7. Plan and evidence artifact checks dispatch to future `src/sql_rewrite_bench/plan_artifact_validator.py`.
+8. Outputs are written only to approved local output roots, never to case-local `runs/` by default.
+
+`local_result_checker.py` exists today as the shared local result comparison implementation. `sql_shape_validator.py`, `plan_artifact_validator.py`, and `engine_query_runner.py` are planned future shared modules and are not created by this policy.
 
 ## Compatibility With Old Engine-specific Scripts
 
@@ -72,6 +97,7 @@ Wrappers and validators must resolve:
 - `sql.positives`
 - `sql.negatives`
 - `schema_ref`
+- `schema/schema_profile.yaml`
 - checker config paths
 - `evidence_ref`
 

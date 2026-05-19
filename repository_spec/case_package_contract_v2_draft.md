@@ -13,6 +13,7 @@ cases/<POOL>/<CASE_ID>/
   README.md
   manifest.yaml
   sql/source.sql
+  schema/schema_profile.yaml
   checker/
   validation/
 ```
@@ -31,7 +32,7 @@ Additional numbered files may use the same direct naming pattern, for example `p
 Optional case-local assets include:
 
 - lightweight `witness/` policy metadata
-- compatibility `schema/` copies during branch adoption
+- compatibility case-local `schema/<engine>/ddl.sql` and `schema/<engine>/load.sql` copies during branch adoption
 - compatibility `evidence/` index files during branch adoption
 - `notes/` for stable package caveats
 - case-local `runs/` as legacy retained evidence only
@@ -40,7 +41,8 @@ Optional case-local assets include:
 
 The v2 case package does not require:
 
-- case-local `schema/`
+- case-local executable `schema/<engine>/ddl.sql`
+- case-local executable `schema/<engine>/load.sql`
 - case-local `data/data_profile.yaml`
 - case-local `witness/correct_result.csv`
 - heavy case-local `evidence/` payloads
@@ -55,6 +57,7 @@ These assets should be externalized or kept as explicitly marked compatibility a
 
 - case identity and pool
 - direct SQL path references
+- case-local `schema/schema_profile.yaml` references
 - checker config path references
 - validation entrypoint references
 - `schema_ref`
@@ -92,6 +95,38 @@ checker/expected_rejections.yaml
 
 The checker config may refer to direct v2 SQL paths. Any compatibility fallback must be explicit and temporary.
 
+Clean v2 `checker/` contains configuration only. It must not contain duplicated Python checker implementations. Shared result comparison is provided by `src/sql_rewrite_bench/local_result_checker.py`; future shared SQL-shape and plan/evidence checks should live in `src/sql_rewrite_bench/sql_shape_validator.py` and `src/sql_rewrite_bench/plan_artifact_validator.py`.
+
+## Schema Path Convention
+
+Clean v2 keeps case-local `schema/` only for:
+
+```text
+schema/schema_profile.yaml
+```
+
+The profile is a case-facing schema summary, not executable DDL/load. It should record:
+
+- `schema_id`
+- `external_schema_profile`
+- `source_family`
+- relevant tables
+- columns and types
+- primary keys
+- foreign keys
+- dialect differences
+- fixture/data notes when needed
+- engine support summary
+
+Executable DDL/load remains external under:
+
+```text
+schemas/<SCHEMA_ID>/<engine>/ddl.sql
+schemas/<SCHEMA_ID>/<engine>/load.sql
+```
+
+Case-local per-engine schema files may remain only as branch-adoption compatibility artifacts until cleanup is explicitly authorized.
+
 ## Validation Path Convention
 
 The target validation entrypoints are:
@@ -102,6 +137,16 @@ validation/run_plan_collection.sh
 ```
 
 Case-local validation scripts should be thin wrappers. Shared logic should live in `scripts/` or `src/` after separate authorization.
+
+Clean v2 `validation/` contains thin case-local entrypoints only. It must not duplicate shared engine-query, result-checking, SQL-shape, or plan-artifact implementation logic in every case.
+
+## Folder-ordered Conversion Sequence
+
+Future writable conversion should proceed by folder/asset layer:
+
+`manifest -> sql -> schema -> checker -> validation -> witness -> evidence -> metadata -> notes -> runs -> README/validator`
+
+This sequence prevents spreading mixed v1/v2 structures across additional cases. Each layer should pass its static validation gate before the next layer is converted.
 
 ## Witness Policy
 
