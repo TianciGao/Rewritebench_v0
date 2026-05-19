@@ -3,7 +3,8 @@ expected_rejections_version: canonical_case_package_layout_v1
 hard_negatives:
   - hard_negative_id: neg_01
     source_sql_path: sql/source.sql
-    negative_sql_path: sql/negatives/neg_01.sql
+    negative_sql_path: sql/neg_01.sql
+    legacy_negative_sql_path: sql/negatives/neg_01.sql
     expected_rejection_reason: cutoff_predicate_strictness_changed
     semantic_risk_type:
       - predicate_boundary

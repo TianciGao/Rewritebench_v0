@@ -1,0 +1,42 @@
+schema_id: tpch_common_core_v0
+schema_profile_version: case_package_v2_external_schema_pilot
+source_family: TPC-H
+source_id: SRC_001
+public_release_status: external_reusable_schema_pilot_copy
+pilot_case_ids:
+  - PERF_0006
+engines:
+  postgres:
+    ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
+    load: schemas/tpch_common_core_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
+    load: schemas/tpch_common_core_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpch_common_core_v0/spark/ddl.sql
+    load: schemas/tpch_common_core_v0/spark/load.sql
+required_tables:
+  - lineitem
+required_columns:
+  lineitem:
+    - l_returnflag
+    - l_linestatus
+    - l_quantity
+    - l_extendedprice
+    - l_discount
+    - l_tax
+    - l_shipdate
+witness_row_count:
+  lineitem: 4
+claim_boundary:
+  external_schema_copy_first_pilot: true
+  source_case_schema_deleted: false
+  db_validation_run: false
+  timing_collected: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false
+notes:
+  - External reusable execution context for the case-package v2 branch pilot.
+  - Copied from cases/PERF/PERF_0006/schema for pilot validation only.
+  - The original case-local schema directory is retained for compatibility until v2 validators and runners are updated.

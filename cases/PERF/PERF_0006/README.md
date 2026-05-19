@@ -19,18 +19,22 @@ The package is organized as a benchmark case package, not as a standalone SQL st
 ## Package Contents
 
 - `manifest.yaml` is the package index.
-- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
-- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
+- `sql/` contains the source SQL and approved rewrite SQL assets for this case. In the v2 branch pilot, `sql/pos_01.sql` and `sql/neg_01.sql` are the direct rewrite paths; the previous `sql/positives/` and `sql/negatives/` paths are retained as compatibility copies during the pilot.
+- `schema_ref` in `manifest.yaml` points to the external reusable schema package `schemas/tpch_common_core_v0/`.
+- `schema/` is retained as a case-local compatibility copy during this branch pilot and is not deleted.
+- `witness/` contains the v2 pilot witness data profile and retained-source-derived correct result.
 - `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
 - `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
 - `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
-- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
+- `validation/` contains v2 wrapper entrypoints plus retained engine-specific validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
 ## Evidence Boundary
 
 Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
 
 New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
+
+The case-local `runs/` directory is retained as legacy evidence only. It was not deleted or rewritten by the v2 external-schema branch pilot.
 
 ## Benchmark Boundary
 

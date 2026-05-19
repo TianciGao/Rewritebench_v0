@@ -396,3 +396,36 @@ Impact:
 - Speedup Retention is `N.A.` unless paired source-engine and target-engine timing exists.
 - Attribution Coverage is the main explainability metric, while atom-based rewrite opportunity observability and PlanFrontier remain support/diagnostic unless separately approved.
 - No global leaderboard is allowed.
+
+## D019: Case package v2 external-schema branch adoption
+
+Decision:
+
+Freeze further B-line user-entry and DB/checker expansion while case package v2 external-schema adoption is piloted on a dedicated branch:
+
+`feature/case-package-v2-external-schema`
+
+Adopt the colleague-proposed simplified case package direction for branch pilots:
+
+- SQL files live directly under `sql/`: `source.sql`, `pos_01.sql`, and `neg_01.sql`.
+- `witness/` holds data profile and expected/correct result material where safely retained or derivable.
+- `checker/` holds comparison configuration, normalization rules, and expected rejection rules.
+- `validation/` holds reproducible validation and plan-collection entrypoints.
+- Case-local `runs/` is retained only as legacy retained evidence and is not a default output root for new runs.
+- Schema assets move out of case packages into reusable external `schemas/<SCHEMA_ID>/` packages.
+- Case manifests reference external schema assets through `schema_ref`.
+
+No denominator, `case_sets/`, paper results, retained evidence, reports/results, official metrics, paper tables, raw legacy evidence, or leaderboard changes are authorized by this decision.
+
+External schema adoption requires branch-pilot validation before any Common-core bulk conversion or main-branch merge.
+
+Reason:
+
+The user-entry and DB/checker MVPs proved local execution can work, but the current v1 package layout still embeds schema assets in each case package and uses nested positive/negative SQL directories. Before expanding execution, the repository should pilot the simpler v2 package shape and reusable schema references in a controlled branch so runner and validator compatibility risks are visible before broader conversion.
+
+Impact:
+
+- Further B-line user-entry/DB-checker expansion is frozen until the v2 branch pilot is reviewed.
+- `PERF_0006` is the only case authorized for the first v2 external-schema pilot.
+- Copy-first external schema adoption is allowed; destructive deletion of case-local schema or retained runs is not required and is not authorized by this decision.
+- Existing denominators, Common-core membership, reports/results, paper results, retained evidence, and no-global-leaderboard boundaries remain unchanged.

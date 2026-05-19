@@ -1,5 +1,12 @@
 case_id: PERF_0006
 schema_profile_version: canonical_case_package_layout_v1
+case_package_v2_external_schema_pilot:
+  status: retained_case_local_copy_for_compatibility
+  external_schema_ref: schemas/tpch_common_core_v0/schema_profile.yaml
+  source_case_schema_deleted: false
+  notes:
+    - External schema assets are copied to schemas/tpch_common_core_v0/ for the branch pilot.
+    - This case-local schema directory is retained until v2 validators and runners adopt schema_ref.
 source_legacy_files:
   postgres: cases/PERF/PERF_0006/schema/ddl_pg.sql
   mysql: cases/PERF/PERF_0006/schema/ddl_mysql.sql

@@ -2,6 +2,7 @@ case_id: PERF_0006
 pool: PERF
 status: canonical_full_case_migration_pilot
 canonical_layout: true
+case_package_standard: v2_external_schema_branch_pilot
 source_family: TPC-H
 source_id: SRC_001
 source_name: TPC-H
@@ -41,7 +42,8 @@ sql:
   source: sql/source.sql
   positives:
     - id: pos_01
-      path: sql/positives/pos_01.sql
+      path: sql/pos_01.sql
+      legacy_compatibility_path: sql/positives/pos_01.sql
       source_legacy_path: cases/PERF/PERF_0006/rewrite_pos_01.sql
       role: positive_rewrite
       rewrite_pressure:
@@ -49,12 +51,27 @@ sql:
         - materialization_strategy
   negatives:
     - id: neg_01
-      path: sql/negatives/neg_01.sql
+      path: sql/neg_01.sql
+      legacy_compatibility_path: sql/negatives/neg_01.sql
       source_legacy_path: cases/PERF/PERF_0006/rewrite_neg_01.sql
       role: hard_negative
       expected_rejection: checker/expected_rejections.yaml
       expected_behavior: result_divergence_from_source_reference
+schema_ref:
+  schema_id: tpch_common_core_v0
+  profile: schemas/tpch_common_core_v0/schema_profile.yaml
+  postgres:
+    ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
+    load: schemas/tpch_common_core_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
+    load: schemas/tpch_common_core_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpch_common_core_v0/spark/ddl.sql
+    load: schemas/tpch_common_core_v0/spark/load.sql
 schema:
+  pilot_status: retained_case_local_copy_for_v1_compatibility
+  deletion_status: not_deleted_in_v2_branch_pilot
   postgres:
     ddl: schema/postgres/ddl.sql
     load: schema/postgres/load.sql
@@ -65,12 +82,18 @@ schema:
     ddl: schema/spark/ddl.sql
     load: schema/spark/load.sql
   profile: schema/schema_profile.yaml
+witness:
+  data_profile: witness/data_profile.yaml
+  correct_result: witness/correct_result.csv
+  correct_result_status: materialized_from_retained_postgres_source_reference
 checker:
   checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
   postgres_validation: validation/run_postgres_validation.sh
   mysql_validation: validation/run_mysql_validation.sh
   spark_validation: validation/run_spark_validation.sh
@@ -79,6 +102,7 @@ validation:
   spark_plan_collection: validation/run_spark_plan_collection.sh
   execution_policy: not_run_during_migration
   output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
+  v2_branch_pilot_policy: generic_wrappers_do_not_run_db_or_write_case_local_runs
 evidence:
   runs_retention: evidence/runs_retention.yaml
   retained_controls:

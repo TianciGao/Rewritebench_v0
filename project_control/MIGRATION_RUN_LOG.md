@@ -6596,3 +6596,87 @@ Task result:
 
 Next safe action:
 - Review the four-row local batch smoke. If acceptable, authorize a separate bounded follow-up for either another small PERF postgres batch or DB/checker hardening, still with local `runs/user/` output only and no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
+
+### 2026-05-19 · TBD · case_package_v2_external_schema_branch_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: major case package standard upgrade branch pilot; PERF_0006 only; external schema copy-first adoption; B-line user-entry development frozen; no DB execution; no checker execution; no timing; no official metrics; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Created and worked on branch `feature/case-package-v2-external-schema` from updated `main`.
+- Recorded decision D019 in `project_control/DECISION_LOG.md`, freezing further B-line user-entry/DB-checker expansion while case package v2 external-schema adoption is piloted.
+- Pilot-converted only `PERF_0006` to the branch-pilot v2 direction.
+- Added direct SQL copies `sql/pos_01.sql` and `sql/neg_01.sql` while retaining legacy `sql/positives/` and `sql/negatives/` paths for compatibility.
+- Created external schema package `schemas/tpch_common_core_v0/` with copied postgres, mysql, and spark DDL/load files plus `schema_profile.yaml`.
+- Added `schema_ref` to `PERF_0006` manifest while retaining the case-local `schema/` directory and marking it as a compatibility copy.
+- Created `witness/data_profile.yaml` and `witness/correct_result.csv` from existing public-safe witness metadata and retained PostgreSQL source output; no DB run was performed.
+- Added generic `validation/run_validation.sh` and `validation/run_plan_collection.sh` wrappers that do not execute DB engines or write case-local `runs/` during the branch pilot.
+- Did not delete case-local `runs/`, delete case-local schema assets, modify any case besides `PERF_0006`, update `case_sets/`, update inventory, update reports/results, change denominators, change paper results, modify raw legacy evidence, compute metrics, render paper tables, or create leaderboard output.
+
+Files created:
+- `cases/PERF/PERF_0006/sql/pos_01.sql`
+- `cases/PERF/PERF_0006/sql/neg_01.sql`
+- `cases/PERF/PERF_0006/witness/data_profile.yaml`
+- `cases/PERF/PERF_0006/witness/correct_result.csv`
+- `cases/PERF/PERF_0006/validation/run_validation.sh`
+- `cases/PERF/PERF_0006/validation/run_plan_collection.sh`
+- `schemas/tpch_common_core_v0/schema_profile.yaml`
+- `schemas/tpch_common_core_v0/postgres/ddl.sql`
+- `schemas/tpch_common_core_v0/postgres/load.sql`
+- `schemas/tpch_common_core_v0/mysql/ddl.sql`
+- `schemas/tpch_common_core_v0/mysql/load.sql`
+- `schemas/tpch_common_core_v0/spark/ddl.sql`
+- `schemas/tpch_common_core_v0/spark/load.sql`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/case_package_v2_branch_pilot_summary.md`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/case_package_v2_path_crosswalk.csv`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/external_schema_mapping_pilot.csv`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/pilot_case_conversion_manifest.csv`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/case_package_v2_validation_results.csv`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/future_case_package_v2_common_core_pilot_prompt.md`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/case_package_v2_branch_pilot_summary.json`
+- `audits/case_package_v2_external_schema_branch_pilot_v0/case_package_v2_branch_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/README.md`
+- `cases/PERF/PERF_0006/manifest.yaml`
+- `cases/PERF/PERF_0006/checker/checker.yaml`
+- `cases/PERF/PERF_0006/checker/expected_rejections.yaml`
+- `cases/PERF/PERF_0006/schema/schema_profile.yaml`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Branch check: passed; current branch is `feature/case-package-v2-external-schema`.
+- YAML parse checks: passed for `PERF_0006` manifest, external schema profile, and witness data profile.
+- Static path checks: passed for direct SQL, witness, checker, runs-retention, and external schema files.
+- Optional non-DB user-entry CI smoke: help/tests/dry-run/dummy-adapter portions passed, then expectedly failed the protected-path guard because this branch intentionally modifies `cases/PERF/PERF_0006`; no runner patch was made.
+- Protected-boundary checks: passed; `case_sets/`, inventory, reports/results, denominator files, paper result files, and raw legacy evidence were not changed.
+- `git diff --check`: passed.
+
+Task result:
+- Major decision recorded: yes.
+- B-line user-entry development frozen: yes.
+- Case package v2 external schema pilot performed: yes.
+- Pilot case IDs: `PERF_0006`.
+- Cases modified: `PERF_0006` only.
+- Schemas created: `schemas/tpch_common_core_v0/`.
+- External schema refs added: yes.
+- Old case-local schema deleted: no.
+- Case-local runs deleted: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports/results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+- official metrics computed: no.
+- paper tables rendered: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Review the `PERF_0006` v2 external-schema branch pilot. If accepted, authorize a branch-only expansion to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main` until v2 validator and runner `schema_ref` compatibility is approved.
