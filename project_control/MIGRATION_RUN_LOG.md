@@ -8279,14 +8279,14 @@ Task result:
 Next safe action:
 - Run `case_package_v2_post_evidence_removal_parity_review_v0` as a read-only parity review before Common-core 40 planning.
 
-### 2026-05-19 · pending · case_package_v2_post_evidence_removal_parity_review_v0
+### 2026-05-19 · a4de62b7 · case_package_v2_post_evidence_removal_parity_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only parity review after static evidence reference removal; no cleanup execution; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `a4de62b7`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Rechecked the five v2 pilot cases after `evidence_ref` was replaced with regeneration-first `evidence_policy` and the five top-level static evidence packages were deleted.
