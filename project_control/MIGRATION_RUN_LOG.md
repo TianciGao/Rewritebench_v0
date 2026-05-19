@@ -8577,13 +8577,13 @@ Task result:
 Next safe action:
 - Run `case_package_v2_common_core40_wave_b_post_conversion_review_v0` as a bounded read-only review before authorizing Wave C/manual-review conversion.
 
-### 2026-05-20 · pending · case_package_v2_common_core40_wave_b_post_conversion_review_v0
+### 2026-05-20 · 9d6310d8 · case_package_v2_common_core40_wave_b_post_conversion_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only Common-core Wave B post-conversion parity review; no writable conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
+Commit: `9d6310d8`
 Push: pending
 
 Summary:
