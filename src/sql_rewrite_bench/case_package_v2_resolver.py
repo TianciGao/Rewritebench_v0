@@ -17,41 +17,49 @@ CANONICAL_VALIDATION_ENTRYPOINTS = {
     "run_validation": "validation/run_validation.sh",
     "run_plan_collection": "validation/run_plan_collection.sh",
 }
-
-APPROVED_TOP_LEVEL_KEYS = {
+REQUIRED_TOP_LEVEL_KEYS = {
     "case_id",
     "pool",
-    "case_package_standard",
+    "primary_pool",
+    "package_path",
+    "source_family",
+    "source_workload",
+    "based_benchmark",
+    "source_query_identity",
+    "source_path",
+    "draft_origin",
+    "taxonomy",
     "sql",
-    "schema_ref",
-    "evidence_policy",
-    "evidence_ref",
+    "schema",
+    "witness",
     "checker",
     "validation",
-    "witness",
-    "metadata",
-    "notes",
-    "claim_boundaries",
-    "benchmark_scope",
-    "denominator_eligibility",
-    "source_family",
-    "source_id",
-    "source_name",
-}
-
-COMPATIBILITY_TOP_LEVEL_KEYS = {
+    "evidence_policy",
     "status",
-    "canonical_layout",
-    "compatibility",
-    "source_seed",
-    "source_entry",
-    "source_materialization",
-    "engine_support",
-    "schema",
-    "evidence",
-    "artifact_paths",
-    "performance_boundary",
+    "known_caveats",
+    "artifact_warning",
 }
+OPTIONAL_TOP_LEVEL_KEYS = {"compatibility", "case_package_standard"}
+FORBIDDEN_TOP_LEVEL_KEYS = {"schema_ref", "evidence_ref", "metadata", "notes", "evidence", "runs"}
+FORBIDDEN_REFERENCE_PATTERNS = (
+    "sql/positives/",
+    "sql/negatives/",
+    "schema/postgres/",
+    "schema/mysql/",
+    "schema/spark/",
+    "/evidence/",
+    "evidence/cases/",
+    "runs/",
+    "metadata/",
+    "notes/",
+    "data/",
+    "run_postgres_validation.sh",
+    "run_mysql_validation.sh",
+    "run_spark_validation.sh",
+    "run_postgres_plan_collection.sh",
+    "run_mysql_plan_collection.sh",
+    "run_spark_plan_collection.sh",
+)
 
 
 @dataclass(frozen=True)
@@ -150,15 +158,6 @@ def load_yaml_file(path: Path) -> dict[str, Any]:
     return data
 
 
-def _nested_get(mapping: dict[str, Any], dotted: str) -> Any:
-    current: Any = mapping
-    for part in dotted.split("."):
-        if not isinstance(current, dict):
-            return None
-        current = current.get(part)
-    return current
-
-
 def _stringify(value: Any) -> str:
     if value is None:
         return ""
@@ -167,24 +166,47 @@ def _stringify(value: Any) -> str:
     return str(value)
 
 
-def _entry_path(entry: Any) -> tuple[str | None, str]:
-    if isinstance(entry, str):
-        return entry, "canonical string path"
-    if isinstance(entry, dict):
-        value = entry.get("path")
-        if isinstance(value, str):
-            return value, "compatibility object with path"
-    return None, "unsupported entry shape"
-
-
-def _is_lowercase_status(value: Any) -> bool:
-    if isinstance(value, bool):
-        return True
-    if value is None:
-        return True
-    if not isinstance(value, str):
-        return True
-    return value == value.lower() and " " not in value
+def _check(
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    *,
+    case_id: str,
+    manifest_path: Path,
+    field_group: str,
+    field: str,
+    observed_value: Any,
+    expected_shape: str,
+    ok: bool,
+    warning: bool = False,
+    finding_type: str = "internal_format",
+    recommended_v2_value: str = "",
+    notes: str = "",
+) -> None:
+    status = "pass" if ok else ("warn" if warning else "fail")
+    observed = _stringify(observed_value)
+    checks.append(
+        InternalFormatCheck(
+            field_group=field_group,
+            field=field,
+            observed_value=observed,
+            expected_shape=expected_shape,
+            status=status,
+            notes=notes,
+        )
+    )
+    if status != "pass":
+        findings.append(
+            FormatFinding(
+                case_id=case_id,
+                file_path=str(manifest_path),
+                finding_type=finding_type,
+                severity="warning" if status == "warn" else "error",
+                current_value=observed,
+                recommended_v2_value=recommended_v2_value or expected_shape,
+                fix_now=False,
+                notes=notes,
+            )
+        )
 
 
 def _resolve_path(
@@ -283,47 +305,50 @@ def _load_resolved_yaml_mapping(ref: ResolvedReference) -> dict[str, Any] | None
         return None
 
 
-def _check(
-    checks: list[InternalFormatCheck],
-    findings: list[FormatFinding],
-    *,
-    case_id: str,
-    manifest_path: Path,
-    field_group: str,
-    field: str,
-    observed_value: Any,
-    expected_shape: str,
-    ok: bool,
-    warning: bool = False,
-    finding_type: str = "internal_format",
-    recommended_v2_value: str = "",
-    notes: str = "",
-) -> None:
-    status = "pass" if ok else ("warn" if warning else "fail")
-    observed = _stringify(observed_value)
-    checks.append(
-        InternalFormatCheck(
-            field_group=field_group,
-            field=field,
-            observed_value=observed,
-            expected_shape=expected_shape,
-            status=status,
-            notes=notes,
-        )
-    )
-    if status != "pass":
-        findings.append(
-            FormatFinding(
-                case_id=case_id,
-                file_path=str(manifest_path),
-                finding_type=finding_type,
-                severity="warning" if status == "warn" else "error",
-                current_value=observed,
-                recommended_v2_value=recommended_v2_value or expected_shape,
-                fix_now=False,
-                notes=notes,
-            )
-        )
+def _flatten_strings(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        flattened: list[str] = []
+        for item in value.values():
+            flattened.extend(_flatten_strings(item))
+        return flattened
+    if isinstance(value, list):
+        flattened = []
+        for item in value:
+            flattened.extend(_flatten_strings(item))
+        return flattened
+    return []
+
+
+def _is_safe_metadata_string(value: str) -> tuple[bool, str]:
+    candidate = Path(value)
+    if candidate.is_absolute():
+        return False, "absolute path"
+    if value.startswith("~"):
+        return False, "home-relative path"
+    if "://" in value or value.startswith("file:"):
+        return False, "URI/local file path"
+    if "\\" in value:
+        return False, "backslash path"
+    if any(part in {"Users", "home", "tmp"} for part in candidate.parts[:2]):
+        return False, "local machine/user path"
+    return True, ""
+
+
+def _sql_entries_ok(entries: Any, expected_path: str) -> bool:
+    if not isinstance(entries, list) or not entries:
+        return False
+    for entry in entries:
+        if not isinstance(entry, dict):
+            return False
+        if not isinstance(entry.get("id"), str) or not entry["id"].strip():
+            return False
+        if entry.get("path") != expected_path:
+            return False
+        if not isinstance(entry.get("status"), str) or not entry["status"].strip():
+            return False
+    return True
 
 
 def resolve_case_package_v2(
@@ -338,14 +363,29 @@ def resolve_case_package_v2(
     manifest_path = case_dir / "manifest.yaml"
     manifest = load_yaml_file(manifest_path)
     case_id = _stringify(manifest.get("case_id") or case_dir.name)
+    expected_pool = case_dir.parent.name
+    expected_package_path = f"cases/{expected_pool}/{case_dir.name}"
 
     references: list[ResolvedReference] = []
     checks: list[InternalFormatCheck] = []
     findings: list[FormatFinding] = []
 
+    for key in sorted(REQUIRED_TOP_LEVEL_KEYS):
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="top_level",
+            field=key,
+            observed_value="present" if key in manifest else "missing",
+            expected_shape="required semantic v2 top-level section",
+            ok=key in manifest,
+            finding_type="required_top_level_key",
+            notes="semantic v2 manifest requires this section",
+        )
     for key in sorted(manifest):
-        if key in APPROVED_TOP_LEVEL_KEYS:
-            continue
+        ok = key in REQUIRED_TOP_LEVEL_KEYS or key in OPTIONAL_TOP_LEVEL_KEYS
         _check(
             checks,
             findings,
@@ -354,14 +394,147 @@ def resolve_case_package_v2(
             field_group="top_level",
             field=key,
             observed_value=key,
-            expected_shape="approved v2 top-level key or documented compatibility key",
-            ok=key in COMPATIBILITY_TOP_LEVEL_KEYS,
-            warning=key in COMPATIBILITY_TOP_LEVEL_KEYS,
-            finding_type="compatibility_top_level_key",
-            notes="compatibility top-level key retained during branch adoption"
-            if key in COMPATIBILITY_TOP_LEVEL_KEYS
-            else "unapproved top-level key",
+            expected_shape="approved semantic v2 top-level key",
+            ok=ok,
+            finding_type="top_level_key",
+            notes="forbidden compatibility key retained" if key in FORBIDDEN_TOP_LEVEL_KEYS else "unapproved top-level key",
         )
+
+    semantic_required = {
+        "case_id": case_id == case_dir.name,
+        "pool": manifest.get("pool") == expected_pool,
+        "primary_pool": manifest.get("primary_pool") == expected_pool,
+        "package_path": manifest.get("package_path") == expected_package_path,
+        "source_family": isinstance(manifest.get("source_family"), str) and bool(manifest["source_family"].strip()),
+        "based_benchmark": isinstance(manifest.get("based_benchmark"), str) and bool(manifest["based_benchmark"].strip()),
+        "source_path": isinstance(manifest.get("source_path"), str) and bool(manifest["source_path"].strip()),
+        "status": isinstance(manifest.get("status"), str) and bool(manifest["status"].strip()),
+    }
+    for field, ok in semantic_required.items():
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="semantic",
+            field=field,
+            observed_value=manifest.get(field),
+            expected_shape="recovered non-empty semantic field",
+            ok=ok,
+            finding_type="semantic_field",
+            notes="field must be recovered from branch history or registry",
+        )
+    for field in ("source_workload", "source_query_identity", "draft_origin", "artifact_warning"):
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="semantic",
+            field=field,
+            observed_value=type(manifest.get(field)).__name__,
+            expected_shape="mapping",
+            ok=isinstance(manifest.get(field), dict) and bool(manifest.get(field)),
+            finding_type="semantic_field",
+            notes="semantic contract requires a non-empty mapping",
+        )
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="semantic",
+        field="known_caveats",
+        observed_value=type(manifest.get("known_caveats")).__name__,
+        expected_shape="list",
+        ok=isinstance(manifest.get("known_caveats"), list),
+        finding_type="semantic_field",
+        notes="known caveats must be explicit, even when empty",
+    )
+
+    taxonomy = manifest.get("taxonomy")
+    taxonomy_ok = isinstance(taxonomy, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="taxonomy",
+        field="taxonomy",
+        observed_value=type(taxonomy).__name__,
+        expected_shape="mapping with sql_feature, rewrite_opportunity, portability",
+        ok=taxonomy_ok,
+        finding_type="taxonomy",
+        notes="taxonomy must be restored, not inferred from README alone",
+    )
+    if isinstance(taxonomy, dict):
+        for group, fields in {
+            "sql_feature": ("primary", "secondary"),
+            "rewrite_opportunity": ("primary", "secondary"),
+            "portability": ("confirmed", "suspected"),
+        }.items():
+            section = taxonomy.get(group)
+            _check(
+                checks,
+                findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                field_group="taxonomy",
+                field=f"taxonomy.{group}",
+                observed_value=type(section).__name__,
+                expected_shape="mapping",
+                ok=isinstance(section, dict),
+                finding_type="taxonomy",
+                notes="required taxonomy group missing or malformed",
+            )
+            if isinstance(section, dict):
+                for item in fields:
+                    values = section.get(item)
+                    _check(
+                        checks,
+                        findings,
+                        case_id=case_id,
+                        manifest_path=manifest_path,
+                        field_group="taxonomy",
+                        field=f"taxonomy.{group}.{item}",
+                        observed_value=type(values).__name__,
+                        expected_shape="list",
+                        ok=isinstance(values, list),
+                        finding_type="taxonomy",
+                        notes="taxonomy value must be an explicit list",
+                    )
+
+    for value in _flatten_strings(manifest):
+        safe, reason = _is_safe_metadata_string(value)
+        if not safe:
+            _check(
+                checks,
+                findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                field_group="safety",
+                field="manifest.string_safety",
+                observed_value=value,
+                expected_shape="no absolute/local/URI paths",
+                ok=False,
+                finding_type="unsafe_manifest_string",
+                notes=reason,
+            )
+        for pattern in FORBIDDEN_REFERENCE_PATTERNS:
+            if pattern in value:
+                _check(
+                    checks,
+                    findings,
+                    case_id=case_id,
+                    manifest_path=manifest_path,
+                    field_group="compatibility_refs",
+                    field="manifest.deleted_path_reference",
+                    observed_value=value,
+                    expected_shape=f"no references containing {pattern}",
+                    ok=False,
+                    finding_type="deleted_path_reference",
+                    notes="semantic manifest must not reference deleted compatibility surfaces",
+                )
 
     sql = manifest.get("sql") if isinstance(manifest.get("sql"), dict) else {}
     source = sql.get("source") if isinstance(sql, dict) else None
@@ -386,75 +559,74 @@ def resolve_case_package_v2(
         observed_value=source,
         expected_shape="sql/source.sql",
         ok=source == "sql/source.sql",
-        notes="source SQL should use direct v2 path",
+        finding_type="sql_shape",
+        notes="source SQL must use direct clean v2 path",
     )
-
-    for group_name, prefix in (("positives", "pos_"), ("negatives", "neg_")):
-        entries = sql.get(group_name, []) if isinstance(sql, dict) else []
-        if not isinstance(entries, list):
-            entries = []
-        for index, entry in enumerate(entries, start=1):
-            path_value, shape_note = _entry_path(entry)
-            field = f"sql.{group_name}[{index}]"
-            expected_prefix = f"sql/{prefix}"
+    positive_rewrites = sql.get("positive_rewrites") if isinstance(sql, dict) else None
+    hard_negatives = sql.get("hard_negatives") if isinstance(sql, dict) else None
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="sql",
+        field="sql.positive_rewrites",
+        observed_value=type(positive_rewrites).__name__,
+        expected_shape="list of mappings with id, path, status",
+        ok=_sql_entries_ok(positive_rewrites, "sql/pos_01.sql"),
+        finding_type="sql_shape",
+        notes="positive rewrite entries must use semantic object form",
+    )
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="sql",
+        field="sql.hard_negatives",
+        observed_value=type(hard_negatives).__name__,
+        expected_shape="list of mappings with id, path, status",
+        ok=_sql_entries_ok(hard_negatives, "sql/neg_01.sql"),
+        finding_type="sql_shape",
+        notes="hard negative entries must use semantic object form",
+    )
+    if isinstance(positive_rewrites, list):
+        for index, entry in enumerate(positive_rewrites, start=1):
+            path_value = entry.get("path") if isinstance(entry, dict) else None
             references.append(
                 _resolve_path(
                     repo_root=repo_root,
                     case_dir=case_dir,
                     field_group="sql",
-                    field=field,
+                    field=f"sql.positive_rewrites[{index}].path",
                     observed_value=path_value,
                     path_base="case",
                     required=True,
-                    notes=shape_note if shape_note != "canonical string path" else "",
                 )
             )
-            direct_ok = isinstance(path_value, str) and path_value.startswith(expected_prefix) and "/" not in path_value[len("sql/") :]
-            _check(
-                checks,
-                findings,
-                case_id=case_id,
-                manifest_path=manifest_path,
-                field_group="sql",
-                field=field,
-                observed_value=path_value if path_value is not None else entry,
-                expected_shape=f"{expected_prefix}NN.sql as direct case-local path",
-                ok=direct_ok,
-                warning=path_value is not None,
-                finding_type="sql_entry_shape",
-                notes=shape_note,
-            )
-            if isinstance(entry, dict):
-                _check(
-                    checks,
-                    findings,
-                    case_id=case_id,
-                    manifest_path=manifest_path,
+    if isinstance(hard_negatives, list):
+        for index, entry in enumerate(hard_negatives, start=1):
+            path_value = entry.get("path") if isinstance(entry, dict) else None
+            references.append(
+                _resolve_path(
+                    repo_root=repo_root,
+                    case_dir=case_dir,
                     field_group="sql",
-                    field=f"{field}.entry_shape",
-                    observed_value="mapping",
-                    expected_shape="string path in canonical v2",
-                    ok=False,
-                    warning=True,
-                    finding_type="compatibility_sql_entry_shape",
-                    recommended_v2_value=path_value or "",
-                    notes="mapping form retained for metadata/legacy compatibility",
+                    field=f"sql.hard_negatives[{index}].path",
+                    observed_value=path_value,
+                    path_base="case",
+                    required=True,
                 )
+            )
 
     checker = manifest.get("checker") if isinstance(manifest.get("checker"), dict) else {}
     checker_specs = [
-        ("checker.config", checker.get("config"), checker.get("checker"), "checker/checker.yaml"),
-        ("checker.normalization", checker.get("normalization"), None, "checker/normalization.yaml"),
-        ("checker.compare_config", checker.get("compare_config"), None, "checker/compare_config.yaml"),
-        (
-            "checker.expected_rejections",
-            checker.get("expected_rejections"),
-            None,
-            "checker/expected_rejections.yaml",
-        ),
+        ("checker.checker", checker.get("checker"), "checker/checker.yaml"),
+        ("checker.normalization", checker.get("normalization"), "checker/normalization.yaml"),
+        ("checker.compare_config", checker.get("compare_config"), "checker/compare_config.yaml"),
+        ("checker.expected_rejections", checker.get("expected_rejections"), "checker/expected_rejections.yaml"),
     ]
-    for field, canonical, fallback, expected in checker_specs:
-        value = canonical if canonical is not None else fallback
+    for field, value, expected in checker_specs:
         references.append(
             _resolve_path(
                 repo_root=repo_root,
@@ -464,7 +636,6 @@ def resolve_case_package_v2(
                 observed_value=value,
                 path_base="case",
                 required=True,
-                notes="compatibility fallback from checker.checker" if canonical is None and fallback else "",
             )
         )
         _check(
@@ -476,337 +647,122 @@ def resolve_case_package_v2(
             field=field,
             observed_value=value,
             expected_shape=expected,
-            ok=canonical == expected,
-            warning=value == expected,
+            ok=value == expected,
             finding_type="checker_reference_shape",
-            notes="canonical field missing; compatibility value resolves"
-            if canonical is None and fallback
-            else "",
+            notes="checker manifest must use config-only clean v2 paths",
         )
 
-    schema_ref = manifest.get("schema_ref") if isinstance(manifest.get("schema_ref"), dict) else {}
-    schema_id = schema_ref.get("schema_id") if isinstance(schema_ref, dict) else None
-    _check(
-        checks,
-        findings,
-        case_id=case_id,
-        manifest_path=manifest_path,
-        field_group="schema_ref",
-        field="schema_ref.schema_id",
-        observed_value=schema_id,
-        expected_shape="non-empty lowercase schema id",
-        ok=isinstance(schema_id, str) and bool(schema_id.strip()) and schema_id == schema_id.lower(),
-        notes="schema id identifies external schema package",
-    )
-    engines = schema_ref.get("engines") if isinstance(schema_ref, dict) else None
-    engines_present = isinstance(engines, dict)
-    profile_value = schema_ref.get("profile") if isinstance(schema_ref, dict) else None
-    profile_ref = _resolve_path(
-        repo_root=repo_root,
-        case_dir=case_dir,
-        field_group="schema_ref",
-        field="schema_ref.profile",
-        observed_value=profile_value,
-        path_base="repo",
-        required=not engines_present,
-    )
-    references.append(profile_ref)
-    expected_profile = (
-        f"schemas/{schema_id}/schema_profile.yaml"
-        if isinstance(schema_id, str)
-        else "schemas/<SCHEMA_ID>/schema_profile.yaml"
-    )
-    profile_first_ok = profile_value == expected_profile and profile_ref.status != "fail"
-    profile_or_legacy_engine_ok = profile_first_ok or engines_present
-    _check(
-        checks,
-        findings,
-        case_id=case_id,
-        manifest_path=manifest_path,
-        field_group="schema_ref",
-        field="schema_ref.profile",
-        observed_value=profile_value,
-        expected_shape=expected_profile,
-        ok=profile_or_legacy_engine_ok,
-        warning=bool(profile_value) or engines_present,
-        finding_type="schema_ref_profile_shape",
-        notes="profile-first schema_ref should point to external schema_profile.yaml"
-        if not engines_present
-        else "legacy schema_ref.engines compatibility accepted",
-    )
-
-    case_schema_profile_ref = _resolve_path(
+    schema = manifest.get("schema") if isinstance(manifest.get("schema"), dict) else {}
+    case_schema_profile = schema.get("profile") if isinstance(schema, dict) else None
+    external_schema_profile = schema.get("external_profile") if isinstance(schema, dict) else None
+    case_profile_ref = _resolve_path(
         repo_root=repo_root,
         case_dir=case_dir,
         field_group="schema",
-        field="schema.schema_profile",
-        observed_value="schema/schema_profile.yaml",
+        field="schema.profile",
+        observed_value=case_schema_profile,
         path_base="case",
         required=True,
-        notes="case-local profile-only schema summary",
+        notes="clean v2 keeps only schema/schema_profile.yaml case-local",
     )
-    references.append(case_schema_profile_ref)
+    external_profile_ref = _resolve_path(
+        repo_root=repo_root,
+        case_dir=case_dir,
+        field_group="schema",
+        field="schema.external_profile",
+        observed_value=external_schema_profile,
+        path_base="repo",
+        required=True,
+    )
+    references.extend([case_profile_ref, external_profile_ref])
     _check(
         checks,
         findings,
         case_id=case_id,
         manifest_path=manifest_path,
         field_group="schema",
-        field="schema.schema_profile",
-        observed_value="schema/schema_profile.yaml" if case_schema_profile_ref.exists else "",
+        field="schema.profile",
+        observed_value=case_schema_profile,
         expected_shape="schema/schema_profile.yaml",
-        ok=case_schema_profile_ref.status != "fail",
-        finding_type="case_local_schema_profile",
-        notes="clean v2 keeps only schema/schema_profile.yaml case-local",
+        ok=case_schema_profile == "schema/schema_profile.yaml",
+        finding_type="schema_shape",
+        notes="case-local schema reference must be profile-only",
     )
-
-    external_schema_profile = _load_resolved_yaml_mapping(profile_ref)
-    external_engines = (
-        external_schema_profile.get("engines")
-        if isinstance(external_schema_profile, dict)
-        and isinstance(external_schema_profile.get("engines"), dict)
-        else None
-    )
-    if profile_value and profile_ref.status != "fail":
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="schema_ref",
-            field="schema_ref.profile.parse",
-            observed_value="mapping" if external_schema_profile is not None else "unparseable",
-            expected_shape="external schema_profile.yaml mapping with engines",
-            ok=external_schema_profile is not None and isinstance(external_engines, dict),
-            finding_type="schema_profile_parse",
-            notes="external profile must be a mapping with engines.<engine>.ddl/load",
-        )
-        if isinstance(external_schema_profile, dict):
-            profile_schema_id = external_schema_profile.get("schema_id")
-            _check(
-                checks,
-                findings,
-                case_id=case_id,
-                manifest_path=manifest_path,
-                field_group="schema_ref",
-                field="schema_ref.profile.schema_id",
-                observed_value=profile_schema_id,
-                expected_shape="matches schema_ref.schema_id",
-                ok=profile_schema_id == schema_id,
-                finding_type="schema_profile_schema_id",
-                notes="external profile schema_id must match manifest schema_ref.schema_id",
-            )
-
     _check(
         checks,
         findings,
         case_id=case_id,
         manifest_path=manifest_path,
-        field_group="schema_ref",
-        field="schema_ref.engines",
-        observed_value="present" if isinstance(engines, dict) else "missing",
-        expected_shape="profile-first schema_ref.profile or compatibility schema_ref.engines.<engine>.ddl/load",
-        ok=isinstance(engines, dict) or profile_first_ok,
-        warning=True,
-        finding_type="schema_ref_shape",
-        notes="profile-first schema_ref resolves engines through external schema_profile.yaml"
-        if not isinstance(engines, dict) and profile_first_ok
-        else "compatibility schema_ref.engines shape accepted",
+        field_group="schema",
+        field="schema.external_profile",
+        observed_value=external_schema_profile,
+        expected_shape="schemas/<SCHEMA_ID>/schema_profile.yaml",
+        ok=isinstance(external_schema_profile, str)
+        and external_schema_profile.startswith("schemas/")
+        and external_schema_profile.endswith("/schema_profile.yaml"),
+        finding_type="schema_shape",
+        notes="external profile must be the schema source of truth",
     )
-    for engine in SUPPORTED_SCHEMA_ENGINES:
-        canonical_engine = engines.get(engine) if isinstance(engines, dict) else None
-        fallback_engine = schema_ref.get(engine) if isinstance(schema_ref, dict) else None
-        profile_engine = external_engines.get(engine) if isinstance(external_engines, dict) else None
-        engine_map = (
-            canonical_engine
-            if isinstance(canonical_engine, dict)
-            else profile_engine
-            if isinstance(profile_engine, dict)
-            else fallback_engine
-        )
-        for leaf in ("ddl", "load"):
-            value = engine_map.get(leaf) if isinstance(engine_map, dict) else None
-            references.append(
-                _resolve_path(
-                    repo_root=repo_root,
-                    case_dir=case_dir,
-                    field_group="schema_ref",
-                    field=f"schema_ref.engines.{engine}.{leaf}",
-                    observed_value=value,
-                    path_base="repo",
-                    required=True,
-                    notes="resolved through schema_ref.profile external schema_profile.yaml"
-                    if isinstance(profile_engine, dict) and not isinstance(canonical_engine, dict)
-                    else "compatibility fallback from schema_ref.<engine>"
-                    if not isinstance(canonical_engine, dict) and value
-                    else "",
+    external_profile_data = _load_resolved_yaml_mapping(external_profile_ref)
+    engines = (
+        external_profile_data.get("engines")
+        if isinstance(external_profile_data, dict) and isinstance(external_profile_data.get("engines"), dict)
+        else None
+    )
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="schema",
+        field="schema.external_profile.parse",
+        observed_value="mapping" if isinstance(external_profile_data, dict) else "unparseable",
+        expected_shape="external schema_profile.yaml mapping with engines",
+        ok=isinstance(engines, dict) and bool(engines),
+        finding_type="schema_profile_parse",
+        notes="external schema profile must resolve DDL/load assets by engine",
+    )
+    if isinstance(engines, dict):
+        for engine, engine_map in sorted(engines.items()):
+            if not isinstance(engine_map, dict):
+                _check(
+                    checks,
+                    findings,
+                    case_id=case_id,
+                    manifest_path=manifest_path,
+                    field_group="schema",
+                    field=f"schema.external_profile.engines.{engine}",
+                    observed_value=type(engine_map).__name__,
+                    expected_shape="mapping with ddl/load",
+                    ok=False,
+                    finding_type="schema_profile_engine_shape",
+                    notes="engine profile entry must be a mapping",
                 )
-            )
-            _check(
-                checks,
-                findings,
-                case_id=case_id,
-                manifest_path=manifest_path,
-                field_group="schema_ref",
-                field=f"schema_ref.engines.{engine}.{leaf}",
-                observed_value=value,
-                expected_shape=f"schemas/<SCHEMA_ID>/{engine}/{leaf}.sql",
-                ok=isinstance(value, str) and value == f"schemas/{schema_id}/{engine}/{leaf}.sql",
-                warning=isinstance(value, str),
-                finding_type="schema_ref_engine_shape",
-                notes="resolved through profile-first external schema profile"
-                if isinstance(profile_engine, dict) and not isinstance(canonical_engine, dict)
-                else "canonical engines nesting missing; resolved through compatibility fallback"
-                if not isinstance(canonical_engine, dict) and value
-                else "",
-            )
-
-    evidence_policy = manifest.get("evidence_policy")
-    if evidence_policy is None:
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_policy",
-            field="evidence_policy",
-            observed_value="missing",
-            expected_shape="evidence_policy.static_case_evidence not_required or optional_retained",
-            ok=False,
-            warning=True,
-            finding_type="missing_evidence_policy",
-            notes="regeneration-first evidence policy not yet recorded; evidence_ref compatibility remains optional",
-        )
-    elif isinstance(evidence_policy, dict):
-        static_case_evidence = evidence_policy.get("static_case_evidence")
-        regeneration_policy = evidence_policy.get("regeneration_policy")
-        retained_static_artifacts = evidence_policy.get("retained_static_artifacts")
-        static_case_evidence_ok = static_case_evidence in {"not_required", "optional_retained"}
-        regeneration_policy_ok = (
-            static_case_evidence == "optional_retained"
-            or regeneration_policy == "regenerable_by_validation_and_report_scripts"
-        )
-        retained_static_artifacts_ok = (
-            retained_static_artifacts in (None, "none")
-            or isinstance(retained_static_artifacts, list)
-        )
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_policy",
-            field="evidence_policy.static_case_evidence",
-            observed_value=static_case_evidence,
-            expected_shape="not_required | optional_retained",
-            ok=static_case_evidence_ok,
-            finding_type="evidence_policy_shape",
-            notes="clean v2 does not require static case evidence paths",
-        )
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_policy",
-            field="evidence_policy.regeneration_policy",
-            observed_value=regeneration_policy,
-            expected_shape="regenerable_by_validation_and_report_scripts when static_case_evidence is not_required",
-            ok=regeneration_policy_ok,
-            finding_type="evidence_policy_shape",
-            notes="benchmark evidence should be regenerated by validation/baseline/report scripts",
-        )
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_policy",
-            field="evidence_policy.retained_static_artifacts",
-            observed_value=retained_static_artifacts,
-            expected_shape="none or list of retained artifact descriptors",
-            ok=retained_static_artifacts_ok,
-            finding_type="evidence_policy_shape",
-            notes="retained static artifacts are optional and separately authorized",
-        )
-    else:
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_policy",
-            field="evidence_policy",
-            observed_value=type(evidence_policy).__name__,
-            expected_shape="mapping",
-            ok=False,
-            notes="evidence_policy must be a mapping when present",
-        )
-
-    evidence_ref = manifest.get("evidence_ref")
-    if evidence_ref is None:
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_ref",
-            field="evidence_ref",
-            observed_value="missing",
-            expected_shape="optional compatibility mapping; clean v2 may use evidence_policy instead",
-            ok=True,
-            warning=True,
-            finding_type="optional_evidence_ref",
-            notes="static evidence_ref is optional under regeneration-first clean v2 policy",
-        )
-    elif isinstance(evidence_ref, dict):
-        for key in ("package_validation_summary", "runs_retention"):
-            references.append(
-                _resolve_path(
-                    repo_root=repo_root,
-                    case_dir=case_dir,
-                    field_group="evidence_ref",
-                    field=f"evidence_ref.{key}",
-                    observed_value=evidence_ref.get(key),
-                    path_base="repo",
-                    required=True,
-                )
-            )
-        for key in ("retained_controls", "hard_negative", "plans"):
-            if key in evidence_ref:
+                continue
+            for kind in ("ddl", "load"):
+                value = engine_map.get(kind)
                 references.append(
                     _resolve_path(
                         repo_root=repo_root,
                         case_dir=case_dir,
-                        field_group="evidence_ref",
-                        field=f"evidence_ref.{key}",
-                        observed_value=evidence_ref.get(key),
+                        field_group="schema",
+                        field=f"schema.external_profile.engines.{engine}.{kind}",
+                        observed_value=value,
                         path_base="repo",
-                        required=False,
+                        required=True,
                     )
                 )
-    else:
-        _check(
-            checks,
-            findings,
-            case_id=case_id,
-            manifest_path=manifest_path,
-            field_group="evidence_ref",
-            field="evidence_ref",
-            observed_value=type(evidence_ref).__name__,
-            expected_shape="mapping",
-            ok=False,
-            notes="evidence_ref must be a mapping when present",
-        )
 
     witness = manifest.get("witness") if isinstance(manifest.get("witness"), dict) else {}
-    for field, expected in (
-        ("witness.mode", "source_as_oracle | static_reference | external_reference"),
-        ("witness.data_profile_status", "optional | generated | external | materialized | unavailable"),
-        ("witness.correct_result_status", "optional | generated | external | materialized | unavailable"),
-    ):
-        key = field.split(".", 1)[1]
-        value = witness.get(key)
+    witness_expectations = {
+        "witness.mode": (witness.get("mode"), "source_as_oracle"),
+        "witness.data_profile_status": (witness.get("data_profile_status"), "external_or_generated"),
+        "witness.correct_result_status": (
+            witness.get("correct_result_status"),
+            "not_required_for_runtime_checker",
+        ),
+    }
+    for field, (value, expected) in witness_expectations.items():
         _check(
             checks,
             findings,
@@ -816,28 +772,29 @@ def resolve_case_package_v2(
             field=field,
             observed_value=value,
             expected_shape=expected,
-            ok=isinstance(value, str) and _is_lowercase_status(value),
-            warning=True,
-            finding_type="witness_policy_shape",
-            notes="missing or non-canonical witness policy field",
+            ok=value == expected,
+            finding_type="witness_policy",
+            notes="witness policy must use source-as-oracle runtime semantics",
         )
-    for key in ("data_profile", "correct_result"):
-        if key in witness:
+    for optional_field in ("witness_profile", "data_profile", "correct_result"):
+        value = witness.get(optional_field)
+        if value:
             references.append(
                 _resolve_path(
                     repo_root=repo_root,
                     case_dir=case_dir,
                     field_group="witness",
-                    field=f"witness.{key}",
-                    observed_value=witness.get(key),
+                    field=f"witness.{optional_field}",
+                    observed_value=value,
                     path_base="case",
                     required=False,
+                    notes="optional static witness asset",
                 )
             )
 
     validation = manifest.get("validation") if isinstance(manifest.get("validation"), dict) else {}
     for key, expected in CANONICAL_VALIDATION_ENTRYPOINTS.items():
-        value = validation.get(key)
+        value = validation.get(key) if isinstance(validation, dict) else None
         references.append(
             _resolve_path(
                 repo_root=repo_root,
@@ -846,8 +803,7 @@ def resolve_case_package_v2(
                 field=f"validation.{key}",
                 observed_value=value,
                 path_base="case",
-                required=False,
-                notes="validation layer conversion is pending" if value is None else "",
+                required=True,
             )
         )
         _check(
@@ -860,79 +816,101 @@ def resolve_case_package_v2(
             observed_value=value,
             expected_shape=expected,
             ok=value == expected,
-            warning=True,
-            finding_type="validation_layer_pending",
-            notes="v2 validation entrypoint missing; validation layer conversion is pending"
-            if value is None
-            else "v2 validation entrypoint",
+            finding_type="validation_reference_shape",
+            notes="validation must use the two clean v2 wrapper entrypoints",
         )
-    for key in sorted(validation):
-        if key not in CANONICAL_VALIDATION_ENTRYPOINTS and key.endswith(("validation", "plan_collection")):
-            _check(
-                checks,
-                findings,
-                case_id=case_id,
-                manifest_path=manifest_path,
-                field_group="validation",
-                field=f"validation.{key}",
-                observed_value=validation.get(key),
-                expected_shape="canonical wrappers plus explicit compatibility assets",
-                ok=False,
-                warning=True,
-                finding_type="validation_compatibility_entrypoint",
-                notes="engine-specific validation entrypoint retained as compatibility asset",
-            )
 
-    status_key_hints = ("status",)
-    for group, value in manifest.items():
-        if isinstance(value, dict):
-            for key, item in value.items():
-                if any(hint in key for hint in status_key_hints) and not _is_lowercase_status(item):
-                    _check(
-                        checks,
-                        findings,
-                        case_id=case_id,
-                        manifest_path=manifest_path,
-                        field_group=group,
-                        field=f"{group}.{key}",
-                        observed_value=item,
-                        expected_shape="lowercase boolean/status string",
-                        ok=False,
-                        warning=True,
-                        finding_type="status_case",
-                        notes="boolean/status-like string should be lowercase",
-                    )
+    evidence_policy = manifest.get("evidence_policy")
+    evidence_ok = isinstance(evidence_policy, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="evidence_policy",
+        field="evidence_policy",
+        observed_value=type(evidence_policy).__name__,
+        expected_shape="mapping",
+        ok=evidence_ok,
+        finding_type="evidence_policy",
+        notes="clean v2 uses regeneration-first evidence_policy instead of evidence_ref",
+    )
+    if isinstance(evidence_policy, dict):
+        static_case_evidence = evidence_policy.get("static_case_evidence")
+        regeneration_policy = evidence_policy.get("regeneration_policy")
+        retained_static_artifacts = evidence_policy.get("retained_static_artifacts")
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="evidence_policy",
+            field="evidence_policy.static_case_evidence",
+            observed_value=static_case_evidence,
+            expected_shape="not_required or optional_retained",
+            ok=static_case_evidence in {"not_required", "optional_retained"},
+            finding_type="evidence_policy",
+            notes="static evidence must not be mandatory in clean v2",
+        )
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="evidence_policy",
+            field="evidence_policy.regeneration_policy",
+            observed_value=regeneration_policy,
+            expected_shape="regenerable_by_validation_and_report_scripts",
+            ok=regeneration_policy == "regenerable_by_validation_and_report_scripts",
+            finding_type="evidence_policy",
+            notes="evidence should be regenerated rather than required as static artifact",
+        )
+        retained_ok = retained_static_artifacts == "none" or isinstance(retained_static_artifacts, list)
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="evidence_policy",
+            field="evidence_policy.retained_static_artifacts",
+            observed_value=retained_static_artifacts,
+            expected_shape="none or explicit retained artifact list",
+            ok=retained_ok,
+            finding_type="evidence_policy",
+            notes="retained static artifacts must be explicit if present",
+        )
 
     readme_path = case_dir / "README.md"
     if readme_path.exists():
-        text = readme_path.read_text(encoding="utf-8")
-        headings = [line.strip("# ").strip() for line in text.splitlines() if line.startswith("## ")]
-        expected_order = [
-            "Purpose",
-            "Release Scope",
-            "Package Contents",
-            "Evidence Boundary",
-            "Benchmark Boundary",
-            "Notes / Future Review Status",
+        readme_text = readme_path.read_text(encoding="utf-8")
+        expected_headings = [
+            "## Purpose",
+            "## Release Scope",
+            "## Package Contents",
+            "## Evidence Boundary",
+            "## Benchmark Boundary",
+            "## Notes / Future Review Status",
         ]
-        order_ok = [heading for heading in expected_order if heading in headings] == expected_order
+        missing = [heading for heading in expected_headings if heading not in readme_text]
         _check(
             checks,
             findings,
             case_id=case_id,
             manifest_path=readme_path,
-            field_group="readme",
-            field="README section order",
-            observed_value=" > ".join(headings),
-            expected_shape="Purpose > Release Scope > Package Contents > Evidence Boundary > Benchmark Boundary > Notes / Future Review Status",
-            ok=order_ok,
-            warning=True,
-            finding_type="readme_section_order",
-            notes="README should follow v2/public template section order",
+            field_group="README",
+            field="README.headings",
+            observed_value=", ".join(missing) if missing else "all present",
+            expected_shape="public-readable v2 README headings",
+            ok=not missing,
+            warning=bool(missing),
+            finding_type="readme_closeout",
+            notes="README missing recommended v2 closeout headings" if missing else "",
         )
 
     directory_classification = classify_case_directories(case_dir)
-    overall_status = "fail" if any(ref.status == "fail" for ref in references) or any(check.status == "fail" for check in checks) else "pass"
+    overall_status = "fail" if any(ref.status == "fail" for ref in references) or any(
+        check.status == "fail" for check in checks
+    ) else "pass"
     return V2ValidationResult(
         case_id=case_id,
         case_path=str(case_dir),
@@ -945,81 +923,105 @@ def resolve_case_package_v2(
 
 
 def classify_case_directories(case_dir: Path) -> list[DirectoryClassification]:
-    """Classify known v1/v2 directories without deleting or rewriting them."""
+    """Classify visible case-local directories for clean v2 review."""
 
     specs = {
-        "checker": (
-            "case-local checker config",
-            "case-local required checker policy",
+        "sql": (
+            "direct source/positive/negative SQL paths",
+            "required",
             True,
-            "none; keep as v2 case-local asset",
-        ),
-        "data": (
-            "v1 case-local data profile",
-            "optional compatibility metadata",
-            True,
-            "after external/generated witness policy is validated",
-        ),
-        "evidence": (
-            "v1 case-local retained evidence index/payload",
-            "compatibility copy only; static evidence is not required for clean v2",
-            True,
-            "after evidence_policy/reference cleanup and protected-boundary review",
-        ),
-        "metadata": (
-            "case-local governance metadata",
-            "case-local or manifest-folded metadata",
-            True,
-            "after manifest/reference migration is approved",
-        ),
-        "notes": (
-            "case-local notes",
-            "optional stable case notes",
-            True,
-            "after public docs/hygiene review",
-        ),
-        "runs": (
-            "legacy retained evidence",
-            "legacy retained evidence only",
-            True,
-            "only with retention mapping and explicit approval",
+            "keep direct files; delete nested positives/negatives after refs are removed",
+            "clean v2 keeps sql/source.sql, sql/pos_01.sql, sql/neg_01.sql",
         ),
         "schema": (
-            "case-local schema profile plus retained v1 executable schema copies",
-            "schema/schema_profile.yaml in clean v2; executable DDL/load resolve through external schema profile",
+            "case-local schema profile only",
+            "required_profile_only",
             True,
-            "after external schema profile resolution and compatibility cleanup are separately approved",
+            "keep schema/schema_profile.yaml only; engine DDL/load live under schemas/",
+            "clean v2 case-local schema contains no engine subdirectories",
         ),
-        "sql": (
-            "case SQL assets",
-            "case-local required direct SQL assets",
+        "checker": (
+            "checker configuration layer",
+            "required_config_only",
             True,
-            "none; keep as v2 case-local asset",
+            "keep YAML config; do not keep per-case Python implementations",
+            "checker logic is shared outside case packages",
         ),
         "validation": (
-            "case validation scripts",
-            "thin wrapper entrypoints plus compatibility scripts",
+            "validation entrypoint wrappers",
+            "required_thin_wrappers",
             True,
-            "after wrapper validation and shared logic approval",
+            "keep only run_validation.sh and run_plan_collection.sh",
+            "wrappers must not execute DB/checker in static validation",
         ),
         "witness": (
-            "v2 pilot witness metadata/static result",
-            "optional lightweight witness metadata",
+            "optional source-as-oracle witness metadata",
+            "optional",
             True,
-            "after source-as-oracle policy and external evidence mapping are stable",
+            "static witness assets remain optional and must not be fabricated",
+            "absence is allowed under source-as-oracle runtime policy",
+        ),
+        "evidence": (
+            "legacy static evidence surface",
+            "not_required",
+            False,
+            "remove after references are migrated to evidence_policy",
+            "clean v2 regenerates evidence through validation/report scripts",
+        ),
+        "metadata": (
+            "legacy semantic sidecar",
+            "not_required_after_manifest_repair",
+            False,
+            "delete after manifest semantic fields are restored",
+            "semantic source of truth belongs in manifest contract",
+        ),
+        "notes": (
+            "legacy copied notes",
+            "not_required",
+            False,
+            "delete after README/manifest captures public wording",
+            "historical audit notes stay under audits/",
+        ),
+        "data": (
+            "legacy fixtures",
+            "not_required_unless_witness_policy_requires",
+            False,
+            "manual review if non-placeholder fixture data appears",
+            "source-as-oracle policy should not fabricate fixtures",
+        ),
+        "runs": (
+            "case-local run outputs",
+            "not_required",
+            False,
+            "delete empty/placeholder only after audit; map retained evidence first",
+            "new run outputs belong under top-level runs/user/<run_id>/ and are not committed",
         ),
     }
-    rows: list[DirectoryClassification] = []
-    for directory, (current_role, v2_role, keep_now, delete_condition) in specs.items():
-        path = case_dir / directory
-        rows.append(
+    classifications: list[DirectoryClassification] = []
+    for name, (current_role, v2_role, keep_now, delete_later_condition, notes) in specs.items():
+        directory = case_dir / name
+        if directory.exists():
+            classifications.append(
+                DirectoryClassification(
+                    directory=name,
+                    current_role=current_role,
+                    v2_role=v2_role,
+                    keep_now=keep_now,
+                    delete_later_condition=delete_later_condition,
+                    notes=notes,
+                )
+            )
+    for child in sorted(case_dir.iterdir()):
+        if not child.is_dir() or child.name in specs:
+            continue
+        classifications.append(
             DirectoryClassification(
-                directory=directory + "/",
-                current_role=current_role if path.exists() else "absent",
-                v2_role=v2_role,
-                keep_now=keep_now,
-                delete_later_condition=delete_condition,
-                notes="exists" if path.exists() else "not present in current package",
+                directory=child.name,
+                current_role="case-local extra directory",
+                v2_role="manual_review_required",
+                keep_now=True,
+                delete_later_condition="classify before cleanup",
+                notes="unrecognized directory in case package",
             )
         )
-    return rows
+    return classifications

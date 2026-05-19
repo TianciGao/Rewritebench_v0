@@ -1,76 +1,91 @@
 case_id: PERF_0054
 pool: PERF
-case_package_standard: v2_clean_template_minimal
-status: converted_common_core40_wave_b
-canonical_layout: clean_template_minimal_v2
+primary_pool: PERF
+package_path: cases/PERF/PERF_0054
 source_family: TPC-DS
-source_id: SRC_002
-source_name: TPC-DS
+source_workload:
+  source_family: TPC-DS
+  source_id: SRC_002
+  source_name: TPC-DS
+  source_seed: TPCDS_QUERY3_DSQGEN_COUNT1_SCALE1_ANSI_V0
+  source_template: query3.tpl
+  source_workload: TPC-DS
+  source_materialization: postgres_normalized_from_tpcds_ansi
+based_benchmark: TPC-DS
+source_query_identity:
+  source_id: SRC_002
+  source_name: TPC-DS
+  source_seed: TPCDS_QUERY3_DSQGEN_COUNT1_SCALE1_ANSI_V0
+  source_template: query3.tpl
+  identity: TPC-DS query3
+source_path: datasets/raw/tpcds/DSGen-software-code-4.0.0/query_templates/query3.tpl
+draft_origin:
+  recovery_status: manual_review_required
+  origin_id: TPC-DS query3
+  origin_type: source_query_identity_fallback
+  recovery_sources:
+  - current_manifest
+  - branch_history_provenance
+  - branch_history_taxonomy
+  - inventory_case_registry
+taxonomy:
+  sql_feature:
+    primary:
+    - aggregate
+    - group_by
+    - join
+    - order_by
+    - limit
+    secondary: []
+  rewrite_opportunity:
+    primary: []
+    secondary: []
+  portability:
+    confirmed: []
+    suspected: []
+  performance_focus:
+    performance_boundary:
+      performance_sensitive_case: true
+      speedup_claim_created: false
+      timing_evidence_created: false
 sql:
   source: sql/source.sql
-  positives:
-  - sql/pos_01.sql
-  negatives:
-  - sql/neg_01.sql
-schema_ref:
-  schema_id: tpcds_perf0054_v0
-  profile: schemas/tpcds_perf0054_v0/schema_profile.yaml
+  positive_rewrites:
+  - id: pos_01
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
+  - id: neg_01
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
+schema:
+  profile: schema/schema_profile.yaml
+  external_profile: schemas/tpcds_perf0054_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
-  config: checker/checker.yaml
+  checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
   run_validation: validation/run_validation.sh
   run_plan_collection: validation/run_plan_collection.sh
-witness:
-  mode: source_as_oracle
-  data_profile_status: external_or_generated
-  correct_result_status: not_required_for_runtime_checker
-  witness_profile: witness/witness_profile.yaml
 evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts
   retained_static_artifacts: none
-benchmark_scope:
+status: manual_review_required
+known_caveats:
+- draft_origin_not_explicitly_recovered
+artifact_warning:
   case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
   official_metrics_computed: false
-  global_leaderboard_created: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  policy: schema_ref_profile_first
-  supported_engines:
-  - postgres
-  - mysql
-  - spark
-  case_local_engine_assets: removed_after_external_schema_verification
-metadata:
-  status: merged_or_represented_in_manifest_and_project_sources
-  case_local_metadata_directory: removed_in_wave_b_conversion
-notes:
-  status: not_required_for_clean_template_minimal
-  case_local_notes_directory: removed_in_wave_b_conversion
-artifact_paths:
-  source_sql: sql/source.sql
-  positive_sql: sql/pos_01.sql
-  negative_sql: sql/neg_01.sql
-  schema_profile: schema/schema_profile.yaml
-  external_schema_profile: schemas/tpcds_perf0054_v0/schema_profile.yaml
-claim_boundaries:
   db_checker_execution_run: false
-  official_metrics_computed: false
-  reports_or_results_changed: false
-compatibility:
-  wave: common_core40_wave_b
-  legacy_nested_sql_dirs: removed_after_direct_sql_paths_created
-  legacy_case_local_schema_engine_dirs: removed_after_external_schema_copy_verification
-  legacy_static_case_evidence_surface: removed_under_regeneration_first_policy
-  legacy_metadata_notes_data_surfaces: removed_after manifest and policy representation
-  legacy_engine_validation_entrypoints: removed_after v2 wrapper replacement
-  case_local_run_output_surface: absent_or_removed_if_placeholder_only
+  global_leaderboard_created: false
+  static_evidence_required: false

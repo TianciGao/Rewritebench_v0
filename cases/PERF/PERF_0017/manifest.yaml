@@ -1,154 +1,83 @@
 case_id: PERF_0017
 pool: PERF
-status: canonical_full_case_migration_common_core40_wave_a
-canonical_layout: true
-case_package_standard: v2_clean_template_minimal_common_core40_wave_a
+primary_pool: PERF
+package_path: cases/PERF/PERF_0017
 source_family: TPC-H
-source_id: SRC_001
-source_name: TPC-H
-source_seed: TPC-H-Q10
-source_entry: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/10.sql
-source_materialization: manual_freeze_from_tpc_h_reference_substitution
-benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: PERF_0017_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  postgres:
-    supported_in_legacy_manifest: true
-    role: source_reference_engine
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
-  mysql:
-    supported_in_legacy_manifest: true
-    role: target_positive_and_negative_engine
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
-  spark:
-    supported_in_legacy_manifest: true
-    role: target_positive_and_negative_engine
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
+source_workload:
+  source_family: TPC-H
+  source_id: SRC_001
+  source_name: TPC-H
+  source_seed: TPC-H-Q10
+  source_workload: TPC-H
+  source_materialization: manual_freeze_from_tpc_h_reference_substitution
+based_benchmark: TPC-H
+source_query_identity:
+  source_id: SRC_001
+  source_name: TPC-H
+  source_seed: TPC-H-Q10
+source_path: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/10.sql
+draft_origin:
+  recovery_status: manual_review_required
+  origin_id: TPC-H-Q10
+  origin_type: source_query_identity_fallback
+  recovery_sources:
+  - current_manifest
+  - branch_history_provenance
+  - branch_history_taxonomy
+  - inventory_case_registry
+taxonomy:
+  sql_feature:
+    primary:
+    - date_time_function
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - predicate_pushdown
+    - join_reorder
+    secondary: []
+  portability:
+    confirmed: []
+    suspected: []
+  performance_focus:
+    performance_sensitive: true
 sql:
   source: sql/source.sql
-  positives:
-  - sql/pos_01.sql
-  negatives:
-  - sql/neg_01.sql
-schema_ref:
-  schema_id: tpch_perf0017_v0
-  profile: schemas/tpch_perf0017_v0/schema_profile.yaml
+  positive_rewrites:
+  - id: pos_01
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
+  - id: neg_01
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
+schema:
+  profile: schema/schema_profile.yaml
+  external_profile: schemas/tpch_perf0017_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
-  config: checker/checker.yaml
+  checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
   run_validation: validation/run_validation.sh
   run_plan_collection: validation/run_plan_collection.sh
-witness:
-  mode: source_as_oracle
-  data_profile_status: external_or_generated
-  correct_result_status: not_required_for_runtime_checker
-  witness_profile: witness/witness_profile.yaml
 evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts
   retained_static_artifacts: none
-metadata:
-  status: merged_or_represented_for_common_core40_wave_a
-  provenance: represented_by_source_fields_and_claim_boundaries
-  taxonomy: represented_by_pool_source_family_checker_and_claim_boundaries
-  engine_support: represented_by_engine_support_schema_ref_and_evidence_policy
-  denominator_eligibility: represented_by_denominator_eligibility_and_case_sets_reference
-  artifact_paths: represented_by_sql_schema_ref_checker_validation_witness_and_evidence_policy
-  case_local_metadata_directory_status: removed_in_common_core40_wave_a_v0
-notes:
-  status: static_notes_surface_removed_regeneration_first
-  review_notes_policy: no_committed_static_notes_required_for_clean_v2
-artifact_paths:
-  legacy_case_root: cases/PERF/PERF_0017
-  public_release_case_root: cases/PERF/PERF_0017
-  case_local_runs_status: absent_after_empty_runs_cleanup_or_wave_a_cleanup
-  case_local_metadata_status: removed_in_common_core40_wave_a_v0
-  case_local_data_status: removed_in_common_core40_wave_a_v0
-performance_boundary:
-  performance_sensitive_case: true
-  timing_evidence_created: false
-  speedup_claim_created: false
-  retained_timing_artifacts_present: false
-  interpretation_policy: retained denominator-aware paper evidence only
-claim_boundaries:
-  actual_migration_performed: true
-  preview_only: false
-  full_case_package_migrated: true
+status: manual_review_required
+known_caveats:
+- draft_origin_not_explicitly_recovered
+artifact_warning:
+  case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
-  common_core_membership_changed: false
-  case_membership_changed: false
-  raw_legacy_evidence_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
-  timing_evidence_created: false
-  migration_scope: PERF_0017 only
-compatibility:
-  sql_legacy:
-    positives:
-      pos_01:
-        status: nested_compatibility_path_removed
-        direct_v2_path: sql/pos_01.sql
-        role: positive_rewrite
-    negatives:
-      neg_01:
-        status: nested_compatibility_path_removed
-        direct_v2_path: sql/neg_01.sql
-        role: hard_negative
-        expected_rejection: checker/expected_rejections.yaml
-  case_local_schema:
-    status: external_schema_profile_resolves_executable_schema
-    case_local_profile: schema/schema_profile.yaml
-    case_local_engine_dirs_status: deleted_in_common_core40_wave_a_v0
-    external_schema_profile: schemas/tpch_perf0017_v0/schema_profile.yaml
-    deletion_status: deleted_in_common_core40_wave_a_v0
-  validation_legacy:
-    status: legacy_engine_specific_scripts_removed_after_wrapper_replacement
-    wrapper_dependency_status: v2_wrappers_do_not_call_legacy_scripts
-    shared_runner_status: not_implemented_wrappers_fail_closed
-    deletion_status: deleted_in_common_core40_wave_a_v0
-  witness_legacy:
-    status: source_as_oracle_policy_recorded_static_correct_result_not_fabricated
-  evidence_legacy:
-    status: static_evidence_surface_removed_regeneration_first
-    static_evidence_required_for_clean_v2: false
-    retained_static_artifacts: none
-    regeneration_policy: regenerable_by_validation_and_report_scripts
-  metadata_legacy:
-    status: stable_metadata_merged_or_represented_elsewhere
-    deletion_status: deleted_in_common_core40_wave_a_v0
-    source_of_truth: manifest_fields_schema_ref_evidence_policy_case_sets_and_project_control
-  notes_legacy:
-    status: static_notes_surface_removed_regeneration_first
-    regeneration_policy: public_notes_not_required_for_runtime_validation
-  runs_legacy:
-    status: absent_or_placeholder_removed
-    retained_evidence_deleted: false
-  data_legacy:
-    status: represented_by_external_schema_loads_and_witness_policy
-    deletion_status: deleted_in_common_core40_wave_a_v0
-    source_of_truth: schema_ref_external_schema_profile_and_witness_source_as_oracle_policy
-  validation_policy:
-    schema_resolution_policy: manifest_schema_ref_profile_first
-    legacy_script_dependency_status: v2_wrappers_do_not_call_legacy_scripts
-    wrapper_fail_closed_message: shared_v2_validation_runner_not_implemented_use_future_shared_runner
+  official_metrics_computed: false
+  db_checker_execution_run: false
+  global_leaderboard_created: false
+  static_evidence_required: false

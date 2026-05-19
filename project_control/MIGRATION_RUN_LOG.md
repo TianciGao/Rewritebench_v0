@@ -8636,3 +8636,62 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_c_manual_review_plan_v0` as a bounded planning task before any Wave C/PORT manual-review conversion execution.
+
+### 2026-05-20 · pending · case_package_v2_manifest_contract_repair_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable manifest semantic-contract repair; no Wave C conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending at writeback time
+Push: pending at writeback time
+
+Summary:
+- Repaired `manifest.yaml` for 32 already converted v2 cases: five accepted pilots, five Wave A cases, and 22 Wave B cases.
+- Restored taxonomy for all 32 cases from branch history/deleted metadata, not README-only wording.
+- Replaced old list-shaped manifest semantics with colleague-style semantic sections while preserving clean-template physical paths.
+- Required object-form `sql.positive_rewrites` and `sql.hard_negatives`, `schema.profile`, `schema.external_profile`, config-only checker paths, v2 validation wrappers, source-as-oracle witness policy, and regeneration-first `evidence_policy`.
+- Retained `manual_review_required` status for 17 cases where explicit draft origin or original source path could not be recovered safely without invention.
+- Updated the static v2 validator and tests to require taxonomy, source family, status, object-form SQL entries, schema profile fields, checker paths, validation paths, and `evidence_policy`, and to reject required `evidence_ref`, `schema_ref.engines`, absolute/local paths, and deleted compatibility path references.
+- Did not restore case-local schema engine directories, evidence, runs, metadata, notes, data, old validation scripts, or per-case Python checker scripts.
+- Did not modify `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_contract_repair_summary.md`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_repair_case_status.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_taxonomy_recovery_matrix.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_semantic_field_completeness.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_format_consistency_audit.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_repair_manual_review_blockers.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_repair_validator_results.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_repair_protected_boundary_checks.csv`
+- `audits/case_package_v2_manifest_contract_repair_v0/future_case_package_v2_wave_c_or_manifest_repair_followup_prompt.md`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_contract_repair_summary.json`
+- `audits/case_package_v2_manifest_contract_repair_v0/manifest_contract_repair_command_log.md`
+
+Validation:
+- Static v2 validators passed for all 32 repaired cases.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 15 tests.
+- Summary JSON assertion: pending final run.
+- `git diff --check`: pending final run.
+
+Task result:
+- Manifest contract repair: yes.
+- Cases targeted: 32.
+- Cases repaired: 32.
+- Cases retaining manual-review caveats: 17.
+- Taxonomy restored count: 32.
+- Semantic fields restored count: 621 safe field instances.
+- Validator updated: yes.
+- Tests updated: yes.
+- Case files modified: yes, manifest files only for the already converted v2 cases.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Resolve manifest manual-review provenance caveats in a bounded follow-up, or run Wave C planning without inventing unrecovered source fields.

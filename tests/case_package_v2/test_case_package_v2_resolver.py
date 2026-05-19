@@ -5,6 +5,8 @@ import textwrap
 import unittest
 from pathlib import Path
 
+import yaml
+
 from sql_rewrite_bench.case_package_v2_resolver import resolve_case_package_v2
 
 
@@ -77,6 +79,7 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             encoding="utf-8",
         )
         if include_witness:
+            (case_dir / "witness" / "witness_profile.yaml").write_text("mode: source_as_oracle\n", encoding="utf-8")
             (case_dir / "witness" / "data_profile.yaml").write_text("status: generated\n", encoding="utf-8")
             (case_dir / "witness" / "correct_result.csv").write_text("a\n1\n", encoding="utf-8")
         (case_dir / "README.md").write_text(
@@ -108,86 +111,91 @@ class CasePackageV2ResolverTests(unittest.TestCase):
         (case_dir / "manifest.yaml").write_text(textwrap.dedent(manifest), encoding="utf-8")
         return tmp, root
 
-    def profile_first_manifest(self) -> str:
-        return """\
-        case_id: PERF_9999
-        pool: PERF
-        case_package_standard: v2
-        source_family: demo
-        sql:
-          source: sql/source.sql
-          positives:
-            - sql/pos_01.sql
-          negatives:
-            - sql/neg_01.sql
-        schema_ref:
-          schema_id: demo_schema
-          profile: schemas/demo_schema/schema_profile.yaml
-        checker:
-          config: checker/checker.yaml
-          normalization: checker/normalization.yaml
-          compare_config: checker/compare_config.yaml
-          expected_rejections: checker/expected_rejections.yaml
-        witness:
-          mode: source_as_oracle
-          data_profile_status: generated
-          correct_result_status: optional
-          data_profile: witness/data_profile.yaml
-          correct_result: witness/correct_result.csv
-        validation:
-          run_validation: validation/run_validation.sh
-          run_plan_collection: validation/run_plan_collection.sh
-        """
-
     def valid_manifest(self) -> str:
         return """\
         case_id: PERF_9999
         pool: PERF
-        case_package_standard: v2
+        primary_pool: PERF
+        package_path: cases/PERF/PERF_9999
         source_family: demo
+        source_workload:
+          source_name: demo
+          source_id: SRC_DEMO
+          source_seed: DEMO_QUERY
+        based_benchmark: demo
+        source_query_identity:
+          source_id: SRC_DEMO
+          source_name: demo
+          source_seed: DEMO_QUERY
+        source_path: datasets/raw/demo/query.sql
+        draft_origin:
+          recovery_method: synthetic_test_fixture
+        taxonomy:
+          sql_feature:
+            primary: []
+            secondary: []
+          rewrite_opportunity:
+            primary:
+              - predicate_pushdown
+            secondary: []
+          portability:
+            confirmed: []
+            suspected: []
+          performance_focus:
+            primary:
+              - synthetic_fixture
+            secondary: []
         sql:
           source: sql/source.sql
-          positives:
-            - sql/pos_01.sql
-          negatives:
-            - sql/neg_01.sql
-        schema_ref:
-          schema_id: demo_schema
-          engines:
-            postgres:
-              ddl: schemas/demo_schema/postgres/ddl.sql
-              load: schemas/demo_schema/postgres/load.sql
-            mysql:
-              ddl: schemas/demo_schema/mysql/ddl.sql
-              load: schemas/demo_schema/mysql/load.sql
-            spark:
-              ddl: schemas/demo_schema/spark/ddl.sql
-              load: schemas/demo_schema/spark/load.sql
+          positive_rewrites:
+            - id: pos_01
+              path: sql/pos_01.sql
+              status: recovered
+          hard_negatives:
+            - id: neg_01
+              path: sql/neg_01.sql
+              status: recovered
+        schema:
+          profile: schema/schema_profile.yaml
+          external_profile: schemas/demo_schema/schema_profile.yaml
+        witness:
+          mode: source_as_oracle
+          data_profile_status: external_or_generated
+          correct_result_status: not_required_for_runtime_checker
+          witness_profile: witness/witness_profile.yaml
+          data_profile: witness/data_profile.yaml
+          correct_result: witness/correct_result.csv
         checker:
-          config: checker/checker.yaml
+          checker: checker/checker.yaml
           normalization: checker/normalization.yaml
           compare_config: checker/compare_config.yaml
           expected_rejections: checker/expected_rejections.yaml
-        witness:
-          mode: source_as_oracle
-          data_profile_status: generated
-          correct_result_status: optional
-          data_profile: witness/data_profile.yaml
-          correct_result: witness/correct_result.csv
         validation:
           run_validation: validation/run_validation.sh
           run_plan_collection: validation/run_plan_collection.sh
+        evidence_policy:
+          static_case_evidence: not_required
+          regeneration_policy: regenerable_by_validation_and_report_scripts
+          retained_static_artifacts: none
+        status: repaired_v2_manifest_contract
+        known_caveats: []
+        artifact_warning:
+          no_denominator_change: true
+          no_paper_result_change: true
+          no_official_metrics_computed: true
+          no_db_checker_execution_run: true
+          no_global_leaderboard_created: true
         """
 
-    def test_synthetic_v2_manifest_with_valid_schema_ref_passes(self) -> None:
+    def test_synthetic_v2_manifest_with_valid_semantic_contract_passes(self) -> None:
         tmp, root = self.make_repo(self.valid_manifest())
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "pass")
             self.assertFalse(result.errors)
 
-    def test_profile_first_schema_ref_resolves_through_external_profile_passes(self) -> None:
-        tmp, root = self.make_repo(self.profile_first_manifest())
+    def test_schema_external_profile_resolves_engine_paths(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "pass")
@@ -195,22 +203,13 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             resolved = {
                 ref.field: ref
                 for ref in result.references
-                if ref.field in ("schema_ref.profile", "schema_ref.engines.postgres.ddl")
+                if ref.field in ("schema.external_profile", "schema.external_profile.engines.postgres.ddl")
             }
-            self.assertEqual(resolved["schema_ref.profile"].status, "pass")
-            self.assertEqual(resolved["schema_ref.engines.postgres.ddl"].status, "pass")
+            self.assertEqual(resolved["schema.external_profile"].status, "pass")
+            self.assertEqual(resolved["schema.external_profile.engines.postgres.ddl"].status, "pass")
 
-    def test_evidence_policy_not_required_passes_without_evidence_ref(self) -> None:
-        manifest = (
-            self.profile_first_manifest()
-            + """
-        evidence_policy:
-          static_case_evidence: not_required
-          regeneration_policy: regenerable_by_validation_and_report_scripts
-          retained_static_artifacts: none
-        """
-        )
-        tmp, root = self.make_repo(manifest)
+    def test_evidence_policy_required_and_evidence_ref_absent(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "pass")
@@ -223,43 +222,54 @@ class CasePackageV2ResolverTests(unittest.TestCase):
                 )
             )
 
+    def test_missing_evidence_policy_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data.pop("evidence_policy")
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("evidence_policy" in error for error in result.errors))
+
+    def test_evidence_ref_top_level_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["evidence_ref"] = {"path": "evidence/cases/PERF/PERF_9999"}
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("evidence_ref" in error or "evidence/cases" in error for error in result.errors))
+
+    def test_schema_ref_engines_top_level_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["schema_ref"] = {
+            "schema_id": "demo_schema",
+            "engines": {
+                "postgres": {
+                    "ddl": "schemas/demo_schema/postgres/ddl.sql",
+                    "load": "schemas/demo_schema/postgres/load.sql",
+                }
+            },
+        }
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("schema_ref" in error for error in result.errors))
+
     def test_invalid_evidence_policy_value_fails(self) -> None:
-        manifest = (
-            self.profile_first_manifest()
-            + """
-        evidence_policy:
-          static_case_evidence: required_static_paths
-          regeneration_policy: unavailable
-          retained_static_artifacts: none
-        """
-        )
+        manifest = self.valid_manifest().replace("static_case_evidence: not_required", "static_case_evidence: required")
         tmp, root = self.make_repo(manifest)
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "fail")
             self.assertTrue(any("evidence_policy.static_case_evidence" in error for error in result.errors))
 
-    def test_missing_schema_ref_path_fails(self) -> None:
-        manifest = self.valid_manifest().replace(
-            "schemas/demo_schema/postgres/ddl.sql",
-            "schemas/demo_schema/postgres/missing.sql",
-        )
-        tmp, root = self.make_repo(manifest)
-        with tmp:
-            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
-            self.assertEqual(result.overall_status, "fail")
-            self.assertTrue(any("schema_ref.engines.postgres.ddl" in error for error in result.errors))
-
-    def test_missing_external_schema_profile_fails(self) -> None:
-        tmp, root = self.make_repo(self.profile_first_manifest())
-        with tmp:
-            (root / "schemas" / "demo_schema" / "schema_profile.yaml").unlink()
-            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
-            self.assertEqual(result.overall_status, "fail")
-            self.assertTrue(any("schema_ref.profile" in error for error in result.errors))
-
     def test_missing_engine_path_in_external_profile_fails(self) -> None:
-        tmp, root = self.make_repo(self.profile_first_manifest())
+        tmp, root = self.make_repo(self.valid_manifest())
         with tmp:
             (root / "schemas" / "demo_schema" / "schema_profile.yaml").write_text(
                 textwrap.dedent(
@@ -281,18 +291,46 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             )
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "fail")
-            self.assertTrue(any("schema_ref.engines.postgres.ddl" in error for error in result.errors))
+            self.assertTrue(any("schema.external_profile.engines.postgres.ddl" in error for error in result.errors))
+
+    def test_missing_external_schema_profile_fails(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
+        with tmp:
+            (root / "schemas" / "demo_schema" / "schema_profile.yaml").unlink()
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("schema.external_profile" in error for error in result.errors))
 
     def test_missing_optional_witness_files_warns_only(self) -> None:
-        tmp, root = self.make_repo(self.profile_first_manifest(), include_witness=False)
+        tmp, root = self.make_repo(self.valid_manifest(), include_witness=False)
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "pass")
             witness_refs = [ref for ref in result.references if ref.field.startswith("witness.")]
             self.assertTrue(any(ref.status == "warn" for ref in witness_refs))
 
+    def test_missing_taxonomy_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data.pop("taxonomy")
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("taxonomy" in error for error in result.errors))
+
+    def test_malformed_sql_entries_fail(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["sql"]["positive_rewrites"] = ["sql/pos_01.sql"]
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("sql.positive_rewrites" in error for error in result.errors))
+
     def test_absolute_paths_fail(self) -> None:
-        manifest = self.profile_first_manifest().replace("sql/source.sql", "/tmp/source.sql")
+        manifest = self.valid_manifest().replace("sql/source.sql", "/tmp/source.sql")
         tmp, root = self.make_repo(manifest)
         with tmp:
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
@@ -309,7 +347,7 @@ class CasePackageV2ResolverTests(unittest.TestCase):
         self.assertEqual(result.overall_status, "pass")
         self.assertFalse(result.errors)
 
-    def test_five_pilot_cases_validate_profile_first_schema_ref(self) -> None:
+    def test_five_pilot_cases_validate_semantic_manifest_contract(self) -> None:
         repo_root = Path(__file__).resolve().parents[2]
         for case_path in (
             "cases/PERF/PERF_0006",
@@ -322,7 +360,9 @@ class CasePackageV2ResolverTests(unittest.TestCase):
                 result = resolve_case_package_v2(repo_root=repo_root, case_path=Path(case_path))
                 self.assertEqual(result.overall_status, "pass", result.errors)
                 self.assertFalse(result.errors)
-                self.assertTrue(any(ref.field == "schema_ref.profile" and ref.status == "pass" for ref in result.references))
+                self.assertTrue(
+                    any(ref.field == "schema.external_profile" and ref.status == "pass" for ref in result.references)
+                )
 
 
 if __name__ == "__main__":

@@ -1,43 +1,69 @@
 case_id: LONGTAIL_0011
 pool: LONGTAIL
-status: canonical_full_case_migration_pilot
-canonical_layout: true
+primary_pool: LONGTAIL
+package_path: cases/LONGTAIL/LONGTAIL_0011
 source_family: SQLStorm
-benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: LONGTAIL_0011_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-  workload_frequency_claim_created: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  postgres:
-    role: retained_source_positive_negative_evidence
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
-  mysql:
-    role: retained_source_positive_negative_evidence
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
-  spark:
-    role: retained_source_positive_negative_evidence
-    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
-    evidence_policy: regenerated_by_validation_and_report_scripts
+source_workload:
+  source_family: SQLStorm
+  source_name: SQLStorm
+  source_seed: 6625.sql
+  source_workload: stackoverflow
+based_benchmark: SQLStorm
+source_query_identity:
+  source_name: SQLStorm
+  source_seed: 6625.sql
+  identity: 6625.sql
+source_path: datasets/raw/sqlstorm/SQLStorm/v1.0/stackoverflow/queries/6625.sql
+draft_origin:
+  recovery_status: recovered
+  origin_id: LONGTAIL_DRAFT_0012
+  origin_type: explicit_draft_origin
+  recovery_sources:
+  - current_manifest
+  - branch_history_provenance
+  - branch_history_taxonomy
+  - inventory_case_registry
+taxonomy:
+  sql_feature:
+    primary:
+    - cte
+    - window_function
+    - join
+    - aggregate
+    - sort
+    secondary: []
+  rewrite_opportunity:
+    primary:
+    - expression_simplification
+    secondary:
+    - cte_strategy
+  portability:
+    confirmed: []
+    suspected: []
+  longtail_focus:
+    semantic_risk_type:
+    - tie_sensitive_ranking
+    - rank_function_substitution
 sql:
   source: sql/source.sql
-  positives:
-  - sql/pos_01.sql
-  negatives:
-  - sql/neg_01.sql
+  positive_rewrites:
+  - id: pos_01
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
+  - id: neg_01
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
+schema:
+  profile: schema/schema_profile.yaml
+  external_profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
-  config: checker/checker.yaml
+  checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
@@ -48,133 +74,13 @@ evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts
   retained_static_artifacts: none
-metadata:
-  status: merged_or_represented_for_clean_template_gap_closure_v0
-  provenance: represented_by_source_fields_and_claim_boundaries
-  taxonomy: represented_by_pool_source_family_checker_and_claim_boundaries
-  engine_support: represented_by_engine_support_schema_ref_and_evidence_policy
-  denominator_eligibility: represented_by_denominator_eligibility_and_case_sets_reference
-  artifact_paths: represented_by_sql_schema_ref_checker_validation_witness_and_evidence_policy
-  case_local_metadata_directory_status: removed_in_clean_template_gap_closure_execution_v0
-notes:
-  status: static_notes_surface_removed_regeneration_first
-  review_notes_policy: no_committed_static_notes_required_for_clean_v2
-artifact_paths:
-  legacy_case_root: cases/LONGTAIL/LONGTAIL_0011
-  public_release_case_root: cases/LONGTAIL/LONGTAIL_0011
-  case_local_runs_status: removed_placeholder_only_in_empty_runs_cleanup_v0
-  case_local_metadata_status: removed_in_clean_template_gap_closure_execution_v0
-  case_local_data_status: removed_in_clean_template_gap_closure_execution_v0
-claim_boundaries:
-  actual_migration_performed: true
-  preview_only: false
-  full_case_package_migrated: true
+status: repaired_v2_manifest_contract
+known_caveats: []
+artifact_warning:
+  case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
-  common_core_membership_changed: false
-  raw_legacy_evidence_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
-  workload_frequency_claim_created: false
-  production_frequency_claim_created: false
-  timing_evidence_created: false
-  speedup_claim_created: false
-  migration_scope: LONGTAIL_0011 only
-case_package_standard: v2_folder_ordered_manifest_sql_schema_pilot
-schema_ref:
-  schema_id: sqlstorm_stackoverflow_longtail0011_v0
-  profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
-witness:
-  mode: source_as_oracle
-  data_profile_status: external_or_generated
-  correct_result_status: not_required_for_runtime_checker
-  witness_profile: witness/witness_profile.yaml
-compatibility:
-  sql_legacy:
-    positives:
-      pos_01:
-        removed_nested_compatibility_path: removed_in_reference_cleanup_execution_v0
-        direct_v2_path: sql/pos_01.sql
-        source_legacy_path: cases/LONGTAIL/LONGTAIL_0011/rewrite_pos_01.sql
-        role: positive_rewrite
-        structural_role: dense_rank_positive_rewrite
-    negatives:
-      neg_01:
-        removed_nested_compatibility_path: removed_in_reference_cleanup_execution_v0
-        direct_v2_path: sql/neg_01.sql
-        source_legacy_path: cases/LONGTAIL/LONGTAIL_0011/rewrite_neg_01.sql
-        role: hard_negative
-        expected_rejection: checker/expected_rejections.yaml
-        expected_behavior: tie_sensitive_ranking_semantics_not_preserved
-  case_local_schema:
-    status: external_schema_profile_resolves_executable_schema
-    case_local_profile: schema/schema_profile.yaml
-    case_local_engine_dirs_status: deleted_in_second_clean_template_cleanup_v0
-    external_schema_profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
-    deletion_readiness: completed_after_external_schema_verification
-    deletion_status: deleted_in_second_clean_template_cleanup_v0
-  checker_legacy:
-    legacy_config_key: checker.checker
-    legacy_config_path: checker/checker.yaml
-  validation_legacy:
-    status: legacy_engine_specific_scripts_removed_after_wrapper_unblock
-    wrapper_dependency_status: v2_wrappers_do_not_call_legacy_scripts
-    cleanup_readiness: completed
-    shared_runner_status: not_implemented_wrappers_fail_closed
-    deletion_status: deleted_in_second_clean_template_cleanup_v0
-  witness_legacy:
-    status: optional_static_witness_not_materialized
-  evidence_legacy:
-    status: static_evidence_surface_removed_regeneration_first
-    static_evidence_required_for_clean_v2: false
-    case_local_evidence_status: deleted_in_second_clean_template_cleanup_v0
-    top_level_evidence_status: deleted_in_static_evidence_cleanup_execution_v0
-    retained_static_artifacts: none
-    regeneration_policy: regenerable_by_validation_and_report_scripts
-  metadata_legacy:
-    status: stable_metadata_merged_or_represented_elsewhere
-    deletion_status: deleted_in_clean_template_gap_closure_execution_v0
-    source_of_truth: manifest_fields_schema_ref_evidence_policy_case_sets_and_project_control
-  notes_legacy:
-    status: static_notes_surface_removed_with_evidence_surface_cleanup
-    case_local_notes_status: removed_in_reference_cleanup_execution_v0
-    top_level_notes_status: deleted_in_static_evidence_cleanup_execution_v0
-    regeneration_policy: public_notes_not_required_for_runtime_validation
-  runs_legacy:
-    status: placeholder_only_runs_removed
-    deletion_status: deleted_in_empty_runs_cleanup_v0
-    retained_evidence_deleted: false
-  manifest_legacy_context:
-    source_workload: stackoverflow
-    source_query_identity: 6625.sql
-    source_path_reference: datasets/raw/sqlstorm/SQLStorm/v1.0/stackoverflow/queries/6625.sql
-    draft_origin: LONGTAIL_DRAFT_0012
-    legacy_official_case_status: case_local_constructed_not_registry_admitted
-    longtail_structure_boundary:
-      structural_case: true
-      workload_frequency_claim_created: false
-      production_frequency_claim_created: false
-      structures_present:
-      - cte_pipeline
-      - window_ranking
-      - joins
-      - aggregate_order_logic
-      - tie_sensitive_ranking
-      interpretation_policy: structural_robustness_only
-  data_legacy:
-    status: represented_by_external_schema_loads_and_witness_policy
-    deletion_status: deleted_in_clean_template_gap_closure_execution_v0
-    source_of_truth: schema_ref_external_schema_profile_and_witness_source_as_oracle_policy
-  schema_legacy:
-    status: external_schema_profile_resolves_executable_schema
-    case_local_profile: schema/schema_profile.yaml
-    case_local_engine_dirs_status: deleted_in_second_clean_template_cleanup_v0
-    external_schema_profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
-    deletion_readiness: completed_after_external_schema_verification
-    deletion_status: deleted_in_second_clean_template_cleanup_v0
-  validation_policy:
-    schema_resolution_policy: manifest_schema_ref_profile_first
-    legacy_script_dependency_status: v2_wrappers_do_not_call_legacy_scripts
-    wrapper_fail_closed_message: shared_v2_validation_runner_not_implemented_use_future_shared_runner
-performance_boundary: null
+  official_metrics_computed: false
+  db_checker_execution_run: false
+  global_leaderboard_created: false
+  static_evidence_required: false
