@@ -8156,7 +8156,7 @@ Mode: branch-only policy revision and reference-removal planning; no evidence de
 Legacy repo modified: no
 Release repo branch modified: yes
 Commit: `5b045f4e`
-Push: pending
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Revised v2 policy so static evidence directories are not required in the final clean v2 public case surface.
