@@ -6380,3 +6380,81 @@ Task result:
 
 Next safe action:
 - Authorize a DB/checker MVP hardening or release-smoke task that reruns the postgres-only local execution/checker path in a fresh environment, then optionally expands only to `PERF_0007` under the same local-only boundaries.
+
+### 2026-05-19 · TBD · b_line_db_checker_execution_release_smoke_v0
+
+Mode: B-line DB/checker execution release-smoke; fresh-checkout editable-install verification only; no new feature implementation; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
+Legacy repo modified: no
+Release repo modified: yes
+Commit: `TBD`
+Push: `TBD`
+
+Summary:
+- Verified the bounded postgres-only DB/checker execution MVP from a fresh local clone under `/tmp/sqlrb_db_checker_release_smoke/Rewritebench_v0_db_smoke`.
+- Created a temporary virtual environment and installed the package with `python -m pip install -e ".[sqlglot]"`.
+- Confirmed SQLGlot import in the temporary environment with observed version `30.8.0`.
+- Confirmed Postgres connectivity with `psql -c "select 1;"` in both the release repo and temporary clone, without logging DB passwords, full DSNs, or environment values.
+- Ran the bounded smoke for `PERF_0006` only, `postgres` only, SQLGlot no-op adapter only, local output only under `runs/user/db_checker_release_smoke_perf0006/`.
+- Confirmed source execution result, candidate execution result, and checker result artifacts were captured.
+- Confirmed the temporary smoke ledger had `source_execution_status=source_execution_success`, `candidate_execution_status=candidate_execution_success`, `checker_status=checker_success`, `exact_status=exact`, `failure_bucket=none`, `local_execution_only=true`, `official_metric_input=false`, and `retained_evidence_input=false`.
+- Confirmed smoke output remained ignored/untracked under `runs/user/` and protected benchmark surfaces were unchanged.
+- Did not modify source implementation files, tests, docs, pyproject, case packages, `case_sets/`, inventory, reports/results, denominators, paper results, retained evidence, raw legacy evidence, or the legacy repo.
+- Did not compute official metrics, collect timing, render paper tables, implement paper reproduction, implement retained-evidence adapters, implement MySQL/Spark execution, implement Calcite/R-Bot adapters, or create a global leaderboard.
+
+Files created:
+- `audits/b_line_db_checker_execution_release_smoke_v0/b_line_db_checker_execution_release_smoke_summary.md`
+- `audits/b_line_db_checker_execution_release_smoke_v0/b_line_db_checker_execution_release_smoke_validation_results.csv`
+- `audits/b_line_db_checker_execution_release_smoke_v0/b_line_db_checker_execution_release_smoke_summary.json`
+- `audits/b_line_db_checker_execution_release_smoke_v0/db_checker_execution_release_smoke_command_log.md`
+- `audits/b_line_db_checker_execution_release_smoke_v0/db_checker_execution_release_smoke_manifest.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Release repo preflight: passed.
+- Temporary clone creation: passed.
+- Temporary venv creation: passed.
+- Editable install with SQLGlot extra: passed.
+- SQLGlot import: passed.
+- Postgres connectivity: passed.
+- Fresh-checkout DB/checker smoke: passed.
+- Source/candidate/checker artifact checks: passed.
+- Ledger local-only field checks: passed.
+- Temporary clone output hygiene and protected-path checks: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `PYTHONDONTWRITEBYTECODE=1 python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Summary JSON invariant check: passed.
+- `git diff --check`: passed before staging.
+
+Task result:
+- DB/checker release-smoke task: yes.
+- Fresh-checkout smoke passed: yes.
+- Editable install passed: yes.
+- SQLGlot import passed: yes.
+- Postgres connectivity passed: yes.
+- DB/checker smoke passed: yes.
+- Source execution result captured: yes.
+- Candidate execution result captured: yes.
+- Checker result captured: yes.
+- Ledger local-only fields verified: yes.
+- Output hygiene passed: yes.
+- Smoke outputs staged: no.
+- Local execution only: yes.
+- Official metrics computed: no.
+- Timing implemented: no.
+- Paper tables rendered: no.
+- Reproduction CLI implemented: no.
+- Retained-evidence adapter implemented: no.
+- Global leaderboard created: no.
+- case_sets changed: no.
+- inventory changed: no.
+- reports changed: no.
+- results changed: no.
+- denominator changed: no.
+- paper results changed: no.
+- raw legacy evidence changed: no.
+
+Next safe action:
+- Authorize a bounded DB/checker hardening task under the same local-only boundaries, or authorize a separate narrowly scoped `PERF_0007` expansion smoke.
