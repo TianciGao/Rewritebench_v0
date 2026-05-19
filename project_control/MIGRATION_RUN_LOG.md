@@ -6938,3 +6938,59 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_batch_converter_plan_v0` as a read-only converter dry-run over `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` before any additional writable conversion.
+
+### 2026-05-19 · pending · case_package_v2_batch_converter_plan_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only converter dry-run planning; no writable case conversion; no cleanup; no schema/evidence deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Produced a read-only v2 batch conversion plan for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Classified SQL, schema, checker, witness/data, evidence/runs, metadata/notes, validation scripts, and manifest conversion needs for each pilot case.
+- Identified `PERF_0006` as the normalized reference case and the other four cases as requiring manual-review blockers before writable conversion.
+- Proposed external schema ids and evidence targets without creating or modifying schema/evidence files.
+- Recorded stop conditions for schema externalization, direct SQL copies, wrapper creation, dialect variants, evidence externalization, source-as-oracle manifest fields, and validation scripts that write to case-local runs.
+- Did not modify any files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, results, denominators, paper results, or raw legacy evidence.
+
+Files created:
+- `audits/case_package_v2_batch_converter_plan_v0/case_package_v2_batch_converter_plan_summary.md`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_case_readiness.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_file_disposition_plan.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_manifest_conversion_plan.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_schema_externalization_plan.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_evidence_runs_plan.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_validation_consolidation_plan.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/v2_batch_converter_stop_conditions.csv`
+- `audits/case_package_v2_batch_converter_plan_v0/future_case_package_v2_batch_conversion_pilot_prompt.md`
+- `audits/case_package_v2_batch_converter_plan_v0/case_package_v2_batch_converter_plan_summary.json`
+- `audits/case_package_v2_batch_converter_plan_v0/case_package_v2_batch_converter_plan_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Branch check: passed.
+- Required output existence check: passed.
+- CSV header checks: passed.
+- Summary JSON parse and boundary assertions: passed.
+- Protected-boundary checks: passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
+
+Task result:
+- Read-only dry-run: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases modified: no.
+- Schemas modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Resolve manual-review blockers in `audits/case_package_v2_batch_converter_plan_v0/v2_batch_converter_stop_conditions.csv` before authorizing a writable `case_package_v2_batch_conversion_pilot_v0`.

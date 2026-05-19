@@ -1,0 +1,21 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "read_only_dry_run": true,
+  "pilot_case_ids": ["PERF_0006", "PERF_0007", "CONS_0005", "PORT_0003", "LONGTAIL_0011"],
+  "cases_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "paper_tables_rendered": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Resolve manual-review blockers from v2_batch_converter_stop_conditions.csv before authorizing a writable case_package_v2_batch_conversion_pilot_v0."
+}

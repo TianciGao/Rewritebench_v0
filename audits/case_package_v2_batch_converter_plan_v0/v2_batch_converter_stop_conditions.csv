@@ -1,0 +1,27 @@
+stop_condition,applies_to_case_id,severity,reason,required_resolution,notes
+external_schema_missing,PERF_0007,block_writable_auto,Proposed external schema does not exist and current DDL/load differs from PERF_0006,Approve schema_id and copy-first externalization,Do not reuse tpch_common_core_v0 silently.
+external_schema_missing,CONS_0005,block_writable_auto,Proposed external schema does not exist,Approve schema_id and copy-first externalization,No schema writes in this task.
+external_schema_missing,PORT_0003,block_writable_auto,Proposed external schema does not exist,Approve schema_id and copy-first externalization,Portability schema must preserve target behavior.
+external_schema_missing,LONGTAIL_0011,block_writable_auto,Proposed external schema does not exist,Approve schema_id and copy-first externalization,Structural workload schema must preserve witness basis.
+direct_sql_missing,PERF_0007,block_cleanup_only,Canonical sql/pos_01.sql and sql/neg_01.sql missing,Create copy-first direct SQL paths in writable pilot,Nested SQL exists.
+direct_sql_missing,CONS_0005,block_cleanup_only,Canonical sql/pos_01.sql and sql/neg_01.sql missing,Create copy-first direct SQL paths in writable pilot,Nested SQL exists.
+direct_sql_missing,PORT_0003,block_cleanup_only,Canonical sql/pos_01.sql and sql/neg_01.sql missing,Create copy-first direct SQL paths and represent dialect variants,Nested and variant SQL exist.
+direct_sql_missing,LONGTAIL_0011,block_cleanup_only,Canonical sql/pos_01.sql and sql/neg_01.sql missing,Create copy-first direct SQL paths in writable pilot,Nested SQL exists.
+validation_wrappers_missing,PERF_0007,block_writable_auto,Generic v2 validation wrappers missing,Create thin wrappers and retain legacy scripts,Engine scripts have unique logic.
+validation_wrappers_missing,CONS_0005,block_writable_auto,Generic v2 validation wrappers missing,Create thin wrappers and retain legacy scripts,Engine scripts need review.
+validation_wrappers_missing,PORT_0003,block_writable_auto,Generic v2 validation wrappers missing,Create thin wrappers and retain legacy scripts,Portability scripts need review.
+validation_wrappers_missing,LONGTAIL_0011,block_writable_auto,Generic v2 validation wrappers missing,Create thin wrappers and retain legacy scripts,Structural scripts need review.
+dialect_variant_policy_missing,PORT_0003,block_writable_auto,Manifest references Spark dialect variants,Define compatibility.sql_dialect_variants handling before conversion,Dialect variants are present under sql/dialect_variants.
+evidence_externalization_pending,PERF_0006,block_cleanup_only,External evidence copy not created,Authorize copy-first evidence externalization,Does not block current normalized manifest.
+evidence_externalization_pending,PERF_0007,block_cleanup_only,External evidence copy not created,Authorize copy-first evidence externalization,Retain case-local evidence.
+evidence_externalization_pending,CONS_0005,block_cleanup_only,External evidence copy not created,Authorize copy-first evidence externalization,Retain case-local evidence.
+evidence_externalization_pending,PORT_0003,block_cleanup_only,External evidence copy not created,Authorize copy-first evidence externalization,Review variant evidence.
+evidence_externalization_pending,LONGTAIL_0011,block_cleanup_only,External evidence copy not created,Authorize copy-first evidence externalization,Review rich retained controls.
+engine_specific_scripts_write_runs,PERF_0006,block_cleanup_only,Legacy scripts write to case-local runs,Move shared logic or retain compatibility until wrappers approved,No deletion now.
+engine_specific_scripts_write_runs,PERF_0007,block_cleanup_only,Legacy scripts write to case-local runs,Move shared logic or retain compatibility until wrappers approved,No deletion now.
+engine_specific_scripts_write_runs,PORT_0003,block_cleanup_only,Legacy scripts write to case-local runs,Move shared logic or retain compatibility until wrappers approved,No deletion now.
+engine_specific_scripts_write_runs,LONGTAIL_0011,block_cleanup_only,Legacy scripts write to case-local runs,Move shared logic or retain compatibility until wrappers approved,No deletion now.
+source_as_oracle_policy_needs_manifest,PERF_0007,block_validator_pass,Manifest lacks canonical witness policy,Add witness.mode and status fields,No static correct result required.
+source_as_oracle_policy_needs_manifest,CONS_0005,block_validator_pass,Manifest lacks canonical witness policy,Add witness.mode and status fields,No static correct result required.
+source_as_oracle_policy_needs_manifest,PORT_0003,block_validator_pass,Manifest lacks canonical witness policy,Add witness.mode and status fields,Fixture witness rows need externalization plan.
+source_as_oracle_policy_needs_manifest,LONGTAIL_0011,block_validator_pass,Manifest lacks canonical witness policy,Add witness.mode and status fields,Structural notes must persist.

@@ -1,0 +1,31 @@
+case_id,current_path,classification,proposed_evidence_target,copy_first_required,delete_allowed_now,retention_mapping_required,public_copy_allowed,notes
+PERF_0006,evidence/package_validation_summary.json,package_validation_summary,evidence/cases/PERF/PERF_0006/package_validation_summary.json,true,false,false,true,Case-local evidence retained until external copy validated.
+PERF_0006,evidence/runs_retention.yaml,runs_retention,evidence/cases/PERF/PERF_0006/runs_retention.yaml,true,false,true,true,Required before retained runs cleanup.
+PERF_0006,evidence/retained_controls/,retained_controls,evidence/cases/PERF/PERF_0006/retained_controls/,true,false,true,conditional,Public hygiene check required.
+PERF_0006,evidence/hard_negative/,hard_negative,evidence/cases/PERF/PERF_0006/hard_negative/,true,false,true,conditional,Public hygiene check required.
+PERF_0006,evidence/retained_plans/,plans,evidence/cases/PERF/PERF_0006/plans/,true,false,true,conditional,Sanitized plans only.
+PERF_0006,runs/,placeholder_only_runs_readme,none,false,false,false,no,Delete only in later cleanup task.
+PERF_0007,evidence/package_validation_summary.json,package_validation_summary,evidence/cases/PERF/PERF_0007/package_validation_summary.json,true,false,false,true,Case-local evidence retained until external copy validated.
+PERF_0007,evidence/runs_retention.yaml,runs_retention,evidence/cases/PERF/PERF_0007/runs_retention.yaml,true,false,true,true,Required before retained runs cleanup.
+PERF_0007,evidence/retained_controls/,retained_controls,evidence/cases/PERF/PERF_0007/retained_controls/,true,false,true,conditional,Public hygiene check required.
+PERF_0007,evidence/hard_negative/,hard_negative,evidence/cases/PERF/PERF_0007/hard_negative/,true,false,true,conditional,Public hygiene check required.
+PERF_0007,evidence/retained_plans/,plans,evidence/cases/PERF/PERF_0007/plans/,true,false,true,conditional,Sanitized plans only.
+PERF_0007,runs/,placeholder_only_runs_readme,none,false,false,false,no,Delete only in later cleanup task.
+CONS_0005,evidence/package_validation_summary.json,package_validation_summary,evidence/cases/CONS/CONS_0005/package_validation_summary.json,true,false,false,true,Case-local evidence retained until external copy validated.
+CONS_0005,evidence/runs_retention.yaml,runs_retention,evidence/cases/CONS/CONS_0005/runs_retention.yaml,true,false,true,true,Required before retained runs cleanup.
+CONS_0005,evidence/retained_controls/,retained_controls,evidence/cases/CONS/CONS_0005/retained_controls/,true,false,true,conditional,Public hygiene check required.
+CONS_0005,evidence/hard_negative/,hard_negative,evidence/cases/CONS/CONS_0005/hard_negative/,true,false,true,conditional,Public hygiene check required.
+CONS_0005,evidence/retained_plans/,plans,evidence/cases/CONS/CONS_0005/plans/,true,false,true,conditional,Sanitized plans only.
+CONS_0005,runs/,placeholder_only_runs_readme,none,false,false,false,no,Delete only in later cleanup task.
+PORT_0003,evidence/package_validation_summary.json,package_validation_summary,evidence/cases/PORT/PORT_0003/package_validation_summary.json,true,false,false,true,Case-local evidence retained until external copy validated.
+PORT_0003,evidence/runs_retention.yaml,runs_retention,evidence/cases/PORT/PORT_0003/runs_retention.yaml,true,false,true,true,Required before retained runs cleanup.
+PORT_0003,evidence/retained_controls/,retained_controls,evidence/cases/PORT/PORT_0003/retained_controls/,true,false,true,conditional,Includes Spark variant retained output.
+PORT_0003,evidence/hard_negative/,hard_negative,evidence/cases/PORT/PORT_0003/hard_negative/,true,false,true,conditional,Includes Spark variant hard-negative output.
+PORT_0003,evidence/retained_plans/,plans,evidence/cases/PORT/PORT_0003/plans/,true,false,true,conditional,Sanitized variant plans only.
+PORT_0003,runs/,placeholder_only_runs_readme,none,false,false,false,no,Delete only in later cleanup task.
+LONGTAIL_0011,evidence/package_validation_summary.json,package_validation_summary,evidence/cases/LONGTAIL/LONGTAIL_0011/package_validation_summary.json,true,false,false,true,Case-local evidence retained until external copy validated.
+LONGTAIL_0011,evidence/runs_retention.yaml,runs_retention,evidence/cases/LONGTAIL/LONGTAIL_0011/runs_retention.yaml,true,false,true,true,Required before retained runs cleanup.
+LONGTAIL_0011,evidence/retained_controls/,retained_controls,evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/,true,false,true,conditional,Rich retained controls require hygiene review.
+LONGTAIL_0011,evidence/hard_negative/,hard_negative,evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/,true,false,true,conditional,Tie-sensitive hard-negative evidence.
+LONGTAIL_0011,evidence/retained_plans/,plans,evidence/cases/LONGTAIL/LONGTAIL_0011/plans/,true,false,true,conditional,Sanitized plans only.
+LONGTAIL_0011,runs/,placeholder_only_runs_readme,none,false,false,false,no,Delete only in later cleanup task.

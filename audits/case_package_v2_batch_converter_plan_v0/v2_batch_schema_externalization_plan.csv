@@ -1,0 +1,16 @@
+case_id,proposed_schema_id,engine,current_schema_path,proposed_external_schema_path,external_schema_exists,copy_first_required,delete_case_local_schema_now,notes
+PERF_0006,tpch_common_core_v0,postgres,cases/PERF/PERF_0006/schema/postgres,schemas/tpch_common_core_v0/postgres,true,false,false,External schema already exists.
+PERF_0006,tpch_common_core_v0,mysql,cases/PERF/PERF_0006/schema/mysql,schemas/tpch_common_core_v0/mysql,true,false,false,External schema already exists.
+PERF_0006,tpch_common_core_v0,spark,cases/PERF/PERF_0006/schema/spark,schemas/tpch_common_core_v0/spark,true,false,false,External schema already exists.
+PERF_0007,tpch_perf0007_v0,postgres,cases/PERF/PERF_0007/schema/postgres,schemas/tpch_perf0007_v0/postgres,false,true,false,Do not silently reuse tpch_common_core_v0 because DDL/load differs from PERF_0006.
+PERF_0007,tpch_perf0007_v0,mysql,cases/PERF/PERF_0007/schema/mysql,schemas/tpch_perf0007_v0/mysql,false,true,false,Copy-first required.
+PERF_0007,tpch_perf0007_v0,spark,cases/PERF/PERF_0007/schema/spark,schemas/tpch_perf0007_v0/spark,false,true,false,Copy-first required.
+CONS_0005,calcite_core_sql_tests_cons0005_v0,postgres,cases/CONS/CONS_0005/schema/postgres,schemas/calcite_core_sql_tests_cons0005_v0/postgres,false,true,false,Copy-first required.
+CONS_0005,calcite_core_sql_tests_cons0005_v0,mysql,cases/CONS/CONS_0005/schema/mysql,schemas/calcite_core_sql_tests_cons0005_v0/mysql,false,true,false,Copy-first required.
+CONS_0005,calcite_core_sql_tests_cons0005_v0,spark,cases/CONS/CONS_0005/schema/spark,schemas/calcite_core_sql_tests_cons0005_v0/spark,false,true,false,Copy-first required.
+PORT_0003,parrot_bird_port0003_v0,postgres,cases/PORT/PORT_0003/schema/postgres,schemas/parrot_bird_port0003_v0/postgres,false,true,false,Copy-first required.
+PORT_0003,parrot_bird_port0003_v0,mysql,cases/PORT/PORT_0003/schema/mysql,schemas/parrot_bird_port0003_v0/mysql,false,true,false,Copy-first required.
+PORT_0003,parrot_bird_port0003_v0,spark,cases/PORT/PORT_0003/schema/spark,schemas/parrot_bird_port0003_v0/spark,false,true,false,Copy-first required and dialect variants must be handled.
+LONGTAIL_0011,sqlstorm_stackoverflow_longtail0011_v0,postgres,cases/LONGTAIL/LONGTAIL_0011/schema/postgres,schemas/sqlstorm_stackoverflow_longtail0011_v0/postgres,false,true,false,Copy-first required.
+LONGTAIL_0011,sqlstorm_stackoverflow_longtail0011_v0,mysql,cases/LONGTAIL/LONGTAIL_0011/schema/mysql,schemas/sqlstorm_stackoverflow_longtail0011_v0/mysql,false,true,false,Copy-first required.
+LONGTAIL_0011,sqlstorm_stackoverflow_longtail0011_v0,spark,cases/LONGTAIL/LONGTAIL_0011/schema/spark,schemas/sqlstorm_stackoverflow_longtail0011_v0/spark,false,true,false,Copy-first required.
