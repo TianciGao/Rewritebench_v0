@@ -1,0 +1,52 @@
+case_id,path,still_exists,clean_template_status,current_role,next_action,notes
+PERF_0006,validation/run_postgres_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,validation/run_mysql_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,validation/run_spark_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,validation/run_postgres_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,validation/run_mysql_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,validation/run_spark_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0006,schema/postgres/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0006,schema/mysql/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0006,schema/spark/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0006,evidence/,false,removed_compatibility_path,case-local evidence compatibility copy,none,Deleted after final external evidence mapping check
+PERF_0007,validation/run_postgres_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,validation/run_mysql_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,validation/run_spark_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,validation/run_postgres_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,validation/run_mysql_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,validation/run_spark_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PERF_0007,schema/postgres/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0007,schema/mysql/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0007,schema/spark/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PERF_0007,evidence/,false,removed_compatibility_path,case-local evidence compatibility copy,none,Deleted after final external evidence mapping check
+CONS_0005,validation/run_postgres_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,validation/run_mysql_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,validation/run_spark_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,validation/run_postgres_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,validation/run_mysql_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,validation/run_spark_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+CONS_0005,schema/postgres/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+CONS_0005,schema/mysql/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+CONS_0005,schema/spark/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+CONS_0005,evidence/,false,removed_compatibility_path,case-local evidence compatibility copy,none,Deleted after final external evidence mapping check
+PORT_0003,validation/run_postgres_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,validation/run_mysql_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,validation/run_spark_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,validation/run_postgres_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,validation/run_mysql_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,validation/run_spark_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+PORT_0003,schema/postgres/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PORT_0003,schema/mysql/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PORT_0003,schema/spark/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+PORT_0003,evidence/,false,removed_compatibility_path,case-local evidence compatibility copy,none,Deleted after final external evidence mapping check
+LONGTAIL_0011,validation/run_postgres_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,validation/run_mysql_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,validation/run_spark_validation.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,validation/run_postgres_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,validation/run_mysql_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,validation/run_spark_plan_collection.sh,false,removed_compatibility_path,legacy validation script,none,Deleted in this task after wrapper unblock
+LONGTAIL_0011,schema/postgres/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+LONGTAIL_0011,schema/mysql/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+LONGTAIL_0011,schema/spark/,false,removed_compatibility_path,case-local schema engine copy,none,Deleted after external schema verification
+LONGTAIL_0011,evidence/,false,removed_compatibility_path,case-local evidence compatibility copy,none,Deleted after final external evidence mapping check
+PORT_0003,sql/dialect_variants/,true,v2_optional_semantic_asset,portability dialect variant,keep unless future portability review proves stale,Not a blocker to clean-template-minimal status

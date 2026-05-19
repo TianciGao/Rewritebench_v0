@@ -21,15 +21,15 @@ engine_support:
   postgres:
     role: engine_local_witness_validation
     retained_evidence: evidence/cases/CONS/CONS_0005/retained_controls/postgres/result_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
+    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
   mysql:
     role: engine_local_witness_validation
     retained_evidence: evidence/cases/CONS/CONS_0005/retained_controls/mysql/result_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
+    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
   spark:
     role: engine_local_witness_validation
     retained_evidence: evidence/cases/CONS/CONS_0005/retained_controls/spark/result_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
+    validation_assets: legacy_validation_assets_removed_wrappers_fail_closed
 sql:
   source: sql/source.sql
   positives:
@@ -132,24 +132,24 @@ compatibility:
   case_local_schema:
     status: external_schema_profile_resolves_executable_schema
     case_local_profile: schema/schema_profile.yaml
-    case_local_engine_dirs_status: retained_compatibility_pending_second_cleanup
+    case_local_engine_dirs_status: deleted_in_second_clean_template_cleanup_v0
     external_schema_profile: schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml
-    deletion_readiness: ready_after_legacy_validation_scripts_deleted
-    deletion_status: not_deleted_in_this_task
+    deletion_readiness: completed_after_external_schema_verification
+    deletion_status: deleted_in_second_clean_template_cleanup_v0
   checker_legacy:
     legacy_config_key: checker.checker
     legacy_config_path: checker/checker.yaml
   validation_legacy:
-    status: legacy_engine_specific_scripts_retained_compatibility
+    status: legacy_engine_specific_scripts_removed_after_wrapper_unblock
     wrapper_dependency_status: v2_wrappers_do_not_call_legacy_scripts
-    cleanup_readiness: deletion_ready_after_wrapper_update
+    cleanup_readiness: completed
     shared_runner_status: not_implemented_wrappers_fail_closed
-    deletion_status: not_deleted_in_this_task
+    deletion_status: deleted_in_second_clean_template_cleanup_v0
   witness_legacy:
     status: optional_static_witness_not_materialized
   evidence_legacy:
     externalization_status: copy_first_externalized_public_safe_subset_verified
-    deletion_status: not_deleted_in_this_task_ready_after_reference_cleanup
+    deletion_status: deleted_in_second_clean_template_cleanup_v0
     package_validation_summary: evidence/cases/CONS/CONS_0005/package_validation_summary.json
     runs_retention: evidence/cases/CONS/CONS_0005/runs_retention.yaml
     retained_controls:
@@ -174,9 +174,10 @@ compatibility:
     - evidence/cases/CONS/CONS_0005/plans/spark/rewrite_pos_01.sanitized.txt
     - evidence/cases/CONS/CONS_0005/plans/spark/rewrite_neg_01.sanitized.txt
     case_local_runs_status: removed_placeholder_only_in_empty_runs_cleanup_v0
-    status: external_evidence_is_canonical_case_local_copy_retained_compatibility
-    case_local_evidence_status: retained_compatibility_pending_second_cleanup
+    status: external_evidence_is_canonical_case_local_copy_removed
+    case_local_evidence_status: deleted_in_second_clean_template_cleanup_v0_after_external_mapping_verification
     external_evidence: evidence/cases/CONS/CONS_0005/
+    retained_evidence_deleted: false
   metadata_legacy:
     status: stable_metadata_merged_or_represented_elsewhere
     deletion_status: deleted_in_clean_template_gap_closure_execution_v0
@@ -208,10 +209,10 @@ compatibility:
   schema_legacy:
     status: external_schema_profile_resolves_executable_schema
     case_local_profile: schema/schema_profile.yaml
-    case_local_engine_dirs_status: retained_compatibility_pending_second_cleanup
+    case_local_engine_dirs_status: deleted_in_second_clean_template_cleanup_v0
     external_schema_profile: schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml
-    deletion_readiness: ready_after_legacy_validation_scripts_deleted
-    deletion_status: not_deleted_in_this_task
+    deletion_readiness: completed_after_external_schema_verification
+    deletion_status: deleted_in_second_clean_template_cleanup_v0
   validation_policy:
     schema_resolution_policy: manifest_schema_ref_profile_first
     legacy_script_dependency_status: v2_wrappers_do_not_call_legacy_scripts

@@ -1,0 +1,51 @@
+case_id,deleted_path,deletion_type,deletion_reason,external_replacement_verified,retained_evidence_deleted,notes
+PERF_0006,validation/run_postgres_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,validation/run_mysql_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,validation/run_spark_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,validation/run_postgres_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,validation/run_mysql_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,validation/run_spark_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0006,schema/postgres/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0006,schema/mysql/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0006,schema/spark/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0006,evidence/,case_local_evidence,external evidence package verified byte-identical,true,false,Case-local compatibility copy removed; retained evidence preserved under top-level evidence/cases
+PERF_0007,validation/run_postgres_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,validation/run_mysql_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,validation/run_spark_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,validation/run_postgres_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,validation/run_mysql_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,validation/run_spark_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PERF_0007,schema/postgres/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0007,schema/mysql/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0007,schema/spark/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PERF_0007,evidence/,case_local_evidence,external evidence package verified byte-identical,true,false,Case-local compatibility copy removed; retained evidence preserved under top-level evidence/cases
+CONS_0005,validation/run_postgres_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,validation/run_mysql_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,validation/run_spark_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,validation/run_postgres_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,validation/run_mysql_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,validation/run_spark_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+CONS_0005,schema/postgres/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+CONS_0005,schema/mysql/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+CONS_0005,schema/spark/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+CONS_0005,evidence/,case_local_evidence,external evidence package verified byte-identical,true,false,Case-local compatibility copy removed; retained evidence preserved under top-level evidence/cases
+PORT_0003,validation/run_postgres_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,validation/run_mysql_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,validation/run_spark_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,validation/run_postgres_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,validation/run_mysql_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,validation/run_spark_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+PORT_0003,schema/postgres/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PORT_0003,schema/mysql/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PORT_0003,schema/spark/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+PORT_0003,evidence/,case_local_evidence,external evidence package verified byte-identical,true,false,Case-local compatibility copy removed; retained evidence preserved under top-level evidence/cases
+LONGTAIL_0011,validation/run_postgres_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,validation/run_mysql_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,validation/run_spark_validation.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,validation/run_postgres_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,validation/run_mysql_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,validation/run_spark_plan_collection.sh,validation_legacy_script,readiness-marked; wrapper no longer delegates to script,true,false,Old script removed; no DB/checker execution was run
+LONGTAIL_0011,schema/postgres/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+LONGTAIL_0011,schema/mysql/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+LONGTAIL_0011,schema/spark/,schema_engine_dir,external schema DDL/load verified byte-identical,true,false,Case-local schema/schema_profile.yaml retained
+LONGTAIL_0011,evidence/,case_local_evidence,external evidence package verified byte-identical,true,false,Case-local compatibility copy removed; retained evidence preserved under top-level evidence/cases

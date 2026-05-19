@@ -8084,3 +8084,65 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_second_clean_template_cleanup_v0` to delete only readiness-marked legacy validation scripts, case-local schema engine dirs after legacy script deletion, and case-local evidence after final external mapping check; keep `PORT_0003` dialect variants unless separately approved.
+
+### 2026-05-19 · pending · case_package_v2_second_clean_template_cleanup_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable second clean-template cleanup; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+
+Summary:
+- Deleted 50 readiness-marked compatibility paths for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Deleted 30 legacy engine-specific validation scripts after confirming v2 wrappers do not call them.
+- Deleted 15 case-local `schema/<engine>/` directories after verifying external schema DDL/load replacements.
+- Deleted 5 case-local `evidence/` compatibility directories after verifying byte-for-byte external evidence mappings.
+- Updated manifest and README compatibility wording to stop treating deleted paths as retained current assets.
+- Retained `PORT_0003/sql/dialect_variants/` as an optional v2 semantic asset.
+- Protected surfaces unchanged: no `case_sets/`, inventory, reports/results, denominator, paper result, official metric, DB/checker execution, or leaderboard changes.
+
+Files created:
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_clean_template_cleanup_summary.md`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_candidate_matrix.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_deletions_manifest.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_skipped_manifest.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_reference_updates.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_post_parity_case_summary.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_post_path_gap_matrix.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_validator_results.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_protected_boundary_checks.csv`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/future_case_package_v2_pilot_acceptance_or_third_cleanup_prompt.md`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_clean_template_cleanup_summary.json`
+- `audits/case_package_v2_second_clean_template_cleanup_v0/second_cleanup_command_log.md`
+
+Files modified:
+- Five pilot `manifest.yaml` files.
+- Five pilot `README.md` files.
+- `project_control/MIGRATION_STATUS.md`.
+- `project_control/MIGRATION_RUN_LOG.md`.
+
+Files deleted:
+- 30 legacy engine-specific validation scripts.
+- 15 case-local schema engine DDL/load directory groups.
+- 5 case-local evidence compatibility directory groups.
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Second clean-template cleanup: yes.
+- Selected candidates count: 50.
+- Deleted paths count: 50.
+- Skipped paths count: 1 optional retained dialect-variant group.
+- Post-task extra path count: 1 optional dialect-variant group.
+- Post-task blockers count: 0.
+- Clean-template-minimal achieved: yes, with optional dialect variants retained.
+- Retained evidence deleted: no.
+- Unsafe evidence deleted: no.
+- Dialect variants deleted: no.
+
+Next safe action:
+- Authorize pilot acceptance or a read-only Common-core 40 conversion plan; keep `PORT_0003` dialect variants unless a future portability review approves cleanup.
