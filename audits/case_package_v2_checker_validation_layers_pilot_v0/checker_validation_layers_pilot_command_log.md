@@ -13,3 +13,5 @@ Commands are summarized without secrets, private environment values, long stdout
 - Summary JSON boundary assertions: passed.
 - Protected path checks: passed; no `case_sets/`, inventory, reports/results, denominator, paper-result, evidence deletion, case-local runs deletion, DB/checker output, or leaderboard change was detected.
 - `git diff --check`: passed.
+- `git commit -m "pilot: convert v2 checker validation layers"`: created commit `b272c0928bfa68f51fd2e57ee2aa7088bc185738`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded.

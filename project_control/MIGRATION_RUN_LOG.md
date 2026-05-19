@@ -7191,14 +7191,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_checker_validation_layers_pilot_v0` to convert only checker and validation layers for the five pilot cases on the feature branch, without DB/checker execution or protected benchmark-surface changes.
 
-### 2026-05-19 · pending · case_package_v2_checker_validation_layers_pilot_v0
+### 2026-05-19 · b272c09 · case_package_v2_checker_validation_layers_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable v2 pilot conversion for checker and validation layers only; no witness/evidence/metadata/notes/runs cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending finalization
-Push: pending finalization
+Commit: `b272c0928bfa68f51fd2e57ee2aa7088bc185738`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Converted or verified the checker and validation layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
