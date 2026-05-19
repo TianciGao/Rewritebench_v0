@@ -7769,14 +7769,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
 
-### 2026-05-19 · pending · case_package_v2_runs_reality_audit_and_policy_update_v0
+### 2026-05-19 · 0ce5325 · case_package_v2_runs_reality_audit_and_policy_update_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only case-local runs reality audit and v2 policy refinement; no cleanup execution; no runs deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `0ce5325f458acc3f43226309244682be01a25354`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Inspected all 100 current case-package directories under `cases/<POOL>/<CASE_ID>/`.

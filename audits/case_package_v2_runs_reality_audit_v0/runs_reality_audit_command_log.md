@@ -23,4 +23,6 @@ Commands and outcomes:
 - `git diff --check`: passed.
 - `git diff --stat`: reviewed policy/spec/project-control diff before staging.
 - `git status -sb`: confirmed pending changes are limited to audit outputs and allowed policy/spec/project-control files.
-- Commit and push results are finalized after commit.
+- `git commit -m "audit: classify case-local runs for v2 cleanup"`: created commit `0ce5325f458acc3f43226309244682be01a25354`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded; pushed `f6a99a8..0ce5325`.
+- Run-log finalization commit and push are recorded separately.
