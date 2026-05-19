@@ -6524,13 +6524,13 @@ Task result:
 Next safe action:
 - Authorize `b_line_postgres_perf_batch_smoke_v0` to execute only the selected postgres PERF SQLGlot no-op batch under `runs/user/`, with no timing, official metrics, retained evidence, reports/results updates, denominator changes, paper-result changes, or leaderboard output.
 
-### 2026-05-19 · TBD · b_line_postgres_perf_batch_smoke_v0
+### 2026-05-19 · e3f598a · b_line_postgres_perf_batch_smoke_v0
 
 Mode: bounded B-line Postgres PERF DB/checker batch smoke; local user-run output only; SQLGlot no-op adapter command only; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `e3f598a0837303161d49f1ed5be1802643330ceb`
+Push: succeeded; updated `origin/main` from `272899f` to `e3f598a`
 
 Summary:
 - Executed the first bounded local Postgres PERF DB/checker batch after the `PERF_0006` canary and release smoke.
