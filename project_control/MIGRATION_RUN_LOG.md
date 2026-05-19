@@ -8457,3 +8457,64 @@ Task result:
 
 Next safe action:
 - Run `case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0` as a bounded read-only review before authorizing Wave B or wider Common-core conversion.
+
+### 2026-05-20 · pending · case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Wave A post-conversion parity review; no writable conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Reviewed exactly five converted Wave A cases: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024`.
+- Rechecked accepted pilot cases for validator non-regression: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Confirmed Wave A clean-template-minimal case-local structure with no remaining Wave A gaps.
+- Confirmed Wave A manifest consistency: direct SQL refs, profile-first schema refs, canonical checker/validation refs, source-as-oracle witness policy, regeneration-first `evidence_policy`, and no mandatory `evidence_ref`.
+- Confirmed schema policy: case-local `schema/schema_profile.yaml` only, with external schema package refs resolving for all five case-specific schema IDs.
+- Did not modify case files, schemas, `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_post_conversion_parity_review_summary.md`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_post_conversion_case_summary.csv`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_manifest_consistency_recheck.csv`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_clean_template_gap_matrix.csv`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_schema_policy_recheck.csv`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_protected_boundary_checks.csv`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/future_case_package_v2_common_core40_wave_b_prompt.md`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_post_conversion_parity_review_summary.json`
+- `audits/case_package_v2_common_core40_wave_a_post_conversion_parity_review_v0/wave_a_post_conversion_parity_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validators passed for all five Wave A cases.
+- Static v2 validators passed for all five accepted pilot cases.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 11 tests.
+- Summary JSON parse and assertions passed.
+- CSV header parse passed.
+- Protected boundary checks passed.
+- Generated CSV line endings normalized to LF after initial diff-check warning.
+- `git diff --check`: passed.
+
+Task result:
+- Wave A post-conversion parity review: yes.
+- Wave A clean-template-minimal passed: yes.
+- Manifest consistency passed: yes.
+- Remaining Wave A gaps: none.
+- Ready for Wave B: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize a bounded `case_package_v2_common_core40_wave_b_v0` conversion for schema-grouped non-PORT Wave B cases only.

@@ -1,0 +1,12 @@
+check_name,status,details
+only_audit_and_project_control_files_changed_by_this_task,pass,This review writes only its audit directory plus MIGRATION_STATUS.md and MIGRATION_RUN_LOG.md.
+no_case_files_modified,pass,No writes were made under cases/ by this review.
+no_schemas_modified,pass,No writes were made under schemas/ by this review.
+no_case_sets_changed,pass,No writes were made under case_sets/.
+no_inventory_changed,pass,No writes were made under inventory/.
+no_reports_results_changed,pass,No writes were made under reports/ or results/.
+no_denominator_changed,pass,No denominator files or values were changed.
+no_paper_results_changed,pass,No paper-result surfaces were changed.
+no_official_metrics_computed,pass,Only static validators and unit tests were run.
+no_db_checker_execution,pass,No DB/checker execution command was run.
+no_global_leaderboard,pass,No leaderboard output was created.

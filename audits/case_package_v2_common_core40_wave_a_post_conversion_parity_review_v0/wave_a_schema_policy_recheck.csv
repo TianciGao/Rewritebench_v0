@@ -1,0 +1,6 @@
+case_id,schema_id,case_local_schema_profile_exists,external_schema_profile,external_schema_profile_exists,external_engine_ddl_load_verified,case_local_engine_schema_dirs_absent,status,notes
+PERF_0008,tpch_perf0008_v0,yes,schemas/tpch_perf0008_v0/schema_profile.yaml,yes,yes,yes,pass,Case-local profile points to verified external schema package.
+PERF_0013,tpch_perf0013_v0,yes,schemas/tpch_perf0013_v0/schema_profile.yaml,yes,yes,yes,pass,Case-local profile points to verified external schema package.
+PERF_0017,tpch_perf0017_v0,yes,schemas/tpch_perf0017_v0/schema_profile.yaml,yes,yes,yes,pass,Case-local profile points to verified external schema package.
+PERF_0019,tpch_perf0019_v0,yes,schemas/tpch_perf0019_v0/schema_profile.yaml,yes,yes,yes,pass,Case-local profile points to verified external schema package.
+PERF_0024,tpch_perf0024_v0,yes,schemas/tpch_perf0024_v0/schema_profile.yaml,yes,yes,yes,pass,Case-local profile points to verified external schema package.
