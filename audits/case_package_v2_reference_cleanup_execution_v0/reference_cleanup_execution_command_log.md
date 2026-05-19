@@ -27,4 +27,6 @@ Commands and outcomes:
 - `git diff --check`: passed.
 - `git diff --stat`: reviewed cleanup/reference-update footprint.
 - `git status -sb`: reviewed pending intended changes before staging.
-- Commit and push results are finalized after the first execution commit.
+- `git commit -m "cleanup: remove ready v2 compatibility references"`: created commit `9c546ebdb127361731cebfa9a0afa0d3afd2b874`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded; pushed `447a5ad..9c546eb`.
+- Run-log finalization commit and push are recorded separately.

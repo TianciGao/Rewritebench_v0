@@ -7639,14 +7639,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_reference_cleanup_execution_v0` to update live compatibility references and delete only candidates classified as `deletion_ready_after_reference_update`, while keeping retained evidence and protected benchmark surfaces out of scope.
 
-### 2026-05-19 · pending · case_package_v2_reference_cleanup_execution_v0
+### 2026-05-19 · 9c546eb · case_package_v2_reference_cleanup_execution_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable compatibility-reference cleanup execution; deletes only candidates classified as `deletion_ready_after_reference_update`; no retained-evidence deletion; no runs cleanup; no schema cleanup; no metadata source-of-truth cleanup; no validation engine-specific script deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `9c546ebdb127361731cebfa9a0afa0d3afd2b874`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Selected exactly 10 cleanup candidates from the reference cleanup plan: nested SQL compatibility directories and copied case-local notes for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
