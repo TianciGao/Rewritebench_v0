@@ -6822,14 +6822,14 @@ Task result:
 Next safe action:
 - Authorize a branch-only `case_package_v2_multi_pool_pilot_v0` using the new static validator, optionally first normalizing `PERF_0006` manifest internal shape to canonical v2, then pilot-converting only `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main`.
 
-### 2026-05-19 · pending · case_package_v2_perf0006_format_normalization_v0
+### 2026-05-19 · 974e892 · case_package_v2_perf0006_format_normalization_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only PERF_0006 manifest/internal-format normalization; no multi-case conversion; no schema/evidence deletion; no DB/checker execution; no timing; no official metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: pending
-Push: pending
+Commit: `974e8926e22715b7a4212353696b0274dc48dffe`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Normalized only `cases/PERF/PERF_0006/manifest.yaml` to the canonical v2 internal reference shape.
