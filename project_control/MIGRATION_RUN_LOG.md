@@ -7708,3 +7708,63 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_post_cleanup_parity_review_v0` to re-run a read-only parity/gap review after the first safe compatibility-reference cleanup.
+
+### 2026-05-19 · pending · case_package_v2_post_cleanup_parity_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only post-cleanup parity review; no cleanup execution; no case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Re-ran clean-template parity review after `case_package_v2_reference_cleanup_execution_v0`.
+- Confirmed the previous cleanup removed tracked nested SQL compatibility paths and tracked copied case-local notes for all five pilot cases.
+- Confirmed all five pilot cases still have every clean-template-required v2 asset and pass the static v2 validator.
+- Classified 66 remaining tracked extra path groups and 10 retention blockers.
+- Classified the five-case pilot as acceptable for functional v2 planning but not clean-template-minimal.
+- Recommended a read-only Common-core 40 conversion plan as the next safe action.
+- Did not modify case packages, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominators, paper results, DB/checker outputs, official metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_parity_review_summary.md`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_template_parity_case_summary.csv`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_path_gap_matrix.csv`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_evidence_runs_gap_matrix.csv`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_remaining_action_plan.csv`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/future_case_package_v2_common_core40_plan_prompt.md`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_parity_review_summary.json`
+- `audits/case_package_v2_post_cleanup_parity_review_v0/post_cleanup_parity_review_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Summary JSON parse and boundary assertions passed.
+- CSV header and row checks passed.
+- Protected path checks passed; no cases, schemas, evidence, runs, `case_sets/`, inventory, reports/results, denominator, paper-result, DB/checker output, or leaderboard changes were detected.
+- `git diff --check`: passed.
+
+Task result:
+- Post-cleanup parity review: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Cases modified: no.
+- Schemas modified: no.
+- Evidence modified: no.
+- Runs deleted: no.
+- Remaining extra path groups: 66.
+- Remaining retention blockers: 10.
+- Functional v2 acceptance status: accepted with retained compatibility gaps.
+- Clean-template parity status: not clean-template-minimal.
+- Ready for Common-core 40 plan: yes, planning only.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.

@@ -1,0 +1,6 @@
+case_id,pool,clean_required_assets_present,remaining_extra_paths_count,remaining_retention_blockers_count,clean_template_parity_status,functional_v2_acceptance_status,ready_for_common_core40_plan,notes
+PERF_0006,PERF,yes,13,2,not_clean_template_minimal,accepted_with_retained_compatibility_gaps,yes,"Required v2 assets validate; remaining extras are compatibility or retained assets."
+PERF_0007,PERF,yes,13,2,not_clean_template_minimal,accepted_with_retained_compatibility_gaps,yes,"Required v2 assets validate; remaining extras are compatibility or retained assets."
+CONS_0005,CONS,yes,13,2,not_clean_template_minimal,accepted_with_retained_compatibility_gaps,yes,"Required v2 assets validate; remaining extras are compatibility or retained assets."
+PORT_0003,PORT,yes,14,2,not_clean_template_minimal,accepted_with_retained_compatibility_gaps,yes,"Required v2 assets validate; one additional dialect-variant SQL compatibility path remains."
+LONGTAIL_0011,LONGTAIL,yes,13,2,not_clean_template_minimal,accepted_with_retained_compatibility_gaps,yes,"Required v2 assets validate; remaining extras are compatibility or retained assets."
