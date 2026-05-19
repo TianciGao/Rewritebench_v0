@@ -8021,14 +8021,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
 
-### 2026-05-19 · pending · case_package_v2_validation_evidence_unblock_v0
+### 2026-05-19 · 2d8605b · case_package_v2_validation_evidence_unblock_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only targeted validation/evidence reference unblock; no deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `2d8605b1ec72dce0ca9a0815dc665dbc43f7fa50`
+Push: succeeded to `origin/feature/case-package-v2-external-schema` (`17d9d74..2d8605b`)
 
 Summary:
 - Updated the five v2 pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
