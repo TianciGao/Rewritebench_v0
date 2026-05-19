@@ -33,7 +33,6 @@ Optional case-local assets include:
 
 - lightweight `witness/` policy metadata
 - compatibility case-local `schema/<engine>/ddl.sql` and `schema/<engine>/load.sql` copies during branch adoption
-- compatibility `evidence/` index files during branch adoption
 - `notes/` for stable package caveats
 - case-local `runs/` as optional compatibility only after content classification
 
@@ -46,10 +45,11 @@ The v2 case package does not require:
 - case-local `data/data_profile.yaml`
 - case-local `witness/correct_result.csv`
 - heavy case-local `evidence/` payloads
+- top-level static `evidence/cases/<POOL>/<CASE_ID>/` packages as a required final public surface
 - local user-run outputs
 - generated DB results, checker logs, timing output, or scratch workspaces
 
-These assets should be externalized or kept as explicitly marked compatibility artifacts.
+These assets should be regenerated through validation/checker/baseline/report scripts or kept only as explicitly authorized compatibility/retained artifacts.
 
 ## Manifest Roles
 
@@ -61,7 +61,8 @@ These assets should be externalized or kept as explicitly marked compatibility a
 - checker config path references
 - validation entrypoint references
 - `schema_ref`
-- `evidence_ref`
+- `evidence_policy`
+- optional retained-artifact `evidence_ref` compatibility metadata
 - witness mode
 - compatibility notes
 
@@ -126,6 +127,31 @@ schemas/<SCHEMA_ID>/<engine>/load.sql
 ```
 
 Case-local per-engine schema files may remain only as branch-adoption compatibility artifacts until cleanup is explicitly authorized.
+
+## Evidence Policy Convention
+
+Clean v2 does not require case-local `evidence/` or top-level `evidence/cases/<POOL>/<CASE_ID>/` static packages. Benchmark evidence should be regenerated through validation, checker configuration, baselines, scripts, reports, and results only when those reporting surfaces are separately authorized.
+
+The clean v2 manifest convention is:
+
+```yaml
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
+```
+
+If static artifacts are deliberately retained during migration or for separately authorized paper/reporting review, use:
+
+```yaml
+evidence_policy:
+  static_case_evidence: optional_retained
+  retained_static_artifacts:
+    - path: evidence/cases/<POOL>/<CASE_ID>/...
+      role: retained_reference
+```
+
+`evidence_ref` is optional compatibility metadata. Its absence must not fail clean v2 static validation when `evidence_policy` records that static case evidence is not required.
 
 ## Validation Path Convention
 

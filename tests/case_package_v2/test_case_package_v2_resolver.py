@@ -200,6 +200,45 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             self.assertEqual(resolved["schema_ref.profile"].status, "pass")
             self.assertEqual(resolved["schema_ref.engines.postgres.ddl"].status, "pass")
 
+    def test_evidence_policy_not_required_passes_without_evidence_ref(self) -> None:
+        manifest = (
+            self.profile_first_manifest()
+            + """
+        evidence_policy:
+          static_case_evidence: not_required
+          regeneration_policy: regenerable_by_validation_and_report_scripts
+          retained_static_artifacts: none
+        """
+        )
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "pass")
+            self.assertFalse(result.errors)
+            self.assertTrue(
+                any(
+                    check.field == "evidence_policy.static_case_evidence"
+                    and check.status == "pass"
+                    for check in result.internal_checks
+                )
+            )
+
+    def test_invalid_evidence_policy_value_fails(self) -> None:
+        manifest = (
+            self.profile_first_manifest()
+            + """
+        evidence_policy:
+          static_case_evidence: required_static_paths
+          regeneration_policy: unavailable
+          retained_static_artifacts: none
+        """
+        )
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("evidence_policy.static_case_evidence" in error for error in result.errors))
+
     def test_missing_schema_ref_path_fails(self) -> None:
         manifest = self.valid_manifest().replace(
             "schemas/demo_schema/postgres/ddl.sql",

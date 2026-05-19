@@ -2,11 +2,11 @@
 
 Status: draft policy for external case evidence references on `feature/case-package-v2-external-schema`
 
-This contract defines an external evidence strategy for case package v2. It does not move evidence, delete evidence, update reports/results, compute metrics, or authorize retained-evidence adapter implementation.
+This contract defines the optional retained-static-evidence surface used during case package v2 migration. It does not make static evidence required for clean public v2, move evidence, delete evidence, update reports/results, compute metrics, or authorize retained-evidence adapter implementation.
 
 ## Layout
 
-External case evidence should live under:
+When retained static case evidence is deliberately kept, it may live under:
 
 ```text
 evidence/cases/<POOL>/<CASE_ID>/
@@ -17,11 +17,24 @@ evidence/cases/<POOL>/<CASE_ID>/
   plans/
 ```
 
-The layout is copy-first and reference-first. Existing case-local evidence remains compatibility context until a separate migration task is authorized.
+The layout is migration-time or optional retained-artifact context. It is not required in the final clean v2 public case surface. Existing case-local evidence remains compatibility context until a separate migration or cleanup task is authorized.
 
-## evidence_ref Manifest Shape
+## Regeneration-first Manifest Shape
 
-Recommended manifest shape:
+Clean v2 manifests should not require static evidence paths. The preferred manifest shape is:
+
+```yaml
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
+```
+
+Benchmark evidence should be regenerated through validation wrappers, checker configuration, baseline/report scripts, and separately authorized reports/results surfaces.
+
+## Optional evidence_ref Compatibility Shape
+
+If retained static artifacts are deliberately kept during migration, manifests may include compatibility metadata such as:
 
 ```yaml
 evidence_ref:
@@ -33,7 +46,7 @@ evidence_ref:
   plans: evidence/cases/PERF/PERF_0006/plans/
 ```
 
-All paths should be repository-relative and public-safe.
+All paths should be repository-relative and public-safe. `evidence_ref` is optional compatibility metadata; its absence must not fail clean v2 validation when `evidence_policy.static_case_evidence` is `not_required`.
 
 ## package_validation_summary Placement
 
@@ -55,13 +68,13 @@ Case-local `runs/` must be classified before cleanup. Empty or placeholder-only 
 
 These are retained evidence/reference assets, not new user-run output.
 
-Future plan and evidence artifact validation should be implemented as shared repository logic, not as per-case checker code. The planned shared module is `src/sql_rewrite_bench/plan_artifact_validator.py`; it should consume `evidence_ref`, case-local checker configuration, and public-safe retained evidence paths without copying raw private logs, prompts, credentials, or local machine paths into public evidence.
+Future plan and evidence artifact validation should be implemented as shared repository logic, not as per-case checker code. The planned shared module is `src/sql_rewrite_bench/plan_artifact_validator.py`; it should consume manifest evidence policy, optional retained-artifact metadata, case-local checker configuration, and public-safe retained evidence paths without copying raw private logs, prompts, credentials, or local machine paths into public evidence.
 
 ## Distinction From results/retained/
 
-`evidence/cases/` is case evidence/reference material. `results/retained/` is a curated retained-result/reporting surface only after separate authorization.
+`evidence/cases/` is optional retained case evidence/reference material during migration. `results/retained/` is a curated retained-result/reporting surface only after separate authorization.
 
-Copying evidence into `evidence/cases/` does not by itself create paper results, metric inputs, or report rows.
+Copying evidence into `evidence/cases/` does not by itself create paper results, metric inputs, or report rows. Omitting `evidence/cases/` from clean public v2 does not authorize changing denominators, paper results, official metrics, or reports/results.
 
 ## Distinction From runs/user/
 

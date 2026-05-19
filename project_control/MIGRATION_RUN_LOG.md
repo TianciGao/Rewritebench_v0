@@ -8148,3 +8148,65 @@ Task result:
 
 Next safe action:
 - Authorize pilot acceptance or a read-only Common-core 40 conversion plan; keep `PORT_0003` dialect variants unless a future portability review approves cleanup.
+
+### 2026-05-19 · pending · case_package_v2_evidence_surface_removal_policy_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only policy revision and reference-removal planning; no evidence deletion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Revised v2 policy so static evidence directories are not required in the final clean v2 public case surface.
+- Added D028: static evidence directories are not required in clean v2 public case surface.
+- Updated the v2 case package contract, external evidence contract, and runtime witness policy for regeneration-first evidence.
+- Updated static validator behavior to accept `evidence_policy.static_case_evidence: not_required` and not fail when `evidence_ref` is absent.
+- Added tests for regeneration-first evidence policy and invalid evidence-policy values.
+- Built a five-case reference-removal plan for live `evidence_ref` and `evidence/cases/<POOL>/<CASE_ID>/` references.
+- No case files or evidence files were modified or deleted.
+
+Files created:
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_surface_removal_policy_summary.md`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_reference_inventory.csv`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_policy_manifest_contract.csv`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_surface_deletion_readiness.csv`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/future_case_package_v2_evidence_reference_removal_execution_prompt.md`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_surface_removal_policy_summary.json`
+- `audits/case_package_v2_evidence_surface_removal_policy_v0/evidence_surface_removal_policy_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+- `repository_spec/case_package_contract_v2_draft.md`
+- `repository_spec/external_evidence_contract_v1_draft.md`
+- `repository_spec/runtime_witness_policy_v1_draft.md`
+- `src/sql_rewrite_bench/case_package_v2_resolver.py`
+- `tests/case_package_v2/test_case_package_v2_resolver.py`
+
+Validation:
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Static v2 validator passed for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Evidence surface policy revision: yes.
+- Static evidence required for clean v2: no.
+- Case-local evidence deletion performed: no.
+- Top-level evidence deletion performed: no.
+- Validator policy updated: yes.
+- Tests updated: yes.
+- Case files modified: no.
+- Evidence deleted: no.
+- reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_evidence_reference_removal_execution_v0` to replace live five-case static evidence references with regeneration-first `evidence_policy` and delete only unreferenced static evidence surfaces after protected-boundary checks.

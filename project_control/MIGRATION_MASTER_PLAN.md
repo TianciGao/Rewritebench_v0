@@ -168,7 +168,7 @@ cases/<POOL>/<CASE_ID>/
   schema/schema_profile.yaml
   checker/
   validation/
-  runs/  # optional compatibility only; empty/placeholder-only is not retained evidence
+  witness/  # optional lightweight policy/static witness metadata
 ```
 
 Case-local `schema/` remains in clean v2 only for `schema/schema_profile.yaml`. This file is a case-facing schema profile and summary, not executable DDL or load data. It records the `schema_id`, external schema profile linkage, source family, relevant tables, columns, column types, primary keys, foreign keys, dialect differences, fixture/data notes when needed, and engine support summary.
@@ -188,20 +188,14 @@ schemas/<SCHEMA_ID>/
 
 External evidence structure:
 
-```text
-evidence/cases/<POOL>/<CASE_ID>/
-  package_validation_summary.json
-  runs_retention.yaml
-  retained_controls/
-  hard_negative/
-  plans/
-```
+`evidence/cases/<POOL>/<CASE_ID>/` is a migration-time or optional retained-artifact surface only. It is not required in the final clean v2 public case surface. Benchmark evidence rows should be regenerated from case SQL, schema profiles, checker configuration, validation wrappers, baselines, scripts, reports, and results only when those reporting surfaces are separately authorized.
 
 Manifest reference policy:
 
 - `schema_ref` points from a case manifest to reusable `schemas/<SCHEMA_ID>/` executable DDL/load assets and becomes the source of truth after validator and runner compatibility are implemented.
 - The case manifest also references case-local `schema/schema_profile.yaml`; that profile links back to the external schema profile and executable DDL/load paths.
-- `evidence_ref` points from a case manifest to external case evidence under `evidence/cases/<POOL>/<CASE_ID>/`.
+- `evidence_policy` records whether static case evidence is required. Clean v2 uses `static_case_evidence: not_required` and `regeneration_policy: regenerable_by_validation_and_report_scripts`.
+- `evidence_ref` is optional compatibility metadata only when retained static artifacts are deliberately kept during migration.
 - `sql.source`, `sql.positives`, and `sql.negatives` point to direct case-local SQL files under `sql/`.
 - Checker paths remain case-local by default under `checker/`.
 - Validation entrypoints converge to `validation/run_validation.sh` and `validation/run_plan_collection.sh`.
@@ -216,7 +210,7 @@ Folder-ordered v2 conversion sequence:
 4. `checker`: retain case-local checker configuration only.
 5. `validation`: add thin `run_validation.sh` and `run_plan_collection.sh` wrappers.
 6. `witness`: record source-as-oracle and optional/generated witness policy.
-7. `evidence`: add copy-first `evidence_ref` plans without deleting retained evidence.
+7. `evidence`: record regeneration-first `evidence_policy`; use `evidence_ref` only for optional retained static artifacts.
 8. `metadata`: merge stable governance metadata into manifest or compatibility blocks.
 9. `notes`: classify notes for README, manifest notes, or external evidence notes.
 10. `runs`: classify case-local runs as legacy retained evidence; never write new outputs there.
@@ -234,12 +228,12 @@ Artifact boundary policy:
 - `runs/user/<run_id>/` is local user-run output only. It is not retained paper evidence, not `results/retained/`, and not a leaderboard input.
 - case-local `runs/` must be classified by content. Empty or placeholder-only case-local `runs/` is not retained evidence; non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace `runs/` remains protected and must not receive new user-run output.
 - `results/retained/` is a curated retained-evidence/reporting surface only after separate authorization.
-- `evidence/cases/` is retained case evidence/reference material, not user-run output and not paper table output.
+- `evidence/cases/` is optional retained case evidence/reference material during migration, not a required final public surface, user-run output, or paper table output.
 
 Branch-only adoption roadmap:
 
 1. Record v2 master plan and repository specs on `feature/case-package-v2-external-schema`.
-2. Implement non-destructive validator and runner compatibility for `schema_ref` and `evidence_ref`.
+2. Implement non-destructive validator and runner compatibility for `schema_ref` and regeneration-first `evidence_policy`; retain `evidence_ref` only as optional compatibility.
 3. Recheck `PERF_0006` without modifying additional cases.
 4. Expand branch-only pilot to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` if authorized.
 5. Plan Common-core 40 conversion only after validator/runner compatibility and pilot review pass.
