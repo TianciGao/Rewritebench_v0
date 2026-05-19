@@ -25,4 +25,7 @@ Commands and outcomes:
 - `python - <<'PY' ...`: summary JSON parsed and boundary assertions passed.
 - `git status --short cases schemas evidence runs case_sets inventory reports results`: confirmed no protected case/schema/evidence/runs/case_set/inventory/report/result path changes.
 - `git diff --check`: passed.
-- Commit and push results are recorded after execution below.
+- `git diff --cached --stat`: staged 11 files with 296 insertions and 1 deletion before the primary commit.
+- `git diff --cached --check`: passed.
+- `git commit -m "pilot: clean ready v2 template compatibility paths"`: created commit `aa7827279a321bc826b72abe12aa808f58b34356`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded.

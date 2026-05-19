@@ -7522,14 +7522,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_clean_template_cleanup_pilot_v0` only for cleanup actions marked `ready_for_cleanup=true`, with explicit path staging, no retained-evidence deletion without mapping, and no protected benchmark-surface changes.
 
-### 2026-05-19 · PENDING · case_package_v2_clean_template_cleanup_pilot_v0
+### 2026-05-19 · aa78272 · case_package_v2_clean_template_cleanup_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only clean-template cleanup pilot for five v2 pilot cases; cleanup limited to `ready_for_cleanup=true` candidates; no retained-evidence deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: `PENDING`
-Push: `PENDING`
+Commit: `aa7827279a321bc826b72abe12aa808f58b34356`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Reviewed cleanup candidates marked `ready_for_cleanup=true` in `audits/case_package_v2_template_parity_gap_review_v0/template_parity_cleanup_readiness.csv`.
