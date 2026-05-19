@@ -7271,14 +7271,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_witness_evidence_layers_pilot_v0` to convert only witness and evidence references for the five pilot cases on the feature branch, without DB/checker execution, evidence deletion, case-local runs deletion, or protected benchmark-surface changes.
 
-### 2026-05-19 · pending · case_package_v2_witness_evidence_layers_pilot_v0
+### 2026-05-19 · 3f60021 · case_package_v2_witness_evidence_layers_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable v2 pilot conversion for witness and evidence-reference layers only; no metadata conversion; no notes conversion; no runs cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending before commit
-Push: pending before push
+Commit: `3f60021d9fa9f4895486e5c70f0bbd60e12a20e0`
+Push: succeeded after one transient SSH retry; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Converted the witness and evidence-reference layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
