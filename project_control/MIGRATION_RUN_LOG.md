@@ -6753,14 +6753,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_runner_validator_compatibility_v0` on `feature/case-package-v2-external-schema` to add non-destructive `schema_ref` and `evidence_ref` validation and recheck `PERF_0006` without bulk case conversion.
 
-### 2026-05-19 · TBD · case_package_v2_runner_validator_compatibility_v0
+### 2026-05-19 · df3ad37 · case_package_v2_runner_validator_compatibility_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only non-destructive v2 resolver and validator compatibility; `PERF_0006` recheck only; no case conversion; no DB/checker execution; no timing; no official metrics
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `df3ad375e953c4a568b2d760abeada9d254b89e5`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Added `src/sql_rewrite_bench/case_package_v2_resolver.py`, a static resolver for v2 direct SQL paths, checker references, `schema_ref`, optional `evidence_ref`, witness metadata paths, and validation entrypoints.
@@ -6794,9 +6794,12 @@ Validation:
 - `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 5 tests.
 - `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PERF/PERF_0006`: passed.
 - `PERF_0006` recheck status: pass; 17 resolved references, 40 internal checks, 19 warning-only format findings.
-- Summary JSON parse and boundary assertions: pending final check.
-- Protected-boundary checks: pending final check.
-- `git diff --check`: pending final check.
+- Summary JSON parse and boundary assertions: passed.
+- Protected-boundary checks: passed; no files under `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- Case-local runs deletion check: passed; no case-local `runs/` files were created, modified, or deleted by this task.
+- DB/checker execution output check: passed; no DB/checker execution outputs were created.
+- Leaderboard output check: passed; no leaderboard output was created.
+- `git diff --check`: passed.
 
 Task result:
 - Resolver created: yes.
