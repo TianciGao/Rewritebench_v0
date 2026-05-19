@@ -12,16 +12,18 @@ hard_negatives:
   - aggregation_input_change
   checker_guard_role: source_positive_equal_and_negative_differs_on_quantity_threshold_witness
   observed_static_basis:
-    source_positive_semantics: source and positive require l_quantity strictly below
-      25
+    source_positive_semantics: source and positive require l_quantity strictly below 25
     negative_semantics: negative includes rows where l_quantity equals 25
-    witness_discriminator: threshold quantity row is included by negative but excluded
-      by source and positive
+    witness_discriminator: threshold quantity row is included by negative but excluded by source and positive
   evidence_paths:
-  - evidence/cases/PERF/PERF_0007/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/cases/PERF/PERF_0007/hard_negative/spark/rewrite_neg_01.tsv
-  - evidence/cases/PERF/PERF_0007/hard_negative/hard_negative_summary.json
+  - runtime_negative_result
+  - regenerated_hard_negative_summary
   approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
 claim_boundary:
   no_db_validation_run_during_migration: true
   no_new_semantic_claim_beyond_static_evidence: true
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

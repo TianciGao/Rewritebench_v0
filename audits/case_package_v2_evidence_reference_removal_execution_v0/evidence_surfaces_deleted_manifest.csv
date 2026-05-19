@@ -1,0 +1,6 @@
+case_id,deleted_surface,deleted_path,surface_type,file_count,deletion_reason,live_refs_remaining,notes
+PERF_0006,top_level_static_evidence,evidence/cases/PERF/PERF_0006/,top_level_evidence_cases,21,No live case refs remain after regeneration-first evidence_policy conversion,0,Case-local evidence was already absent.
+PERF_0007,top_level_static_evidence,evidence/cases/PERF/PERF_0007/,top_level_evidence_cases,21,No live case refs remain after regeneration-first evidence_policy conversion,0,Case-local evidence was already absent.
+CONS_0005,top_level_static_evidence,evidence/cases/CONS/CONS_0005/,top_level_evidence_cases,32,No live case refs remain after regeneration-first evidence_policy conversion,0,Case-local evidence was already absent.
+PORT_0003,top_level_static_evidence,evidence/cases/PORT/PORT_0003/,top_level_evidence_cases,21,No live case refs remain after regeneration-first evidence_policy conversion,0,Case-local evidence was already absent.
+LONGTAIL_0011,top_level_static_evidence,evidence/cases/LONGTAIL/LONGTAIL_0011/,top_level_evidence_cases,33,No live case refs remain after regeneration-first evidence_policy conversion,0,Case-local evidence was already absent.

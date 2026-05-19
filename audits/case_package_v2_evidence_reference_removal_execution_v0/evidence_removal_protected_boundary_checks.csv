@@ -1,0 +1,14 @@
+check_name,status,details
+no audits deleted,pass,Audit directories were not deleted.
+no reports changed,pass,reports/ was not modified.
+no results changed,pass,results/ was not modified.
+no denominator changed,pass,No denominator files or values were changed.
+no paper results changed,pass,No paper result artifacts were changed.
+no official metrics computed,pass,No metrics computation was run.
+no DB/checker execution,pass,Only static validators and unit tests were run.
+no global leaderboard,pass,No leaderboard output was created.
+no case_sets changed,pass,case_sets/ was not modified.
+no inventory changed,pass,inventory/ was not modified.
+no reports/results deletion,pass,No reports/ or results/ files were deleted.
+only five pilot static evidence packages deleted,pass,Deleted only evidence/cases paths for PERF_0006 PERF_0007 CONS_0005 PORT_0003 and LONGTAIL_0011.
+PORT dialect variants preserved,pass,PORT_0003/sql/dialect_variants/ was not modified or deleted.

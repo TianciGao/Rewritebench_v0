@@ -1,0 +1,6 @@
+case_id,manifest_path,evidence_ref_removed,evidence_policy_present,static_case_evidence,retained_static_artifacts,checker_static_refs_removed,readme_updated,witness_static_refs_removed,status,notes
+PERF_0006,cases/PERF/PERF_0006/manifest.yaml,true,true,not_required,none,true,true,true,converted,Manifest and live configs no longer require static evidence paths.
+PERF_0007,cases/PERF/PERF_0007/manifest.yaml,true,true,not_required,none,true,true,not_applicable,converted,Manifest and live configs no longer require static evidence paths.
+CONS_0005,cases/CONS/CONS_0005/manifest.yaml,true,true,not_required,none,true,true,not_applicable,converted,Manifest and live configs no longer require static evidence paths.
+PORT_0003,cases/PORT/PORT_0003/manifest.yaml,true,true,not_required,none,true,true,not_applicable,converted,Manifest and live configs no longer require static evidence paths.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/manifest.yaml,true,true,not_required,none,true,true,not_applicable,converted,Manifest and live configs no longer require static evidence paths.

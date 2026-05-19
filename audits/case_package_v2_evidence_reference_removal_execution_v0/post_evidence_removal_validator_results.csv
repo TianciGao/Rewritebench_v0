@@ -1,0 +1,6 @@
+case_id,validator_status,direct_sql_ok,schema_ref_ok,checker_refs_ok,validation_refs_ok,witness_policy_ok,evidence_policy_ok,evidence_ref_absent_ok,notes
+PERF_0006,pass,true,true,true,true,true,true,true,reference_rows=19 internal_checks=38 format_findings=1
+PERF_0007,pass,true,true,true,true,true,true,true,reference_rows=17 internal_checks=38 format_findings=1
+CONS_0005,pass,true,true,true,true,true,true,true,reference_rows=17 internal_checks=35 format_findings=1
+PORT_0003,pass,true,true,true,true,true,true,true,reference_rows=17 internal_checks=35 format_findings=1
+LONGTAIL_0011,pass,true,true,true,true,true,true,true,reference_rows=17 internal_checks=35 format_findings=1

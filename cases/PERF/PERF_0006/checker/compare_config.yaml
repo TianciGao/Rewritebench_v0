@@ -1,21 +1,26 @@
 case_id: PERF_0006
 compare_config_version: canonical_case_package_layout_v1
 reference_engine: postgres
-reference_output: evidence/cases/PERF/PERF_0006/retained_controls/postgres/source.tsv
+reference_output: runtime_source_result
 positive_checks:
-  - engine: mysql
-    output: evidence/cases/PERF/PERF_0006/retained_controls/mysql/rewrite_pos_01.tsv
-    expected: equals_reference
-  - engine: spark
-    output: evidence/cases/PERF/PERF_0006/retained_controls/spark/rewrite_pos_01.tsv
-    expected: equals_reference
+- engine: mysql
+  output: runtime_positive_result
+  expected: equals_reference
+- engine: spark
+  output: runtime_positive_result
+  expected: equals_reference
 negative_checks:
-  - engine: mysql
-    output: evidence/cases/PERF/PERF_0006/hard_negative/mysql/rewrite_neg_01.tsv
-    expected: differs_from_reference
-  - engine: spark
-    output: evidence/cases/PERF/PERF_0006/hard_negative/spark/rewrite_neg_01.tsv
-    expected: differs_from_reference
+- engine: mysql
+  output: runtime_negative_result
+  expected: differs_from_reference
+- engine: spark
+  output: runtime_negative_result
+  expected: differs_from_reference
 claim_boundary:
   compared_existing_outputs_only: true
   db_validation_run_during_migration: false
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

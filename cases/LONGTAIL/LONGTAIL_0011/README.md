@@ -29,20 +29,20 @@ LONGTAIL_0011 is part of the branch-only case-package v2 clean-template pilot on
 - Checker policy: `checker/` stores configuration only. Shared checker and validation implementation lives under `src/sql_rewrite_bench/`, not in this case package.
 - Validation policy: `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin fail-closed wrappers over future shared logic. They do not call retained engine-specific scripts, do not require case-local `schema/<engine>/`, and must not write to case-local `runs/`.
 - Witness policy: runtime checking uses source-as-oracle. Static witness files remain optional and are not fabricated.
-- Evidence policy: `evidence_ref` points to `evidence/cases/LONGTAIL/LONGTAIL_0011/`. Case-local `evidence/` compatibility copies were removed after byte-for-byte external evidence mapping verification.
-- Metadata/data policy: case-local `metadata/` and `data/` were removed after their stable content was represented by `manifest.yaml`, `schema/schema_profile.yaml`, external schema load files, witness policy, evidence refs, and project-level case-set controls.
+- Evidence policy: clean v2 uses `evidence_policy.static_case_evidence: not_required`; committed static evidence is not required and benchmark evidence is regenerated through validation/checker/baseline/report scripts when separately authorized.
+- Metadata/data policy: case-local `metadata/` and `data/` were removed after their stable content was represented by `manifest.yaml`, `schema/schema_profile.yaml`, external schema load files, witness policy, evidence policy, and project-level case-set controls.
 - Runs policy: case-local `runs/` placeholder content was removed by the accepted empty-runs cleanup. User runs belong under top-level `runs/user/<run_id>/`.
 - Benchmark boundary: no denominator change, paper-result change, official metric computation, DB/checker execution, or global leaderboard is authorized by this package.
 
 ## Package Contents
 
-- `manifest.yaml` is the package index and uses v2 references for SQL, schema, checker, validation, witness, evidence, and compatibility state.
+- `manifest.yaml` is the package index and uses v2 references for SQL, schema, checker, validation, witness, regeneration-first evidence policy, and compatibility state.
 - `sql/` contains direct source, positive, and hard-negative SQL paths.
 - `schema/schema_profile.yaml` links this case to the external reusable schema profile.
 - `checker/` contains comparison, normalization, and expected-rejection configuration.
 - `validation/` contains the v2 wrapper entrypoints `run_validation.sh` and `run_plan_collection.sh`.
 - `witness/` contains optional witness metadata/static files.
-- Public-safe retained evidence is external under `evidence/cases/LONGTAIL/LONGTAIL_0011/`; the case-local compatibility copy has been removed.
+- Static evidence directories are not part of the clean public case surface; benchmark evidence is regenerated through authorized validation/checker/report paths.
 
 ## Benchmark Boundary
 

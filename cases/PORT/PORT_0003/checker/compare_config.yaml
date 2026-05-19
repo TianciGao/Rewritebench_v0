@@ -9,22 +9,10 @@ expected:
   source_equals_positive: true
   source_differs_from_negative: true
 retained_evidence:
-  retained_controls:
-  - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
-  - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
-  - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
-  - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
-  hard_negative:
-  - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
-  - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
-  result_checks:
-  - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
-  plan_evidence:
-  - evidence/cases/PORT/PORT_0003/plans/plan_check.json
-  - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
-  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
-  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
-  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
-  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
 db_validation_run: false
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

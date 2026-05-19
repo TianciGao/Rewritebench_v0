@@ -1,25 +1,29 @@
 case_id: PERF_0006
 expected_rejections_version: canonical_case_package_layout_v1
 hard_negatives:
-  - hard_negative_id: neg_01
-    source_sql_path: sql/source.sql
-    negative_sql_path: sql/neg_01.sql
-    compatibility_negative_sql_path: sql/neg_01.sql
-    expected_rejection_reason: cutoff_predicate_strictness_changed
-    semantic_risk_type:
-      - predicate_boundary
-      - date_cutoff_boundary
-      - aggregation_input_change
-    checker_guard_role: source_positive_equal_and_negative_differs_on_cutoff_witness
-    observed_static_basis:
-      source_positive_semantics: cutoff filter uses less-than-or-equal boundary
-      negative_semantics: cutoff filter uses strict less-than boundary
-      witness_discriminator: cutoff-date row is excluded by negative
-    evidence_paths:
-      - evidence/cases/PERF/PERF_0006/hard_negative/mysql/rewrite_neg_01.tsv
-      - evidence/cases/PERF/PERF_0006/hard_negative/spark/rewrite_neg_01.tsv
-      - evidence/cases/PERF/PERF_0006/hard_negative/hard_negative_summary.json
-    approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
+- hard_negative_id: neg_01
+  source_sql_path: sql/source.sql
+  negative_sql_path: sql/neg_01.sql
+  compatibility_negative_sql_path: sql/neg_01.sql
+  expected_rejection_reason: cutoff_predicate_strictness_changed
+  semantic_risk_type:
+  - predicate_boundary
+  - date_cutoff_boundary
+  - aggregation_input_change
+  checker_guard_role: source_positive_equal_and_negative_differs_on_cutoff_witness
+  observed_static_basis:
+    source_positive_semantics: cutoff filter uses less-than-or-equal boundary
+    negative_semantics: cutoff filter uses strict less-than boundary
+    witness_discriminator: cutoff-date row is excluded by negative
+  evidence_paths:
+  - runtime_negative_result
+  - regenerated_hard_negative_summary
+  approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
 claim_boundary:
   no_db_validation_run_during_migration: true
   no_new_semantic_claim_beyond_static_evidence: true
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

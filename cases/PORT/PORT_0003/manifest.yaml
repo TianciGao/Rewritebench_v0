@@ -31,14 +31,17 @@ engine_support:
     supported_by_legacy_assets: true
     role: source_or_target_reference
     validation_assets: retained_legacy_asset_not_run_during_migration
+    evidence_policy: regenerated_by_validation_and_report_scripts
   mysql:
     supported_by_legacy_assets: true
     role: source_or_target_reference
     validation_assets: retained_legacy_asset_not_run_during_migration
+    evidence_policy: regenerated_by_validation_and_report_scripts
   spark:
     supported_by_legacy_assets: true
     role: target_adaptation_and_plan_observability
     validation_assets: retained_legacy_asset_not_run_during_migration
+    evidence_policy: regenerated_by_validation_and_report_scripts
 sql:
   source: sql/source.sql
   positives:
@@ -53,39 +56,21 @@ checker:
 validation:
   run_validation: validation/run_validation.sh
   run_plan_collection: validation/run_plan_collection.sh
-evidence:
-  runs_retention: evidence/cases/PORT/PORT_0003/runs_retention.yaml
-  retained_controls:
-  - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
-  - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
-  - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
-  - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
-  retained_plans:
-  - evidence/cases/PORT/PORT_0003/plans/plan_check.json
-  - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
-  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
-  - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
-  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
-  - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
-  hard_negative:
-  - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
-  - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
-  package_validation_summary: evidence/cases/PORT/PORT_0003/package_validation_summary.json
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
 metadata:
   status: merged_or_represented_for_clean_template_gap_closure_v0
   provenance: represented_by_source_fields_and_claim_boundaries
   taxonomy: represented_by_pool_source_family_checker_and_claim_boundaries
-  engine_support: represented_by_engine_support_schema_ref_and_evidence_ref
+  engine_support: represented_by_engine_support_schema_ref_and_evidence_policy
   denominator_eligibility: represented_by_denominator_eligibility_and_case_sets_reference
-  artifact_paths: represented_by_sql_schema_ref_checker_validation_witness_and_evidence_ref
+  artifact_paths: represented_by_sql_schema_ref_checker_validation_witness_and_evidence_policy
   case_local_metadata_directory_status: removed_in_clean_template_gap_closure_execution_v0
 notes:
-  witness_design_notes: evidence/cases/PORT/PORT_0003/notes/witness_design_notes.md
-  risk_notes: evidence/cases/PORT/PORT_0003/notes/risk_notes.md
-  schema_notes: evidence/cases/PORT/PORT_0003/notes/schema_notes.md
-  promotion_checklist: evidence/cases/PORT/PORT_0003/notes/promotion_checklist.md
-  migration_notes: evidence/cases/PORT/PORT_0003/notes/migration_notes.md
+  status: static_notes_surface_removed_regeneration_first
+  review_notes_policy: no_committed_static_notes_required_for_clean_v2
 claim_boundaries:
   actual_migration_performed: true
   full_case_package_migrated: true
@@ -110,14 +95,6 @@ witness:
   data_profile_status: external_or_generated
   correct_result_status: not_required_for_runtime_checker
   witness_profile: witness/witness_profile.yaml
-evidence_ref:
-  externalization_status: copy_first_or_pending
-  package_validation_summary: evidence/cases/PORT/PORT_0003/package_validation_summary.json
-  runs_retention: evidence/cases/PORT/PORT_0003/runs_retention.yaml
-  retained_controls: evidence/cases/PORT/PORT_0003/retained_controls/
-  hard_negative: evidence/cases/PORT/PORT_0003/hard_negative/
-  plans: evidence/cases/PORT/PORT_0003/plans/
-  notes: evidence/cases/PORT/PORT_0003/notes/
 compatibility:
   sql_legacy:
     positives:
@@ -156,46 +133,21 @@ compatibility:
   witness_legacy:
     status: optional_static_witness_not_materialized
   evidence_legacy:
-    externalization_status: copy_first_externalized_public_safe_subset_verified
-    deletion_status: deleted_in_second_clean_template_cleanup_v0
-    package_validation_summary: evidence/cases/PORT/PORT_0003/package_validation_summary.json
-    runs_retention: evidence/cases/PORT/PORT_0003/runs_retention.yaml
-    retained_controls:
-    - evidence/cases/PORT/PORT_0003/retained_controls/result_check.json
-    - evidence/cases/PORT/PORT_0003/retained_controls/postgres/source.tsv
-    - evidence/cases/PORT/PORT_0003/retained_controls/mysql/rewrite_pos_01.tsv
-    - evidence/cases/PORT/PORT_0003/retained_controls/spark/rewrite_pos_02_spark.tsv
-    hard_negative:
-    - evidence/cases/PORT/PORT_0003/hard_negative/hard_negative_summary.json
-    - evidence/cases/PORT/PORT_0003/hard_negative/mysql/rewrite_neg_01.tsv
-    - evidence/cases/PORT/PORT_0003/hard_negative/spark/rewrite_neg_02_spark.tsv
-    plans:
-    - evidence/cases/PORT/PORT_0003/plans/plan_check.json
-    - evidence/cases/PORT/PORT_0003/plans/postgres/source.json
-    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_pos_01.json
-    - evidence/cases/PORT/PORT_0003/plans/mysql/rewrite_neg_01.json
-    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_pos_02_spark.sanitized.txt
-    - evidence/cases/PORT/PORT_0003/plans/spark/rewrite_neg_02_spark.sanitized.txt
-    case_local_runs_status: removed_placeholder_only_in_empty_runs_cleanup_v0
-    status: external_evidence_is_canonical_case_local_copy_removed
-    case_local_evidence_status: deleted_in_second_clean_template_cleanup_v0_after_external_mapping_verification
-    external_evidence: evidence/cases/PORT/PORT_0003/
-    retained_evidence_deleted: false
+    status: static_evidence_surface_removed_regeneration_first
+    static_evidence_required_for_clean_v2: false
+    case_local_evidence_status: deleted_in_second_clean_template_cleanup_v0
+    top_level_evidence_status: deleted_in_static_evidence_cleanup_execution_v0
+    retained_static_artifacts: none
+    regeneration_policy: regenerable_by_validation_and_report_scripts
   metadata_legacy:
     status: stable_metadata_merged_or_represented_elsewhere
     deletion_status: deleted_in_clean_template_gap_closure_execution_v0
-    source_of_truth: manifest_fields_schema_ref_evidence_ref_case_sets_and_project_control
+    source_of_truth: manifest_fields_schema_ref_evidence_policy_case_sets_and_project_control
   notes_legacy:
-    status: externalized_public_safe_subset
-    deletion_status: deleted_in_reference_cleanup_execution_v0
+    status: static_notes_surface_removed_with_evidence_surface_cleanup
     case_local_notes_status: removed_in_reference_cleanup_execution_v0
-    external_notes: evidence/cases/PORT/PORT_0003/notes/
-    copied_notes_external:
-    - evidence/cases/PORT/PORT_0003/notes/migration_notes.md
-    - evidence/cases/PORT/PORT_0003/notes/promotion_checklist.md
-    - evidence/cases/PORT/PORT_0003/notes/risk_notes.md
-    - evidence/cases/PORT/PORT_0003/notes/schema_notes.md
-    - evidence/cases/PORT/PORT_0003/notes/witness_design_notes.md
+    top_level_notes_status: deleted_in_static_evidence_cleanup_execution_v0
+    regeneration_policy: public_notes_not_required_for_runtime_validation
   runs_legacy:
     status: placeholder_only_runs_removed
     deletion_status: deleted_in_empty_runs_cleanup_v0
@@ -206,7 +158,7 @@ compatibility:
     source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[3]
     source_dialect: postgres_like_candidate
     hard_negative_expected_rejection_reference: checker/expected_rejections.yaml
-    portability_boundary_reference: evidence/cases/PORT/PORT_0003/notes/migration_notes.md
+    portability_boundary_reference: manifest_claim_boundaries_and_sql_dialect_variants
   data_legacy:
     status: represented_by_external_schema_loads_and_witness_policy
     deletion_status: deleted_in_clean_template_gap_closure_execution_v0
@@ -222,3 +174,5 @@ compatibility:
     schema_resolution_policy: manifest_schema_ref_profile_first
     legacy_script_dependency_status: v2_wrappers_do_not_call_legacy_scripts
     wrapper_fail_closed_message: shared_v2_validation_runner_not_implemented_use_future_shared_runner
+artifact_paths: null
+performance_boundary: null

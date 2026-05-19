@@ -1,0 +1,28 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "evidence_reference_removal_execution": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "manifests_updated_to_evidence_policy": true,
+  "live_refs_updated_count": 24,
+  "case_local_evidence_deleted_count": 0,
+  "top_level_evidence_cases_deleted_count": 5,
+  "audits_deleted": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Run case_package_v2_post_evidence_removal_parity_review_v0 as a read-only parity review before Common-core 40 planning."
+}

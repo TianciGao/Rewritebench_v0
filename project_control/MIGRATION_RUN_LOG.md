@@ -8210,3 +8210,71 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_evidence_reference_removal_execution_v0` to replace live five-case static evidence references with regeneration-first `evidence_policy` and delete only unreferenced static evidence surfaces after protected-boundary checks.
+
+### 2026-05-19 · pending · case_package_v2_evidence_reference_removal_execution_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable evidence-reference removal and static evidence cleanup; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Updated the five pilot manifests from mandatory `evidence_ref` to regeneration-first `evidence_policy`.
+- Updated README evidence wording for all five pilot cases.
+- Updated checker/witness YAML files that contained live static evidence paths.
+- Deleted only the five pilot top-level static evidence packages under `evidence/cases/`.
+- Case-local `evidence/` directories were already absent for all five pilot cases.
+- No audits, reports/results, denominator, paper result, official metric, DB/checker execution, leaderboard, `case_sets/`, or inventory changes were made.
+
+Files created:
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_reference_removal_execution_summary.md`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_live_reference_updates.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_policy_conversion_results.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_surfaces_deleted_manifest.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_surfaces_skipped_manifest.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/post_evidence_removal_validator_results.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_removal_protected_boundary_checks.csv`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/future_case_package_v2_post_evidence_removal_parity_review_prompt.md`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_reference_removal_execution_summary.json`
+- `audits/case_package_v2_evidence_reference_removal_execution_v0/evidence_reference_removal_execution_command_log.md`
+
+Files modified:
+- Five pilot `manifest.yaml` files.
+- Five pilot `README.md` files.
+- Pilot checker YAML files with live static evidence references.
+- `cases/PERF/PERF_0006/witness/data_profile.yaml`.
+- `project_control/MIGRATION_STATUS.md`.
+- `project_control/MIGRATION_RUN_LOG.md`.
+
+Files deleted:
+- `evidence/cases/PERF/PERF_0006/`
+- `evidence/cases/PERF/PERF_0007/`
+- `evidence/cases/CONS/CONS_0005/`
+- `evidence/cases/PORT/PORT_0003/`
+- `evidence/cases/LONGTAIL/LONGTAIL_0011/`
+
+Validation:
+- Static v2 validator passed for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Evidence reference removal execution: yes.
+- Manifests updated to evidence_policy: yes.
+- Live refs updated count: 24.
+- Case-local evidence deleted count: 0.
+- Top-level `evidence/cases/` deleted count: 5.
+- Audits deleted: no.
+- reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+- `case_sets/` changed: no.
+- inventory changed: no.
+
+Next safe action:
+- Run `case_package_v2_post_evidence_removal_parity_review_v0` as a read-only parity review before Common-core 40 planning.
