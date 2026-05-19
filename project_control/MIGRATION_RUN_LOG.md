@@ -6464,7 +6464,7 @@ Next safe action:
 Mode: B-line DB/checker batch expansion planning; design/selection only; no batch execution; no DB/checker execution; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `35a30dd8c856ed4610483326ec2f1fec206eb67f`
+Commit: `35a30dd66c3a36ecaec681c4f4cf9c73d5a5bf20`
 Push: succeeded; updated `origin/main` from `e3a76e1` to `35a30dd`
 
 Summary:
