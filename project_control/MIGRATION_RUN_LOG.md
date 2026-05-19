@@ -8519,13 +8519,13 @@ Task result:
 Next safe action:
 - Authorize a bounded `case_package_v2_common_core40_wave_b_v0` conversion for schema-grouped non-PORT Wave B cases only.
 
-### 2026-05-20 · pending · case_package_v2_common_core40_wave_b_v0
+### 2026-05-20 · 42ef2462 · case_package_v2_common_core40_wave_b_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only bounded writable Common-core Wave B v2 conversion; no DB/checker execution; no official metrics; no reports/results migration
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
+Commit: `42ef2462`
 Push: pending
 
 Summary:
@@ -8552,7 +8552,7 @@ Validation:
 - `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 11 tests.
 - Summary JSON assertion passed.
 - Protected boundary checks passed.
-- `git diff --check`: pending final run before commit.
+- `git diff --check`: passed.
 
 Task result:
 - Common-core 40 Wave B conversion: yes.
