@@ -7057,14 +7057,14 @@ Task result:
 Next safe action:
 - Authorize a branch-only folder-ordered writable pilot that starts with manifest and SQL layers, then adds `schema/schema_profile.yaml` plus external schema references before converting checker, validation, witness, evidence, metadata, notes, runs, README, or validator expectations.
 
-### 2026-05-19 · pending · case_package_v2_folder_ordered_conversion_pilot_v0
+### 2026-05-19 · a727de5 · case_package_v2_folder_ordered_conversion_pilot_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable v2 pilot conversion for first three layers only; manifest, sql, and schema; no checker conversion; no validation conversion; no witness/evidence/metadata/notes/runs cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `a727de5f81dd5080cafd4fd081b2dfd3a42671f0`
+Push: succeeded; pushed branch `feature/case-package-v2-external-schema` to origin
 
 Summary:
 - Converted exactly the first three v2 folder-order layers for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
