@@ -6381,13 +6381,13 @@ Task result:
 Next safe action:
 - Authorize a DB/checker MVP hardening or release-smoke task that reruns the postgres-only local execution/checker path in a fresh environment, then optionally expands only to `PERF_0007` under the same local-only boundaries.
 
-### 2026-05-19 · TBD · b_line_db_checker_execution_release_smoke_v0
+### 2026-05-19 · 4d5de7c · b_line_db_checker_execution_release_smoke_v0
 
 Mode: B-line DB/checker execution release-smoke; fresh-checkout editable-install verification only; no new feature implementation; no timing; no official metrics; no paper tables; no retained-evidence adapter; no reports/results updates
 Legacy repo modified: no
 Release repo modified: yes
-Commit: `TBD`
-Push: `TBD`
+Commit: `4d5de7c516c9849aabab1d9763c1a4d06d54449b`
+Push: succeeded; updated `origin/main` from `1679bc9` to `4d5de7c`
 
 Summary:
 - Verified the bounded postgres-only DB/checker execution MVP from a fresh local clone under `/tmp/sqlrb_db_checker_release_smoke/Rewritebench_v0_db_smoke`.
