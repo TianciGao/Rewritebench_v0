@@ -41,6 +41,7 @@ APPROVED_TOP_LEVEL_KEYS = {
 COMPATIBILITY_TOP_LEVEL_KEYS = {
     "status",
     "canonical_layout",
+    "compatibility",
     "source_seed",
     "source_entry",
     "source_materialization",

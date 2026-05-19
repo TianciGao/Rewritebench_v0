@@ -1,0 +1,11 @@
+field_group,previous_shape,new_shape,action,status,notes
+sql.positives,"list of mappings with id/path/legacy metadata","list of direct string paths: sql/pos_01.sql",normalized,passed,"Legacy metadata moved to compatibility.sql_legacy.positives."
+sql.negatives,"list of mappings with id/path/legacy metadata","list of direct string paths: sql/neg_01.sql",normalized,passed,"Legacy metadata moved to compatibility.sql_legacy.negatives."
+schema_ref,"schema_ref.<engine>.ddl/load","schema_ref.engines.<engine>.ddl/load",normalized,passed,"External schema paths unchanged; only nesting changed."
+checker,"checker.checker plus normalization/compare_config","checker.config plus normalization/compare_config/expected_rejections",normalized,passed,"Canonical checker.config now points to checker/checker.yaml."
+witness,"data_profile/correct_result with non-canonical status only","source_as_oracle policy with canonical status fields",normalized,passed,"Static witness files remain optional runtime inputs."
+evidence_ref,missing,"pending externalization with package_validation_summary and runs_retention",added,passed,"Evidence was not copied or deleted; case-local compatibility references remain."
+validation,"canonical wrappers plus engine-specific scripts in validation block","canonical wrappers only in validation block",normalized,passed,"Engine-specific scripts moved to compatibility.validation_legacy."
+case_local_schema,"top-level schema block","compatibility.case_local_schema",moved,passed,"Case-local schema files retained; no deletion."
+compatibility,absent,"top-level compatibility block",added,passed,"Used for v1/legacy retained metadata and compatibility assets."
+validator_compatibility,"compatibility top-level key unapproved","compatibility accepted as documented compatibility top-level key",aligned,passed,"Minimal resolver/test alignment for required top-level compatibility block."

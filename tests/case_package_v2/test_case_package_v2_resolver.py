@@ -152,7 +152,7 @@ class CasePackageV2ResolverTests(unittest.TestCase):
         )
         self.assertEqual(result.case_id, "PERF_0006")
         self.assertEqual(result.overall_status, "pass")
-        self.assertTrue(result.findings)
+        self.assertFalse(result.errors)
 
 
 if __name__ == "__main__":

@@ -18,13 +18,13 @@ The package is organized as a benchmark case package, not as a standalone SQL st
 
 ## Package Contents
 
-- `manifest.yaml` is the package index.
+- `manifest.yaml` is the package index and now uses the canonical v2 internal reference shape for SQL, schema, checker, witness, validation, and evidence references.
 - `sql/` contains the source SQL and approved rewrite SQL assets for this case. In the v2 branch pilot, `sql/pos_01.sql` and `sql/neg_01.sql` are the direct rewrite paths; the previous `sql/positives/` and `sql/negatives/` paths are retained as compatibility copies during the pilot.
 - `schema_ref` in `manifest.yaml` points to the external reusable schema package `schemas/tpch_common_core_v0/`.
 - `schema/` is retained as a case-local compatibility copy during this branch pilot and is not deleted.
 - `witness/` contains the v2 pilot witness data profile and retained-source-derived correct result.
 - `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
-- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
+- `evidence_ref` in `manifest.yaml` records pending external evidence adoption. `evidence/` remains the case-local compatibility location for retained-evidence indexes and public-safe evidence summaries.
 - `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
 - `validation/` contains v2 wrapper entrypoints plus retained engine-specific validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
 
@@ -36,10 +36,12 @@ New public runner outputs should not write into case-local legacy `runs/` direct
 
 The case-local `runs/` directory is retained as legacy evidence only. It was not deleted or rewritten by the v2 external-schema branch pilot.
 
+External evidence has not yet been copied into top-level `evidence/cases/`; this branch keeps the retained case-local evidence as compatibility material until a separate copy-first externalization task is authorized.
+
 ## Benchmark Boundary
 
 This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
 ## Notes / Future Review Status
 
-Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text. This branch must not merge to `main` until broader v2 pilot, validator, and runner compatibility are approved.

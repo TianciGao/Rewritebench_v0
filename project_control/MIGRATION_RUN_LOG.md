@@ -6821,3 +6821,63 @@ Task result:
 
 Next safe action:
 - Authorize a branch-only `case_package_v2_multi_pool_pilot_v0` using the new static validator, optionally first normalizing `PERF_0006` manifest internal shape to canonical v2, then pilot-converting only `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` without merging to `main`.
+
+### 2026-05-19 · pending · case_package_v2_perf0006_format_normalization_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only PERF_0006 manifest/internal-format normalization; no multi-case conversion; no schema/evidence deletion; no DB/checker execution; no timing; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Normalized only `cases/PERF/PERF_0006/manifest.yaml` to the canonical v2 internal reference shape.
+- Converted `sql.positives` and `sql.negatives` from mapping entries to direct string paths.
+- Converted `schema_ref` to `schema_ref.engines.<engine>.ddl/load`.
+- Converted `checker.checker` to canonical `checker.config`.
+- Added canonical witness policy fields for source-as-oracle runtime checking.
+- Added `evidence_ref` with pending copy-first externalization status and required case-local compatibility evidence references.
+- Moved legacy SQL metadata, case-local schema references, and engine-specific validation scripts into one top-level `compatibility` block.
+- Updated `PERF_0006` README wording to describe the canonical manifest status and retained compatibility boundaries.
+- Aligned the static v2 validator/test with the required `compatibility` top-level block after the normalized manifest exposed a false positive.
+- Did not modify schemas, delete case-local schema/evidence/runs, change `case_sets/`, change inventory, update reports/results, change denominators, change paper results, modify raw legacy evidence, compute metrics, run DB/checker execution, or create leaderboard output.
+
+Files created:
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_format_normalization_summary.md`
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_manifest_format_before_after.csv`
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_remaining_compatibility_warnings.csv`
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_format_validation_results.csv`
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_format_normalization_summary.json`
+- `audits/case_package_v2_perf0006_format_normalization_v0/perf0006_format_normalization_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/manifest.yaml`
+- `cases/PERF/PERF_0006/README.md`
+- `src/sql_rewrite_bench/case_package_v2_resolver.py`
+- `tests/case_package_v2/test_case_package_v2_resolver.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Manifest canonical-shape assertion: passed.
+- `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PERF/PERF_0006`: passed with `overall_status=pass` and `format_findings=0`.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 5 tests.
+- Summary JSON parse and boundary assertions: passed.
+- Protected-boundary checks: passed; no files under `schemas/`, `case_sets/`, inventory, reports, or results changed.
+- `git diff --check`: passed.
+
+Task result:
+- PERF_0006 manifest normalized: yes.
+- Cases modified: `PERF_0006` only.
+- Schemas modified: no.
+- Case-local schema/evidence/runs deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- raw legacy evidence changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Authorize a branch-only multi-pool v2 pilot using normalized `PERF_0006` as the canonical example, limited to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`, without merging to `main`.
