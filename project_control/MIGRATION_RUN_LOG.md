@@ -8085,12 +8085,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_second_clean_template_cleanup_v0` to delete only readiness-marked legacy validation scripts, case-local schema engine dirs after legacy script deletion, and case-local evidence after final external mapping check; keep `PORT_0003` dialect variants unless separately approved.
 
-### 2026-05-19 · pending · case_package_v2_second_clean_template_cleanup_v0
+### 2026-05-19 · fe8616f · case_package_v2_second_clean_template_cleanup_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only writable second clean-template cleanup; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
+Commit: `fe8616f0`
+Push: succeeded to `origin/feature/case-package-v2-external-schema` (`57091ec..fe8616f`)
 
 Summary:
 - Deleted 50 readiness-marked compatibility paths for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.

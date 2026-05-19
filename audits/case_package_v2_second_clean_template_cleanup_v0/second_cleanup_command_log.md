@@ -9,4 +9,6 @@
 - `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v` - passed 9 tests.
 - Removed generated `__pycache__/` directories after tests.
 - Created second-clean-template cleanup audit outputs.
-- JSON assertion, `git diff --check`, boundary checks, commit, and push recorded after final validation.
+- JSON assertion, `git diff --check`, and boundary checks - passed.
+- `git commit -m "cleanup: remove unblocked v2 compatibility paths"` - created cleanup commit `fe8616f`.
+- `git push origin feature/case-package-v2-external-schema` - succeeded (`57091ec..fe8616f`).
