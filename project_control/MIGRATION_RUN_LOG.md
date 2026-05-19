@@ -8526,7 +8526,7 @@ Mode: branch-only bounded writable Common-core Wave B v2 conversion; no DB/check
 Legacy repo modified: no
 Release repo branch modified: yes
 Commit: `42ef2462`
-Push: pending
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Converted exactly 22 Wave B Common-core cases: `PERF_0033`, `PERF_0034`, `PERF_0035`, `PERF_0052`, `PERF_0054`, `PERF_0056`, `PERF_0062`, `PERF_0077`, `PERF_0082`, `CONS_0007`, `CONS_0009`, `CONS_0010`, `CONS_0011`, `CONS_0012`, `CONS_0024`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0012`, `LONGTAIL_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024`.
