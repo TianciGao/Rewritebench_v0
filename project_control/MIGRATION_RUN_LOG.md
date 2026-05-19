@@ -8149,13 +8149,13 @@ Task result:
 Next safe action:
 - Authorize pilot acceptance or a read-only Common-core 40 conversion plan; keep `PORT_0003` dialect variants unless a future portability review approves cleanup.
 
-### 2026-05-19 · pending · case_package_v2_evidence_surface_removal_policy_v0
+### 2026-05-19 · 5b045f4 · case_package_v2_evidence_surface_removal_policy_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only policy revision and reference-removal planning; no evidence deletion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
+Commit: `5b045f4e`
 Push: pending
 
 Summary:
