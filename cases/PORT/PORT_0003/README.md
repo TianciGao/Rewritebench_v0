@@ -2,9 +2,9 @@
 
 ## Purpose
 
-PORT_0003 is a portability-focused SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `PARROT`.
+PORT_0003 is a portability-focused SQL rewrite case package from the `PORT` pool. Source-family context is `PARROT` and is represented in `manifest.yaml`, `schema/schema_profile.yaml`, and the external schema package.
 
-The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
+The package is organized as a benchmark case package, not as a standalone SQL string. Clean v2 case-local assets are limited to public-readable package metadata, SQL, schema profile, checker configuration, validation wrappers, and optional witness material.
 
 ## Release Scope
 
@@ -16,38 +16,42 @@ The package is organized as a benchmark case package, not as a standalone SQL st
 - Metrics computed in this package: no.
 - Public release role: Common-core v0 canonical case package.
 
-## Case Package v2 Pilot Status
+## Case Package v2 Status
 
-PORT_0003 is part of the branch-only case-package v2 pilot on `feature/case-package-v2-external-schema`.
+PORT_0003 is part of the branch-only case-package v2 clean-template pilot on `feature/case-package-v2-external-schema`.
 
 - Case ID: `PORT_0003`.
 - Pool: `PORT`.
 - Source SQL: `sql/source.sql`.
 - Positive SQL: `sql/pos_01.sql`.
 - Negative SQL: `sql/neg_01.sql`.
-- Schema policy: clean v2 uses case-local `schema/schema_profile.yaml` as the case-facing profile. Executable DDL/load are external under `schemas/parrot_bird_port0003_v0/`; any case-local per-engine schema files are compatibility assets only.
+- Schema policy: clean v2 uses case-local `schema/schema_profile.yaml` as the case-facing profile. Executable DDL/load are external under `schemas/parrot_bird_port0003_v0/`; retained case-local per-engine schema files are compatibility-blocked until legacy validation script cleanup.
 - Checker policy: `checker/` stores configuration only. Shared checker and validation implementation lives under `src/sql_rewrite_bench/`, not in this case package.
-- Validation policy: `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin wrappers. New outputs must not be written to case-local `runs/`.
-- Witness policy: runtime checking uses source-as-oracle. Static witness files are optional.
-- Evidence policy: `evidence_ref` points to `evidence/cases/PORT/PORT_0003/`. Case-local `evidence/` remains compatibility retained evidence only.
-- Metadata and notes policy: case-local `metadata/` remains a compatibility/reference asset; public-safe notes are externalized under `evidence/cases/PORT/PORT_0003/notes/`.
-- Runs policy: case-local `runs/` is legacy retained evidence only. User runs belong under top-level `runs/user/<run_id>/`.
-- Benchmark boundary: no denominator change, paper-result change, official metric computation, or global leaderboard is authorized by this package.
+- Validation policy: `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin wrappers. Retained engine-specific scripts are compatibility-blocked because they contain legacy DB execution logic. New outputs must not be written to case-local `runs/`.
+- Witness policy: runtime checking uses source-as-oracle. Static witness files remain optional and are not fabricated.
+- Evidence policy: `evidence_ref` points to `evidence/cases/PORT/PORT_0003/`. Case-local `evidence/` is retained for now because checker/witness configuration still references it and checker/witness edits are out of scope for the clean-template gap closure task.
+- Metadata/data policy: case-local `metadata/` and `data/` were removed after their stable content was represented by `manifest.yaml`, `schema/schema_profile.yaml`, external schema load files, witness policy, evidence refs, and project-level case-set controls.
+- Runs policy: case-local `runs/` placeholder content was removed by the accepted empty-runs cleanup. User runs belong under top-level `runs/user/<run_id>/`.
+- Dialect variants: `sql/dialect_variants/` is retained where semantically needed for portability review.
+- Benchmark boundary: no denominator change, paper-result change, official metric computation, DB/checker execution, or global leaderboard is authorized by this package.
 
 ## Package Contents
 
-- `manifest.yaml` is the package index and uses v2 references for SQL, schema, checker, validation, witness, evidence, metadata compatibility, notes compatibility, and runs compatibility.
+- `manifest.yaml` is the package index and uses v2 references for SQL, schema, checker, validation, witness, evidence, and compatibility state.
 - `sql/` contains direct source, positive, and hard-negative SQL paths.
 - `schema/schema_profile.yaml` links this case to the external reusable schema profile.
 - `checker/` contains comparison, normalization, and expected-rejection configuration.
 - `validation/` contains v2 wrapper entrypoints plus retained engine-specific compatibility scripts where present.
 - `witness/` contains optional witness metadata/static files.
-- `evidence/`, `metadata/`, and `runs/` remain compatibility or retained-reference surfaces, not new run-output locations. Public-safe notes are externalized under `evidence/cases/PORT/PORT_0003/notes/`.
+- Case-local `evidence/` remains a blocked compatibility surface; public-safe external evidence is under `evidence/cases/PORT/PORT_0003/`.
 
 ## Benchmark Boundary
 
-This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
+This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, DB/checker execution, or leaderboard claims. Reports must remain role-aware and denominator-aware.
 
-## Notes / Future Review Status
+## Remaining Clean-template Blockers
 
-Common-core v0 package; future reports must use denominator-aware artifacts rather than README text. This branch must not merge to `main` until the v2 pilot closeout, validator, and runner compatibility are accepted.
+- Case-local `evidence/` cannot be removed until checker/witness references are updated or explicitly remapped.
+- Case-local `schema/<engine>/` cannot be removed while retained engine-specific validation scripts still depend on it.
+- Engine-specific validation scripts cannot be removed until their unique legacy DB execution logic is replaced or declared out of scope.
+- `PORT_0003` dialect variants remain semantically meaningful and require explicit portability review before cleanup.

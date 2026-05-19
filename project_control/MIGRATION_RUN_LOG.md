@@ -7769,6 +7769,81 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_common_core40_conversion_plan_v0` as a read-only planning task using the five-case pilot as a functional v2 template.
 
+### 2026-05-19 · pending · case_package_v2_clean_template_gap_closure_execution_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only writable clean-template gap closure for five v2 pilot cases; no Common-core 40 conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Closed safe clean-template gaps for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Started from 61 remaining extra path groups from the post-empty-runs parity review.
+- Deleted 10 safe case-local compatibility path groups: `metadata/` and `data/` for each of the five pilot cases.
+- Skipped 51 path groups: schema engine compatibility directories, case-local evidence, old engine-specific validation scripts, and `PORT_0003` dialect variants.
+- Verified external schema copies and external evidence copies before deciding which directories could be deleted or must be blocked.
+- Updated manifests and READMEs to remove stale metadata/data/runs compatibility references and document remaining blockers.
+- Did not delete retained evidence or unsafe evidence.
+- Did not modify `case_sets/`, inventory, reports/results, denominator inputs, paper-result inputs, DB/checker outputs, official metrics, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/clean_template_gap_closure_summary.md`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/gap_closure_candidate_matrix.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/gap_closure_deletions_manifest.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/gap_closure_skipped_manifest.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/post_gap_closure_parity_case_summary.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/post_gap_closure_path_gap_matrix.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/gap_closure_validator_results.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/gap_closure_protected_boundary_checks.csv`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/future_case_package_v2_common_core40_plan_or_second_cleanup_prompt.md`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/clean_template_gap_closure_summary.json`
+- `audits/case_package_v2_clean_template_gap_closure_execution_v0/clean_template_gap_closure_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/README.md`
+- `cases/PERF/PERF_0006/manifest.yaml`
+- `cases/PERF/PERF_0007/README.md`
+- `cases/PERF/PERF_0007/manifest.yaml`
+- `cases/CONS/CONS_0005/README.md`
+- `cases/CONS/CONS_0005/manifest.yaml`
+- `cases/PORT/PORT_0003/README.md`
+- `cases/PORT/PORT_0003/manifest.yaml`
+- `cases/LONGTAIL/LONGTAIL_0011/README.md`
+- `cases/LONGTAIL/LONGTAIL_0011/manifest.yaml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Files deleted:
+- Case-local `metadata/` directories for the five pilot cases.
+- Case-local `data/` directories for the five pilot cases.
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- `git diff --check`: passed.
+
+Task result:
+- Clean-template gap closure execution: yes.
+- Pre-task extra path count: 61.
+- Deleted paths count: 10.
+- Skipped paths count: 51.
+- Post-task extra path count: 51.
+- Post-task blockers count: 51.
+- Clean-template-minimal achieved: no.
+- Retained evidence deleted: no.
+- Unsafe evidence deleted: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Run a second targeted cleanup/planning task for checker/witness evidence references and legacy validation script migration before deleting case-local evidence or schema engine directories; otherwise proceed with Common-core 40 planning only with explicit blockers accepted.
+
 ### 2026-05-19 · 0ce5325 · case_package_v2_runs_reality_audit_and_policy_update_v0
 
 Branch: `feature/case-package-v2-external-schema`

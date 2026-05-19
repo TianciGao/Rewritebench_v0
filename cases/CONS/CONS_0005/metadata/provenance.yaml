@@ -1,9 +1,0 @@
-case_id: CONS_0005
-provenance_version: v1
-source_family: Calcite
-source_workload: core_sql_tests
-source_query_identity: blank.iq correlated NOT IN table1/table2
-source_path: datasets/raw/calcite/calcite/core/src/test/resources/sql/blank.iq
-draft_origin: CONS_CALCITE_DRAFT_0001
-legacy_manifest_source: cases/CONS/CONS_0005/manifest.yaml
-release_note: Generated from legacy manifest source fields during canonical public-release migration; no case status or evidence changed.

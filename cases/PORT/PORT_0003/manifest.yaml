@@ -73,11 +73,13 @@ evidence:
   - evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
   package_validation_summary: evidence/package_validation_summary.json
 metadata:
-  provenance: metadata/provenance.yaml
-  taxonomy: metadata/taxonomy.yaml
-  engine_support: metadata/engine_support.yaml
-  denominator_eligibility: metadata/denominator_eligibility.yaml
-  artifact_paths: metadata/artifact_paths.yaml
+  status: merged_or_represented_for_clean_template_gap_closure_v0
+  provenance: represented_by_source_fields_and_claim_boundaries
+  taxonomy: represented_by_pool_source_family_checker_and_claim_boundaries
+  engine_support: represented_by_engine_support_schema_ref_and_evidence_ref
+  denominator_eligibility: represented_by_denominator_eligibility_and_case_sets_reference
+  artifact_paths: represented_by_sql_schema_ref_checker_validation_witness_and_evidence_ref
+  case_local_metadata_directory_status: removed_in_clean_template_gap_closure_execution_v0
 notes:
   witness_design_notes: evidence/cases/PORT/PORT_0003/notes/witness_design_notes.md
   risk_notes: evidence/cases/PORT/PORT_0003/notes/risk_notes.md
@@ -175,7 +177,6 @@ compatibility:
     status: optional_static_witness_not_materialized
   evidence_legacy:
     case_local_evidence: evidence/
-    case_local_runs: runs/
     externalization_status: copy_first_externalized_public_safe_subset
     deletion_status: not_deleted_in_this_task
     package_validation_summary: evidence/package_validation_summary.json
@@ -196,14 +197,11 @@ compatibility:
     - evidence/retained_plans/mysql/rewrite_neg_01.json
     - evidence/retained_plans/spark/rewrite_pos_02_spark.sanitized.txt
     - evidence/retained_plans/spark/rewrite_neg_02_spark.sanitized.txt
+    case_local_runs_status: removed_placeholder_only_in_empty_runs_cleanup_v0
   metadata_legacy:
-    status: retained_case_local_metadata_mapped_not_deleted
-    deletion_status: not_deleted_in_this_task
-    provenance: metadata/provenance.yaml
-    taxonomy: metadata/taxonomy.yaml
-    denominator_eligibility: metadata/denominator_eligibility.yaml
-    artifact_paths: metadata/artifact_paths.yaml
-    engine_support: metadata/engine_support.yaml
+    status: stable_metadata_merged_or_represented_elsewhere
+    deletion_status: deleted_in_clean_template_gap_closure_execution_v0
+    source_of_truth: manifest_fields_schema_ref_evidence_ref_case_sets_and_project_control
   notes_legacy:
     status: externalized_public_safe_subset
     deletion_status: deleted_in_reference_cleanup_execution_v0
@@ -216,12 +214,9 @@ compatibility:
     - evidence/cases/PORT/PORT_0003/notes/schema_notes.md
     - evidence/cases/PORT/PORT_0003/notes/witness_design_notes.md
   runs_legacy:
-    case_local_runs: runs/
-    classification: placeholder_only
-    tracked_files:
-    - runs/README.md
-    deletion_status: not_deleted_in_this_task
-    future_cleanup_action: remove_empty_runs_after_approval
+    status: placeholder_only_runs_removed
+    deletion_status: deleted_in_empty_runs_cleanup_v0
+    retained_evidence_deleted: false
   manifest_legacy_context:
     batch_id: port_wave_2_batch_001
     source_subset: BIRD
@@ -229,3 +224,7 @@ compatibility:
     source_dialect: postgres_like_candidate
     hard_negative_expected_rejection_reference: checker/expected_rejections.yaml
     portability_boundary_reference: evidence/cases/PORT/PORT_0003/notes/migration_notes.md
+  data_legacy:
+    status: represented_by_external_schema_loads_and_witness_policy
+    deletion_status: deleted_in_clean_template_gap_closure_execution_v0
+    source_of_truth: schema_ref_external_schema_profile_and_witness_source_as_oracle_policy
