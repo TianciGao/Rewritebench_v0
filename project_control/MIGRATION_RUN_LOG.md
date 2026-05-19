@@ -7888,14 +7888,14 @@ Task result:
 Next safe action:
 - Authorize `case_package_v2_post_empty_runs_parity_review_v0` as a read-only parity review after placeholder-only case-local `runs/` cleanup.
 
-### 2026-05-19 · pending · case_package_v2_post_empty_runs_parity_review_v0
+### 2026-05-19 · 4bc6eb0 · case_package_v2_post_empty_runs_parity_review_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only read-only parity review after placeholder-only case-local `runs/` cleanup; no cleanup execution; no case conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending
-Push: pending
+Commit: `4bc6eb0e0dda5f100b56a85d83c00c0b97abba68`
+Push: succeeded to `origin/feature/case-package-v2-external-schema` (`cb52be3..4bc6eb0`)
 
 Summary:
 - Re-ran clean-template parity review for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` after audited placeholder-only case-local `runs/` cleanup.

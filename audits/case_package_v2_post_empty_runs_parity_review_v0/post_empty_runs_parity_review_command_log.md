@@ -32,3 +32,5 @@ Commands and outcomes:
 - `git diff --stat`: reviewed audit/project-control-only diff before staging.
 - `git diff --check`: passed.
 - `git status -sb`: reviewed pending intended audit and project-control changes before staging.
+- `git commit -m "audit: review v2 parity after empty runs cleanup"`: created commit `4bc6eb0e0dda5f100b56a85d83c00c0b97abba68`.
+- `git push origin feature/case-package-v2-external-schema`: succeeded (`cb52be3..4bc6eb0`).
