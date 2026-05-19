@@ -1,0 +1,27 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "readme_validator_closeout": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "readmes_updated": true,
+  "validator_rechecked": true,
+  "case_files_modified_only_readme_or_validator": true,
+  "structural_layers_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review and accept the five-case v2 pilot closeout on feature/case-package-v2-external-schema; if accepted, authorize a branch-only Common-core 40 conversion plan that uses the folder-ordered rulebook without merging to main."
+}

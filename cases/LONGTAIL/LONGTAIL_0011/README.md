@@ -16,21 +16,33 @@ The package is organized as a benchmark case package, not as a standalone SQL st
 - Metrics computed in this package: no.
 - Public release role: Common-core v0 canonical case package.
 
+## Case Package v2 Pilot Status
+
+LONGTAIL_0011 is part of the branch-only case-package v2 pilot on `feature/case-package-v2-external-schema`.
+
+- Case ID: `LONGTAIL_0011`.
+- Pool: `LONGTAIL`.
+- Source SQL: `sql/source.sql`.
+- Positive SQL: `sql/pos_01.sql`.
+- Negative SQL: `sql/neg_01.sql`.
+- Schema policy: clean v2 uses case-local `schema/schema_profile.yaml` as the case-facing profile. Executable DDL/load are external under `schemas/sqlstorm_stackoverflow_longtail0011_v0/`; any case-local per-engine schema files are compatibility assets only.
+- Checker policy: `checker/` stores configuration only. Shared checker and validation implementation lives under `src/sql_rewrite_bench/`, not in this case package.
+- Validation policy: `validation/run_validation.sh` and `validation/run_plan_collection.sh` are thin wrappers. New outputs must not be written to case-local `runs/`.
+- Witness policy: runtime checking uses source-as-oracle. Static witness files are optional.
+- Evidence policy: `evidence_ref` points to `evidence/cases/LONGTAIL/LONGTAIL_0011/`. Case-local `evidence/` remains compatibility retained evidence only.
+- Metadata and notes policy: case-local `metadata/` and `notes/` remain compatibility/reference assets; public-safe notes are also copied under `evidence/cases/LONGTAIL/LONGTAIL_0011/notes/`.
+- Runs policy: case-local `runs/` is legacy retained evidence only. User runs belong under top-level `runs/user/<run_id>/`.
+- Benchmark boundary: no denominator change, paper-result change, official metric computation, or global leaderboard is authorized by this package.
+
 ## Package Contents
 
-- `manifest.yaml` is the package index.
-- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
-- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
-- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
-- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
-- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
-- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
-
-## Evidence Boundary
-
-Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
-
-New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
+- `manifest.yaml` is the package index and uses v2 references for SQL, schema, checker, validation, witness, evidence, metadata compatibility, notes compatibility, and runs compatibility.
+- `sql/` contains direct source, positive, and hard-negative SQL paths.
+- `schema/schema_profile.yaml` links this case to the external reusable schema profile.
+- `checker/` contains comparison, normalization, and expected-rejection configuration.
+- `validation/` contains v2 wrapper entrypoints plus retained engine-specific compatibility scripts where present.
+- `witness/` contains optional witness metadata/static files.
+- `evidence/`, `metadata/`, `notes/`, and `runs/` remain compatibility or retained-reference surfaces, not new run-output locations.
 
 ## Benchmark Boundary
 
@@ -38,4 +50,4 @@ This README does not create or change Common-core membership, denominator values
 
 ## Notes / Future Review Status
 
-Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.
+Common-core v0 package; future reports must use denominator-aware artifacts rather than README text. This branch must not merge to `main` until the v2 pilot closeout, validator, and runner compatibility are accepted.

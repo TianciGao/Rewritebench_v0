@@ -7409,3 +7409,61 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_readme_validator_closeout_pilot_v0` to update README wording and validator expectations only for the same five pilot cases on the feature branch, without DB/checker execution, retained-evidence deletion, non-empty runs deletion, protected benchmark-surface changes, official metrics, or leaderboard output.
+
+### 2026-05-19 · PENDING · case_package_v2_readme_validator_closeout_pilot_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only README/validator closeout for five v2 pilot cases; no structural conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes
+Commit: pending
+Push: pending
+
+Summary:
+- Updated README wording for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` to document the finalized v2 pilot structure and compatibility boundaries.
+- Rechecked the static v2 validator for all five pilot cases without changing validator code or tests.
+- Confirmed direct SQL paths, profile-first schema refs, case-local `schema/schema_profile.yaml`, checker config refs, validation wrappers, witness policy, evidence refs, and case-local runs boundaries pass static validation.
+- Did not modify SQL, schema, external schemas, checker config, validation wrappers, witness files, evidence files, metadata files, notes files, case-local runs, `case_sets/`, inventory, reports/results, denominators, paper results, raw legacy evidence, DB/checker execution outputs, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/readme_validator_closeout_summary.md`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/readme_closeout_results.csv`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/validator_closeout_results.csv`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/pilot_case_clean_v2_gap_matrix.csv`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/readme_validator_protected_boundary_checks.csv`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/future_case_package_v2_pilot_closeout_or_common_core40_plan_prompt.md`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/readme_validator_closeout_summary.json`
+- `audits/case_package_v2_readme_validator_closeout_pilot_v0/readme_validator_closeout_command_log.md`
+
+Files modified:
+- `cases/PERF/PERF_0006/README.md`
+- `cases/PERF/PERF_0007/README.md`
+- `cases/CONS/CONS_0005/README.md`
+- `cases/PORT/PORT_0003/README.md`
+- `cases/LONGTAIL/LONGTAIL_0011/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Static v2 validator passed for all five pilot cases.
+- Unit tests passed: `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`.
+- Summary JSON parse and boundary assertions passed.
+- Protected path checks passed; no `case_sets/`, inventory, reports/results, denominator, paper-result, case-local evidence deletion, case-local runs deletion, DB/checker output, structural layer reconversion, or leaderboard change was detected.
+- `git diff --check`: passed.
+
+Task result:
+- README/validator closeout: yes.
+- Pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Readmes updated: yes.
+- Validator rechecked: yes.
+- Validator code changed: no.
+- Tests changed: no.
+- Structural layers modified: no.
+- case_sets/inventory/reports/results changed: no.
+- denominator/paper results changed: no.
+- official metrics computed: no.
+- DB/checker execution run: no.
+- global leaderboard created: no.
+
+Next safe action:
+- Review and accept the five-case v2 pilot closeout on `feature/case-package-v2-external-schema`; if accepted, authorize a branch-only Common-core 40 conversion plan using the folder-ordered rulebook, without merging to `main`, protected benchmark-surface changes, DB/checker execution, official metrics, paper rendering, or leaderboard output.
