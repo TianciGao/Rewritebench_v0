@@ -8696,14 +8696,14 @@ Task result:
 Next safe action:
 - Resolve manifest manual-review provenance caveats in a bounded follow-up, or run Wave C planning without inventing unrecovered source fields.
 
-### 2026-05-20 · pending · case_package_v2_manifest_caveat_closeout_v0
+### 2026-05-20 · 151b8e4f · case_package_v2_manifest_caveat_closeout_v0
 
 Branch: `feature/case-package-v2-external-schema`
 Mode: branch-only manifest caveat closeout; no Wave C conversion; no new case conversion; no DB/checker execution; no official metrics
 Legacy repo modified: no
 Release repo branch modified: yes
-Commit: pending task commit
-Push: pending
+Commit: `151b8e4f`
+Push: succeeded to `origin/feature/case-package-v2-external-schema`
 
 Summary:
 - Reviewed the 32 already converted v2 manifests from the accepted pilots, Wave A, and Wave B.
