@@ -112,8 +112,12 @@ class U2ModuleSplitTests(unittest.TestCase):
                         "  'SQLRB_CASE_DIR', 'SQLRB_SOURCE_SQL_PATH', 'SQLRB_WORKSPACE_DIR',",
                         "  'SQLRB_CANDIDATE_SQL_PATH'",
                         "]",
-                        "(workspace / 'env.json').write_text(json.dumps({k: os.environ[k] for k in keys}, sort_keys=True))",
-                        "Path(os.environ['SQLRB_CANDIDATE_SQL_PATH']).write_text('select 1 as value;\\n')",
+                        "payload = {k: os.environ[k] for k in keys}",
+                        "(workspace / 'env.json').write_text(",
+                        "    json.dumps(payload, sort_keys=True)",
+                        ")",
+                        "candidate = Path(os.environ['SQLRB_CANDIDATE_SQL_PATH'])",
+                        "candidate.write_text('select 1 as value;\\n')",
                         "",
                     ]
                 ),
@@ -148,7 +152,8 @@ class U2ModuleSplitTests(unittest.TestCase):
                     [
                         "import os",
                         "from pathlib import Path",
-                        "Path(os.environ['SQLRB_CANDIDATE_SQL_PATH']).write_text('select 111 as chosen;\\n')",
+                        "candidate = Path(os.environ['SQLRB_CANDIDATE_SQL_PATH'])",
+                        "candidate.write_text('select 111 as chosen;\\n')",
                         "print('select 222 as ignored;')",
                         "",
                     ]

@@ -214,7 +214,9 @@ def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> Reso
             _resolve_case_relative(case_dir, positive_sql_path, field="sql.positive_rewrites.path"),
             field="sql.positive_rewrites.path",
         )
-    negative_sql_path = _first_sql_object_path(sql.get("hard_negatives"), field="sql.hard_negatives")
+    negative_sql_path = _first_sql_object_path(
+        sql.get("hard_negatives"), field="sql.hard_negatives"
+    )
     if negative_sql_path is not None:
         _require_exists(
             _resolve_case_relative(case_dir, negative_sql_path, field="sql.hard_negatives.path"),

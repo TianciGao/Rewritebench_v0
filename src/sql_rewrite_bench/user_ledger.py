@@ -10,6 +10,7 @@ from .case_selection import SelectedCaseEngineRow
 from .user_run_schema import (
     CHECKER_STATUS_NON_DB,
     EXECUTION_STATUS_NON_DB,
+    EXACT_STATUS_NON_DB,
     EXTRACTION_NO_CANDIDATE_SQL,
     EXTRACTION_SKIPPED_DRY_RUN,
     FAILURE_FIELDS,
@@ -17,7 +18,6 @@ from .user_run_schema import (
     FAILURE_NONE,
     LEDGER_FIELDS,
     TIMED_STATUS_NON_DB,
-    EXACT_STATUS_NON_DB,
 )
 
 

@@ -178,7 +178,10 @@ def _apply_db_checker_for_row(
     ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
     ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
     if ledger.get("candidate_generated") != "true" or not ledger.get("candidate_sql_path"):
-        ledger["notes"] = str(ledger.get("notes", "")) + "; db execution skipped because no candidate SQL was generated"
+        ledger["notes"] = (
+            str(ledger.get("notes", ""))
+            + "; db execution skipped because no candidate SQL was generated"
+        )
         return ledger
 
     workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
@@ -230,7 +233,9 @@ def _apply_db_checker_for_row(
     )
     ledger.update(
         {
-            "checker_config_path": _relative_to_repo(case_dir / "checker" / "checker.yaml", repo_root),
+            "checker_config_path": _relative_to_repo(
+                case_dir / "checker" / "checker.yaml", repo_root
+            ),
             "normalization_config_path": _relative_to_repo(
                 case_dir / "checker" / "normalization.yaml", repo_root
             ),
@@ -294,7 +299,9 @@ def _summary_payload(
             row.get("checker_status") == CHECKER_STATUS_SUCCESS for row in ledger_rows
         ),
         "checker_mismatch_rows": failure_counts[FAILURE_MISMATCH],
-        "exact_rows_local": sum(row.get("exact_status") == EXACT_STATUS_EXACT for row in ledger_rows),
+        "exact_rows_local": sum(
+            row.get("exact_status") == EXACT_STATUS_EXACT for row in ledger_rows
+        ),
         "mismatch_rows_local": failure_counts[FAILURE_MISMATCH],
         "local_execution_only": True,
         "official_metrics_computed": False,
@@ -361,7 +368,10 @@ def _write_report(
             f"- Adapter invoked rows: {summary['adapter_invoked_rows']}",
             f"- Candidate generated rows: {generated}",
             f"- Source execution success rows: {summary.get('source_execution_success_rows', 0)}",
-            f"- Candidate execution success rows: {summary.get('candidate_execution_success_rows', 0)}",
+            (
+                "- Candidate execution success rows: "
+                f"{summary.get('candidate_execution_success_rows', 0)}"
+            ),
             f"- Local exact rows: {summary.get('exact_rows_local', 0)}",
             "- Timed rows: 0 (not_timed_non_db_mvp)",
             "",
@@ -382,8 +392,14 @@ def _write_report(
                 "",
                 "- DB execution enabled: `True`",
                 f"- Checker enabled: `{summary.get('checker_enabled')}`",
-                f"- Source execution success rows: {summary.get('source_execution_success_rows', 0)}",
-                f"- Candidate execution success rows: {summary.get('candidate_execution_success_rows', 0)}",
+                (
+                    "- Source execution success rows: "
+                    f"{summary.get('source_execution_success_rows', 0)}"
+                ),
+                (
+                    "- Candidate execution success rows: "
+                    f"{summary.get('candidate_execution_success_rows', 0)}"
+                ),
                 f"- Checker success rows: {summary.get('checker_success_rows', 0)}",
                 f"- Checker mismatch rows: {summary.get('checker_mismatch_rows', 0)}",
                 f"- Local exact rows: {summary.get('exact_rows_local', 0)}",
