@@ -9541,10 +9541,10 @@ Validation result:
 - `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
 
 Commit hash:
-- Pending until commit is created.
+- `726f598` (`docs(cases): fix pilot README markdown structure`)
 
 Push result:
-- Pending until push completes.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`39a0dfb..726f598`).
 
 Task result:
 - Pilot README Markdown structure cleanup: yes.
