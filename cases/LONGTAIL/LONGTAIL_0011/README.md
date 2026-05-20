@@ -2,15 +2,17 @@
 
 ## What this case tests
 
-LONGTAIL_0011 is a realistic or structurally uncommon SQL rewrite case from the `LONGTAIL` pool. It exercises a SQLStorm StackOverflow query with CTE, window function, join, aggregate, and sort structure, where the manifest declares expression simplification and CTE strategy as rewrite context.
-
-The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
+LONGTAIL_0011 is a realistic or structurally uncommon SQL rewrite case from the `LONGTAIL` pool. It
+exercises a SQLStorm query with CTEs, window functions, join, aggregate, and sort and declared
+robustness pressure. The package provides the source query, a reference rewrite, executable context,
+checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a
+statement-level rewrite, not as an isolated SQL string.
 
 ## SQL pattern overview
 
-- Source query: The source query uses CTEs over `Posts` and `Users`, computes `DENSE_RANK()` per owner, groups ranks by display name, and orders the selected posts by score and view count.
-- Reference rewrite: `sql/pos_01.sql` collapses the two-CTE shape into a single ranking CTE by reversing the dense-rank order and filtering `WorstRank = 1`.
-- Checker control: `sql/neg_01.sql` substitutes `ROW_NUMBER()` for `DENSE_RANK()`, making tie handling the retained checker-boundary risk.
+- Source query: The source query reads over `Posts`, `Users`, `RankedPosts`, and `MaxRank` and uses CTEs, joins, aggregation, window functions, grouping, and ordering.
+- Reference rewrite: `sql/pos_01.sql` refactors the query using CTEs, joins, window functions, and ordering while keeping the visible package-level query role.
+- Checker control: A declared hard negative is retained as a checker control for plausible but non-equivalent SQL.
 
 ## Benchmark role
 
@@ -18,8 +20,8 @@ The package provides the source query, a reference rewrite, executable context, 
 - Common-core member: yes
 - Benchmark unit: case package
 - Primary pressure: `long-tail SQL structure and robustness pressure`
-- Main rewrite opportunity: `expression_simplification`, with `cte_strategy` recorded as secondary context
-- Main semantic / portability / robustness risk: tie-sensitive ranking and rank-function substitution in a structurally rich query
+- Main rewrite opportunity: `expression_simplification`, with `CTE strategy` recorded as secondary context
+- Main semantic / portability / robustness risk: tie sensitive ranking and rank function substitution
 - Evaluation scope: governed by `case_sets/common_core_v0/` and `manifest.yaml`
 - Reporting principle: results should be interpreted with role-aware and denominator-aware reporting
 
@@ -35,24 +37,30 @@ The package provides the source query, a reference rewrite, executable context, 
   - `validation/run_validation.sh`
   - `validation/run_plan_collection.sh`
 
-Executable schema and data details are described by the schema profile and repository-level schema contracts.
-
-Source-family, provenance, taxonomy, checker, and denominator-eligibility details are recorded in `manifest.yaml`.
+Executable schema and data details are described by the schema profile and repository-level schema
+contracts. Source-family, provenance, taxonomy, checker, and denominator-eligibility details are
+recorded in `manifest.yaml`.
 
 ## How to use this case
 
-Run validation and reproduction commands from the repository root using the documented repository-level workflow.
+Run validation and reproduction commands from the repository root using the documented
+repository-level workflow. The case-local validation scripts are entrypoints for this package, but
+new user or experiment outputs should be written to the documented top-level output location, not
+committed into the case package.
 
-The case-local validation scripts are entrypoints for this package, but new user or experiment outputs should be written to the documented top-level output location, not committed into the case package.
-
-This README is a human-readable guide. It does not compute metrics, define official paper results, or change denominator membership.
+This README is a human-readable guide. It does not compute metrics, define official paper results,
+or change denominator membership.
 
 ## Interpretation boundary
 
-This case includes a hard negative. Hard negatives are checker controls: they test whether the benchmark validation path rejects plausible but non-equivalent SQL.
+This case includes a hard negative. Hard negatives are checker controls: they test whether the
+benchmark validation path rejects plausible but non-equivalent SQL. They are not method-generated
+candidates.
 
-They are not method-generated candidates. The case represents long-tail SQL structure for robustness evaluation, but it does not claim to represent all production workload patterns.
+This case represents long-tail SQL structure for robustness evaluation, but it does not claim to
+represent all production workload patterns.
 
-Common-core membership, denominator values, metric definitions, and paper-facing results are governed by repository-level case-set, benchmark-spec, ledger, and report artifacts.
-
-This README does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed claim, or general SQL-equivalence claim.
+Common-core membership, denominator values, metric definitions, and paper-facing results are
+governed by repository-level case-set, benchmark-spec, ledger, and report artifacts. This README
+does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed
+claim, or general SQL-equivalence claim.

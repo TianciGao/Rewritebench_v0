@@ -2,15 +2,17 @@
 
 ## What this case tests
 
-PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It exercises a TPC-H Q1-style aggregate query with date-time predicates and expression complexity, where the declared rewrite pressure centers on predicate pushdown and materialization strategy.
-
-The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
+PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It exercises a TPC-H
+Q1 query with date/time function and expression complexity and declared rewrite pressure
+around predicate pushdown. The package provides the source query, a reference rewrite, executable
+context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as
+a statement-level rewrite, not as an isolated SQL string.
 
 ## SQL pattern overview
 
-- Source query: The source query aggregates `lineitem` rows shipped on or before a fixed date, grouping by return flag and line status and ordering those groups.
-- Reference rewrite: `sql/pos_01.sql` isolates the ship-date filter in a derived `filtered_lineitem` relation before applying the same aggregate and ordering structure.
-- Checker control: `sql/neg_01.sql` changes the inclusive ship-date predicate to a strict predicate, excluding boundary-date rows as a plausible but non-equivalent rewrite.
+- Source query: The source query reads over `lineitem` and uses aggregation, grouping, ordering, and date/time or type expressions.
+- Reference rewrite: `sql/pos_01.sql` isolates the source filter in a derived relation before aggregation.
+- Checker control: `sql/neg_01.sql` excludes rows shipped exactly on DATE '1998-08-27' as a plausible but non-equivalent checker control.
 
 ## Benchmark role
 
@@ -19,7 +21,7 @@ The package provides the source query, a reference rewrite, executable context, 
 - Benchmark unit: case package
 - Primary pressure: `performance-sensitive rewrite pressure`
 - Main rewrite opportunity: `predicate_pushdown`, with `materialization_strategy` recorded as secondary context
-- Main semantic / portability / robustness risk: preserving TPC-H aggregate and date-time expression semantics while changing predicate and materialization structure
+- Main semantic / portability / robustness risk: preserving date/time function and expression complexity semantics while changing rewrite structure
 - Evaluation scope: governed by `case_sets/common_core_v0/` and `manifest.yaml`
 - Reporting principle: results should be interpreted with role-aware and denominator-aware reporting
 
@@ -35,24 +37,27 @@ The package provides the source query, a reference rewrite, executable context, 
   - `validation/run_validation.sh`
   - `validation/run_plan_collection.sh`
 
-Executable schema and data details are described by the schema profile and repository-level schema contracts.
-
-Source-family, provenance, taxonomy, checker, and denominator-eligibility details are recorded in `manifest.yaml`.
+Executable schema and data details are described by the schema profile and repository-level schema
+contracts. Source-family, provenance, taxonomy, checker, and denominator-eligibility details are
+recorded in `manifest.yaml`.
 
 ## How to use this case
 
-Run validation and reproduction commands from the repository root using the documented repository-level workflow.
+Run validation and reproduction commands from the repository root using the documented
+repository-level workflow. The case-local validation scripts are entrypoints for this package, but
+new user or experiment outputs should be written to the documented top-level output location, not
+committed into the case package.
 
-The case-local validation scripts are entrypoints for this package, but new user or experiment outputs should be written to the documented top-level output location, not committed into the case package.
-
-This README is a human-readable guide. It does not compute metrics, define official paper results, or change denominator membership.
+This README is a human-readable guide. It does not compute metrics, define official paper results,
+or change denominator membership.
 
 ## Interpretation boundary
 
-This case includes a hard negative. Hard negatives are checker controls: they test whether the benchmark validation path rejects plausible but non-equivalent SQL.
+This case includes a hard negative. Hard negatives are checker controls: they test whether the
+benchmark validation path rejects plausible but non-equivalent SQL. They are not method-generated
+candidates.
 
-They are not method-generated candidates.
-
-Common-core membership, denominator values, metric definitions, and paper-facing results are governed by repository-level case-set, benchmark-spec, ledger, and report artifacts.
-
-This README does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed claim, or general SQL-equivalence claim.
+Common-core membership, denominator values, metric definitions, and paper-facing results are
+governed by repository-level case-set, benchmark-spec, ledger, and report artifacts. This README
+does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed
+claim, or general SQL-equivalence claim.

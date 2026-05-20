@@ -9564,3 +9564,60 @@ Task result:
 
 Next safe action:
 - Human review of the formatted four pilot READMEs. If accepted, authorize a separate README-only batch for all Common-core 40 cases using the finalized public README template.
+
+### 2026-05-20 · Apply finalized public-facing case README template to all Common-core 40 cases
+
+Mode: README-only documentation batch; no case conversion; no cleanup execution; no source-path provenance follow-up; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Applied the finalized public-facing case README template v1.1 to all 40 Common-core case README files listed in `case_sets/common_core_v0/cases.csv`.
+- Confirmed the target count was exactly 40 before editing.
+- Used each case manifest and direct SQL files as source material for public source-query, reference-rewrite, checker-control, or portability-focus summaries.
+- Kept the four accepted pilot README files in the same public-facing structure and normalized the remaining 36 Common-core README files to match.
+- Did not modify manifests, schema profiles, checker files, validation files, SQL files, case sets, inventory, reports/results, denominator files, paper-facing results, raw evidence, scripts, tests, benchmark specs, repository specs, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+- Did not run DB/checker execution, compute official metrics, render paper outputs, parse retained evidence, or create a leaderboard.
+
+Files created:
+- None.
+
+Files modified:
+- 40 Common-core case `README.md` files listed by `case_sets/common_core_v0/cases.csv`.
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Common-core README target count: 40.
+- `git diff --check`: passed.
+- Banned internal-term grep over the 40 target README files: no matches.
+- Template-placeholder grep over the 40 target README files: no matches.
+- Required heading check: exactly one required heading set in each target README.
+- Markdown compression check: passed.
+- Static v2 validators for all 40 Common-core case packages: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Task result:
+- Common-core public README batch: yes.
+- README targets considered: 40.
+- Non-README case files modified: no.
+- Manifest/schema/checker/validation/sql files modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human spot-check of the 40 public README batch, then run the narrow `PERF_0077`/`PERF_0082` source-path provenance follow-up before final public-release closeout planning.

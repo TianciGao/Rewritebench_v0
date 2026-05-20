@@ -1,61 +1,67 @@
 # PORT_0004
 
-## Purpose
+## What this case tests
 
-PORT_0004 is a portability-focused SQL rewrite case package from the `PORT` pool. Source-family context is `PARROT/BIRD` and is represented in `manifest.yaml`, `schema/schema_profile.yaml`, and the external schema package.
+PORT_0004 is a dialect and engine portability case from the `PORT` pool. It exercises a PARROT query
+with declared dialect adaptation pressure around identifier quoting, datetime semantics gap, and
+type semantics gap. The package provides the source query, a reference rewrite, executable context,
+checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a
+statement-level rewrite, not as an isolated SQL string.
 
-The package is organized as a benchmark case package, not as a standalone SQL string. Clean v2 case-local assets are limited to public-readable package metadata, SQL, retained dialect variants, schema profile, checker configuration, validation entrypoints, and optional witness material.
+## SQL pattern overview
 
-## Release Scope
+- Source query: The source query reads over `patient` and uses aggregation, date/time or type expressions, and CASE expressions.
+- Reference rewrite: `sql/pos_01.sql` adapts identifiers, functions, or expression forms for the target dialect/context while keeping the visible query role.
+- Portability focus: The case concentrates on identifier quoting, datetime semantics gap, and type semantics gap across dialect/engine contexts, with `sql/dialect_variants/` retained as optional dialect material.
 
-- Common-core v0 member: yes.
-- Track A same-engine denominator member: yes.
-- Common-core membership is governed by `case_sets/`, not by this README.
-- Denominator role is governed by denominator and case-set files, not by this README.
-- Paper-result contributor: governed by official metric/report artifacts, not this README.
-- Metrics computed in this package: no.
-- Public release role: Common-core v0 canonical case package.
+## Benchmark role
 
-## Case Package v2 Status
+- Pool: `PORT`
+- Common-core member: yes
+- Benchmark unit: case package
+- Primary pressure: `dialect / engine portability pressure`
+- Main rewrite opportunity: `dialect_adaptation`
+- Main semantic / portability / robustness risk: identifier quoting, datetime semantics gap, and type semantics gap
+- Evaluation scope: governed by `case_sets/common_core_v0/` and `manifest.yaml`
+- Reporting principle: results should be interpreted with role-aware and denominator-aware reporting
 
-PORT_0004 is part of Wave C final dialect-variant conversion on `feature/case-package-v2-external-schema`.
+## Package files
 
-- Case ID: `PORT_0004`.
-- Pool: `PORT`.
-- Source SQL: `sql/source.sql`.
-- Positive SQL: `sql/pos_01.sql`.
-- Negative SQL: `sql/neg_01.sql`.
-- Dialect variants: `sql/dialect_variants/spark/` is retained as an optional semantic PORT asset. It is not a cleanup target in this conversion.
-- Schema policy: clean v2 uses case-local `schema/schema_profile.yaml` as the case-facing profile. Executable DDL/load are external under `schemas/parrot_bird_port0004_v0/`; case-local per-engine schema compatibility copies were removed after external schema verification.
-- Checker policy: `checker/` stores configuration only. Shared checker and validation implementation lives under `src/sql_rewrite_bench/`, not in this case package.
-- Validation policy: `validation/run_validation.sh`, `validation/run_plan_collection.sh`, and `validation/run_engine_queries.py` implement the repaired three-file validation contract. They are thin fail-closed entrypoints, do not require case-local `schema/<engine>/`, and must not write to case-local `runs/`.
-- Witness policy: runtime checking uses source-as-oracle. Static witness result files are not fabricated.
-- Evidence policy: clean v2 uses `evidence_policy.static_case_evidence: not_required`; committed static evidence is not required and benchmark evidence is regenerated through validation/checker/baseline/report scripts when separately authorized.
-- Metadata/data/notes policy: stable semantic content is represented by `manifest.yaml`, `schema/schema_profile.yaml`, external schema load files, witness policy, evidence policy, and project-level case-set controls.
-- Runs policy: user runs belong under top-level `runs/user/<run_id>/`, not case-local `runs/`.
-- Benchmark boundary: no denominator change, paper-result change, official metric computation, DB/checker execution, or global leaderboard is authorized by this package.
+- Package index: `manifest.yaml`
+- Source query: `sql/source.sql`
+- Reference rewrite: `sql/pos_01.sql`
+- Hard negative: `sql/neg_01.sql`
+- Schema profile: `schema/schema_profile.yaml`
+- Checker configuration: `checker/`
+- Validation entrypoints:
+  - `validation/run_validation.sh`
+  - `validation/run_plan_collection.sh`
+- Optional dialect variants: `sql/dialect_variants/`
 
-## Package Contents
+Executable schema and data details are described by the schema profile and repository-level schema
+contracts. Source-family, provenance, taxonomy, checker, and denominator-eligibility details are
+recorded in `manifest.yaml`.
 
-- `manifest.yaml` is the package index and uses v2 semantic references for SQL, dialect variants, schema, checker, validation, witness, regeneration-first evidence policy, and explicit caveats.
-- `sql/` contains direct source, positive, and hard-negative SQL paths plus retained Spark dialect variants.
-- `schema/schema_profile.yaml` links this case to the external per-case schema profile.
-- `checker/` contains comparison, normalization, and expected-rejection configuration.
-- `validation/` contains the v2 entrypoints `run_validation.sh`, `run_plan_collection.sh`, and the thin shared-runner shim `run_engine_queries.py`.
-- `witness/` contains optional source-as-oracle witness metadata.
-- Static evidence directories are not part of the clean public case surface; benchmark evidence is regenerated through authorized validation/checker/report paths.
+## How to use this case
 
-## Evidence Boundary
+Run validation and reproduction commands from the repository root using the documented
+repository-level workflow. The case-local validation scripts are entrypoints for this package, but
+new user or experiment outputs should be written to the documented top-level output location, not
+committed into the case package.
 
-Static case-local `evidence/` is not required for clean v2. Raw legacy runs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
+This README is a human-readable guide. It does not compute metrics, define official paper results,
+or change denominator membership.
 
-Generated local runner outputs must not write into case-local `runs/`. Future local outputs should use caller-provided output roots such as top-level `runs/user/<run_id>/`.
+## Interpretation boundary
 
-## Benchmark Boundary
+This case includes a hard negative. Hard negatives are checker controls: they test whether the
+benchmark validation path rejects plausible but non-equivalent SQL. They are not method-generated
+candidates.
 
-This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, DB/checker execution, or leaderboard claims. Reports must remain role-aware and denominator-aware.
+Retained dialect variants are semantic portability assets for this case; their presence does not by
+itself claim full portability closure or cross-engine speedup.
 
-## Notes / Future Review Status
-
-- Spark dialect variants are retained for future portability review.
-- Static inference remains subject to future execution review; no DB/checker execution was run during this conversion.
+Common-core membership, denominator values, metric definitions, and paper-facing results are
+governed by repository-level case-set, benchmark-spec, ledger, and report artifacts. This README
+does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed
+claim, or general SQL-equivalence claim.
