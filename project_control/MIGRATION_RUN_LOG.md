@@ -10435,3 +10435,77 @@ Task result:
 
 Next safe action:
 - Human review of U3 preflight fields and failure-bucket behavior, then authorize U4 local quality report v0 only if accepted.
+
+### 2026-05-21 · U4 implement local quality report v0 for user-entry diagnostics
+
+Mode: local-diagnostic implementation; local quality summary/report only; no tag slicing; no timing; no official metrics; no paper rendering; no retained-evidence parsing; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added `src/sql_rewrite_bench/user_quality_report.py` to build and write local diagnostic quality summaries from current user-run ledger rows.
+- Integrated quality output generation into `src/sql_rewrite_bench/user_run.py` after `ledger.csv`, `failures.csv`, `summary.json`, and `report.md` are written.
+- Added `quality_summary.json` and `quality_report.md` to every user-run output under `runs/user/{run_name}/`.
+- Added `tests/user_entry/test_quality_report.py` covering dry-run smoke, adapter-capture smoke, local boundary flags, funnel counts, absent tag slices, and no official/timing metric fields.
+- Created `audits/user_entry_local_quality_report_v0/`.
+
+Files created:
+- `src/sql_rewrite_bench/user_quality_report.py`
+- `tests/user_entry/test_quality_report.py`
+- `audits/user_entry_local_quality_report_v0/README.md`
+- `audits/user_entry_local_quality_report_v0/quality_summary_schema.md`
+- `audits/user_entry_local_quality_report_v0/quality_report_sections.md`
+- `audits/user_entry_local_quality_report_v0/funnel_count_mapping.csv`
+- `audits/user_entry_local_quality_report_v0/behavior_preservation_results.csv`
+- `audits/user_entry_local_quality_report_v0/test_results.md`
+- `audits/user_entry_local_quality_report_v0/protected_surface_check.md`
+- `audits/user_entry_local_quality_report_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `PYTHONPATH=src python -m py_compile src/sql_rewrite_bench/user_quality_report.py src/sql_rewrite_bench/user_run.py src/sql_rewrite_bench/user_ledger.py src/sql_rewrite_bench/user_run_schema.py`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- Quality output inspection: passed for `quality_summary.json` and `quality_report.md`.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 55 tests with 1 skipped.
+- CSV parse checks: passed for 2 new CSV files.
+- Protected-surface diff check: passed.
+- Run-output cleanup check: passed; `runs/user/u4_quality_dry_run` and `runs/user/u4_quality_dummy_adapter` removed before commit.
+
+Commit hash:
+- Pending until commit.
+
+Push result:
+- Pending until push.
+
+Task result:
+- U4 local quality report implemented: yes.
+- Module added: `src/sql_rewrite_bench/user_quality_report.py`.
+- Output files added to user runs: `quality_summary.json`, `quality_report.md`.
+- `user_run.py` integration completed: yes.
+- Scripts modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- Live DB/checker execution run by this task: no.
+- Tag slices created by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of U4 quality outputs, then authorize U5 tag-aware slices v0 only if accepted.

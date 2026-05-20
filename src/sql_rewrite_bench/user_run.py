@@ -37,6 +37,11 @@ from .user_ledger import (
     write_failures,
     write_ledger,
 )
+from .user_quality_report import (
+    build_quality_summary,
+    write_quality_report,
+    write_quality_summary,
+)
 from .user_run_schema import (
     CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING,
     CANDIDATE_PREFLIGHT_FAILURE_NONE,
@@ -621,6 +626,9 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         ledger_rows=ledger_rows,
         summary=summary,
     )
+    quality_summary = build_quality_summary(ledger_rows, run_config=config)
+    write_quality_summary(quality_summary, out_dir / "quality_summary.json")
+    write_quality_report(quality_summary, out_dir / "quality_report.md")
     return summary
 
 
