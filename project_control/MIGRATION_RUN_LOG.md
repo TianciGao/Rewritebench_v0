@@ -9137,3 +9137,52 @@ Task result:
 
 Next safe action:
 - Run `case_package_v2_common_core40_wave_c_subwave2_post_conversion_review_v0` as a read-only parity review for the five converted subwave 2 PORT cases before authorizing the final dialect-variant Wave C subwave for `PORT_0004` and `PORT_0013`.
+
+### 2026-05-20 · case_package_v2_common_core40_wave_c_subwave2_post_conversion_review_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only post-conversion review for Wave C subwave 2; no further conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, audit/project-control files only
+
+Summary:
+- Reviewed exactly `PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, and `PORT_0025` after the Wave C subwave 2 conversion.
+- Confirmed the static v2 validator passes for all five reviewed cases.
+- Confirmed clean-template-minimal case-local structure for all five reviewed cases.
+- Confirmed repaired semantic manifest contract, object-form SQL metadata, profile-first schema contract, checker config-only paths, source-as-oracle witness policy, regeneration-first `evidence_policy`, and three-file validation contract.
+- Confirmed forbidden compatibility paths are absent: case-local `evidence/`, `runs/`, `metadata/`, `notes/`, `data/`, case-local schema engine dirs, old engine-specific validation scripts, per-case checker scripts, and `__pycache__/`.
+- Confirmed external schema profiles resolve for `parrot_bird_port0008_v0`, `parrot_bird_port0012_v0`, `parrot_bird_port0022_v0`, `parrot_bird_port0024_v0`, and `parrot_bird_port0025_v0`.
+- Confirmed shell validation wrappers do not call old engine scripts, require case-local schema engine dirs, or write case-local `runs/`.
+- Ran static validator regression checks for all already converted pilot, Wave A, Wave B, and `PORT_0005` cases; all passed.
+- Did not modify any case package or schema in this review.
+- Did not modify `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, `evidence/cases/`, or leaderboard outputs.
+
+Validation:
+- Static validators for `PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, and `PORT_0025`: passed.
+- Static validators for all already converted pilot, Wave A, Wave B, and `PORT_0005` cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- Protected-surface diff check for `cases`, `schemas`, `case_sets`, inventory, reports/results, and `evidence/cases`: passed with no output.
+- `git diff --check`: passed.
+
+Task result:
+- Wave C subwave 2 post-conversion review: yes.
+- Reviewed case IDs: `PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Validator passed count: 5.
+- Clean-template-minimal passed count: 5.
+- Manifest consistency passed: yes.
+- Validation three-file contract passed: yes.
+- Ready for final dialect-variant PORT cases: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize a bounded writable final Wave C dialect-variant PORT conversion for `PORT_0004` and `PORT_0013`, preserving existing `sql/dialect_variants/` as semantic v2 assets and keeping all protected surfaces unchanged.
