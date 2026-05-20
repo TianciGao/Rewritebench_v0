@@ -6,17 +6,27 @@ import csv
 from pathlib import Path
 
 from .adapter_runner import AdapterInvocationResult, relative_to_repo
+from .candidate_preflight import CandidatePreflightResult
 from .case_selection import SelectedCaseEngineRow
 from .user_run_schema import (
+    CANDIDATE_PARSE_STATUS_NOT_CHECKED,
+    CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING,
+    CANDIDATE_PREFLIGHT_FAILURE_NONE,
+    CANDIDATE_PREFLIGHT_STATUS_FAILED,
+    CANDIDATE_PREFLIGHT_STATUS_NOT_RUN,
+    CANDIDATE_PREFLIGHT_STATUS_SKIPPED,
+    CANDIDATE_SAFETY_STATUS_NOT_CHECKED,
     CHECKER_STATUS_NON_DB,
     EXECUTION_STATUS_NON_DB,
     EXACT_STATUS_NON_DB,
     EXTRACTION_NO_CANDIDATE_SQL,
     EXTRACTION_SKIPPED_DRY_RUN,
+    FAILURE_CANDIDATE_PREFLIGHT_FAILED,
     FAILURE_FIELDS,
     FAILURE_NO_CANDIDATE_SQL,
     FAILURE_NONE,
     LEDGER_FIELDS,
+    SOURCE_LIKE_STATUS_NOT_CHECKED,
     TIMED_STATUS_NON_DB,
 )
 
@@ -42,6 +52,12 @@ def ledger_base(run_id: str, row: SelectedCaseEngineRow, artifact_path: str) -> 
         "candidate_generated": "false",
         "candidate_sql_path": "",
         "extraction_status": EXTRACTION_NO_CANDIDATE_SQL,
+        "candidate_preflight_status": CANDIDATE_PREFLIGHT_STATUS_NOT_RUN,
+        "candidate_preflight_passed": "",
+        "candidate_preflight_failure_class": CANDIDATE_PREFLIGHT_FAILURE_NONE,
+        "candidate_safety_status": CANDIDATE_SAFETY_STATUS_NOT_CHECKED,
+        "candidate_parse_status": CANDIDATE_PARSE_STATUS_NOT_CHECKED,
+        "source_like_status": SOURCE_LIKE_STATUS_NOT_CHECKED,
         "execution_status": EXECUTION_STATUS_NON_DB,
         "checker_status": CHECKER_STATUS_NON_DB,
         "exact_status": EXACT_STATUS_NON_DB,
@@ -110,6 +126,45 @@ def ledger_from_adapter_result(
             "extraction_status": adapter_result.extraction_status,
             "failure_bucket": adapter_result.failure_bucket_hint,
             "notes": adapter_result.notes,
+        }
+    )
+    return ledger
+
+
+def apply_candidate_preflight_result(
+    ledger: dict[str, object], result: CandidatePreflightResult
+) -> dict[str, object]:
+    ledger.update(
+        {
+            "candidate_preflight_status": result.candidate_preflight_status,
+            "candidate_preflight_passed": result.candidate_preflight_passed,
+            "candidate_preflight_failure_class": result.candidate_preflight_failure_class,
+            "candidate_safety_status": result.candidate_safety_status,
+            "candidate_parse_status": result.candidate_parse_status,
+            "source_like_status": result.source_like_status,
+            "notes": str(ledger.get("notes", "")) + "; " + result.notes,
+        }
+    )
+    if result.candidate_preflight_status == CANDIDATE_PREFLIGHT_STATUS_FAILED:
+        ledger["failure_bucket"] = FAILURE_CANDIDATE_PREFLIGHT_FAILED
+    return ledger
+
+
+def mark_candidate_preflight_skipped(
+    ledger: dict[str, object],
+    *,
+    failure_class: str = CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING,
+    notes: str = "candidate preflight skipped because no candidate SQL was generated",
+) -> dict[str, object]:
+    ledger.update(
+        {
+            "candidate_preflight_status": CANDIDATE_PREFLIGHT_STATUS_SKIPPED,
+            "candidate_preflight_passed": "",
+            "candidate_preflight_failure_class": failure_class,
+            "candidate_safety_status": CANDIDATE_SAFETY_STATUS_NOT_CHECKED,
+            "candidate_parse_status": CANDIDATE_PARSE_STATUS_NOT_CHECKED,
+            "source_like_status": SOURCE_LIKE_STATUS_NOT_CHECKED,
+            "notes": str(ledger.get("notes", "")) + "; " + notes,
         }
     )
     return ledger

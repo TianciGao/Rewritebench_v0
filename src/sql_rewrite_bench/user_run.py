@@ -17,7 +17,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .adapter_runner import run_adapter_for_case
-from .case_package_resolver import resolve_case_package
+from .candidate_preflight import preflight_error_result, run_candidate_preflight
+from .case_package_resolver import ResolvedCasePackage, resolve_case_package
 from .case_selection import (
     ALLOWED_ENGINES,
     ALLOWED_POOLS,
@@ -28,13 +29,18 @@ from .case_selection import (
 from .local_result_checker import run_local_checker
 from .postgres_execution import execute_postgres_case
 from .user_ledger import (
+    apply_candidate_preflight_result,
     dry_run_ledger_for_row,
     failure_rows_from_ledger,
     ledger_from_adapter_result,
+    mark_candidate_preflight_skipped,
     write_failures,
     write_ledger,
 )
 from .user_run_schema import (
+    CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING,
+    CANDIDATE_PREFLIGHT_FAILURE_NONE,
+    CANDIDATE_PREFLIGHT_STATUS_FAILED,
     CHECKER_STATUS_NOT_ENABLED,
     CHECKER_STATUS_SUCCESS,
     EXACT_STATUS_NON_DB,
@@ -44,6 +50,7 @@ from .user_run_schema import (
     EXECUTION_STATUS_SOURCE_SUCCESS,
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
     FAILURE_ADAPTER_FAILED,
+    FAILURE_CANDIDATE_PREFLIGHT_FAILED,
     FAILURE_MISMATCH,
     FAILURE_NO_CANDIDATE_SQL,
     FAILURE_NONE,
@@ -159,6 +166,37 @@ def _selected_case_rows(
     ]
 
 
+def _apply_candidate_preflight_for_row(
+    *,
+    ledger: dict[str, object],
+    row: SelectedCaseEngineRow,
+    resolved_package: ResolvedCasePackage,
+    repo_root: Path,
+) -> dict[str, object]:
+    """Run local text-level preflight for a generated candidate SQL file."""
+
+    if ledger.get("candidate_generated") != "true" or not ledger.get("candidate_sql_path"):
+        failure_class = (
+            CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING
+            if ledger.get("failure_bucket") == FAILURE_NO_CANDIDATE_SQL
+            else CANDIDATE_PREFLIGHT_FAILURE_NONE
+        )
+        return mark_candidate_preflight_skipped(ledger, failure_class=failure_class)
+
+    try:
+        source_sql_text = resolved_package.source_sql_path.read_text(encoding="utf-8")
+        candidate_sql_path = repo_root / str(ledger["candidate_sql_path"])
+        candidate_sql_text = candidate_sql_path.read_text(encoding="utf-8")
+        result = run_candidate_preflight(
+            source_sql_text=source_sql_text,
+            candidate_sql_text=candidate_sql_text,
+            dialect=row.engine,
+        )
+    except Exception as exc:
+        result = preflight_error_result(str(exc))
+    return apply_candidate_preflight_result(ledger, result)
+
+
 def _apply_db_checker_for_row(
     *,
     ledger: dict[str, object],
@@ -181,6 +219,16 @@ def _apply_db_checker_for_row(
         ledger["notes"] = (
             str(ledger.get("notes", ""))
             + "; db execution skipped because no candidate SQL was generated"
+        )
+        return ledger
+
+    if ledger.get("candidate_preflight_status") == CANDIDATE_PREFLIGHT_STATUS_FAILED:
+        ledger["execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+        ledger["checker_status"] = CHECKER_STATUS_NOT_ENABLED
+        ledger["exact_status"] = EXACT_STATUS_NON_DB
+        ledger["notes"] = (
+            str(ledger.get("notes", ""))
+            + "; db/checker skipped because candidate preflight failed"
         )
         return ledger
 
@@ -285,6 +333,9 @@ def _summary_payload(
         ),
         "adapter_failed_rows": failure_counts[FAILURE_ADAPTER_FAILED],
         "no_candidate_sql_rows": failure_counts[FAILURE_NO_CANDIDATE_SQL],
+        "candidate_preflight_failed_rows": failure_counts[
+            FAILURE_CANDIDATE_PREFLIGHT_FAILED
+        ],
         "db_execution_enabled": db_execution_enabled,
         "checker_enabled": checker_enabled,
         "source_execution_success_rows": sum(
@@ -516,6 +567,17 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
                 repo_root=repo_root,
             )
             for row, resolved in zip(selected, resolved_packages, strict=True)
+        ]
+        ledger_rows = [
+            _apply_candidate_preflight_for_row(
+                ledger=ledger,
+                row=row,
+                resolved_package=resolved,
+                repo_root=repo_root,
+            )
+            for ledger, row, resolved in zip(
+                ledger_rows, selected, resolved_packages, strict=True
+            )
         ]
     if enable_db_execution and not getattr(args, "dry_run", False):
         ledger_rows = [

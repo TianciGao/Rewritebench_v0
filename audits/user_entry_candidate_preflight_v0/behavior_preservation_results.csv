@@ -1,0 +1,8 @@
+check_name,status,details
+module_help,passed,`PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`
+wrapper_help,passed,`python scripts/user/run_user_benchmark.py --help`
+public_smoke_dry_run,passed,selected_rows=2 and candidate_generated_rows=0
+public_smoke_adapter_capture,passed,selected_rows=2 and candidate_generated_rows=2
+user_entry_tests,passed,52 passed and 1 skipped
+db_checker_live_execution,not_run,No live DB/checker execution was run; DB-skip behavior covered by mocked unit test
+run_output_cleanup,passed,Task smoke outputs removed before commit

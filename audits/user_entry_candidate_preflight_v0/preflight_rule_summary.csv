@@ -1,0 +1,10 @@
+rule_id,rule_name,input_condition,status_on_match,failure_class,safety_status,parse_status,source_like_status,notes
+R1,candidate_exists,no generated candidate,skipped,candidate_missing,not_checked,not_checked,not_checked,Does not overwrite existing no_candidate_sql or adapter failure behavior
+R2,non_empty_candidate,empty or whitespace-only generated candidate,failed,empty_candidate,not_checked,not_checked,not_checked,Readiness failure before DB execution
+R3,query_like_statement,top-level SELECT or WITH after leading comments,passed,none,safe,not_checked,source_like_or_changed,Allows trailing semicolon
+R4,unsafe_sql_guard,"DROP/DELETE/UPDATE/INSERT/MERGE/ALTER/CREATE/TRUNCATE/GRANT/REVOKE/COPY/CALL/EXEC",failed,unsafe_sql,unsafe,not_checked,not_checked,Conservative text-level guard only
+R5,multi_statement_guard,more than one apparent SQL statement,failed,multi_statement,unsafe,not_checked,not_checked,Trailing semicolon is allowed
+R6,unsupported_statement_type,top-level statement is not SELECT or WITH,failed,unsupported_statement_type,unsafe,not_checked,not_checked,Does not attempt formal parsing
+R7,parse_status,no parser dependency added,passed_or_failed_by_text_rules,none_or_rule_failure,safe_or_unsafe,not_checked,not_checked,Parser support intentionally not added in v0
+R8,source_like_diagnostic,normalized candidate matches normalized source,passed,none,safe,not_checked,source_like,Diagnostic only; does not fail preflight
+R9,changed_diagnostic,normalized candidate differs from normalized source,passed,none,safe,not_checked,changed,Diagnostic only; no semantic correctness claim

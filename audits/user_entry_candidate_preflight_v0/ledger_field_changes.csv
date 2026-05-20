@@ -1,0 +1,8 @@
+field_name,field_type,values_added_or_used,owner_module,local_diagnostic_only,official_metric_input,notes
+candidate_preflight_status,enum,"not_run; passed; failed; skipped",candidate_preflight.py -> user_ledger.py,true,false,Records whether generated candidate preflight ran and passed
+candidate_preflight_passed,boolean-string,"true; false; empty",candidate_preflight.py -> user_ledger.py,true,false,Empty when preflight is not applicable
+candidate_preflight_failure_class,enum,"none; candidate_missing; empty_candidate; unsafe_sql; multi_statement; unsupported_statement_type; parse_failed; preflight_error",candidate_preflight.py -> user_ledger.py,true,false,Failure class for generated candidate preflight
+candidate_safety_status,enum,"not_checked; safe; unsafe",candidate_preflight.py,true,false,Text-level readiness/safety status only
+candidate_parse_status,enum,"not_checked; parse_ok; parse_failed; parser_unavailable",candidate_preflight.py,true,false,v0 records not_checked because no dependency was added
+source_like_status,enum,"not_checked; source_like; changed",candidate_preflight.py,true,false,Diagnostic source-like/no-op flag; not a failure in U3
+failure_bucket,enum,candidate_preflight_failed,user_ledger.py,true,false,Applied only when a generated candidate fails preflight
