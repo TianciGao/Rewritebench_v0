@@ -1,0 +1,13 @@
+check_name,status,details
+no case files modified,pass,no git diff entries
+no schemas modified,pass,no git diff entries
+no case_sets changed,pass,no git diff entries
+no inventory changed,pass,no git diff entries
+no reports/results changed,pass,no git diff entries
+no denominator changed,pass,no git diff entries
+no paper results changed,pass,no git diff entries
+no evidence/cases created,pass,no git diff entries
+no official metrics computed,pass,not performed by this read-only closeout rerun
+no DB/checker execution,pass,not performed by this read-only closeout rerun
+no global leaderboard,pass,not performed by this read-only closeout rerun
+no dialect variants deleted,pass,"retained dialect variant files exist for PORT_0003, PORT_0004, PORT_0005, and PORT_0013"

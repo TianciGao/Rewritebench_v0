@@ -9342,3 +9342,56 @@ Task result:
 
 Next safe action:
 - Rerun the read-only Common-core 40 v2 final closeout. If clean-template-minimal passes for all 40 cases, perform the separate `PERF_0077`/`PERF_0082` source-path provenance follow-up before public release closeout.
+
+### 2026-05-20 · case_package_v2_common_core40_final_closeout_rerun_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Common-core 40 v2 final closeout rerun; no case conversion; no cleanup execution; no source-path provenance follow-up; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, audit/project-control files only
+
+Summary:
+- Reran the Common-core 40 v2 final closeout after `case_package_v2_pilot_leftover_compat_dirs_cleanup_v0`.
+- Reviewed all 40 Common-core v0 cases.
+- Confirmed static validators pass for all 40 cases.
+- Confirmed clean-template-minimal passes for all 40 cases after the 15 leftover empty pilot compatibility directories were removed.
+- Confirmed manifest semantic contract passes for all 40 cases.
+- Confirmed validation three-file contract passes for all 40 cases.
+- Confirmed retained dialect variants for `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013` remain present and are treated as semantic optional PORT assets, not blockers.
+- Confirmed regeneration-first `evidence_policy` for all 40 cases and did not create `evidence/cases/`.
+- Confirmed schema external profiles resolve for all 40 cases and case-local schema engine dirs are absent.
+- Recorded `PERF_0077` and `PERF_0082` source-path caveats as the remaining separate provenance follow-up. These do not block Common-core 40 v2 case-package closeout, but do block final public source-path closeout until resolved or explicitly closed.
+- Did not modify any case package or schema in this read-only rerun.
+- Did not modify `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Validation:
+- Static v2 validators for all 40 Common-core cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- `git diff --check`: passed.
+
+Task result:
+- Common-core 40 final closeout rerun: yes.
+- Common-core cases reviewed: 40.
+- Validators passed count: 40.
+- Clean-template-minimal passed count: 40.
+- Manifest semantic contract passed count: 40.
+- Validation three-file contract passed count: 40.
+- Dialect variant cases retained: `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013`.
+- Remaining blockers count: 0.
+- `PERF_0077`/`PERF_0082` follow-up required: yes.
+- Ready for release closeout after source-path follow-up: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run the narrow `PERF_0077`/`PERF_0082` source-path provenance follow-up. After it resolves or explicitly closes those source-path caveats, proceed to final public-release closeout planning.
