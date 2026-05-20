@@ -10,7 +10,6 @@ SQL-RewriteBench 是一个面向 statement-level SQL rewrite 的 benchmark / wor
 - `Track A` same-engine evaluation 展开到 `PostgreSQL` / `MySQL` / `Spark SQL`，共 120 planned rows。
 - `case package` 是 benchmark unit。
 - 结果解释必须 role-aware 和 denominator-aware。
-- 本仓库不提供全局 leaderboard。
 
 ## 快速 smoke run
 
