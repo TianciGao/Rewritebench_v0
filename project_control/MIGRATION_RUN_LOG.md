@@ -9241,3 +9241,56 @@ Task result:
 
 Next safe action:
 - Run a read-only Common-core 40 v2 final closeout covering all converted Common-core v2 cases, with special checks for retained PORT dialect variants in `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013`.
+
+### 2026-05-20 · case_package_v2_common_core40_final_closeout_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Common-core 40 v2 final closeout; no case conversion; no cleanup execution; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, audit/project-control files only
+
+Summary:
+- Reviewed all 40 Common-core v0 cases after pilot, Wave A, Wave B, Wave C PORT conversions, semantic manifest repair, validation three-file contract repair, evidence-policy migration, and clean-template cleanup.
+- Ran the static v2 validator for all 40 Common-core cases; all passed.
+- Confirmed manifest semantic contract pass for all 40 cases.
+- Confirmed validation three-file contract pass for all 40 cases.
+- Confirmed schema external profiles resolve for all 40 cases and case-local schema engine dirs are absent.
+- Confirmed regeneration-first `evidence_policy` for all 40 cases and did not create `evidence/cases/`.
+- Confirmed retained dialect variants for `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013`; dialect variants are semantic optional PORT assets and were not deleted.
+- Found clean-template-minimal blockers in five pilot cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Remaining blockers are 15 forbidden path entries: each blocked pilot still has `notes/`, `sql/positives/`, and `sql/negatives/`.
+- Recorded `PERF_0077` and `PERF_0082` source-path caveats as separate follow-up items. They do not block case-package validator pass, but they do block final public source-path closeout.
+- Did not modify any case package or schema in this read-only audit.
+- Did not modify `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Validation:
+- Static v2 validators for all 40 Common-core cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- `git diff --check`: passed.
+
+Task result:
+- Common-core 40 final closeout: yes, audit completed with blockers.
+- Common-core cases reviewed: 40.
+- Validators passed count: 40.
+- Clean-template-minimal passed count: 35.
+- Manifest semantic contract passed count: 40.
+- Validation three-file contract passed count: 40.
+- Dialect variant cases retained: `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013`.
+- Remaining blockers count: 15 path entries across five pilot cases.
+- `PERF_0077`/`PERF_0082` follow-up required: yes.
+- Ready for release closeout after source-path follow-up: no, because structural pilot cleanup blockers remain.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run a narrow writable cleanup for leftover empty pilot compatibility directories (`notes/`, `sql/positives/`, and `sql/negatives/`) in `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`; rerun this final closeout; then perform the `PERF_0077`/`PERF_0082` source-path provenance follow-up before public release closeout.

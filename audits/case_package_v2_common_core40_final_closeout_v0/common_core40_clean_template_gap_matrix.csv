@@ -1,0 +1,1361 @@
+case_id,path,exists,clean_template_status,current_role,blocker,next_action,notes
+PERF_0006,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0006,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,notes,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0006,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,sql/positives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0006,sql/negatives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0006,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0007,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0007,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,notes,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0007,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,sql/positives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0007,sql/negatives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0007,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0008,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0008,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0008,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0013,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0013,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0013,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0017,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0017,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0017,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0019,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0019,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0019,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0024,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0024,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0024,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0033,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0033,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0033,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0034,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0034,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0034,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0035,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0035,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0035,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0052,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0052,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0052,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0054,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0054,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0054,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0056,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0056,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0056,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0062,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0062,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0062,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0077,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0077,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0077,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PERF_0082,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PERF_0082,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PERF_0082,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0005,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0005,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,notes,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+CONS_0005,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,sql/positives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+CONS_0005,sql/negatives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0005,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0007,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0007,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0007,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0009,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0009,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0009,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0010,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0010,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0010,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0011,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0011,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0011,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0012,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0012,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0012,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0024,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0024,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0024,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0036,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0036,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0036,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+CONS_0037,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+CONS_0037,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+CONS_0037,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PORT_0003,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0003,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,notes,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PORT_0003,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,sql/positives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PORT_0003,sql/negatives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0003,sql/dialect_variants,true,allowed_optional_semantic_asset,semantic PORT dialect variant asset,false,retain,special retained dialect variant case
+PORT_0004,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0004,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0004,sql/dialect_variants,true,allowed_optional_semantic_asset,semantic PORT dialect variant asset,false,retain,special retained dialect variant case
+PORT_0005,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0005,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0005,sql/dialect_variants,true,allowed_optional_semantic_asset,semantic PORT dialect variant asset,false,retain,special retained dialect variant case
+PORT_0008,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0008,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0008,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PORT_0012,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0012,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0012,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PORT_0013,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0013,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0013,sql/dialect_variants,true,allowed_optional_semantic_asset,semantic PORT dialect variant asset,false,retain,special retained dialect variant case
+PORT_0022,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0022,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0022,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PORT_0024,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0024,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0024,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+PORT_0025,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+PORT_0025,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+PORT_0025,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0011,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0011,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,notes,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,sql/positives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,sql/negatives,true,forbidden_present,legacy compatibility path,true,delete in targeted cleanup after authorization,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0011,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0012,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0012,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0012,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0013,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0013,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0013,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0022,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0022,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0022,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0023,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0023,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0023,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets
+LONGTAIL_0024,README.md,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,manifest.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,sql/source.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,sql/pos_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,sql/neg_01.sql,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,schema/schema_profile.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,checker/checker.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,checker/normalization.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,checker/compare_config.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,checker/expected_rejections.yaml,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_validation.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_plan_collection.sh,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_engine_queries.py,true,required_present,required clean v2 asset,false,none,required by final clean-template-minimal v2
+LONGTAIL_0024,evidence,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,runs,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,metadata,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,notes,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,data,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,schema/postgres,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,schema/mysql,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,schema/spark,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,sql/positives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,sql/negatives,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_postgres_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_mysql_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_spark_validation.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_postgres_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_mysql_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,validation/run_spark_plan_collection.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,checker/run_checks.sh,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,checker/check_results.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,checker/check_sql_consistency.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,checker/check_plan_artifacts.py,false,forbidden_absent,not present,false,none,forbidden by final clean-template-minimal v2
+LONGTAIL_0024,sql/dialect_variants,false,optional_absent,not present,false,none,optional only for semantic PORT assets

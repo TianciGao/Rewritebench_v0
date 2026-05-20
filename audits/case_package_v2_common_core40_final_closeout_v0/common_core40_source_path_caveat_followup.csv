@@ -1,0 +1,3 @@
+case_id,current_caveat,blocks_case_package_closeout,blocks_final_public_source_path_closeout,required_followup,notes
+PERF_0077,source_path_not_recovered; draft_origin_not_explicitly_recovered_nonblocking,false,true,recover or explicitly close public source_path provenance for final public source-path closeout,current source_path=manual_review_required; validator passes because caveat is explicit
+PERF_0082,source_path_not_recovered; draft_origin_not_explicitly_recovered_nonblocking,false,true,recover or explicitly close public source_path provenance for final public source-path closeout,current source_path=manual_review_required; validator passes because caveat is explicit
