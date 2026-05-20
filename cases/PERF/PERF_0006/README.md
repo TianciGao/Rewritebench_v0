@@ -2,7 +2,9 @@
 
 ## What this case tests
 
-PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It exercises a TPC-H Q1-style aggregate query with date-time predicates and expression complexity, where the declared rewrite pressure centers on predicate pushdown and materialization strategy. The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
+PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It exercises a TPC-H Q1-style aggregate query with date-time predicates and expression complexity, where the declared rewrite pressure centers on predicate pushdown and materialization strategy.
+
+The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
 
 ## SQL pattern overview
 
@@ -33,16 +35,24 @@ PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It e
   - `validation/run_validation.sh`
   - `validation/run_plan_collection.sh`
 
-Executable schema and data details are described by the schema profile and repository-level schema contracts. Source-family, provenance, taxonomy, checker, and denominator-eligibility details are recorded in `manifest.yaml`.
+Executable schema and data details are described by the schema profile and repository-level schema contracts.
+
+Source-family, provenance, taxonomy, checker, and denominator-eligibility details are recorded in `manifest.yaml`.
 
 ## How to use this case
 
-Run validation and reproduction commands from the repository root using the documented repository-level workflow. The case-local validation scripts are entrypoints for this package, but new user or experiment outputs should be written to the documented top-level output location, not committed into the case package.
+Run validation and reproduction commands from the repository root using the documented repository-level workflow.
+
+The case-local validation scripts are entrypoints for this package, but new user or experiment outputs should be written to the documented top-level output location, not committed into the case package.
 
 This README is a human-readable guide. It does not compute metrics, define official paper results, or change denominator membership.
 
 ## Interpretation boundary
 
-This case includes a hard negative. Hard negatives are checker controls: they test whether the benchmark validation path rejects plausible but non-equivalent SQL. They are not method-generated candidates.
+This case includes a hard negative. Hard negatives are checker controls: they test whether the benchmark validation path rejects plausible but non-equivalent SQL.
 
-Common-core membership, denominator values, metric definitions, and paper-facing results are governed by repository-level case-set, benchmark-spec, ledger, and report artifacts. This README does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed claim, or general SQL-equivalence claim.
+They are not method-generated candidates.
+
+Common-core membership, denominator values, metric definitions, and paper-facing results are governed by repository-level case-set, benchmark-spec, ledger, and report artifacts.
+
+This README does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed claim, or general SQL-equivalence claim.

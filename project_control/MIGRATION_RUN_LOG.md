@@ -9507,3 +9507,60 @@ Task result:
 
 Next safe action:
 - Human review of the four patched pilot READMEs. If accepted, authorize a separate README-only batch for all Common-core 40 cases using the finalized public README template.
+
+### 2026-05-20 · Pilot README Markdown structure cleanup
+
+Mode: formatting-only README patch; no case conversion; no case content change; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Reformatted exactly four representative Common-core public-facing case READMEs: `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Kept case content, SQL pattern descriptions, benchmark boundaries, package file references, and interpretation boundaries unchanged.
+- Normalized Markdown readability by keeping headings on their own lines, preserving blank lines after headings, keeping bullets renderable, and splitting compressed long paragraphs into readable paragraphs.
+- Did not modify manifests, schema profiles, checker files, validation files, SQL files, case sets, inventory, reports/results, denominator files, paper-facing results, raw evidence, scripts, tests, benchmark specs, repository specs, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+- Did not run DB/checker execution, compute official metrics, render paper outputs, parse retained evidence, or create a leaderboard.
+
+Files created:
+- None.
+
+Files modified:
+- `cases/PERF/PERF_0006/README.md`
+- `cases/CONS/CONS_0005/README.md`
+- `cases/PORT/PORT_0003/README.md`
+- `cases/LONGTAIL/LONGTAIL_0011/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Exact heading-count grep for the required seven README headings in each target README: passed.
+- Banned internal-term grep over the four target README files: no matches.
+- Template-placeholder grep over the four target README files: no matches.
+- Static v2 validators for the four target case packages: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until push completes.
+
+Task result:
+- Pilot README Markdown structure cleanup: yes.
+- Target README files modified: four.
+- Non-README case files modified: no.
+- Manifest/schema/checker/validation/sql files modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the formatted four pilot READMEs. If accepted, authorize a separate README-only batch for all Common-core 40 cases using the finalized public README template.
