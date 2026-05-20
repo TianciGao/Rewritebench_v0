@@ -10104,10 +10104,10 @@ Validation result:
 - Source/scripts/tests/docs outside `project_control`/cases/case_sets/reports/results changes: none.
 
 Commit hash:
-- Pending until commit is created.
+- `ad522c0` (`docs(project-control): add user-entry evaluation architecture plan`)
 
 Push result:
-- Pending until commit is pushed.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`afd8a34..ad522c0`).
 
 Task result:
 - Plan file created: yes.
