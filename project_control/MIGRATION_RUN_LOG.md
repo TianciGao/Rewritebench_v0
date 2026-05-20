@@ -8816,3 +8816,70 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_c_preclearance_v0` to resolve D008 public-safety, dialect-variant, and schema decisions for the eight PORT Wave C cases before any writable Wave C conversion execution.
+
+### 2026-05-20 · case_package_v2_common_core40_wave_c_preclearance_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Wave C preclearance; no writable conversion; no PORT case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, audit/project-control files only
+
+Summary:
+- Reviewed 8 Wave C PORT cases: `PORT_0004`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Resolved D008/public-safety preclearance for future v2 conversion: public-safe count 8, public-safe-after-redaction count 0, D008-blocked count 0.
+- Confirmed no literal secrets, prompt/API/token/model traces, raw stdout/stderr payloads, or private host/user paths in the inspected release case surfaces; findings were sanitized placeholders or environment-variable based validation-script references.
+- Decided that existing Spark dialect variants must be retained for `PORT_0004`, `PORT_0005`, and `PORT_0013`; deletion is not allowed by Wave C conversion.
+- Precleared per-case schema strategy for all 8 cases with proposed schema ids `parrot_bird_port0004_v0`, `parrot_bird_port0005_v0`, `parrot_bird_port0008_v0`, `parrot_bird_port0012_v0`, `parrot_bird_port0013_v0`, `parrot_bird_port0022_v0`, `parrot_bird_port0024_v0`, and `parrot_bird_port0025_v0`.
+- Precleared manifest semantics for all 8 cases; future conversion must retain explicit non-blocking draft-origin caveats where exact draft ids are absent and must not invent source/provenance/taxonomy/dialect semantics.
+- Recommended writable subwaves: `PORT_0005` first, then D008-cleared cases without current dialect variants, then D008-cleared cases with retained Spark dialect variants.
+- Recorded again that `PERF_0077` and `PERF_0082` are already converted Wave B cases, do not block Wave C conversion, and still require a separate narrow source-path provenance follow-up before final public source-path closeout.
+- Did not modify case packages, schemas, `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, evidence directories, dialect variants, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_preclearance_summary.md`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_public_safety_preclearance.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_dialect_variant_decisions.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_schema_preclearance.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_manifest_preclearance.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_subwave_recommendations.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_deferred_after_preclearance.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/perf0077_perf0082_source_path_followup_reminder.csv`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/future_case_package_v2_wave_c_subwave_execution_prompt.md`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_preclearance_summary.json`
+- `audits/case_package_v2_common_core40_wave_c_preclearance_v0/wave_c_preclearance_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- `git diff --check`: passed.
+- Boundary checks confirmed no `cases/`, schemas, `case_sets/`, inventory, reports/results, denominator, paper-result, official-metric, DB/checker execution, evidence, dialect-variant, or leaderboard changes.
+
+Task result:
+- Wave C preclearance: yes.
+- Read-only preclearance: yes.
+- Wave C cases reviewed: 8.
+- Public-safe count: 8.
+- Public-safe-after-redaction count: 0.
+- D008-blocked count: 0.
+- Dialect-variant retain count: 3.
+- Schema precleared count: 8.
+- Manifest precleared count: 8.
+- Ready for writable conversion count: 8.
+- Deferred manual-review count: 0.
+- `PERF_0077`/`PERF_0082` follow-up recorded: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_wave_c_subwave_1_port0005_v0` as a bounded writable conversion for `PORT_0005` only, preserving Spark dialect variants and all protected surfaces before broader Wave C subwaves.
