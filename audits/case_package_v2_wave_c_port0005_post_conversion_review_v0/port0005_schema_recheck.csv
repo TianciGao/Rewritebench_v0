@@ -1,0 +1,2 @@
+case_id,schema_id,schema_external_profile,external_schema_profile_exists,case_local_schema_profile_exists,case_local_engine_dirs_absent,status,notes
+PORT_0005,parrot_bird_port0005_v0,schemas/parrot_bird_port0005_v0/schema_profile.yaml,true,true,true,pass,"External schema profile exists with postgres/mysql/spark DDL/load assets; case-local schema retains only schema_profile.yaml."

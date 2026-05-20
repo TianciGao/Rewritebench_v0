@@ -1,0 +1,28 @@
+# PORT_0005 Post-Conversion Review Command Log
+
+- `pwd && git branch --show-current && git remote -v && git status -sb && git log --oneline -5`
+  - Confirmed repository path, branch `feature/case-package-v2-external-schema`, clean worktree, and current origin tracking.
+- `sed` reads of project-control files, Wave C preclearance artifacts, PORT_0005 conversion artifacts, and validation contract artifacts
+  - Confirmed scope, boundaries, preclearance, conversion claims, and validation-contract context.
+- `find cases/PORT/PORT_0005 -maxdepth 4`
+  - Confirmed clean case-local structure and retained `sql/dialect_variants/spark/`.
+- `find schemas/parrot_bird_port0005_v0 -maxdepth 3`
+  - Confirmed external schema package and engine DDL/load files.
+- `sed -n '1,240p' cases/PORT/PORT_0005/manifest.yaml`
+  - Confirmed semantic manifest contract, object-form SQL section, schema contract, checker paths, three validation entrypoints, witness policy, and regeneration-first evidence policy.
+- `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PORT/PORT_0005`
+  - Passed; no DB/checker execution, no official metrics.
+- Static validator loop for all 32 previously converted cases
+  - Passed for all pilot, Wave A, and Wave B cases.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`
+  - Passed, 19 tests.
+- JSON assertion for `port0005_post_conversion_review_summary.json`
+  - Passed.
+- CSV parse/header checks for generated audit CSVs
+  - Passed.
+- `git diff --stat`
+  - Reviewed audit/project-control-only diff summary.
+- `git diff --check`
+  - Passed.
+- `git status -sb`
+  - Reviewed final staged/unstaged state before commit.

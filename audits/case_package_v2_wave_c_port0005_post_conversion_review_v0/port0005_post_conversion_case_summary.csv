@@ -1,0 +1,2 @@
+case_id,validator_status,clean_template_minimal,manifest_consistency,dialect_variants_retained,schema_policy_status,validation_three_file_contract_status,evidence_policy_status,forbidden_paths_absent,remaining_gaps,ready_for_next_wave_c_subwave,notes
+PORT_0005,pass,true,true,true,pass,pass,pass,true,none,true,"PORT_0005 satisfies the clean-template-minimal v2 surface with retained Spark dialect variants treated as optional semantic PORT assets."
