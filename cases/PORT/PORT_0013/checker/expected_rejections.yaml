@@ -5,8 +5,9 @@ approval_status: migration_planning_static_inference_needs_review_if_not_explici
 hard_negatives:
 - hard_negative_id: neg_01
   source_sql_path: sql/source.sql
-  positive_sql_path: sql/positives/pos_01.sql
-  negative_sql_path: sql/negatives/neg_01.sql
+  positive_sql_path: sql/pos_01.sql
+  negative_sql_path: sql/neg_01.sql
+  dialect_variant_negative_sql_path: sql/dialect_variants/spark/neg_02_spark.sql
   expected_rejection_reason: gender_filter_literal_changed
   semantic_risk_type:
   - boolean_semantics
@@ -18,25 +19,24 @@ hard_negatives:
       districts
     negative_semantics: negative counts male clients instead and changes the scalar
       percentage
-    witness_discriminator: retained TSV outputs show source/positive agreement and
-      negative divergence for the scalar percentage
+    witness_discriminator: retained TSV outputs previously showed source/positive
+      agreement and negative divergence for the scalar percentage
   evidence_paths:
     retained_controls:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/mysql/source.tsv
-    - evidence/retained_controls/postgres/rewrite_pos_01.tsv
-    - evidence/retained_controls/spark/rewrite_pos_01.tsv
+    - regenerated_result_check
+    - runtime_source_result
+    - runtime_positive_result
     hard_negative:
-    - evidence/hard_negative/hard_negative_summary.json
-    - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-    - evidence/hard_negative/spark/rewrite_neg_01.tsv
+    - regenerated_hard_negative_summary
+    - runtime_negative_result
     result_checks:
-    - evidence/retained_controls/result_check.json
+    - regenerated_result_check
     plan_evidence:
-    - evidence/retained_plans/plan_check.json
-    - evidence/retained_plans/mysql/source.json
-    - evidence/retained_plans/postgres/rewrite_pos_01.json
-    - evidence/retained_plans/postgres/rewrite_neg_01.json
-    - evidence/retained_plans/rewrite_pos_01.sanitized.txt
-    - evidence/retained_plans/rewrite_neg_01.sanitized.txt
+    - regenerated_plan_artifact
+    - runtime_positive_result
+    - runtime_negative_result
   approval_status: migration_planning_static_inference_needs_review_if_not_explicit_in_legacy
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

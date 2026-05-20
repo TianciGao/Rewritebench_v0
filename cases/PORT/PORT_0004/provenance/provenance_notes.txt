@@ -1,5 +1,0 @@
-Local source pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/mysql_res.json[3]
-Draft id: PORT_PARROT_DRAFT_0004
-Original index: 3
-Extraction notes: source.sql uses the PARROT field "mysql"; rewrite_pos_01.sql uses the PARROT field "cracksql".
-This case package is draft-only and inherits its initial portability framing from the candidate pool and draft package, not from any registry status.

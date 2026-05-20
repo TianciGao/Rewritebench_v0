@@ -1,0 +1,3 @@
+case_id,schema_id,external_schema_profile,external_ddl_load_verified,case_local_engine_schema_deleted,status,notes
+PORT_0004,parrot_bird_port0004_v0,schemas/parrot_bird_port0004_v0/schema_profile.yaml,true,true,pass,Per-case external schema package created copy-first with postgres/mysql/spark ddl.sql and load.sql.
+PORT_0013,parrot_bird_port0013_v0,schemas/parrot_bird_port0013_v0/schema_profile.yaml,true,true,pass,Per-case external schema package created copy-first with postgres/mysql/spark ddl.sql and load.sql.

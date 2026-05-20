@@ -1,15 +1,16 @@
 case_id: PORT_0004
-pool: PORT
-checker_version: static_public_release_v1
-comparison_model: cross_dialect_reference_from_retained_outputs
-db_validation_run: false
-source_reference_engine: mysql
-positive_outputs:
-- evidence/retained_controls/postgres/rewrite_pos_01.tsv
-- evidence/retained_controls/spark/rewrite_pos_02_spark.tsv
-negative_outputs:
-- evidence/hard_negative/postgres/rewrite_neg_01.tsv
-- evidence/hard_negative/spark/rewrite_neg_02_spark.tsv
-normalization: checker/normalization.yaml
-compare_config: checker/compare_config.yaml
+checker_type: cross_dialect_reference_result_equivalence_checker
+status: config_only_regeneration_first
+source_sql: sql/source.sql
+positive_sql: sql/pos_01.sql
+hard_negative_sql: sql/neg_01.sql
+compatibility_positive_sql: sql/pos_01.sql
+compatibility_hard_negative_sql: sql/neg_01.sql
+dialect_variants:
+  spark:
+  - sql/dialect_variants/spark/pos_02_spark.sql
+  - sql/dialect_variants/spark/neg_02_spark.sql
 expected_rejections: checker/expected_rejections.yaml
+comparison_policy: source_positive_equal_and_negative_rejected
+migration_note: Static checker configuration generated during public-release migration;
+  no DB rerun performed.

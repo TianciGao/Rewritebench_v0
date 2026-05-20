@@ -1,28 +1,22 @@
 case_id: PORT_0013
 inputs:
   source: sql/source.sql
-  positive: sql/positives/pos_01.sql
-  negative: sql/negatives/neg_01.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
+  compatibility_positive: sql/pos_01.sql
+  compatibility_negative: sql/neg_01.sql
+dialect_variants:
+  spark:
+  - sql/dialect_variants/spark/pos_02_spark.sql
+  - sql/dialect_variants/spark/neg_02_spark.sql
 expected:
   source_equals_positive: true
   source_differs_from_negative: true
 retained_evidence:
-  retained_controls:
-  - evidence/retained_controls/result_check.json
-  - evidence/retained_controls/mysql/source.tsv
-  - evidence/retained_controls/postgres/rewrite_pos_01.tsv
-  - evidence/retained_controls/spark/rewrite_pos_01.tsv
-  hard_negative:
-  - evidence/hard_negative/hard_negative_summary.json
-  - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-  - evidence/hard_negative/spark/rewrite_neg_01.tsv
-  result_checks:
-  - evidence/retained_controls/result_check.json
-  plan_evidence:
-  - evidence/retained_plans/plan_check.json
-  - evidence/retained_plans/mysql/source.json
-  - evidence/retained_plans/postgres/rewrite_pos_01.json
-  - evidence/retained_plans/postgres/rewrite_neg_01.json
-  - evidence/retained_plans/rewrite_pos_01.sanitized.txt
-  - evidence/retained_plans/rewrite_neg_01.sanitized.txt
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
 db_validation_run: false
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

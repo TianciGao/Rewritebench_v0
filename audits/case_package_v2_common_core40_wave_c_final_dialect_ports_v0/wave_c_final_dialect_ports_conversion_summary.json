@@ -1,0 +1,39 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "wave_c_final_dialect_ports_conversion": true,
+  "target_case_ids": [
+    "PORT_0004",
+    "PORT_0013"
+  ],
+  "converted_case_ids": [
+    "PORT_0004",
+    "PORT_0013"
+  ],
+  "deferred_case_ids": [],
+  "clean_template_minimal_cases": [
+    "PORT_0004",
+    "PORT_0013"
+  ],
+  "dialect_variants_retained": true,
+  "manifest_consistency_passed": true,
+  "validation_three_file_contract_passed": true,
+  "schemas_created_or_reused": [
+    "parrot_bird_port0004_v0",
+    "parrot_bird_port0013_v0"
+  ],
+  "case_files_modified": true,
+  "schemas_modified": true,
+  "evidence_cases_created": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Run a read-only Common-core 40 v2 final closeout after this final Wave C dialect conversion."
+}

@@ -1,0 +1,3 @@
+case_id,converted,deferred,clean_template_minimal,dialect_variants_retained,manifest_consistency,validation_three_file_contract,schema_status,evidence_policy_status,validator_status,notes
+PORT_0004,true,false,true,true,pass,pass,created:parrot_bird_port0004_v0,pass,pass,Converted to clean-template-minimal v2 with Spark dialect variants retained as semantic PORT assets.
+PORT_0013,true,false,true,true,pass,pass,created:parrot_bird_port0013_v0,pass,pass,Converted to clean-template-minimal v2 with Spark dialect variants retained as semantic PORT assets.

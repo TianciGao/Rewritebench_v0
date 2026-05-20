@@ -9186,3 +9186,58 @@ Task result:
 
 Next safe action:
 - Authorize a bounded writable final Wave C dialect-variant PORT conversion for `PORT_0004` and `PORT_0013`, preserving existing `sql/dialect_variants/` as semantic v2 assets and keeping all protected surfaces unchanged.
+
+### 2026-05-20 · case_package_v2_common_core40_wave_c_final_dialect_ports_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only bounded writable final Wave C dialect-variant PORT conversion; target two PORT cases only; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, `PORT_0004`, `PORT_0013`, corresponding external schema packages, audit/project-control files only
+
+Summary:
+- Converted exactly `PORT_0004` and `PORT_0013` to clean-template-minimal v2.
+- Did not convert or modify `PORT_0005`, Wave C subwave 2 cases, pilot cases, Wave A cases, or Wave B cases.
+- Preserved existing Spark dialect variants under both target case-local `sql/dialect_variants/spark/` directories and recorded them as optional semantic PORT v2 assets.
+- Created direct `sql/pos_01.sql` and `sql/neg_01.sql` paths from existing nested rewrite SQL before deleting nested compatibility dirs.
+- Created per-case external schema packages: `parrot_bird_port0004_v0` and `parrot_bird_port0013_v0`.
+- Removed target-case local schema engine dirs after copy-first external schema verification.
+- Repaired target manifests to the semantic v2 contract using recovered/precleared provenance and explicit non-blocking caveats where needed.
+- Repaired checker configs to config-only direct SQL paths and regeneration-first evidence policy.
+- Adopted the repaired three-file validation contract in both target cases.
+- Added source-as-oracle witness profiles and regeneration-first `evidence_policy`.
+- Removed target-case compatibility surfaces: nested SQL dirs, case-local engine schema dirs, case-local static evidence, metadata, notes, data, legacy validation scripts, and legacy sidecar files.
+- Did not create `evidence/cases/`.
+- Did not modify `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Validation:
+- Static validators for `PORT_0004` and `PORT_0013`: passed.
+- Static validators for all already converted pilot, Wave A, Wave B, `PORT_0005`, and Wave C subwave 2 cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- Dialect variant retention checks passed for `PORT_0004` and `PORT_0013`.
+- Boundary checks confirmed no other PORT, pilot, Wave A, Wave B, `case_sets/`, inventory, reports/results, denominator, paper-result, official-metric, DB/checker execution, `evidence/cases/`, or leaderboard changes.
+
+Task result:
+- Final Wave C dialect PORT conversion: yes.
+- Target case IDs: `PORT_0004`, `PORT_0013`.
+- Converted case IDs: both.
+- Deferred case IDs: none.
+- Clean-template-minimal cases count: 2.
+- Dialect variants retained: yes.
+- Manifest consistency passed: yes.
+- Validation three-file contract passed: yes.
+- Schemas created/reused: `parrot_bird_port0004_v0` and `parrot_bird_port0013_v0`.
+- Case files modified: yes.
+- Schemas modified: yes.
+- `evidence/cases/` created: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run a read-only Common-core 40 v2 final closeout covering all converted Common-core v2 cases, with special checks for retained PORT dialect variants in `PORT_0003`, `PORT_0004`, `PORT_0005`, and `PORT_0013`.
