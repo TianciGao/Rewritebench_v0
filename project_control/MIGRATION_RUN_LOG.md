@@ -10129,3 +10129,86 @@ Task result:
 
 Next safe action:
 - U1 output schema and ledger-field audit.
+
+### 2026-05-20 · U1 audit user-entry output schema and ledger fields
+
+Mode: audit/design only; no source-code changes; no script changes; no test changes; no docs outside `project_control/`; no example changes; no case changes; no candidate preflight implementation; no quality report implementation; no tag slicing; no timing; no metrics; no paper rendering; no reproduction CLI; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/user_entry_output_schema_audit_v0/` as the U1 output schema and ledger-field audit packet.
+- Ran module help, wrapper help, public smoke dry-run, public smoke adapter-capture, and lightweight user-entry tests.
+- Inventoried current user-run output files, `ledger.csv` fields, `summary.json` keys, `failures.csv` fields, `report.md` sections, and status values from `user_run_schema.py`.
+- Compared current fields to the target local-evaluation funnel in `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+- Produced a target funnel gap matrix, proposed future user-run row schema, proposed local diagnostic failure-bucket policy, gap list, and future U2 prompt.
+- Verdict: `ready_with_gaps` for U2. Current schema is sufficient to design the resolver / adapter-runner / ledger-writer split, but preflight, quality-report, tag-slice, explicit DB-attempt, executable, source-like, and timing fields remain gaps for later phases.
+- Removed local smoke outputs `runs/user/u1_schema_dry_run` and `runs/user/u1_schema_dummy_adapter` after schema inspection.
+- Did not modify source code, scripts, tests, docs outside `project_control/`, examples, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, benchmark specs, repository specs, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, `DECISION_LOG.md`, or `USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+
+Files created:
+- `audits/user_entry_output_schema_audit_v0/README.md`
+- `audits/user_entry_output_schema_audit_v0/current_output_files.csv`
+- `audits/user_entry_output_schema_audit_v0/current_ledger_fields.csv`
+- `audits/user_entry_output_schema_audit_v0/current_summary_fields.csv`
+- `audits/user_entry_output_schema_audit_v0/current_failure_fields.csv`
+- `audits/user_entry_output_schema_audit_v0/status_value_inventory.csv`
+- `audits/user_entry_output_schema_audit_v0/target_funnel_gap_matrix.csv`
+- `audits/user_entry_output_schema_audit_v0/proposed_user_run_row_schema.csv`
+- `audits/user_entry_output_schema_audit_v0/proposed_failure_bucket_policy.md`
+- `audits/user_entry_output_schema_audit_v0/output_schema_gap_list.md`
+- `audits/user_entry_output_schema_audit_v0/future_u2_prompt.md`
+- `audits/user_entry_output_schema_audit_v0/command_log.md`
+- `audits/user_entry_output_schema_audit_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry`: passed, 32 tests with 1 skipped.
+- `git diff --check`: passed.
+- CSV parse checks: passed for 7 new CSV files.
+- Markdown sanity checks: passed for 6 new audit Markdown files.
+- Protected-surface diff check: passed.
+- Smoke output cleanup check: passed; U1 smoke output directories removed before commit.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until commit is pushed.
+
+Task result:
+- U1 audit packet created: yes.
+- Audit verdict: `ready_with_gaps`.
+- Current output files inventoried: yes.
+- Current ledger fields inventoried: yes.
+- Current summary fields inventoried: yes.
+- Current failure/status fields inventoried: yes.
+- Target funnel gap matrix created: yes.
+- Proposed row schema created: yes.
+- Future U2 prompt created: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control/` modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Paper tables rendered by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- U2 module split design for resolver, adapter runner, and ledger writer.

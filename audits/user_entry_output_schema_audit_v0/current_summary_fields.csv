@@ -1,0 +1,28 @@
+field_name,current_presence,inferred_type,example_value,current_meaning,gap_or_risk,proposed_action
+run_id,present,string,u1_schema_dummy_adapter,Run identity,None,Keep
+task_type,present,string,user_entry_mvp_non_db,Run task category,Name still says mvp,Consider stable local_diagnostic mode naming
+dry_run,present,boolean,false,Dry-run flag,None,Keep
+selected_rows,present,integer,2,Selected case-engine row count,None,Keep
+adapter_invoked_rows,present,integer,2,Rows with adapter invoked,None,Keep
+candidate_generated_rows,present,integer,2,Rows with candidate generated,None,Keep
+adapter_failed_rows,present,integer,0,Rows with adapter_failed bucket,None,Keep
+no_candidate_sql_rows,present,integer,0,Rows with no_candidate_sql bucket,None,Keep
+db_execution_enabled,present,boolean,false,DB execution option enabled,Does not mean attempted,Add attempted count later
+checker_enabled,present,boolean,false,Checker option enabled,Does not mean attempted,Add checker attempted count later
+source_execution_success_rows,present,integer,0,Rows with source execution success,Only useful when DB enabled,Keep
+candidate_execution_success_rows,present,integer,0,Rows with candidate execution success,Only useful when DB enabled,Keep
+checker_success_rows,present,integer,0,Rows with checker success,Only useful when checker enabled,Keep
+checker_mismatch_rows,present,integer,0,Rows with mismatch bucket,Conflates mismatch bucket with checker mismatch,Refine after failure policy
+exact_rows_local,present,integer,0,Rows with local exact status,Not official semantic equivalence,Keep local naming
+mismatch_rows_local,present,integer,0,Rows with mismatch bucket,Not official metric,Keep local naming
+local_execution_only,present,boolean,true,Boundary flag,None,Keep
+official_metrics_computed,present,boolean,false,Boundary flag,None,Keep false
+paper_tables_rendered,present,boolean,false,Boundary flag,None,Keep false
+reports_changed,present,boolean,false,Boundary flag,None,Keep false
+results_changed,present,boolean,false,Boundary flag,None,Keep false
+case_sets_changed,present,boolean,false,Boundary flag,None,Keep false
+denominator_changed,present,boolean,false,Boundary flag,None,Keep false
+paper_results_changed,present,boolean,false,Boundary flag,None,Keep false
+retained_evidence_updated,present,boolean,false,Boundary flag,None,Keep false
+raw_legacy_evidence_changed,present,boolean,false,Boundary flag,None,Keep false
+no_global_leaderboard,present,boolean,true,Boundary flag,None,Keep true

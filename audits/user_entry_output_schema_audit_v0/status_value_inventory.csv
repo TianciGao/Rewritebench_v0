@@ -1,0 +1,47 @@
+status_family,status_value,source_file,current_meaning,maps_to_funnel_stage,local_only,notes
+extraction_status,captured_from_candidate_file,src/sql_rewrite_bench/user_run_schema.py,Candidate captured from workspace candidate.sql,candidate_generated,yes,Observed in adapter-capture smoke
+extraction_status,captured_from_stdout,src/sql_rewrite_bench/user_run_schema.py,Candidate captured from adapter stdout,candidate_generated,yes,Not observed in U1 smoke
+extraction_status,no_candidate_sql,src/sql_rewrite_bench/user_run_schema.py,Adapter produced no candidate SQL,candidate_generated,yes,Failure bucket may also be no_candidate_sql
+extraction_status,adapter_failed,src/sql_rewrite_bench/user_run_schema.py,Adapter failed during invocation,adapter_invoked,yes,Also failure bucket
+extraction_status,skipped,src/sql_rewrite_bench/user_run_schema.py,Generic skipped extraction,candidate_generated,yes,Defined but not observed
+extraction_status,skipped_dry_run,src/sql_rewrite_bench/user_run_schema.py,Dry-run skipped adapter extraction,adapter_invoked,yes,Observed in dry-run smoke
+execution_status,not_run_non_db_mvp,src/sql_rewrite_bench/user_run_schema.py,DB execution not run in non-DB path,db_execution_attempted,yes,Observed in both smoke runs
+execution_status,execution_not_enabled,src/sql_rewrite_bench/user_run_schema.py,DB execution not enabled,db_execution_attempted,yes,Used when DB option state is explicit
+execution_status,source_execution_success,src/sql_rewrite_bench/user_run_schema.py,Source query execution succeeded,source_executable,yes,DB local diagnostic only
+execution_status,candidate_execution_success,src/sql_rewrite_bench/user_run_schema.py,Candidate query execution succeeded,candidate_executable,yes,DB local diagnostic only
+execution_status,source_execution_failed,src/sql_rewrite_bench/user_run_schema.py,Source query execution failed,source_executable,yes,DB local diagnostic only
+execution_status,candidate_execution_failed,src/sql_rewrite_bench/user_run_schema.py,Candidate query execution failed,candidate_executable,yes,DB local diagnostic only
+execution_status,execution_timeout,src/sql_rewrite_bench/user_run_schema.py,Execution timed out,db_execution_attempted,yes,Not timing metric
+execution_status,execution_unsupported,src/sql_rewrite_bench/user_run_schema.py,Execution unsupported for requested engine/path,db_execution_attempted,yes,Useful for MySQL/Spark fail-closed interface
+execution_status,execution_internal_error,src/sql_rewrite_bench/user_run_schema.py,Internal execution error,db_execution_attempted,yes,Local diagnostic failure
+checker_status,not_run_non_db_mvp,src/sql_rewrite_bench/user_run_schema.py,Checker not run in non-DB path,checker_attempted,yes,Observed in both smoke runs
+checker_status,checker_not_enabled,src/sql_rewrite_bench/user_run_schema.py,Checker option not enabled,checker_attempted,yes,DB can run without checker
+checker_status,checker_success,src/sql_rewrite_bench/user_run_schema.py,Local checker exact comparison succeeded,exact/mismatch,yes,Not formal verifier
+checker_status,checker_mismatch,src/sql_rewrite_bench/user_run_schema.py,Local checker found mismatch,exact/mismatch,yes,Not official metric
+checker_status,checker_failed,src/sql_rewrite_bench/user_run_schema.py,Local checker failed,checker_attempted,yes,Local diagnostic failure
+checker_status,checker_timeout,src/sql_rewrite_bench/user_run_schema.py,Checker timed out,checker_attempted,yes,Defined for future policy
+checker_status,checker_unsupported,src/sql_rewrite_bench/user_run_schema.py,Checker unsupported,checker_attempted,yes,Defined for future policy
+checker_status,checker_config_missing,src/sql_rewrite_bench/user_run_schema.py,Checker config missing,checker_attempted,yes,Fail-closed local diagnostic
+checker_status,normalization_config_missing,src/sql_rewrite_bench/user_run_schema.py,Normalization config missing,checker_attempted,yes,Fail-closed local diagnostic
+checker_status,checker_internal_error,src/sql_rewrite_bench/user_run_schema.py,Internal checker error,checker_attempted,yes,Defined for future policy
+exact_status,not_evaluated_non_db_mvp,src/sql_rewrite_bench/user_run_schema.py,Exactness not evaluated in non-DB path,exact/mismatch,yes,Observed in both smoke runs
+exact_status,exact,src/sql_rewrite_bench/user_run_schema.py,Local checker exact result,exact/mismatch,yes,Not official semantic equivalence
+exact_status,mismatch,src/sql_rewrite_bench/user_run_schema.py,Local checker mismatch,exact/mismatch,yes,Not official metric
+exact_status,not_exact_due_to_execution_failure,src/sql_rewrite_bench/user_run_schema.py,Execution failure blocked exactness,exact/mismatch,yes,Local diagnostic state
+exact_status,not_exact_due_to_checker_failure,src/sql_rewrite_bench/user_run_schema.py,Checker failure blocked exactness,exact/mismatch,yes,Local diagnostic state
+exact_status,not_exact_due_to_timeout,src/sql_rewrite_bench/user_run_schema.py,Timeout blocked exactness,exact/mismatch,yes,Defined for future policy
+exact_status,not_evaluated_checker_missing,src/sql_rewrite_bench/user_run_schema.py,Checker config missing blocked exactness,exact/mismatch,yes,Local diagnostic state
+timed_status,not_timed_non_db_mvp,src/sql_rewrite_bench/user_run_schema.py,Timing not collected,timed later,yes,Observed in both smoke runs
+failure_bucket,none,src/sql_rewrite_bench/user_run_schema.py,No local failure,all stages,yes,Observed in both smoke runs
+failure_bucket,adapter_failed,src/sql_rewrite_bench/user_run_schema.py,Adapter command failed,adapter_invoked,yes,Local diagnostic failure
+failure_bucket,no_candidate_sql,src/sql_rewrite_bench/user_run_schema.py,No candidate SQL emitted,candidate_generated,yes,Local diagnostic failure
+failure_bucket,adapter_timeout,src/sql_rewrite_bench/user_run_schema.py,Adapter timed out,adapter_invoked,yes,Local diagnostic failure
+failure_bucket,source_execution_failed,src/sql_rewrite_bench/user_run_schema.py,Source execution failed,source_executable,yes,Local diagnostic failure
+failure_bucket,candidate_execution_failed,src/sql_rewrite_bench/user_run_schema.py,Candidate execution failed,candidate_executable,yes,Local diagnostic failure
+failure_bucket,execution_timeout,src/sql_rewrite_bench/user_run_schema.py,Execution timed out,db_execution_attempted,yes,Local diagnostic failure
+failure_bucket,checker_config_missing,src/sql_rewrite_bench/user_run_schema.py,Checker configuration missing,checker_attempted,yes,Local diagnostic failure
+failure_bucket,checker_failed,src/sql_rewrite_bench/user_run_schema.py,Checker failed,checker_attempted,yes,Local diagnostic failure
+failure_bucket,checker_timeout,src/sql_rewrite_bench/user_run_schema.py,Checker timed out,checker_attempted,yes,Local diagnostic failure
+failure_bucket,mismatch,src/sql_rewrite_bench/user_run_schema.py,Local result mismatch,exact/mismatch,yes,Not official semantic equivalence metric
+failure_bucket,unsupported_engine,src/sql_rewrite_bench/user_run_schema.py,Engine unsupported for diagnostic path,db_execution_attempted,yes,Useful for MySQL/Spark fail-closed interface
+failure_bucket,internal_runner_error,src/sql_rewrite_bench/user_run_schema.py,Internal runner error,all stages,yes,Local diagnostic failure

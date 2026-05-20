@@ -1,0 +1,9 @@
+field_name,current_presence,inferred_type,example_value,current_meaning,gap_or_risk,proposed_action
+run_id,present,string,n/a in successful smoke,Run identity,No failure rows in successful smoke,Keep
+case_id,present,string,n/a in successful smoke,Case identifier,No failure rows in successful smoke,Keep
+pool,present,enum,n/a in successful smoke,Case pool,No failure rows in successful smoke,Keep
+engine,present,enum,n/a in successful smoke,Selected engine,No failure rows in successful smoke,Keep
+denominator_id,present,string,n/a in successful smoke,Track A planned row id,No failure rows in successful smoke,Keep
+failure_bucket,present,enum,n/a in successful smoke,Local failure bucket,Priority policy not formalized,Formalize before implementation
+artifact_path,present,path,n/a in successful smoke,Per-row artifact path,No failure rows in successful smoke,Keep
+notes,present,string,n/a in successful smoke,Human diagnostic notes,Free text not machine stable,Keep supplemental

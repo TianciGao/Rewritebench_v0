@@ -1,0 +1,36 @@
+field_name,current_presence,observed_in_smoke,inferred_type,example_value,current_meaning,maps_to_funnel_stage,gap_or_risk,proposed_action
+run_id,present,yes,string,u1_schema_dummy_adapter,Run identity,all stages,None,Keep
+case_id,present,yes,string,PERF_0006,Case identifier,selected,None,Keep
+pool,present,yes,enum,PERF,Case pool,selected,None,Keep
+engine,present,yes,enum,postgres,Selected engine,selected,None,Keep
+denominator_id,present,yes,string,track_a_same_engine:PERF_0006:postgres,Track A planned row id,selected,None,Keep and validate joins
+planned,present,yes,boolean-string,true,Planned denominator row flag,selected,String bool convention should be documented,Normalize in U2 schema audit
+selected,present,yes,boolean-string,true,Row selected for run,selected,None,Keep
+adapter_invoked,present,yes,boolean-string,true,Adapter subprocess invoked,adapter_invoked,None,Keep
+adapter_exit_code,present,yes,integer-string,0,Adapter exit code,adapter_invoked,Blank in dry-run,Keep with nullable semantics
+candidate_generated,present,yes,boolean-string,true,Candidate SQL captured,candidate_generated,None,Keep
+candidate_sql_path,present,yes,path,runs/user/u1_schema_dummy_adapter/candidate_sql/PERF_0006__postgres.sql,Canonical captured candidate path,candidate_generated,Blank when no candidate,Keep
+extraction_status,present,yes,enum,captured_from_candidate_file,Candidate extraction/capture status,candidate_generated,Conflates adapter capture with future preflight readiness,Keep but add preflight fields later
+execution_status,present,yes,enum,not_run_non_db_mvp,Overall execution status,db_execution_attempted,DB attempted is implicit via execution_enabled,Add explicit db_execution_attempted later
+checker_status,present,yes,enum,not_run_non_db_mvp,Local checker status,checker_attempted,Checker attempted is implicit,Add checker_attempted later
+exact_status,present,yes,enum,not_evaluated_non_db_mvp,Local exact/mismatch status,exact/mismatch,Not official semantic equivalence,Keep local naming clear
+timed_status,present,yes,enum,not_timed_non_db_mvp,Timing status,timed later,Timing is deferred and non-DB only now,Keep placeholder but do not compute timing
+failure_bucket,present,yes,enum,none,Primary local failure bucket,all failed stages,Priority policy not formalized,Define policy before U3/U4
+artifact_path,present,yes,path,runs/user/u1_schema_dummy_adapter/workspaces/PERF_0006/postgres,Per-row artifact path,all stages,None,Keep
+notes,present,yes,string,candidate captured from workspace candidate.sql,Human-readable diagnostic note,all stages,Free text not machine stable,Keep as supplemental
+execution_enabled,present,yes,boolean-string,false,DB execution flag,db_execution_attempted,Does not prove attempt,Add db_execution_attempted later
+checker_enabled,present,yes,boolean-string,false,Checker enabled flag,checker_attempted,Does not prove attempt,Add checker_attempted later
+source_execution_status,present,yes,enum,not_run_non_db_mvp,Source execution status,source_executable,Source executable boolean missing,Add source_executable later
+candidate_execution_status,present,yes,enum,not_run_non_db_mvp,Candidate execution status,candidate_executable,Candidate executable boolean missing,Add candidate_executable later
+source_result_path,present,yes,path-or-empty,,Source result artifact path,source_executable,Blank in non-DB smoke,Keep nullable
+candidate_result_path,present,yes,path-or-empty,,Candidate result artifact path,candidate_executable,Blank in non-DB smoke,Keep nullable
+checker_config_path,present,yes,path-or-empty,,Checker config path,checker_attempted,Blank until checker path used,Populate when checker attempted
+normalization_config_path,present,yes,path-or-empty,,Normalization config path,checker_attempted,Blank until checker path used,Populate when checker attempted
+compare_config_path,present,yes,path-or-empty,,Compare config path,checker_attempted,Blank until checker path used,Populate when checker attempted
+execution_failure_class,present,yes,string-or-empty,,Execution failure class,db_execution_attempted,Currently empty in smoke,Keep and align with failure policy
+checker_failure_class,present,yes,string-or-empty,,Checker failure class,checker_attempted,Currently empty in smoke,Keep and align with failure policy
+mismatch_artifact_path,present,yes,path-or-empty,,Mismatch artifact path,exact/mismatch,Blank unless mismatch,Keep nullable
+db_artifact_dir,present,yes,path-or-empty,,DB execution artifact directory,db_execution_attempted,Blank in non-DB smoke,Keep nullable
+local_execution_only,present,yes,boolean-string,true,Local diagnostic boundary flag,all stages,None,Keep
+official_metric_input,present,yes,boolean-string,false,Boundary flag excluding official metric input,official metrics boundary,None,Keep false for user runs
+retained_evidence_input,present,yes,boolean-string,false,Boundary flag excluding retained evidence input,official metrics boundary,None,Keep false for user runs
