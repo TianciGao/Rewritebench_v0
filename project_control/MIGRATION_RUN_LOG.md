@@ -9621,3 +9621,68 @@ Task result:
 
 Next safe action:
 - Human spot-check of the 40 public README batch, then run the narrow `PERF_0077`/`PERF_0082` source-path provenance follow-up before final public-release closeout planning.
+
+### 2026-05-20 · Resolve narrow PERF_0077/PERF_0082 source-path provenance follow-up
+
+Mode: narrow provenance follow-up; no README task; no case migration; no DB/checker execution; no official metrics; no release closeout
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Reviewed the two remaining Common-core source-path provenance caveats for `PERF_0077` and `PERF_0082`.
+- Checked current manifests, current source SQL comments, deleted branch-history `metadata/provenance.yaml`, pre-v2 branch-history manifests, manifest caveat closeout outputs, Wave C follow-up records, final closeout rerun source-path records, `inventory/case_registry.csv`, `inventory/source_registry.csv`, and `case_sets/common_core_v0/cases.csv`.
+- Confirmed branch-history provenance records `source_entry: ''` and `source_materialization: legacy case-local source.sql` for both cases.
+- Did not infer precise paths from query text, JOB query identity comments, or draft markers.
+- No exact source path or source-entry pointer was safely recovered for either case.
+- Closed both cases as retained nonblocking source-path provenance uncertainty for public release closeout; no exact JOB source path is claimed.
+- Did not modify manifests because no safe source-path field repair was supported by repository evidence.
+- Did not modify README, SQL, schema, checker, validation, case-set, inventory, reports/results, denominator, paper-result, case-membership, or raw retained-evidence files.
+- Did not run DB/checker execution, compute official metrics, render paper outputs, parse retained evidence, or create a leaderboard.
+
+Files created:
+- `audits/perf_0077_0082_source_path_followup_v0/README.md`
+- `audits/perf_0077_0082_source_path_followup_v0/source_path_followup_summary.csv`
+- `audits/perf_0077_0082_source_path_followup_v0/source_path_followup_summary.json`
+- `audits/perf_0077_0082_source_path_followup_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- YAML parse check for both target manifests: passed.
+- Audit summary JSON parse/assertion: passed.
+- Audit summary CSV parse/header check: passed.
+- Static v2 validators for `PERF_0077` and `PERF_0082`: passed.
+- Static v2 validators for all 40 Common-core case packages: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Protected-surface diff check: passed.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Task result:
+- Target cases reviewed: `PERF_0077`, `PERF_0082`.
+- Source-path repairs made: none.
+- Remaining caveats: explicit nonblocking source-path provenance uncertainty retained for both cases; exact source paths are not claimed.
+- Safe for public source-path closeout: yes, with retained nonblocking provenance uncertainty.
+- README files modified: no.
+- SQL/schema/checker/validation files modified: no.
+- Manifest files modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Proceed to final public-release closeout planning, carrying the explicit note that `PERF_0077` and `PERF_0082` retain nonblocking source-path provenance uncertainty and no exact JOB source path is claimed.
