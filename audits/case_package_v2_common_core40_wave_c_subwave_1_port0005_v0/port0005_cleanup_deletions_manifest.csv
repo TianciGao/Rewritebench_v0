@@ -1,0 +1,16 @@
+deleted_path,deletion_type,deletion_reason,replacement_or_policy,notes
+cases/PORT/PORT_0005/sql/positives/,nested_sql_compatibility_dir,direct sql/pos_01.sql created,sql/pos_01.sql,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/sql/negatives/,nested_sql_compatibility_dir,direct sql/neg_01.sql created,sql/neg_01.sql,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/schema/postgres/,case_local_engine_schema_dir,external postgres schema copied,schemas/parrot_bird_port0005_v0/postgres/,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/schema/mysql/,case_local_engine_schema_dir,external mysql schema copied,schemas/parrot_bird_port0005_v0/mysql/,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/schema/spark/,case_local_engine_schema_dir,external spark schema copied,schemas/parrot_bird_port0005_v0/spark/,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/evidence/,case_local_static_evidence_dir,regeneration-first evidence_policy adopted and live refs removed,evidence_policy.static_case_evidence=not_required,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/metadata/,legacy_metadata_dir,semantic fields represented in manifest,manifest.yaml,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/notes/,legacy_notes_dir,public wording represented in README and manifest caveats,README.md; manifest.yaml,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/data/,legacy_data_dir,witness/schema policy represented by external schema and witness profile,schema profile; witness/witness_profile.yaml,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_postgres_validation.sh,legacy_validation_script,three-file validation contract adopted,validation/run_validation.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_mysql_validation.sh,legacy_validation_script,three-file validation contract adopted,validation/run_validation.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_spark_validation.sh,legacy_validation_script,three-file validation contract adopted,validation/run_validation.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_postgres_plan_collection.sh,legacy_validation_script,three-file validation contract adopted,validation/run_plan_collection.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_mysql_plan_collection.sh,legacy_validation_script,three-file validation contract adopted,validation/run_plan_collection.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion
+cases/PORT/PORT_0005/validation/run_spark_plan_collection.sh,legacy_validation_script,three-file validation contract adopted,validation/run_plan_collection.sh; validation/run_engine_queries.py,deleted only for PORT_0005 subwave conversion

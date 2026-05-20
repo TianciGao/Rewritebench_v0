@@ -8955,3 +8955,83 @@ Task result:
 
 Next safe action:
 - Run a read-only post-repair validation contract review for the 32 converted cases, or authorize the first Wave C writable conversion subwave using the repaired three-file validation contract, starting with `PORT_0005` only.
+
+### 2026-05-20 · case_package_v2_common_core40_wave_c_subwave_1_port0005_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only bounded writable Wave C subwave conversion; `PORT_0005` only; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, `PORT_0005`, `schemas/parrot_bird_port0005_v0/`, audit/project-control files only
+
+Summary:
+- Converted exactly `PORT_0005` to clean-template-minimal v2 using the repaired semantic manifest contract and repaired three-file validation contract.
+- Preserved `cases/PORT/PORT_0005/sql/dialect_variants/spark/` as an optional semantic PORT asset.
+- Created per-case external schema package `schemas/parrot_bird_port0005_v0/` by copy-first extraction from case-local DDL/load files.
+- Removed only `PORT_0005` v1 compatibility surfaces after reference repair: nested SQL positive/negative dirs, case-local engine schema dirs, case-local evidence, metadata, notes, data, and legacy engine-specific validation scripts.
+- Updated `PORT_0005` manifest, README, checker configs, schema profile, validation entrypoints, and witness profile.
+- Did not convert or modify other Wave C cases.
+- Did not modify already converted pilot, Wave A, or Wave B cases except read-only validator checks.
+- Did not modify `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `schemas/parrot_bird_port0005_v0/schema_profile.yaml`
+- `schemas/parrot_bird_port0005_v0/postgres/ddl.sql`
+- `schemas/parrot_bird_port0005_v0/postgres/load.sql`
+- `schemas/parrot_bird_port0005_v0/mysql/ddl.sql`
+- `schemas/parrot_bird_port0005_v0/mysql/load.sql`
+- `schemas/parrot_bird_port0005_v0/spark/ddl.sql`
+- `schemas/parrot_bird_port0005_v0/spark/load.sql`
+- `cases/PORT/PORT_0005/sql/pos_01.sql`
+- `cases/PORT/PORT_0005/sql/neg_01.sql`
+- `cases/PORT/PORT_0005/validation/run_validation.sh`
+- `cases/PORT/PORT_0005/validation/run_plan_collection.sh`
+- `cases/PORT/PORT_0005/validation/run_engine_queries.py`
+- `cases/PORT/PORT_0005/witness/witness_profile.yaml`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_conversion_summary.md`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_manifest_consistency_audit.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_dialect_variant_retention.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_schema_conversion_results.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_cleanup_deletions_manifest.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_validator_results.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_protected_boundary_checks.csv`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/future_case_package_v2_wave_c_port0005_post_conversion_review_prompt.md`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_conversion_summary.json`
+- `audits/case_package_v2_common_core40_wave_c_subwave_1_port0005_v0/port0005_conversion_command_log.md`
+
+Files deleted:
+- `PORT_0005` nested SQL compatibility dirs: `sql/positives/`, `sql/negatives/`.
+- `PORT_0005` case-local engine schema dirs: `schema/postgres/`, `schema/mysql/`, `schema/spark/`.
+- `PORT_0005` case-local `evidence/`, `metadata/`, `notes/`, and `data/` directories.
+- `PORT_0005` legacy engine-specific validation scripts.
+
+Validation:
+- `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PORT/PORT_0005`: passed.
+- Static validators for all 32 previously converted cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- `git diff --check`: passed.
+- Boundary checks confirmed only `PORT_0005` changed under `cases/`, no other Wave C case changes, no pilot/Wave A/Wave B case changes, no `case_sets/`, inventory, reports/results, denominator, paper-result, official-metric, DB/checker execution, `evidence/cases/`, or leaderboard changes.
+
+Task result:
+- Wave C subwave 1 PORT_0005 conversion: yes.
+- Converted case ID: `PORT_0005`.
+- Deferred: no.
+- Clean-template-minimal achieved: yes.
+- Dialect variants retained: yes.
+- Manifest consistency passed: yes.
+- Validation three-file contract passed: yes.
+- Schema created/reused: `parrot_bird_port0005_v0`.
+- Case files modified: yes.
+- Schemas modified: yes.
+- `evidence/cases/` created: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run `case_package_v2_wave_c_port0005_post_conversion_review_v0` as a read-only parity review for `PORT_0005`, then proceed to the next precleared Wave C subwave only if the review passes.

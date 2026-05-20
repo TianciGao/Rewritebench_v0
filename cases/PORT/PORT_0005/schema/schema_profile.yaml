@@ -1,17 +1,37 @@
-case_id: PORT_0005
-profile_version: v1
-source: generated from legacy DDL and manifest during migration
-tables:
+schema_id: parrot_bird_port0005_v0
+external_schema_profile: schemas/parrot_bird_port0005_v0/schema_profile.yaml
+source_family: PARROT/BIRD
+relevant_tables:
 - drivers
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-db_validation_run_during_migration: false
-evidence_regenerated: false
+columns:
+  drivers:
+  - nationality
+  - dob
+column_types:
+  drivers:
+    nationality: text/string
+    dob: timestamp/datetime
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres uses TEXT and TIMESTAMP; MySQL uses TEXT and DATETIME; Spark uses STRING and TIMESTAMP.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Draft four-row drivers fixture; not evidence of fresh DB validation.
+- Source/positive select the earliest non-null dob; hard negative changes ordering direction.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/parrot_bird_port0005_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: false
+  case_local_engine_files_deleted: true
+  notes: Case-local per-engine ddl/load files were removed after copy-first external schema verification.
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

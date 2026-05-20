@@ -1,0 +1,3 @@
+case_id,dialect_variant_path,retained,reason,deletion_allowed,notes
+PORT_0005,sql/dialect_variants/spark/neg_02_spark.sql,true,precleared semantic PORT Spark dialect variant,false,retained as optional semantic v2 asset for portability review
+PORT_0005,sql/dialect_variants/spark/pos_02_spark.sql,true,precleared semantic PORT Spark dialect variant,false,retained as optional semantic v2 asset for portability review
