@@ -9742,3 +9742,72 @@ Task result:
 
 Next safe action:
 - Complete missing public release-surface metadata/spec/reporting/reproduction/export readiness items in a separate bounded task, then rerun final public-release closeout before any release tag or export branch.
+
+### 2026-05-20 · Audit user-entry and one-command reproduction compatibility after case-package changes
+
+Mode: compatibility audit and lightweight smoke; no full paper reproduction CLI; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Audited current user-entry and reproduction prototype compatibility after Common-core 40 case-package normalization and public README normalization.
+- Inspected module CLI, thin wrapper, optional SQLGlot adapter, user-entry docs, case selection, PostgreSQL execution helper, local checker, user-run schema constants, tests, CI workflows, packaging metadata, Common-core case-set metadata, and representative case-package paths.
+- Confirmed Common-core v0 remains 40 cases with pool split 16 PERF / 9 CONS / 9 PORT / 6 LONGTAIL; same-engine denominator remains 120 rows; controls remain 360 rows.
+- Confirmed selection remains metadata-driven through `case_sets/common_core_v0/` and all 40 Common-core rows resolve to existing `sql/source.sql`.
+- Ran module CLI help, wrapper CLI help, and SQLGlot adapter help successfully.
+- Ran two-case non-DB dry-run smoke over `PERF_0006` and `CONS_0005`: passed, selected_rows=2, candidate_generated_rows=0.
+- Ran two-case non-DB dummy-adapter smoke over `PERF_0006` and `CONS_0005`: passed, selected_rows=2, candidate_generated_rows=2.
+- Recorded and removed local smoke outputs under `runs/user/audit_user_entry_*`; removed unit-test local outputs under `runs/user/unittest_*`.
+- Determined optional PostgreSQL DB/checker mode needs reorganization because it still expects case-local `schema/postgres/ddl.sql` and `schema/postgres/load.sql`, which are absent from normalized Common-core packages.
+- Determined docs and behavior are partially aligned: non-DB path is documented and works, while optional DB/checker flags are exposed in CLI help but underdocumented and incompatible with external schema layout.
+- Did not modify source code, tests, docs, README files, cases, manifests, schemas, checker files, validation files, SQL files, case sets, inventory, reports, results, benchmark specs, repository specs, workflows, denominator scaffolds, paper results, or raw retained evidence.
+- Did not run DB/checker execution, compute official metrics, render paper tables, update retained evidence, update reports/results, or create a leaderboard.
+
+Files created:
+- `audits/user_entry_reproduction_compatibility_v0/README.md`
+- `audits/user_entry_reproduction_compatibility_v0/entrypoint_inventory.csv`
+- `audits/user_entry_reproduction_compatibility_v0/smoke_results.csv`
+- `audits/user_entry_reproduction_compatibility_v0/compatibility_matrix.csv`
+- `audits/user_entry_reproduction_compatibility_v0/gap_list.md`
+- `audits/user_entry_reproduction_compatibility_v0/recommended_reorganization_plan.md`
+- `audits/user_entry_reproduction_compatibility_v0/command_log.md`
+- `audits/user_entry_reproduction_compatibility_v0/future_user_entry_repair_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Audit CSV parse/header checks: passed.
+- `git diff --check`: passed.
+- Protected-surface diff check: passed.
+- User-entry unit tests: passed, 27 tests with 1 skipped.
+- Required smoke commands: passed.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Task result:
+- Non-DB dry-run smoke result: passed.
+- Non-DB adapter-capture smoke result: passed.
+- Optional DB/checker mode status: needs reorganization; not run.
+- Documentation alignment verdict: partial.
+- Full paper reproduction status: deferred/not implemented.
+- Source code modified: no.
+- Docs modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize a narrow user-entry repair task for external-schema-aware optional DB/checker diagnostics and public smoke-command polish, with full paper reproduction, official metrics, paper rendering, retained-evidence parsing, reports/results updates, and leaderboard output explicitly out of scope.
