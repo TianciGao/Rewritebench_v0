@@ -9451,3 +9451,59 @@ Task result:
 
 Next safe action:
 - Human review of the four pilot READMEs. If accepted, authorize a separate README-only batch for all Common-core 40 cases.
+
+### 2026-05-20 · Patch four pilot public case READMEs with SQL pattern overview
+
+Mode: README-only pilot patch; no case conversion; no cleanup execution; no source-path provenance follow-up; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added a short `## SQL pattern overview` section to exactly four representative Common-core public-facing case READMEs: `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Used each target case manifest and direct SQL files as source material for the source-query, reference-rewrite, checker-control, or portability-focus bullets.
+- Did not modify manifests, schema profiles, checker files, validation files, SQL files, case sets, inventory, reports/results, denominator files, paper-facing results, raw evidence, scripts, tests, benchmark specs, repository specs, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+- Did not run DB/checker execution, compute official metrics, render paper outputs, parse retained evidence, or create a leaderboard.
+
+Files created:
+- None.
+
+Files modified:
+- `cases/PERF/PERF_0006/README.md`
+- `cases/CONS/CONS_0005/README.md`
+- `cases/PORT/PORT_0003/README.md`
+- `cases/LONGTAIL/LONGTAIL_0011/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Banned internal-term grep over the four target README files: no matches.
+- Template-placeholder grep over the four target README files: no matches.
+- SQL pattern overview section count: exactly one section in each target README.
+- Static v2 validators for the four target case packages: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until push completes.
+
+Task result:
+- SQL pattern overview README pilot patch: yes.
+- Target README files modified: four.
+- Non-README case files modified: no.
+- Manifest/schema/checker/validation/sql files modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the four patched pilot READMEs. If accepted, authorize a separate README-only batch for all Common-core 40 cases using the finalized public README template.

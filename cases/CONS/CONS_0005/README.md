@@ -4,6 +4,12 @@
 
 CONS_0005 is a semantic consistency and checker-boundary case from the `CONS` pool. It exercises a Calcite core SQL test pattern involving a correlated `NOT IN` query over `table1` and `table2`, with declared pressure around subquery decorrelation, null semantics, and anti-join behavior. The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
 
+## SQL pattern overview
+
+- Source query: The source query returns rows from `table1` whose `j` value is not in a correlated set of `table2.i` values filtered by `table1.i = table2.j`.
+- Reference rewrite: `sql/pos_01.sql` rewrites the correlated `NOT IN` form into a `NOT EXISTS` anti-join with an explicit `NULL` branch for the subquery value.
+- Checker control: `sql/neg_01.sql` omits the `NULL` branch, making it a checker control for NULL-sensitive but non-equivalent anti-join rewrites.
+
 ## Benchmark role
 
 - Pool: `CONS`

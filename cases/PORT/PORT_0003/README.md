@@ -4,6 +4,12 @@
 
 PORT_0003 is a dialect and engine portability case from the `PORT` pool. It exercises a PARROT/BIRD-derived query where the manifest declares dialect adaptation pressure, order/limit simplification context, and portability concerns around identifier quoting, null semantics, and limit/fetch behavior. The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
 
+## SQL pattern overview
+
+- Source query: The source query selects `"gsoffered"` from `"schools"` and orders by `ABS("longitude") DESC NULLS LAST` with a single-row `LIMIT`.
+- Reference rewrite: `sql/pos_01.sql` adapts the query for a MySQL-like context by using backtick identifiers and a descending `ABS(longitude)` limit form.
+- Portability focus: The case concentrates on identifier quoting, NULL ordering, and limit behavior, with Spark dialect variants retained for portability review.
+
 ## Benchmark role
 
 - Pool: `PORT`

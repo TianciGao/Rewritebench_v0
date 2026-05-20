@@ -4,6 +4,12 @@
 
 LONGTAIL_0011 is a realistic or structurally uncommon SQL rewrite case from the `LONGTAIL` pool. It exercises a SQLStorm StackOverflow query with CTE, window function, join, aggregate, and sort structure, where the manifest declares expression simplification and CTE strategy as rewrite context. The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
 
+## SQL pattern overview
+
+- Source query: The source query uses CTEs over `Posts` and `Users`, computes `DENSE_RANK()` per owner, groups ranks by display name, and orders the selected posts by score and view count.
+- Reference rewrite: `sql/pos_01.sql` collapses the two-CTE shape into a single ranking CTE by reversing the dense-rank order and filtering `WorstRank = 1`.
+- Checker control: `sql/neg_01.sql` substitutes `ROW_NUMBER()` for `DENSE_RANK()`, making tie handling the retained checker-boundary risk.
+
 ## Benchmark role
 
 - Pool: `LONGTAIL`

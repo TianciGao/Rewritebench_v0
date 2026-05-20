@@ -4,6 +4,12 @@
 
 PERF_0006 is a performance-sensitive SQL rewrite case from the `PERF` pool. It exercises a TPC-H Q1-style aggregate query with date-time predicates and expression complexity, where the declared rewrite pressure centers on predicate pushdown and materialization strategy. The package provides the source query, a reference rewrite, executable context, checker configuration, and validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as an isolated SQL string.
 
+## SQL pattern overview
+
+- Source query: The source query aggregates `lineitem` rows shipped on or before a fixed date, grouping by return flag and line status and ordering those groups.
+- Reference rewrite: `sql/pos_01.sql` isolates the ship-date filter in a derived `filtered_lineitem` relation before applying the same aggregate and ordering structure.
+- Checker control: `sql/neg_01.sql` changes the inclusive ship-date predicate to a strict predicate, excluding boundary-date rows as a plausible but non-equivalent rewrite.
+
 ## Benchmark role
 
 - Pool: `PERF`
