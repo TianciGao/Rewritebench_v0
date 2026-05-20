@@ -10289,3 +10289,77 @@ Task result:
 
 Next safe action:
 - Authorize U2 minimal behavior-preserving implementation of resolver, adapter runner, and ledger writer split.
+
+### 2026-05-21 · U2 minimal implementation of user-entry resolver, adapter-runner, and ledger-writer split
+
+Mode: refactor-only implementation; behavior-preserving user-entry module split; no candidate preflight; no quality reports; no tag slicing; no timing; no official metrics; no paper rendering; no reproduction CLI; no reports/results update; no retained-evidence parsing; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added `src/sql_rewrite_bench/case_package_resolver.py` to resolve selected case package assets without inferring Common-core membership or scanning `cases/`.
+- Added `src/sql_rewrite_bench/adapter_runner.py` to own adapter environment construction, `shell=False` invocation, repository-root cwd, stdout/stderr capture, timeout handling, and candidate capture priority.
+- Added `src/sql_rewrite_bench/user_ledger.py` to own current ledger row construction, dry-run row construction, failure row construction, and `ledger.csv` / `failures.csv` writing without changing columns.
+- Updated `src/sql_rewrite_bench/user_run.py` only to delegate existing behavior to those modules.
+- Added `tests/user_entry/test_u2_module_split.py` for resolver, adapter-runner, ledger-writer, and public smoke dry-run behavior preservation.
+- Created `audits/user_entry_u2_minimal_split_v0/`.
+- Preserved current user-entry output schema, public smoke behavior, summary JSON, report Markdown, and optional PostgreSQL/checker orchestration.
+- Did not implement candidate preflight, local quality reports, tag-aware slices, timing diagnostics, official metrics, paper rendering, reports/results updates, retained-evidence parsing, or leaderboard output.
+
+Files created:
+- `src/sql_rewrite_bench/case_package_resolver.py`
+- `src/sql_rewrite_bench/adapter_runner.py`
+- `src/sql_rewrite_bench/user_ledger.py`
+- `tests/user_entry/test_u2_module_split.py`
+- `audits/user_entry_u2_minimal_split_v0/README.md`
+- `audits/user_entry_u2_minimal_split_v0/module_split_summary.csv`
+- `audits/user_entry_u2_minimal_split_v0/behavior_preservation_results.csv`
+- `audits/user_entry_u2_minimal_split_v0/test_results.md`
+- `audits/user_entry_u2_minimal_split_v0/protected_surface_check.md`
+- `audits/user_entry_u2_minimal_split_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry -q`: passed, 39 tests with 1 skipped.
+- CSV parse checks: passed for 2 new CSV files.
+- Markdown sanity checks: passed for 4 new audit Markdown files.
+- Protected-surface diff check: passed.
+- Run-output cleanup check: passed; `runs/user/u2_split_dry_run` and `runs/user/u2_split_dummy_adapter` removed before commit.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until commit is pushed.
+
+Task result:
+- U2 minimal split implemented: yes.
+- Modules added: `case_package_resolver.py`, `adapter_runner.py`, `user_ledger.py`.
+- `user_run.py` behavior-preserving delegation completed: yes.
+- Tests added/updated: `tests/user_entry/test_u2_module_split.py`.
+- Scripts modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the U2 split, then authorize U3 candidate preflight v0 as a separate local-diagnostic task.

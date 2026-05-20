@@ -11,15 +11,13 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import os
-import shlex
-import shutil
-import subprocess
 import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .adapter_runner import run_adapter_for_case
+from .case_package_resolver import resolve_case_package
 from .case_selection import (
     ALLOWED_ENGINES,
     ALLOWED_POOLS,
@@ -29,33 +27,28 @@ from .case_selection import (
 )
 from .local_result_checker import run_local_checker
 from .postgres_execution import execute_postgres_case
+from .user_ledger import (
+    dry_run_ledger_for_row,
+    failure_rows_from_ledger,
+    ledger_from_adapter_result,
+    write_failures,
+    write_ledger,
+)
 from .user_run_schema import (
-    CHECKER_STATUS_NON_DB,
     CHECKER_STATUS_NOT_ENABLED,
     CHECKER_STATUS_SUCCESS,
     EXACT_STATUS_NON_DB,
     EXACT_STATUS_EXACT,
     EXACT_STATUS_EXECUTION_FAILURE,
-    EXECUTION_STATUS_NON_DB,
     EXECUTION_STATUS_NOT_ENABLED,
     EXECUTION_STATUS_SOURCE_SUCCESS,
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
-    EXTRACTION_ADAPTER_FAILED,
-    EXTRACTION_CAPTURED_FROM_CANDIDATE_FILE,
-    EXTRACTION_CAPTURED_FROM_STDOUT,
-    EXTRACTION_NO_CANDIDATE_SQL,
-    EXTRACTION_SKIPPED_DRY_RUN,
     FAILURE_ADAPTER_FAILED,
-    FAILURE_ADAPTER_TIMEOUT,
-    FAILURE_FIELDS,
-    FAILURE_INTERNAL_RUNNER_ERROR,
     FAILURE_MISMATCH,
     FAILURE_NO_CANDIDATE_SQL,
     FAILURE_NONE,
     FAILURE_SOURCE_EXECUTION_FAILED,
-    LEDGER_FIELDS,
     SELECTED_CASE_FIELDS,
-    TIMED_STATUS_NON_DB,
 )
 
 
@@ -164,203 +157,6 @@ def _selected_case_rows(
         }
         for row in selected
     ]
-
-
-def _build_env(
-    *,
-    base_env: dict[str, str],
-    run_id: str,
-    row: SelectedCaseEngineRow,
-    repo_root: Path,
-    workspace_dir: Path,
-    candidate_path: Path,
-) -> dict[str, str]:
-    env = dict(base_env)
-    env.update(
-        {
-            "SQLRB_RUN_ID": run_id,
-            "SQLRB_CASE_ID": row.case_id,
-            "SQLRB_POOL": row.pool,
-            "SQLRB_ENGINE": row.engine,
-            "SQLRB_SOURCE_SQL_PATH": str((repo_root / row.source_sql_path).resolve()),
-            "SQLRB_CASE_DIR": str((repo_root / row.case_path).resolve()),
-            "SQLRB_WORKSPACE_DIR": str(workspace_dir.resolve()),
-            "SQLRB_CANDIDATE_SQL_PATH": str(candidate_path.resolve()),
-        }
-    )
-    return env
-
-
-def _ledger_base(run_id: str, row: SelectedCaseEngineRow, artifact_path: str) -> dict[str, object]:
-    return {
-        "run_id": run_id,
-        "case_id": row.case_id,
-        "pool": row.pool,
-        "engine": row.engine,
-        "denominator_id": row.denominator_id,
-        "planned": "true",
-        "selected": "true",
-        "adapter_invoked": "true",
-        "adapter_exit_code": "",
-        "candidate_generated": "false",
-        "candidate_sql_path": "",
-        "extraction_status": EXTRACTION_NO_CANDIDATE_SQL,
-        "execution_status": EXECUTION_STATUS_NON_DB,
-        "checker_status": CHECKER_STATUS_NON_DB,
-        "exact_status": EXACT_STATUS_NON_DB,
-        "timed_status": TIMED_STATUS_NON_DB,
-        "failure_bucket": FAILURE_NO_CANDIDATE_SQL,
-        "artifact_path": artifact_path,
-        "notes": "non_db_mvp_adapter_capture_only",
-        "execution_enabled": "false",
-        "checker_enabled": "false",
-        "source_execution_status": EXECUTION_STATUS_NON_DB,
-        "candidate_execution_status": EXECUTION_STATUS_NON_DB,
-        "source_result_path": "",
-        "candidate_result_path": "",
-        "checker_config_path": "",
-        "normalization_config_path": "",
-        "compare_config_path": "",
-        "execution_failure_class": "",
-        "checker_failure_class": "",
-        "mismatch_artifact_path": "",
-        "db_artifact_dir": "",
-        "local_execution_only": "true",
-        "official_metric_input": "false",
-        "retained_evidence_input": "false",
-    }
-
-
-def _dry_run_ledger_for_row(
-    *, run_id: str, row: SelectedCaseEngineRow, repo_root: Path, out_dir: Path
-) -> dict[str, object]:
-    workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
-    workspace_dir.mkdir(parents=True, exist_ok=True)
-    artifact_path = _relative_to_repo(workspace_dir, repo_root)
-    ledger = _ledger_base(run_id, row, artifact_path)
-    ledger.update(
-        {
-            "adapter_invoked": "false",
-            "adapter_exit_code": "",
-            "candidate_generated": "false",
-            "candidate_sql_path": "",
-            "extraction_status": EXTRACTION_SKIPPED_DRY_RUN,
-            "failure_bucket": FAILURE_NONE,
-            "notes": "dry_run_selection_only_no_adapter_invoked",
-        }
-    )
-    return ledger
-
-
-def _run_adapter_for_row(
-    *,
-    run_id: str,
-    row: SelectedCaseEngineRow,
-    adapter_command: str,
-    repo_root: Path,
-    out_dir: Path,
-    timeout: int,
-) -> dict[str, object]:
-    workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
-    workspace_dir.mkdir(parents=True, exist_ok=True)
-    candidate_from_workspace = workspace_dir / "candidate.sql"
-    stdout_path = workspace_dir / "adapter_stdout.txt"
-    stderr_path = workspace_dir / "adapter_stderr.txt"
-    artifact_path = _relative_to_repo(workspace_dir, repo_root)
-    ledger = _ledger_base(run_id, row, artifact_path)
-    env = _build_env(
-        base_env=os.environ,
-        run_id=run_id,
-        row=row,
-        repo_root=repo_root,
-        workspace_dir=workspace_dir,
-        candidate_path=candidate_from_workspace,
-    )
-
-    try:
-        command = shlex.split(adapter_command)
-        if not command:
-            raise ValueError("adapter command is empty")
-        completed = subprocess.run(
-            command,
-            cwd=repo_root,
-            env=env,
-            text=True,
-            capture_output=True,
-            timeout=timeout,
-            check=False,
-        )
-        stdout_path.write_text(completed.stdout or "", encoding="utf-8")
-        stderr_path.write_text(completed.stderr or "", encoding="utf-8")
-        ledger["adapter_exit_code"] = str(completed.returncode)
-
-        if completed.returncode != 0:
-            ledger.update(
-                {
-                    "extraction_status": EXTRACTION_ADAPTER_FAILED,
-                    "failure_bucket": FAILURE_ADAPTER_FAILED,
-                    "notes": "adapter command exited non-zero; SQL was not evaluated",
-                }
-            )
-            return ledger
-
-        candidate_dir = out_dir / "candidate_sql"
-        candidate_dir.mkdir(parents=True, exist_ok=True)
-        canonical_candidate = candidate_dir / f"{row.case_id}__{row.engine}.sql"
-        if candidate_from_workspace.exists() and candidate_from_workspace.read_text(
-            encoding="utf-8"
-        ).strip():
-            shutil.copyfile(candidate_from_workspace, canonical_candidate)
-            ledger.update(
-                {
-                    "candidate_generated": "true",
-                    "candidate_sql_path": _relative_to_repo(canonical_candidate, repo_root),
-                    "extraction_status": EXTRACTION_CAPTURED_FROM_CANDIDATE_FILE,
-                    "failure_bucket": FAILURE_NONE,
-                    "notes": "candidate captured from workspace candidate.sql",
-                }
-            )
-        elif (completed.stdout or "").strip():
-            canonical_candidate.write_text(completed.stdout, encoding="utf-8")
-            ledger.update(
-                {
-                    "candidate_generated": "true",
-                    "candidate_sql_path": _relative_to_repo(canonical_candidate, repo_root),
-                    "extraction_status": EXTRACTION_CAPTURED_FROM_STDOUT,
-                    "failure_bucket": FAILURE_NONE,
-                    "notes": "candidate captured from adapter stdout",
-                }
-            )
-        else:
-            ledger.update(
-                {
-                    "extraction_status": EXTRACTION_NO_CANDIDATE_SQL,
-                    "failure_bucket": FAILURE_NO_CANDIDATE_SQL,
-                    "notes": "adapter succeeded but emitted no candidate SQL",
-                }
-            )
-    except subprocess.TimeoutExpired as exc:
-        stdout_path.write_text(exc.stdout or "", encoding="utf-8")
-        stderr_path.write_text(exc.stderr or "", encoding="utf-8")
-        ledger.update(
-            {
-                "adapter_exit_code": "",
-                "extraction_status": EXTRACTION_ADAPTER_FAILED,
-                "failure_bucket": FAILURE_ADAPTER_TIMEOUT,
-                "notes": f"adapter timed out after {timeout} seconds",
-            }
-        )
-    except Exception as exc:  # fail closed and record a local diagnostic row
-        stderr_path.write_text(str(exc), encoding="utf-8")
-        ledger.update(
-            {
-                "adapter_exit_code": "",
-                "extraction_status": EXTRACTION_ADAPTER_FAILED,
-                "failure_bucket": FAILURE_INTERNAL_RUNNER_ERROR,
-                "notes": f"internal runner error: {exc}",
-            }
-        )
-    return ledger
 
 
 def _apply_db_checker_for_row(
@@ -647,6 +443,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
     )
     if not selected:
         raise ValueError("selection produced zero case-engine rows")
+    resolved_packages = [resolve_case_package(repo_root=repo_root, row=row) for row in selected]
 
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "candidate_sql").mkdir(exist_ok=True)
@@ -683,20 +480,26 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
 
     if getattr(args, "dry_run", False):
         ledger_rows = [
-            _dry_run_ledger_for_row(run_id=run_id, row=row, repo_root=repo_root, out_dir=out_dir)
+            dry_run_ledger_for_row(run_id=run_id, row=row, repo_root=repo_root, out_dir=out_dir)
             for row in selected
         ]
     else:
         ledger_rows = [
-            _run_adapter_for_row(
+            ledger_from_adapter_result(
                 run_id=run_id,
                 row=row,
-                adapter_command=args.adapter_command,
+                adapter_result=run_adapter_for_case(
+                    run_id=run_id,
+                    row=row,
+                    resolved_package=resolved,
+                    adapter_command=args.adapter_command,
+                    repo_root=repo_root,
+                    out_dir=out_dir,
+                    timeout=args.adapter_timeout,
+                ),
                 repo_root=repo_root,
-                out_dir=out_dir,
-                timeout=args.adapter_timeout,
             )
-            for row in selected
+            for row, resolved in zip(selected, resolved_packages, strict=True)
         ]
     if enable_db_execution and not getattr(args, "dry_run", False):
         ledger_rows = [
@@ -719,23 +522,9 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
             ledger["checker_enabled"] = "true" if enable_checker else "false"
             ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
             ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
-    _write_csv(out_dir / "ledger.csv", ledger_rows, LEDGER_FIELDS)
-
-    failure_rows = [
-        {
-            "run_id": row["run_id"],
-            "case_id": row["case_id"],
-            "pool": row["pool"],
-            "engine": row["engine"],
-            "denominator_id": row["denominator_id"],
-            "failure_bucket": row["failure_bucket"],
-            "artifact_path": row["artifact_path"],
-            "notes": row["notes"],
-        }
-        for row in ledger_rows
-        if row["failure_bucket"] != FAILURE_NONE
-    ]
-    _write_csv(out_dir / "failures.csv", failure_rows, FAILURE_FIELDS)
+    write_ledger(out_dir / "ledger.csv", ledger_rows)
+    failure_rows = failure_rows_from_ledger(ledger_rows)
+    write_failures(out_dir / "failures.csv", failure_rows)
 
     summary = _summary_payload(
         run_id,
