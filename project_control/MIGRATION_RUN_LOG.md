@@ -9881,3 +9881,67 @@ Task result:
 
 Next safe action:
 - Human review of the repaired public smoke and external-schema-aware optional diagnostic path, then continue bounded release-surface metadata work without claiming full paper reproduction.
+
+### 2026-05-20 · Rewrite top-level README as Chinese public entrypoint
+
+Mode: documentation-only; no source-code changes; no case changes; no full paper reproduction; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Rewrote top-level `README.md` in Chinese as a concise public entrypoint for SQL-RewriteBench.
+- Documented the current public scope: `Common-core v0` has 40 case packages, pool split 16 PERF / 9 CONS / 9 PORT / 6 LONGTAIL, and `Track A` same-engine evaluation has 120 planned rows over PostgreSQL, MySQL, and Spark SQL.
+- Documented the safe public smoke path using `--smoke` and `examples/user/noop_adapter.py`.
+- Documented the user adapter contract, optional local PostgreSQL diagnostics, case-package reading guidance, repository directory roles, and benchmark interpretation boundaries.
+- Explicitly preserved the no-global-leaderboard boundary and stated that smoke outputs are local diagnostics only.
+- Did not claim full paper reproduction, official metrics, report/result regeneration, global leaderboard creation, or exact JOB source paths for `PERF_0077` / `PERF_0082`.
+- Did not modify source code, tests, examples, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, denominator scaffolds, paper results, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+
+Files created:
+- `audits/top_level_readme_zh_entrypoint_v0/README.md`
+- `audits/top_level_readme_zh_entrypoint_v0/smoke_results.csv`
+- `audits/top_level_readme_zh_entrypoint_v0/command_log.md`
+- `audits/top_level_readme_zh_entrypoint_v0/protected_surface_check.md`
+
+Files modified:
+- `README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Documented public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Documented public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- `pytest tests/user_entry`: failed during collection because the src-layout package is not importable without installation or `PYTHONPATH`.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 32 tests with 1 skipped.
+- Common-core scaffold count check: passed, 40 cases and 120 denominator rows.
+- `git diff --check`: passed.
+- Protected-surface diff check: passed.
+- Local smoke outputs and pytest cache outputs created by this task were removed.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until push completes.
+
+Task result:
+- README language: Chinese.
+- Source code modified: no.
+- Tests modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the Chinese top-level README, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.
