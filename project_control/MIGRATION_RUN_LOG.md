@@ -9724,10 +9724,10 @@ Validation result:
 - Protected-surface diff check: passed.
 
 Commit hash:
-- Pending.
+- `2c3e57d` (`docs(release): add final public release closeout planning audit`)
 
 Push result:
-- Pending.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`ef5d87a..2c3e57d`).
 
 Task result:
 - Release readiness verdict: blocked.
