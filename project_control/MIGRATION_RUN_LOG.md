@@ -9660,10 +9660,10 @@ Validation result:
 - Protected-surface diff check: passed.
 
 Commit hash:
-- Pending final commit.
+- `c0573cb` (`docs(provenance): close PERF source-path follow-up`)
 
 Push result:
-- Pending final push.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`0ec57aa..c0573cb`).
 
 Task result:
 - Target cases reviewed: `PERF_0077`, `PERF_0082`.
