@@ -10336,10 +10336,10 @@ Validation result:
 - Run-output cleanup check: passed; `runs/user/u2_split_dry_run` and `runs/user/u2_split_dummy_adapter` removed before commit.
 
 Commit hash:
-- Pending until commit is created.
+- `b757ed5` (`refactor(user-entry): split resolver adapter and ledger modules`).
 
 Push result:
-- Pending until commit is pushed.
+- Pushed `b757ed5` to `origin/feature/case-package-v2-external-schema` (`79e429c..b757ed5`).
 
 Task result:
 - U2 minimal split implemented: yes.
