@@ -677,3 +677,28 @@ Impact:
 - `evidence_ref` remains acceptable only as optional compatibility or retained-artifact metadata.
 - A future writable task may update five pilot manifests/READMEs/checker/witness references and remove static evidence surfaces only after live references are removed and protected-boundary checks pass.
 - This decision does not change Common-core membership, denominator values, case-set membership, reports/results authorization, paper results, official metric computation, DB/checker execution, or global leaderboard policy.
+
+## D029: User-entry local evaluation architecture before paper reproduction
+
+Decision:
+
+The project will first build a modular local diagnostic user-entry harness before paper reproduction.
+
+`src/sql_rewrite_bench/user_run.py` remains the user-entry orchestrator, not a monolithic metrics runner.
+
+Candidate preflight, engine execution, result checking, ledger writing, quality reporting, and tag slicing are separate responsibilities.
+
+Official metrics, paper rendering, retained-evidence updates, reports/results updates, denominator changes, paper-result changes, and leaderboard output remain unauthorized in this phase.
+
+Reason:
+
+The current user-entry smoke path works for non-DB adapter capture and optional PostgreSQL/checker local diagnostics, but the next practical stage needs clearer module boundaries before adding candidate preflight, local quality reports, tag-aware slices, MySQL/Spark diagnostic interfaces, or timing diagnostics.
+
+Separating these responsibilities prevents the user-entry runner from becoming an implicit official metrics or paper reproduction path.
+
+Impact:
+
+- Future user-entry implementation should follow `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+- User-run outputs remain local diagnostics under `runs/user/{run_name}/`.
+- `case_sets/common_core_v0/` remains the source of Common-core membership and denominator rows.
+- Official metrics, paper table rendering, retained-evidence adapter integration, reports/results migration, denominator changes, paper-result changes, and global leaderboard creation require separate authorization.

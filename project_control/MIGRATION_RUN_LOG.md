@@ -10075,3 +10075,57 @@ Task result:
 
 Next safe action:
 - Human review of the split README and detailed user-entry data-flow doc, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.
+
+### 2026-05-20 · Add user-entry local evaluation architecture plan to project_control
+
+Mode: project-control architecture planning only; no source-code changes; no script changes; no test changes; no docs outside `project_control/`; no case changes; no implementation of candidate preflight, quality reports, tag slicing, timing, metrics, paper rendering, reproduction CLI, retained-evidence adapter integration, reports/results migration, or global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+- Defined the local diagnostic user-entry architecture from CLI args through case selection, case package resolution, adapter runner, candidate preflight, engine execution routing, engine-specific execution, local result checking, ledger/failure-bucket writing, local quality reports, tag-aware slices, and future timing diagnostics.
+- Recorded module ownership for current and proposed modules including `user_run.py`, `case_selection.py`, proposed `case_package_resolver.py`, proposed `adapter_runner.py`, proposed `candidate_preflight.py`, proposed `engine_execution.py`, `postgres_execution.py`, future `mysql_execution.py`, future `spark_execution.py`, `local_result_checker.py`, proposed `user_ledger.py`, proposed `user_quality_report.py`, proposed `tag_slices.py`, future `timing_diagnostic.py`, and `user_run_schema.py`.
+- Recorded D029, `User-entry local evaluation architecture before paper reproduction`, as the durable architecture-boundary decision.
+- Did not modify source code, scripts, tests, docs outside `project_control/`, examples, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, benchmark specs, repository specs, raw retained evidence, or `MIGRATION_MASTER_PLAN.md`.
+
+Files created:
+- `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Markdown heading sanity check for `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`: passed, all 16 required headings present.
+- Protected-surface diff check: passed; only project-control files changed.
+- Source/scripts/tests/docs outside `project_control`/cases/case_sets/reports/results changes: none.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until commit is pushed.
+
+Task result:
+- Plan file created: yes.
+- Decision log updated: yes, D029 `User-entry local evaluation architecture before paper reproduction`.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control/` modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- U1 output schema and ledger-field audit.
