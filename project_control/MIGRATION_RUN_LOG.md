@@ -9484,10 +9484,10 @@ Validation result:
 - `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
 
 Commit hash:
-- Pending until commit is created.
+- `fa8f55e` (`docs(cases): add SQL pattern overview to README pilot`)
 
 Push result:
-- Pending until push completes.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`bbb11a4..fa8f55e`).
 
 Task result:
 - SQL pattern overview README pilot patch: yes.
