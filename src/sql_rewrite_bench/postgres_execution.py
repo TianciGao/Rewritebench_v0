@@ -16,6 +16,7 @@ import shutil
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from .case_selection import SelectedCaseEngineRow
 from .user_run_schema import (
@@ -45,6 +46,111 @@ class PostgresExecutionResult:
     failure_bucket: str
     execution_failure_class: str
     notes: str
+
+
+@dataclass(frozen=True)
+class PostgresSchemaAssets:
+    external_profile_path: Path
+    ddl_path: Path
+    load_path: Path
+
+
+def _simple_yaml_mapping(path: Path) -> dict[str, Any]:
+    """Parse the simple mapping subset used by manifests/schema profiles."""
+
+    root: dict[str, Any] = {}
+    stack: list[tuple[int, dict[str, Any]]] = [(-1, root)]
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line_without_comment = raw_line.split("#", 1)[0].rstrip()
+        if not line_without_comment.strip():
+            continue
+        stripped = line_without_comment.strip()
+        if stripped.startswith("-") or ":" not in stripped:
+            continue
+        indent = len(line_without_comment) - len(line_without_comment.lstrip(" "))
+        key, value = stripped.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        while indent <= stack[-1][0]:
+            stack.pop()
+        parent = stack[-1][1]
+        if value == "":
+            child: dict[str, Any] = {}
+            parent[key] = child
+            stack.append((indent, child))
+            continue
+        parent[key] = value.strip("'\"")
+    return root
+
+
+def _load_yaml_mapping(path: Path) -> dict[str, Any]:
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        return _simple_yaml_mapping(path)
+
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"YAML root must be a mapping: {path}")
+    return data
+
+
+def _resolve_repo_relative(repo_root: Path, raw: object, *, field: str) -> Path:
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError(f"{field} is required")
+    path = Path(raw.strip())
+    if path.is_absolute():
+        raise ValueError(f"{field} must be repository-relative: {raw}")
+    if ".." in path.parts:
+        raise ValueError(f"{field} must not contain '..': {raw}")
+    resolved = (repo_root / path).resolve()
+    repo_resolved = repo_root.resolve()
+    if resolved != repo_resolved and repo_resolved not in resolved.parents:
+        raise ValueError(f"{field} escapes repository root: {raw}")
+    return resolved
+
+
+def resolve_postgres_schema_assets(*, repo_root: Path, row: SelectedCaseEngineRow) -> PostgresSchemaAssets:
+    """Resolve PostgreSQL DDL/load paths from manifest schema.external_profile."""
+
+    case_dir = repo_root / row.case_path
+    manifest_path = case_dir / "manifest.yaml"
+    if not manifest_path.exists():
+        raise ValueError(f"manifest is required for external schema resolution: {manifest_path}")
+
+    manifest = _load_yaml_mapping(manifest_path)
+    schema = manifest.get("schema")
+    if not isinstance(schema, dict):
+        raise ValueError(f"manifest schema section must be a mapping: {manifest_path}")
+    external_profile = _resolve_repo_relative(
+        repo_root,
+        schema.get("external_profile"),
+        field="schema.external_profile",
+    )
+    if not external_profile.exists():
+        raise ValueError(f"schema.external_profile does not exist: {external_profile}")
+
+    profile = _load_yaml_mapping(external_profile)
+    engines = profile.get("engines")
+    if not isinstance(engines, dict):
+        raise ValueError(f"external schema profile engines section must be a mapping: {external_profile}")
+    postgres = engines.get("postgres")
+    if not isinstance(postgres, dict):
+        raise ValueError(f"external schema profile has no postgres engine entry: {external_profile}")
+
+    ddl_path = _resolve_repo_relative(repo_root, postgres.get("ddl"), field="engines.postgres.ddl")
+    load_path = _resolve_repo_relative(repo_root, postgres.get("load"), field="engines.postgres.load")
+    missing = [path for path in (ddl_path, load_path) if not path.exists()]
+    if missing:
+        raise ValueError(
+            "external postgres schema asset missing: "
+            + ", ".join(str(path) for path in missing)
+        )
+    return PostgresSchemaAssets(
+        external_profile_path=external_profile,
+        ddl_path=ddl_path,
+        load_path=load_path,
+    )
 
 
 def postgres_config_available(*, dsn_env: str = "SQLRB_POSTGRES_DSN") -> bool:
@@ -185,6 +291,21 @@ def execute_postgres_case(
             notes="postgres execution MVP only supports engine=postgres",
         )
 
+    source_sql_path = repo_root / row.source_sql_path
+    try:
+        schema_assets = resolve_postgres_schema_assets(repo_root=repo_root, row=row)
+    except ValueError as exc:
+        return PostgresExecutionResult(
+            source_execution_status=EXECUTION_STATUS_SOURCE_FAILED,
+            candidate_execution_status=EXECUTION_STATUS_NOT_ENABLED,
+            source_result_path=None,
+            candidate_result_path=None,
+            db_artifact_dir=execution_dir,
+            failure_bucket=FAILURE_SOURCE_EXECUTION_FAILED,
+            execution_failure_class="external_schema_resolution_failed",
+            notes=str(exc),
+        )
+
     if not postgres_config_available(dsn_env=dsn_env):
         return PostgresExecutionResult(
             source_execution_status=EXECUTION_STATUS_NOT_ENABLED,
@@ -197,11 +318,7 @@ def execute_postgres_case(
             notes="allowed Postgres connection configuration is not available",
         )
 
-    case_dir = repo_root / row.case_path
-    source_sql_path = repo_root / row.source_sql_path
-    ddl_path = case_dir / "schema" / "postgres" / "ddl.sql"
-    load_path = case_dir / "schema" / "postgres" / "load.sql"
-    for required in [source_sql_path, candidate_sql_path, ddl_path, load_path]:
+    for required in [source_sql_path, candidate_sql_path, schema_assets.ddl_path, schema_assets.load_path]:
         if not required.exists():
             return PostgresExecutionResult(
                 source_execution_status=EXECUTION_STATUS_SOURCE_FAILED,
@@ -224,7 +341,10 @@ def execute_postgres_case(
     cleanup_script_path = execution_dir / "cleanup.sql"
 
     try:
-        setup_script_path.write_text(_setup_script(schema, ddl_path, load_path), encoding="utf-8")
+        setup_script_path.write_text(
+            _setup_script(schema, schema_assets.ddl_path, schema_assets.load_path),
+            encoding="utf-8",
+        )
         setup = _run_psql_file(
             script_path=setup_script_path,
             timeout=timeout_sec,
@@ -303,7 +423,8 @@ def execute_postgres_case(
             db_artifact_dir=execution_dir,
             failure_bucket=FAILURE_NONE,
             execution_failure_class="",
-            notes="source and candidate SQL executed locally through psql",
+            notes="source and candidate SQL executed locally through psql using external schema profile "
+            + str(schema_assets.external_profile_path),
         )
     except subprocess.TimeoutExpired as exc:
         error_target = execution_dir / "source_error.txt"

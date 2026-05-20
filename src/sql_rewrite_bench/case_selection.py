@@ -14,6 +14,7 @@ from pathlib import Path
 ALLOWED_ENGINES = {"postgres", "mysql", "spark"}
 ALLOWED_POOLS = {"PERF", "CONS", "PORT", "LONGTAIL"}
 SUPPORTED_CASE_SET = "common_core_v0"
+SMOKE_CASE_IDS = ("PERF_0006", "CONS_0005")
 
 
 @dataclass(frozen=True)
@@ -56,6 +57,7 @@ def resolve_common_core_selection(
     pool: str = "all",
     engine: str = "all",
     case_list: Path | None = None,
+    smoke: bool = False,
 ) -> list[SelectedCaseEngineRow]:
     """Resolve Common-core v0 selected case-engine rows from static metadata."""
 
@@ -65,6 +67,10 @@ def resolve_common_core_selection(
         raise ValueError(f"unsupported pool: {pool}")
     if engine != "all" and engine not in ALLOWED_ENGINES:
         raise ValueError(f"unsupported engine: {engine}")
+    if smoke and case_list is not None:
+        raise ValueError("--smoke cannot be combined with --case-list")
+    if smoke and pool != "all":
+        raise ValueError("--smoke cannot be combined with --pool; it selects PERF_0006 and CONS_0005")
 
     case_set_dir = repo_root / "case_sets" / SUPPORTED_CASE_SET
     cases_path = case_set_dir / "cases.csv"
@@ -77,7 +83,7 @@ def resolve_common_core_selection(
     case_rows = _read_csv(cases_path)
     denominator_rows = _read_csv(denominator_path)
     case_by_id = {row["case_id"]: row for row in case_rows}
-    explicit_cases = read_case_list(case_list) if case_list else None
+    explicit_cases = set(SMOKE_CASE_IDS) if smoke else (read_case_list(case_list) if case_list else None)
 
     selected: list[SelectedCaseEngineRow] = []
     for row in denominator_rows:

@@ -9811,3 +9811,73 @@ Task result:
 
 Next safe action:
 - Authorize a narrow user-entry repair task for external-schema-aware optional DB/checker diagnostics and public smoke-command polish, with full paper reproduction, official metrics, paper rendering, retained-evidence parsing, reports/results updates, and leaderboard output explicitly out of scope.
+
+### 2026-05-20 · Repair user-entry external-schema compatibility and public smoke command
+
+Mode: narrow user-entry repair; no full paper reproduction; no official metrics; no paper rendering; no reports/results update; no retained-evidence parsing; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Preserved the existing non-DB user-entry adapter-capture path.
+- Added `--smoke` to select deterministic Common-core smoke cases `PERF_0006` and `CONS_0005` without a temporary case-list file.
+- Added public example adapter `examples/user/noop_adapter.py` for smoke commands.
+- Repaired optional PostgreSQL DB/checker diagnostic schema resolution to use manifest `schema.external_profile` and external profile `engines.postgres.ddl/load`.
+- Added fail-closed behavior when external schema metadata or PostgreSQL schema assets are missing.
+- Updated `docs/USER_BENCHMARK_GUIDE.md` to separate supported non-DB smoke, optional local PostgreSQL diagnostics, and deferred full paper reproduction/official metrics/reporting.
+- Added/updated user-entry tests for smoke selection, runs/user output containment, external schema resolution, and fail-closed diagnostic behavior.
+- Ran module help, wrapper help, public smoke dry-run, public smoke adapter-capture, user-entry unit tests, CSV checks, and `git diff --check`.
+- Live DB/checker execution was not run.
+- Removed local smoke and unit-test outputs under `runs/user/` after recording outcomes.
+- Did not modify cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, denominator scaffolds, paper results, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+
+Files created:
+- `examples/user/noop_adapter.py`
+- `audits/user_entry_external_schema_repair_v0/README.md`
+- `audits/user_entry_external_schema_repair_v0/smoke_results.csv`
+- `audits/user_entry_external_schema_repair_v0/external_schema_resolution_tests.md`
+- `audits/user_entry_external_schema_repair_v0/protected_surface_check.md`
+- `audits/user_entry_external_schema_repair_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/case_selection.py`
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/postgres_execution.py`
+- `docs/USER_BENCHMARK_GUIDE.md`
+- `tests/user_entry/test_case_selection.py`
+- `tests/user_entry/test_db_checker_execution_mvp.py`
+- `tests/user_entry/test_user_run_outputs.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- User-entry unit tests: passed, 33 tests with 1 skipped.
+- Audit CSV parse/header check: passed.
+- `git diff --check`: passed.
+- Protected-surface diff check: passed.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until push completes.
+
+Task result:
+- Public smoke command added: yes.
+- Public example adapter added: yes.
+- Optional DB/checker external-schema compatibility: repaired.
+- Live DB/checker execution run by this task: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the repaired public smoke and external-schema-aware optional diagnostic path, then continue bounded release-surface metadata work without claiming full paper reproduction.

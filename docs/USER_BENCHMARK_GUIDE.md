@@ -1,8 +1,8 @@
 # SQL-RewriteBench User Benchmark Guide
 
-This guide covers the current B-line user-entry MVP. The MVP is a non-DB adapter-capture runner: it lets a user run a SQL rewrite adapter over selected Common-core v0 case-engine rows and stores local experiment outputs under `runs/user/<run_id>/`.
+This guide covers the current B-line user-entry surface. The supported public smoke/default path is a non-DB adapter-capture runner: it lets a user run a SQL rewrite adapter over selected Common-core v0 case-engine rows and stores local experiment outputs under `runs/user/<run_id>/`. Optional PostgreSQL diagnostics are described separately below.
 
-The MVP does not score a full benchmark run. It does not execute SQL, run checkers, collect timing, compute official metrics, update paper results, update retained evidence, or create a leaderboard.
+The default public path does not score a full benchmark run. It does not execute SQL, run checkers, collect timing, compute official metrics, update paper results, update retained evidence, or create a leaderboard.
 
 ## Installation And Imports
 
@@ -86,9 +86,38 @@ Dry-run ledger rows use:
 - `timed_status=not_timed_non_db_mvp`
 - `failure_bucket=none`
 
-## Dummy Adapter Example
+## Public Smoke Example
 
-The test fixture adapter writes deterministic candidate SQL to the path supplied by the runner:
+Use `--smoke` for a deterministic tiny Common-core selection. It selects `PERF_0006` and `CONS_0005` for the requested engine and does not require a case-list file.
+
+Dry-run smoke does not invoke the adapter:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --engine postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --out runs/user/smoke_dry_run \
+  --dry-run
+```
+
+Adapter-capture smoke invokes the public no-op example adapter:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --engine postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --out runs/user/smoke_dummy_adapter
+```
+
+The example adapter copies the source SQL to the candidate path. These smoke outputs remain local diagnostics only.
+
+## Adapter Example
+
+The public no-op example adapter writes deterministic candidate SQL to the path supplied by the runner:
 
 ```bash
 PYTHONPATH=src python -m sql_rewrite_bench.user_run \
@@ -96,8 +125,8 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run \
   --pool PERF \
   --engine postgres \
   --case-list path/to/case_ids.txt \
-  --adapter-command "python tests/user_entry/fixtures/dummy_adapter.py" \
-  --out runs/user/demo_dummy_adapter
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --out runs/user/demo_noop_adapter
 ```
 
 Adapters can produce candidate SQL in either of two ways:
@@ -156,6 +185,25 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run \
 
 Both routes write candidate SQL to the per-row user-run workspace path supplied by `SQLRB_CANDIDATE_SQL_PATH`. If SQLGlot is unavailable or parsing fails, the adapter exits nonzero instead of silently falling back to raw source SQL.
 
+## Optional Local PostgreSQL Diagnostics
+
+The runner also exposes optional PostgreSQL DB/checker diagnostics:
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --engine postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --out runs/user/postgres_local_diagnostic \
+  --enable-db-execution \
+  --enable-checker
+```
+
+This mode is local diagnostic support only. It resolves PostgreSQL DDL/load files through each case manifest's `schema.external_profile` and the external schema package under `schemas/`. It fails closed if the external schema profile or PostgreSQL DDL/load paths are missing. It requires local PostgreSQL configuration through `SQLRB_POSTGRES_DSN` or standard libpq environment variables, plus the `psql` CLI.
+
+DB/checker diagnostic outputs remain under `runs/user/<run_id>/`. They are not official metrics, retained evidence, reports, results, paper outputs, or leaderboard rows.
+
 ## Adapter Environment Variables
 
 The runner provides these variables to each adapter invocation:
@@ -198,8 +246,8 @@ Each run writes:
 
 ## Current Limitations
 
-- No DB execution.
-- No checker execution.
+- Default public smoke and adapter-capture commands do not execute DB queries.
+- Default public smoke and adapter-capture commands do not run checkers.
 - No timing collection.
 - No official benchmark metrics.
 - No paper table rendering.
@@ -210,5 +258,7 @@ Each run writes:
 - No Calcite or R-Bot baseline adapter implementation.
 - No paper reproduction CLI.
 - No non-Common-core selection in the MVP.
+
+Optional local PostgreSQL diagnostics are not full paper reproduction and do not change any official benchmark result.
 
 User-run outputs must not be written into `cases/`, case-local `runs/`, `case_sets/`, `inventory/`, `reports/`, or `results/`.

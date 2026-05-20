@@ -67,6 +67,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--pool", default="all", choices=sorted(ALLOWED_POOLS | {"all"}))
     parser.add_argument("--engine", required=True, choices=sorted(ALLOWED_ENGINES | {"all"}))
     parser.add_argument("--case-list", type=Path, default=None)
+    parser.add_argument(
+        "--smoke",
+        action="store_true",
+        help="Select a deterministic tiny Common-core smoke subset: PERF_0006 and CONS_0005.",
+    )
     parser.add_argument("--adapter-command", required=True)
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--run-id", default=None)
@@ -638,6 +643,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         pool=args.pool,
         engine=args.engine,
         case_list=args.case_list,
+        smoke=bool(getattr(args, "smoke", False)),
     )
     if not selected:
         raise ValueError("selection produced zero case-engine rows")
@@ -653,6 +659,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         "pool": args.pool,
         "engine": args.engine,
         "case_list": args.case_list.as_posix() if args.case_list else "",
+        "smoke": bool(getattr(args, "smoke", False)),
         "adapter_command": args.adapter_command,
         "out_dir": _relative_to_repo(out_dir, repo_root),
         "mvp_mode": "postgres_db_checker_mvp_local"
