@@ -10557,10 +10557,10 @@ Validation result:
 - Run-output cleanup check: passed; `runs/user/u5_tags_dry_run` and `runs/user/u5_tags_dummy_adapter` removed before commit.
 
 Commit hash:
-- Pending until commit.
+- `18998112936fbb1293102f8d225dc54c1d241f9d`
 
 Push result:
-- Pending until push.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`b87de5c..1899811`).
 
 Task result:
 - U5 tag-aware slices implemented: yes.
