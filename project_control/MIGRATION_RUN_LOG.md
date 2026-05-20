@@ -10049,10 +10049,10 @@ Validation result:
 - Local smoke outputs and Python cache outputs created by this task were removed.
 
 Commit hash:
-- Pending until commit is created.
+- `6ce1a29` (`docs(user-entry): move detailed file map to guide`)
 
 Push result:
-- Pending until commit is pushed.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`3bd95dd..6ce1a29`).
 
 Task result:
 - Top-level README simplified: yes.
