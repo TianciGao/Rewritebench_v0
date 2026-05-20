@@ -9984,10 +9984,10 @@ Validation result:
 - Local smoke outputs and pytest cache outputs created by this task were removed.
 
 Commit hash:
-- Pending until commit is created.
+- `1ab4c62` (`docs: add user-entry file map to README`) after rebasing onto remote commit `cd6a77b`.
 
 Push result:
-- Pending until push completes.
+- Pending final run-log push after rebase validation.
 
 Task result:
 - README data-flow file map added: yes.
