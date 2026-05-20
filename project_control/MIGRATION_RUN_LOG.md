@@ -9686,3 +9686,59 @@ Task result:
 
 Next safe action:
 - Proceed to final public-release closeout planning, carrying the explicit note that `PERF_0077` and `PERF_0082` retain nonblocking source-path provenance uncertainty and no exact JOB source path is claimed.
+
+### 2026-05-20 · Final public-release closeout planning audit
+
+Mode: read-only planning/readiness audit; no release tag; no export branch; no history rewrite; no case-file changes; no metrics; no paper rendering; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created a final public-release closeout planning packet under `audits/final_public_release_closeout_planning_v0/`.
+- Reviewed Common-core 40 final closeout rerun, Common-core README batch project-control records, and the `PERF_0077`/`PERF_0082` source-path follow-up packet.
+- Confirmed case-package readiness inputs: Common-core 40 closed out, all 40 public case READMEs normalized, semantic manifests and three-file validation contract closed out, dialect variants retained as semantic PORT assets, and `PERF_0077`/`PERF_0082` source-path caveats explicitly retained as nonblocking provenance uncertainty.
+- Recorded release readiness verdict: blocked for actual public release/export because public release-surface gaps remain.
+- Remaining blockers recorded: missing `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, missing `benchmark_spec/`, missing or unauthorized curated `reports/` and `results/`, incomplete official metrics/paper rendering/reproduction and retained-evidence release-output flow, and no export branch or release tag.
+- Did not modify cases, manifests, schemas, SQL, checker files, validation files, case sets, inventory, reports, results, benchmark specs, repository specs, scripts, tests, source files, or raw retained evidence.
+- Did not compute official metrics, run DB/checker execution, render paper tables, create a leaderboard, create a release tag, or create an export branch.
+
+Files created:
+- `audits/final_public_release_closeout_planning_v0/README.md`
+- `audits/final_public_release_closeout_planning_v0/release_readiness_matrix.csv`
+- `audits/final_public_release_closeout_planning_v0/release_readiness_summary.json`
+- `audits/final_public_release_closeout_planning_v0/remaining_gap_list.md`
+- `audits/final_public_release_closeout_planning_v0/protected_surface_check.md`
+- `audits/final_public_release_closeout_planning_v0/command_log.md`
+- `audits/final_public_release_closeout_planning_v0/future_final_closeout_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `release_readiness_summary.json` parse/assertion: passed.
+- `release_readiness_matrix.csv` parse/header/count check: passed, 18 readiness dimensions.
+- `git diff --check`: passed.
+- Static v2 validators for all 40 Common-core case packages: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Protected-surface diff check: passed.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Task result:
+- Release readiness verdict: blocked.
+- Remaining nonblocking caveats: `PERF_0077` and `PERF_0082` retain source-path provenance uncertainty; PORT dialect variants remain semantic assets.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Complete missing public release-surface metadata/spec/reporting/reproduction/export readiness items in a separate bounded task, then rerun final public-release closeout before any release tag or export branch.
