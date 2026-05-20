@@ -9785,10 +9785,10 @@ Validation result:
 - Required smoke commands: passed.
 
 Commit hash:
-- Pending.
+- `f978607` (`docs(audit): assess user-entry reproduction compatibility`)
 
 Push result:
-- Pending.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`d99cfc8..f978607`).
 
 Task result:
 - Non-DB dry-run smoke result: passed.
