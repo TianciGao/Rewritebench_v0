@@ -2,12 +2,6 @@
 set -euo pipefail
 
 CASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-MANIFEST="$CASE_DIR/manifest.yaml"
+REPO_ROOT="$(cd "${CASE_DIR}/../../.." && pwd)"
 
-if [[ ! -f "$MANIFEST" ]]; then
-  echo "missing manifest: $MANIFEST" >&2
-  exit 2
-fi
-
-echo "CONS_0037: shared v2 plan collection runner not implemented; use future shared runner" >&2
-exit 2
+PYTHONPATH="${REPO_ROOT}/src${PYTHONPATH:+:${PYTHONPATH}}"   python3 "${CASE_DIR}/validation/run_engine_queries.py" --mode plan_collection "$@"

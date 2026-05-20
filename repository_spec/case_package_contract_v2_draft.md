@@ -160,11 +160,12 @@ The target validation entrypoints are:
 ```text
 validation/run_validation.sh
 validation/run_plan_collection.sh
+validation/run_engine_queries.py
 ```
 
-Case-local validation scripts should be thin wrappers. Shared logic should live in `scripts/` or `src/` after separate authorization.
+Case-local validation scripts should be thin entrypoints. The shell wrappers call the local `run_engine_queries.py` shim, and the shim delegates to shared modules under `src/sql_rewrite_bench/validation/`.
 
-Clean v2 `validation/` contains thin case-local entrypoints only. It must not duplicate shared engine-query, result-checking, SQL-shape, or plan-artifact implementation logic in every case.
+Clean v2 `validation/` contains thin case-local entrypoints only. It must not duplicate shared engine-query, result-checking, SQL-shape, or plan-artifact implementation logic in every case. The local `run_engine_queries.py` must not contain hardcoded case IDs, credentials, DB execution code, case-local `runs/` writes, reports/results writes, metric computation, or leaderboard creation.
 
 ## Folder-ordered Conversion Sequence
 

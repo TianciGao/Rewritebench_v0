@@ -73,6 +73,7 @@ checker:
 validation:
   run_validation: validation/run_validation.sh
   run_plan_collection: validation/run_plan_collection.sh
+  run_engine_queries: validation/run_engine_queries.py
 evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts

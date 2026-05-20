@@ -38,6 +38,21 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             "validation/run_plan_collection.sh",
         ):
             (case_dir / rel).write_text("-- test\n", encoding="utf-8")
+        (case_dir / "validation" / "run_engine_queries.py").write_text(
+            textwrap.dedent(
+                """\
+                #!/usr/bin/env python3
+                from pathlib import Path
+
+                from sql_rewrite_bench.validation.engine_query_runner import main
+
+
+                if __name__ == "__main__":
+                    raise SystemExit(main(default_case_dir=Path(__file__).resolve().parents[1]))
+                """
+            ),
+            encoding="utf-8",
+        )
         for engine in ("postgres", "mysql", "spark"):
             (root / "schemas" / "demo_schema" / engine / "ddl.sql").write_text("-- ddl\n", encoding="utf-8")
             (root / "schemas" / "demo_schema" / engine / "load.sql").write_text("-- load\n", encoding="utf-8")
@@ -173,6 +188,7 @@ class CasePackageV2ResolverTests(unittest.TestCase):
         validation:
           run_validation: validation/run_validation.sh
           run_plan_collection: validation/run_plan_collection.sh
+          run_engine_queries: validation/run_engine_queries.py
         evidence_policy:
           static_case_evidence: not_required
           regeneration_policy: regenerable_by_validation_and_report_scripts
@@ -231,6 +247,67 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
             self.assertEqual(result.overall_status, "fail")
             self.assertTrue(any("evidence_policy" in error for error in result.errors))
+
+    def test_missing_run_engine_queries_manifest_field_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["validation"].pop("run_engine_queries")
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("validation.run_engine_queries" in error for error in result.errors))
+
+    def test_missing_run_engine_queries_file_fails(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
+        with tmp:
+            (root / "cases" / "PERF" / "PERF_9999" / "validation" / "run_engine_queries.py").unlink()
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("validation.run_engine_queries" in error for error in result.errors))
+
+    def test_run_engine_queries_copied_implementation_marker_fails(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
+        with tmp:
+            (root / "cases" / "PERF" / "PERF_9999" / "validation" / "run_engine_queries.py").write_text(
+                textwrap.dedent(
+                    """\
+                    #!/usr/bin/env python3
+                    from pathlib import Path
+                    from sql_rewrite_bench.validation.engine_query_runner import main
+                    import psycopg2
+
+                    if __name__ == "__main__":
+                        raise SystemExit(main(default_case_dir=Path(__file__).resolve().parents[1]))
+                    """
+                ),
+                encoding="utf-8",
+            )
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(any("validation.run_engine_queries.thin_shim" in error for error in result.errors))
+
+    def test_static_validator_does_not_execute_run_engine_queries(self) -> None:
+        tmp, root = self.make_repo(self.valid_manifest())
+        with tmp:
+            (root / "cases" / "PERF" / "PERF_9999" / "validation" / "run_engine_queries.py").write_text(
+                textwrap.dedent(
+                    """\
+                    #!/usr/bin/env python3
+                    from pathlib import Path
+                    from sql_rewrite_bench.validation.engine_query_runner import main
+
+                    if False:
+                        raise RuntimeError("validator executed the shim")
+
+                    if __name__ == "__main__":
+                        raise SystemExit(main(default_case_dir=Path(__file__).resolve().parents[1]))
+                    """
+                ),
+                encoding="utf-8",
+            )
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "pass", result.errors)
 
     def test_evidence_ref_top_level_fails(self) -> None:
         manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))

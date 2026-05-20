@@ -11,9 +11,10 @@ Case packages should converge to:
 ```text
 validation/run_validation.sh
 validation/run_plan_collection.sh
+validation/run_engine_queries.py
 ```
 
-These scripts are stable user/maintainer entrypoints. They should be thin wrappers around shared logic.
+These files are stable user/maintainer entrypoints. The shell scripts are thin wrappers. The Python entrypoint is a short case-local shim that delegates to shared logic under `src/sql_rewrite_bench/validation/`.
 
 ## Engine Argument Handling
 
@@ -24,7 +25,7 @@ validation/run_validation.sh --engine postgres
 validation/run_plan_collection.sh --engine postgres
 ```
 
-Supported engines must be validated against the manifest and `schema_ref`.
+Supported engines must be validated against the manifest and `schema.external_profile`.
 
 ## Target Argument Handling
 
@@ -49,39 +50,42 @@ Case-local scripts should:
 
 Case-local scripts should not contain large duplicated runner logic.
 
-They should also avoid duplicated per-case implementations of:
+`validation/run_engine_queries.py` is required only as a thin shim. It must not contain engine-specific execution implementation, hardcoded case IDs, credentials, case-local `runs/` writes, metrics/reporting behavior, or leaderboard creation.
 
-- `run_engine_queries.py`
+Case packages should avoid duplicated per-case implementations of:
+
 - `check_results.py`
 - `check_sql_consistency.py`
 - `check_plan_artifacts.py`
 - `run_checks.sh`
 
-Those names may exist only as compatibility assets or templates until shared modules replace them.
+Those names may exist only as compatibility assets or templates until shared modules replace them. `run_engine_queries.py` is the exception: it is required as a thin local entrypoint that imports and delegates to shared code.
 
 ## Shared Logic Location
 
 Shared validation and plan-collection behavior should live in:
 
-- `scripts/` for command-line wrappers
-- `src/` for importable library code
+- `src/sql_rewrite_bench/validation/engine_query_runner.py`
+- `src/sql_rewrite_bench/validation/plan_collection_runner.py`
+- equivalent shared modules under `src/sql_rewrite_bench/validation/`
 
-Adding shared logic requires a separate implementation task.
+Initial shared modules may fail closed until DB execution is separately authorized.
 
 ## Shared Module Call Graph
 
 Clean v2 validation wrappers should follow this shared call graph:
 
 1. User or maintainer invokes `validation/run_validation.sh` or `validation/run_plan_collection.sh`.
-2. Wrapper resolves the repository root and case `manifest.yaml`.
-3. Manifest resolution loads direct SQL paths, `schema_ref`, case-local `schema/schema_profile.yaml`, checker config paths, and `evidence_ref`.
-4. Engine query execution, when authorized by a separate task, dispatches to shared engine-runner logic such as future `src/sql_rewrite_bench/engine_query_runner.py`.
-5. Result comparison dispatches to existing `src/sql_rewrite_bench/local_result_checker.py`.
-6. SQL static shape checks dispatch to future `src/sql_rewrite_bench/sql_shape_validator.py`.
-7. Plan and evidence artifact checks dispatch to future `src/sql_rewrite_bench/plan_artifact_validator.py`.
-8. Outputs are written only to approved local output roots, never to case-local `runs/` by default.
+2. Wrapper resolves the repository root and calls `validation/run_engine_queries.py`.
+3. The shim resolves the case directory and delegates to `src/sql_rewrite_bench/validation/engine_query_runner.py` or `plan_collection_runner.py`.
+4. Manifest resolution loads direct SQL paths, `schema.external_profile`, case-local `schema/schema_profile.yaml`, checker config paths, witness policy, and `evidence_policy`.
+5. Engine query execution, when authorized by a separate task, dispatches to shared engine-runner logic.
+6. Result comparison dispatches to existing `src/sql_rewrite_bench/local_result_checker.py`.
+7. SQL static shape checks dispatch to future `src/sql_rewrite_bench/sql_shape_validator.py`.
+8. Plan and evidence artifact checks dispatch to future `src/sql_rewrite_bench/plan_artifact_validator.py`.
+9. Outputs are written only to approved local output roots, never to case-local `runs/` by default.
 
-`local_result_checker.py` exists today as the shared local result comparison implementation. `sql_shape_validator.py`, `plan_artifact_validator.py`, and `engine_query_runner.py` are planned future shared modules and are not created by this policy.
+`local_result_checker.py` exists today as the shared local result comparison implementation. DB execution remains unauthorized until a separate task implements and approves it.
 
 ## Compatibility With Old Engine-specific Scripts
 
@@ -94,12 +98,14 @@ Compatibility scripts should not be deleted during v2 branch adoption unless a s
 Wrappers and validators must resolve:
 
 - `sql.source`
-- `sql.positives`
-- `sql.negatives`
-- `schema_ref`
+- `sql.positive_rewrites`
+- `sql.hard_negatives`
+- `schema.external_profile`
 - `schema/schema_profile.yaml`
 - checker config paths
-- `evidence_ref`
+- validation/run_engine_queries.py thin shim
+- witness policy
+- `evidence_policy`
 
 They must fail closed on missing required paths or unsupported engines.
 

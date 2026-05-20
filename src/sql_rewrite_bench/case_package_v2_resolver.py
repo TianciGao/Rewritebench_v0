@@ -16,6 +16,7 @@ SUPPORTED_SCHEMA_ENGINES = ("postgres", "mysql", "spark")
 CANONICAL_VALIDATION_ENTRYPOINTS = {
     "run_validation": "validation/run_validation.sh",
     "run_plan_collection": "validation/run_plan_collection.sh",
+    "run_engine_queries": "validation/run_engine_queries.py",
 }
 REQUIRED_TOP_LEVEL_KEYS = {
     "case_id",
@@ -59,6 +60,29 @@ FORBIDDEN_REFERENCE_PATTERNS = (
     "run_postgres_plan_collection.sh",
     "run_mysql_plan_collection.sh",
     "run_spark_plan_collection.sh",
+)
+RUN_ENGINE_QUERIES_REQUIRED_IMPORT = "sql_rewrite_bench.validation.engine_query_runner"
+RUN_ENGINE_QUERIES_FORBIDDEN_MARKERS = (
+    "psycopg2",
+    "pymysql",
+    "mysql.connector",
+    "SparkSession",
+    "sqlalchemy",
+    "create_engine",
+    "jdbc:",
+    "subprocess.run",
+    "subprocess.Popen",
+    "password=",
+    "POSTGRES_PASSWORD",
+    "MYSQL_PASSWORD",
+    "SPARK_HOME",
+    "schema/postgres/",
+    "schema/mysql/",
+    "schema/spark/",
+    "runs/",
+    "reports/",
+    "results/",
+    "leaderboard",
 )
 
 
@@ -349,6 +373,78 @@ def _sql_entries_ok(entries: Any, expected_path: str) -> bool:
         if not isinstance(entry.get("status"), str) or not entry["status"].strip():
             return False
     return True
+
+
+def _check_run_engine_queries_shim(
+    *,
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    case_id: str,
+    manifest_path: Path,
+    case_dir: Path,
+    observed_value: Any,
+) -> None:
+    """Statically require a short case-local shim, not copied runner logic."""
+
+    if observed_value != CANONICAL_VALIDATION_ENTRYPOINTS["run_engine_queries"]:
+        return
+
+    shim_path = case_dir / CANONICAL_VALIDATION_ENTRYPOINTS["run_engine_queries"]
+    if not shim_path.exists():
+        return
+
+    try:
+        text = shim_path.read_text(encoding="utf-8")
+    except Exception as exc:
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="validation",
+            field="validation.run_engine_queries.thin_shim",
+            observed_value=f"unreadable: {exc}",
+            expected_shape="readable thin shim",
+            ok=False,
+            finding_type="validation_thin_shim",
+            notes="run_engine_queries.py must be readable for static shim validation",
+        )
+        return
+
+    lines = [line for line in text.splitlines() if line.strip() and not line.lstrip().startswith("#")]
+    has_required_import = RUN_ENGINE_QUERIES_REQUIRED_IMPORT in text
+    hardcoded_case_id = any(
+        marker in text
+        for marker in ("PERF_", "CONS_", "PORT_", "LONGTAIL_")
+    )
+    forbidden_markers = [marker for marker in RUN_ENGINE_QUERIES_FORBIDDEN_MARKERS if marker in text]
+    ok = has_required_import and not hardcoded_case_id and not forbidden_markers and len(lines) <= 12
+    notes = "run_engine_queries.py delegates to shared runner"
+    if not ok:
+        reasons: list[str] = []
+        if not has_required_import:
+            reasons.append("missing shared runner import")
+        if hardcoded_case_id:
+            reasons.append("hardcoded case ID marker")
+        if forbidden_markers:
+            reasons.append(f"forbidden implementation/output marker(s): {', '.join(forbidden_markers)}")
+        if len(lines) > 12:
+            reasons.append(f"too many non-comment lines for thin shim: {len(lines)}")
+        notes = "; ".join(reasons)
+
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=shim_path,
+        field_group="validation",
+        field="validation.run_engine_queries.thin_shim",
+        observed_value=f"{len(lines)} non-comment lines",
+        expected_shape="short shim importing sql_rewrite_bench.validation.engine_query_runner and delegating",
+        ok=ok,
+        finding_type="validation_thin_shim",
+        notes=notes,
+    )
 
 
 def resolve_case_package_v2(
@@ -817,8 +913,17 @@ def resolve_case_package_v2(
             expected_shape=expected,
             ok=value == expected,
             finding_type="validation_reference_shape",
-            notes="validation must use the two clean v2 wrapper entrypoints",
+            notes="validation must use the three-file clean v2 entrypoint contract",
         )
+        if key == "run_engine_queries":
+            _check_run_engine_queries_shim(
+                checks=checks,
+                findings=findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                case_dir=case_dir,
+                observed_value=value,
+            )
 
     evidence_policy = manifest.get("evidence_policy")
     evidence_ok = isinstance(evidence_policy, dict)
@@ -951,7 +1056,7 @@ def classify_case_directories(case_dir: Path) -> list[DirectoryClassification]:
             "validation entrypoint wrappers",
             "required_thin_wrappers",
             True,
-            "keep only run_validation.sh and run_plan_collection.sh",
+            "keep run_validation.sh, run_plan_collection.sh, and thin run_engine_queries.py",
             "wrappers must not execute DB/checker in static validation",
         ),
         "witness": (

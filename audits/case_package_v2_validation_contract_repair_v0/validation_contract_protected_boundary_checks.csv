@@ -1,0 +1,13 @@
+check_name,status,details
+no Wave C cases modified,pass,no unconverted PORT/Wave C case paths changed
+no case_sets changed,pass,case_sets unchanged
+no inventory changed,pass,inventory unchanged
+no reports/results changed,pass,reports/results unchanged
+no denominator changed,pass,denominator file unchanged
+no paper results changed,pass,paper-facing reports/results unchanged
+no official metrics computed,pass,no metric computation command run
+no DB/checker execution,pass,only static validator and unit tests run
+no global leaderboard,pass,no leaderboard output created
+no case-local runs restored,pass,no case-local runs paths in diff
+no evidence/cases restored,pass,evidence tree unchanged
+no old validation scripts restored,pass,no run_postgres/run_mysql/run_spark validation scripts added

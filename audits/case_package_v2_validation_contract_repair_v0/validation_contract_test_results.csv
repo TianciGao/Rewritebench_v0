@@ -1,0 +1,39 @@
+test_or_check,status,details
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v,passed,19 tests passed
+v2 validator for 32 target cases,passed,32/32 static validators passed
+missing run_engine_queries manifest field fails,passed,unit test added
+missing run_engine_queries.py fails,passed,unit test added
+copied implementation marker fails,passed,unit test rejects psycopg2 marker in case-local shim
+validator does not execute shim,passed,static resolver reads shim text only
+v2 validator PERF_0006,passed,static v2 validator passed
+v2 validator PERF_0007,passed,static v2 validator passed
+v2 validator CONS_0005,passed,static v2 validator passed
+v2 validator PORT_0003,passed,static v2 validator passed
+v2 validator LONGTAIL_0011,passed,static v2 validator passed
+v2 validator PERF_0008,passed,static v2 validator passed
+v2 validator PERF_0013,passed,static v2 validator passed
+v2 validator PERF_0017,passed,static v2 validator passed
+v2 validator PERF_0019,passed,static v2 validator passed
+v2 validator PERF_0024,passed,static v2 validator passed
+v2 validator PERF_0033,passed,static v2 validator passed
+v2 validator PERF_0034,passed,static v2 validator passed
+v2 validator PERF_0035,passed,static v2 validator passed
+v2 validator PERF_0052,passed,static v2 validator passed
+v2 validator PERF_0054,passed,static v2 validator passed
+v2 validator PERF_0056,passed,static v2 validator passed
+v2 validator PERF_0062,passed,static v2 validator passed
+v2 validator PERF_0077,passed,static v2 validator passed
+v2 validator PERF_0082,passed,static v2 validator passed
+v2 validator CONS_0007,passed,static v2 validator passed
+v2 validator CONS_0009,passed,static v2 validator passed
+v2 validator CONS_0010,passed,static v2 validator passed
+v2 validator CONS_0011,passed,static v2 validator passed
+v2 validator CONS_0012,passed,static v2 validator passed
+v2 validator CONS_0024,passed,static v2 validator passed
+v2 validator CONS_0036,passed,static v2 validator passed
+v2 validator CONS_0037,passed,static v2 validator passed
+v2 validator LONGTAIL_0012,passed,static v2 validator passed
+v2 validator LONGTAIL_0013,passed,static v2 validator passed
+v2 validator LONGTAIL_0022,passed,static v2 validator passed
+v2 validator LONGTAIL_0023,passed,static v2 validator passed
+v2 validator LONGTAIL_0024,passed,static v2 validator passed

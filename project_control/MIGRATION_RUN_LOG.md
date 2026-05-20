@@ -8883,3 +8883,75 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_c_subwave_1_port0005_v0` as a bounded writable conversion for `PORT_0005` only, preserving Spark dialect variants and all protected surfaces before broader Wave C subwaves.
+
+### 2026-05-20 · case_package_v2_validation_contract_repair_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only validation contract repair for 32 already converted v2 cases; no Wave C conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, target validation files/manifests, shared validation modules, validator/tests/specs, audit/project-control files only
+
+Summary:
+- Adopted the three-file clean v2 validation contract: `validation/run_validation.sh`, `validation/run_plan_collection.sh`, and thin `validation/run_engine_queries.py`.
+- Added 32 uniform case-local `run_engine_queries.py` shims for already converted v2 cases only.
+- Updated 32 manifests to include `validation.run_engine_queries`.
+- Replaced 32 target shell wrappers with thin pass-through wrappers that delegate to the local shim and shared fail-closed runner.
+- Created shared fail-closed runner modules under `src/sql_rewrite_bench/validation/`.
+- Updated the static v2 resolver and tests so the three-file contract is required and copied per-case engine implementation markers are rejected.
+- Updated validation and case-package spec drafts to document the three-file thin-entrypoint contract.
+- Did not modify Wave C cases, `case_sets/`, inventory, reports/results, denominators, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `src/sql_rewrite_bench/validation/__init__.py`
+- `src/sql_rewrite_bench/validation/engine_query_runner.py`
+- `src/sql_rewrite_bench/validation/plan_collection_runner.py`
+- 32 target `validation/run_engine_queries.py` thin shims.
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_repair_summary.md`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_case_status.csv`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_manifest_update.csv`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_shared_runner_files.csv`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_test_results.csv`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_protected_boundary_checks.csv`
+- `audits/case_package_v2_validation_contract_repair_v0/future_case_package_v2_wave_c_after_validation_contract_prompt.md`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_repair_summary.json`
+- `audits/case_package_v2_validation_contract_repair_v0/validation_contract_repair_command_log.md`
+
+Files modified:
+- 32 target `manifest.yaml` files, validation sections only.
+- 32 target `validation/run_validation.sh` wrappers.
+- 32 target `validation/run_plan_collection.sh` wrappers.
+- `src/sql_rewrite_bench/case_package_v2_resolver.py`
+- `tests/case_package_v2/test_case_package_v2_resolver.py`
+- `repository_spec/validation_entrypoint_policy_v1_draft.md`
+- `repository_spec/case_package_contract_v2_draft.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- 32/32 target v2 static validators passed.
+- Unit tests passed: `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`, 19 tests.
+- JSON assertion passed.
+- `git diff --check` passed.
+- Boundary checks confirmed no Wave C case changes, no `case_sets/`, inventory, reports/results, denominator, paper-result, official-metric, DB/checker execution, case-local runs restoration, evidence/cases restoration, old validation script restoration, or leaderboard changes.
+
+Task result:
+- Validation contract repair: yes.
+- Three-file validation contract adopted: yes.
+- Target cases count: 32.
+- Target cases updated: 32.
+- Wave C cases modified: no.
+- Shared runner files created: 3.
+- `run_engine_queries.py` shims added: 32.
+- Manifests updated: 32.
+- Validator updated: yes.
+- Tests updated: yes.
+- DB/checker execution run: no.
+- Official metrics computed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run a read-only post-repair validation contract review for the 32 converted cases, or authorize the first Wave C writable conversion subwave using the repaired three-file validation contract, starting with `PORT_0005` only.
