@@ -9598,10 +9598,10 @@ Validation result:
 - `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
 
 Commit hash:
-- Pending final commit.
+- `b708627` (`docs(cases): normalize common-core public case READMEs`)
 
 Push result:
-- Pending final push.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`bbee477..b708627`).
 
 Task result:
 - Common-core public README batch: yes.
