@@ -28,6 +28,8 @@ from .user_run_schema import (
 def build_quality_summary(
     ledger_rows: list[dict[str, object]],
     run_config: dict[str, object] | None = None,
+    *,
+    tag_slices_included: bool = False,
 ) -> dict[str, object]:
     """Build a denominator-aware local diagnostic summary from ledger rows."""
 
@@ -84,7 +86,7 @@ def build_quality_summary(
         },
         "interpretation_boundary": {
             "quality_report_is_official_metric": False,
-            "tag_slices_included": False,
+            "tag_slices_included": tag_slices_included,
             "timing_included": False,
             "paper_tables_rendered": False,
             "global_leaderboard": False,
@@ -173,8 +175,8 @@ def write_quality_report(summary: dict[str, object], output_path: Path) -> None:
             "",
             "## Deferred outputs",
             "",
-            "- Tag-aware slices are not included in U4.",
-            "- Timing and speedup are not included in U4.",
+            _tag_slice_report_line(summary),
+            "- Timing and speedup are not included.",
             "- Official metrics remain unauthorized here.",
             "- Paper table rendering remains deferred.",
             "- Full paper reproduction remains deferred.",
@@ -182,6 +184,13 @@ def write_quality_report(summary: dict[str, object], output_path: Path) -> None:
         ]
     )
     output_path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def _tag_slice_report_line(summary: dict[str, object]) -> str:
+    boundary = summary.get("interpretation_boundary", {})
+    if isinstance(boundary, dict) and boundary.get("tag_slices_included") is True:
+        return "- Tag-aware slices are available as local diagnostics in `tag_slices.csv`."
+    return "- Tag-aware slices are not included."
 
 
 def _text(value: object) -> str:

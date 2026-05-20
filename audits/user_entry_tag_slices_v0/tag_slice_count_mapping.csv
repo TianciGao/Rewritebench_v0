@@ -1,0 +1,14 @@
+output_column,current_ledger_source,count_rule,derivation_notes,local_only
+selected_rows,selected,count true-like selected rows,counts selected case-engine rows,true
+candidate_generated_rows,candidate_generated,count true-like candidate_generated rows,counts selected case-engine rows with generated candidate SQL,true
+candidate_preflight_passed_rows,candidate_preflight_status/candidate_preflight_passed,count passed or true-like preflight rows,local DB-before readiness only,true
+candidate_preflight_failed_rows,candidate_preflight_status/failure_bucket,count failed preflight or candidate_preflight_failed bucket,local DB-before readiness only,true
+db_execution_attempted_rows,execution_status,count statuses other than non-DB/not-enabled/empty,optional local diagnostics only,true
+candidate_executed_rows,candidate_execution_status,count candidate_execution_success rows,optional local diagnostics only,true
+checker_attempted_rows,checker_status,count statuses other than non-DB/not-enabled/empty,optional local diagnostics only,true
+exact_rows,exact_status,count exact rows,local checker diagnostic only,true
+mismatch_rows,exact_status/failure_bucket,count mismatch rows or mismatch failure bucket,local checker diagnostic only,true
+execution_failed_rows,execution_status/failure_bucket,count execution failure statuses or buckets,local diagnostics only,true
+checker_failed_rows,checker_status/failure_bucket,count checker failure statuses or buckets,local diagnostics only,true
+source_like_rows,source_like_status,count source_like rows,diagnostic source-like flag only,true
+timed_rows,timed_status,count non-placeholder timed rows,U5 does not collect timing,true

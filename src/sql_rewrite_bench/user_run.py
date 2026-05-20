@@ -28,6 +28,7 @@ from .case_selection import (
 )
 from .local_result_checker import run_local_checker
 from .postgres_execution import execute_postgres_case
+from .tag_slices import build_tag_slice_rows, write_tag_slices
 from .user_ledger import (
     apply_candidate_preflight_result,
     dry_run_ledger_for_row,
@@ -626,9 +627,13 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         ledger_rows=ledger_rows,
         summary=summary,
     )
-    quality_summary = build_quality_summary(ledger_rows, run_config=config)
+    quality_summary = build_quality_summary(
+        ledger_rows, run_config=config, tag_slices_included=True
+    )
     write_quality_summary(quality_summary, out_dir / "quality_summary.json")
     write_quality_report(quality_summary, out_dir / "quality_report.md")
+    tag_slice_rows = build_tag_slice_rows(ledger_rows, resolved_packages)
+    write_tag_slices(out_dir / "tag_slices.csv", tag_slice_rows)
     return summary
 
 

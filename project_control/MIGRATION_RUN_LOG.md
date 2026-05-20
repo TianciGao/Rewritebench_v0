@@ -10509,3 +10509,81 @@ Task result:
 
 Next safe action:
 - Human review of U4 quality outputs, then authorize U5 tag-aware slices v0 only if accepted.
+
+### 2026-05-21 · U5 implement tag-aware slices v0 for user-entry diagnostics
+
+Mode: local-diagnostic implementation; tag-aware slices only; no timing; no speedup; no official metrics; no paper rendering; no retained-evidence parsing; no reports/results update; no full paper reproduction CLI; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added `src/sql_rewrite_bench/tag_slices.py` to load retained manifest taxonomy tags and build local diagnostic tag-slice counts from current user-run ledger rows.
+- Integrated `tag_slices.csv` generation into `src/sql_rewrite_bench/user_run.py` after local quality report generation.
+- Updated `src/sql_rewrite_bench/user_quality_report.py` so quality outputs record that tag slices are available as local diagnostics.
+- Added `tests/user_entry/test_tag_slices.py` and updated U4 quality-report tests for U5 tag-slice availability.
+- Created `audits/user_entry_tag_slices_v0/`.
+
+Files created:
+- `src/sql_rewrite_bench/tag_slices.py`
+- `tests/user_entry/test_tag_slices.py`
+- `audits/user_entry_tag_slices_v0/README.md`
+- `audits/user_entry_tag_slices_v0/tag_source_inventory.csv`
+- `audits/user_entry_tag_slices_v0/tag_slice_schema.md`
+- `audits/user_entry_tag_slices_v0/tag_slice_count_mapping.csv`
+- `audits/user_entry_tag_slices_v0/behavior_preservation_results.csv`
+- `audits/user_entry_tag_slices_v0/test_results.md`
+- `audits/user_entry_tag_slices_v0/protected_surface_check.md`
+- `audits/user_entry_tag_slices_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/user_quality_report.py`
+- `tests/user_entry/test_quality_report.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `PYTHONPATH=src python -m py_compile src/sql_rewrite_bench/tag_slices.py src/sql_rewrite_bench/user_run.py src/sql_rewrite_bench/user_quality_report.py src/sql_rewrite_bench/case_package_resolver.py`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0, `tag_slices.csv` present.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2, `tag_slices.csv` present.
+- Tag-slice output inspection: passed for `tag_slices.csv` and local-only boundary flags.
+- Quality output inspection: passed for `tag_slices_included=true`.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 59 passed and 1 skipped.
+- CSV parse checks: passed for 3 new CSV files.
+- Protected-surface diff check: passed.
+- Run-output cleanup check: passed; `runs/user/u5_tags_dry_run` and `runs/user/u5_tags_dummy_adapter` removed before commit.
+
+Commit hash:
+- Pending until commit.
+
+Push result:
+- Pending until push.
+
+Task result:
+- U5 tag-aware slices implemented: yes.
+- Module added: `src/sql_rewrite_bench/tag_slices.py`.
+- Output files added to user runs: `tag_slices.csv`.
+- Tag source used: retained `manifest.yaml` taxonomy metadata via resolved case packages.
+- `user_run.py` integration completed: yes.
+- Scripts modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- Live DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Tag score/ranking created by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of U5 tag slices, then authorize U6 user readability enhancements or defer to the next approved user-entry phase.

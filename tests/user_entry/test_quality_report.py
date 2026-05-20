@@ -72,7 +72,8 @@ class UserQualityReportTests(unittest.TestCase):
         self.assertEqual(payload["funnel_counts"]["candidate_preflight_passed_rows"], 0)
         self.assertIs(payload["scope"]["official_metrics"], False)
         self.assertIs(payload["scope"]["leaderboard_created"], False)
-        self.assertFalse((out_dir / "tag_slices.csv").exists())
+        self.assertIs(payload["interpretation_boundary"]["tag_slices_included"], True)
+        self.assertTrue((out_dir / "tag_slices.csv").exists())
 
     def test_quality_outputs_are_written_for_adapter_capture_smoke(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -101,9 +102,10 @@ class UserQualityReportTests(unittest.TestCase):
         self.assertIn("not official metrics", report)
         self.assertIn("not a paper table", report)
         self.assertIn("not retained evidence", report)
-        self.assertIn("Tag-aware slices are not included in U4", report)
-        self.assertIn("Timing and speedup are not included in U4", report)
-        self.assertFalse((out_dir / "tag_slices.csv").exists())
+        self.assertIs(payload["interpretation_boundary"]["tag_slices_included"], True)
+        self.assertIn("Tag-aware slices are available as local diagnostics", report)
+        self.assertIn("Timing and speedup are not included", report)
+        self.assertTrue((out_dir / "tag_slices.csv").exists())
 
     def test_quality_summary_has_no_timing_or_speedup_fields(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

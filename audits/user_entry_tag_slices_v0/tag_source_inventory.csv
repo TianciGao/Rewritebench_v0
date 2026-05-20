@@ -1,0 +1,8 @@
+case_id,axis,tag,source,used_in_smoke,notes
+PERF_0006,sql_feature,date_time_function,manifest.taxonomy.sql_feature,true,retained primary sql_feature
+PERF_0006,sql_feature,expression_complexity,manifest.taxonomy.sql_feature,true,retained secondary sql_feature
+PERF_0006,rewrite_opportunity,predicate_pushdown,manifest.taxonomy.rewrite_opportunity,true,retained primary rewrite opportunity
+PERF_0006,rewrite_opportunity,materialization_strategy,manifest.taxonomy.rewrite_opportunity,true,retained secondary rewrite opportunity
+CONS_0005,sql_feature,correlated_subquery,manifest.taxonomy.sql_feature,true,retained primary sql_feature
+CONS_0005,rewrite_opportunity,subquery_decorrelation,manifest.taxonomy.rewrite_opportunity,true,retained primary rewrite opportunity
+CONS_0005,portability_risk,null_semantics_gap,manifest.taxonomy.portability,true,retained confirmed portability risk
