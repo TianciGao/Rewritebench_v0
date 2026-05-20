@@ -45,6 +45,41 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run \
 - 示例 adapter 位于 `examples/user/noop_adapter.py`。
 - adapter capture 只记录候选输出，不代表语义正确、性能提升或官方结果。
 
+## 用户入口数据流与文件位置
+
+```text
+CLI -> case_sets/common_core_v0 -> cases/<POOL>/<CASE_ID>/sql/source.sql -> adapter -> runs/user/<run_name>/candidate_sql -> ledger/summary/report
+```
+
+| 阶段 | 文件或目录 | 作用 |
+|---|---|---|
+| 主 CLI 入口 | `src/sql_rewrite_bench/user_run.py` | `python -m sql_rewrite_bench.user_run` 的实现入口。 |
+| 薄 wrapper | `scripts/user/run_user_benchmark.py` | 从仓库根目录补充 `src/` import path 后调用同一个 CLI。 |
+| case selection implementation | `src/sql_rewrite_bench/case_selection.py` | 从 metadata 解析 `Common-core v0` 选择，不通过扫描目录决定 membership。 |
+| case-set metadata | `case_sets/common_core_v0/cases.csv` | 定义 40 个 Common-core case package 及 package path。 |
+| Track A denominator metadata | `case_sets/common_core_v0/denominator_same_engine_120.csv` | 定义 120 个 planned same-engine case-engine rows。 |
+| case package root | `cases/<POOL>/<CASE_ID>/` | 单个 benchmark unit 的 package 根目录。 |
+| source SQL passed to adapter | `cases/<POOL>/<CASE_ID>/sql/source.sql` | 通过 `SQLRB_SOURCE_SQL_PATH` 传给 adapter。 |
+| package manifest | `cases/<POOL>/<CASE_ID>/manifest.yaml` | 记录 package manifest、provenance、SQL、schema、checker 和 validation references。 |
+| schema profile | `cases/<POOL>/<CASE_ID>/schema/schema_profile.yaml` | case-facing schema summary；不是用户输出目录。 |
+| external schema package | `schemas/<schema_id>/...` | PostgreSQL DDL/load 从 `schema.external_profile` 和 external profile metadata 解析；不要硬编码固定 schema 文件名。 |
+| public example adapter | `examples/user/noop_adapter.py` | 公开 smoke 示例；读取 source SQL 并写出相同 candidate SQL。 |
+| adapter environment | `SQLRB_SOURCE_SQL_PATH`, `SQLRB_CANDIDATE_SQL_PATH`, `SQLRB_WORKSPACE_DIR` | adapter 从 source path 读取 SQL，把 candidate 写到 candidate path，并可使用 per-row workspace。 |
+| output root | `runs/user/<run_name>/` | 当前用户运行的本地输出根目录。 |
+| selected rows | `runs/user/<run_name>/selected_cases.csv` | 记录本次选择出的 case-engine rows。 |
+| run config | `runs/user/<run_name>/config.yaml` | 记录 CLI 参数、scope 和边界标记。 |
+| candidate SQL capture | `runs/user/<run_name>/candidate_sql/` | 保存 adapter 捕获到的 candidate SQL。 |
+| adapter workspaces | `runs/user/<run_name>/workspaces/` | 保存 per-row adapter stdout/stderr 和 workspace 文件。 |
+| local diagnostic ledger | `runs/user/<run_name>/ledger.csv` | 本地诊断 ledger；不是官方 metrics 输入。 |
+| local summary | `runs/user/<run_name>/summary.json` | 本地诊断计数和边界标记。 |
+| local failures | `runs/user/<run_name>/failures.csv` | 记录非 `none` failure bucket rows。 |
+| local report | `runs/user/<run_name>/report.md` | 本地运行摘要；不是 paper table。 |
+| optional PostgreSQL diagnostic helper | `src/sql_rewrite_bench/postgres_execution.py` | opt-in DB diagnostic helper；默认 smoke 不使用。 |
+| optional checker helper | `src/sql_rewrite_bench/local_result_checker.py` | opt-in local checker diagnostic helper；默认 smoke 不使用。 |
+| output schema / typed row model | `src/sql_rewrite_bench/user_run_schema.py` | 定义 local ledger/status 字段和值域。 |
+
+`runs/user/<run_name>/...` 输出只是本地 diagnostics：不是官方 metrics，不是 paper tables，不更新 `reports/` 或 `results/`，不是 retained evidence，也不会创建 leaderboard。默认 smoke 不执行 DB queries，也不运行 checkers；PostgreSQL/checker diagnostics 必须显式 opt-in，且仍然只是本地诊断。
+
 ## 可选本地 PostgreSQL 诊断
 
 - 可选 DB/checker diagnostics 是 opt-in。

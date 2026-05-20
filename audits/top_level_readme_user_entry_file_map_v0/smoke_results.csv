@@ -1,0 +1,6 @@
+check_id,command,status,db_checker_execution_run,outputs_created,outputs_removed,notes
+module_help,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --help",passed,no,no,no,"Help exposed the documented smoke and optional diagnostic flags."
+wrapper_help,"python scripts/user/run_user_benchmark.py --help",passed,no,no,no,"Wrapper help exposed the same user-entry CLI surface."
+readme_smoke_dry_run,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command 'python examples/user/noop_adapter.py' --out runs/user/smoke_dry_run --dry-run",passed,no,yes,yes,"Documented dry-run smoke selected two rows and generated zero candidates; local output removed after recording."
+readme_smoke_adapter_capture,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command 'python examples/user/noop_adapter.py' --out runs/user/smoke_dummy_adapter",passed,no,yes,yes,"Documented adapter-capture smoke selected two rows and generated two candidates; local output removed after recording."
+user_entry_tests,"PYTHONPATH=src pytest tests/user_entry",passed,no,yes,yes,"User-entry tests passed with 32 passed and 1 skipped; generated cache files removed."

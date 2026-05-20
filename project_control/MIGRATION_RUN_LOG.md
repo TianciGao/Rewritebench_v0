@@ -9945,3 +9945,67 @@ Task result:
 
 Next safe action:
 - Human review of the Chinese top-level README, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.
+
+### 2026-05-20 · Add user-entry data-flow file map to Chinese top-level README
+
+Mode: documentation-only; no source-code changes; no script changes; no test changes; no case changes; no full paper reproduction; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added a new Chinese section `用户入口数据流与文件位置` to the top-level `README.md`.
+- Documented the current user-entry data flow from CLI parameters through Common-core metadata selection, case source SQL, adapter environment variables, candidate SQL capture, local ledger/summary/report outputs, and optional PostgreSQL/checker diagnostics.
+- Mapped user-facing files and directories including `src/sql_rewrite_bench/user_run.py`, `scripts/user/run_user_benchmark.py`, `case_sets/common_core_v0/cases.csv`, `case_sets/common_core_v0/denominator_same_engine_120.csv`, `cases/<POOL>/<CASE_ID>/`, `examples/user/noop_adapter.py`, and `runs/user/<run_name>/...`.
+- Reiterated that `runs/user/<run_name>/...` outputs are local diagnostics only: not official metrics, not paper tables, not reports/results updates, not retained evidence, and not leaderboard rows.
+- Reiterated that default smoke does not execute DB queries or run checkers; PostgreSQL/checker diagnostics are opt-in local diagnostics only.
+- Did not claim full paper reproduction, official metrics, report/result regeneration, global leaderboard creation, or exact JOB source paths for `PERF_0077` / `PERF_0082`.
+- Did not modify source code, scripts, tests, examples, docs other than top-level `README.md`, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, denominator scaffolds, paper results, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+
+Files created:
+- `audits/top_level_readme_user_entry_file_map_v0/README.md`
+- `audits/top_level_readme_user_entry_file_map_v0/smoke_results.csv`
+- `audits/top_level_readme_user_entry_file_map_v0/command_log.md`
+- `audits/top_level_readme_user_entry_file_map_v0/protected_surface_check.md`
+
+Files modified:
+- `README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Documented public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Documented public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry`: passed, 32 tests with 1 skipped.
+- Common-core scaffold count check: passed, 40 cases and 120 denominator rows.
+- `git diff --check`: passed.
+- Protected-surface diff check: passed.
+- Local smoke outputs and pytest cache outputs created by this task were removed.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until push completes.
+
+Task result:
+- README data-flow file map added: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the README file map, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.
