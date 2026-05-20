@@ -1,0 +1,25 @@
+# Wave C Subwave 2 Conversion Command Log
+
+- `pwd && git branch --show-current && git remote -v && git status -sb && git log --oneline -5`
+  - Confirmed repository path, branch, origin, and clean preflight state.
+- Read project-control files, Wave C preclearance artifacts, PORT_0005 conversion/review artifacts, validation contract repair outputs, and manifest repair/caveat outputs.
+  - Confirmed subwave 2 target list and protected boundaries.
+- Inspected target case directories, manifests, metadata taxonomy/provenance files, schema profiles, checker configs, README files, SQL, and schema DDL/load files.
+  - Confirmed source fields and taxonomy/provenance recovery inputs before deleting compatibility directories.
+- Conversion script for `PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+  - Created direct SQL paths, external schema packages, semantic manifests, config-only checker files, source-as-oracle witness profiles, three-file validation entrypoints, and clean README files.
+  - Removed only target-case compatibility surfaces after copy-first representation.
+- `PYTHONPATH=src python scripts/dev/validate_case_package_v2_refs.py --case cases/PORT/<CASE_ID>` for all five targets.
+  - Passed for all five; no DB/checker execution.
+- Static validator loop for all already converted pilot, Wave A, Wave B, and `PORT_0005` cases.
+  - Passed for all regression cases.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`
+  - Passed, 19 tests.
+- JSON assertion for `wave_c_subwave2_conversion_summary.json`.
+  - Passed.
+- CSV parse/header checks for generated audit CSVs.
+  - Passed.
+- Boundary checks for case/schemas/protected surfaces.
+  - Passed.
+- `git diff --stat`, `git diff --check`, and `git status -sb`.
+  - Reviewed final diff, whitespace check passed, and staged only explicit files.

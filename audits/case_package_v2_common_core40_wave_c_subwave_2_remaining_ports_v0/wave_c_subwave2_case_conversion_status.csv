@@ -1,0 +1,6 @@
+case_id,converted,deferred,clean_template_minimal,manifest_consistency,validation_three_file_contract,schema_status,evidence_policy_status,validator_status,notes
+PORT_0008,true,false,true,pass,pass,created:parrot_bird_port0008_v0,pass,pass,Converted to clean-template-minimal v2 with no dialect_variants directory retained or created.
+PORT_0012,true,false,true,pass,pass,created:parrot_bird_port0012_v0,pass,pass,Converted to clean-template-minimal v2 with no dialect_variants directory retained or created.
+PORT_0022,true,false,true,pass,pass,created:parrot_bird_port0022_v0,pass,pass,Converted to clean-template-minimal v2 with no dialect_variants directory retained or created.
+PORT_0024,true,false,true,pass,pass,created:parrot_bird_port0024_v0,pass,pass,Converted to clean-template-minimal v2 with no dialect_variants directory retained or created.
+PORT_0025,true,false,true,pass,pass,created:parrot_bird_port0025_v0,pass,pass,Converted to clean-template-minimal v2 with no dialect_variants directory retained or created.

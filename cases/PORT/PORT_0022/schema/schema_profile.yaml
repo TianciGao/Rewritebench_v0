@@ -1,15 +1,48 @@
-case_id: PORT_0022
-pool: PORT
-engines:
-  postgres: schema/postgres/ddl.sql
-  mysql: schema/mysql/ddl.sql
-  spark: schema/spark/ddl.sql
-witness_loads:
-  postgres: schema/postgres/load.sql
-  mysql: schema/mysql/load.sql
-  spark: schema/spark/load.sql
-required_tables:
+schema_id: parrot_bird_port0022_v0
+source_family: PARROT/BIRD
+relevant_tables:
 - postlinks
 - posts
-generated_from_existing_witness_assets_only: true
-db_validation_run: false
+columns:
+  postlinks:
+  - id
+  - postid
+  - creationdate
+  posts:
+  - id
+  - answercount
+column_types:
+  postlinks:
+    id: INTEGER
+    postid: INTEGER
+    creationdate: TIMESTAMP
+  posts:
+    id: INTEGER
+    answercount: INTEGER
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres, MySQL, and Spark DDL/load assets are represented by the external schema package.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Fixture/load assets were copied from case-local schema files; they are not evidence of fresh
+  DB validation.
+- Runtime checking follows source-as-oracle policy.
+external_schema_profile: schemas/parrot_bird_port0022_v0/schema_profile.yaml
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/parrot_bird_port0022_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: false
+  case_local_engine_files_deleted: true
+  notes: Case-local per-engine ddl/load files were removed after copy-first external schema
+    verification.
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

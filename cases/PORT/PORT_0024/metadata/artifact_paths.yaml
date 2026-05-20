@@ -1,8 +1,0 @@
-case_id: PORT_0024
-pool: PORT
-canonical_case_root: cases/PORT/PORT_0024
-legacy_case_root: cases/PORT/PORT_0024
-public_release_case_root: cases/PORT/PORT_0024
-raw_legacy_runs_root: cases/PORT/PORT_0024/runs
-raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
-runs_retention: evidence/runs_retention.yaml

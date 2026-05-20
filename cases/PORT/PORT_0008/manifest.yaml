@@ -1,126 +1,91 @@
 case_id: PORT_0008
 pool: PORT
-status: copy_first_canonical_layout_full_case_migration_pilot
+primary_pool: PORT
+package_path: cases/PORT/PORT_0008
 source_family: PARROT
-source_id: SRC_009
-source_subset: BIRD
-source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[4]
-source_dialect: postgres_like_candidate
-legacy_manifest_status:
-  official_case_status: draft_constructed
-  registry_status: staged_registered
-  validation_status: draft_cross_dialect_evidence_tracked
-  admission_status: staged_not_yet_admitted
-  package_engineering_status: draft_package_constructed_with_tracked_result_evidence_and_tracked_draft_plan_evidence
-benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: PORT_0008_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  postgres:
-    role: source_reference_engine
-    retained_evidence: evidence/retained_controls/pg_source.tsv
-    validation_assets: legacy_validation_asset_not_run_during_migration
-  mysql:
-    role: target_positive_and_negative_engine
-    retained_positive_evidence: evidence/retained_controls/mysql_rewrite_pos_01.tsv
-    retained_negative_evidence: evidence/hard_negative/mysql_rewrite_neg_01.tsv
-    validation_assets: legacy_validation_asset_not_run_during_migration
-  spark:
-    role: target_positive_and_negative_engine
-    retained_positive_evidence: evidence/retained_controls/spark_rewrite_pos_01.tsv
-    retained_negative_evidence: evidence/hard_negative/spark_rewrite_neg_01.tsv
-    validation_assets: legacy_validation_asset_not_run_during_migration
+source_workload:
+  source_family: PARROT
+  source_id: SRC_009
+  source_name: PARROT
+  source_subset: BIRD
+  source_workload: PARROT/BIRD
+  source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[4]
+  source_dialect: postgres_like_candidate
+based_benchmark: PARROT/BIRD
+source_query_identity:
+  source_id: SRC_009
+  source_name: PARROT
+  source_subset: BIRD
+  source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[4]
+  source_dialect: postgres_like_candidate
+source_path: datasets/raw/parrot/PARROT/benchmark/BIRD/pg_res.json[4]
+draft_origin:
+  recovery_status: recovered_from_provenance_metadata
+  origin_id: PORT_DRAFT_0002
+  origin_type: legacy_draft_id
+  recovery_sources:
+  - current_provenance_metadata
+  - current_taxonomy_metadata
+  - wave_c_preclearance
+taxonomy:
+  sql_feature:
+    primary:
+    - date_time_function
+    secondary:
+    - expression_complexity
+  rewrite_opportunity:
+    primary:
+    - dialect_adaptation
+    secondary:
+    - function_normalization
+  portability:
+    confirmed: &id001
+    - type_coercion
+    - identifier_case_or_quoting
+    - date_time_semantics
+    suspected: []
+  portability_focus:
+    confirmed_or_declared: *id001
+    suspected: []
 sql:
   source: sql/source.sql
-  positives:
-    - id: pos_01
-      path: sql/positives/pos_01.sql
-      source_legacy_path: cases/PORT/PORT_0008/rewrite_pos_01.sql
-      role: positive_rewrite
-  negatives:
-    - id: neg_01
-      path: sql/negatives/neg_01.sql
-      source_legacy_path: cases/PORT/PORT_0008/rewrite_neg_01.sql
-      role: hard_negative
-      expected_behavior: result_divergence_from_source_reference
+  positive_rewrites:
+  - id: pos_01
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
+  - id: neg_01
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
 schema:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
   profile: schema/schema_profile.yaml
+  external_profile: schemas/parrot_bird_port0008_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
   checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
-  postgres_validation: validation/run_pg_validation.sh
-  mysql_validation: validation/run_mysql_validation.sh
-  spark_validation: validation/run_spark_validation.sh
-  postgres_plan_collection: validation/run_postgres_plan_collection.sh
-  mysql_plan_collection: validation/run_mysql_plan_collection.sh
-  spark_plan_collection: validation/run_spark_plan_collection.sh
-  execution_policy: not_run_during_migration
-  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
-evidence:
-  runs_retention: evidence/runs_retention.yaml
-  retained_controls:
-    - evidence/retained_controls/result_check.json
-    - evidence/retained_controls/pg_source.tsv
-    - evidence/retained_controls/mysql_rewrite_pos_01.tsv
-    - evidence/retained_controls/spark_rewrite_pos_01.tsv
-  retained_plans:
-    - evidence/retained_plans/plan_check.json
-    - evidence/retained_plans/postgres/source.json
-    - evidence/retained_plans/mysql/rewrite_pos_01.json
-    - evidence/retained_plans/mysql/rewrite_neg_01.json
-    - evidence/retained_plans/rewrite_neg_01.sanitized.txt
-    - evidence/retained_plans/rewrite_pos_01.sanitized.txt
-  hard_negative:
-    - evidence/hard_negative/mysql_rewrite_neg_01.tsv
-    - evidence/hard_negative/spark_rewrite_neg_01.tsv
-    - evidence/hard_negative/hard_negative_summary.json
-  package_validation_summary: evidence/package_validation_summary.json
-metadata:
-  provenance: metadata/provenance.yaml
-  taxonomy: metadata/taxonomy.yaml
-  engine_support: metadata/engine_support.yaml
-  denominator_eligibility: metadata/denominator_eligibility.yaml
-  artifact_paths: metadata/artifact_paths.yaml
-notes:
-  witness_design_notes: notes/witness_design_notes.md
-  risk_notes: notes/risk_notes.md
-  promotion_checklist: notes/promotion_checklist.md
-  migration_notes: notes/migration_notes.md
-artifact_paths:
-  legacy_case_root: cases/PORT/PORT_0008
-  public_release_case_root: cases/PORT/PORT_0008
-  raw_legacy_runs_root: cases/PORT/PORT_0008/runs
-  raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
-claim_boundaries:
-  actual_migration_performed: true
-  full_case_package_migrated: true
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
+  run_engine_queries: validation/run_engine_queries.py
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
+status: converted_v2_clean_template
+known_caveats:
+- static_inference_requires_future_execution_review
+artifact_warning:
+  case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
-  common_core_membership_changed: false
-  route_evidence_changed: false
-  raw_legacy_evidence_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
+  official_metrics_computed: false
+  db_checker_execution_run: false
+  global_leaderboard_created: false
+  static_evidence_required: false

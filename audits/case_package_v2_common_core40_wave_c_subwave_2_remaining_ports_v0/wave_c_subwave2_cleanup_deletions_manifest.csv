@@ -1,0 +1,81 @@
+case_id,deleted_path,deletion_type,deletion_reason,replacement_or_policy,notes
+PORT_0008,validation/run_pg_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,validation/run_mysql_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,validation/run_spark_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,validation/run_postgres_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,validation/run_mysql_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,validation/run_spark_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0008,sql/positives/,nested_sql_compatibility_dir,direct positive SQL path created,sql/pos_01.sql,Deleted only inside target case package.
+PORT_0008,sql/negatives/,nested_sql_compatibility_dir,direct hard-negative SQL path created,sql/neg_01.sql,Deleted only inside target case package.
+PORT_0008,schema/postgres/,case_local_engine_schema_dir,external postgres DDL/load verified,schemas/parrot_bird_port0008_v0/postgres/,Deleted only inside target case package.
+PORT_0008,schema/mysql/,case_local_engine_schema_dir,external mysql DDL/load verified,schemas/parrot_bird_port0008_v0/mysql/,Deleted only inside target case package.
+PORT_0008,schema/spark/,case_local_engine_schema_dir,external spark DDL/load verified,schemas/parrot_bird_port0008_v0/spark/,Deleted only inside target case package.
+PORT_0008,evidence/,case_local_static_evidence_dir,mandatory static evidence removed from clean v2 surface,evidence_policy.static_case_evidence: not_required,Deleted only inside target case package.
+PORT_0008,metadata/,legacy_metadata_dir,semantic fields represented in repaired manifest contract,manifest.yaml,Deleted only inside target case package.
+PORT_0008,notes/,legacy_notes_dir,public wording represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0008,data/,legacy_data_dir,source-as-oracle witness policy and external schema load assets adopted,witness/witness_profile.yaml and external schema load files,Deleted only inside target case package.
+PORT_0008,MIGRATION_PILOT.md,legacy_migration_note,conversion status represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0012,validation/run_postgres_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,validation/run_mysql_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,validation/run_spark_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,validation/run_postgres_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,validation/run_mysql_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,validation/run_spark_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0012,sql/positives/,nested_sql_compatibility_dir,direct positive SQL path created,sql/pos_01.sql,Deleted only inside target case package.
+PORT_0012,sql/negatives/,nested_sql_compatibility_dir,direct hard-negative SQL path created,sql/neg_01.sql,Deleted only inside target case package.
+PORT_0012,schema/postgres/,case_local_engine_schema_dir,external postgres DDL/load verified,schemas/parrot_bird_port0012_v0/postgres/,Deleted only inside target case package.
+PORT_0012,schema/mysql/,case_local_engine_schema_dir,external mysql DDL/load verified,schemas/parrot_bird_port0012_v0/mysql/,Deleted only inside target case package.
+PORT_0012,schema/spark/,case_local_engine_schema_dir,external spark DDL/load verified,schemas/parrot_bird_port0012_v0/spark/,Deleted only inside target case package.
+PORT_0012,evidence/,case_local_static_evidence_dir,mandatory static evidence removed from clean v2 surface,evidence_policy.static_case_evidence: not_required,Deleted only inside target case package.
+PORT_0012,metadata/,legacy_metadata_dir,semantic fields represented in repaired manifest contract,manifest.yaml,Deleted only inside target case package.
+PORT_0012,notes/,legacy_notes_dir,public wording represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0012,data/,legacy_data_dir,source-as-oracle witness policy and external schema load assets adopted,witness/witness_profile.yaml and external schema load files,Deleted only inside target case package.
+PORT_0012,MIGRATION_PILOT.md,legacy_migration_note,conversion status represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0022,validation/run_postgres_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,validation/run_mysql_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,validation/run_spark_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,validation/run_postgres_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,validation/run_mysql_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,validation/run_spark_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0022,sql/positives/,nested_sql_compatibility_dir,direct positive SQL path created,sql/pos_01.sql,Deleted only inside target case package.
+PORT_0022,sql/negatives/,nested_sql_compatibility_dir,direct hard-negative SQL path created,sql/neg_01.sql,Deleted only inside target case package.
+PORT_0022,schema/postgres/,case_local_engine_schema_dir,external postgres DDL/load verified,schemas/parrot_bird_port0022_v0/postgres/,Deleted only inside target case package.
+PORT_0022,schema/mysql/,case_local_engine_schema_dir,external mysql DDL/load verified,schemas/parrot_bird_port0022_v0/mysql/,Deleted only inside target case package.
+PORT_0022,schema/spark/,case_local_engine_schema_dir,external spark DDL/load verified,schemas/parrot_bird_port0022_v0/spark/,Deleted only inside target case package.
+PORT_0022,evidence/,case_local_static_evidence_dir,mandatory static evidence removed from clean v2 surface,evidence_policy.static_case_evidence: not_required,Deleted only inside target case package.
+PORT_0022,metadata/,legacy_metadata_dir,semantic fields represented in repaired manifest contract,manifest.yaml,Deleted only inside target case package.
+PORT_0022,notes/,legacy_notes_dir,public wording represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0022,data/,legacy_data_dir,source-as-oracle witness policy and external schema load assets adopted,witness/witness_profile.yaml and external schema load files,Deleted only inside target case package.
+PORT_0022,MIGRATION_PILOT.md,legacy_migration_note,conversion status represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0024,validation/run_postgres_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,validation/run_mysql_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,validation/run_spark_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,validation/run_postgres_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,validation/run_mysql_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,validation/run_spark_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0024,sql/positives/,nested_sql_compatibility_dir,direct positive SQL path created,sql/pos_01.sql,Deleted only inside target case package.
+PORT_0024,sql/negatives/,nested_sql_compatibility_dir,direct hard-negative SQL path created,sql/neg_01.sql,Deleted only inside target case package.
+PORT_0024,schema/postgres/,case_local_engine_schema_dir,external postgres DDL/load verified,schemas/parrot_bird_port0024_v0/postgres/,Deleted only inside target case package.
+PORT_0024,schema/mysql/,case_local_engine_schema_dir,external mysql DDL/load verified,schemas/parrot_bird_port0024_v0/mysql/,Deleted only inside target case package.
+PORT_0024,schema/spark/,case_local_engine_schema_dir,external spark DDL/load verified,schemas/parrot_bird_port0024_v0/spark/,Deleted only inside target case package.
+PORT_0024,evidence/,case_local_static_evidence_dir,mandatory static evidence removed from clean v2 surface,evidence_policy.static_case_evidence: not_required,Deleted only inside target case package.
+PORT_0024,metadata/,legacy_metadata_dir,semantic fields represented in repaired manifest contract,manifest.yaml,Deleted only inside target case package.
+PORT_0024,notes/,legacy_notes_dir,public wording represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0024,data/,legacy_data_dir,source-as-oracle witness policy and external schema load assets adopted,witness/witness_profile.yaml and external schema load files,Deleted only inside target case package.
+PORT_0024,MIGRATION_PILOT.md,legacy_migration_note,conversion status represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0025,validation/run_postgres_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,validation/run_mysql_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,validation/run_spark_validation.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,validation/run_postgres_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,validation/run_mysql_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,validation/run_spark_plan_collection.sh,legacy_validation_script,replaced by repaired three-file validation contract,validation/run_validation.sh; validation/run_plan_collection.sh; validation/run_engine_queries.py,No DB/checker execution was run.
+PORT_0025,sql/positives/,nested_sql_compatibility_dir,direct positive SQL path created,sql/pos_01.sql,Deleted only inside target case package.
+PORT_0025,sql/negatives/,nested_sql_compatibility_dir,direct hard-negative SQL path created,sql/neg_01.sql,Deleted only inside target case package.
+PORT_0025,schema/postgres/,case_local_engine_schema_dir,external postgres DDL/load verified,schemas/parrot_bird_port0025_v0/postgres/,Deleted only inside target case package.
+PORT_0025,schema/mysql/,case_local_engine_schema_dir,external mysql DDL/load verified,schemas/parrot_bird_port0025_v0/mysql/,Deleted only inside target case package.
+PORT_0025,schema/spark/,case_local_engine_schema_dir,external spark DDL/load verified,schemas/parrot_bird_port0025_v0/spark/,Deleted only inside target case package.
+PORT_0025,evidence/,case_local_static_evidence_dir,mandatory static evidence removed from clean v2 surface,evidence_policy.static_case_evidence: not_required,Deleted only inside target case package.
+PORT_0025,metadata/,legacy_metadata_dir,semantic fields represented in repaired manifest contract,manifest.yaml,Deleted only inside target case package.
+PORT_0025,notes/,legacy_notes_dir,public wording represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
+PORT_0025,data/,legacy_data_dir,source-as-oracle witness policy and external schema load assets adopted,witness/witness_profile.yaml and external schema load files,Deleted only inside target case package.
+PORT_0025,MIGRATION_PILOT.md,legacy_migration_note,conversion status represented in README and audit outputs,README.md and audit outputs,Deleted only inside target case package.
