@@ -10480,10 +10480,10 @@ Validation result:
 - Run-output cleanup check: passed; `runs/user/u4_quality_dry_run` and `runs/user/u4_quality_dummy_adapter` removed before commit.
 
 Commit hash:
-- Pending until commit.
+- `880b971046919aa80da1b07640031d317e8514c9`
 
 Push result:
-- Pending until push.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`aec2cf5..880b971`).
 
 Task result:
 - U4 local quality report implemented: yes.
