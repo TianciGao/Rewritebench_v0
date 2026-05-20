@@ -10409,10 +10409,10 @@ Validation result:
 - Run-output cleanup check: passed; `runs/user/u3_preflight_dry_run` and `runs/user/u3_preflight_dummy_adapter` removed before commit.
 
 Commit hash:
-- Pending until commit.
+- `d4e0074` (`feat(user-entry): add candidate preflight diagnostics`).
 
 Push result:
-- Pending until push.
+- Pushed `d4e0074` to `origin/feature/case-package-v2-external-schema` (`a5cbb0b..d4e0074`).
 
 Task result:
 - U3 candidate preflight implemented: yes.
