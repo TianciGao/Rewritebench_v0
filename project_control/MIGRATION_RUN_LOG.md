@@ -10009,3 +10009,69 @@ Task result:
 
 Next safe action:
 - Human review of the README file map, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.
+
+### 2026-05-20 · Move detailed user-entry file map from README to docs
+
+Mode: documentation-only; no source-code changes; no script changes; no test changes; no example changes; no case changes; no full paper reproduction; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Simplified the top-level Chinese `README.md` by replacing the detailed `用户入口数据流与文件位置` table with a concise `运行后看哪里` section.
+- Created `docs/USER_ENTRY_DATA_FLOW.md` as the dedicated detailed user-entry data-flow and file-location guide.
+- Used `{POOL}`, `{CASE_ID}`, `{run_name}`, and `{schema_id}` placeholders in the detailed guide to avoid ambiguous Markdown rendering of angle-bracket placeholder paths.
+- Reiterated that `runs/user/{run_name}/...` outputs are local diagnostics only: not official metrics, not paper tables, not reports/results updates, not retained evidence, and not leaderboard rows.
+- Reiterated that default smoke does not execute DB queries or run checkers; PostgreSQL/checker diagnostics are opt-in local diagnostics only.
+- Did not modify source code, scripts, tests, examples, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, denominator scaffolds, paper results, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md`.
+
+Files created:
+- `docs/USER_ENTRY_DATA_FLOW.md`
+- `audits/user_entry_data_flow_doc_v0/README.md`
+- `audits/user_entry_data_flow_doc_v0/smoke_results.csv`
+- `audits/user_entry_data_flow_doc_v0/command_log.md`
+- `audits/user_entry_data_flow_doc_v0/protected_surface_check.md`
+
+Files modified:
+- `README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- Documented public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Documented public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry`: passed, 32 tests with 1 skipped.
+- Placeholder path check: passed; no `cases///`, `runs/user//`, `schemas//`, or angle-bracket case/schema placeholder paths remain in public README/data-flow docs.
+- README large-table check: passed; detailed 20+ row file-location table removed from top-level `README.md`.
+- Protected-surface diff check: passed.
+- Local smoke outputs and Python cache outputs created by this task were removed.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until commit is pushed.
+
+Task result:
+- Top-level README simplified: yes.
+- Data-flow doc created: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of the split README and detailed user-entry data-flow doc, then continue bounded release-surface metadata work without claiming full paper reproduction or official metrics.

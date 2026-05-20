@@ -1,0 +1,6 @@
+check_id,command,status,db_checker_execution_run,outputs_created,outputs_removed,notes
+module_help,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --help",passed,no,no,no,help rendered successfully
+wrapper_help,"python scripts/user/run_user_benchmark.py --help",passed,no,no,no,help rendered successfully
+public_smoke_dry_run,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command ""python examples/user/noop_adapter.py"" --out runs/user/smoke_dry_run --dry-run",passed,no,yes,yes,"selected_rows=2; candidate_generated_rows=0"
+public_smoke_adapter_capture,"PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command ""python examples/user/noop_adapter.py"" --out runs/user/smoke_dummy_adapter",passed,no,yes,yes,"selected_rows=2; candidate_generated_rows=2"
+user_entry_tests,"PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry",passed,no,no,no,"32 passed; 1 skipped"
