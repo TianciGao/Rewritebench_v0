@@ -10212,3 +10212,80 @@ Task result:
 
 Next safe action:
 - U2 module split design for resolver, adapter runner, and ledger writer.
+
+### 2026-05-21 · U2 design user-entry resolver, adapter-runner, and ledger-writer split
+
+Mode: audit/design only; no source-code changes; no script changes; no test changes; no docs outside `project_control/`; no example changes; no case changes; no candidate preflight implementation; no quality report implementation; no tag slicing; no timing; no metrics; no paper rendering; no reproduction CLI; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/user_entry_module_split_design_v0/` as the U2 module split design packet.
+- Designed future modules `case_package_resolver.py`, `adapter_runner.py`, and `user_ledger.py`.
+- Defined resolver inputs, fail-closed behavior, package asset outputs, and future tag/engine interactions.
+- Defined adapter environment variables, `shell=False` invocation contract, workspace layout, candidate capture priority, and adapter status outputs.
+- Defined ledger row construction, local failure-bucket priority handoff, local-only boundary flags, and CSV output responsibilities.
+- Produced a behavior-preserving migration plan from current `user_run.py`, typed interface plan, failure bucket handoff matrix, validation plan, risk register, and future minimal split prompt.
+- Verdict: `ready_for_minimal_split`.
+- Did not modify source code, scripts, tests, docs outside `project_control/`, examples, cases, manifests, SQL, schemas, checker files, validation files, case sets, inventory, reports, results, benchmark specs, repository specs, raw retained evidence, `MIGRATION_MASTER_PLAN.md`, `DECISION_LOG.md`, or `USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+- No DB/checker execution was run and no `runs/user/` outputs were created.
+
+Files created:
+- `audits/user_entry_module_split_design_v0/README.md`
+- `audits/user_entry_module_split_design_v0/module_responsibility_matrix.csv`
+- `audits/user_entry_module_split_design_v0/case_package_resolver_design.md`
+- `audits/user_entry_module_split_design_v0/adapter_runner_design.md`
+- `audits/user_entry_module_split_design_v0/user_ledger_design.md`
+- `audits/user_entry_module_split_design_v0/user_run_migration_plan.md`
+- `audits/user_entry_module_split_design_v0/typed_interface_plan.csv`
+- `audits/user_entry_module_split_design_v0/failure_bucket_handoff_matrix.csv`
+- `audits/user_entry_module_split_design_v0/validation_plan.md`
+- `audits/user_entry_module_split_design_v0/risk_register.md`
+- `audits/user_entry_module_split_design_v0/future_u2_minimal_split_prompt.md`
+- `audits/user_entry_module_split_design_v0/command_log.md`
+- `audits/user_entry_module_split_design_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse checks: passed for 3 new CSV files.
+- Markdown sanity checks: passed for 10 new audit Markdown files.
+- Protected-surface diff check: passed.
+- Run-output check: passed; no U2 `runs/user/` output directories were created.
+
+Commit hash:
+- Pending until commit is created.
+
+Push result:
+- Pending until commit is pushed.
+
+Task result:
+- U2 design packet created: yes.
+- U2 verdict: `ready_for_minimal_split`.
+- Modules designed: `case_package_resolver.py`, `adapter_runner.py`, `user_ledger.py`.
+- Migration plan created: yes.
+- Typed interface plan created: yes.
+- Failure bucket handoff matrix created: yes.
+- Future minimal split prompt created: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control/` modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Paper tables rendered by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize U2 minimal behavior-preserving implementation of resolver, adapter runner, and ledger writer split.
