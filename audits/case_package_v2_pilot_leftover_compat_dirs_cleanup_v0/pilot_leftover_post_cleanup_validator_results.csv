@@ -1,0 +1,6 @@
+case_id,validator_status,clean_template_minimal_status,notes
+PERF_0006,pass,pass,target validator passed and candidate compatibility dirs are absent
+PERF_0007,pass,pass,target validator passed and candidate compatibility dirs are absent
+CONS_0005,pass,pass,target validator passed and candidate compatibility dirs are absent
+PORT_0003,pass,pass,target validator passed and candidate compatibility dirs are absent
+LONGTAIL_0011,pass,pass,target validator passed and candidate compatibility dirs are absent

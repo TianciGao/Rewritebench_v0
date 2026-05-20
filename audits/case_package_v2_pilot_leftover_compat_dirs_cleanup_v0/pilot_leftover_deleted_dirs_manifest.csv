@@ -1,0 +1,16 @@
+case_id,deleted_path,deletion_reason,replacement_or_policy,notes
+PERF_0006,cases/PERF/PERF_0006/notes/,empty leftover pilot compatibility directory with no live references,README/manifest semantic contract; no case-local notes directory required,directory-only cleanup; no tracked file content removed
+PERF_0006,cases/PERF/PERF_0006/sql/positives/,empty leftover pilot compatibility directory with no live references,sql/pos_01.sql,directory-only cleanup; no tracked file content removed
+PERF_0006,cases/PERF/PERF_0006/sql/negatives/,empty leftover pilot compatibility directory with no live references,sql/neg_01.sql,directory-only cleanup; no tracked file content removed
+PERF_0007,cases/PERF/PERF_0007/notes/,empty leftover pilot compatibility directory with no live references,README/manifest semantic contract; no case-local notes directory required,directory-only cleanup; no tracked file content removed
+PERF_0007,cases/PERF/PERF_0007/sql/positives/,empty leftover pilot compatibility directory with no live references,sql/pos_01.sql,directory-only cleanup; no tracked file content removed
+PERF_0007,cases/PERF/PERF_0007/sql/negatives/,empty leftover pilot compatibility directory with no live references,sql/neg_01.sql,directory-only cleanup; no tracked file content removed
+CONS_0005,cases/CONS/CONS_0005/notes/,empty leftover pilot compatibility directory with no live references,README/manifest semantic contract; no case-local notes directory required,directory-only cleanup; no tracked file content removed
+CONS_0005,cases/CONS/CONS_0005/sql/positives/,empty leftover pilot compatibility directory with no live references,sql/pos_01.sql,directory-only cleanup; no tracked file content removed
+CONS_0005,cases/CONS/CONS_0005/sql/negatives/,empty leftover pilot compatibility directory with no live references,sql/neg_01.sql,directory-only cleanup; no tracked file content removed
+PORT_0003,cases/PORT/PORT_0003/notes/,empty leftover pilot compatibility directory with no live references,README/manifest semantic contract; no case-local notes directory required,directory-only cleanup; no tracked file content removed
+PORT_0003,cases/PORT/PORT_0003/sql/positives/,empty leftover pilot compatibility directory with no live references,sql/pos_01.sql,directory-only cleanup; no tracked file content removed
+PORT_0003,cases/PORT/PORT_0003/sql/negatives/,empty leftover pilot compatibility directory with no live references,sql/neg_01.sql,directory-only cleanup; no tracked file content removed
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/notes/,empty leftover pilot compatibility directory with no live references,README/manifest semantic contract; no case-local notes directory required,directory-only cleanup; no tracked file content removed
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/sql/positives/,empty leftover pilot compatibility directory with no live references,sql/pos_01.sql,directory-only cleanup; no tracked file content removed
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/sql/negatives/,empty leftover pilot compatibility directory with no live references,sql/neg_01.sql,directory-only cleanup; no tracked file content removed

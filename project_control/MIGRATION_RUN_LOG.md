@@ -9294,3 +9294,51 @@ Task result:
 
 Next safe action:
 - Run a narrow writable cleanup for leftover empty pilot compatibility directories (`notes/`, `sql/positives/`, and `sql/negatives/`) in `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`; rerun this final closeout; then perform the `PERF_0077`/`PERF_0082` source-path provenance follow-up before public release closeout.
+
+### 2026-05-20 · case_package_v2_pilot_leftover_compat_dirs_cleanup_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only narrow writable cleanup for five pilot cases; no case conversion; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, directory-only cleanup under five pilot case paths plus audit/project-control files
+
+Summary:
+- Cleaned exactly the leftover pilot compatibility directory blockers reported by `case_package_v2_common_core40_final_closeout_v0`.
+- Target cases: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Candidate directories checked: 15.
+- Deleted 15 empty directories: `notes/`, `sql/positives/`, and `sql/negatives/` for each target case.
+- Skipped directories: 0.
+- Confirmed every candidate directory was empty before deletion.
+- Confirmed no live target case-local references to `notes/`, `sql/positives/`, or `sql/negatives/`.
+- Confirmed direct `sql/pos_01.sql` and `sql/neg_01.sql` replacements exist for every target case.
+- Did not delete or modify `PORT_0003/sql/dialect_variants/`.
+- Did not modify schemas, `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, `evidence/cases/`, or leaderboard outputs.
+
+Validation:
+- Static validators for the five target pilot cases: passed.
+- Static validators for all 40 Common-core cases: passed.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v`: passed, 19 tests.
+- Summary JSON assertion: passed.
+- `git diff --check`: passed.
+
+Task result:
+- Pilot leftover compatibility dirs cleanup: yes.
+- Target case IDs: `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Candidate dirs checked: 15.
+- Dirs deleted count: 15.
+- Dirs skipped count: 0.
+- Case files modified: yes, directory-only cleanup under target case paths; no tracked case file content changed.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+- `evidence/cases/` created: no.
+- Dialect variants deleted: no.
+
+Next safe action:
+- Rerun the read-only Common-core 40 v2 final closeout. If clean-template-minimal passes for all 40 cases, perform the separate `PERF_0077`/`PERF_0082` source-path provenance follow-up before public release closeout.
