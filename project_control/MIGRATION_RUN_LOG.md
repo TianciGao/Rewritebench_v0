@@ -8756,3 +8756,63 @@ Task result:
 
 Next safe action:
 - Authorize `case_package_v2_common_core40_wave_c_manual_review_plan_v0` for remaining PORT/manual-review planning, with a separate narrow source-path provenance follow-up for `PERF_0077` and `PERF_0082` before final public source-path closeout.
+
+### 2026-05-20 · case_package_v2_common_core40_wave_c_manual_review_plan_v0
+
+Branch: `feature/case-package-v2-external-schema`
+Mode: branch-only read-only Wave C/manual-review planning; no writable conversion; no PORT conversion execution; no DB/checker execution; no official metrics
+Legacy repo modified: no
+Release repo branch modified: yes, audit/project-control files only
+
+Summary:
+- Identified the exact Wave C/manual-review Common-core case list from `common_core40_conversion_waves.csv`, `common_core40_manual_review_blockers.csv`, `common_core40_v2_case_readiness.csv`, and `case_sets/common_core_v0/cases.csv`.
+- Reviewed 8 remaining PORT/manual-review cases: `PORT_0004`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Confirmed the 8-case Wave C set equals the Common-core 40 set minus the 32 already converted/repaired v2 cases.
+- Classified readiness: ready for conversion now = 0; ready after manifest review = 0; ready after dialect/schema review = 1 (`PORT_0005`); deferred manual review = 7 D008 cases.
+- Recorded that `PERF_0077` and `PERF_0082` source-path caveats are already converted Wave B caveats, do not block Wave C planning, and require a separate narrow provenance follow-up before final public source-path closeout.
+- Recommended a read-only Wave C preclearance packet before any writable Wave C conversion.
+- Did not modify case packages, schemas, `case_sets/`, inventory, reports/results, denominator values, paper results, official metrics, DB/checker execution, or leaderboard outputs.
+
+Files created:
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_manual_review_plan_summary.md`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_case_readiness.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_manifest_risk_matrix.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_schema_and_dialect_plan.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_execution_wave_plan.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_deferred_or_manual_review.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/perf0077_perf0082_source_path_followup_plan.csv`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/future_case_package_v2_common_core40_wave_c_execution_prompt.md`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_manual_review_plan_summary.json`
+- `audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/wave_c_manual_review_plan_command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Summary JSON assertion: passed.
+- CSV parse/header checks: passed.
+- `git diff --check`: passed.
+- Boundary checks confirmed no `cases/`, schemas, `case_sets/`, inventory, reports/results, denominator, paper-result, official-metric, DB/checker execution, or leaderboard changes.
+
+Task result:
+- Wave C manual-review plan: yes.
+- Read-only plan: yes.
+- Wave C cases reviewed: 8.
+- Ready for conversion count: 0.
+- Ready after manifest review count: 0.
+- Ready after dialect review count: 1.
+- Deferred manual-review count: 7.
+- `PERF_0077`/`PERF_0082` follow-up recorded: yes.
+- Case files modified: no.
+- Schemas modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator/paper results changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Authorize `case_package_v2_common_core40_wave_c_preclearance_v0` to resolve D008 public-safety, dialect-variant, and schema decisions for the eight PORT Wave C cases before any writable Wave C conversion execution.
