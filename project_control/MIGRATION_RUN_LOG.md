@@ -9861,10 +9861,10 @@ Validation result:
 - Protected-surface diff check: passed.
 
 Commit hash:
-- Pending until commit is created.
+- `b93f84a` (`feat(user-entry): repair external-schema smoke path`)
 
 Push result:
-- Pending until push completes.
+- First push attempt failed with an SSH connection reset before repository update; retry succeeded to `origin/feature/case-package-v2-external-schema` (`5c0fd8d..b93f84a`).
 
 Task result:
 - Public smoke command added: yes.
