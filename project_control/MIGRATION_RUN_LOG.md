@@ -9921,10 +9921,10 @@ Validation result:
 - Local smoke outputs and pytest cache outputs created by this task were removed.
 
 Commit hash:
-- Pending until commit is created.
+- `4d91563` (`docs: rewrite top-level README in Chinese`)
 
 Push result:
-- Pending until push completes.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`fef2ca2..4d91563`).
 
 Task result:
 - README language: Chinese.
