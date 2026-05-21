@@ -734,3 +734,39 @@ Impact:
 - Future contribution documentation must protect case membership, denominators, official metrics, reports/results, retained evidence, case sets, and benchmark claims from silent changes.
 - Release tag/export branch creation remains deferred until final public-release closeout passes.
 - This decision does not authorize metrics implementation, paper rendering, reports/results migration, denominator changes, paper-result changes, case membership changes, raw retained evidence changes, DB/checker execution, timing/speedup computation, or leaderboard creation.
+
+## D031: PORT cross-dialect diagnostics require explicit manifest roles and fail-closed runner behavior
+
+Decision:
+
+PORT cross-dialect local diagnostics must be manifest-declared.
+
+The runner must not infer source, target, or reference SQL roles from file names or SQL text.
+
+`pos_01.sql` must not be used as a PostgreSQL source oracle unless explicitly declared by manifest metadata or a separately approved policy.
+
+Same-engine behavior remains the default for cases without explicit cross-dialect diagnostic metadata.
+
+MySQL source-side execution is required for MySQL-like PORT source reference diagnostics.
+
+Spark execution remains deferred unless separately authorized.
+
+No denominator, paper result, case membership, official metrics, reports/results, retained evidence, or leaderboard change is authorized by this decision.
+
+Reason:
+
+The PostgreSQL Common-core no-op local diagnostic run selected 40 rows and produced 35 exact rows, with five PORT source-execution failures: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+
+The follow-up triage showed that those failures are caused by MySQL-like `sql/source.sql` files being executed directly by PostgreSQL. The failures are not schema setup failures and not rewriter-quality failures.
+
+The current runner lacks a PORT cross-dialect diagnostic model. Silently replacing `source.sql` with `pos_01.sql` would confuse rewrite roles and could create untracked benchmark semantics. Explicit manifest roles and fail-closed behavior keep local diagnostics auditable.
+
+Impact:
+
+- A future manifest-role metadata design task should define the exact additive fields for PORT cross-dialect diagnostics.
+- A future metadata task may add explicit PORT diagnostic role metadata only after that design is approved.
+- A future runner task may consume explicit metadata only; it must not guess roles.
+- A future MySQL execution backend is required before MySQL-like PORT source reference diagnostics can complete.
+- Spark remains a backlog backend unless separately authorized.
+- PERF, CONS, and LONGTAIL same-engine local diagnostics must remain unchanged.
+- This decision does not authorize source code changes, case or manifest edits, SQL rewrites, MySQL/Spark implementation, live DB/checker execution, official metrics, timing/speedup, paper rendering, reports/results migration, denominator changes, paper-result changes, case membership changes, raw legacy evidence changes, or global leaderboard creation.

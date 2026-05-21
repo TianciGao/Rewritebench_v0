@@ -1,0 +1,9 @@
+phase,scope,implementation_performed,required_before_next,owner_surface,local_diagnostic_only,notes
+P0,Record plan and decision,no,no,project_control,true,"This task records the subplan and D031 only."
+P1,Manifest role metadata design and schema check,no,yes,project_control_or_future_schema_design,true,"Define explicit field names and fail-closed behavior before editing manifests."
+P2,Add explicit PORT metadata,no,yes,cases_PORT_manifests,true,"Metadata-only future task after P1 approval; no SQL edits."
+P3,Runner metadata consumption,no,yes,src_user_entry_modules,true,"Future runner/resolver/router changes consume explicit metadata without guessing roles."
+P4,MySQL execution backend,no,yes,src_sql_rewrite_bench_mysql_execution,true,"Required for MySQL-like PORT source-side reference execution."
+P5,Cross-dialect checker handoff,no,yes,local_result_checker_user_run,true,"Compare source-engine and target-engine JSONL artifacts with existing normalization policy."
+P6,PostgreSQL PORT diagnostic rerun,no,yes,runs_user_local_outputs,true,"Rerun targeted five-case and Common-core diagnostics; not official metrics."
+P7,Spark execution backlog,no,no,spark_execution,true,"Deferred unless separately authorized."

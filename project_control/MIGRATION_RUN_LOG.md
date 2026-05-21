@@ -11471,3 +11471,69 @@ Task result:
 
 Next safe action:
 - Create a design-only engine-aware source/dialect variant selection packet for user-entry PostgreSQL PORT diagnostics, then seek maintainer approval before any source code or manifest/case changes.
+
+### 2026-05-21 · Record PORT cross-dialect diagnostic execution subplan and policy decision
+
+Mode: project-control planning and decision recording only; no source code changes; no case/manifest/source edits; no MySQL/Spark implementation; no official metrics; no timing/speedup; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Recorded `project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md`.
+- Added decision D031: `PORT cross-dialect diagnostics require explicit manifest roles and fail-closed runner behavior`.
+- Plan records that PORT cross-dialect local diagnostics require explicit manifest role metadata and must not infer roles from file names or SQL text.
+- Plan records that `pos_01.sql` must not be used as a PostgreSQL source oracle unless explicitly declared by manifest metadata or separately approved policy.
+- Plan records same-engine local diagnostic behavior as the default for cases without cross-dialect metadata.
+- Plan records MySQL source-side execution as future required implementation for MySQL-like PORT source reference diagnostics.
+- Plan records Spark execution as deferred unless separately authorized.
+- Plan records protection for PERF / CONS / LONGTAIL same-engine behavior and regression coverage expectations.
+
+Files created:
+- `project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md`
+- `audits/port_cross_dialect_diagnostic_execution_plan_v0/README.md`
+- `audits/port_cross_dialect_diagnostic_execution_plan_v0/execution_subplan_summary.csv`
+- `audits/port_cross_dialect_diagnostic_execution_plan_v0/decision_traceability.md`
+- `audits/port_cross_dialect_diagnostic_execution_plan_v0/protected_surface_check.md`
+- `audits/port_cross_dialect_diagnostic_execution_plan_v0/command_log.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse check for `execution_subplan_summary.csv`: passed.
+- Markdown sanity checks for new project-control and audit Markdown files: passed.
+- Protected-surface status check: passed.
+- `runs/user/` check: no output created by this task; existing ignored local output remains untracked and unstaged.
+
+Task result:
+- PORT cross-dialect diagnostic execution subplan recorded: yes.
+- Decision log updated: yes, D031.
+- No implementation performed: yes.
+- No case/manifest/source changes performed: yes.
+- MySQL execution remains future implementation: yes.
+- Spark remains deferred: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control` modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Design exact manifest role metadata and validation expectations for PORT cross-dialect local diagnostics before any manifest or runner edits.
