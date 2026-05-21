@@ -12329,3 +12329,42 @@ Boundary:
 
 Next safe action:
 - Run a narrow bidirectional PORT controlled-diagnostic closeout or return to the main user-entry roadmap; keep real user-adapter evaluation, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, and leaderboard output out of scope.
+
+## 2026-05-22 - port_bidirectional_cross_dialect_closeout_v0
+
+Bidirectional PORT cross-dialect local diagnostic closeout completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: audit-only closeout.
+
+Verdict:
+- `closed_for_current_user_entry_phase`.
+
+Closeout summary:
+- All 9 Common-core PORT cases have target-engine-aware `local_diagnostic` role metadata.
+- The resolver and runner consume selected-engine role metadata and do not infer roles from filenames, SQL text, or pool name alone.
+- Forward route validated: MySQL source-reference to PostgreSQL target-candidate for `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`, controlled exact 5/5.
+- Reverse route validated: PostgreSQL source-reference to MySQL target-candidate for `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012`, controlled exact 4/4.
+- Opt-in checker normalization remains gated to cross-dialect local diagnostics.
+- Same-engine defaults remain protected for PERF, CONS, LONGTAIL, and same-engine PORT routes.
+
+Deferred:
+- Real user PORT adapter evaluation, Spark live execution, timing/speedup, official metrics, paper rendering, reports/results migration, retained evidence integration, release tag/export branch creation, and any leaderboard remain deferred.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs created or committed: no.
+
+Next safe action:
+- Return to the main user-entry roadmap; any real PORT user-adapter evaluation, broader MySQL coverage, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, or release export requires separate authorization.

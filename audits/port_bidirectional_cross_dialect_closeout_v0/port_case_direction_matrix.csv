@@ -1,0 +1,10 @@
+case_id,direction,source_reference_engine,target_candidate_engine,controlled_adapter,source_reference_executable,target_candidate_executable,checker_attempted,exact,mismatch,remaining_caveat,notes
+PORT_0004,mysql_source_to_postgres_target,mysql,postgres,examples/user/port_postgres_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Forward controlled route exact 5/5 aggregate.
+PORT_0013,mysql_source_to_postgres_target,mysql,postgres,examples/user/port_postgres_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Forward controlled route exact 5/5 aggregate.
+PORT_0022,mysql_source_to_postgres_target,mysql,postgres,examples/user/port_postgres_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Forward controlled route exact 5/5 aggregate.
+PORT_0024,mysql_source_to_postgres_target,mysql,postgres,examples/user/port_postgres_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Forward controlled route exact 5/5 aggregate.
+PORT_0025,mysql_source_to_postgres_target,mysql,postgres,examples/user/port_postgres_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Forward controlled route exact 5/5 aggregate.
+PORT_0003,postgres_source_to_mysql_target,postgres,mysql,examples/user/port_mysql_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Reverse controlled route exact 4/4 aggregate.
+PORT_0005,postgres_source_to_mysql_target,postgres,mysql,examples/user/port_mysql_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Reverse controlled route exact 4/4 aggregate.
+PORT_0008,postgres_source_to_mysql_target,postgres,mysql,examples/user/port_mysql_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Reverse controlled route exact 4/4 aggregate.
+PORT_0012,postgres_source_to_mysql_target,postgres,mysql,examples/user/port_mysql_target_reference_adapter.py,yes,yes,yes,yes,no,controlled_diagnostic_only,Reverse controlled route exact 4/4 aggregate.

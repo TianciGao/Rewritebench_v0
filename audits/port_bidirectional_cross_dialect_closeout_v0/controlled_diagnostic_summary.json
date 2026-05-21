@@ -1,0 +1,17 @@
+{
+  "port_cases_total": 9,
+  "forward_cases": 5,
+  "forward_exact_rows": 5,
+  "forward_mismatch_rows": 0,
+  "reverse_cases": 4,
+  "reverse_exact_rows": 4,
+  "reverse_mismatch_rows": 0,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false
+}
