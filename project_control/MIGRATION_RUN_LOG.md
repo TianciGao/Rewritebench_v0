@@ -11259,3 +11259,78 @@ Task result:
 
 Next safe action:
 - Run final public-release closeout planning before any release tag or export branch.
+
+### 2026-05-21 · Final public-release closeout planning after metadata readiness
+
+Mode: final closeout planning audit only; no source changes; no case changes; no metrics; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/final_public_release_closeout_planning_v1/`.
+- Reviewed Common-core 40 closeout rerun, `PERF_0077`/`PERF_0082` source-path follow-up, user-entry U0-U7 closeout, release-surface metadata polish, and final metadata readiness.
+- Inspected current public release surface: top-level README, LICENSE, CITATION, CONTRIBUTING, `.gitignore`, benchmark_spec, docs, examples, source/scripts/tests/workflows, case_sets, representative cases, reports/results boundary READMEs, and packaging metadata.
+- Confirmed Common-core v0 remains 40 cases with pool split 16 PERF + 9 CONS + 9 PORT + 6 LONGTAIL.
+- Confirmed Track A same-engine denominator remains 120 planned rows.
+- Verdict: `ready_for_export_planning`.
+
+Files created:
+- `audits/final_public_release_closeout_planning_v1/README.md`
+- `audits/final_public_release_closeout_planning_v1/closeout_readiness_matrix.csv`
+- `audits/final_public_release_closeout_planning_v1/nonblocking_caveats.md`
+- `audits/final_public_release_closeout_planning_v1/deferred_work_register.md`
+- `audits/final_public_release_closeout_planning_v1/export_readiness_recommendation.md`
+- `audits/final_public_release_closeout_planning_v1/validation_results.csv`
+- `audits/final_public_release_closeout_planning_v1/protected_surface_check.md`
+- `audits/final_public_release_closeout_planning_v1/readiness_summary.json`
+- `audits/final_public_release_closeout_planning_v1/future_export_planning_prompt.md`
+- `audits/final_public_release_closeout_planning_v1/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- User-entry module help: passed.
+- User-entry wrapper help: passed.
+- `--explain-selection` smoke readability check: passed.
+- `--show-output-schema` readability check: passed.
+- `tests/user_entry`: passed with 70 passed and 1 skipped.
+- Common-core v2 reference validator: passed for 40/40 cases.
+- Legacy `validate_case_package.py --mode canonical-case`: not applicable to the current v2 clean-template package layout.
+- `git diff --check`: passed.
+- `CITATION.cff` YAML syntax check: passed.
+- Markdown sanity checks: passed.
+- CSV/JSON parse checks: passed.
+- `.gitignore` policy check: passed.
+- Protected-surface diff check: passed.
+
+Task result:
+- Final closeout planning packet created: yes.
+- Verdict: ready_for_export_planning.
+- Remaining blockers: none for export planning.
+- Nonblocking caveats: Chinese README posture before final public artifact; placeholder citation metadata; `PERF_0077`/`PERF_0082` source-path provenance uncertainty; reports/results boundary-only status; deferred timing/official metrics/paper rendering/reproduction; MySQL/Spark fail-closed stubs only; no release tag/export branch yet.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Existing reports/results data changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no live DB/checker.
+- Timing/speedup computed by this task: no.
+- Tag score/ranking created by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Run a separately authorized export/tag planning task before any release tag or export branch is created.

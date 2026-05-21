@@ -1,0 +1,14 @@
+{
+  "verdict": "ready_for_export_planning",
+  "blocker_count": 0,
+  "nonblocking_caveat_count": 7,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "global_leaderboard_created": false,
+  "release_tag_created": false,
+  "export_branch_created": false
+}
