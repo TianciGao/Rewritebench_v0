@@ -10711,3 +10711,77 @@ Task result:
 
 Next safe action:
 - Push the CI-smoke fix and observe or rerun GitHub Actions; do not continue U7 until `user-entry-smoke` is green.
+
+### 2026-05-21 · U7 design engine execution router and MySQL/Spark fail-closed interfaces
+
+Mode: design/audit only; no engine router implementation; no MySQL/Spark execution implementation; no live DB/checker execution; no timing; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/user_entry_engine_router_design_v0/`.
+- Designed a future `src/sql_rewrite_bench/engine_execution.py` router as dispatcher only.
+- Defined a common local `EngineExecutionResult` interface.
+- Documented how current `src/sql_rewrite_bench/postgres_execution.py` maps to the common interface.
+- Documented fail-closed future MySQL and Spark execution interface plans.
+- Documented checker and ledger handoffs.
+- Documented timing/speedup and official-metric boundaries.
+- Drafted a future minimal router implementation prompt.
+
+Files created:
+- `audits/user_entry_engine_router_design_v0/README.md`
+- `audits/user_entry_engine_router_design_v0/engine_router_design.md`
+- `audits/user_entry_engine_router_design_v0/engine_execution_interface.csv`
+- `audits/user_entry_engine_router_design_v0/postgres_mapping.md`
+- `audits/user_entry_engine_router_design_v0/mysql_fail_closed_plan.md`
+- `audits/user_entry_engine_router_design_v0/spark_fail_closed_plan.md`
+- `audits/user_entry_engine_router_design_v0/checker_handoff.md`
+- `audits/user_entry_engine_router_design_v0/ledger_handoff_matrix.csv`
+- `audits/user_entry_engine_router_design_v0/timing_boundary.md`
+- `audits/user_entry_engine_router_design_v0/future_u7_minimal_router_prompt.md`
+- `audits/user_entry_engine_router_design_v0/command_log.md`
+- `audits/user_entry_engine_router_design_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse checks for all new CSV files: passed.
+- Markdown heading sanity checks for all new audit markdown files: passed.
+- Protected-surface diff check: passed; only the U7 audit packet and project-control files changed.
+- Run-output check: passed; no `runs/user/` outputs created.
+
+Task result:
+- U7 design packet created: yes.
+- U7 verdict: ready_for_minimal_router.
+- Engine router designed: yes.
+- Common engine execution interface designed: yes.
+- PostgreSQL mapping documented: yes.
+- MySQL fail-closed plan documented: yes.
+- Spark fail-closed plan documented: yes.
+- Checker handoff documented: yes.
+- Ledger handoff documented: yes.
+- Timing boundary documented: yes.
+- Future minimal router prompt created: yes.
+- Implementation performed: no.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside project_control modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- DB/checker execution run: no.
+- Paper tables rendered: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of U7 design; if accepted, authorize a separate minimal router implementation limited to `engine_execution.py` plus fail-closed MySQL/Spark stubs while preserving PostgreSQL behavior.
