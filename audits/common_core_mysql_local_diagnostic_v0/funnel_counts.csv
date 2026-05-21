@@ -1,0 +1,14 @@
+stage,count,denominator,notes
+selected_rows,40,40,All Common-core v0 MySQL rows selected.
+candidate_generated_rows,40,40,No-op adapter copied source SQL to candidate path.
+candidate_preflight_passed_rows,40,40,Text-level preflight passed for all generated candidates.
+db_execution_enabled_rows,40,40,DB execution flag enabled for all selected rows.
+mysql_source_execution_attempted_rows,35,40,Same-engine MySQL source execution attempted for same-engine rows; cross-dialect mysql-selected rows failed closed before source execution.
+mysql_source_executable_rows,31,40,Rows with source_execution_success.
+mysql_candidate_execution_attempted_rows,31,40,Candidate execution attempted only after source success.
+mysql_candidate_executable_rows,31,40,Rows with candidate_execution_success.
+checker_attempted_rows,31,40,Checker attempted only after both source and candidate executed.
+exact_rows,31,40,Local checker exact rows only; not official metrics.
+mismatch_rows,0,40,No checker mismatches in attempted checker rows.
+source_like_rows,40,40,No-op adapter source-like preflight classification.
+timed_rows,0,40,Timing disabled.

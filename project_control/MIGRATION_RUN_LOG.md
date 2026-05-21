@@ -12118,3 +12118,62 @@ Boundary:
 
 Next safe action:
 - Review the MySQL same-engine backend and audit packet; authorize any broader live MySQL coverage separately, keeping timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, and leaderboard output out of scope.
+
+## 2026-05-21 - common_core_mysql_local_diagnostic_v0
+
+Common-core MySQL local diagnostic trial completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic run and audit only.
+
+Run:
+- Case set: `common_core_v0`.
+- Engine: `mysql`.
+- Adapter: `python examples/user/noop_adapter.py`.
+- Local output path: `runs/user/common_core_mysql_noop_db_checker/`.
+- MySQL environment ready: yes.
+- PostgreSQL environment ready: yes, but not used for execution in this `--engine mysql` run.
+- Spark status: deferred/fail-closed.
+
+Outcome:
+- Selected rows: 40.
+- Candidate generated rows: 40.
+- Candidate preflight passed rows: 40.
+- MySQL source execution attempted rows: 35.
+- MySQL source executable rows: 31.
+- MySQL candidate execution attempted rows: 31.
+- MySQL candidate executable rows: 31.
+- Checker attempted rows: 31.
+- Exact rows: 31.
+- Mismatch rows: 0.
+- Source-like rows: 40.
+- Failure buckets: `none=31`, `source_execution_failed=4`, `unsupported_engine=5`.
+- Diagnostic modes: `same_engine=35`, `cross_dialect_reference=5`.
+
+Failure interpretation:
+- Four same-engine PORT rows (`PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`) failed at MySQL source execution because retained source SQL used PostgreSQL-style syntax rejected by MySQL.
+- Five cross-dialect PORT rows (`PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, `PORT_0025`) were selected as MySQL rows but are manifest-declared MySQL-source to PostgreSQL-target diagnostics; the runner failed closed with `unsupported_engine` rather than changing roles or using target-reference SQL.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Validation:
+- `git diff --check`: passed.
+- CSV/JSON parse checks for audit files: passed.
+- Markdown sanity checks for audit files: passed.
+- Protected-surface diff check: passed.
+- Local run outputs not staged: confirmed.
+
+Next safe action:
+- Review the four PORT MySQL source-execution failures and five cross-dialect `engine=mysql` fail-closed rows before authorizing any broader MySQL/PORT follow-up; keep official metrics, timing, paper rendering, reports/results updates, retained-evidence promotion, and leaderboard output out of scope.

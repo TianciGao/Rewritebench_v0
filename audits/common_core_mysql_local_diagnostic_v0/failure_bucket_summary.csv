@@ -1,0 +1,4 @@
+failure_bucket,count,affected_cases,likely_layer,notes
+none,31,31 non-failure rows,none,Rows reached MySQL source/candidate execution and checker exact under the no-op adapter.
+source_execution_failed,4,PORT_0003;PORT_0005;PORT_0008;PORT_0012,source_execution,Same-engine PORT source SQL was rejected by MySQL syntax; candidate/checker were not attempted for those rows.
+unsupported_engine,5,PORT_0004;PORT_0013;PORT_0022;PORT_0024;PORT_0025,cross_dialect_routing,Declared cross-dialect PORT rows are mysql source-reference to postgres target-candidate diagnostics; selecting engine=mysql fails closed as unsupported instead of changing roles.
