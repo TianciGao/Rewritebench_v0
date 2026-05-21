@@ -11128,3 +11128,68 @@ Task result:
 
 Next safe action:
 - Run final public-release metadata/readiness review before any release tag or export branch.
+
+### 2026-05-21 · Polish release-surface metadata skeleton and run lightweight readiness check
+
+Mode: metadata/readability polish only; no source changes; no case changes; no metrics; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Performed a fast polish pass over the release-surface metadata skeleton.
+- Canonicalized `LICENSE` formatting by moving the conservative copyright line outside the Apache-2.0 terms body.
+- Kept `CITATION.cff` placeholder-safe and Apache-2.0 aligned.
+- Checked public Markdown skeleton readability and removed task-oriented wording from small boundary passages.
+- Checked `.gitignore` local-output policy: `runs/user/` ignored; all of `runs/` not ignored.
+
+Files created:
+- `audits/release_surface_metadata_polish_v0/README.md`
+- `audits/release_surface_metadata_polish_v0/polished_files_inventory.csv`
+- `audits/release_surface_metadata_polish_v0/readability_check.md`
+- `audits/release_surface_metadata_polish_v0/license_citation_check.md`
+- `audits/release_surface_metadata_polish_v0/protected_surface_check.md`
+- `audits/release_surface_metadata_polish_v0/command_log.md`
+
+Files modified:
+- `LICENSE`
+- `benchmark_spec/scope.md`
+- `reports/README.md`
+- `results/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `CITATION.cff` YAML syntax check: passed.
+- Markdown sanity checks: passed.
+- `.gitignore` policy check: passed.
+- Protected-surface diff check: passed.
+
+Task result:
+- Metadata skeleton polish completed: yes.
+- LICENSE canonicalized: yes.
+- CITATION.cff valid: yes.
+- Markdown readability check: passed.
+- .gitignore check: passed.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Existing reports/results data changed beyond README boundaries: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Run final public-release metadata/readiness review before any release tag or export branch.

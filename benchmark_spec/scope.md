@@ -14,7 +14,7 @@ Public v0 scope:
 Public v0 boundaries:
 
 - No global leaderboard.
-- No denominator change is authorized by this spec skeleton.
+- These documents do not authorize denominator changes.
 - No official metrics are computed by this document.
 - No paper tables are rendered by this document.
 - User-entry local diagnostics are local outputs only and do not define official benchmark results.

@@ -1,0 +1,13 @@
+path,polish_action,public_facing,claim_boundary_preserved,notes
+LICENSE,canonicalized copyright placement outside Apache body,yes,yes,Copyright remains SQL-RewriteBench contributors
+CITATION.cff,checked YAML validity and placeholder-safe metadata,yes,yes,No DOI or individual author metadata invented
+CONTRIBUTING.md,readability checked,yes,yes,No content change required
+.gitignore,local-output ignore policy checked,yes,yes,runs/user/ ignored but all of runs/ not ignored
+benchmark_spec/README.md,readability checked,yes,yes,No content change required
+benchmark_spec/scope.md,removed task-oriented skeleton wording,yes,yes,Denominator boundary preserved
+benchmark_spec/case_package_contract.md,readability checked,yes,yes,No content change required
+benchmark_spec/denominator_policy.md,readability checked,yes,yes,No content change required
+benchmark_spec/reporting_policy.md,readability checked,yes,yes,No content change required
+reports/README.md,removed task-oriented skeleton wording,yes,yes,Reports boundary preserved
+results/README.md,removed task-oriented skeleton wording,yes,yes,Results boundary preserved
+docs/README.md,readability checked,yes,yes,No content change required
