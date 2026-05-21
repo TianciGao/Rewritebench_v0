@@ -1,0 +1,10 @@
+command_or_flag,purpose,invokes_adapter,creates_runs_user_output,requires_db,requires_checker,local_only,official_metric,notes
+python -m sql_rewrite_bench.user_run,Main module CLI for user-entry local diagnostics,depends,depends,no,no,true,false,Normal runs invoke adapter and write under runs/user.
+python scripts/user/run_user_benchmark.py,Thin wrapper for the module CLI,depends,depends,no,no,true,false,Wrapper preserves module CLI behavior.
+--smoke --dry-run,Resolve deterministic tiny Common-core subset without adapter invocation,no,yes,no,no,true,false,Selected PERF_0006 and CONS_0005 for requested engine.
+--smoke,Run deterministic tiny Common-core adapter-capture smoke,yes,yes,no,no,true,false,Default public smoke does not execute DB or checker.
+--list-cases,List available cases from selected case-set,no,no,no,no,true,false,Reads case_sets/common_core_v0 rather than scanning cases.
+--explain-selection,Explain selected case-engine rows,no,no,no,no,true,false,Used alone it exits before adapter invocation and creates no run output.
+--show-output-schema,Print local output schema description,no,no,no,no,true,false,Describes local diagnostics and boundary flags.
+--enable-db-execution,Opt in to local engine execution diagnostics,yes,yes,yes,no,true,false,PostgreSQL implemented; MySQL/Spark fail closed.
+--enable-checker,Opt in to local checker comparison after DB execution,yes,yes,yes,yes,true,false,Requires --enable-db-execution and local result artifacts.

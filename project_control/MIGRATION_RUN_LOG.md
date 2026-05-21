@@ -10856,3 +10856,67 @@ Push result:
 
 Next safe action:
 - Human review of U7 router/stub behavior, then authorize U8 timing diagnostic design only if desired.
+
+### 2026-05-21 · Close out user-entry local evaluation phase U0-U7
+
+Mode: read-only/project-control closeout audit; no source implementation; no live DB/checker execution; no timing; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/user_entry_local_evaluation_phase_closeout_v0/`.
+- Reviewed U0 architecture plan, U1 output schema audit, U2 design and minimal split, U3 candidate preflight, U4 local quality report, U5 tag-aware slices, U6 readability commands, CI smoke fix, U7 design, and U7 minimal router implementation.
+- Confirmed current supported user-entry capabilities: public smoke, metadata-driven Common-core selection, adapter capture, candidate preflight, optional PostgreSQL local diagnostics/checker, ledger/failure accounting, local quality report, tag-aware slices, readability commands, and engine router with fail-closed MySQL/Spark stubs.
+- Confirmed deferred work: live MySQL/Spark execution, timing/speedup, official metrics, paper table rendering, retained-evidence adapter integration, reports/results migration, full paper reproduction CLI, SpeedupTransferRate, and global leaderboard.
+- Recommendation: pause user-entry implementation after U0-U7 and return to release-surface metadata readiness unless timing protocol design is explicitly authorized.
+
+Files created:
+- `audits/user_entry_local_evaluation_phase_closeout_v0/README.md`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/phase_capability_matrix.csv`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/current_command_surface.csv`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/current_output_surface.csv`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/deferred_work_register.md`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/timing_readiness_review.md`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/closeout_validation_results.csv`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/protected_surface_check.md`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/command_log.md`
+- `audits/user_entry_local_evaluation_phase_closeout_v0/future_next_step_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Module help: passed.
+- Wrapper help: passed.
+- Readability commands: passed.
+- Public smoke dry-run: passed.
+- Public smoke adapter-capture: passed.
+- Smoke output inspection: passed for `quality_summary.json`, `quality_report.md`, and `tag_slices.csv`.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 70 passed and 1 skipped.
+- Protected-surface diff check: passed.
+- Run-output cleanup: passed.
+
+Task result:
+- Closeout verdict: complete_with_deferred_items.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control` modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no live DB/checker.
+- Timing/speedup computed by this task: no.
+- Tag score/ranking created by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Pause user-entry implementation and run release-surface metadata readiness work, unless a maintainer explicitly authorizes U8 timing protocol design.

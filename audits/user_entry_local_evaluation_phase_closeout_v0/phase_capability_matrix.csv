@@ -1,0 +1,12 @@
+phase,capability,status,evidence_source,local_diagnostic_only,official_metric,notes
+U0,architecture plan,complete,project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md,true,false,Defines local evaluation harness boundaries and module sequence.
+U1,output schema and ledger audit,complete,audits/user_entry_output_schema_audit_v0/README.md,true,false,Concluded ready_with_gaps for module split design.
+U2 design,resolver adapter-runner ledger-writer split design,complete,audits/user_entry_module_split_design_v0/README.md,true,false,Verdict ready_for_minimal_split.
+U2 implementation,resolver adapter-runner ledger-writer split,complete,audits/user_entry_u2_minimal_split_v0/README.md,true,false,Behavior-preserving module extraction completed.
+U3,candidate preflight v0,complete,audits/user_entry_candidate_preflight_v0/README.md,true,false,Text-level DB-before local diagnostic preflight added.
+U4,local quality report v0,complete,audits/user_entry_local_quality_report_v0/README.md,true,false,quality_summary.json and quality_report.md added.
+U5,tag-aware diagnostic slices v0,complete,audits/user_entry_tag_slices_v0/README.md,true,false,tag_slices.csv generated from retained manifest taxonomy metadata.
+U6,readability commands,complete,audits/user_entry_readability_v0/README.md,true,false,Added list-cases explain-selection and show-output-schema commands.
+CI,user-entry smoke hygiene,complete,audits/user_entry_ci_smoke_failure_fix_v0/README.md,true,false,CI smoke dependencies and output cleanup hardened.
+U7 design,engine router and fail-closed interface design,complete,audits/user_entry_engine_router_design_v0/README.md,true,false,Verdict ready_for_minimal_router.
+U7 implementation,engine router plus MySQL/Spark fail-closed stubs,complete,audits/user_entry_u7_minimal_router_v0/README.md,true,false,PostgreSQL behavior preserved; MySQL/Spark fail closed.
