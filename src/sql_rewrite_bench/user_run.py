@@ -30,8 +30,8 @@ from .case_selection import (
     repo_root_from_module,
     resolve_common_core_selection,
 )
+from .engine_execution import execute_engine_case
 from .local_result_checker import run_local_checker
-from .postgres_execution import execute_postgres_case
 from .tag_slices import build_tag_slice_rows, write_tag_slices
 from .user_output_schema import output_schema_text
 from .user_ledger import (
@@ -363,7 +363,7 @@ def _apply_db_checker_for_row(
 
     workspace_dir = out_dir / "workspaces" / row.case_id / row.engine
     candidate_sql_path = repo_root / str(ledger["candidate_sql_path"])
-    execution = execute_postgres_case(
+    execution = execute_engine_case(
         repo_root=repo_root,
         run_id=run_id,
         row=row,
@@ -371,7 +371,7 @@ def _apply_db_checker_for_row(
         workspace_dir=workspace_dir,
         timeout_sec=execution_timeout_sec,
         schema_prefix=db_schema_prefix,
-        dsn_env=postgres_dsn_env,
+        postgres_dsn_env=postgres_dsn_env,
     )
     ledger.update(
         {

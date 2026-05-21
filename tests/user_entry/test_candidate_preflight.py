@@ -167,7 +167,7 @@ class CandidatePreflightTests(unittest.TestCase):
             adapter = temp / "unsafe_adapter.py"
             _write_adapter(adapter, "drop table demo;\n")
             out = _unique_out("unittest_u3_preflight_blocks_db")
-            with mock.patch("sql_rewrite_bench.user_run.execute_postgres_case") as execute:
+            with mock.patch("sql_rewrite_bench.user_run.execute_engine_case") as execute:
                 summary = run_user_benchmark(
                     _args(
                         out,

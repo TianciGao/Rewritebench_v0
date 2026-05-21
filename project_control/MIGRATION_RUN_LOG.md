@@ -10785,3 +10785,74 @@ Task result:
 
 Next safe action:
 - Human review of U7 design; if accepted, authorize a separate minimal router implementation limited to `engine_execution.py` plus fail-closed MySQL/Spark stubs while preserving PostgreSQL behavior.
+
+### 2026-05-21 · U7 minimal implementation of user-entry engine execution router and fail-closed MySQL/Spark stubs
+
+Mode: minimal behavior-preserving local-diagnostic implementation; no live MySQL/Spark execution; no timing; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added `src/sql_rewrite_bench/engine_execution.py` as a router for optional user-entry local DB diagnostics.
+- Added fail-closed `src/sql_rewrite_bench/mysql_execution.py` and `src/sql_rewrite_bench/spark_execution.py` stubs.
+- Updated `src/sql_rewrite_bench/user_run.py` to call the router instead of directly calling PostgreSQL execution.
+- Preserved PostgreSQL behavior by delegating `postgres` rows to the existing `postgres_execution.py` path.
+- Added tests for PostgreSQL router dispatch, MySQL/Spark fail-closed behavior, unsupported-engine fail-closed behavior, and user-run MySQL fail-closed ledger behavior.
+- Created `audits/user_entry_u7_minimal_router_v0/`.
+
+Files created:
+- `src/sql_rewrite_bench/engine_execution.py`
+- `src/sql_rewrite_bench/mysql_execution.py`
+- `src/sql_rewrite_bench/spark_execution.py`
+- `tests/user_entry/test_engine_execution_router.py`
+- `audits/user_entry_u7_minimal_router_v0/README.md`
+- `audits/user_entry_u7_minimal_router_v0/router_implementation_summary.csv`
+- `audits/user_entry_u7_minimal_router_v0/fail_closed_stub_summary.csv`
+- `audits/user_entry_u7_minimal_router_v0/behavior_preservation_results.csv`
+- `audits/user_entry_u7_minimal_router_v0/test_results.md`
+- `audits/user_entry_u7_minimal_router_v0/protected_surface_check.md`
+- `audits/user_entry_u7_minimal_router_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `tests/user_entry/test_candidate_preflight.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Python compile for router/stub/user-run modules: passed.
+- Module help: passed.
+- Wrapper help: passed.
+- Readability commands: passed.
+- Public smoke dry-run: passed.
+- Public smoke adapter-capture: passed.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 70 passed and 1 skipped.
+- Protected-surface diff check: passed.
+- Run-output cleanup: passed.
+
+Task result:
+- U7 minimal router implemented: yes.
+- PostgreSQL behavior preserved: yes.
+- MySQL fail-closed stub added: yes.
+- Spark fail-closed stub added: yes.
+- Live MySQL/Spark execution run: no.
+- DB/checker execution run by this task: no live DB/checker.
+- Timing/speedup computed by this task: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Global leaderboard created: no.
+
+Commit hash:
+- Pending until commit.
+
+Push result:
+- Pending until push.
+
+Next safe action:
+- Human review of U7 router/stub behavior, then authorize U8 timing diagnostic design only if desired.

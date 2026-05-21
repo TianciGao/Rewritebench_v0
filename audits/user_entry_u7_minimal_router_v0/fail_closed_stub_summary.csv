@@ -1,0 +1,4 @@
+engine,module,live_execution_attempted,postgres_fallback_used,source_execution_status,candidate_execution_status,failure_bucket,execution_failure_class,official_metric,notes
+mysql,src/sql_rewrite_bench/mysql_execution.py,false,false,execution_unsupported,execution_unsupported,unsupported_engine,mysql_execution_not_implemented,false,Fail-closed stub only; no MySQL connection or SQL execution.
+spark,src/sql_rewrite_bench/spark_execution.py,false,false,execution_unsupported,execution_unsupported,unsupported_engine,spark_execution_not_implemented,false,Fail-closed stub only; no Spark session or SQL execution.
+unsupported,src/sql_rewrite_bench/engine_execution.py,false,false,execution_unsupported,execution_unsupported,unsupported_engine,unsupported_engine,false,Unknown engine values fail closed without executing SQL.

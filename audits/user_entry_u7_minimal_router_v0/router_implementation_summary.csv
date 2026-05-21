@@ -1,0 +1,4 @@
+module,change_type,behavior_preserved,local_diagnostic_only,official_metric,notes
+src/sql_rewrite_bench/engine_execution.py,added,yes,true,false,Dispatches optional local DB execution by engine and returns a common local execution result.
+src/sql_rewrite_bench/user_run.py,modified,yes,true,false,Delegates optional DB execution through execute_engine_case while preserving ledger and checker handoff.
+src/sql_rewrite_bench/postgres_execution.py,unchanged,yes,true,false,Remains the only implemented live DB diagnostic executor.
