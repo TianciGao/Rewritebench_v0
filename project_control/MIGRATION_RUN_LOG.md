@@ -11051,3 +11051,80 @@ Task result:
 
 Next safe action:
 - Authorize metadata-only skeleton implementation for `LICENSE`, placeholder-safe `CITATION.cff`, conservative `CONTRIBUTING.md`, public-v0 `benchmark_spec/`, and reports/results boundary README files.
+
+### 2026-05-21 · Implement metadata-only release-surface skeleton
+
+Mode: metadata/skeleton only; no metrics; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created the low-risk public release-surface metadata skeleton governed by `project_control/RELEASE_SURFACE_POLICY_DECISIONS.md`.
+- Added Apache-2.0 `LICENSE` with placeholder-safe `SQL-RewriteBench contributors` copyright holder.
+- Added placeholder-safe `CITATION.cff` without DOI or invented individual author metadata.
+- Added conservative `CONTRIBUTING.md`.
+- Added narrow root `.gitignore` that ignores `runs/user/` but not all of `runs/`.
+- Added public-v0 `benchmark_spec/` skeleton files.
+- Added boundary README files for `reports/` and `results/`.
+- Added `docs/README.md` as a documentation index.
+
+Files created:
+- `LICENSE`
+- `CITATION.cff`
+- `CONTRIBUTING.md`
+- `.gitignore`
+- `benchmark_spec/README.md`
+- `benchmark_spec/scope.md`
+- `benchmark_spec/case_package_contract.md`
+- `benchmark_spec/denominator_policy.md`
+- `benchmark_spec/reporting_policy.md`
+- `reports/README.md`
+- `results/README.md`
+- `docs/README.md`
+- `audits/release_surface_metadata_skeleton_v0/README.md`
+- `audits/release_surface_metadata_skeleton_v0/created_files_inventory.csv`
+- `audits/release_surface_metadata_skeleton_v0/policy_traceability_matrix.csv`
+- `audits/release_surface_metadata_skeleton_v0/protected_surface_check.md`
+- `audits/release_surface_metadata_skeleton_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `CITATION.cff` YAML syntax check: passed.
+- CSV parse checks: passed.
+- Markdown sanity checks: passed.
+- Protected-surface diff check: passed.
+
+Task result:
+- Metadata skeleton implemented: yes.
+- LICENSE created: yes.
+- CITATION.cff created: yes.
+- CONTRIBUTING.md created: yes.
+- benchmark_spec created: yes.
+- reports/results boundary READMEs created: yes.
+- .gitignore created/updated: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Existing reports/results data changed beyond README boundaries: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Run final public-release metadata/readiness review before any release tag or export branch.

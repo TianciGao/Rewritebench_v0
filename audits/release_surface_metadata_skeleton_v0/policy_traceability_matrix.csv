@@ -1,0 +1,12 @@
+requirement,implemented_path,policy_source,implementation_status,boundary_preserved,notes
+Apache-2.0 license,LICENSE,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,implemented,yes,Repository-level license skeleton created
+Placeholder-safe citation,CITATION.cff,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,implemented,yes,Uses contributor entity and no DOI
+Conservative contribution policy,CONTRIBUTING.md,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,implemented,yes,Silent benchmark-surface changes prohibited
+Narrow output hygiene,.gitignore,audits/release_surface_metadata_readiness_v0/low_risk_skeleton_plan.md,implemented,yes,Ignores runs/user/ but not all runs/
+Public v0 benchmark scope,benchmark_spec/scope.md,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,implemented,yes,Preserves 40 cases and 120 planned rows
+Case package contract,benchmark_spec/case_package_contract.md,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,implemented,yes,Manifest-governed package surface
+Denominator policy,benchmark_spec/denominator_policy.md,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,implemented,yes,Membership governed by case_sets/
+Reporting policy,benchmark_spec/reporting_policy.md,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,implemented,yes,Role-aware denominator-aware no leaderboard
+Reports boundary,reports/README.md,audits/release_surface_metadata_readiness_v0/reports_results_boundary_note.md,implemented,yes,No paper table regeneration
+Results boundary,results/README.md,audits/release_surface_metadata_readiness_v0/reports_results_boundary_note.md,implemented,yes,No official metric computation
+Documentation index,docs/README.md,audits/release_surface_metadata_readiness_v0/low_risk_skeleton_plan.md,implemented,yes,No new benchmark claims
