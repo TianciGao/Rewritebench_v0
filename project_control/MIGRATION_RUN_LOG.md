@@ -11537,3 +11537,76 @@ Task result:
 
 Next safe action:
 - Design exact manifest role metadata and validation expectations for PORT cross-dialect local diagnostics before any manifest or runner edits.
+
+### 2026-05-21 · P1 design PORT-wide cross-dialect manifest role metadata
+
+Mode: design/audit only; no source code changes; no case/manifest/source edits; no MySQL/Spark implementation; no live DB/checker execution; no official metrics; no timing/speedup; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Reviewed all 9 Common-core PORT cases: `PORT_0003`, `PORT_0004`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Classified 4 cases as same-engine compatible for PostgreSQL local diagnostics: `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012`.
+- Classified 5 cases as cross-dialect reference required: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Designed additive `local_diagnostic` manifest role metadata with explicit `diagnostic_mode`, `source_reference`, `target_candidate`, optional `target_reference`, checker comparison, and local-only boundary fields.
+- Recorded strict non-guessing policy: no role inference from file names, SQL text, or pool name; `pos_01.sql` must not become a source oracle unless explicitly declared by policy/metadata.
+- Preserved MySQL source-side execution as future required implementation for MySQL-like PORT source references.
+- Preserved Spark execution as deferred.
+- Recorded non-PORT regression protection for PERF / CONS / LONGTAIL same-engine behavior.
+
+Files created:
+- `audits/port_cross_dialect_manifest_role_design_v0/README.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/port_case_role_matrix.csv`
+- `audits/port_cross_dialect_manifest_role_design_v0/proposed_manifest_schema.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/field_definition_matrix.csv`
+- `audits/port_cross_dialect_manifest_role_design_v0/validation_expectations.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/runner_consumption_contract.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/non_port_regression_protection.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/five_failure_mapping.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/future_p2_manifest_patch_prompt.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/protected_surface_check.md`
+- `audits/port_cross_dialect_manifest_role_design_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse checks for new audit CSV files: passed.
+- Markdown sanity checks for new audit Markdown files: passed.
+- Protected-surface diff/status check: passed.
+- `runs/user/` check: no output created by this task.
+
+Task result:
+- P1 PORT-wide manifest role design completed: yes.
+- All 9 PORT cases reviewed: yes.
+- Verdict: `ready_for_manifest_metadata_patch`.
+- Proposed manifest schema created: yes.
+- Field definition matrix created: yes.
+- Validation expectations created: yes.
+- Runner consumption contract created: yes.
+- Non-PORT regression protection created: yes.
+- Future P2 manifest patch prompt created: yes.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control` modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Authorize P2 metadata-only manifest patches for all 9 Common-core PORT cases after reviewing this design; do not edit SQL, runner code, metrics, reports/results, or denominators in P2.
