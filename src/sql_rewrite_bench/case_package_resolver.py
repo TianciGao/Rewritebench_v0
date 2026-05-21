@@ -12,6 +12,30 @@ from pathlib import Path
 from typing import Any
 
 from .case_selection import SelectedCaseEngineRow
+from .user_run_schema import (
+    DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+    DIAGNOSTIC_MODE_SAME_ENGINE,
+)
+
+
+LOCAL_DIAGNOSTIC_SCHEMA_VERSION = "port_cross_dialect_diagnostic_v0"
+LOCAL_DIAGNOSTIC_ENGINES = {"postgres", "mysql", "spark"}
+LOCAL_DIAGNOSTIC_COMPARISON = "source_reference_result_to_target_candidate_result"
+
+
+@dataclass(frozen=True)
+class LocalDiagnosticMetadata:
+    """Explicit local diagnostic role metadata from a case manifest."""
+
+    schema_version: str
+    diagnostic_mode: str
+    source_reference_engine: str
+    source_reference_query_path: Path
+    target_candidate_engine: str
+    target_reference_query_path: Path | None
+    target_reference_role: str
+    local_diagnostic_boundary: dict[str, Any]
+    raw: dict[str, Any]
 
 
 @dataclass(frozen=True)
@@ -33,6 +57,14 @@ class ResolvedCasePackage:
     package_path_from_manifest: str
     manifest_schema: dict[str, Any]
     manifest_taxonomy: dict[str, Any]
+    local_diagnostic: LocalDiagnosticMetadata
+    diagnostic_mode: str
+    source_reference_engine: str
+    source_reference_query_path: Path
+    target_candidate_engine: str
+    target_reference_query_path: Path | None
+    target_reference_role: str
+    local_diagnostic_boundary: dict[str, Any]
     resolution_status: str
     resolution_notes: str
 
@@ -136,6 +168,199 @@ def _first_sql_object_path(items: object, *, field: str) -> str | None:
     return raw
 
 
+def _mapping(value: object, *, field: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{field} must be a mapping")
+    return value
+
+
+def _required_string(value: object, *, field: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be a non-empty string")
+    return value.strip()
+
+
+def _required_engine(value: object, *, field: str) -> str:
+    engine = _required_string(value, field=field)
+    if engine not in LOCAL_DIAGNOSTIC_ENGINES:
+        raise ValueError(f"{field} must be one of {sorted(LOCAL_DIAGNOSTIC_ENGINES)}")
+    return engine
+
+
+def _as_bool(value: object, *, field: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "false"}:
+            return lowered == "true"
+    raise ValueError(f"{field} must be a boolean")
+
+
+def _validate_boundary(boundary: dict[str, Any], *, field: str) -> dict[str, Any]:
+    expected = {
+        "local_diagnostic_only": True,
+        "official_metric_input": False,
+        "paper_result_input": False,
+        "reports_results_update": False,
+        "leaderboard_input": False,
+    }
+    normalized: dict[str, Any] = {}
+    for key, expected_value in expected.items():
+        observed = _as_bool(boundary.get(key), field=f"{field}.{key}")
+        if observed is not expected_value:
+            raise ValueError(f"{field}.{key} must be {expected_value}")
+        normalized[key] = observed
+    return normalized
+
+
+def _default_local_diagnostic(
+    *,
+    row: SelectedCaseEngineRow,
+    source_sql_path: Path,
+) -> LocalDiagnosticMetadata:
+    boundary = {
+        "local_diagnostic_only": True,
+        "official_metric_input": False,
+        "paper_result_input": False,
+        "reports_results_update": False,
+        "leaderboard_input": False,
+    }
+    return LocalDiagnosticMetadata(
+        schema_version="",
+        diagnostic_mode=DIAGNOSTIC_MODE_SAME_ENGINE,
+        source_reference_engine=row.engine,
+        source_reference_query_path=source_sql_path,
+        target_candidate_engine=row.engine,
+        target_reference_query_path=None,
+        target_reference_role="",
+        local_diagnostic_boundary=boundary,
+        raw={},
+    )
+
+
+def _resolve_local_diagnostic(
+    *,
+    case_dir: Path,
+    row: SelectedCaseEngineRow,
+    source_sql_path: Path,
+    raw_metadata: object,
+) -> LocalDiagnosticMetadata:
+    if raw_metadata is None:
+        return _default_local_diagnostic(row=row, source_sql_path=source_sql_path)
+
+    metadata = _mapping(raw_metadata, field="local_diagnostic")
+    schema_version = _required_string(
+        metadata.get("schema_version"), field="local_diagnostic.schema_version"
+    )
+    if schema_version != LOCAL_DIAGNOSTIC_SCHEMA_VERSION:
+        raise ValueError(
+            "local_diagnostic.schema_version must be "
+            f"{LOCAL_DIAGNOSTIC_SCHEMA_VERSION}"
+        )
+    diagnostic_mode = _required_string(
+        metadata.get("diagnostic_mode"), field="local_diagnostic.diagnostic_mode"
+    )
+    if diagnostic_mode not in {
+        DIAGNOSTIC_MODE_SAME_ENGINE,
+        DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+    }:
+        raise ValueError("local_diagnostic.diagnostic_mode is unsupported")
+
+    source_reference = _mapping(
+        metadata.get("source_reference"), field="local_diagnostic.source_reference"
+    )
+    if source_reference.get("role") != "source_reference":
+        raise ValueError("local_diagnostic.source_reference.role must be source_reference")
+    source_reference_engine = _required_engine(
+        source_reference.get("engine"),
+        field="local_diagnostic.source_reference.engine",
+    )
+    source_reference_query_path = _resolve_case_relative(
+        case_dir,
+        source_reference.get("query"),
+        field="local_diagnostic.source_reference.query",
+    )
+    _require_exists(
+        source_reference_query_path,
+        field="local_diagnostic.source_reference.query",
+    )
+
+    target_candidate = _mapping(
+        metadata.get("target_candidate"), field="local_diagnostic.target_candidate"
+    )
+    if target_candidate.get("role") != "adapter_output":
+        raise ValueError("local_diagnostic.target_candidate.role must be adapter_output")
+    target_candidate_engine = _required_engine(
+        target_candidate.get("engine"),
+        field="local_diagnostic.target_candidate.engine",
+    )
+
+    checker = _mapping(metadata.get("checker"), field="local_diagnostic.checker")
+    if checker.get("comparison") != LOCAL_DIAGNOSTIC_COMPARISON:
+        raise ValueError(
+            "local_diagnostic.checker.comparison must be "
+            f"{LOCAL_DIAGNOSTIC_COMPARISON}"
+        )
+
+    target_reference_query_path: Path | None = None
+    target_reference_role = ""
+    target_reference = metadata.get("target_reference")
+    if target_reference is not None:
+        target_reference_map = _mapping(
+            target_reference, field="local_diagnostic.target_reference"
+        )
+        target_reference_role = _required_string(
+            target_reference_map.get("role"),
+            field="local_diagnostic.target_reference.role",
+        )
+        if target_reference_role != "positive_reference":
+            raise ValueError(
+                "local_diagnostic.target_reference.role must be positive_reference"
+            )
+        _required_engine(
+            target_reference_map.get("engine"),
+            field="local_diagnostic.target_reference.engine",
+        )
+        target_reference_query_path = _resolve_case_relative(
+            case_dir,
+            target_reference_map.get("query"),
+            field="local_diagnostic.target_reference.query",
+        )
+        _require_exists(
+            target_reference_query_path,
+            field="local_diagnostic.target_reference.query",
+        )
+        if _as_bool(
+            target_reference_map.get("use_for_checker_oracle"),
+            field="local_diagnostic.target_reference.use_for_checker_oracle",
+        ):
+            raise ValueError(
+                "local_diagnostic.target_reference.use_for_checker_oracle must be false"
+            )
+        _as_bool(
+            target_reference_map.get("use_for_sanity_control"),
+            field="local_diagnostic.target_reference.use_for_sanity_control",
+        )
+
+    boundary = _validate_boundary(
+        _mapping(metadata.get("boundary"), field="local_diagnostic.boundary"),
+        field="local_diagnostic.boundary",
+    )
+
+    return LocalDiagnosticMetadata(
+        schema_version=schema_version,
+        diagnostic_mode=diagnostic_mode,
+        source_reference_engine=source_reference_engine,
+        source_reference_query_path=source_reference_query_path,
+        target_candidate_engine=target_candidate_engine,
+        target_reference_query_path=target_reference_query_path,
+        target_reference_role=target_reference_role,
+        local_diagnostic_boundary=boundary,
+        raw=metadata,
+    )
+
+
 def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> ResolvedCasePackage:
     """Resolve current user-entry package assets for a selected row."""
 
@@ -225,6 +450,12 @@ def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> Reso
 
     taxonomy = manifest.get("taxonomy")
     manifest_taxonomy = taxonomy if isinstance(taxonomy, dict) else {}
+    local_diagnostic = _resolve_local_diagnostic(
+        case_dir=case_dir,
+        row=row,
+        source_sql_path=source_sql_path,
+        raw_metadata=manifest.get("local_diagnostic"),
+    )
 
     return ResolvedCasePackage(
         case_id=row.case_id,
@@ -242,6 +473,14 @@ def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> Reso
         package_path_from_manifest=package_path_from_manifest,
         manifest_schema=schema,
         manifest_taxonomy=manifest_taxonomy,
+        local_diagnostic=local_diagnostic,
+        diagnostic_mode=local_diagnostic.diagnostic_mode,
+        source_reference_engine=local_diagnostic.source_reference_engine,
+        source_reference_query_path=local_diagnostic.source_reference_query_path,
+        target_candidate_engine=local_diagnostic.target_candidate_engine,
+        target_reference_query_path=local_diagnostic.target_reference_query_path,
+        target_reference_role=local_diagnostic.target_reference_role,
+        local_diagnostic_boundary=local_diagnostic.local_diagnostic_boundary,
         resolution_status="ok",
         resolution_notes="case package assets resolved",
     )

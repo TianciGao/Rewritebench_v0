@@ -10,9 +10,19 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from .case_package_resolver import ResolvedCasePackage
 from .case_selection import SelectedCaseEngineRow
 from .postgres_execution import PostgresExecutionResult, execute_postgres_case
-from .user_run_schema import EXECUTION_STATUS_UNSUPPORTED, FAILURE_UNSUPPORTED_ENGINE
+from .user_run_schema import (
+    BACKEND_STATUS_NOT_IMPLEMENTED,
+    CROSS_DIALECT_STATUS_BACKEND_MISSING,
+    DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+    EXECUTION_STATUS_NOT_ENABLED,
+    EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
+    EXECUTION_STATUS_UNSUPPORTED,
+    FAILURE_CROSS_DIALECT_BACKEND_MISSING,
+    FAILURE_UNSUPPORTED_ENGINE,
+)
 
 
 @dataclass(frozen=True)
@@ -39,6 +49,9 @@ class EngineExecutionResult:
     source_executable: bool = False
     candidate_executable: bool = False
     local_diagnostic_only: bool = True
+    cross_dialect_status: str = ""
+    required_backend: str = ""
+    backend_status: str = ""
 
 
 def _schema_setup_status(result: PostgresExecutionResult) -> str:
@@ -107,6 +120,45 @@ def unsupported_engine_result(
     )
 
 
+def cross_dialect_backend_missing_result(
+    *,
+    row: SelectedCaseEngineRow,
+    workspace_dir: Path,
+    resolved_package: ResolvedCasePackage,
+) -> EngineExecutionResult:
+    """Fail closed for declared cross-dialect diagnostics without source backend."""
+
+    execution_dir = workspace_dir / "execution"
+    execution_dir.mkdir(parents=True, exist_ok=True)
+    required_backend = resolved_package.source_reference_engine
+    return EngineExecutionResult(
+        source_execution_status=EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
+        candidate_execution_status=EXECUTION_STATUS_NOT_ENABLED,
+        source_result_path=None,
+        candidate_result_path=None,
+        db_artifact_dir=execution_dir,
+        failure_bucket=FAILURE_CROSS_DIALECT_BACKEND_MISSING,
+        execution_failure_class="cross_dialect_source_backend_missing",
+        notes=(
+            "cross-dialect local diagnostic requires source reference backend "
+            f"{required_backend!r}; backend is not implemented/configured, "
+            "so no PostgreSQL source execution, target_reference substitution, "
+            "or checker fallback was attempted"
+        ),
+        engine=row.engine,
+        case_id=row.case_id,
+        pool=row.pool,
+        denominator_id=row.denominator_id,
+        schema_setup_status="not_attempted_backend_missing",
+        db_execution_attempted=False,
+        source_executable=False,
+        candidate_executable=False,
+        cross_dialect_status=CROSS_DIALECT_STATUS_BACKEND_MISSING,
+        required_backend=required_backend,
+        backend_status=BACKEND_STATUS_NOT_IMPLEMENTED,
+    )
+
+
 def execute_engine_case(
     *,
     repo_root: Path,
@@ -117,12 +169,23 @@ def execute_engine_case(
     timeout_sec: int,
     schema_prefix: str,
     postgres_dsn_env: str = "SQLRB_POSTGRES_DSN",
+    resolved_package: ResolvedCasePackage | None = None,
 ) -> EngineExecutionResult:
     """Dispatch optional local DB execution by engine.
 
     PostgreSQL delegates to the existing executor. MySQL and Spark currently
     fail closed through explicit stubs; unsupported engines fail closed here.
     """
+
+    if (
+        resolved_package is not None
+        and resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE
+    ):
+        return cross_dialect_backend_missing_result(
+            row=row,
+            workspace_dir=workspace_dir,
+            resolved_package=resolved_package,
+        )
 
     if row.engine == "postgres":
         return _from_postgres_result(

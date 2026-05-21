@@ -11683,3 +11683,29 @@ Task result:
 
 Next safe action:
 - Authorize P3 runner metadata consumption and static validator support as a separate fail-closed task; do not implement MySQL execution, SQL edits, official metrics, timing, reports/results, or leaderboard unless separately approved.
+
+## 2026-05-21 - port_cross_dialect_runner_metadata_consumption_v0
+
+P3 runner metadata consumption and validator support completed on branch `feature/case-package-v2-external-schema`.
+
+Summary:
+- Static v2 validators now accept and validate top-level `local_diagnostic` metadata.
+- All 9 Common-core PORT manifests validate with `local_diagnostic`.
+- Resolver exposes diagnostic role metadata.
+- User-entry runner/router consumes `diagnostic_mode`.
+- Five cross-dialect PORT cases fail closed with missing MySQL source-reference backend instead of PostgreSQL source syntax failures.
+- PERF/CONS/LONGTAIL same-engine defaults remain unaffected.
+- MySQL/Spark live execution remains unimplemented.
+- No SQL edits, manifest edits, case_set changes, reports/results changes, denominator changes, paper result changes, case membership changes, or raw legacy evidence changes.
+- No official metrics, timing/speedup, paper rendering, or leaderboard.
+
+Validation:
+- Targeted P3 tests passed.
+- `tests/user_entry` passed.
+- `tests/case_package_v2` passed.
+- All 9 PORT static v2 validators passed.
+- All 40 Common-core static v2 validators passed.
+- Targeted five-case local diagnostic produced `cross_dialect_backend_missing=5` and no PostgreSQL source syntax errors.
+
+Next safe action:
+- Decide whether to authorize a narrow MySQL source-reference local diagnostic backend task; otherwise keep declared cross-dialect PORT rows fail-closed and local-only.

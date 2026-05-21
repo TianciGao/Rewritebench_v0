@@ -1,0 +1,7 @@
+component,change,result,notes
+case_package_resolver,parses_local_diagnostic_metadata,implemented,Exposes diagnostic_mode source_reference_engine source_reference_query_path target_candidate_engine target_reference_query_path target_reference_role and boundary flags.
+user_run,records_local_diagnostic_fields,implemented,Ledger rows include diagnostic_mode source_reference_engine target_candidate_engine cross_dialect_status required_backend and backend_status.
+engine_execution,consumes_diagnostic_mode,implemented,Cross-dialect rows fail closed before PostgreSQL source execution.
+mysql_execution,live_backend,not_implemented,MySQL remains a fail-closed future backend.
+spark_execution,live_backend,not_implemented,Spark remains a fail-closed future backend.
+local_result_checker,cross_dialect_missing_backend_handoff,skipped,Checker is skipped when source reference artifact is unavailable.

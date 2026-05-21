@@ -21,6 +21,12 @@ LEDGER_FIELDS = [
     "candidate_safety_status",
     "candidate_parse_status",
     "source_like_status",
+    "diagnostic_mode",
+    "source_reference_engine",
+    "target_candidate_engine",
+    "cross_dialect_status",
+    "required_backend",
+    "backend_status",
     "execution_status",
     "checker_status",
     "exact_status",
@@ -81,6 +87,7 @@ EXECUTION_STATUS_SOURCE_SUCCESS = "source_execution_success"
 EXECUTION_STATUS_CANDIDATE_SUCCESS = "candidate_execution_success"
 EXECUTION_STATUS_SOURCE_FAILED = "source_execution_failed"
 EXECUTION_STATUS_CANDIDATE_FAILED = "candidate_execution_failed"
+EXECUTION_STATUS_SOURCE_BACKEND_MISSING = "source_backend_missing"
 EXECUTION_STATUS_TIMEOUT = "execution_timeout"
 EXECUTION_STATUS_UNSUPPORTED = "execution_unsupported"
 EXECUTION_STATUS_INTERNAL_ERROR = "execution_internal_error"
@@ -133,6 +140,15 @@ SOURCE_LIKE_STATUS_NOT_CHECKED = "not_checked"
 SOURCE_LIKE_STATUS_SOURCE_LIKE = "source_like"
 SOURCE_LIKE_STATUS_CHANGED = "changed"
 
+DIAGNOSTIC_MODE_SAME_ENGINE = "same_engine"
+DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE = "cross_dialect_reference"
+
+CROSS_DIALECT_STATUS_NOT_APPLICABLE = "not_applicable"
+CROSS_DIALECT_STATUS_BACKEND_MISSING = "backend_missing"
+
+BACKEND_STATUS_NOT_REQUIRED = "not_required"
+BACKEND_STATUS_NOT_IMPLEMENTED = "not_implemented"
+
 CANDIDATE_PREFLIGHT_STATUS_VALUES = {
     CANDIDATE_PREFLIGHT_STATUS_NOT_RUN,
     CANDIDATE_PREFLIGHT_STATUS_PASSED,
@@ -177,6 +193,7 @@ FAILURE_ADAPTER_TIMEOUT = "adapter_timeout"
 FAILURE_CANDIDATE_PREFLIGHT_FAILED = "candidate_preflight_failed"
 FAILURE_SOURCE_EXECUTION_FAILED = "source_execution_failed"
 FAILURE_CANDIDATE_EXECUTION_FAILED = "candidate_execution_failed"
+FAILURE_CROSS_DIALECT_BACKEND_MISSING = "cross_dialect_backend_missing"
 FAILURE_EXECUTION_TIMEOUT = "execution_timeout"
 FAILURE_CHECKER_CONFIG_MISSING = "checker_config_missing"
 FAILURE_CHECKER_FAILED = "checker_failed"
@@ -192,6 +209,7 @@ EXECUTION_STATUS_VALUES = {
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
     EXECUTION_STATUS_SOURCE_FAILED,
     EXECUTION_STATUS_CANDIDATE_FAILED,
+    EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
     EXECUTION_STATUS_TIMEOUT,
     EXECUTION_STATUS_UNSUPPORTED,
     EXECUTION_STATUS_INTERNAL_ERROR,
@@ -228,6 +246,7 @@ FAILURE_BUCKET_VALUES = {
     FAILURE_CANDIDATE_PREFLIGHT_FAILED,
     FAILURE_SOURCE_EXECUTION_FAILED,
     FAILURE_CANDIDATE_EXECUTION_FAILED,
+    FAILURE_CROSS_DIALECT_BACKEND_MISSING,
     FAILURE_EXECUTION_TIMEOUT,
     FAILURE_CHECKER_CONFIG_MISSING,
     FAILURE_CHECKER_FAILED,

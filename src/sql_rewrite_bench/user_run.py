@@ -52,8 +52,10 @@ from .user_run_schema import (
     CANDIDATE_PREFLIGHT_FAILURE_CANDIDATE_MISSING,
     CANDIDATE_PREFLIGHT_FAILURE_NONE,
     CANDIDATE_PREFLIGHT_STATUS_FAILED,
+    BACKEND_STATUS_NOT_REQUIRED,
     CHECKER_STATUS_NOT_ENABLED,
     CHECKER_STATUS_SUCCESS,
+    CROSS_DIALECT_STATUS_NOT_APPLICABLE,
     EXACT_STATUS_NON_DB,
     EXACT_STATUS_EXACT,
     EXACT_STATUS_EXECUTION_FAILURE,
@@ -62,6 +64,7 @@ from .user_run_schema import (
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
     FAILURE_ADAPTER_FAILED,
     FAILURE_CANDIDATE_PREFLIGHT_FAILED,
+    FAILURE_CROSS_DIALECT_BACKEND_MISSING,
     FAILURE_MISMATCH,
     FAILURE_NO_CANDIDATE_SQL,
     FAILURE_NONE,
@@ -331,6 +334,7 @@ def _apply_db_checker_for_row(
     ledger: dict[str, object],
     run_id: str,
     row: SelectedCaseEngineRow,
+    resolved_package: ResolvedCasePackage,
     repo_root: Path,
     out_dir: Path,
     enable_checker: bool,
@@ -344,6 +348,7 @@ def _apply_db_checker_for_row(
     ledger["checker_enabled"] = "true" if enable_checker else "false"
     ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
     ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+    _apply_local_diagnostic_metadata(ledger, resolved_package)
     if ledger.get("candidate_generated") != "true" or not ledger.get("candidate_sql_path"):
         ledger["notes"] = (
             str(ledger.get("notes", ""))
@@ -372,6 +377,7 @@ def _apply_db_checker_for_row(
         timeout_sec=execution_timeout_sec,
         schema_prefix=db_schema_prefix,
         postgres_dsn_env=postgres_dsn_env,
+        resolved_package=resolved_package,
     )
     ledger.update(
         {
@@ -386,12 +392,21 @@ def _apply_db_checker_for_row(
             else "",
             "execution_failure_class": execution.execution_failure_class,
             "db_artifact_dir": _relative_to_repo(execution.db_artifact_dir, repo_root),
+            "cross_dialect_status": execution.cross_dialect_status
+            or ledger.get("cross_dialect_status", ""),
+            "required_backend": execution.required_backend
+            or ledger.get("required_backend", ""),
+            "backend_status": execution.backend_status or ledger.get("backend_status", ""),
             "notes": str(ledger.get("notes", "")) + "; " + execution.notes,
         }
     )
     if execution.failure_bucket != FAILURE_NONE:
         ledger["failure_bucket"] = execution.failure_bucket
-        if execution.failure_bucket == FAILURE_SOURCE_EXECUTION_FAILED:
+        if execution.failure_bucket in {
+            FAILURE_SOURCE_EXECUTION_FAILED,
+            FAILURE_CROSS_DIALECT_BACKEND_MISSING,
+        }:
+            ledger["checker_status"] = CHECKER_STATUS_NOT_ENABLED
             ledger["exact_status"] = EXACT_STATUS_EXECUTION_FAILURE
         return ledger
 
@@ -438,6 +453,19 @@ def _apply_db_checker_for_row(
     ):
         ledger["failure_bucket"] = FAILURE_NONE
     return ledger
+
+
+def _apply_local_diagnostic_metadata(
+    ledger: dict[str, object],
+    resolved_package: ResolvedCasePackage,
+) -> None:
+    ledger["diagnostic_mode"] = resolved_package.diagnostic_mode
+    ledger["source_reference_engine"] = resolved_package.source_reference_engine
+    ledger["target_candidate_engine"] = resolved_package.target_candidate_engine
+    if resolved_package.source_reference_engine == resolved_package.target_candidate_engine:
+        ledger["cross_dialect_status"] = CROSS_DIALECT_STATUS_NOT_APPLICABLE
+        ledger["required_backend"] = ""
+        ledger["backend_status"] = BACKEND_STATUS_NOT_REQUIRED
 
 
 def _summary_payload(
@@ -709,12 +737,15 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
                 ledger_rows, selected, resolved_packages, strict=True
             )
         ]
+    for ledger, resolved in zip(ledger_rows, resolved_packages, strict=True):
+        _apply_local_diagnostic_metadata(ledger, resolved)
     if enable_db_execution and not getattr(args, "dry_run", False):
         ledger_rows = [
             _apply_db_checker_for_row(
                 ledger=ledger,
                 run_id=run_id,
                 row=row,
+                resolved_package=resolved,
                 repo_root=repo_root,
                 out_dir=out_dir,
                 enable_checker=enable_checker,
@@ -722,7 +753,9 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
                 execution_timeout_sec=getattr(args, "execution_timeout_sec", 30),
                 db_schema_prefix=getattr(args, "db_schema_prefix", "sqlrb_user"),
             )
-            for ledger, row in zip(ledger_rows, selected, strict=True)
+            for ledger, row, resolved in zip(
+                ledger_rows, selected, resolved_packages, strict=True
+            )
         ]
     elif enable_db_execution:
         for ledger in ledger_rows:

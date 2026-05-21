@@ -406,6 +406,88 @@ class CasePackageV2ResolverTests(unittest.TestCase):
             self.assertEqual(result.overall_status, "fail")
             self.assertTrue(any("sql.positive_rewrites" in error for error in result.errors))
 
+    def test_local_diagnostic_metadata_block_validates(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["local_diagnostic"] = {
+            "schema_version": "port_cross_dialect_diagnostic_v0",
+            "diagnostic_mode": "same_engine",
+            "source_reference": {
+                "role": "source_reference",
+                "engine": "postgres",
+                "query": "sql/source.sql",
+            },
+            "target_candidate": {
+                "role": "adapter_output",
+                "engine": "postgres",
+            },
+            "checker": {
+                "comparison": "source_reference_result_to_target_candidate_result",
+            },
+            "boundary": {
+                "local_diagnostic_only": True,
+                "official_metric_input": False,
+                "paper_result_input": False,
+                "reports_results_update": False,
+                "leaderboard_input": False,
+            },
+        }
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "pass", result.errors)
+            self.assertTrue(
+                any(
+                    ref.field == "local_diagnostic.source_reference.query"
+                    and ref.status == "pass"
+                    for ref in result.references
+                )
+            )
+
+    def test_malformed_local_diagnostic_metadata_fails(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        manifest_data["local_diagnostic"] = {
+            "schema_version": "port_cross_dialect_diagnostic_v0",
+            "diagnostic_mode": "cross_dialect_reference",
+            "source_reference": {
+                "role": "source_reference",
+                "engine": "mysql",
+                "query": "sql/source.sql",
+            },
+            "target_candidate": {
+                "role": "adapter_output",
+                "engine": "postgres",
+            },
+            "target_reference": {
+                "role": "positive_reference",
+                "engine": "postgres",
+                "query": "sql/pos_01.sql",
+                "use_for_checker_oracle": True,
+                "use_for_sanity_control": True,
+            },
+            "checker": {
+                "comparison": "source_reference_result_to_target_candidate_result",
+            },
+            "boundary": {
+                "local_diagnostic_only": True,
+                "official_metric_input": False,
+                "paper_result_input": False,
+                "reports_results_update": False,
+                "leaderboard_input": False,
+            },
+        }
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(
+                any(
+                    "target_reference.use_for_checker_oracle" in error
+                    for error in result.errors
+                )
+            )
+
     def test_absolute_paths_fail(self) -> None:
         manifest = self.valid_manifest().replace("sql/source.sql", "/tmp/source.sql")
         tmp, root = self.make_repo(manifest)
@@ -423,6 +505,34 @@ class CasePackageV2ResolverTests(unittest.TestCase):
         self.assertEqual(result.case_id, "PERF_0006")
         self.assertEqual(result.overall_status, "pass")
         self.assertFalse(result.errors)
+
+    def test_all_common_core_port_local_diagnostic_metadata_validates(self) -> None:
+        repo_root = Path(__file__).resolve().parents[2]
+        for case_id in (
+            "PORT_0003",
+            "PORT_0004",
+            "PORT_0005",
+            "PORT_0008",
+            "PORT_0012",
+            "PORT_0013",
+            "PORT_0022",
+            "PORT_0024",
+            "PORT_0025",
+        ):
+            with self.subTest(case_id=case_id):
+                result = resolve_case_package_v2(
+                    repo_root=repo_root,
+                    case_path=Path("cases/PORT") / case_id,
+                )
+                self.assertEqual(result.overall_status, "pass", result.errors)
+                self.assertFalse(result.errors)
+                self.assertTrue(
+                    any(
+                        check.field == "local_diagnostic.schema_version"
+                        and check.status == "pass"
+                        for check in result.internal_checks
+                    )
+                )
 
     def test_five_pilot_cases_validate_semantic_manifest_contract(self) -> None:
         repo_root = Path(__file__).resolve().parents[2]
