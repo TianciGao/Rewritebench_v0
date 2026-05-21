@@ -133,7 +133,10 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
         self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_UNSUPPORTED)
         self.assertEqual(result.failure_bucket, FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(result.execution_failure_class, "mysql_execution_not_implemented")
+        self.assertEqual(
+            result.execution_failure_class,
+            "mysql_same_engine_execution_not_implemented",
+        )
         self.assertIn("no PostgreSQL fallback", result.notes)
         self.assertFalse(result.db_execution_attempted)
 
@@ -203,7 +206,10 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertEqual(rows[0]["engine"], "mysql")
         self.assertEqual(rows[0]["execution_status"], EXECUTION_STATUS_UNSUPPORTED)
         self.assertEqual(rows[0]["failure_bucket"], FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(rows[0]["execution_failure_class"], "mysql_execution_not_implemented")
+        self.assertEqual(
+            rows[0]["execution_failure_class"],
+            "mysql_same_engine_execution_not_implemented",
+        )
         self.assertFalse((REPO_ROOT / out / "workspaces" / "PERF_0006" / "mysql" / "checker").exists())
 
 

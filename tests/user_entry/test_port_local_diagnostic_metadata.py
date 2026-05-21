@@ -17,7 +17,8 @@ from sql_rewrite_bench.case_selection import (
 from sql_rewrite_bench.engine_execution import execute_engine_case
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
-    BACKEND_STATUS_NOT_IMPLEMENTED,
+    BACKEND_STATUS_CLIENT_MISSING,
+    BACKEND_STATUS_CONFIG_MISSING,
     CHECKER_STATUS_NOT_ENABLED,
     CROSS_DIALECT_STATUS_BACKEND_MISSING,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
@@ -113,33 +114,43 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
                 "sql_rewrite_bench.engine_execution.execute_postgres_case",
                 side_effect=AssertionError("PostgreSQL source execution must not run"),
             ) as postgres:
-                result = execute_engine_case(
-                    repo_root=REPO_ROOT,
-                    run_id="port_router_test",
-                    row=row,
-                    candidate_sql_path=candidate_sql,
-                    workspace_dir=workspace,
-                    timeout_sec=30,
-                    schema_prefix="sqlrb_user",
-                    resolved_package=resolved,
-                )
+                with mock.patch(
+                    "sql_rewrite_bench.mysql_execution.mysql_client_available",
+                    return_value=False,
+                ):
+                    result = execute_engine_case(
+                        repo_root=REPO_ROOT,
+                        run_id="port_router_test",
+                        row=row,
+                        candidate_sql_path=candidate_sql,
+                        workspace_dir=workspace,
+                        timeout_sec=30,
+                        schema_prefix="sqlrb_user",
+                        resolved_package=resolved,
+                    )
 
         postgres.assert_not_called()
         self.assertEqual(result.failure_bucket, FAILURE_CROSS_DIALECT_BACKEND_MISSING)
         self.assertEqual(result.source_execution_status, EXECUTION_STATUS_SOURCE_BACKEND_MISSING)
         self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_NOT_ENABLED)
         self.assertEqual(result.required_backend, "mysql")
-        self.assertEqual(result.backend_status, BACKEND_STATUS_NOT_IMPLEMENTED)
+        self.assertEqual(result.backend_status, BACKEND_STATUS_CLIENT_MISSING)
         self.assertFalse(result.db_execution_attempted)
-        self.assertIn("no PostgreSQL source execution", result.notes)
-        self.assertIn("target_reference substitution", result.notes)
+        self.assertIn("mysql CLI is not available", result.notes)
 
     def test_user_run_records_cross_dialect_backend_missing_and_skips_checker(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             case_list = _case_list(Path(temp_dir), "PORT_0004")
             out = _unique_out("unittest_p3_port_cross_dialect")
             self.addCleanup(shutil.rmtree, REPO_ROOT / out, ignore_errors=True)
-            summary = run_user_benchmark(_args(out, case_list), REPO_ROOT)
+            with mock.patch(
+                "sql_rewrite_bench.mysql_execution.mysql_client_available",
+                return_value=True,
+            ), mock.patch(
+                "sql_rewrite_bench.mysql_execution.mysql_config_available",
+                return_value=False,
+            ):
+                summary = run_user_benchmark(_args(out, case_list), REPO_ROOT)
 
         self.assertEqual(summary["selected_rows"], 1)
         self.assertEqual(summary["candidate_generated_rows"], 1)
@@ -156,7 +167,7 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
         self.assertEqual(row["target_candidate_engine"], "postgres")
         self.assertEqual(row["cross_dialect_status"], CROSS_DIALECT_STATUS_BACKEND_MISSING)
         self.assertEqual(row["required_backend"], "mysql")
-        self.assertEqual(row["backend_status"], BACKEND_STATUS_NOT_IMPLEMENTED)
+        self.assertEqual(row["backend_status"], BACKEND_STATUS_CONFIG_MISSING)
         self.assertEqual(row["failure_bucket"], FAILURE_CROSS_DIALECT_BACKEND_MISSING)
         self.assertEqual(row["source_execution_status"], EXECUTION_STATUS_SOURCE_BACKEND_MISSING)
         self.assertEqual(row["execution_status"], EXECUTION_STATUS_NOT_ENABLED)

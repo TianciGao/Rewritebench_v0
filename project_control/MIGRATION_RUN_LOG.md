@@ -11709,3 +11709,28 @@ Validation:
 
 Next safe action:
 - Decide whether to authorize a narrow MySQL source-reference local diagnostic backend task; otherwise keep declared cross-dialect PORT rows fail-closed and local-only.
+
+## 2026-05-21 - port_cross_dialect_mysql_backend_v0
+
+P4 bounded MySQL source-reference local diagnostic backend completed on branch `feature/case-package-v2-external-schema`.
+
+Summary:
+- Implemented MySQL source-reference execution for manifest-declared cross-dialect PORT diagnostics using the `mysql` CLI and explicit local environment configuration.
+- MySQL schema assets resolve only from `engines.mysql` external schema metadata; PostgreSQL schema assets are not used for MySQL.
+- Cross-dialect runner behavior now executes MySQL source-reference first, then PostgreSQL target candidate only after source success.
+- Same-engine MySQL remains fail-closed; Spark remains deferred.
+- Targeted five-case run with missing MySQL config produced `mysql_config_missing=5` / `cross_dialect_backend_missing=5` and no PostgreSQL source syntax failures.
+- Live MySQL diagnostic was not run because `SQLRB_MYSQL_HOST`, `SQLRB_MYSQL_PORT`, and `SQLRB_MYSQL_USER` were not configured.
+- No SQL edits, manifest edits, schema/checker/validation edits, case_set changes, reports/results changes, denominator changes, paper result changes, case membership changes, or raw legacy evidence changes.
+- No official metrics, timing/speedup, paper rendering, or leaderboard.
+
+Validation:
+- `git diff --check` passed.
+- Py_compile for modified source files passed.
+- Help/readability commands passed.
+- Public smoke dry-run and adapter-capture passed; run outputs removed.
+- `PYTHONPATH=src pytest tests/user_entry` passed with 80 passed and 1 skipped.
+- PORT local-diagnostic metadata validation test passed.
+
+Next safe action:
+- Configure a local MySQL environment and run a targeted live source-reference diagnostic, or test a controlled PostgreSQL-target adapter for cross-dialect PORT rows; do not compute metrics, timing, reports/results, or leaderboard outputs.

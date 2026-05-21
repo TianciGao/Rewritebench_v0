@@ -1,0 +1,10 @@
+component,status,details,local_diagnostic_only,official_metric
+mysql_source_reference_backend,implemented,"Executes manifest-declared MySQL source_reference queries through mysql CLI when explicitly configured",true,false
+same_engine_mysql_backend,deferred_fail_closed,"Same-engine MySQL user-entry execution still returns unsupported/not implemented status",true,false
+schema_asset_resolution,implemented,"Resolves only engines.mysql ddl/load paths from manifest external schema profile metadata",true,false
+result_artifacts,implemented,"Writes setup SQL source query SQL source_result.jsonl source_error.txt cleanup log and redacted command metadata under runs/user workspaces",true,false
+cross_dialect_routing,implemented,"Runs MySQL source_reference first and PostgreSQL target candidate only after source success",true,false
+postgres_source_guard,implemented,"Declared cross-dialect PORT source.sql is not executed as PostgreSQL source SQL",true,false
+target_reference_guard,implemented,"target_reference/pos_01.sql is not used as source oracle or checker oracle",true,false
+spark_backend,deferred,"Spark remains fail-closed and unimplemented",true,false
+live_mysql_validation,not_run_environment_missing,"mysql client present but SQLRB_MYSQL_HOST SQLRB_MYSQL_PORT SQLRB_MYSQL_USER were not configured",true,false
