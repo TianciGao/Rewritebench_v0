@@ -10666,3 +10666,48 @@ Task result:
 
 Next safe action:
 - Human review of U6 readability command output, then authorize U7 engine execution router and MySQL/Spark fail-closed interface design if accepted.
+
+### 2026-05-21 · Triage and fix user-entry-smoke GitHub Actions failure
+
+Mode: CI-smoke triage and hygiene fix; no U7 work; no user-entry runtime behavior change; no official metrics; no paper rendering; no reports/results update; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Inspected the public GitHub Actions run metadata for run `26206722303`; job `B-line user-entry smoke` failed at the `Run B-line user-entry smoke` step. Full job logs were not accessible without repository admin rights from this environment.
+- Reproduced the CI-only failure locally in a fresh editable-install virtual environment without PyYAML: U5 tag-slice tests failed because retained manifest taxonomy parsing did not have full YAML semantics.
+- Confirmed fresh editable install with `pytest` and `PyYAML` passes `scripts/dev/run_user_entry_ci_smoke.py`.
+- Updated `.github/workflows/user_entry_smoke.yml` to install `pytest` and `PyYAML` for the CI smoke job.
+- Updated `scripts/dev/run_user_entry_ci_smoke.py` to verify U4/U5 output files and remove `runs/user/ci_smoke_dry_run` plus `runs/user/ci_smoke_adapter` before checking `runs/user` cleanliness.
+- Created `audits/user_entry_ci_smoke_failure_fix_v0/`.
+
+Files created:
+- `audits/user_entry_ci_smoke_failure_fix_v0/README.md`
+- `audits/user_entry_ci_smoke_failure_fix_v0/command_log.md`
+- `audits/user_entry_ci_smoke_failure_fix_v0/protected_surface_check.md`
+
+Files modified:
+- `.github/workflows/user_entry_smoke.yml`
+- `scripts/dev/run_user_entry_ci_smoke.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- Fresh editable-install venv with `pytest PyYAML`: passed.
+- `git diff --check`: passed.
+- `python -m py_compile scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 65 passed and 1 skipped.
+- Protected-surface diff check: passed.
+- CI smoke outputs cleanup: passed; `runs/user/ci_smoke_dry_run` and `runs/user/ci_smoke_adapter` were removed by the smoke script.
+
+Task result:
+- CI smoke failure triaged and fixed: yes.
+- CI smoke outputs were not the reproduced root cause, but cleanup was hardened.
+- Denominator changed: no.
+- Paper results changed: no.
+- Reports/results changed: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Push the CI-smoke fix and observe or rerun GitHub Actions; do not continue U7 until `user-entry-smoke` is green.
