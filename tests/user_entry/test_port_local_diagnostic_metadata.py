@@ -14,12 +14,16 @@ from sql_rewrite_bench.case_selection import (
     SelectedCaseEngineRow,
     resolve_common_core_selection,
 )
-from sql_rewrite_bench.engine_execution import execute_engine_case, unsupported_engine_result
+from sql_rewrite_bench.engine_execution import (
+    EngineExecutionResult,
+    execute_engine_case,
+    unsupported_engine_result,
+)
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
     BACKEND_STATUS_CLIENT_MISSING,
     BACKEND_STATUS_CONFIG_MISSING,
-    BACKEND_STATUS_NOT_IMPLEMENTED,
+    BACKEND_STATUS_AVAILABLE,
     CHECKER_STATUS_NOT_ENABLED,
     CROSS_DIALECT_STATUS_BACKEND_MISSING,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
@@ -27,10 +31,11 @@ from sql_rewrite_bench.user_run_schema import (
     DIAGNOSTIC_MODE_UNSUPPORTED,
     EXACT_STATUS_EXECUTION_FAILURE,
     EXECUTION_STATUS_NOT_ENABLED,
+    EXECUTION_STATUS_CANDIDATE_SUCCESS,
     EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
-    EXECUTION_STATUS_UNSUPPORTED,
+    EXECUTION_STATUS_SOURCE_SUCCESS,
     FAILURE_CROSS_DIALECT_BACKEND_MISSING,
-    FAILURE_UNSUPPORTED_ENGINE,
+    FAILURE_NONE,
 )
 
 
@@ -163,7 +168,7 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
         self.assertFalse(result.db_execution_attempted)
         self.assertIn("mysql CLI is not available", result.notes)
 
-    def test_reverse_port_mysql_target_fails_closed_without_wrong_engine_source_execution(self) -> None:
+    def test_reverse_port_mysql_target_routes_without_wrong_engine_source_execution(self) -> None:
         row = _selected_row("PORT_0003", engine="mysql")
         resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -171,13 +176,59 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
             candidate_sql = workspace / "candidate.sql"
             candidate_sql.parent.mkdir(parents=True)
             candidate_sql.write_text("select 1;\n", encoding="utf-8")
+            source_result = EngineExecutionResult(
+                source_execution_status=EXECUTION_STATUS_SOURCE_SUCCESS,
+                candidate_execution_status=EXECUTION_STATUS_NOT_ENABLED,
+                source_result_path=workspace / "execution" / "postgres_source" / "source_result.jsonl",
+                candidate_result_path=None,
+                db_artifact_dir=workspace / "execution" / "postgres_source",
+                failure_bucket=FAILURE_NONE,
+                execution_failure_class="",
+                notes="mock postgres source-reference executed",
+                engine=row.engine,
+                case_id=row.case_id,
+                pool=row.pool,
+                denominator_id=row.denominator_id,
+                schema_setup_status="source_schema_setup_success",
+                db_execution_attempted=True,
+                source_executable=True,
+                candidate_executable=False,
+                required_backend="postgres",
+                backend_status=BACKEND_STATUS_AVAILABLE,
+            )
+            final_result = EngineExecutionResult(
+                source_execution_status=EXECUTION_STATUS_SOURCE_SUCCESS,
+                candidate_execution_status=EXECUTION_STATUS_CANDIDATE_SUCCESS,
+                source_result_path=source_result.source_result_path,
+                candidate_result_path=workspace / "execution" / "mysql_target" / "candidate_result.jsonl",
+                db_artifact_dir=workspace / "execution",
+                failure_bucket=FAILURE_NONE,
+                execution_failure_class="",
+                notes="mock reverse cross-dialect route executed",
+                engine=row.engine,
+                case_id=row.case_id,
+                pool=row.pool,
+                denominator_id=row.denominator_id,
+                schema_setup_status="target_schema_setup_success",
+                db_execution_attempted=True,
+                source_executable=True,
+                candidate_executable=True,
+                required_backend="postgres_to_mysql",
+                backend_status=BACKEND_STATUS_AVAILABLE,
+            )
             with mock.patch(
                 "sql_rewrite_bench.engine_execution.execute_postgres_case",
                 side_effect=AssertionError("PostgreSQL same-engine execution must not run"),
             ) as postgres, mock.patch(
                 "sql_rewrite_bench.mysql_execution.execute_mysql_case",
                 side_effect=AssertionError("MySQL same-engine source execution must not run"),
-            ) as mysql_same:
+            ) as mysql_same, mock.patch(
+                "sql_rewrite_bench.engine_execution._execute_postgres_source_reference",
+                return_value=source_result,
+            ) as postgres_source, mock.patch(
+                "sql_rewrite_bench.engine_execution._execute_mysql_target_candidate",
+                return_value=final_result,
+            ) as mysql_target:
                 result = execute_engine_case(
                     repo_root=REPO_ROOT,
                     run_id="reverse_port_router_test",
@@ -191,13 +242,14 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
 
         postgres.assert_not_called()
         mysql_same.assert_not_called()
-        self.assertEqual(result.failure_bucket, FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(result.execution_failure_class, "cross_dialect_route_unsupported")
-        self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
-        self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_UNSUPPORTED)
+        postgres_source.assert_called_once()
+        mysql_target.assert_called_once()
+        self.assertIs(result, final_result)
+        self.assertEqual(result.failure_bucket, FAILURE_NONE)
+        self.assertEqual(result.source_execution_status, EXECUTION_STATUS_SOURCE_SUCCESS)
+        self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_CANDIDATE_SUCCESS)
         self.assertEqual(result.required_backend, "postgres_to_mysql")
-        self.assertEqual(result.backend_status, BACKEND_STATUS_NOT_IMPLEMENTED)
-        self.assertIn("source_reference='postgres'", result.notes)
+        self.assertEqual(result.backend_status, BACKEND_STATUS_AVAILABLE)
 
     def test_port_mysql_source_case_uses_explicit_mysql_same_engine_role(self) -> None:
         row = _selected_row("PORT_0004", engine="mysql")

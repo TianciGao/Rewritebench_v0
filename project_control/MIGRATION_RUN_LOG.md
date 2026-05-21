@@ -12272,3 +12272,60 @@ Boundary:
 
 Next safe action:
 - Review the explicit reverse PostgreSQL-source to MySQL-target role mapping and separately authorize a narrow backend route if live reverse cross-dialect execution is desired; keep official metrics, timing, reports/results, paper rendering, retained-evidence promotion, and leaderboard output out of scope.
+
+## 2026-05-22 - port_reverse_cross_dialect_mysql_target_diagnostic_v0
+
+Reverse PORT PostgreSQL-source to MySQL-target controlled diagnostic completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic runner support, controlled adapter, tests, and audit only.
+
+Implementation:
+- Added controlled adapter `examples/user/port_mysql_target_reference_adapter.py`.
+- The adapter reads `SQLRB_CASE_DIR`, `SQLRB_CANDIDATE_SQL_PATH`, and `SQLRB_ENGINE`, requires `SQLRB_ENGINE=mysql`, resolves `local_diagnostic.engine_roles.mysql.target_reference.query`, and copies only that declared MySQL target reference query into the candidate path.
+- The adapter fails closed for missing/malformed/non-MySQL metadata and does not infer `pos_01.sql` by filename.
+- The engine router now supports the manifest-declared reverse route by executing PostgreSQL source-reference artifacts first and MySQL target-candidate artifacts second.
+- The route does not execute PostgreSQL-like `source.sql` directly in MySQL and does not use `target_reference` as a checker oracle.
+
+Controlled diagnostic:
+- Case list: `PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`.
+- Engine: `mysql`.
+- Adapter: `python examples/user/port_mysql_target_reference_adapter.py`.
+- Local output path: `runs/user/port_mysql_target_reference_controlled/`.
+- Selected rows: 4.
+- Candidate generated rows: 4.
+- PostgreSQL source-reference attempted/executable/failed rows: 4/4/0.
+- MySQL target-candidate attempted/executable/failed rows: 4/4/0.
+- Checker attempted/exact/mismatch rows: 4/4/0.
+- Failure buckets: `none=4`.
+
+Regression:
+- Forward MySQL-source to PostgreSQL-target controlled path remained exact 5/5.
+- Public non-DB smoke capture selected 2 rows and generated 2 candidates.
+- Non-PORT same-engine behavior remains covered by user-entry tests.
+
+Validation:
+- Local engine environment check: PostgreSQL ok, MySQL ok, Spark deferred/fail-closed.
+- `git diff --check`: passed.
+- Python compile for modified source and new adapter: passed.
+- `PYTHONPATH=src pytest tests/user_entry`: unavailable because `pytest` is not installed in this local environment.
+- `PYTHONPATH=src python -m unittest discover -s tests/user_entry -p 'test_*.py'`: passed, 111 tests with 2 skipped.
+- `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -p 'test_*.py'`: passed, 24 tests.
+- Common-core v2 static validator loop: passed, 40/40.
+
+Boundary:
+- SQL files modified: no.
+- Manifest files modified: no.
+- Schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Run a narrow bidirectional PORT controlled-diagnostic closeout or return to the main user-entry roadmap; keep real user-adapter evaluation, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, and leaderboard output out of scope.

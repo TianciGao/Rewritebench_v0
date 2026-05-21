@@ -1,0 +1,2 @@
+failure_bucket,count,affected_cases,likely_layer,metadata_related,source_related,target_related,checker_related,schema_related,backend_related,normalization_related,notes
+none,4,PORT_0003;PORT_0005;PORT_0008;PORT_0012,none,no,no,no,no,no,no,no,all selected rows completed exactly

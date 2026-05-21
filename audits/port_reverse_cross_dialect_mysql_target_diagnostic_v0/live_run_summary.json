@@ -1,0 +1,52 @@
+{
+  "adapter": "python examples/user/port_mysql_target_reference_adapter.py",
+  "candidate_generated_rows": 4,
+  "candidate_preflight_passed_rows": 4,
+  "case_set": "common_core_v0",
+  "checker_attempted_rows": 4,
+  "denominator_changed": false,
+  "engine": "mysql",
+  "exact_rows": 4,
+  "failure_bucket_counts": {
+    "none": 4
+  },
+  "failure_layer_summary": {
+    "backend_failures": 0,
+    "checker_failures": 0,
+    "metadata_failures": 0,
+    "mysql_target_candidate_failures": 0,
+    "normalization_failures": 0,
+    "postgres_source_reference_failures": 0,
+    "schema_or_load_failures": 0
+  },
+  "forward_route_regression": {
+    "exact_rows": 5,
+    "failure_bucket_counts": {
+      "none": 5
+    },
+    "mismatch_rows": 0,
+    "run_output_path": "runs/user/port_forward_regression_after_reverse/",
+    "selected_rows": 5
+  },
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "local_run_output_path": "runs/user/port_mysql_target_reference_controlled/",
+  "mismatch_rows": 0,
+  "mysql_target_candidate_attempted_rows": 4,
+  "mysql_target_candidate_executable_rows": 4,
+  "mysql_target_candidate_failed_rows": 0,
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "postgres_source_reference_attempted_rows": 4,
+  "postgres_source_reference_executable_rows": 4,
+  "postgres_source_reference_failed_rows": 0,
+  "public_smoke_capture": {
+    "candidate_generated_rows": 2,
+    "run_output_path": "runs/user/port_reverse_public_smoke_capture/",
+    "selected_rows": 2
+  },
+  "reports_results_updated": false,
+  "run_id": "port_mysql_target_reference_controlled",
+  "selected_rows": 4,
+  "timing_or_speedup_computed": false
+}
