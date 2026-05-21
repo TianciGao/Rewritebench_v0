@@ -1,0 +1,2 @@
+failure_bucket,row_count,connection_related,config_related,schema_related,source_related,target_related,checker_related,interpretation
+candidate_execution_failed,5,false,false,false,false,true,false,MySQL source-reference execution succeeded for all selected rows; PostgreSQL target-candidate execution failed because the no-op adapter emitted source-like MySQL SQL.

@@ -1,0 +1,60 @@
+case_id,artifact_scope,artifact_type,artifact_path,present,notes
+ALL,run_root,config,runs/user/port_mysql_source_reference_live/config.yaml,true,Local run configuration.
+ALL,run_root,selected_cases,runs/user/port_mysql_source_reference_live/selected_cases.csv,true,Selected five PORT postgres rows.
+ALL,run_root,ledger,runs/user/port_mysql_source_reference_live/ledger.csv,true,Primary local diagnostic ledger; not committed.
+ALL,run_root,failures,runs/user/port_mysql_source_reference_live/failures.csv,true,Failure rows; not committed.
+ALL,run_root,summary,runs/user/port_mysql_source_reference_live/summary.json,true,Local run summary; not official metrics.
+ALL,run_root,report,runs/user/port_mysql_source_reference_live/report.md,true,Local report; not reports/results.
+ALL,run_root,quality_summary,runs/user/port_mysql_source_reference_live/quality_summary.json,true,Local quality summary; not official metrics.
+ALL,run_root,quality_report,runs/user/port_mysql_source_reference_live/quality_report.md,true,Local quality report; not official metrics.
+ALL,run_root,tag_slices,runs/user/port_mysql_source_reference_live/tag_slices.csv,true,Local tag slices; not leaderboard input.
+PORT_0004,workspace,candidate_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/candidate.sql,true,No-op adapter candidate copied from source-like SQL.
+PORT_0004,mysql_source,command_metadata,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/mysql_source/command_metadata.json,true,Redacted MySQL command metadata.
+PORT_0004,mysql_source,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/mysql_source/setup.sql,true,Local MySQL setup script artifact.
+PORT_0004,mysql_source,source_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/mysql_source/source_query.sql,true,Local MySQL source query script artifact.
+PORT_0004,mysql_source,source_result,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/mysql_source/source_result.jsonl,true,MySQL source-reference result artifact; one JSONL row.
+PORT_0004,mysql_source,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/mysql_source/cleanup_log.txt,true,MySQL cleanup return code recorded as 0.
+PORT_0004,postgres_target,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/postgres_target/setup.sql,true,PostgreSQL target schema setup script artifact.
+PORT_0004,postgres_target,candidate_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/postgres_target/candidate_query.sql,true,PostgreSQL target candidate script artifact.
+PORT_0004,postgres_target,candidate_error,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/postgres_target/candidate_error.txt,true,Target candidate failed on source-like MySQL SQL.
+PORT_0004,postgres_target,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0004/postgres/execution/postgres_target/cleanup_log.txt,true,PostgreSQL cleanup return code recorded as 0.
+PORT_0013,workspace,candidate_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/candidate.sql,true,No-op adapter candidate copied from source-like SQL.
+PORT_0013,mysql_source,command_metadata,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/mysql_source/command_metadata.json,true,Redacted MySQL command metadata.
+PORT_0013,mysql_source,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/mysql_source/setup.sql,true,Local MySQL setup script artifact.
+PORT_0013,mysql_source,source_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/mysql_source/source_query.sql,true,Local MySQL source query script artifact.
+PORT_0013,mysql_source,source_result,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/mysql_source/source_result.jsonl,true,MySQL source-reference result artifact; one JSONL row.
+PORT_0013,mysql_source,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/mysql_source/cleanup_log.txt,true,MySQL cleanup return code recorded as 0.
+PORT_0013,postgres_target,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/postgres_target/setup.sql,true,PostgreSQL target schema setup script artifact.
+PORT_0013,postgres_target,candidate_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/postgres_target/candidate_query.sql,true,PostgreSQL target candidate script artifact.
+PORT_0013,postgres_target,candidate_error,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/postgres_target/candidate_error.txt,true,Target candidate failed on source-like MySQL SQL.
+PORT_0013,postgres_target,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0013/postgres/execution/postgres_target/cleanup_log.txt,true,PostgreSQL cleanup return code recorded as 0.
+PORT_0022,workspace,candidate_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/candidate.sql,true,No-op adapter candidate copied from source-like SQL.
+PORT_0022,mysql_source,command_metadata,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/mysql_source/command_metadata.json,true,Redacted MySQL command metadata.
+PORT_0022,mysql_source,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/mysql_source/setup.sql,true,Local MySQL setup script artifact.
+PORT_0022,mysql_source,source_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/mysql_source/source_query.sql,true,Local MySQL source query script artifact.
+PORT_0022,mysql_source,source_result,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/mysql_source/source_result.jsonl,true,MySQL source-reference result artifact; one JSONL row.
+PORT_0022,mysql_source,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/mysql_source/cleanup_log.txt,true,MySQL cleanup return code recorded as 0.
+PORT_0022,postgres_target,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/postgres_target/setup.sql,true,PostgreSQL target schema setup script artifact.
+PORT_0022,postgres_target,candidate_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/postgres_target/candidate_query.sql,true,PostgreSQL target candidate script artifact.
+PORT_0022,postgres_target,candidate_error,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/postgres_target/candidate_error.txt,true,Target candidate failed on source-like MySQL SQL.
+PORT_0022,postgres_target,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0022/postgres/execution/postgres_target/cleanup_log.txt,true,PostgreSQL cleanup return code recorded as 0.
+PORT_0024,workspace,candidate_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/candidate.sql,true,No-op adapter candidate copied from source-like SQL.
+PORT_0024,mysql_source,command_metadata,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/mysql_source/command_metadata.json,true,Redacted MySQL command metadata.
+PORT_0024,mysql_source,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/mysql_source/setup.sql,true,Local MySQL setup script artifact.
+PORT_0024,mysql_source,source_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/mysql_source/source_query.sql,true,Local MySQL source query script artifact.
+PORT_0024,mysql_source,source_result,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/mysql_source/source_result.jsonl,true,MySQL source-reference result artifact; one JSONL row.
+PORT_0024,mysql_source,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/mysql_source/cleanup_log.txt,true,MySQL cleanup return code recorded as 0.
+PORT_0024,postgres_target,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/postgres_target/setup.sql,true,PostgreSQL target schema setup script artifact.
+PORT_0024,postgres_target,candidate_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/postgres_target/candidate_query.sql,true,PostgreSQL target candidate script artifact.
+PORT_0024,postgres_target,candidate_error,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/postgres_target/candidate_error.txt,true,Target candidate failed on source-like MySQL SQL.
+PORT_0024,postgres_target,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0024/postgres/execution/postgres_target/cleanup_log.txt,true,PostgreSQL cleanup return code recorded as 0.
+PORT_0025,workspace,candidate_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/candidate.sql,true,No-op adapter candidate copied from source-like SQL.
+PORT_0025,mysql_source,command_metadata,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/mysql_source/command_metadata.json,true,Redacted MySQL command metadata.
+PORT_0025,mysql_source,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/mysql_source/setup.sql,true,Local MySQL setup script artifact.
+PORT_0025,mysql_source,source_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/mysql_source/source_query.sql,true,Local MySQL source query script artifact.
+PORT_0025,mysql_source,source_result,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/mysql_source/source_result.jsonl,true,MySQL source-reference result artifact; one JSONL row.
+PORT_0025,mysql_source,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/mysql_source/cleanup_log.txt,true,MySQL cleanup return code recorded as 0.
+PORT_0025,postgres_target,setup_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/postgres_target/setup.sql,true,PostgreSQL target schema setup script artifact.
+PORT_0025,postgres_target,candidate_query_sql,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/postgres_target/candidate_query.sql,true,PostgreSQL target candidate script artifact.
+PORT_0025,postgres_target,candidate_error,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/postgres_target/candidate_error.txt,true,Target candidate failed on source-like MySQL SQL.
+PORT_0025,postgres_target,cleanup_log,runs/user/port_mysql_source_reference_live/workspaces/PORT_0025/postgres/execution/postgres_target/cleanup_log.txt,true,PostgreSQL cleanup return code recorded as 0.

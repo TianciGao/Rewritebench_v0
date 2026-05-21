@@ -1,0 +1,93 @@
+{
+  "schema_version": "port_cross_dialect_mysql_live_diagnostic_v0",
+  "task": "Run live MySQL source-reference diagnostic for five PORT cross-dialect cases",
+  "branch": "feature/case-package-v2-external-schema",
+  "run_id": "port_mysql_source_reference_live",
+  "run_output_path": "runs/user/port_mysql_source_reference_live/",
+  "live_diagnostic_run_completed": true,
+  "environment": {
+    "postgres_probe_result": "ok",
+    "mysql_probe_result": "ok",
+    "spark_status": "deferred/fail-closed"
+  },
+  "selection": {
+    "case_set": "common_core_v0",
+    "engine": "postgres",
+    "selected_rows": 5,
+    "case_ids": [
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ]
+  },
+  "adapter": {
+    "command": "python examples/user/noop_adapter.py",
+    "invoked_rows": 5,
+    "candidate_generated_rows": 5,
+    "candidate_preflight_passed_rows": 5,
+    "source_like_rows": 5,
+    "interpretation_note": "The no-op adapter emitted source-like MySQL SQL; PostgreSQL target-candidate failure is diagnostic target-side behavior, not an official method failure."
+  },
+  "mysql_source_reference": {
+    "attempted_rows": 5,
+    "executable_rows": 5,
+    "failed_rows": 0,
+    "backend_status_counts": {
+      "available": 5
+    },
+    "source_execution_status_counts": {
+      "source_execution_success": 5
+    },
+    "source_result_artifact_rows": 5
+  },
+  "postgres_target_candidate": {
+    "attempted_rows": 5,
+    "executable_rows": 0,
+    "failed_rows": 5,
+    "candidate_execution_status_counts": {
+      "candidate_execution_failed": 5
+    },
+    "execution_failure_class_counts": {
+      "target_candidate_execution_failed": 5
+    },
+    "target_error_summary": "PostgreSQL candidate execution failed on source-like MySQL SQL from the no-op adapter."
+  },
+  "checker": {
+    "enabled": true,
+    "attempted_rows": 0,
+    "success_rows": 0,
+    "exact_rows": 0,
+    "mismatch_rows": 0,
+    "status_counts": {
+      "checker_not_enabled": 5
+    },
+    "not_attempted_reason": "Target-candidate execution failed before checker handoff."
+  },
+  "failure_buckets": {
+    "candidate_execution_failed": 5
+  },
+  "failure_related_area": {
+    "connection_related": false,
+    "config_related": false,
+    "schema_related": false,
+    "source_related": false,
+    "target_related": true,
+    "checker_related": false
+  },
+  "boundaries": {
+    "local_diagnostic_only": true,
+    "local_run_outputs_committed": false,
+    "official_metrics_computed": false,
+    "timing_or_speedup_computed": false,
+    "paper_tables_rendered": false,
+    "reports_changed": false,
+    "results_changed": false,
+    "retained_evidence_updated": false,
+    "case_sets_changed": false,
+    "denominator_changed": false,
+    "paper_results_changed": false,
+    "global_leaderboard_created": false
+  }
+}

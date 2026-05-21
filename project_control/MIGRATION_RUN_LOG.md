@@ -11802,3 +11802,70 @@ Task result:
 
 Next safe action:
 - Copy the relevant `scripts/env_*.example.sh` file to `scripts/env_*.local.sh`, edit local credentials, source it, and run `python scripts/dev/check_local_engine_env.py`; any subsequent live MySQL source-reference diagnostic must remain local-only with no metrics, timing, reports/results, or leaderboard outputs.
+
+## 2026-05-21 - port_cross_dialect_mysql_live_diagnostic_v0
+
+Live MySQL source-reference diagnostic completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: bounded local diagnostic only; no official metrics; no timing/speedup; no reports/results updates; no retained-evidence promotion; no release tag/export branch; no global leaderboard.
+
+Summary:
+- Target cases: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- PostgreSQL environment ready: yes.
+- MySQL environment ready: yes.
+- Spark status: deferred/fail-closed.
+- Local run output path: `runs/user/port_mysql_source_reference_live/`.
+- Selected rows: 5.
+- Candidate generated rows: 5.
+- Candidate preflight passed rows: 5.
+- MySQL source-reference attempted rows: 5.
+- MySQL source-reference executable rows: 5.
+- MySQL source-reference failed rows: 0.
+- PostgreSQL target-candidate attempted rows: 5.
+- PostgreSQL target-candidate executable rows: 0.
+- PostgreSQL target-candidate failed rows: 5.
+- Checker attempted rows: 0.
+- Exact rows: 0.
+- Mismatch rows: 0.
+- Failure buckets: `candidate_execution_failed=5`.
+- Failure classification: target-related only; no connection, config, schema, source-reference, or checker failures were observed.
+- Interpretation: the no-op adapter emitted source-like MySQL SQL, so target PostgreSQL candidate failure is a local diagnostic outcome and not an official method failure.
+
+Files created:
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/README.md`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/environment_check.md`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/live_run_summary.json`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/source_reference_execution_summary.csv`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/target_candidate_outcome_summary.csv`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/failure_bucket_summary.csv`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/artifact_inventory.csv`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/command_log.md`
+- `audits/port_cross_dialect_mysql_live_diagnostic_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- JSON parse check for audit summary: passed.
+- CSV parse checks for audit CSVs: passed.
+- Markdown sanity checks for audit Markdown files: passed.
+- Protected-surface diff check: passed.
+- `git diff --check`: passed.
+- Local run outputs under `runs/user/port_mysql_source_reference_live/` remained ignored and unstaged.
+
+Task result:
+- Live diagnostic run completed: yes.
+- Local run outputs committed: no.
+- Source code modified: no.
+- Cases/manifests/SQL/schema/checker/validation modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Run a controlled PostgreSQL-target adapter diagnostic for these five cross-dialect PORT rows, or close the MySQL source-reference diagnostic path as locally validated; do not compute metrics, timing, reports/results, or leaderboard outputs.
