@@ -10640,10 +10640,10 @@ Validation result:
 - Command-only helper output check: passed; no run output directories created by `--list-cases`, `--explain-selection`, or `--show-output-schema`.
 
 Commit hash:
-- Pending until commit.
+- `d37f44122d39bd408c76714ed11825214fd382ea`
 
 Push result:
-- Pending until push.
+- Pushed to `origin/feature/case-package-v2-external-schema` (`15d913e..d37f441`).
 
 Task result:
 - U6 readability enhancements implemented: yes.
