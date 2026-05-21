@@ -11944,3 +11944,34 @@ Task result:
 
 Next safe action:
 - Review checker normalization/column-label policy for cross-dialect result comparison before any checker behavior changes; do not compute metrics, timing, reports/results, or leaderboard outputs from this diagnostic.
+
+## 2026-05-21 - port_cross_dialect_checker_normalization_audit_v0
+
+Cross-dialect checker normalization audit completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: audit/triage only. No checker behavior changed. No SQL, manifests, cases, schemas, checker configs, validation files, source code, reports/results, denominator scaffolds, paper results, case membership, raw legacy evidence, timing/speedup, official metrics, or leaderboard outputs were changed.
+
+Summary:
+- Audited cases: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Controlled diagnostic artifacts available: yes; rerun required: no.
+- PostgreSQL environment ready: yes.
+- MySQL environment ready: yes.
+- Prior controlled run outcome: source-reference execution 5/5, target-candidate execution 5/5, checker attempted 5, exact 1, mismatch 4.
+- `PORT_0004`: column-label normalization policy gap; row counts 1/1 and scalar values match after ignoring labels.
+- `PORT_0013`: column-label normalization policy gap; row counts 1/1 and scalar values match after ignoring labels.
+- `PORT_0022`: column-label plus decimal-string normalization policy gap; row counts 1/1 and scalar values are decimal-equivalent.
+- `PORT_0024`: column-label plus decimal-string normalization policy gap; row counts 1/1 and scalar values are decimal-equivalent.
+- `PORT_0025`: exact comparison explained by matching `account_id` column label and value `2`.
+- No inspected mismatch is classified as a source, target, schema, connection, date/time, boolean, null, row-order, or multiset issue.
+- Audit packet created under `audits/port_cross_dialect_checker_normalization_audit_v0/`.
+- Local run outputs under `runs/user/port_pg_target_reference_controlled/` remained ignored and unstaged.
+
+Validation:
+- `git diff --check`: passed.
+- CSV parse checks for audit CSV files: passed.
+- Markdown sanity checks for audit Markdown files: passed.
+- Protected-surface diff check: passed.
+- Local run outputs not staged: confirmed.
+
+Next safe action:
+- Authorize a narrow future checker-normalization task only if desired. It should add explicit opt-in cross-dialect comparison policy and tests proving PERF, CONS, and LONGTAIL same-engine behavior remains unaffected; do not compute metrics, timing, reports/results, or leaderboard outputs.
