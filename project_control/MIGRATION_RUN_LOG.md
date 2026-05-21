@@ -11734,3 +11734,71 @@ Validation:
 
 Next safe action:
 - Configure a local MySQL environment and run a targeted live source-reference diagnostic, or test a controlled PostgreSQL-target adapter for cross-dialect PORT rows; do not compute metrics, timing, reports/results, or leaderboard outputs.
+
+## 2026-05-21 - local_engine_env_setup_v0
+
+Local engine environment setup layer completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: environment setup/documentation helper only; no DB execution backend changes; no case/manifest/source edits; no Spark execution implementation; no live diagnostic run beyond the local environment checker; no official metrics; no timing/speedup; no reports/results updates; no release tag/export branch; no global leaderboard.
+
+Summary:
+- Added `docs/LOCAL_ENGINE_SETUP.md` with PostgreSQL, MySQL, Spark, security, and local-only boundary documentation.
+- Added PostgreSQL/MySQL/Spark example environment templates and an all-engine convenience source template.
+- Added `scripts/dev/check_local_engine_env.py`, a non-mutating local environment checker that reports client/config readiness and optionally probes configured PostgreSQL/MySQL clients without printing passwords.
+- Updated `.gitignore` narrowly for `scripts/env_*.local.sh`, `.env`, and `.env.local`; preserved `runs/user/` as ignored local output and did not ignore all of `runs/`.
+- Created audit packet `audits/local_engine_env_setup_v0/`.
+- MySQL live diagnostic still requires a local user to copy/edit `scripts/env_mysql.local.sh` and provide a user with create/drop permissions for temporary diagnostic databases.
+- Spark remains deferred/fail-closed.
+- No source DB execution logic under `src/` was modified.
+- No cases, manifests, SQL, schemas, checkers, validation files, `case_sets/`, reports/results, benchmark specs, repository specs, raw evidence, denominators, paper results, official metrics, timing/speedup, or leaderboard changed.
+
+Files created:
+- `docs/LOCAL_ENGINE_SETUP.md`
+- `scripts/env_postgres.example.sh`
+- `scripts/env_mysql.example.sh`
+- `scripts/env_spark.example.sh`
+- `scripts/env_all.example.sh`
+- `scripts/dev/check_local_engine_env.py`
+- `audits/local_engine_env_setup_v0/README.md`
+- `audits/local_engine_env_setup_v0/env_files_inventory.csv`
+- `audits/local_engine_env_setup_v0/engine_env_check_result.md`
+- `audits/local_engine_env_setup_v0/protected_surface_check.md`
+- `audits/local_engine_env_setup_v0/command_log.md`
+
+Files modified:
+- `.gitignore`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `git diff --check`: passed.
+- `bash -n scripts/env_postgres.example.sh`: passed.
+- `bash -n scripts/env_mysql.example.sh`: passed.
+- `bash -n scripts/env_spark.example.sh`: passed.
+- `bash -n scripts/env_all.example.sh`: passed.
+- `PYTHONPATH=src python -m py_compile scripts/dev/check_local_engine_env.py`: passed.
+- `python scripts/dev/check_local_engine_env.py`: passed; reported missing PostgreSQL/MySQL config as optional local setup state and Spark as deferred/fail-closed.
+- `.gitignore` checks passed: `runs/user/` ignored, whole `runs/` not ignored, and `scripts/env_mysql.local.sh` ignored.
+- Protected-surface check passed.
+- `runs/user/` outputs created by this task: no.
+
+Task result:
+- Local engine env setup added: yes.
+- Env example files created: yes.
+- Local engine check helper created: yes.
+- `.gitignore` updated: yes.
+- Source execution code modified: no.
+- Cases/manifests/SQL/schema/checker/validation modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Copy the relevant `scripts/env_*.example.sh` file to `scripts/env_*.local.sh`, edit local credentials, source it, and run `python scripts/dev/check_local_engine_env.py`; any subsequent live MySQL source-reference diagnostic must remain local-only with no metrics, timing, reports/results, or leaderboard outputs.

@@ -1,0 +1,12 @@
+path,file_role,secrets_expected,committed,notes
+docs/LOCAL_ENGINE_SETUP.md,local engine setup documentation,no,yes,Documents PostgreSQL/MySQL/Spark local diagnostic setup and boundaries.
+scripts/env_postgres.example.sh,PostgreSQL example template,placeholder only,yes,Copy to scripts/env_postgres.local.sh and edit local credentials before sourcing.
+scripts/env_mysql.example.sh,MySQL example template,placeholder only,yes,Copy to scripts/env_mysql.local.sh and edit local credentials before source-reference diagnostics.
+scripts/env_spark.example.sh,Spark placeholder template,no,yes,Documents SPARK_LOCAL_IP as future/local Spark setting only; Spark remains deferred.
+scripts/env_all.example.sh,convenience source template,no,yes,Sources local env files if present and prints set/unset summary without password values.
+scripts/dev/check_local_engine_env.py,local environment checker,no,yes,Reports client/config readiness and optional client probes; writes no files.
+scripts/env_postgres.local.sh,local secret-bearing copy,yes,no,Ignored by git through scripts/env_*.local.sh.
+scripts/env_mysql.local.sh,local secret-bearing copy,yes,no,Ignored by git through scripts/env_*.local.sh.
+scripts/env_spark.local.sh,local machine-specific copy,possible,no,Ignored by git through scripts/env_*.local.sh.
+.env,local environment file,possible,no,Ignored by git.
+.env.local,local environment file,possible,no,Ignored by git.

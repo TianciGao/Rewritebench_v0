@@ -18,8 +18,8 @@ env/
 
 # Local environment files
 .env
-.env.*
-!.env.example
+.env.local
+scripts/env_*.local.sh
 
 # Local temporary outputs
 tmp/
