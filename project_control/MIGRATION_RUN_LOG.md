@@ -12029,3 +12029,43 @@ Protected surfaces:
 
 Next safe action:
 - Review the opt-in checker details and controlled rerun artifacts; keep this local-diagnostic exactness separate from official metrics, timing, reports/results, paper results, and leaderboard outputs.
+
+## 2026-05-21 - port_cross_dialect_local_diagnostic_closeout_v0
+
+PORT cross-dialect local diagnostic closeout completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: audit/closeout only. Verdict: `closed_for_current_user_entry_phase`.
+
+Summary:
+- All 9 Common-core PORT cases are covered by explicit `local_diagnostic` metadata.
+- Same-engine PORT cases remain `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012`.
+- Cross-dialect PORT cases remain `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- The five cross-dialect cases have MySQL source-reference live validation, controlled PostgreSQL target-candidate validation, and checker exact 5/5 in the normalized controlled diagnostic.
+- Opt-in checker normalization remains gated to cross-dialect local diagnostics; PERF, CONS, LONGTAIL, and same-engine PORT defaults remain protected.
+- Deferred work: real PORT user-adapter evaluation, Spark live execution, timing/speedup, official metrics, paper rendering, reports/results migration, retained-evidence integration, and release tag/export branch work.
+
+Boundary:
+- Checker behavior changed: no.
+- Source code changed: no.
+- SQL, manifest, case, schema, checker config, and validation files changed: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- `runs/user/` outputs created or committed by closeout: no.
+
+Validation:
+- `git diff --check`: passed.
+- CSV/JSON parse checks for new audit files: passed.
+- Markdown sanity checks for new audit files: passed.
+- Protected-surface diff check: passed.
+- Local run outputs not staged: confirmed.
+
+Next safe action:
+- Return to the main user-entry roadmap; authorize any MySQL same-engine backend or real PORT adapter evaluation separately, without timing, official metrics, reports/results updates, retained-evidence promotion, leaderboard output, denominator changes, paper-result changes, or release tag/export branch creation.
