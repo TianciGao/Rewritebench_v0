@@ -1,0 +1,6 @@
+case_id,dialect_variants_dir_exists,postgres_variant_path,mysql_variant_path,spark_variant_path,manifest_references_variants,notes
+PORT_0004,true,,,"sql/dialect_variants/spark/pos_02_spark.sql; sql/dialect_variants/spark/neg_02_spark.sql",yes,"postgres-like pos_01.sql exists but is declared as positive_rewrites not as a postgres source variant"
+PORT_0013,true,,,"sql/dialect_variants/spark/pos_02_spark.sql; sql/dialect_variants/spark/neg_02_spark.sql",yes,"postgres-like pos_01.sql exists but is declared as positive_rewrites not as a postgres source variant"
+PORT_0022,false,,,,no,"postgres-like pos_01.sql exists but is declared as positive_rewrites not as a postgres source variant"
+PORT_0024,false,,,,no,"postgres-like pos_01.sql exists but is declared as positive_rewrites not as a postgres source variant"
+PORT_0025,false,,,,no,"postgres-like pos_01.sql exists but is declared as positive_rewrites not as a postgres source variant"

@@ -1,0 +1,31 @@
+{
+  "selected_rows": 5,
+  "candidate_generated_rows": 5,
+  "preflight_passed_rows": 5,
+  "db_execution_enabled_rows": 5,
+  "db_execution_attempted_rows": 5,
+  "quality_summary_derived_db_execution_attempted_rows": 0,
+  "source_executable_rows": 0,
+  "candidate_executable_rows": 0,
+  "checker_attempted_rows": 0,
+  "exact_rows": 0,
+  "mismatch_rows": 0,
+  "source_like_rows": 5,
+  "failure_bucket_counts": {
+    "source_execution_failed": 5
+  },
+  "failed_cases": [
+    "PORT_0004",
+    "PORT_0013",
+    "PORT_0022",
+    "PORT_0024",
+    "PORT_0025"
+  ],
+  "run_completed": true,
+  "postgres_environment_ready": true,
+  "failure_stage": "source_query_execution",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false
+}

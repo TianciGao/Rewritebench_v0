@@ -11400,3 +11400,74 @@ Task result:
 
 Next safe action:
 - Inspect and triage the five PORT PostgreSQL source-execution failures as a future local diagnostic compatibility task; do not treat this run as official metrics or paper results.
+
+### 2026-05-21 · Triage five PORT PostgreSQL source-execution failures from Common-core local diagnostic run
+
+Mode: local diagnostic triage/audit only; no case SQL edits; no manifest/schema/checker/validation edits; no official metrics; no timing/speedup; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Reviewed target cases: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- PostgreSQL environment ready: yes; `psql` available and libpq environment probe passed.
+- Targeted five-case run completed under ignored local path `runs/user/port_pg_source_failure_triage/`.
+- Selected rows: 5.
+- Candidate generated rows: 5.
+- Candidate preflight passed rows: 5.
+- Source executable rows: 0.
+- Candidate executable rows: 0.
+- Checker attempted rows: 0.
+- Exact rows: 0.
+- Mismatch rows: 0.
+- Failure buckets: `source_execution_failed=5`.
+- Root cause summary: the retained PORT `sql/source.sql` files are `mysql_like_candidate` SQL with backtick quoting and related dialect syntax, while the current PostgreSQL local diagnostic runner executes `sql/source.sql` directly without engine-aware source/dialect variant selection.
+- PostgreSQL dialect variants: no target case has `sql/dialect_variants/postgres/...`; `PORT_0004` and `PORT_0013` have Spark-only dialect variants; all five have PostgreSQL-like `pos_01.sql` files declared as positive rewrites rather than PostgreSQL source-oracle variants.
+
+Files created:
+- `audits/user_entry_port_pg_source_failure_triage_v0/README.md`
+- `audits/user_entry_port_pg_source_failure_triage_v0/case_failure_triage.csv`
+- `audits/user_entry_port_pg_source_failure_triage_v0/variant_inventory.csv`
+- `audits/user_entry_port_pg_source_failure_triage_v0/targeted_run_summary.json`
+- `audits/user_entry_port_pg_source_failure_triage_v0/error_excerpt_log.md`
+- `audits/user_entry_port_pg_source_failure_triage_v0/root_cause_analysis.md`
+- `audits/user_entry_port_pg_source_failure_triage_v0/future_variant_selection_prompt.md`
+- `audits/user_entry_port_pg_source_failure_triage_v0/protected_surface_check.md`
+- `audits/user_entry_port_pg_source_failure_triage_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse checks for audit CSV files: passed.
+- JSON parse check for `targeted_run_summary.json`: passed.
+- Markdown sanity checks for audit Markdown files: passed.
+- Protected-surface diff/status check: passed.
+- Local run output cleanup check: passed; `runs/user/port_pg_source_failure_triage/` is absent and not staged.
+
+Task result:
+- Five PORT PostgreSQL source-execution failures triaged: yes.
+- Failures reproduced: yes.
+- Recommended next safe action: design engine-aware source/dialect variant selection or explicit manifest source-role metadata before implementation or case edits.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Local run outputs committed: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Create a design-only engine-aware source/dialect variant selection packet for user-entry PostgreSQL PORT diagnostics, then seek maintainer approval before any source code or manifest/case changes.
