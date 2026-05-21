@@ -10920,3 +10920,65 @@ Task result:
 
 Next safe action:
 - Pause user-entry implementation and run release-surface metadata readiness work, unless a maintainer explicitly authorizes U8 timing protocol design.
+
+### 2026-05-21 · Audit release-surface metadata readiness after user-entry closeout
+
+Mode: readiness audit and planning only; no metadata implementation; no source changes; no metrics; no paper rendering; no reports/results update; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/release_surface_metadata_readiness_v0/`.
+- Audited public release-surface metadata after user-entry U0-U7 closeout.
+- Confirmed ready surfaces: top-level Chinese `README.md`, user docs, user-entry smoke/local diagnostics, Common-core v0 case packages, case-set/denominator scaffolds, external schemas, repository specs, tests, and CI smoke workflows.
+- Confirmed missing or policy-dependent surfaces: `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, `benchmark_spec/`, `reports/`, `results/`, root `.gitignore`, README language posture, reports/results public boundary, and release branch/tag policy.
+- Verdict: `ready_with_policy_decisions`.
+- Recommendation: collect maintainer decisions before creating license/citation/contribution/release-policy files; separately authorize low-risk metadata skeletons for benchmark spec and placeholder boundary docs after policy scope is accepted.
+
+Files created:
+- `audits/release_surface_metadata_readiness_v0/README.md`
+- `audits/release_surface_metadata_readiness_v0/release_surface_inventory.csv`
+- `audits/release_surface_metadata_readiness_v0/metadata_blocker_matrix.csv`
+- `audits/release_surface_metadata_readiness_v0/human_decision_register.md`
+- `audits/release_surface_metadata_readiness_v0/low_risk_skeleton_plan.md`
+- `audits/release_surface_metadata_readiness_v0/license_options_note.md`
+- `audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md`
+- `audits/release_surface_metadata_readiness_v0/reports_results_boundary_note.md`
+- `audits/release_surface_metadata_readiness_v0/release_surface_next_phase_prompt.md`
+- `audits/release_surface_metadata_readiness_v0/command_log.md`
+- `audits/release_surface_metadata_readiness_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV parse checks for all new CSV files: passed.
+- Markdown sanity checks for new Markdown files: passed.
+- Protected-surface diff check: passed.
+- No `runs/user/` outputs created.
+
+Task result:
+- Readiness verdict: ready_with_policy_decisions.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+
+Next safe action:
+- Collect maintainer policy decisions for license, citation, contribution policy, README language posture, benchmark-spec wording, reports/results boundary, and release branch/tag policy before metadata skeleton implementation.

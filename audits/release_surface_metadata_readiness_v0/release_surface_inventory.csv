@@ -1,0 +1,26 @@
+surface,path,exists,current_status,required_for_public_v0,human_decision_required,safe_to_skeletonize_now,recommended_action,notes
+Top-level README,README.md,yes,ready_with_language_policy_question,yes,yes,no,Decide whether Chinese-only remains acceptable or add bilingual split,Current README is useful and public-facing but language posture is a release policy choice.
+LICENSE,LICENSE,no,missing,yes,yes,no,Collect license decision before creating LICENSE,License choice must be maintainer/team decision.
+CITATION,CITATION.cff,no,missing,yes,yes,no,Collect citation metadata and authorship before creating CITATION.cff,Needs title authors version DOI or URL and preferred citation.
+Contributing guide,CONTRIBUTING.md,no,missing,should,yes,no,Collect contribution policy strictness before creating CONTRIBUTING.md,Policy may differ for benchmark data versus code.
+Benchmark spec,benchmark_spec/,no,missing,yes,partly,yes,Create skeleton after wording approval,Should preserve Common-core v0 scope and no-leaderboard boundary.
+Docs index,docs/README.md,no,missing,should,no,yes,Create docs index skeleton,Docs directory exists but lacks an index.
+User guide,docs/USER_BENCHMARK_GUIDE.md,yes,ready,yes,no,no,Keep and link from docs index,Describes smoke user entry and local-only boundaries.
+Data-flow guide,docs/USER_ENTRY_DATA_FLOW.md,yes,ready,should,no,no,Keep and link from docs index,Documents user-entry file map.
+Run artifact policy,docs/RUN_ARTIFACT_POLICY.md,yes,ready,should,no,no,Keep and link from docs index,Supports local output boundary.
+Examples,examples/,yes,ready,should,no,no,Keep no-op adapter example,Public smoke adapter exists.
+Source package,src/,yes,ready,should,no,no,No release-surface metadata change needed,User-entry modules exist.
+Scripts,scripts/,yes,ready,should,no,no,No release-surface metadata change needed,User wrapper and dev smoke scripts exist.
+Tests,tests/,yes,ready,should,no,no,No release-surface metadata change needed,User-entry tests and case-package tests exist.
+CI workflows,.github/workflows/,yes,ready,should,no,no,Observe CI after future metadata changes,Ledger fixture and user-entry smoke workflows exist.
+Case sets,case_sets/common_core_v0/,yes,ready,yes,no,no,No change in this phase,40 cases and 120 denominator rows confirmed.
+Cases,cases/,yes,ready,yes,no,no,No change in this phase,Common-core public case packages are normalized.
+Schemas,schemas/,yes,ready_with_index_gap,yes,no,yes,Consider schema docs/index in metadata skeleton,External schema packages exist.
+Repository specs,repository_spec/,yes,ready_with_public_index_gap,should,no,yes,Consider repository_spec index or cross-links later,Many governing specs exist.
+Inventory,inventory/,yes,ready,should,no,no,No change in this phase,Case and source registries exist.
+Reports,reports/,no,missing_boundary_surface,should,yes,yes,Create README boundary placeholder after policy approval,Must not migrate or render paper reports.
+Results,results/,no,missing_boundary_surface,should,yes,yes,Create README boundary placeholder after policy approval,Must not migrate retained evidence or paper outputs.
+Runs policy,runs/.gitignore,yes,partial_ready,yes,no,no,Keep and avoid committing local outputs,Top-level runs exists with local output hygiene.
+Root gitignore,.gitignore,no,missing,should,no,yes,Create narrow root gitignore skeleton in metadata task,Useful for caches and local outputs.
+Pyproject,pyproject.toml,yes,ready,should,no,no,No change in this audit,Package metadata exists.
+Release export,release tag or export branch,no,not_ready,yes,yes,no,Defer until metadata blockers are closed,No release tag or export branch should be created now.

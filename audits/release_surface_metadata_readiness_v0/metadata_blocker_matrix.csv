@@ -1,0 +1,10 @@
+blocker_id,blocker,severity,requires_human_decision,safe_next_action,must_not_do,notes
+B001,Missing LICENSE,blocker,yes,Collect license choice from maintainer/team,Do not create LICENSE with guessed terms,Public release needs explicit legal terms.
+B002,Missing CITATION.cff,blocker,yes,Collect citation metadata authorship title version DOI or URL,Do not invent authors or DOI,Citation data is policy and authorship sensitive.
+B003,Missing CONTRIBUTING.md,major,yes,Decide contribution workflow issue/PR policy and data-change restrictions,Do not imply external contributions are accepted without policy,Contribution policy affects benchmark governance.
+B004,Missing benchmark_spec directory,major,partly,Approve skeleton wording then create spec files,Do not implement metrics or alter denominator,Benchmark spec can be skeletonized with locked facts.
+B005,Missing reports/results boundary surfaces,major,yes,Decide public reports/results posture before creating placeholders,Do not migrate reports/results or render paper tables,Boundary placeholders can be safe if explicitly non-metric.
+B006,Root .gitignore missing,minor,no,Create narrow root hygiene file in metadata skeleton task,Do not remove tracked runs or retained artifacts,runs/.gitignore already provides partial protection.
+B007,README language posture undecided,minor,yes,Decide Chinese-only versus bilingual split,Do not rewrite README in this audit,Current README is Chinese and useful but release audience may need bilingual entry.
+B008,Release branch/tag policy undecided,blocker,yes,Define export branch and tag policy after metadata surfaces close,Do not tag or create export branch now,Release mechanics remain deferred.
+B009,Official metrics and paper rendering deferred,blocker_for_paper_release,yes,Keep separate authorization gate,Do not compute metrics or paper tables here,User-entry U0-U7 does not authorize paper reproduction.
