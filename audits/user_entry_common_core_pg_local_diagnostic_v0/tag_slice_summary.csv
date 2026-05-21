@@ -1,0 +1,4 @@
+axis,tag_slice_rows,selected_row_contributions,exact_row_contributions,execution_failed_row_contributions,source_like_row_contributions,local_diagnostic_only,official_metric,notes
+portability_risk,21,41,17,24,41,true,false,Rows may contribute to multiple retained manifest taxonomy tags; this is not a score or ranking.
+rewrite_opportunity,10,44,38,6,44,true,false,Rows may contribute to multiple retained manifest taxonomy tags; this is not a score or ranking.
+sql_feature,26,100,99,1,100,true,false,Rows may contribute to multiple retained manifest taxonomy tags; this is not a score or ranking.

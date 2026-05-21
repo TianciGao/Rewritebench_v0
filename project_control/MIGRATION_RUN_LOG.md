@@ -11334,3 +11334,69 @@ Task result:
 
 Next safe action:
 - Run a separately authorized export/tag planning task before any release tag or export branch is created.
+
+### 2026-05-21 · Run PostgreSQL Common-core local diagnostic trial with no-op adapter
+
+Mode: bounded PostgreSQL-only user-entry local diagnostic trial; no official metrics; no timing/speedup; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Ran Common-core v0 PostgreSQL local diagnostic trial using `examples/user/noop_adapter.py`.
+- Output path: `runs/user/common_core_pg_noop_db_checker/`.
+- PostgreSQL environment ready: yes; `psql` available, required libpq env present, and `select 1` probe succeeded.
+- Selected rows: 40.
+- Candidate generated rows: 40.
+- Candidate preflight passed rows: 40.
+- Source-like rows: 40.
+- Source executable rows: 35.
+- Candidate executable rows: 35.
+- Checker attempted rows: 35.
+- Exact rows: 35.
+- Mismatch rows: 0.
+- Failure buckets: `none=35`, `source_execution_failed=5`.
+- Failed cases: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, `PORT_0025`.
+- Failure note: the five failures were PostgreSQL source execution failures on backtick-quoted dialect SQL; candidate execution and checker comparison were not attempted for those rows.
+
+Files created:
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/README.md`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/run_summary.json`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/funnel_counts.csv`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/failure_bucket_summary.csv`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/tag_slice_summary.csv`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/environment_check.md`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/command_log.md`
+- `audits/user_entry_common_core_pg_local_diagnostic_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- CSV/JSON parse checks for new audit files: passed.
+- Markdown sanity checks for audit Markdown files: passed.
+- Protected-surface diff check: passed.
+- Local run output staging check: passed; `runs/user/common_core_pg_noop_db_checker/` is ignored local output and was not staged.
+
+Task result:
+- PostgreSQL Common-core local diagnostic trial completed: yes.
+- Local diagnostic only: yes.
+- Official metrics computed by this task: no.
+- Timing/speedup computed by this task: no.
+- Paper tables rendered by this task: no.
+- Reports/results updated by this task: no.
+- Global leaderboard created: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Existing reports/results data changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Local run outputs committed: no; `runs/user/common_core_pg_noop_db_checker/` remains ignored local diagnostic output.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Inspect and triage the five PORT PostgreSQL source-execution failures as a future local diagnostic compatibility task; do not treat this run as official metrics or paper results.

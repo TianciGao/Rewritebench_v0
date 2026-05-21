@@ -1,0 +1,16 @@
+field,value,notes
+db_execution_enabled_rows,40,DB execution was enabled for all selected rows; five rows failed during source execution before candidate execution.
+adapter_invoked_rows,40,
+candidate_executable_rows,35,
+candidate_generated_rows,40,
+candidate_missing_rows,0,
+candidate_preflight_failed_rows,0,
+candidate_preflight_passed_rows,40,
+checker_attempted_rows,35,
+db_execution_attempted_rows,35,Derived by local quality report from execution_status; rows with source execution failure before candidate execution are not counted as attempted by current derivation.
+exact_rows,35,
+mismatch_rows,0,
+selected_rows,40,
+source_executable_rows,35,
+source_like_rows,40,Expected for no-op adapter because candidate SQL copies source SQL.
+timed_rows,0,Timing is not collected in this local diagnostic trial.
