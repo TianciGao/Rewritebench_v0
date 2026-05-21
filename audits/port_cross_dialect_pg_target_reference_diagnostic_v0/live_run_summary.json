@@ -1,0 +1,91 @@
+{
+  "adapter": {
+    "candidate_generated_rows": 5,
+    "candidate_preflight_passed_rows": 5,
+    "controlled_target_reference_adapter_added": true,
+    "interpretation_note": "Controlled diagnostic adapter copies only manifest-declared local_diagnostic.target_reference.query; it is not a benchmark method or baseline.",
+    "invoked_rows": 5,
+    "path": "examples/user/port_postgres_target_reference_adapter.py",
+    "source_like_rows": 0
+  },
+  "boundaries": {
+    "case_sets_changed": false,
+    "controlled_adapter_is_user_method": false,
+    "denominator_changed": false,
+    "global_leaderboard_created": false,
+    "local_diagnostic_only": true,
+    "local_run_outputs_committed": false,
+    "official_metrics_computed": false,
+    "paper_results_changed": false,
+    "paper_tables_rendered": false,
+    "reports_changed": false,
+    "results_changed": false,
+    "retained_evidence_updated": false,
+    "timing_or_speedup_computed": false
+  },
+  "branch": "feature/case-package-v2-external-schema",
+  "checker": {
+    "attempted_rows": 5,
+    "checker_status_counts": {
+      "checker_mismatch": 4,
+      "checker_success": 1
+    },
+    "enabled": true,
+    "exact_rows": 1,
+    "exact_status_counts": {
+      "exact": 1,
+      "mismatch": 4
+    },
+    "mismatch_rows": 4,
+    "success_rows": 1
+  },
+  "controlled_diagnostic_run_completed": true,
+  "environment": {
+    "mysql_probe_result": "ok",
+    "postgres_probe_result": "ok",
+    "spark_status": "deferred/fail-closed"
+  },
+  "failure_buckets": {
+    "mismatch": 4,
+    "none": 1
+  },
+  "failure_related_area": {
+    "checker_related": true,
+    "normalization_related": true,
+    "schema_related": false,
+    "source_related": false,
+    "target_related": false
+  },
+  "mysql_source_reference": {
+    "attempted_rows": 5,
+    "executable_rows": 5,
+    "failed_rows": 0,
+    "source_execution_status_counts": {
+      "source_execution_success": 5
+    }
+  },
+  "postgres_target_candidate": {
+    "attempted_rows": 5,
+    "candidate_execution_status_counts": {
+      "candidate_execution_success": 5
+    },
+    "executable_rows": 5,
+    "failed_rows": 0
+  },
+  "run_id": "port_pg_target_reference_controlled",
+  "run_output_path": "runs/user/port_pg_target_reference_controlled/",
+  "schema_version": "port_cross_dialect_pg_target_reference_diagnostic_v0",
+  "selection": {
+    "case_ids": [
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ],
+    "case_set": "common_core_v0",
+    "engine": "postgres",
+    "selected_rows": 5
+  },
+  "task": "Run controlled PostgreSQL-target diagnostic for five PORT cross-dialect cases"
+}

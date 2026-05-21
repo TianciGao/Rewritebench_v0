@@ -11869,3 +11869,78 @@ Task result:
 
 Next safe action:
 - Run a controlled PostgreSQL-target adapter diagnostic for these five cross-dialect PORT rows, or close the MySQL source-reference diagnostic path as locally validated; do not compute metrics, timing, reports/results, or leaderboard outputs.
+
+## 2026-05-21 - port_cross_dialect_pg_target_reference_diagnostic_v0
+
+Controlled PostgreSQL target-reference diagnostic completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: bounded local diagnostic only; controlled adapter is not a user method, not a benchmark baseline, not a source oracle, and not a metric or paper-result input. No official metrics; no timing/speedup; no reports/results updates; no retained-evidence promotion; no release tag/export branch; no global leaderboard.
+
+Summary:
+- Target cases: `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Controlled adapter added: `examples/user/port_postgres_target_reference_adapter.py`.
+- Adapter behavior: reads `SQLRB_CASE_DIR` and `SQLRB_CANDIDATE_SQL_PATH`, requires cross-dialect `local_diagnostic.target_reference` metadata, and copies only the manifest-declared PostgreSQL positive target reference query.
+- PostgreSQL environment ready: yes.
+- MySQL environment ready: yes.
+- Spark status: deferred/fail-closed.
+- Local run output path: `runs/user/port_pg_target_reference_controlled/`.
+- Selected rows: 5.
+- Candidate generated rows: 5.
+- Candidate preflight passed rows: 5.
+- MySQL source-reference attempted rows: 5.
+- MySQL source-reference executable rows: 5.
+- MySQL source-reference failed rows: 0.
+- PostgreSQL target-candidate attempted rows: 5.
+- PostgreSQL target-candidate executable rows: 5.
+- PostgreSQL target-candidate failed rows: 0.
+- Checker attempted rows: 5.
+- Exact rows: 1.
+- Mismatch rows: 4.
+- Failure buckets: `mismatch=4`, `none=1`.
+- Failure classification: no source, target, schema, connection, or config failures; observed mismatches are checker/normalization comparison outcomes after both DB executions succeeded.
+
+Files created:
+- `examples/user/port_postgres_target_reference_adapter.py`
+- `tests/user_entry/test_port_target_reference_adapter.py`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/README.md`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/environment_check.md`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/controlled_adapter_summary.md`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/live_run_summary.json`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/source_reference_execution_summary.csv`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/target_candidate_execution_summary.csv`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/checker_outcome_summary.csv`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/failure_bucket_summary.csv`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/artifact_inventory.csv`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/command_log.md`
+- `audits/port_cross_dialect_pg_target_reference_diagnostic_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- `PYTHONPATH=src python -m py_compile examples/user/port_postgres_target_reference_adapter.py`: passed.
+- `PATH=/tmp/sqlrb_pytest_venv/bin:$PATH PYTHONPATH=src pytest tests/user_entry/test_port_target_reference_adapter.py`: passed, 3 tests.
+- `PATH=/tmp/sqlrb_pytest_venv/bin:$PATH PYTHONPATH=src pytest tests/user_entry`: passed, 82 passed and 2 skipped after installing `pytest` and `PyYAML` in a temporary `/tmp` virtualenv.
+- JSON parse check for audit summary: passed.
+- CSV parse checks for audit CSVs: passed.
+- Markdown sanity checks for audit Markdown files: passed.
+- Protected-surface diff check: passed.
+- `git diff --check`: passed.
+- Local run outputs under `runs/user/port_pg_target_reference_controlled/` remained ignored and unstaged.
+
+Task result:
+- Controlled diagnostic run completed: yes.
+- Local run outputs committed: no.
+- Source code under `src/` modified: no.
+- Cases/manifests/SQL/schema/checker/validation modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Review checker normalization/column-label policy for cross-dialect result comparison before any checker behavior changes; do not compute metrics, timing, reports/results, or leaderboard outputs from this diagnostic.
