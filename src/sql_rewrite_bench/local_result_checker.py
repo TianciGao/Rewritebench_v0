@@ -36,6 +36,7 @@ class CheckerResult:
     mismatch_artifact_path: Path | None
     failure_bucket: str
     notes: str
+    details: dict[str, object]
 
 
 def _read_jsonl(path: Path) -> list[dict[str, object]]:
@@ -109,12 +110,90 @@ def _normalize_rows(rows: list[dict[str, object]], normalization_path: Path) -> 
     return normalized
 
 
+def _decimal_string_equal(left: object, right: object) -> bool:
+    if not isinstance(left, str) or not isinstance(right, str):
+        return False
+    try:
+        return Decimal(left.strip()) == Decimal(right.strip())
+    except (InvalidOperation, ValueError):
+        return False
+
+
+def _cross_dialect_compare(
+    source_rows: list[dict[str, object]],
+    candidate_rows: list[dict[str, object]],
+) -> tuple[bool, dict[str, object]]:
+    details: dict[str, object] = {
+        "cross_dialect_normalization_active": True,
+        "positional_column_comparison_used": True,
+        "decimal_string_equivalence_used": False,
+        "mismatch_reason": "",
+    }
+    if len(source_rows) != len(candidate_rows):
+        details["mismatch_reason"] = "row_count_mismatch"
+        return False, details
+
+    for row_index, (source_row, candidate_row) in enumerate(
+        zip(source_rows, candidate_rows, strict=True)
+    ):
+        source_values = list(source_row.values())
+        candidate_values = list(candidate_row.values())
+        if len(source_values) != len(candidate_values):
+            details["mismatch_reason"] = "column_count_mismatch"
+            details["mismatch_row_index"] = row_index
+            details["source_column_count"] = len(source_values)
+            details["candidate_column_count"] = len(candidate_values)
+            return False, details
+        for column_index, (source_value, candidate_value) in enumerate(
+            zip(source_values, candidate_values, strict=True)
+        ):
+            if source_value == candidate_value:
+                continue
+            if _decimal_string_equal(source_value, candidate_value):
+                details["decimal_string_equivalence_used"] = True
+                continue
+            details["mismatch_reason"] = "value_mismatch"
+            details["mismatch_row_index"] = row_index
+            details["mismatch_column_index"] = column_index
+            return False, details
+
+    details["mismatch_reason"] = "none"
+    return True, details
+
+
+def _comparison_details(*, cross_dialect_active: bool) -> dict[str, object]:
+    return {
+        "cross_dialect_normalization_active": cross_dialect_active,
+        "positional_column_comparison_used": False,
+        "decimal_string_equivalence_used": False,
+        "mismatch_reason": "none",
+    }
+
+
+def _notes_suffix(
+    *,
+    unknown_keys: list[str],
+    details: dict[str, object],
+) -> str:
+    parts: list[str] = []
+    if details.get("cross_dialect_normalization_active"):
+        parts.append("cross-dialect normalization active")
+    if details.get("positional_column_comparison_used"):
+        parts.append("positional column comparison used")
+    if details.get("decimal_string_equivalence_used"):
+        parts.append("decimal string equivalence used")
+    if unknown_keys:
+        parts.append(f"unknown normalization keys recorded: {unknown_keys}")
+    return ("; " + "; ".join(parts)) if parts else ""
+
+
 def run_local_checker(
     *,
     case_dir: Path,
     source_result_path: Path,
     candidate_result_path: Path,
     checker_dir: Path,
+    enable_cross_dialect_normalization: bool = False,
 ) -> CheckerResult:
     """Compare local source and candidate JSONL results using case-local configs."""
 
@@ -136,6 +215,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_CONFIG_MISSING,
             notes="checker.yaml or compare_config.yaml is missing",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")
@@ -149,6 +229,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_CONFIG_MISSING,
             notes="normalization.yaml is missing",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")
@@ -179,7 +260,16 @@ def run_local_checker(
         }
         unknown_keys = sorted(_simple_yaml_keys(normalization_config) - known_keys)
 
-        if normalized_source == normalized_candidate:
+        details = _comparison_details(
+            cross_dialect_active=enable_cross_dialect_normalization
+        )
+        exact_match = normalized_source == normalized_candidate
+        if not exact_match and enable_cross_dialect_normalization:
+            exact_match, details = _cross_dialect_compare(
+                normalized_source, normalized_candidate
+            )
+
+        if exact_match:
             result = CheckerResult(
                 checker_status=CHECKER_STATUS_SUCCESS,
                 exact_status=EXACT_STATUS_EXACT,
@@ -187,10 +277,12 @@ def run_local_checker(
                 mismatch_artifact_path=None,
                 failure_bucket=FAILURE_NONE,
                 notes="local checker exact match"
-                + (f"; unknown normalization keys recorded: {unknown_keys}" if unknown_keys else ""),
+                + _notes_suffix(unknown_keys=unknown_keys, details=details),
+                details=details,
             )
         else:
             mismatch_payload = {
+                "cross_dialect_normalization": details,
                 "source_row_count": len(normalized_source),
                 "candidate_row_count": len(normalized_candidate),
                 "source_preview": normalized_source[:5],
@@ -205,7 +297,8 @@ def run_local_checker(
                 mismatch_artifact_path=mismatch_path,
                 failure_bucket=FAILURE_MISMATCH,
                 notes="local checker mismatch"
-                + (f"; unknown normalization keys recorded: {unknown_keys}" if unknown_keys else ""),
+                + _notes_suffix(unknown_keys=unknown_keys, details=details),
+                details=details,
             )
 
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
@@ -219,6 +312,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_FAILED,
             notes=f"local checker failed: {exc}",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")

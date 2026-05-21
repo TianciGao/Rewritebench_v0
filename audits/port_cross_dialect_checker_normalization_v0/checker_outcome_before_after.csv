@@ -1,0 +1,6 @@
+case_id,before_checker_status,before_exact_status,before_failure_bucket,after_checker_status,after_exact_status,after_failure_bucket,changed_to_exact,cross_dialect_normalization_active,positional_column_comparison_used,decimal_string_equivalence_used,notes
+PORT_0004,checker_mismatch,mismatch,mismatch,checker_success,exact,none,true,true,true,false,prior mismatch became exact
+PORT_0013,checker_mismatch,mismatch,mismatch,checker_success,exact,none,true,true,true,false,prior mismatch became exact
+PORT_0022,checker_mismatch,mismatch,mismatch,checker_success,exact,none,true,true,true,true,prior mismatch became exact
+PORT_0024,checker_mismatch,mismatch,mismatch,checker_success,exact,none,true,true,true,true,prior mismatch became exact
+PORT_0025,checker_success,exact,none,checker_success,exact,none,false,true,false,false,unchanged exact

@@ -1,0 +1,10 @@
+check_id,scope,command_or_test,status,notes
+targeted_checker_tests,unit/local checker,pytest tests/user_entry/test_cross_dialect_checker_normalization.py tests/user_entry/test_db_checker_execution_mvp.py tests/user_entry/test_port_local_diagnostic_metadata.py,passed,28 passed
+full_user_entry_suite,user entry,pytest tests/user_entry,passed,"95 passed, 2 skipped"
+perf_0006_same_engine,PERF regression,test_perf_0006_same_engine_behavior_unaffected,passed,same-engine label mismatch remains mismatch
+cons_0005_same_engine,CONS regression,test_cons_0005_same_engine_behavior_unaffected,passed,same-engine label mismatch remains mismatch
+longtail_0011_same_engine,LONGTAIL regression,test_longtail_0011_same_engine_behavior_unaffected,passed,same-engine label mismatch remains mismatch
+port_0003_same_engine,same-engine PORT regression,test_same_engine_port_cases_do_not_enable_positional_comparison,passed,same-engine PORT metadata does not enable positional comparison
+v2_static_validation,Common-core case packages,validate_case_package_v2_refs.py over all 40 case paths,passed,40/40 passed
+controlled_rerun,five PORT cross-dialect diagnostics,runs/user/port_pg_target_reference_normalized,passed,"source executable 5, target executable 5, checker exact 5, mismatch 0"
+reports_results_boundary,protected surfaces,protected-surface diff check,passed,reports/results not modified or written by repo diff

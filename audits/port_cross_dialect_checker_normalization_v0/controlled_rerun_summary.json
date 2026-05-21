@@ -1,0 +1,63 @@
+{
+  "before_counts": {
+    "exact_rows": 1,
+    "failure_buckets": {
+      "mismatch": 4,
+      "none": 1
+    },
+    "mismatch_rows": 4
+  },
+  "boundaries": {
+    "case_membership_changed": false,
+    "denominator_changed": false,
+    "global_leaderboard_created": false,
+    "local_diagnostic_only": true,
+    "local_run_outputs_committed": false,
+    "official_metrics_computed": false,
+    "paper_results_changed": false,
+    "raw_legacy_evidence_changed": false,
+    "reports_changed": false,
+    "results_changed": false,
+    "retained_evidence_updated": false,
+    "timing_or_speedup_computed": false
+  },
+  "branch": "feature/case-package-v2-external-schema",
+  "controlled_rerun_completed": true,
+  "environment": {
+    "mysql_probe_result": "ok",
+    "postgres_probe_result": "ok",
+    "spark_status": "deferred/fail-closed"
+  },
+  "implementation": {
+    "column_label_positional_comparison": true,
+    "cross_dialect_checker_normalization_implemented": true,
+    "decimal_string_equivalence": true,
+    "opt_in_gating_source": "Resolved manifest local_diagnostic.diagnostic_mode and local_diagnostic.checker.comparison",
+    "same_engine_default_preserved": true
+  },
+  "rerun_counts": {
+    "candidate_generated_rows": 5,
+    "checker_attempted_rows": 5,
+    "exact_rows": 5,
+    "failure_bucket_counts": {
+      "none": 5
+    },
+    "mismatch_rows": 0,
+    "mysql_source_reference_executable_rows": 5,
+    "postgres_target_candidate_executable_rows": 5
+  },
+  "run_output_path": "runs/user/port_pg_target_reference_normalized/",
+  "schema_version": "port_cross_dialect_checker_normalization_v0",
+  "selection": {
+    "case_ids": [
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ],
+    "case_set": "common_core_v0",
+    "engine": "postgres",
+    "selected_rows": 5
+  }
+}

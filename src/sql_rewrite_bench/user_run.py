@@ -18,7 +18,11 @@ from pathlib import Path
 
 from .adapter_runner import run_adapter_for_case
 from .candidate_preflight import preflight_error_result, run_candidate_preflight
-from .case_package_resolver import ResolvedCasePackage, resolve_case_package
+from .case_package_resolver import (
+    LOCAL_DIAGNOSTIC_COMPARISON,
+    ResolvedCasePackage,
+    resolve_case_package,
+)
 from .case_selection import (
     ALLOWED_ENGINES,
     ALLOWED_POOLS,
@@ -56,6 +60,7 @@ from .user_run_schema import (
     CHECKER_STATUS_NOT_ENABLED,
     CHECKER_STATUS_SUCCESS,
     CROSS_DIALECT_STATUS_NOT_APPLICABLE,
+    DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
     EXACT_STATUS_NON_DB,
     EXACT_STATUS_EXACT,
     EXACT_STATUS_EXECUTION_FAILURE,
@@ -430,6 +435,9 @@ def _apply_db_checker_for_row(
         source_result_path=execution.source_result_path,
         candidate_result_path=execution.candidate_result_path,
         checker_dir=checker_dir,
+        enable_cross_dialect_normalization=_cross_dialect_checker_normalization_enabled(
+            resolved_package
+        ),
     )
     ledger.update(
         {
@@ -461,6 +469,15 @@ def _apply_db_checker_for_row(
     ):
         ledger["failure_bucket"] = FAILURE_NONE
     return ledger
+
+
+def _cross_dialect_checker_normalization_enabled(
+    resolved_package: ResolvedCasePackage,
+) -> bool:
+    return (
+        resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE
+        and resolved_package.checker_comparison == LOCAL_DIAGNOSTIC_COMPARISON
+    )
 
 
 def _apply_local_diagnostic_metadata(

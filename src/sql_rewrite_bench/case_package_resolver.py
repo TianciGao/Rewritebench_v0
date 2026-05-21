@@ -34,6 +34,7 @@ class LocalDiagnosticMetadata:
     target_candidate_engine: str
     target_reference_query_path: Path | None
     target_reference_role: str
+    checker_comparison: str
     local_diagnostic_boundary: dict[str, Any]
     raw: dict[str, Any]
 
@@ -64,6 +65,7 @@ class ResolvedCasePackage:
     target_candidate_engine: str
     target_reference_query_path: Path | None
     target_reference_role: str
+    checker_comparison: str
     local_diagnostic_boundary: dict[str, Any]
     resolution_status: str
     resolution_notes: str
@@ -234,6 +236,7 @@ def _default_local_diagnostic(
         target_candidate_engine=row.engine,
         target_reference_query_path=None,
         target_reference_role="",
+        checker_comparison="",
         local_diagnostic_boundary=boundary,
         raw={},
     )
@@ -297,7 +300,10 @@ def _resolve_local_diagnostic(
     )
 
     checker = _mapping(metadata.get("checker"), field="local_diagnostic.checker")
-    if checker.get("comparison") != LOCAL_DIAGNOSTIC_COMPARISON:
+    checker_comparison = _required_string(
+        checker.get("comparison"), field="local_diagnostic.checker.comparison"
+    )
+    if checker_comparison != LOCAL_DIAGNOSTIC_COMPARISON:
         raise ValueError(
             "local_diagnostic.checker.comparison must be "
             f"{LOCAL_DIAGNOSTIC_COMPARISON}"
@@ -356,6 +362,7 @@ def _resolve_local_diagnostic(
         target_candidate_engine=target_candidate_engine,
         target_reference_query_path=target_reference_query_path,
         target_reference_role=target_reference_role,
+        checker_comparison=checker_comparison,
         local_diagnostic_boundary=boundary,
         raw=metadata,
     )
@@ -480,6 +487,7 @@ def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> Reso
         target_candidate_engine=local_diagnostic.target_candidate_engine,
         target_reference_query_path=local_diagnostic.target_reference_query_path,
         target_reference_role=local_diagnostic.target_reference_role,
+        checker_comparison=local_diagnostic.checker_comparison,
         local_diagnostic_boundary=local_diagnostic.local_diagnostic_boundary,
         resolution_status="ok",
         resolution_notes="case package assets resolved",

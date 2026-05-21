@@ -11975,3 +11975,57 @@ Validation:
 
 Next safe action:
 - Authorize a narrow future checker-normalization task only if desired. It should add explicit opt-in cross-dialect comparison policy and tests proving PERF, CONS, and LONGTAIL same-engine behavior remains unaffected; do not compute metrics, timing, reports/results, or leaderboard outputs.
+
+## 2026-05-21 - port_cross_dialect_checker_normalization_v0
+
+Opt-in cross-dialect checker normalization completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic checker behavior only. No official metrics, timing/speedup, reports/results updates, retained-evidence promotion, denominator changes, paper-result changes, case membership changes, raw legacy evidence changes, release tag/export branch, or leaderboard outputs.
+
+Implementation summary:
+- Added resolved manifest checker comparison metadata to `case_package_resolver.py`.
+- `user_run.py` enables cross-dialect checker normalization only when `local_diagnostic.diagnostic_mode == cross_dialect_reference` and `local_diagnostic.checker.comparison == source_reference_result_to_target_candidate_result`.
+- `local_result_checker.py` keeps strict JSON object equality as the default path.
+- For the explicit opt-in path only, the checker compares values by artifact column position after row/column count checks and treats decimal-equivalent numeric strings as equal.
+- Checker details now record whether cross-dialect normalization was active, positional comparison was used, decimal string equivalence was used, and the remaining mismatch reason if any.
+
+Controlled diagnostic outcome:
+- Local run output path: `runs/user/port_pg_target_reference_normalized/`.
+- Selected rows: 5.
+- MySQL source-reference executable rows: 5.
+- PostgreSQL target-candidate executable rows: 5.
+- Checker attempted rows: 5.
+- Exact rows: 5.
+- Mismatch rows: 0.
+- The four prior normalization-gap mismatches (`PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`) became exact under the opt-in policy; `PORT_0025` remained exact.
+
+Regression and validation:
+- Targeted checker/metadata tests: 28 passed.
+- Full `tests/user_entry`: 95 passed and 2 skipped using the existing `/tmp/sqlrb_pytest_venv` pytest/PyYAML environment.
+- Current v2 static case-package reference validation: passed for all 40 Common-core case paths.
+- Legacy `validate_case_package.py --mode canonical-case/full-case` remains non-applicable to the current clean v2 package layout because it expects v1-era paths.
+- `git diff --check`, py_compile, environment check, help commands, CSV/JSON/Markdown sanity checks, protected-surface check, and local run-output staging check passed.
+
+Changed files:
+- `src/sql_rewrite_bench/local_result_checker.py`
+- `src/sql_rewrite_bench/case_package_resolver.py`
+- `src/sql_rewrite_bench/user_run.py`
+- `tests/user_entry/test_cross_dialect_checker_normalization.py`
+- `audits/port_cross_dialect_checker_normalization_v0/*`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Protected surfaces:
+- SQL files modified: no.
+- Manifest files modified: no.
+- Checker config files modified: no.
+- Schema/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Raw legacy evidence changed: no.
+- Local run outputs committed: no.
+
+Next safe action:
+- Review the opt-in checker details and controlled rerun artifacts; keep this local-diagnostic exactness separate from official metrics, timing, reports/results, paper results, and leaderboard outputs.
