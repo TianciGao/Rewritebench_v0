@@ -42,8 +42,9 @@ REQUIRED_TOP_LEVEL_KEYS = {
 }
 OPTIONAL_TOP_LEVEL_KEYS = {"compatibility", "case_package_standard", "local_diagnostic"}
 FORBIDDEN_TOP_LEVEL_KEYS = {"schema_ref", "evidence_ref", "metadata", "notes", "evidence", "runs"}
-LOCAL_DIAGNOSTIC_SCHEMA_VERSION = "port_cross_dialect_diagnostic_v0"
-LOCAL_DIAGNOSTIC_ALLOWED_MODES = {"same_engine", "cross_dialect_reference"}
+LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION = "port_cross_dialect_diagnostic_v0"
+LOCAL_DIAGNOSTIC_SCHEMA_VERSION = "port_target_engine_diagnostic_v0"
+LOCAL_DIAGNOSTIC_ALLOWED_MODES = {"same_engine", "cross_dialect_reference", "unsupported"}
 LOCAL_DIAGNOSTIC_COMPARISON = "source_reference_result_to_target_candidate_result"
 FORBIDDEN_REFERENCE_PATTERNS = (
     "sql/positives/",
@@ -490,11 +491,28 @@ def _check_local_diagnostic_metadata(
         field_group="local_diagnostic",
         field="local_diagnostic.schema_version",
         observed_value=schema_version,
-        expected_shape=LOCAL_DIAGNOSTIC_SCHEMA_VERSION,
-        ok=schema_version == LOCAL_DIAGNOSTIC_SCHEMA_VERSION,
+        expected_shape=(
+            f"{LOCAL_DIAGNOSTIC_SCHEMA_VERSION} or "
+            f"{LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION}"
+        ),
+        ok=schema_version
+        in {LOCAL_DIAGNOSTIC_SCHEMA_VERSION, LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION},
         finding_type="local_diagnostic_schema",
         notes="local diagnostic metadata must use the approved schema version",
     )
+    if schema_version == LOCAL_DIAGNOSTIC_SCHEMA_VERSION:
+        _check_target_engine_local_diagnostic_metadata(
+            checks=checks,
+            findings=findings,
+            references=references,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            case_dir=case_dir,
+            repo_root=repo_root,
+            observed_value=observed_value,
+        )
+        return
+
     diagnostic_mode = observed_value.get("diagnostic_mode")
     _check(
         checks,
@@ -697,6 +715,414 @@ def _check_local_diagnostic_metadata(
                 finding_type="local_diagnostic_boundary",
                 notes="local diagnostic metadata must remain local-only",
             )
+
+
+def _check_target_engine_local_diagnostic_metadata(
+    *,
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    references: list[ResolvedReference],
+    case_id: str,
+    manifest_path: Path,
+    case_dir: Path,
+    repo_root: Path,
+    observed_value: dict[str, Any],
+) -> None:
+    engine_roles = observed_value.get("engine_roles")
+    engine_roles_ok = isinstance(engine_roles, dict) and bool(engine_roles)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field="local_diagnostic.engine_roles",
+        observed_value=type(engine_roles).__name__,
+        expected_shape="non-empty mapping keyed by target engine",
+        ok=engine_roles_ok,
+        finding_type="local_diagnostic_shape",
+        notes="target-engine-aware local diagnostics require engine_roles",
+    )
+    if not engine_roles_ok:
+        return
+
+    for required_target_engine in ("postgres", "mysql"):
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"local_diagnostic.engine_roles.{required_target_engine}",
+            observed_value=(
+                "present"
+                if required_target_engine in engine_roles
+                else "missing"
+            ),
+            expected_shape="present executable or explicit unsupported target-engine role",
+            ok=required_target_engine in engine_roles,
+            finding_type="local_diagnostic_engine",
+            notes=(
+                "postgres and mysql target-engine roles must be explicit; "
+                "unsupported/manual-review status must be represented as a role, not by omission"
+            ),
+        )
+
+    for target_engine, role_block in engine_roles.items():
+        field_prefix = f"local_diagnostic.engine_roles.{target_engine}"
+        target_engine_ok = target_engine in SUPPORTED_SCHEMA_ENGINES
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=field_prefix,
+            observed_value=target_engine,
+            expected_shape="postgres, mysql, or spark",
+            ok=target_engine_ok,
+            finding_type="local_diagnostic_engine",
+            notes="engine_roles keys must be supported target engines",
+        )
+        role_ok = isinstance(role_block, dict)
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=field_prefix,
+            observed_value=type(role_block).__name__,
+            expected_shape="mapping",
+            ok=role_ok,
+            finding_type="local_diagnostic_shape",
+            notes="each target-engine role must be a mapping",
+        )
+        if not role_ok or not target_engine_ok:
+            continue
+        _check_local_diagnostic_engine_role(
+            checks=checks,
+            findings=findings,
+            references=references,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            case_dir=case_dir,
+            repo_root=repo_root,
+            target_engine=target_engine,
+            field_prefix=field_prefix,
+            role_block=role_block,
+        )
+
+
+def _check_local_diagnostic_engine_role(
+    *,
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    references: list[ResolvedReference],
+    case_id: str,
+    manifest_path: Path,
+    case_dir: Path,
+    repo_root: Path,
+    target_engine: str,
+    field_prefix: str,
+    role_block: dict[str, Any],
+) -> None:
+    diagnostic_mode = role_block.get("diagnostic_mode")
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.diagnostic_mode",
+        observed_value=diagnostic_mode,
+        expected_shape="same_engine, cross_dialect_reference, or unsupported",
+        ok=diagnostic_mode in LOCAL_DIAGNOSTIC_ALLOWED_MODES,
+        finding_type="local_diagnostic_mode",
+        notes="unsupported target-engine local diagnostic mode",
+    )
+
+    boundary = role_block.get("boundary")
+    boundary_ok = isinstance(boundary, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.boundary",
+        observed_value=type(boundary).__name__,
+        expected_shape="mapping",
+        ok=boundary_ok,
+        finding_type="local_diagnostic_boundary",
+        notes="local diagnostic boundary block is required per target engine",
+    )
+    if boundary_ok:
+        _check_local_diagnostic_boundary_flags(
+            checks=checks,
+            findings=findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            boundary=boundary,
+            field_prefix=f"{field_prefix}.boundary",
+        )
+
+    if diagnostic_mode == "unsupported":
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.unsupported_reason",
+            observed_value=role_block.get("unsupported_reason"),
+            expected_shape="non-empty string",
+            ok=isinstance(role_block.get("unsupported_reason"), str)
+            and bool(str(role_block.get("unsupported_reason")).strip()),
+            finding_type="local_diagnostic_mode",
+            notes="unsupported target-engine roles must explain why they fail closed",
+        )
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.manual_review_required",
+            observed_value=type(role_block.get("manual_review_required")).__name__,
+            expected_shape="boolean",
+            ok=isinstance(role_block.get("manual_review_required"), bool),
+            finding_type="local_diagnostic_mode",
+            notes="unsupported/manual-review status must be explicit",
+        )
+        return
+
+    source_reference = role_block.get("source_reference")
+    source_ok = isinstance(source_reference, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.source_reference",
+        observed_value=type(source_reference).__name__,
+        expected_shape="mapping",
+        ok=source_ok,
+        finding_type="local_diagnostic_shape",
+        notes="source_reference role block is required for executable roles",
+    )
+    if source_ok:
+        _check_local_diagnostic_role_block(
+            checks=checks,
+            findings=findings,
+            references=references,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            case_dir=case_dir,
+            repo_root=repo_root,
+            field_prefix=f"{field_prefix}.source_reference",
+            block=source_reference,
+            expected_role="source_reference",
+            path_field="query",
+            path_required=True,
+        )
+
+    target_candidate = role_block.get("target_candidate")
+    target_ok = isinstance(target_candidate, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.target_candidate",
+        observed_value=type(target_candidate).__name__,
+        expected_shape="mapping",
+        ok=target_ok,
+        finding_type="local_diagnostic_shape",
+        notes="target_candidate role block is required for executable roles",
+    )
+    if target_ok:
+        _check_local_diagnostic_role_block(
+            checks=checks,
+            findings=findings,
+            references=references,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            case_dir=case_dir,
+            repo_root=repo_root,
+            field_prefix=f"{field_prefix}.target_candidate",
+            block=target_candidate,
+            expected_role="adapter_output",
+            path_field=None,
+            path_required=False,
+        )
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.target_candidate.engine",
+            observed_value=target_candidate.get("engine"),
+            expected_shape=target_engine,
+            ok=target_candidate.get("engine") == target_engine,
+            finding_type="local_diagnostic_engine",
+            notes="target_candidate.engine must match the selected target engine key",
+        )
+
+    target_reference = role_block.get("target_reference")
+    if target_reference is not None:
+        target_reference_ok = isinstance(target_reference, dict)
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.target_reference",
+            observed_value=type(target_reference).__name__,
+            expected_shape="mapping",
+            ok=target_reference_ok,
+            finding_type="local_diagnostic_shape",
+            notes="target_reference must be a mapping when present",
+        )
+        if target_reference_ok:
+            _check_local_diagnostic_role_block(
+                checks=checks,
+                findings=findings,
+                references=references,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                case_dir=case_dir,
+                repo_root=repo_root,
+                field_prefix=f"{field_prefix}.target_reference",
+                block=target_reference,
+                expected_role="positive_reference",
+                path_field="query",
+                path_required=True,
+            )
+            _check(
+                checks,
+                findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                field_group="local_diagnostic",
+                field=f"{field_prefix}.target_reference.engine",
+                observed_value=target_reference.get("engine"),
+                expected_shape=target_engine,
+                ok=target_reference.get("engine") == target_engine,
+                finding_type="local_diagnostic_engine",
+                notes="target_reference.engine must match target_candidate.engine",
+            )
+            _check_target_reference_boundary(
+                checks=checks,
+                findings=findings,
+                case_id=case_id,
+                manifest_path=manifest_path,
+                field_prefix=f"{field_prefix}.target_reference",
+                target_reference=target_reference,
+            )
+
+    checker = role_block.get("checker")
+    checker_ok = isinstance(checker, dict)
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.checker",
+        observed_value=type(checker).__name__,
+        expected_shape="mapping",
+        ok=checker_ok,
+        finding_type="local_diagnostic_shape",
+        notes="checker comparison block is required for executable roles",
+    )
+    if checker_ok:
+        comparison = checker.get("comparison")
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.checker.comparison",
+            observed_value=comparison,
+            expected_shape=LOCAL_DIAGNOSTIC_COMPARISON,
+            ok=comparison == LOCAL_DIAGNOSTIC_COMPARISON,
+            finding_type="local_diagnostic_checker",
+            notes="checker must compare declared source-reference and target-candidate artifacts",
+        )
+
+
+def _check_target_reference_boundary(
+    *,
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    case_id: str,
+    manifest_path: Path,
+    field_prefix: str,
+    target_reference: dict[str, Any],
+) -> None:
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.use_for_checker_oracle",
+        observed_value=target_reference.get("use_for_checker_oracle"),
+        expected_shape="false",
+        ok=target_reference.get("use_for_checker_oracle") is False,
+        finding_type="local_diagnostic_boundary",
+        notes="positive reference must not replace source-reference checker oracle",
+    )
+    _check(
+        checks,
+        findings,
+        case_id=case_id,
+        manifest_path=manifest_path,
+        field_group="local_diagnostic",
+        field=f"{field_prefix}.use_for_sanity_control",
+        observed_value=type(target_reference.get("use_for_sanity_control")).__name__,
+        expected_shape="boolean",
+        ok=isinstance(target_reference.get("use_for_sanity_control"), bool),
+        finding_type="local_diagnostic_boundary",
+        notes="sanity-control flag must be explicit when target_reference exists",
+    )
+
+
+def _check_local_diagnostic_boundary_flags(
+    *,
+    checks: list[InternalFormatCheck],
+    findings: list[FormatFinding],
+    case_id: str,
+    manifest_path: Path,
+    boundary: dict[str, Any],
+    field_prefix: str,
+) -> None:
+    for field, expected in {
+        "local_diagnostic_only": True,
+        "official_metric_input": False,
+        "paper_result_input": False,
+        "reports_results_update": False,
+        "leaderboard_input": False,
+    }.items():
+        _check(
+            checks,
+            findings,
+            case_id=case_id,
+            manifest_path=manifest_path,
+            field_group="local_diagnostic",
+            field=f"{field_prefix}.{field}",
+            observed_value=boundary.get(field),
+            expected_shape=_stringify(expected),
+            ok=boundary.get(field) is expected,
+            finding_type="local_diagnostic_boundary",
+            notes="local diagnostic metadata must remain local-only",
+        )
 
 
 def _check_local_diagnostic_role_block(

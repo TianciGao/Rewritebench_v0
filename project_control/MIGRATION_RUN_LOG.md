@@ -12228,3 +12228,47 @@ Boundary:
 
 Next safe action:
 - Authorize a narrow PORT role-mapping/routing design task for `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012` before any implementation; do not edit SQL/schema/case assets or compute metrics/timing/reports-results/leaderboard output in that follow-up.
+
+## 2026-05-21 - port_target_engine_role_mapping_v0
+
+Target-engine-aware PORT local diagnostic role mapping was implemented on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic metadata, runner/validator support, tests, and audit only.
+
+Implementation:
+- All 9 Common-core PORT manifests now declare `local_diagnostic.schema_version: port_target_engine_diagnostic_v0`.
+- Each PORT manifest has explicit `engine_roles` for `postgres`, `mysql`, and fail-closed `spark`.
+- The resolver and runner consume the selected target engine role metadata instead of relying on one case-level diagnostic mode.
+- `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025` preserve MySQL-source to PostgreSQL-target controlled diagnostic behavior.
+- `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012` now resolve as PostgreSQL-source to MySQL-target reverse cross-dialect roles under `--engine mysql`, but fail closed with `cross_dialect_route_unsupported` until that route is separately implemented.
+- Non-PORT and cases without target-engine-aware metadata keep the existing same-engine default path.
+
+Validation:
+- Local engine environment check: PostgreSQL ok, MySQL ok, Spark deferred/fail-closed.
+- YAML parse for all 9 PORT manifests: passed.
+- Python compile for modified source files: passed.
+- Help/readability commands: passed.
+- User-entry unittest discovery: passed, 107 tests with 2 skipped.
+- Case-package v2 unittest discovery: passed, 24 tests.
+- Common-core v2 static validator loop: passed, 40/40.
+- Targeted PostgreSQL controlled PORT diagnostic for 5 MySQL-source to PostgreSQL-target rows: exact 5/5.
+- Targeted MySQL reverse-role guard for 4 PostgreSQL-source to MySQL-target rows: fail-closed `unsupported_engine=4`, with no wrong-engine source execution.
+- Targeted MySQL same-engine sanity case `PORT_0004`: exact 1/1.
+- `pytest` entrypoint was unavailable in the local environment, so equivalent `python -m unittest` validation was used.
+
+Boundary:
+- SQL files modified: no.
+- Schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Review the explicit reverse PostgreSQL-source to MySQL-target role mapping and separately authorize a narrow backend route if live reverse cross-dialect execution is desired; keep official metrics, timing, reports/results, paper rendering, retained-evidence promotion, and leaderboard output out of scope.

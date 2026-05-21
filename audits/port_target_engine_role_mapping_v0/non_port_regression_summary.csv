@@ -1,0 +1,5 @@
+case_id,pool,selected_engine,expected_behavior,validation_status,notes
+PERF_0006,PERF,postgres/mysql smoke coverage,same-engine default,user_entry unittest coverage passed,not switched to PORT engine_roles
+CONS_0005,CONS,postgres/mysql smoke coverage,same-engine default,user_entry unittest coverage passed,not switched to PORT engine_roles
+LONGTAIL_0011,LONGTAIL,postgres/mysql smoke coverage,same-engine default,user_entry unittest coverage passed,not switched to PORT engine_roles
+public_smoke,"PERF,CONS",postgres,selection/readability and adapter capture smoke pass,passed,no DB official metrics or reports/results output

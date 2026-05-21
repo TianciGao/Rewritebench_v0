@@ -444,6 +444,104 @@ class CasePackageV2ResolverTests(unittest.TestCase):
                 )
             )
 
+    def test_target_engine_local_diagnostic_metadata_block_validates(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        boundary = {
+            "local_diagnostic_only": True,
+            "official_metric_input": False,
+            "paper_result_input": False,
+            "reports_results_update": False,
+            "leaderboard_input": False,
+        }
+        manifest_data["local_diagnostic"] = {
+            "schema_version": "port_target_engine_diagnostic_v0",
+            "engine_roles": {
+                "postgres": {
+                    "diagnostic_mode": "cross_dialect_reference",
+                    "source_reference": {
+                        "role": "source_reference",
+                        "engine": "mysql",
+                        "query": "sql/source.sql",
+                    },
+                    "target_candidate": {
+                        "role": "adapter_output",
+                        "engine": "postgres",
+                    },
+                    "target_reference": {
+                        "role": "positive_reference",
+                        "engine": "postgres",
+                        "query": "sql/pos_01.sql",
+                        "use_for_checker_oracle": False,
+                        "use_for_sanity_control": True,
+                    },
+                    "checker": {
+                        "comparison": "source_reference_result_to_target_candidate_result",
+                    },
+                    "boundary": boundary,
+                },
+                "mysql": {
+                    "diagnostic_mode": "unsupported",
+                    "unsupported_reason": "manual review required",
+                    "manual_review_required": True,
+                    "boundary": boundary,
+                },
+            },
+        }
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "pass", result.errors)
+            self.assertTrue(
+                any(
+                    ref.field == "local_diagnostic.engine_roles.postgres.source_reference.query"
+                    and ref.status == "pass"
+                    for ref in result.references
+                )
+            )
+
+    def test_target_engine_local_diagnostic_metadata_requires_mysql_role(self) -> None:
+        manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
+        boundary = {
+            "local_diagnostic_only": True,
+            "official_metric_input": False,
+            "paper_result_input": False,
+            "reports_results_update": False,
+            "leaderboard_input": False,
+        }
+        manifest_data["local_diagnostic"] = {
+            "schema_version": "port_target_engine_diagnostic_v0",
+            "engine_roles": {
+                "postgres": {
+                    "diagnostic_mode": "same_engine",
+                    "source_reference": {
+                        "role": "source_reference",
+                        "engine": "postgres",
+                        "query": "sql/source.sql",
+                    },
+                    "target_candidate": {
+                        "role": "adapter_output",
+                        "engine": "postgres",
+                    },
+                    "checker": {
+                        "comparison": "source_reference_result_to_target_candidate_result",
+                    },
+                    "boundary": boundary,
+                },
+            },
+        }
+        manifest = yaml.safe_dump(manifest_data, sort_keys=False)
+        tmp, root = self.make_repo(manifest)
+        with tmp:
+            result = resolve_case_package_v2(repo_root=root, case_path=Path("cases/PERF/PERF_9999"))
+            self.assertEqual(result.overall_status, "fail")
+            self.assertTrue(
+                any(
+                    "local_diagnostic.engine_roles.mysql" in error
+                    for error in result.errors
+                )
+            )
+
     def test_malformed_local_diagnostic_metadata_fails(self) -> None:
         manifest_data = yaml.safe_load(textwrap.dedent(self.valid_manifest()))
         manifest_data["local_diagnostic"] = {

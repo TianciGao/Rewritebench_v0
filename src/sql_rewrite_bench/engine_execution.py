@@ -31,6 +31,7 @@ from .user_run_schema import (
     CROSS_DIALECT_STATUS_BACKEND_MISSING,
     CROSS_DIALECT_STATUS_SOURCE_REFERENCE_EXECUTED,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+    DIAGNOSTIC_MODE_UNSUPPORTED,
     EXECUTION_STATUS_CANDIDATE_FAILED,
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
     EXECUTION_STATUS_INTERNAL_ERROR,
@@ -173,6 +174,49 @@ def cross_dialect_backend_missing_result(
         pool=row.pool,
         denominator_id=row.denominator_id,
         schema_setup_status="not_attempted_backend_missing",
+        db_execution_attempted=False,
+        source_executable=False,
+        candidate_executable=False,
+        cross_dialect_status=CROSS_DIALECT_STATUS_BACKEND_MISSING,
+        required_backend=required_backend,
+        backend_status=BACKEND_STATUS_NOT_IMPLEMENTED,
+    )
+
+
+def unsupported_local_diagnostic_role_result(
+    *,
+    row: SelectedCaseEngineRow,
+    workspace_dir: Path,
+    resolved_package: ResolvedCasePackage,
+    execution_failure_class: str = "local_diagnostic_target_engine_unsupported",
+) -> EngineExecutionResult:
+    execution_dir = workspace_dir / "execution"
+    execution_dir.mkdir(parents=True, exist_ok=True)
+    notes = resolved_package.unsupported_reason or (
+        "local diagnostic route is explicit but unsupported: "
+        f"source_reference={resolved_package.source_reference_engine!r}, "
+        f"target_candidate={resolved_package.target_candidate_engine!r}, "
+        f"selected_engine={row.engine!r}"
+    )
+    required_backend = (
+        f"{resolved_package.source_reference_engine}_to_{resolved_package.target_candidate_engine}"
+        if resolved_package.source_reference_engine
+        else row.engine
+    )
+    return EngineExecutionResult(
+        source_execution_status=EXECUTION_STATUS_UNSUPPORTED,
+        candidate_execution_status=EXECUTION_STATUS_UNSUPPORTED,
+        source_result_path=None,
+        candidate_result_path=None,
+        db_artifact_dir=execution_dir,
+        failure_bucket=FAILURE_UNSUPPORTED_ENGINE,
+        execution_failure_class=execution_failure_class,
+        notes=notes + "; no source, target, target_reference, or checker fallback was attempted",
+        engine=row.engine,
+        case_id=row.case_id,
+        pool=row.pool,
+        denominator_id=row.denominator_id,
+        schema_setup_status="not_supported",
         db_execution_attempted=False,
         source_executable=False,
         candidate_executable=False,
@@ -478,13 +522,21 @@ def _execute_cross_dialect_case(
 ) -> EngineExecutionResult:
     source_engine = resolved_package.source_reference_engine
     target_engine = resolved_package.target_candidate_engine
-    if source_engine != "mysql":
-        return cross_dialect_backend_missing_result(
+    if target_engine != row.engine:
+        return unsupported_local_diagnostic_role_result(
             row=row,
             workspace_dir=workspace_dir,
             resolved_package=resolved_package,
+            execution_failure_class="cross_dialect_target_engine_mismatch",
         )
-    if target_engine != row.engine or row.engine != "postgres":
+    if source_engine != "mysql":
+        return unsupported_local_diagnostic_role_result(
+            row=row,
+            workspace_dir=workspace_dir,
+            resolved_package=resolved_package,
+            execution_failure_class="cross_dialect_route_unsupported",
+        )
+    if row.engine != "postgres":
         return unsupported_engine_result(
             row=row,
             workspace_dir=workspace_dir,
@@ -556,6 +608,15 @@ def execute_engine_case(
             timeout_sec=timeout_sec,
             schema_prefix=schema_prefix,
             postgres_dsn_env=postgres_dsn_env,
+            resolved_package=resolved_package,
+        )
+    if (
+        resolved_package is not None
+        and resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_UNSUPPORTED
+    ):
+        return unsupported_local_diagnostic_role_result(
+            row=row,
+            workspace_dir=workspace_dir,
             resolved_package=resolved_package,
         )
 

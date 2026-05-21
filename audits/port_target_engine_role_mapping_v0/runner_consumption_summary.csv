@@ -1,0 +1,6 @@
+scenario,selected_engine,resolved_behavior,wrong_engine_prevention,status
+non-PORT or no target-engine metadata,any,default same-engine source/candidate behavior,unchanged default; no filename or SQL-text inference,preserved
+PORT engine=postgres for MySQL-source cases,postgres,"source_reference=mysql, target_candidate=postgres",runner executes MySQL source-reference first and never executes MySQL-like source.sql in PostgreSQL,live controlled exact 5/5
+PORT engine=mysql for PostgreSQL-source cases,mysql,"source_reference=postgres, target_candidate=mysql",runner fails closed as unsupported reverse route and does not call MySQL same-engine source execution,fail_closed_clear
+PORT engine=mysql for MySQL-source cases,mysql,same_engine mysql source/candidate,role is explicit in engine_roles.mysql; no target_reference substitution,one-case live sample exact
+PORT engine=spark,spark,unsupported/manual_review_required,no SQL execution; Spark remains deferred/fail-closed,explicit_fail_closed

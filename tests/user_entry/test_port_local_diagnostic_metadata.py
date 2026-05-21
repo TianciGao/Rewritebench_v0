@@ -14,19 +14,23 @@ from sql_rewrite_bench.case_selection import (
     SelectedCaseEngineRow,
     resolve_common_core_selection,
 )
-from sql_rewrite_bench.engine_execution import execute_engine_case
+from sql_rewrite_bench.engine_execution import execute_engine_case, unsupported_engine_result
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
     BACKEND_STATUS_CLIENT_MISSING,
     BACKEND_STATUS_CONFIG_MISSING,
+    BACKEND_STATUS_NOT_IMPLEMENTED,
     CHECKER_STATUS_NOT_ENABLED,
     CROSS_DIALECT_STATUS_BACKEND_MISSING,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
     DIAGNOSTIC_MODE_SAME_ENGINE,
+    DIAGNOSTIC_MODE_UNSUPPORTED,
     EXACT_STATUS_EXECUTION_FAILURE,
     EXECUTION_STATUS_NOT_ENABLED,
     EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
+    EXECUTION_STATUS_UNSUPPORTED,
     FAILURE_CROSS_DIALECT_BACKEND_MISSING,
+    FAILURE_UNSUPPORTED_ENGINE,
 )
 
 
@@ -91,6 +95,27 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
         self.assertEqual(cross_dialect.target_reference_query_path.name, "pos_01.sql")
         self.assertEqual(cross_dialect.target_reference_role, "positive_reference")
 
+    def test_resolver_selects_port_roles_by_target_engine(self) -> None:
+        reverse_row = _selected_row("PORT_0003", engine="mysql")
+        reverse = resolve_case_package(repo_root=REPO_ROOT, row=reverse_row)
+        self.assertEqual(reverse.diagnostic_mode, DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE)
+        self.assertEqual(reverse.source_reference_engine, "postgres")
+        self.assertEqual(reverse.target_candidate_engine, "mysql")
+        self.assertEqual(reverse.target_reference_query_path.name, "pos_01.sql")
+
+        mysql_source_row = _selected_row("PORT_0004", engine="mysql")
+        mysql_source = resolve_case_package(repo_root=REPO_ROOT, row=mysql_source_row)
+        self.assertEqual(mysql_source.diagnostic_mode, DIAGNOSTIC_MODE_SAME_ENGINE)
+        self.assertEqual(mysql_source.source_reference_engine, "mysql")
+        self.assertEqual(mysql_source.target_candidate_engine, "mysql")
+        self.assertIsNone(mysql_source.target_reference_query_path)
+
+        spark_row = _selected_row("PORT_0004", engine="spark")
+        spark = resolve_case_package(repo_root=REPO_ROOT, row=spark_row)
+        self.assertEqual(spark.diagnostic_mode, DIAGNOSTIC_MODE_UNSUPPORTED)
+        self.assertEqual(spark.target_candidate_engine, "spark")
+        self.assertIn("deferred", spark.unsupported_reason)
+
     def test_resolver_defaults_non_port_cases_to_same_engine(self) -> None:
         for case_id in ("PERF_0006", "CONS_0005", "LONGTAIL_0011"):
             with self.subTest(case_id=case_id):
@@ -137,6 +162,77 @@ class PortLocalDiagnosticMetadataTests(unittest.TestCase):
         self.assertEqual(result.backend_status, BACKEND_STATUS_CLIENT_MISSING)
         self.assertFalse(result.db_execution_attempted)
         self.assertIn("mysql CLI is not available", result.notes)
+
+    def test_reverse_port_mysql_target_fails_closed_without_wrong_engine_source_execution(self) -> None:
+        row = _selected_row("PORT_0003", engine="mysql")
+        resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace = Path(temp_dir) / "workspace"
+            candidate_sql = workspace / "candidate.sql"
+            candidate_sql.parent.mkdir(parents=True)
+            candidate_sql.write_text("select 1;\n", encoding="utf-8")
+            with mock.patch(
+                "sql_rewrite_bench.engine_execution.execute_postgres_case",
+                side_effect=AssertionError("PostgreSQL same-engine execution must not run"),
+            ) as postgres, mock.patch(
+                "sql_rewrite_bench.mysql_execution.execute_mysql_case",
+                side_effect=AssertionError("MySQL same-engine source execution must not run"),
+            ) as mysql_same:
+                result = execute_engine_case(
+                    repo_root=REPO_ROOT,
+                    run_id="reverse_port_router_test",
+                    row=row,
+                    candidate_sql_path=candidate_sql,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                    resolved_package=resolved,
+                )
+
+        postgres.assert_not_called()
+        mysql_same.assert_not_called()
+        self.assertEqual(result.failure_bucket, FAILURE_UNSUPPORTED_ENGINE)
+        self.assertEqual(result.execution_failure_class, "cross_dialect_route_unsupported")
+        self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
+        self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_UNSUPPORTED)
+        self.assertEqual(result.required_backend, "postgres_to_mysql")
+        self.assertEqual(result.backend_status, BACKEND_STATUS_NOT_IMPLEMENTED)
+        self.assertIn("source_reference='postgres'", result.notes)
+
+    def test_port_mysql_source_case_uses_explicit_mysql_same_engine_role(self) -> None:
+        row = _selected_row("PORT_0004", engine="mysql")
+        resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace = Path(temp_dir) / "workspace"
+            candidate_sql = workspace / "candidate.sql"
+            candidate_sql.parent.mkdir(parents=True)
+            candidate_sql.write_text("select 1;\n", encoding="utf-8")
+            with mock.patch(
+                "sql_rewrite_bench.engine_execution.execute_postgres_case",
+                side_effect=AssertionError("PostgreSQL fallback must not run"),
+            ) as postgres, mock.patch(
+                "sql_rewrite_bench.mysql_execution.execute_mysql_case"
+            ) as mysql_same:
+                mysql_same.return_value = unsupported_engine_result(
+                    row=row,
+                    workspace_dir=workspace,
+                    execution_failure_class="mocked_mysql_same_engine",
+                    notes="mocked explicit mysql same-engine role",
+                )
+                result = execute_engine_case(
+                    repo_root=REPO_ROOT,
+                    run_id="mysql_source_same_engine_test",
+                    row=row,
+                    candidate_sql_path=candidate_sql,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                    resolved_package=resolved,
+                )
+
+        postgres.assert_not_called()
+        mysql_same.assert_called_once()
+        self.assertEqual(result.execution_failure_class, "mocked_mysql_same_engine")
 
     def test_user_run_records_cross_dialect_backend_missing_and_skips_checker(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

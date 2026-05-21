@@ -1,0 +1,49 @@
+{
+  "all_9_port_manifests_updated": true,
+  "global_leaderboard_created": false,
+  "mysql_reverse_guard_diagnostic": {
+    "candidate_executable_rows": 0,
+    "candidate_generated_rows": 4,
+    "checker_attempted_rows": 0,
+    "exact_rows": 0,
+    "execution_failure_class": "cross_dialect_route_unsupported",
+    "failure_bucket_counts": {
+      "unsupported_engine": 4
+    },
+    "mismatch_rows": 0,
+    "run_output_path": "runs/user/port_target_engine_mysql_reverse_guard/",
+    "selected_rows": 4,
+    "source_executable_rows": 0,
+    "wrong_engine_source_execution_prevented": true
+  },
+  "mysql_source_same_engine_sample": {
+    "candidate_executable_rows": 1,
+    "checker_attempted_rows": 1,
+    "exact_rows": 1,
+    "failure_bucket_counts": {
+      "none": 1
+    },
+    "run_output_path": "runs/user/port_target_engine_mysql_source_same_engine/",
+    "selected_rows": 1,
+    "source_executable_rows": 1
+  },
+  "non_port_same_engine_behavior_preserved": true,
+  "official_metrics_computed": false,
+  "postgres_target_controlled_diagnostic": {
+    "checker_attempted_rows": 5,
+    "exact_rows": 5,
+    "failure_bucket_counts": {
+      "none": 5
+    },
+    "mismatch_rows": 0,
+    "run_output_path": "runs/user/port_target_engine_pg_controlled/",
+    "selected_rows": 5,
+    "source_executable_rows": 5,
+    "target_candidate_executable_rows": 5
+  },
+  "reports_results_updated": false,
+  "runner_consumes_selected_engine_role_metadata": true,
+  "target_engine_aware_port_role_mapping_implemented": true,
+  "timing_or_speedup_computed": false,
+  "validator_support_updated": true
+}

@@ -1,0 +1,5 @@
+component,support,validation_status,notes
+case_package_resolver.py,runtime resolver accepts port_target_engine_diagnostic_v0 engine_roles and resolves by selected engine,unit-tested,legacy local_diagnostic schema remains accepted for compatibility
+case_package_v2_resolver.py,"static validator accepts engine_roles, requires explicit postgres/mysql target-engine roles, accepts optional spark roles, validates per-engine role fields, unsupported/manual_review roles, boundary flags, and query path references",40/40 v2 reference validation passed,target_reference.use_for_checker_oracle must remain false
+YAML parse,all 9 PORT manifests parse as YAML,passed,no SQL/schema/checker/validation file edits
+pytest command,requested pytest command could not run because pytest is not installed in this environment,blocked_by_missing_pytest_module,equivalent unittest discovery passed for user_entry and case_package_v2 suites

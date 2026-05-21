@@ -57,11 +57,13 @@ from .user_run_schema import (
     CANDIDATE_PREFLIGHT_FAILURE_NONE,
     CANDIDATE_PREFLIGHT_STATUS_FAILED,
     BACKEND_STATUS_NOT_REQUIRED,
+    BACKEND_STATUS_NOT_IMPLEMENTED,
     CHECKER_STATUS_NOT_ENABLED,
     CHECKER_STATUS_SUCCESS,
     CROSS_DIALECT_STATUS_NOT_APPLICABLE,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
     DIAGNOSTIC_MODE_SAME_ENGINE,
+    DIAGNOSTIC_MODE_UNSUPPORTED,
     EXACT_STATUS_NON_DB,
     EXACT_STATUS_EXACT,
     EXACT_STATUS_EXECUTION_FAILURE,
@@ -487,6 +489,23 @@ def _apply_local_diagnostic_metadata(
     row: SelectedCaseEngineRow,
 ) -> None:
     ledger["diagnostic_mode"] = resolved_package.diagnostic_mode
+    if resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_UNSUPPORTED:
+        ledger["source_reference_engine"] = resolved_package.source_reference_engine
+        ledger["target_candidate_engine"] = resolved_package.target_candidate_engine
+        ledger["cross_dialect_status"] = CROSS_DIALECT_STATUS_NOT_APPLICABLE
+        ledger["required_backend"] = resolved_package.target_candidate_engine
+        ledger["backend_status"] = BACKEND_STATUS_NOT_IMPLEMENTED
+        if (
+            resolved_package.unsupported_reason
+            and resolved_package.unsupported_reason not in str(ledger.get("notes", ""))
+        ):
+            existing_notes = str(ledger.get("notes", "")).strip()
+            ledger["notes"] = (
+                f"{existing_notes}; {resolved_package.unsupported_reason}"
+                if existing_notes
+                else resolved_package.unsupported_reason
+            )
+        return
     if resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_SAME_ENGINE:
         ledger["source_reference_engine"] = row.engine
         ledger["target_candidate_engine"] = row.engine

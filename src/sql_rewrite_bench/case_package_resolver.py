@@ -15,10 +15,12 @@ from .case_selection import SelectedCaseEngineRow
 from .user_run_schema import (
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
     DIAGNOSTIC_MODE_SAME_ENGINE,
+    DIAGNOSTIC_MODE_UNSUPPORTED,
 )
 
 
-LOCAL_DIAGNOSTIC_SCHEMA_VERSION = "port_cross_dialect_diagnostic_v0"
+LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION = "port_cross_dialect_diagnostic_v0"
+LOCAL_DIAGNOSTIC_SCHEMA_VERSION = "port_target_engine_diagnostic_v0"
 LOCAL_DIAGNOSTIC_ENGINES = {"postgres", "mysql", "spark"}
 LOCAL_DIAGNOSTIC_COMPARISON = "source_reference_result_to_target_candidate_result"
 
@@ -36,6 +38,8 @@ class LocalDiagnosticMetadata:
     target_reference_role: str
     checker_comparison: str
     local_diagnostic_boundary: dict[str, Any]
+    unsupported_reason: str
+    manual_review_required: bool
     raw: dict[str, Any]
 
 
@@ -67,6 +71,8 @@ class ResolvedCasePackage:
     target_reference_role: str
     checker_comparison: str
     local_diagnostic_boundary: dict[str, Any]
+    unsupported_reason: str
+    manual_review_required: bool
     resolution_status: str
     resolution_notes: str
 
@@ -238,7 +244,158 @@ def _default_local_diagnostic(
         target_reference_role="",
         checker_comparison="",
         local_diagnostic_boundary=boundary,
+        unsupported_reason="",
+        manual_review_required=False,
         raw={},
+    )
+
+
+def _resolve_role_local_diagnostic(
+    *,
+    case_dir: Path,
+    row: SelectedCaseEngineRow,
+    schema_version: str,
+    metadata: dict[str, Any],
+    field_prefix: str,
+) -> LocalDiagnosticMetadata:
+    diagnostic_mode = _required_string(
+        metadata.get("diagnostic_mode"), field=f"{field_prefix}.diagnostic_mode"
+    )
+    if diagnostic_mode not in {
+        DIAGNOSTIC_MODE_SAME_ENGINE,
+        DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+        DIAGNOSTIC_MODE_UNSUPPORTED,
+    }:
+        raise ValueError(f"{field_prefix}.diagnostic_mode is unsupported")
+
+    boundary = _validate_boundary(
+        _mapping(metadata.get("boundary"), field=f"{field_prefix}.boundary"),
+        field=f"{field_prefix}.boundary",
+    )
+
+    if diagnostic_mode == DIAGNOSTIC_MODE_UNSUPPORTED:
+        unsupported_reason = _required_string(
+            metadata.get("unsupported_reason"), field=f"{field_prefix}.unsupported_reason"
+        )
+        manual_review_required = _as_bool(
+            metadata.get("manual_review_required", False),
+            field=f"{field_prefix}.manual_review_required",
+        )
+        return LocalDiagnosticMetadata(
+            schema_version=schema_version,
+            diagnostic_mode=diagnostic_mode,
+            source_reference_engine="",
+            source_reference_query_path=case_dir / "__unsupported_source_reference__",
+            target_candidate_engine=row.engine,
+            target_reference_query_path=None,
+            target_reference_role="",
+            checker_comparison="",
+            local_diagnostic_boundary=boundary,
+            unsupported_reason=unsupported_reason,
+            manual_review_required=manual_review_required,
+            raw=metadata,
+        )
+
+    source_reference = _mapping(
+        metadata.get("source_reference"), field=f"{field_prefix}.source_reference"
+    )
+    if source_reference.get("role") != "source_reference":
+        raise ValueError(f"{field_prefix}.source_reference.role must be source_reference")
+    source_reference_engine = _required_engine(
+        source_reference.get("engine"),
+        field=f"{field_prefix}.source_reference.engine",
+    )
+    source_reference_query_path = _resolve_case_relative(
+        case_dir,
+        source_reference.get("query"),
+        field=f"{field_prefix}.source_reference.query",
+    )
+    _require_exists(
+        source_reference_query_path,
+        field=f"{field_prefix}.source_reference.query",
+    )
+
+    target_candidate = _mapping(
+        metadata.get("target_candidate"), field=f"{field_prefix}.target_candidate"
+    )
+    if target_candidate.get("role") != "adapter_output":
+        raise ValueError(f"{field_prefix}.target_candidate.role must be adapter_output")
+    target_candidate_engine = _required_engine(
+        target_candidate.get("engine"),
+        field=f"{field_prefix}.target_candidate.engine",
+    )
+    if target_candidate_engine != row.engine:
+        raise ValueError(
+            f"{field_prefix}.target_candidate.engine must match selected engine {row.engine!r}"
+        )
+
+    checker = _mapping(metadata.get("checker"), field=f"{field_prefix}.checker")
+    checker_comparison = _required_string(
+        checker.get("comparison"), field=f"{field_prefix}.checker.comparison"
+    )
+    if checker_comparison != LOCAL_DIAGNOSTIC_COMPARISON:
+        raise ValueError(
+            f"{field_prefix}.checker.comparison must be "
+            f"{LOCAL_DIAGNOSTIC_COMPARISON}"
+        )
+
+    target_reference_query_path: Path | None = None
+    target_reference_role = ""
+    target_reference = metadata.get("target_reference")
+    if target_reference is not None:
+        target_reference_map = _mapping(
+            target_reference, field=f"{field_prefix}.target_reference"
+        )
+        target_reference_role = _required_string(
+            target_reference_map.get("role"),
+            field=f"{field_prefix}.target_reference.role",
+        )
+        if target_reference_role != "positive_reference":
+            raise ValueError(
+                f"{field_prefix}.target_reference.role must be positive_reference"
+            )
+        target_reference_engine = _required_engine(
+            target_reference_map.get("engine"),
+            field=f"{field_prefix}.target_reference.engine",
+        )
+        if target_reference_engine != target_candidate_engine:
+            raise ValueError(
+                f"{field_prefix}.target_reference.engine must match target_candidate.engine"
+            )
+        target_reference_query_path = _resolve_case_relative(
+            case_dir,
+            target_reference_map.get("query"),
+            field=f"{field_prefix}.target_reference.query",
+        )
+        _require_exists(
+            target_reference_query_path,
+            field=f"{field_prefix}.target_reference.query",
+        )
+        if _as_bool(
+            target_reference_map.get("use_for_checker_oracle"),
+            field=f"{field_prefix}.target_reference.use_for_checker_oracle",
+        ):
+            raise ValueError(
+                f"{field_prefix}.target_reference.use_for_checker_oracle must be false"
+            )
+        _as_bool(
+            target_reference_map.get("use_for_sanity_control"),
+            field=f"{field_prefix}.target_reference.use_for_sanity_control",
+        )
+
+    return LocalDiagnosticMetadata(
+        schema_version=schema_version,
+        diagnostic_mode=diagnostic_mode,
+        source_reference_engine=source_reference_engine,
+        source_reference_query_path=source_reference_query_path,
+        target_candidate_engine=target_candidate_engine,
+        target_reference_query_path=target_reference_query_path,
+        target_reference_role=target_reference_role,
+        checker_comparison=checker_comparison,
+        local_diagnostic_boundary=boundary,
+        unsupported_reason="",
+        manual_review_required=False,
+        raw=metadata,
     )
 
 
@@ -256,115 +413,56 @@ def _resolve_local_diagnostic(
     schema_version = _required_string(
         metadata.get("schema_version"), field="local_diagnostic.schema_version"
     )
-    if schema_version != LOCAL_DIAGNOSTIC_SCHEMA_VERSION:
-        raise ValueError(
-            "local_diagnostic.schema_version must be "
-            f"{LOCAL_DIAGNOSTIC_SCHEMA_VERSION}"
+    if schema_version == LOCAL_DIAGNOSTIC_SCHEMA_VERSION:
+        engine_roles = _mapping(
+            metadata.get("engine_roles"), field="local_diagnostic.engine_roles"
         )
-    diagnostic_mode = _required_string(
-        metadata.get("diagnostic_mode"), field="local_diagnostic.diagnostic_mode"
-    )
-    if diagnostic_mode not in {
-        DIAGNOSTIC_MODE_SAME_ENGINE,
-        DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
-    }:
-        raise ValueError("local_diagnostic.diagnostic_mode is unsupported")
-
-    source_reference = _mapping(
-        metadata.get("source_reference"), field="local_diagnostic.source_reference"
-    )
-    if source_reference.get("role") != "source_reference":
-        raise ValueError("local_diagnostic.source_reference.role must be source_reference")
-    source_reference_engine = _required_engine(
-        source_reference.get("engine"),
-        field="local_diagnostic.source_reference.engine",
-    )
-    source_reference_query_path = _resolve_case_relative(
-        case_dir,
-        source_reference.get("query"),
-        field="local_diagnostic.source_reference.query",
-    )
-    _require_exists(
-        source_reference_query_path,
-        field="local_diagnostic.source_reference.query",
-    )
-
-    target_candidate = _mapping(
-        metadata.get("target_candidate"), field="local_diagnostic.target_candidate"
-    )
-    if target_candidate.get("role") != "adapter_output":
-        raise ValueError("local_diagnostic.target_candidate.role must be adapter_output")
-    target_candidate_engine = _required_engine(
-        target_candidate.get("engine"),
-        field="local_diagnostic.target_candidate.engine",
-    )
-
-    checker = _mapping(metadata.get("checker"), field="local_diagnostic.checker")
-    checker_comparison = _required_string(
-        checker.get("comparison"), field="local_diagnostic.checker.comparison"
-    )
-    if checker_comparison != LOCAL_DIAGNOSTIC_COMPARISON:
-        raise ValueError(
-            "local_diagnostic.checker.comparison must be "
-            f"{LOCAL_DIAGNOSTIC_COMPARISON}"
-        )
-
-    target_reference_query_path: Path | None = None
-    target_reference_role = ""
-    target_reference = metadata.get("target_reference")
-    if target_reference is not None:
-        target_reference_map = _mapping(
-            target_reference, field="local_diagnostic.target_reference"
-        )
-        target_reference_role = _required_string(
-            target_reference_map.get("role"),
-            field="local_diagnostic.target_reference.role",
-        )
-        if target_reference_role != "positive_reference":
-            raise ValueError(
-                "local_diagnostic.target_reference.role must be positive_reference"
+        role_metadata = engine_roles.get(row.engine)
+        if role_metadata is None:
+            boundary = {
+                "local_diagnostic_only": True,
+                "official_metric_input": False,
+                "paper_result_input": False,
+                "reports_results_update": False,
+                "leaderboard_input": False,
+            }
+            return LocalDiagnosticMetadata(
+                schema_version=schema_version,
+                diagnostic_mode=DIAGNOSTIC_MODE_UNSUPPORTED,
+                source_reference_engine="",
+                source_reference_query_path=case_dir / "__missing_engine_role__",
+                target_candidate_engine=row.engine,
+                target_reference_query_path=None,
+                target_reference_role="",
+                checker_comparison="",
+                local_diagnostic_boundary=boundary,
+                unsupported_reason=(
+                    f"local_diagnostic.engine_roles has no role for target engine {row.engine}"
+                ),
+                manual_review_required=True,
+                raw={},
             )
-        _required_engine(
-            target_reference_map.get("engine"),
-            field="local_diagnostic.target_reference.engine",
+        return _resolve_role_local_diagnostic(
+            case_dir=case_dir,
+            row=row,
+            schema_version=schema_version,
+            metadata=_mapping(
+                role_metadata,
+                field=f"local_diagnostic.engine_roles.{row.engine}",
+            ),
+            field_prefix=f"local_diagnostic.engine_roles.{row.engine}",
         )
-        target_reference_query_path = _resolve_case_relative(
-            case_dir,
-            target_reference_map.get("query"),
-            field="local_diagnostic.target_reference.query",
+    if schema_version == LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION:
+        return _resolve_role_local_diagnostic(
+            case_dir=case_dir,
+            row=row,
+            schema_version=schema_version,
+            metadata=metadata,
+            field_prefix="local_diagnostic",
         )
-        _require_exists(
-            target_reference_query_path,
-            field="local_diagnostic.target_reference.query",
-        )
-        if _as_bool(
-            target_reference_map.get("use_for_checker_oracle"),
-            field="local_diagnostic.target_reference.use_for_checker_oracle",
-        ):
-            raise ValueError(
-                "local_diagnostic.target_reference.use_for_checker_oracle must be false"
-            )
-        _as_bool(
-            target_reference_map.get("use_for_sanity_control"),
-            field="local_diagnostic.target_reference.use_for_sanity_control",
-        )
-
-    boundary = _validate_boundary(
-        _mapping(metadata.get("boundary"), field="local_diagnostic.boundary"),
-        field="local_diagnostic.boundary",
-    )
-
-    return LocalDiagnosticMetadata(
-        schema_version=schema_version,
-        diagnostic_mode=diagnostic_mode,
-        source_reference_engine=source_reference_engine,
-        source_reference_query_path=source_reference_query_path,
-        target_candidate_engine=target_candidate_engine,
-        target_reference_query_path=target_reference_query_path,
-        target_reference_role=target_reference_role,
-        checker_comparison=checker_comparison,
-        local_diagnostic_boundary=boundary,
-        raw=metadata,
+    raise ValueError(
+        "local_diagnostic.schema_version must be one of "
+        f"{LOCAL_DIAGNOSTIC_SCHEMA_VERSION}, {LOCAL_DIAGNOSTIC_LEGACY_SCHEMA_VERSION}"
     )
 
 
@@ -489,6 +587,8 @@ def resolve_case_package(*, repo_root: Path, row: SelectedCaseEngineRow) -> Reso
         target_reference_role=local_diagnostic.target_reference_role,
         checker_comparison=local_diagnostic.checker_comparison,
         local_diagnostic_boundary=local_diagnostic.local_diagnostic_boundary,
+        unsupported_reason=local_diagnostic.unsupported_reason,
+        manual_review_required=local_diagnostic.manual_review_required,
         resolution_status="ok",
         resolution_notes="case package assets resolved",
     )
