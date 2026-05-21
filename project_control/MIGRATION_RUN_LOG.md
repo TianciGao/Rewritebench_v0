@@ -11193,3 +11193,69 @@ Task result:
 
 Next safe action:
 - Run final public-release metadata/readiness review before any release tag or export branch.
+
+### 2026-05-21 · Final public-release metadata and readiness review
+
+Mode: audit/review only; no source changes; no case changes; no metrics; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `audits/final_public_release_metadata_readiness_v0/`.
+- Reviewed top-level README, LICENSE, CITATION, CONTRIBUTING, `.gitignore`, benchmark_spec, docs, examples, case_sets, cases, schemas, source/scripts/tests/workflows, reports/results boundary READMEs, and packaging metadata.
+- Confirmed Common-core v0 remains 40 cases with pool split 16 PERF + 9 CONS + 9 PORT + 6 LONGTAIL.
+- Confirmed Track A same-engine denominator remains 120 planned rows.
+- Confirmed all 40 Common-core READMEs are present.
+- Confirmed 40 external schema package directories are present.
+- Verdict: `ready_for_final_closeout_planning`.
+
+Files created:
+- `audits/final_public_release_metadata_readiness_v0/README.md`
+- `audits/final_public_release_metadata_readiness_v0/readiness_matrix.csv`
+- `audits/final_public_release_metadata_readiness_v0/remaining_blockers.md`
+- `audits/final_public_release_metadata_readiness_v0/public_surface_inventory.csv`
+- `audits/final_public_release_metadata_readiness_v0/readiness_summary.json`
+- `audits/final_public_release_metadata_readiness_v0/protected_surface_check.md`
+- `audits/final_public_release_metadata_readiness_v0/command_log.md`
+- `audits/final_public_release_metadata_readiness_v0/future_final_closeout_prompt.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `CITATION.cff` YAML syntax check: passed.
+- Markdown sanity checks: passed.
+- CSV/JSON parse checks: passed.
+- `.gitignore` policy check: passed.
+- Protected-surface diff check: passed.
+
+Task result:
+- Final metadata/readiness review completed: yes.
+- Verdict: ready_for_final_closeout_planning.
+- Remaining blockers to final closeout planning: none.
+- Nonblocking caveats: Chinese README language posture before final public artifact; placeholder citation metadata; reports/results boundary-only status; deferred metrics/paper/timing/reproduction work; no release tag/export branch yet.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Existing reports/results data changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Run final public-release closeout planning before any release tag or export branch.

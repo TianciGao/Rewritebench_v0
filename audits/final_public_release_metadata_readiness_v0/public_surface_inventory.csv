@@ -1,0 +1,28 @@
+path,exists,public_surface_role,status,notes
+README.md,yes,top-level public entrypoint,ready,Chinese entrypoint on construction branch; English or bilingual required before final public artifact
+LICENSE,yes,repository license,ready,Apache-2.0
+CITATION.cff,yes,citation metadata,ready_with_placeholder,No DOI or individual author metadata invented
+CONTRIBUTING.md,yes,contribution policy,ready,Conservative benchmark-governance policy
+.gitignore,yes,local output hygiene,ready,Ignores runs/user only
+benchmark_spec/README.md,yes,benchmark spec index,ready,Public v0 scope documents index
+benchmark_spec/scope.md,yes,benchmark scope,ready,Common-core v0 and Track A denominator documented
+benchmark_spec/case_package_contract.md,yes,case package contract,ready,Manifest-governed case package surface
+benchmark_spec/denominator_policy.md,yes,denominator policy,ready,case_sets governs membership
+benchmark_spec/reporting_policy.md,yes,reporting policy,ready,Role-aware denominator-aware no leaderboard
+docs/README.md,yes,docs index,ready,Links user benchmark and data-flow docs
+docs/USER_BENCHMARK_GUIDE.md,yes,user guide,ready,Public smoke and local diagnostics documented
+docs/USER_ENTRY_DATA_FLOW.md,yes,user-entry data flow,ready,Local file map documented
+examples/user/noop_adapter.py,yes,public adapter example,ready,Used by public smoke
+case_sets/common_core_v0/cases.csv,yes,Common-core membership,ready,40 cases confirmed
+case_sets/common_core_v0/denominator_same_engine_120.csv,yes,Track A denominator,ready,120 planned rows confirmed
+case_sets/common_core_v0/controls_360.csv,yes,control scaffold,ready,Present
+cases/,yes,case packages,ready,Common-core 40 READMEs present
+schemas/,yes,external schema packages,ready,40 schema package dirs observed
+src/,yes,user-entry and validation package code,ready,Not modified by this audit
+scripts/,yes,developer and user scripts,ready,Not modified by this audit
+tests/,yes,test suite,ready,Not modified by this audit
+.github/workflows/user_entry_smoke.yml,yes,user-entry CI smoke,ready,Present
+.github/workflows/ledger-fixture-smoke.yml,yes,ledger CI smoke,ready,Present
+reports/README.md,yes,reports boundary,ready_boundary_only,No report generation
+results/README.md,yes,results boundary,ready_boundary_only,No official metrics or result generation
+pyproject.toml,yes,Python package metadata,ready,Package version is 0.1.0
