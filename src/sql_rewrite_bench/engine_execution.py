@@ -538,8 +538,9 @@ def execute_engine_case(
 ) -> EngineExecutionResult:
     """Dispatch optional local DB execution by engine.
 
-    PostgreSQL delegates to the existing executor. MySQL and Spark currently
-    fail closed through explicit stubs; unsupported engines fail closed here.
+    PostgreSQL and same-engine MySQL delegate to engine-specific local
+    diagnostic executors. Spark currently fails closed through an explicit
+    stub; unsupported engines fail closed here.
     """
 
     if (

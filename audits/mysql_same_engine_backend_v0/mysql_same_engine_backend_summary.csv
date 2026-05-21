@@ -1,0 +1,14 @@
+item,status,evidence,notes
+same_engine_mysql_backend,implemented,src/sql_rewrite_bench/mysql_execution.py,Executes source and candidate SQL through mysql for engine=mysql rows.
+mysql_source_artifact,written,runs/user/mysql_same_engine_smoke/workspaces/*/mysql/execution/mysql_same_engine/source_result.jsonl,Local diagnostic artifact only.
+mysql_candidate_artifact,written,runs/user/mysql_same_engine_smoke/workspaces/*/mysql/execution/mysql_same_engine/candidate_result.jsonl,Local diagnostic artifact only.
+checker_handoff,implemented,runs/user/mysql_same_engine_smoke/ledger.csv,Checker consumed MySQL same-engine source/candidate artifacts.
+schema_resolution,explicit_mysql_only,src/sql_rewrite_bench/mysql_execution.py,Uses manifest external schema metadata for engines.mysql.
+postgres_fallback,not_used,src/sql_rewrite_bench/mysql_execution.py,No PostgreSQL fallback for MySQL rows.
+port_cross_dialect_source_reference,preserved,runs/user/port_pg_target_reference_normalized_regression/ledger.csv,Existing MySQL source-reference path still reaches exact 5/5 in controlled regression.
+postgres_same_engine,preserved,runs/user/validation_pg_smoke_capture,Public PostgreSQL smoke capture passed.
+spark,deferred_fail_closed,engine router behavior,Spark remains deferred.
+official_metrics,not_computed,audit boundary,Local diagnostic only.
+timing_speedup,not_computed,audit boundary,No timing or speedup fields introduced.
+reports_results,not_updated,audit boundary,No reports/results changes.
+leaderboard,not_created,audit boundary,No leaderboard output.

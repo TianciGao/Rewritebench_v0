@@ -1,7 +1,7 @@
 """User runner for SQL-RewriteBench local experiment outputs.
 
 By default this invokes a user adapter and captures candidate SQL without DB
-execution. A bounded opt-in postgres/checker MVP can run local diagnostics under
+execution. A bounded opt-in DB/checker MVP can run local diagnostics under
 ``runs/user/<run_id>/``. It does not collect timing, compute official metrics,
 write retained evidence, update reports/results, or create a leaderboard.
 """
@@ -61,6 +61,7 @@ from .user_run_schema import (
     CHECKER_STATUS_SUCCESS,
     CROSS_DIALECT_STATUS_NOT_APPLICABLE,
     DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE,
+    DIAGNOSTIC_MODE_SAME_ENGINE,
     EXACT_STATUS_NON_DB,
     EXACT_STATUS_EXACT,
     EXACT_STATUS_EXECUTION_FAILURE,
@@ -110,7 +111,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--enable-db-execution",
         action="store_true",
-        help="Opt in to bounded local postgres execution after candidate capture.",
+        help="Opt in to bounded local DB execution after candidate capture.",
     )
     parser.add_argument(
         "--enable-checker",
@@ -351,13 +352,13 @@ def _apply_db_checker_for_row(
     execution_timeout_sec: int,
     db_schema_prefix: str,
 ) -> dict[str, object]:
-    """Run optional local postgres execution/checker for a generated candidate."""
+    """Run optional local DB execution/checker for a generated candidate."""
 
     ledger["execution_enabled"] = "true"
     ledger["checker_enabled"] = "true" if enable_checker else "false"
     ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
     ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
-    _apply_local_diagnostic_metadata(ledger, resolved_package)
+    _apply_local_diagnostic_metadata(ledger, resolved_package, row)
     if ledger.get("candidate_generated") != "true" or not ledger.get("candidate_sql_path"):
         ledger["notes"] = (
             str(ledger.get("notes", ""))
@@ -483,14 +484,18 @@ def _cross_dialect_checker_normalization_enabled(
 def _apply_local_diagnostic_metadata(
     ledger: dict[str, object],
     resolved_package: ResolvedCasePackage,
+    row: SelectedCaseEngineRow,
 ) -> None:
     ledger["diagnostic_mode"] = resolved_package.diagnostic_mode
-    ledger["source_reference_engine"] = resolved_package.source_reference_engine
-    ledger["target_candidate_engine"] = resolved_package.target_candidate_engine
-    if resolved_package.source_reference_engine == resolved_package.target_candidate_engine:
+    if resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_SAME_ENGINE:
+        ledger["source_reference_engine"] = row.engine
+        ledger["target_candidate_engine"] = row.engine
         ledger["cross_dialect_status"] = CROSS_DIALECT_STATUS_NOT_APPLICABLE
         ledger["required_backend"] = ""
         ledger["backend_status"] = BACKEND_STATUS_NOT_REQUIRED
+        return
+    ledger["source_reference_engine"] = resolved_package.source_reference_engine
+    ledger["target_candidate_engine"] = resolved_package.target_candidate_engine
 
 
 def _summary_payload(
@@ -709,7 +714,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         "smoke": bool(getattr(args, "smoke", False)),
         "adapter_command": args.adapter_command,
         "out_dir": _relative_to_repo(out_dir, repo_root),
-        "mvp_mode": "postgres_db_checker_mvp_local"
+        "mvp_mode": "local_db_checker_mvp"
         if enable_db_execution
         else "non_db_adapter_capture_only",
         "dry_run": bool(getattr(args, "dry_run", False)),
@@ -762,8 +767,8 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
                 ledger_rows, selected, resolved_packages, strict=True
             )
         ]
-    for ledger, resolved in zip(ledger_rows, resolved_packages, strict=True):
-        _apply_local_diagnostic_metadata(ledger, resolved)
+    for ledger, row, resolved in zip(ledger_rows, selected, resolved_packages, strict=True):
+        _apply_local_diagnostic_metadata(ledger, resolved, row)
     if enable_db_execution and not getattr(args, "dry_run", False):
         ledger_rows = [
             _apply_db_checker_for_row(

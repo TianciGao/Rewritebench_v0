@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest import mock
 
 from sql_rewrite_bench.case_selection import SelectedCaseEngineRow
-from sql_rewrite_bench.engine_execution import execute_engine_case
+from sql_rewrite_bench.engine_execution import EngineExecutionResult, execute_engine_case
 from sql_rewrite_bench.postgres_execution import PostgresExecutionResult
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
@@ -110,14 +110,38 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertEqual(result.failure_bucket, FAILURE_NONE)
         self.assertTrue(result.db_execution_attempted)
 
-    def test_router_dispatches_mysql_to_fail_closed_stub(self) -> None:
+    def test_router_dispatches_mysql_to_same_engine_executor(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             workspace = root / "runs" / "user" / "router" / "workspaces" / "PERF_0006" / "mysql"
+            execution_dir = workspace / "execution" / "mysql_same_engine"
             candidate_sql = workspace / "candidate.sql"
             candidate_sql.parent.mkdir(parents=True)
             candidate_sql.write_text("select 1;\n", encoding="utf-8")
-            with mock.patch("sql_rewrite_bench.engine_execution.execute_postgres_case") as postgres:
+            mysql_result = EngineExecutionResult(
+                source_execution_status=EXECUTION_STATUS_SOURCE_SUCCESS,
+                candidate_execution_status=EXECUTION_STATUS_CANDIDATE_SUCCESS,
+                source_result_path=execution_dir / "source_result.jsonl",
+                candidate_result_path=execution_dir / "candidate_result.jsonl",
+                db_artifact_dir=execution_dir,
+                failure_bucket=FAILURE_NONE,
+                execution_failure_class="",
+                notes="mysql ok",
+                engine="mysql",
+                case_id="PERF_0006",
+                pool="PERF",
+                denominator_id="PERF_0006__mysql",
+                schema_setup_status="schema_setup_success",
+                db_execution_attempted=True,
+                source_executable=True,
+                candidate_executable=True,
+                required_backend="mysql",
+                backend_status="available",
+            )
+            with mock.patch("sql_rewrite_bench.engine_execution.execute_postgres_case") as postgres, mock.patch(
+                "sql_rewrite_bench.mysql_execution.execute_mysql_case",
+                return_value=mysql_result,
+            ) as mysql_case:
                 result = execute_engine_case(
                     repo_root=root,
                     run_id="router",
@@ -129,16 +153,12 @@ class EngineExecutionRouterTests(unittest.TestCase):
                 )
 
         postgres.assert_not_called()
+        mysql_case.assert_called_once()
         self.assertEqual(result.engine, "mysql")
-        self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
-        self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_UNSUPPORTED)
-        self.assertEqual(result.failure_bucket, FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(
-            result.execution_failure_class,
-            "mysql_same_engine_execution_not_implemented",
-        )
-        self.assertIn("no PostgreSQL fallback", result.notes)
-        self.assertFalse(result.db_execution_attempted)
+        self.assertEqual(result.source_execution_status, EXECUTION_STATUS_SOURCE_SUCCESS)
+        self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_CANDIDATE_SUCCESS)
+        self.assertEqual(result.failure_bucket, FAILURE_NONE)
+        self.assertTrue(result.db_execution_attempted)
 
     def test_router_dispatches_spark_to_fail_closed_stub(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -191,26 +211,55 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertEqual(result.execution_failure_class, "unsupported_engine")
         self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
 
-    def test_user_run_mysql_db_execution_fails_closed_without_checker(self) -> None:
+    def test_user_run_mysql_db_execution_uses_same_engine_result_without_checker(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             case_list = _case_list(Path(temp_dir), "PERF_0006")
-            out = _unique_out("unittest_u7_mysql_fail_closed")
+            out = _unique_out("unittest_u7_mysql_same_engine")
             self.addCleanup(shutil.rmtree, REPO_ROOT / out, ignore_errors=True)
-            summary = run_user_benchmark(_args(out, case_list, engine="mysql"), REPO_ROOT)
+            execution_dir = REPO_ROOT / out / "workspaces" / "PERF_0006" / "mysql" / "execution" / "mysql_same_engine"
+            source_result = execution_dir / "source_result.jsonl"
+            candidate_result = execution_dir / "candidate_result.jsonl"
+            execution_dir.mkdir(parents=True, exist_ok=True)
+            source_result.write_text('{"answer": "42"}\n', encoding="utf-8")
+            candidate_result.write_text('{"answer": "42"}\n', encoding="utf-8")
+            mysql_result = EngineExecutionResult(
+                source_execution_status=EXECUTION_STATUS_SOURCE_SUCCESS,
+                candidate_execution_status=EXECUTION_STATUS_CANDIDATE_SUCCESS,
+                source_result_path=source_result,
+                candidate_result_path=candidate_result,
+                db_artifact_dir=execution_dir,
+                failure_bucket=FAILURE_NONE,
+                execution_failure_class="",
+                notes="mysql ok",
+                engine="mysql",
+                case_id="PERF_0006",
+                pool="PERF",
+                denominator_id="PERF_0006__mysql",
+                schema_setup_status="schema_setup_success",
+                db_execution_attempted=True,
+                source_executable=True,
+                candidate_executable=True,
+                required_backend="mysql",
+                backend_status="available",
+            )
+            with mock.patch(
+                "sql_rewrite_bench.user_run.execute_engine_case",
+                return_value=mysql_result,
+            ):
+                summary = run_user_benchmark(_args(out, case_list, engine="mysql"), REPO_ROOT)
 
         self.assertEqual(summary["selected_rows"], 1)
-        self.assertEqual(summary["source_execution_success_rows"], 0)
-        self.assertEqual(summary["candidate_execution_success_rows"], 0)
+        self.assertEqual(summary["source_execution_success_rows"], 1)
+        self.assertEqual(summary["candidate_execution_success_rows"], 1)
         with (REPO_ROOT / out / "ledger.csv").open(newline="", encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
         self.assertEqual(rows[0]["engine"], "mysql")
-        self.assertEqual(rows[0]["execution_status"], EXECUTION_STATUS_UNSUPPORTED)
-        self.assertEqual(rows[0]["failure_bucket"], FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(
-            rows[0]["execution_failure_class"],
-            "mysql_same_engine_execution_not_implemented",
-        )
-        self.assertFalse((REPO_ROOT / out / "workspaces" / "PERF_0006" / "mysql" / "checker").exists())
+        self.assertEqual(rows[0]["source_reference_engine"], "mysql")
+        self.assertEqual(rows[0]["target_candidate_engine"], "mysql")
+        self.assertEqual(rows[0]["execution_status"], EXECUTION_STATUS_CANDIDATE_SUCCESS)
+        self.assertEqual(rows[0]["failure_bucket"], FAILURE_NONE)
+        self.assertEqual(rows[0]["backend_status"], "available")
+        self.assertTrue((REPO_ROOT / out / "workspaces" / "PERF_0006" / "mysql" / "checker").exists())
 
 
 if __name__ == "__main__":

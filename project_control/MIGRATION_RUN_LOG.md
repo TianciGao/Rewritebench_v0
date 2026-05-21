@@ -12069,3 +12069,52 @@ Validation:
 
 Next safe action:
 - Return to the main user-entry roadmap; authorize any MySQL same-engine backend or real PORT adapter evaluation separately, without timing, official metrics, reports/results updates, retained-evidence promotion, leaderboard output, denominator changes, paper-result changes, or release tag/export branch creation.
+
+## 2026-05-21 - mysql_same_engine_backend_v0
+
+MySQL same-engine backend completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic backend implementation only.
+
+Summary:
+- Same-engine `--engine mysql` rows now execute source SQL and adapter-generated candidate SQL through the MySQL backend.
+- MySQL schema assets are resolved explicitly from manifest external schema metadata under `engines.mysql`; PostgreSQL schema assets are not used as fallback.
+- Same-engine MySQL artifacts are written under `execution/mysql_same_engine/` with redacted metadata.
+- Existing PORT cross-dialect MySQL source-reference artifacts remain under `execution/mysql_source/`.
+- Spark remains deferred/fail-closed.
+
+Live smoke:
+- PostgreSQL environment ready: yes.
+- MySQL environment ready: yes.
+- Selected live smoke cases: `PERF_0006`, `CONS_0005`.
+- MySQL same-engine source executable rows: 2.
+- MySQL same-engine candidate executable rows: 2.
+- Checker attempted rows: 2.
+- Exact rows: 2.
+- Mismatch rows: 0.
+- Failure buckets: `none=2`.
+
+Regression and validation:
+- PORT cross-dialect controlled regression preserved: MySQL source-reference executable 5, PostgreSQL target-candidate executable 5, checker attempted 5, exact 5, mismatch 0.
+- PostgreSQL public smoke dry-run and adapter-capture checks passed.
+- Targeted MySQL/router/checker tests passed: 31 passed.
+- Full `tests/user_entry` passed: 102 passed, 2 skipped.
+- Common-core v2 static case-package reference validation passed for 40/40 case paths.
+
+Boundary:
+- SQL files modified: no.
+- Manifest files modified: no.
+- Schema, checker, and validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Review the MySQL same-engine backend and audit packet; authorize any broader live MySQL coverage separately, keeping timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, and leaderboard output out of scope.
