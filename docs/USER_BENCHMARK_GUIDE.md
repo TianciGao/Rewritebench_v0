@@ -115,6 +115,45 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run \
 
 示例 adapter 会把 source SQL 复制到 candidate 路径。这些 smoke 输出仍然只是本地诊断。
 
+## 可读性与检查命令
+
+以下命令用于运行前检查和解释。它们不会调用 adapter，不会创建 `runs/user/...` 输出，不会执行 DB/checker，不会计算官方指标，不会更新 `reports/` 或 `results/`，也不会创建 leaderboard。
+
+列出 `Common-core v0` case packages：
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --list-cases
+```
+
+按 pool 过滤：
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --list-cases
+```
+
+解释 smoke 选择：
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+  --case-set common_core_v0 \
+  --engine postgres \
+  --smoke \
+  --explain-selection
+```
+
+查看本地 user-run 输出 schema：
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
+```
+
+这些 schema 是本地诊断输出说明，不是 official metrics、paper tables、retained evidence、reports/results updates 或 leaderboard input。
+
 ## Adapter 示例
 
 公开的 no-op 示例 adapter 会把确定性的 candidate SQL 写入 runner 提供的路径：
@@ -243,6 +282,9 @@ User-run 输出只是本地实验输出。它们不是 retained paper evidence�
 - `summary.json`：本地诊断计数和边界标志。
 - `failures.csv`：`failure_bucket` 不为 `none` 的行。
 - `report.md`：本地报告，包含 selected scope、diagnostic funnel、failure buckets、artifact links 和 warnings。
+- `quality_summary.json`：从 `ledger.csv` 汇总出的本地 denominator-aware diagnostic funnel。
+- `quality_report.md`：`quality_summary.json` 的人类可读本地诊断报告，不是 paper table。
+- `tag_slices.csv`：基于 retained manifest/taxonomy tags 的本地 diagnostic slices，不是 tag score 或 ranking。
 
 ## 当前限制
 

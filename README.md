@@ -38,6 +38,18 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run \
   --out runs/user/smoke_dummy_adapter
 ```
 
+## 查看 case 和输出 schema
+
+在运行 adapter 之前，可以先查看受控 case-set、解释本次选择，或查看本地输出 schema：
+
+```bash
+PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --list-cases
+PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --explain-selection
+PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
+```
+
+这些命令只读取 case-set metadata 或打印本地输出说明，不调用 adapter，不创建 `runs/user/...` 输出，不执行 DB/checker，也不计算官方指标。
+
 ## 用户算法适配器
 
 - runner 通过环境变量把 source SQL 路径、case 信息和 candidate 输出路径传给 adapter。

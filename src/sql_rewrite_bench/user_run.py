@@ -22,13 +22,18 @@ from .case_package_resolver import ResolvedCasePackage, resolve_case_package
 from .case_selection import (
     ALLOWED_ENGINES,
     ALLOWED_POOLS,
+    CaseInventoryRow,
     SelectedCaseEngineRow,
+    common_core_case_ids,
+    read_case_list,
+    read_common_core_case_inventory,
     repo_root_from_module,
     resolve_common_core_selection,
 )
 from .local_result_checker import run_local_checker
 from .postgres_execution import execute_postgres_case
 from .tag_slices import build_tag_slice_rows, write_tag_slices
+from .user_output_schema import output_schema_text
 from .user_ledger import (
     apply_candidate_preflight_result,
     dry_run_ledger_for_row,
@@ -69,17 +74,20 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run a user SQL rewrite adapter over selected Common-core rows."
     )
-    parser.add_argument("--case-set", required=True, choices=["common_core_v0"])
+    parser.add_argument("--case-set", choices=["common_core_v0"])
     parser.add_argument("--pool", default="all", choices=sorted(ALLOWED_POOLS | {"all"}))
-    parser.add_argument("--engine", required=True, choices=sorted(ALLOWED_ENGINES | {"all"}))
+    parser.add_argument("--engine", choices=sorted(ALLOWED_ENGINES | {"all"}))
     parser.add_argument("--case-list", type=Path, default=None)
     parser.add_argument(
         "--smoke",
         action="store_true",
         help="Select a deterministic tiny Common-core smoke subset: PERF_0006 and CONS_0005.",
     )
-    parser.add_argument("--adapter-command", required=True)
-    parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--list-cases", action="store_true")
+    parser.add_argument("--explain-selection", action="store_true")
+    parser.add_argument("--show-output-schema", action="store_true")
+    parser.add_argument("--adapter-command")
+    parser.add_argument("--out", type=Path)
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--adapter-timeout", type=int, default=120)
     parser.add_argument(
@@ -101,6 +109,29 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--execution-timeout-sec", type=int, default=30)
     parser.add_argument("--db-schema-prefix", default="sqlrb_user")
     return parser.parse_args(argv)
+
+
+def _require_case_set(args: argparse.Namespace) -> str:
+    if not args.case_set:
+        raise ValueError("--case-set is required for this command")
+    return args.case_set
+
+
+def _require_normal_run_args(args: argparse.Namespace) -> None:
+    missing = [
+        flag
+        for flag, value in [
+            ("--case-set", args.case_set),
+            ("--engine", args.engine),
+            ("--adapter-command", args.adapter_command),
+            ("--out", args.out),
+        ]
+        if value in {None, ""}
+    ]
+    if missing:
+        raise ValueError(
+            "normal user runs require " + ", ".join(missing)
+        )
 
 
 def _utc_now_iso() -> str:
@@ -170,6 +201,98 @@ def _selected_case_rows(
         }
         for row in selected
     ]
+
+
+def _list_cases_text(rows: list[CaseInventoryRow]) -> str:
+    output_rows = [
+        {
+            "case_id": row.case_id,
+            "pool": row.pool,
+            "case_path": row.case_path,
+            "common_core_v0_member": row.common_core_v0_member,
+            "denominator_eligible": row.denominator_eligible,
+            "planned_engines": ",".join(row.planned_engines) or "none",
+            "planned_row_count": str(row.planned_row_count),
+        }
+        for row in rows
+    ]
+    return _format_table(
+        output_rows,
+        [
+            "case_id",
+            "pool",
+            "case_path",
+            "common_core_v0_member",
+            "denominator_eligible",
+            "planned_engines",
+            "planned_row_count",
+        ],
+    )
+
+
+def _explain_selection_text(
+    *,
+    repo_root: Path,
+    args: argparse.Namespace,
+    selected: list[SelectedCaseEngineRow],
+) -> str:
+    case_set = _require_case_set(args)
+    selected_case_ids = {row.case_id for row in selected}
+    case_list_filter_applied = args.case_list is not None
+    requested_cases = read_case_list(args.case_list) if args.case_list else set()
+    case_set_ids = common_core_case_ids(repo_root=repo_root, case_set=case_set)
+    outside_case_set = sorted(requested_cases - case_set_ids)
+    requested_not_selected = sorted(requested_cases - selected_case_ids - set(outside_case_set))
+    pool_counts = Counter(row.pool for row in selected)
+    engine_counts = Counter(row.engine for row in selected)
+    lines = [
+        "Selection explanation",
+        f"case_set: {case_set}",
+        f"pool_filter: {args.pool}",
+        f"engine_filter: {args.engine or 'all'}",
+        f"smoke_subset_applied: {str(bool(getattr(args, 'smoke', False))).lower()}",
+        f"case_list_filter_applied: {str(case_list_filter_applied).lower()}",
+        f"selected_rows: {len(selected)}",
+        f"selected_unique_cases: {len(selected_case_ids)}",
+        "pool_distribution:",
+    ]
+    lines.extend(_count_lines(pool_counts))
+    lines.append("engine_distribution:")
+    lines.extend(_count_lines(engine_counts))
+    lines.append(
+        "requested_case_ids_outside_case_set: "
+        + (",".join(outside_case_set) if outside_case_set else "none")
+    )
+    lines.append(
+        "requested_case_ids_not_selected: "
+        + (",".join(requested_not_selected) if requested_not_selected else "none")
+    )
+    lines.append("adapter_invoked: false")
+    lines.append("run_outputs_created: false")
+    lines.append("local_diagnostic_only: true")
+    return "\n".join(lines)
+
+
+def _count_lines(counts: Counter[str]) -> list[str]:
+    if not counts:
+        return ["- none: 0"]
+    return [f"- {key}: {counts[key]}" for key in sorted(counts)]
+
+
+def _format_table(rows: list[dict[str, str]], fields: list[str]) -> str:
+    if not rows:
+        return "No rows selected."
+    widths = {
+        field: max(len(field), *(len(row[field]) for row in rows))
+        for field in fields
+    }
+    header = "  ".join(field.ljust(widths[field]) for field in fields)
+    separator = "  ".join("-" * widths[field] for field in fields)
+    body = [
+        "  ".join(row[field].ljust(widths[field]) for field in fields)
+        for row in rows
+    ]
+    return "\n".join([header, separator, *body])
 
 
 def _apply_candidate_preflight_for_row(
@@ -496,6 +619,7 @@ def _write_report(
 
 
 def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, object]:
+    _require_normal_run_args(args)
     enable_db_execution = bool(getattr(args, "enable_db_execution", False))
     enable_checker = bool(getattr(args, "enable_checker", False))
     if enable_checker and not enable_db_execution:
@@ -641,6 +765,32 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     repo_root = repo_root_from_module()
     try:
+        if args.show_output_schema:
+            print(output_schema_text(), end="")
+            return 0
+        if args.list_cases:
+            case_set = _require_case_set(args)
+            rows = read_common_core_case_inventory(
+                repo_root=repo_root,
+                case_set=case_set,
+                pool=args.pool,
+                engine=args.engine or "all",
+            )
+            print(_list_cases_text(rows))
+            return 0
+        if args.explain_selection:
+            case_set = _require_case_set(args)
+            selected = resolve_common_core_selection(
+                repo_root=repo_root,
+                case_set=case_set,
+                pool=args.pool,
+                engine=args.engine or "all",
+                case_list=args.case_list,
+                smoke=bool(getattr(args, "smoke", False)),
+            )
+            print(_explain_selection_text(repo_root=repo_root, args=args, selected=selected))
+            if not args.adapter_command and not args.out:
+                return 0
         summary = run_user_benchmark(args, repo_root)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)

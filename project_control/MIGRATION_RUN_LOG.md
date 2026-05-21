@@ -10587,3 +10587,82 @@ Task result:
 
 Next safe action:
 - Human review of U5 tag slices, then authorize U6 user readability enhancements or defer to the next approved user-entry phase.
+
+### 2026-05-21 · U6 add user-entry readability commands for case listing, selection explanation, and output schema
+
+Mode: user-readability implementation; command-only inspection helpers; no timing; no speedup; no official metrics; no paper rendering; no retained-evidence parsing; no reports/results update; no full paper reproduction CLI; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Added `--list-cases` to list Common-core cases from `case_sets/common_core_v0/` metadata without scanning `cases/`.
+- Added `--explain-selection` to explain selected case-engine rows, pool/engine distribution, smoke state, case-list filtering, and missing/outside-case-set IDs.
+- Added `--show-output-schema` to print local user-run output schema descriptions and local-only boundaries.
+- Added `src/sql_rewrite_bench/user_output_schema.py`.
+- Updated `README.md` and `docs/USER_BENCHMARK_GUIDE.md` with concise command documentation.
+- Added `tests/user_entry/test_readability_commands.py`.
+- Created `audits/user_entry_readability_v0/`.
+
+Files created:
+- `src/sql_rewrite_bench/user_output_schema.py`
+- `tests/user_entry/test_readability_commands.py`
+- `audits/user_entry_readability_v0/README.md`
+- `audits/user_entry_readability_v0/command_examples.md`
+- `audits/user_entry_readability_v0/behavior_preservation_results.csv`
+- `audits/user_entry_readability_v0/test_results.md`
+- `audits/user_entry_readability_v0/protected_surface_check.md`
+- `audits/user_entry_readability_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/case_selection.py`
+- `README.md`
+- `docs/USER_BENCHMARK_GUIDE.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- `PYTHONPATH=src python -m py_compile src/sql_rewrite_bench/user_run.py src/sql_rewrite_bench/case_selection.py src/sql_rewrite_bench/user_run_schema.py src/sql_rewrite_bench/user_output_schema.py`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --list-cases`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --pool PERF --list-cases`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --explain-selection`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema`: passed.
+- Public smoke dry-run: passed, selected_rows=2, candidate_generated_rows=0.
+- Public smoke adapter-capture: passed, selected_rows=2, candidate_generated_rows=2.
+- Quality/tag output inspection: passed for `quality_summary.json` and `tag_slices.csv`.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 65 passed and 1 skipped.
+- CSV parse checks: passed for 1 new CSV file.
+- Protected-surface diff check: passed.
+- Run-output cleanup check: passed; `runs/user/u6_readability_dry_run` and `runs/user/u6_readability_dummy_adapter` removed before commit.
+- Command-only helper output check: passed; no run output directories created by `--list-cases`, `--explain-selection`, or `--show-output-schema`.
+
+Commit hash:
+- Pending until commit.
+
+Push result:
+- Pending until push.
+
+Task result:
+- U6 readability enhancements implemented: yes.
+- Commands added: `--list-cases`, `--explain-selection`, `--show-output-schema`.
+- Scripts modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- Live DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Tag score/ranking created by this task: no.
+- Global leaderboard created: no.
+
+Next safe action:
+- Human review of U6 readability command output, then authorize U7 engine execution router and MySQL/Spark fail-closed interface design if accepted.
