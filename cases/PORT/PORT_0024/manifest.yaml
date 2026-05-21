@@ -79,6 +79,30 @@ evidence_policy:
   static_case_evidence: not_required
   regeneration_policy: regenerable_by_validation_and_report_scripts
   retained_static_artifacts: none
+local_diagnostic:
+  schema_version: port_cross_dialect_diagnostic_v0
+  diagnostic_mode: cross_dialect_reference
+  source_reference:
+    role: source_reference
+    engine: mysql
+    query: sql/source.sql
+  target_candidate:
+    role: adapter_output
+    engine: postgres
+  target_reference:
+    role: positive_reference
+    engine: postgres
+    query: sql/pos_01.sql
+    use_for_checker_oracle: false
+    use_for_sanity_control: true
+  checker:
+    comparison: source_reference_result_to_target_candidate_result
+  boundary:
+    local_diagnostic_only: true
+    official_metric_input: false
+    paper_result_input: false
+    reports_results_update: false
+    leaderboard_input: false
 status: converted_v2_clean_template_with_nonblocking_provenance_caveat
 known_caveats:
 - draft_origin_not_explicitly_recovered_nonblocking

@@ -11610,3 +11610,76 @@ Task result:
 
 Next safe action:
 - Authorize P2 metadata-only manifest patches for all 9 Common-core PORT cases after reviewing this design; do not edit SQL, runner code, metrics, reports/results, or denominators in P2.
+
+### 2026-05-21 · P2 add PORT local-diagnostic role metadata to all Common-core PORT manifests
+
+Mode: metadata-only manifest patching; no SQL edits; no source code changes; no MySQL/Spark implementation; no cross-dialect runner behavior implementation; no live DB/checker execution; no official metrics; no timing/speedup; no paper rendering; no reports/results migration; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Patched all 9 Common-core PORT manifests with additive `local_diagnostic` role metadata.
+- Assigned `diagnostic_mode: same_engine` to `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012`.
+- Assigned `diagnostic_mode: cross_dialect_reference` to `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Cross-dialect cases declare `source_reference.engine: mysql`, `source_reference.query: sql/source.sql`, `target_candidate.engine: postgres`, and optional `target_reference` as PostgreSQL `positive_reference` / sanity control only.
+- Same-engine cases declare PostgreSQL source-reference and target-candidate roles and omit `target_reference`.
+- `pos_01.sql` was not made a source oracle.
+- MySQL source-side execution remains future required implementation for MySQL-like source references.
+- Spark remains deferred.
+
+Manifest files modified:
+- `cases/PORT/PORT_0003/manifest.yaml`
+- `cases/PORT/PORT_0004/manifest.yaml`
+- `cases/PORT/PORT_0005/manifest.yaml`
+- `cases/PORT/PORT_0008/manifest.yaml`
+- `cases/PORT/PORT_0012/manifest.yaml`
+- `cases/PORT/PORT_0013/manifest.yaml`
+- `cases/PORT/PORT_0022/manifest.yaml`
+- `cases/PORT/PORT_0024/manifest.yaml`
+- `cases/PORT/PORT_0025/manifest.yaml`
+
+Files created:
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/README.md`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/patched_port_manifest_summary.csv`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/manifest_diff_review.md`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/non_port_regression_check.md`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/future_p3_runner_consumption_prompt.md`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/protected_surface_check.md`
+- `audits/port_cross_dialect_manifest_metadata_patch_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- YAML parse checks for all 9 patched manifests: passed.
+- Static local-diagnostic semantic checks for all 9 patched manifests: passed.
+- Static v2 case-package validator: 31/40 Common-core cases passed; the 9 patched PORT cases failed only because the current validator does not yet whitelist the new top-level `local_diagnostic` block (`local_diagnostic: unapproved top-level key`). Source/test validator updates are deferred because P2 is metadata-only.
+- Legacy canonical-case validator: non-applicable to the current clean v2 layout; it still expects v1-era paths intentionally absent from clean v2 packages.
+- Changed-file checks passed: exactly 9 PORT manifests changed; no SQL files changed; no non-PORT manifests changed; `case_sets/`, reports/results, and denominator scaffolds unchanged.
+- CSV and Markdown checks for audit files: passed.
+- Protected-surface status check: passed.
+- `runs/user/` check: no output created by this task.
+
+Task result:
+- P2 PORT manifest metadata patch completed: yes.
+- All 9 PORT manifests patched: yes.
+- SQL files modified: no.
+- Runner/source code modified: no.
+- Non-PORT manifests modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Authorize P3 runner metadata consumption and static validator support as a separate fail-closed task; do not implement MySQL execution, SQL edits, official metrics, timing, reports/results, or leaderboard unless separately approved.
