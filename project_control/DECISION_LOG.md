@@ -702,3 +702,35 @@ Impact:
 - User-run outputs remain local diagnostics under `runs/user/{run_name}/`.
 - `case_sets/common_core_v0/` remains the source of Common-core membership and denominator rows.
 - Official metrics, paper table rendering, retained-evidence adapter integration, reports/results migration, denominator changes, paper-result changes, and global leaderboard creation require separate authorization.
+
+## D030: Release-surface metadata policy decisions before skeleton implementation
+
+Decision:
+
+The initial public-release repository license policy is `Apache-2.0`.
+
+Citation metadata may use safe placeholders in a future `CITATION.cff`; DOI, author order, and institutional metadata must not be invented.
+
+Contribution policy will be conservative: external contributions may propose documentation fixes, adapter examples, and issue reports, but must not silently change Common-core membership, denominator definitions, official metrics, reports/results, retained evidence, case sets, or benchmark claims.
+
+The current Chinese top-level README may remain on this construction branch, but an English primary README or bilingual public entrypoint is required before final VLDB/public artifact release.
+
+Future `benchmark_spec/` skeleton files are limited to public v0 scope and must preserve Common-core v0 membership, Track A denominator, case-package benchmark unit, role-aware and denominator-aware reporting, no global leaderboard, hard-negative checker-control boundaries, no current `SpeedupTransferRate`, and verifier-support boundaries.
+
+Future `reports/` and `results/` boundary README files may document public-release boundaries only; they must not generate, migrate, or update paper results.
+
+No release tag or export branch is authorized yet.
+
+Official metrics, paper rendering, retained-evidence adapter integration, reports/results updates, timing/speedup computation, and global leaderboard output remain unauthorized.
+
+Reason:
+
+The release-surface metadata readiness audit concluded `ready_with_policy_decisions`. Recording these decisions before skeleton implementation prevents public metadata files from silently choosing license, citation, contribution, report/result, benchmark-spec, language, or release mechanics policies.
+
+Impact:
+
+- A later metadata-only task may create `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, `benchmark_spec/`, `reports/README.md`, and `results/README.md` only within these boundaries.
+- Future citation metadata must use `TBD` or empty placeholders where final paper metadata is unavailable.
+- Future contribution documentation must protect case membership, denominators, official metrics, reports/results, retained evidence, case sets, and benchmark claims from silent changes.
+- Release tag/export branch creation remains deferred until final public-release closeout passes.
+- This decision does not authorize metrics implementation, paper rendering, reports/results migration, denominator changes, paper-result changes, case membership changes, raw retained evidence changes, DB/checker execution, timing/speedup computation, or leaderboard creation.

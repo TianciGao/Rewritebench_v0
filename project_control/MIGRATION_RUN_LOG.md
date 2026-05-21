@@ -10982,3 +10982,72 @@ Task result:
 
 Next safe action:
 - Collect maintainer policy decisions for license, citation, contribution policy, README language posture, benchmark-spec wording, reports/results boundary, and release branch/tag policy before metadata skeleton implementation.
+
+### 2026-05-21 · Record release-surface policy decisions before metadata skeleton implementation
+
+Mode: project-control policy recording only; no metadata skeleton creation; no source changes; no metrics; no paper rendering; no reports/results update; no release tag/export branch; no global leaderboard
+Legacy repo modified: no
+Release repo modified: yes
+
+Summary:
+- Created `project_control/RELEASE_SURFACE_POLICY_DECISIONS.md`.
+- Recorded Apache-2.0 as the initial repository license policy.
+- Recorded citation, contribution, README language, benchmark_spec, reports/results, release branch/tag, timing, metrics, and reproduction boundaries.
+- Added durable decision D030 to `project_control/DECISION_LOG.md`.
+- Created `audits/release_surface_policy_decisions_v0/`.
+- No `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, `benchmark_spec/`, `reports/`, or `results/` files were created or modified.
+
+Files created:
+- `project_control/RELEASE_SURFACE_POLICY_DECISIONS.md`
+- `audits/release_surface_policy_decisions_v0/README.md`
+- `audits/release_surface_policy_decisions_v0/decision_summary.csv`
+- `audits/release_surface_policy_decisions_v0/implementation_next_steps.md`
+- `audits/release_surface_policy_decisions_v0/protected_surface_check.md`
+- `audits/release_surface_policy_decisions_v0/command_log.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `git diff --check`: passed.
+- Markdown sanity checks: passed.
+- CSV parse checks: passed.
+- Protected-surface diff check: passed.
+
+Task result:
+- Policy decisions file created: yes.
+- Decision log updated: yes, D030 `Release-surface metadata policy decisions before skeleton implementation`.
+- License decision recorded: Apache-2.0.
+- Citation decision recorded: placeholder-safe; no DOI/author details invented.
+- Contribution policy decision recorded: conservative.
+- README language posture recorded: Chinese acceptable on construction branch; English or bilingual entrypoint required before final public artifact.
+- benchmark_spec scope decision recorded: public v0 only.
+- reports/results boundary decision recorded: boundary README only in future skeleton task; no result generation or migration.
+- Release branch/tag decision recorded: no tag/export branch yet.
+- Source code modified: no.
+- Scripts modified: no.
+- Tests modified: no.
+- Docs outside `project_control` modified: no.
+- Examples modified: no.
+- Cases/manifests/schema/checker/validation/sql modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- benchmark_spec changed: no.
+- LICENSE/CITATION/CONTRIBUTING created: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed by this task: no.
+- Paper tables rendered by this task: no.
+- DB/checker execution run by this task: no.
+- Timing/speedup computed by this task: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Commit hash: pending at commit time; final hash reported in task closeout.
+- Push result: pending at commit time; final push result reported in task closeout.
+
+Next safe action:
+- Authorize metadata-only skeleton implementation for `LICENSE`, placeholder-safe `CITATION.cff`, conservative `CONTRIBUTING.md`, public-v0 `benchmark_spec/`, and reports/results boundary README files.
