@@ -12177,3 +12177,54 @@ Validation:
 
 Next safe action:
 - Review the four PORT MySQL source-execution failures and five cross-dialect `engine=mysql` fail-closed rows before authorizing any broader MySQL/PORT follow-up; keep official metrics, timing, paper rendering, reports/results updates, retained-evidence promotion, and leaderboard output out of scope.
+
+## 2026-05-21 - mysql_same_engine_source_failure_triage_v0
+
+Four MySQL same-engine source-execution failures from the Common-core MySQL local diagnostic trial were triaged on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic triage and audit only.
+
+Environment:
+- MySQL environment ready: yes.
+- PostgreSQL environment ready: yes, but not used by the targeted MySQL rerun.
+- Spark status: deferred/fail-closed.
+
+Targeted rerun:
+- Case set: `common_core_v0`.
+- Engine: `mysql`.
+- Adapter: `python examples/user/noop_adapter.py`.
+- Case list: `PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`.
+- Local output path: `runs/user/mysql_source_failure_triage/`.
+- Selected rows: 4.
+- Candidate generated rows: 4.
+- Candidate preflight passed rows: 4.
+- MySQL source execution attempted/executable/failed rows: 4/0/4.
+- MySQL candidate execution attempted/executable rows: 0/0.
+- Checker attempted/exact/mismatch rows: 0/0/0.
+- Failure buckets: `source_execution_failed=4`.
+
+Triage:
+- Verdict: `legacy_mapping_gap`.
+- The four current `sql/source.sql` files are PostgreSQL-like and fail when executed directly in MySQL.
+- Current MySQL schema/load assets are present and the targeted rerun reached source query execution, so the observed failures are not schema setup, load, candidate execution, checker handoff, output conversion, permission, or backend export failures.
+- Legacy branch `artifact/case-package-contract-alignment-clean` was used as read-only reference only. It contains PostgreSQL source artifacts and MySQL `rewrite_pos_01` target-positive artifacts for the four cases, but no MySQL `source.sql` execution artifacts were found.
+- The old retained evidence therefore suggests PostgreSQL-source to MySQL-target cross-dialect role mapping, not fresh direct MySQL source execution for these four cases.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Legacy repository modified: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Authorize a narrow PORT role-mapping/routing design task for `PORT_0003`, `PORT_0005`, `PORT_0008`, and `PORT_0012` before any implementation; do not edit SQL/schema/case assets or compute metrics/timing/reports-results/leaderboard output in that follow-up.

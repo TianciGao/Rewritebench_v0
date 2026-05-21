@@ -1,0 +1,28 @@
+{
+  "selected_rows": 4,
+  "candidate_generated_rows": 4,
+  "preflight_passed_rows": 4,
+  "mysql_source_execution_attempted_rows": 4,
+  "mysql_source_executable_rows": 0,
+  "mysql_source_failed_rows": 4,
+  "mysql_candidate_execution_attempted_rows": 0,
+  "mysql_candidate_executable_rows": 0,
+  "checker_attempted_rows": 0,
+  "exact_rows": 0,
+  "mismatch_rows": 0,
+  "failure_bucket_counts": {
+    "source_execution_failed": 4
+  },
+  "failed_cases": [
+    "PORT_0003",
+    "PORT_0005",
+    "PORT_0008",
+    "PORT_0012"
+  ],
+  "local_run_output_path": "runs/user/mysql_source_failure_triage/",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false
+}
