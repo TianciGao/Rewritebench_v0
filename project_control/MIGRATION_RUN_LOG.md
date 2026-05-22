@@ -13138,3 +13138,62 @@ Broader SQLGlot trial performed: no.
 
 Next safe action:
 - Keep the current context-free optimize route fail-visible, or authorize a separately named schema-aware SQLGlot route design; do not silently change the existing optimize route.
+
+## 2026-05-22 - common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0
+
+Mode: full-chain local diagnostic snapshot only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Adapter command:
+- `python baselines/sqlglot/sqlglot_user_adapter.py --route noop`
+
+Run paths:
+- `runs/user/common_core_sqlglot_noop_postgres_snapshot`
+- `runs/user/common_core_sqlglot_noop_mysql_snapshot`
+- `runs/user/common_core_sqlglot_noop_spark_snapshot`
+
+Files created:
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/README.md`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/route_summary.csv`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/engine_summary.csv`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/failure_buckets.csv`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/status_summary.json`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/tag_slice_summary.csv`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/command_log.md`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/protected_surface_check.md`
+- `audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit Markdown/CSV/JSON sanity checks, `git diff --check`, and protected-surface checks.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Diagnostic result:
+- Overall planned/selected rows: 120.
+- Overall funnel: adapter invoked 120, candidate generated 115, preflight passed 115, source executable 110, candidate executable 101, checker attempted 101, exact 91, mismatch 10, source-like/no-op 6, unsupported/fail-closed 5.
+- PostgreSQL: selected 40, generated 35, source/candidate/checker/exact/mismatch 35/35/35/35/0; failure buckets `adapter_failed=5`, `none=35`.
+- MySQL: selected 40, generated 40, source/candidate/checker/exact/mismatch 40/39/39/31/8; failure buckets `candidate_execution_failed=1`, `mismatch=8`, `none=31`.
+- Spark: selected 40, generated 40, source/candidate/checker/exact/mismatch 35/27/27/25/2; failure buckets `candidate_execution_failed=8`, `mismatch=2`, `none=25`, `unsupported_engine=5`.
+- Tag slices generated: yes, for all three runs.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+SQLGlot optimize route run: no.
+Adapter behavior changed: no.
+
+Next safe action:
+- Triage the fail-visible SQLGlot noop failures before any broader real-adapter interpretation, keeping same-engine rows, real PORT adapter rows, controlled target-reference rows, and unsupported/fail-closed rows separate.
