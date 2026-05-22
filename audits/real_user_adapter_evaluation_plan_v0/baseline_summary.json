@@ -1,0 +1,56 @@
+{
+  "schema_version": "real_user_adapter_evaluation_plan_v0",
+  "verdict": "ready_for_bounded_local_diagnostic_trial",
+  "design_only": true,
+  "real_user_adapter_run_performed": false,
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "paper_results_changed": false,
+  "denominator_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "retained_evidence_promoted": false,
+  "global_leaderboard_created": false,
+  "release_export_tag_created": false,
+  "baseline": {
+    "postgres_noop": {
+      "exact_rows": 35,
+      "mismatch_rows": 0,
+      "adapter_limitation_failures": 5
+    },
+    "mysql_noop": {
+      "exact_rows": 36,
+      "mismatch_rows": 0,
+      "adapter_limitation_failures": 4
+    },
+    "spark_same_engine": {
+      "exact_rows": 31,
+      "attempted_rows": 31,
+      "mismatch_rows": 0
+    },
+    "port_controlled": {
+      "postgres_target_exact": "5/5",
+      "mysql_target_exact": "4/4",
+      "spark_target_exact": "4/4",
+      "spark_unsupported_fail_closed": 5
+    }
+  },
+  "recommended_smoke_rows": {
+    "postgres": [
+      "PERF_0006",
+      "CONS_0005",
+      "PORT_0004"
+    ],
+    "mysql": [
+      "PERF_0006",
+      "CONS_0005",
+      "PORT_0003"
+    ],
+    "spark": [
+      "PERF_0006",
+      "CONS_0005"
+    ]
+  }
+}

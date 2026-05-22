@@ -12966,3 +12966,44 @@ Release/export/tag created: no.
 
 Next safe action:
 - Authorize a separate real user-adapter evaluation plan if desired, keeping timing, official metrics, paper rendering, reports/results migration, retained-evidence integration, and release/export/tag work separately scoped.
+
+## 2026-05-22 - real_user_adapter_evaluation_plan_v0
+
+Mode: audit/design-only real user-adapter local diagnostic planning.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/real_user_adapter_evaluation_plan_v0/README.md`
+- `audits/real_user_adapter_evaluation_plan_v0/adapter_contract.md`
+- `audits/real_user_adapter_evaluation_plan_v0/trial_scope_matrix.csv`
+- `audits/real_user_adapter_evaluation_plan_v0/status_interpretation.csv`
+- `audits/real_user_adapter_evaluation_plan_v0/output_policy.md`
+- `audits/real_user_adapter_evaluation_plan_v0/evaluation_sequence.md`
+- `audits/real_user_adapter_evaluation_plan_v0/baseline_summary.json`
+- `audits/real_user_adapter_evaluation_plan_v0/protected_surface_check.md`
+- `audits/real_user_adapter_evaluation_plan_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit CSV/JSON/Markdown sanity, `git diff --check`, and protected-surface diff checks.
+- No real user adapter run was performed.
+- No local diagnostic rerun was performed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Real user adapter run performed: no.
+
+Next safe action:
+- Authorize one bounded real adapter smoke with an explicit adapter command, explicit case lists, local `runs/user/` output, and no timing, official metrics, reports/results, retained-evidence promotion, leaderboard, release export, or tag work.
