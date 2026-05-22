@@ -13,7 +13,15 @@ import shutil
 import subprocess
 import sys
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Sequence
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SRC_ROOT = REPO_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from sql_rewrite_bench.spark_execution import inspect_spark_environment  # noqa: E402
 
 POSTGRES_DSN_ENV = "SQLRB_POSTGRES_DSN"
 POSTGRES_LIBPQ_REQUIRED = ("PGHOST", "PGPORT", "PGDATABASE", "PGUSER")
@@ -161,8 +169,13 @@ def _print_mysql(env: Mapping[str, str]) -> None:
 
 def _print_spark(env: Mapping[str, str]) -> None:
     print("Spark")
+    status = inspect_spark_environment(env)
+    print(f"  spark-sql CLI: {'found at ' + status.spark_sql_path if status.spark_sql_path else 'not found'}")
     print(f"  SPARK_LOCAL_IP: {_set_unset('SPARK_LOCAL_IP', env)}")
-    print("  status: deferred/fail-closed; Spark local execution is not implemented")
+    print(f"  SPARK_HOME: {_set_unset('SPARK_HOME', env)}")
+    print(f"  PYSPARK_PYTHON: {_set_unset('PYSPARK_PYTHON', env)}")
+    print(f"  pyspark import: {'available' if status.pyspark_importable else 'unavailable'}")
+    print(f"  backend status: fail-closed/not live implemented ({status.failure_class})")
     print("  probe: skipped")
 
 

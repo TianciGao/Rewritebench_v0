@@ -1,0 +1,9 @@
+area,status,evidence,notes
+backend_skeleton,implemented,src/sql_rewrite_bench/spark_execution.py,"Spark rows fail closed without starting Spark or executing SQL."
+environment_detector,implemented,src/sql_rewrite_bench/spark_execution.py,"Detector checks SPARK_LOCAL_IP, SPARK_HOME, PYSPARK_PYTHON, spark-sql, and pyspark availability."
+engine_router,already_integrated,src/sql_rewrite_bench/engine_execution.py,"Existing engine=spark dispatch now reaches richer fail-closed backend."
+ledger_status,integration_preserved,runs/user/spark_fail_closed_smoke/ledger.csv,"Spark rows record unsupported_engine, required_backend=spark, and backend_status=config_missing in the local smoke."
+quality_report,integration_preserved,runs/user/spark_fail_closed_smoke/quality_report.md,"Quality report generation tolerated fail-closed Spark rows."
+tag_slices,integration_preserved,runs/user/spark_fail_closed_smoke/tag_slices.csv,"Tag slice generation tolerated fail-closed Spark rows."
+live_spark_execution,not_implemented,src/sql_rewrite_bench/spark_execution.py,"No Spark session, schema load, SQL execution, or result export was implemented."
+official_metrics,not_computed,audit_boundary,"No official metrics, timing, reports/results, or leaderboard outputs were produced."

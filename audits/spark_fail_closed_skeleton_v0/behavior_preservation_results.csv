@@ -1,0 +1,9 @@
+behavior,result,evidence,notes
+spark_router_dispatch,pass,tests/user_entry/test_engine_execution_router.py,"engine=spark dispatch reaches Spark backend and does not call PostgreSQL/MySQL."
+spark_no_fake_results,pass,tests/user_entry/test_engine_execution_router.py,"Spark fail-closed backend creates metadata only, not source_result.jsonl or candidate_result.jsonl."
+spark_smoke_fail_closed,pass,runs/user/spark_fail_closed_smoke/summary.json,"Selected 2 rows, generated 2 candidates, failed closed with unsupported_engine=2."
+postgres_behavior_preserved,pass,runs/user/spark_skeleton_pg_smoke/summary.json,"Two-case PostgreSQL DB/checker smoke selected 2 rows and reached exact 2/2."
+mysql_behavior_preserved,pass,runs/user/spark_skeleton_mysql_smoke/summary.json,"Two-case MySQL DB/checker smoke selected 2 rows and reached exact 2/2."
+public_user_entry_smoke,pass,scripts/dev/run_user_entry_ci_smoke.py,"Non-DB public smoke passed and removed its local outputs."
+common_core_validator,pass,scripts/dev/validate_case_package_v2_refs.py,"Validated 40 Common-core case packages with 0 failures."
+reports_results_unchanged,pass,protected_surface_check.md,"No reports/results files changed."

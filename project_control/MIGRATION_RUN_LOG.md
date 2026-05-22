@@ -12458,6 +12458,49 @@ Boundary:
 Next safe action:
 - Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
 
+## 2026-05-22 - spark_fail_closed_skeleton_v0
+
+Spark fail-closed skeleton/environment detector completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic infrastructure only.
+
+Implementation:
+- `src/sql_rewrite_bench/spark_execution.py` now detects Spark readiness signals without starting Spark or importing the Spark runtime.
+- Spark-selected DB execution rows fail closed with explicit local statuses and `unsupported_engine` bucket.
+- Spark execution writes per-row `spark_environment_status.json` metadata only; it does not create source/candidate result artifacts.
+- `scripts/dev/check_local_engine_env.py` now reports `spark-sql`, `SPARK_LOCAL_IP`, `SPARK_HOME`, `PYSPARK_PYTHON`, and `pyspark` import availability, and states that Spark is fail-closed/not live implemented.
+- `docs/LOCAL_ENGINE_SETUP.md` and `scripts/env_spark.example.sh` clarify that Spark settings are preparatory only.
+
+Validation:
+- Environment checker: PostgreSQL ok, MySQL ok, Spark fail-closed/not configured.
+- Spark fail-closed smoke selected 2 rows, generated 2 candidates, produced `unsupported_engine=2`, and did not run checkers.
+- PostgreSQL two-case DB/checker smoke: exact 2/2.
+- MySQL two-case DB/checker smoke: exact 2/2.
+- User-entry unittest suite passed: 115 tests, 2 skipped. `pytest` was unavailable, so unittest was used.
+- Common-core v2 reference validator loop passed: 40/40.
+
+Boundary:
+- Spark live execution implemented: no.
+- Source code modified: yes, Spark skeleton only.
+- Scripts/docs/tests modified: yes, environment checker/template/docs and user-entry tests only.
+- SQL files modified: no.
+- Manifest files modified: no.
+- Schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Authorize only a narrow Spark schema/load resolver or mocked Spark execution contract task, or keep Spark deferred while continuing release planning; live Spark execution, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
+
 ## 2026-05-22 - spark_backend_design_v0
 
 Spark local diagnostic backend design completed on branch `feature/case-package-v2-external-schema`.

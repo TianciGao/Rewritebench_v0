@@ -28,7 +28,7 @@ python scripts/dev/check_local_engine_env.py
 
 ## MySQL
 
-Current MySQL support is bounded to manifest-declared PORT cross-dialect source-reference diagnostics. Same-engine MySQL execution remains fail-closed.
+Current MySQL diagnostics support bounded same-engine local execution and manifest-declared PORT cross-dialect source-reference/target-candidate diagnostics.
 
 The current backend reads:
 
@@ -37,7 +37,7 @@ The current backend reads:
 - `SQLRB_MYSQL_USER`
 - optional `SQLRB_MYSQL_PASSWORD`
 
-The local MySQL user must be allowed to create and drop temporary diagnostic databases. The runner uses temporary database names for source-reference diagnostics and removes them during cleanup.
+The local MySQL user must be allowed to create and drop temporary diagnostic databases. The runner uses temporary database names for local diagnostics and removes them during cleanup.
 
 Example setup:
 
@@ -50,9 +50,11 @@ python scripts/dev/check_local_engine_env.py
 
 ## Spark
 
-Spark local execution remains deferred and fail-closed in the current user-entry path. There is no implemented Spark backend for local diagnostics in this release-construction branch.
+Spark local execution remains deferred and fail-closed in the current user-entry path. This branch includes only a Spark environment detector and fail-closed execution skeleton; it does not implement live Spark SQL execution.
 
-`SPARK_LOCAL_IP` may be useful for future local Spark diagnostics, so `scripts/env_spark.example.sh` documents it as a placeholder only. Setting it does not enable Spark SQL execution.
+`SPARK_LOCAL_IP`, `SPARK_HOME`, and `PYSPARK_PYTHON` may be useful for future local Spark diagnostics, so `scripts/env_spark.example.sh` documents them as preparatory settings only. Setting them does not enable Spark SQL execution.
+
+When `--engine spark --enable-db-execution` is selected, Spark rows fail closed with local diagnostic statuses until a future live Spark backend is authorized. PostgreSQL and MySQL remain the current live local diagnostic backends.
 
 ## Convenience Sourcing
 
