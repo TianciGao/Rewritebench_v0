@@ -1,0 +1,64 @@
+{
+  "schema_version": "sqlglot_optimize_cons0005_triage_v0",
+  "case_id": "CONS_0005",
+  "route": "sqlglot_optimize",
+  "sqlglot_version": "30.2.1",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "paper_results_changed": false,
+  "denominator_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "retained_evidence_promoted": false,
+  "global_leaderboard_created": false,
+  "release_export_tag_created": false,
+  "runs_user_outputs_committed": false,
+  "broader_optimize_trial_performed": false,
+  "source_sql": "SELECT i, j FROM table1 WHERE table1.j NOT IN (SELECT i FROM table2 WHERE table1.i = table2.j);",
+  "user_run_artifacts": {
+    "postgres": {
+      "run_path": "runs/user/sqlglot_optimize_pg_bounded_smoke",
+      "candidate_path": "runs/user/sqlglot_optimize_pg_bounded_smoke/candidate_sql/CONS_0005__postgres.sql",
+      "source_execution_status": "source_execution_success",
+      "candidate_execution_status": "candidate_execution_failed",
+      "checker_status": "checker_not_enabled",
+      "failure_bucket": "candidate_execution_failed",
+      "failing_reference": "\"table1\".\"table2\".\"i\""
+    },
+    "mysql": {
+      "run_path": "runs/user/sqlglot_optimize_mysql_bounded_smoke",
+      "candidate_path": "runs/user/sqlglot_optimize_mysql_bounded_smoke/candidate_sql/CONS_0005__mysql.sql",
+      "source_execution_status": "source_execution_success",
+      "candidate_execution_status": "candidate_execution_failed",
+      "checker_status": "checker_not_enabled",
+      "failure_bucket": "candidate_execution_failed",
+      "failing_reference": "`table1`.`table2`.`i`"
+    },
+    "spark": {
+      "run_path": "runs/user/sqlglot_optimize_spark_bounded_smoke",
+      "candidate_path": "runs/user/sqlglot_optimize_spark_bounded_smoke/candidate_sql/CONS_0005__spark.sql",
+      "source_execution_status": "source_execution_success",
+      "candidate_execution_status": "candidate_execution_failed",
+      "checker_status": "checker_not_enabled",
+      "failure_bucket": "candidate_execution_failed",
+      "failing_reference": "`table1`.`table2`.`i`"
+    }
+  },
+  "failure_shape": {
+    "only_candidate_execution_failure_shape_confirmed": true,
+    "invalid_reference_structurally_identical_across_dialects": true,
+    "byte_identical_across_dialects": false,
+    "dialect_difference": "PostgreSQL emits double-quoted identifiers; MySQL and Spark emit backtick-quoted identifiers.",
+    "category": "context_free_optimizer_qualification_gap",
+    "likely_cause": "SQLGlot optimize was called without schema/catalog context, so qualification in the correlated subquery produced an invalid outer_alias.inner_table.column path."
+  },
+  "experimental_variants": {
+    "parse_emit_only": "succeeds for postgres/mysql/spark and does not emit table1.table2.i",
+    "optimize_without_schema": "succeeds as a transform but emits invalid table1.table2.i for postgres/mysql/spark",
+    "optimize_with_dialect_argument": "same invalid reference as optimize without schema",
+    "optimize_with_schema": "does not emit table1.table2.i, but produces complex dialect-specific rewrites and would change route semantics"
+  },
+  "recommendation": "keep_current_optimize_route_fail_visible_and_consider_future_schema_aware_route"
+}

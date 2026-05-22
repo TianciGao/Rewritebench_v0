@@ -13049,3 +13049,46 @@ Retained evidence promoted: no.
 
 Next safe action:
 - Triage `sqlglot_optimize` on `CONS_0005` before any broader optimize-route trial; keep PORT real-adapter probes separate from controlled target-reference diagnostics and continue to avoid timing, official metrics, reports/results, retained-evidence promotion, leaderboard, release export, or tag work.
+
+## 2026-05-22 - sqlglot_optimize_cons0005_triage_v0
+
+Mode: audit-only SQLGlot optimize failure triage.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/sqlglot_optimize_cons0005_triage_v0/README.md`
+- `audits/sqlglot_optimize_cons0005_triage_v0/reproducer.md`
+- `audits/sqlglot_optimize_cons0005_triage_v0/emitted_candidates.csv`
+- `audits/sqlglot_optimize_cons0005_triage_v0/failure_shape.json`
+- `audits/sqlglot_optimize_cons0005_triage_v0/experimental_variants.md`
+- `audits/sqlglot_optimize_cons0005_triage_v0/recommendation.md`
+- `audits/sqlglot_optimize_cons0005_triage_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_cons0005_triage_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit CSV/JSON/Markdown sanity, `git diff --check`, and protected-surface diff checks.
+- Confirmed `CONS_0005` optimize candidates for PostgreSQL, MySQL, and Spark fail only at candidate execution due invalid `table1.table2.i` qualification shape.
+- Standalone SQLGlot reproducer confirmed parse/emit succeeds, context-free optimize emits the invalid qualification shape, and schema-aware optimize experiments avoid the specific invalid reference while changing route semantics.
+- No `user_run` rerun was performed.
+- No broader optimize trial was performed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Next safe action:
+- Decide whether to document the context-free `sqlglot_optimize` limitation or authorize a separately named schema-aware SQLGlot route design; do not silently change the existing optimize route.
