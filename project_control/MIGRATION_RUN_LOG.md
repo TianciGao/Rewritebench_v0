@@ -13197,3 +13197,56 @@ Adapter behavior changed: no.
 
 Next safe action:
 - Triage the fail-visible SQLGlot noop failures before any broader real-adapter interpretation, keeping same-engine rows, real PORT adapter rows, controlled target-reference rows, and unsupported/fail-closed rows separate.
+
+## 2026-05-22 - common_core_sqlglot_noop_failure_triage_v0
+
+Mode: audit-only failure triage.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/common_core_sqlglot_noop_failure_triage_v0/README.md`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/failure_triage_matrix.csv`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/per_engine_failure_summary.csv`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/port_vs_nonport_summary.csv`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/candidate_examples.md`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/recommendation.md`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/protected_surface_check.md`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/command_log.md`
+- `audits/common_core_sqlglot_noop_failure_triage_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit Markdown/CSV sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output check.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Triage result:
+- PostgreSQL: 5 PORT SQLGlot parse/emit failures before candidate generation.
+- MySQL: 1 PORT candidate execution syntax/runtime failure, 3 PORT real-adapter semantic mismatches, and 5 checker/normalization gap candidates where values matched but expression labels differed.
+- Spark: 6 non-PORT same-engine candidate execution/preflight-backend investigation candidates rejected as not exactly one statement, 2 PORT target candidate execution failures, 2 PORT real-adapter semantic mismatches, and 5 expected unsupported/fail-closed PORT rows.
+- Source execution issue found: no.
+- SQLGlot optimize run: no.
+- Full Common-core rerun: no.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Benchmark code patched: no.
+SQLGlot adapter behavior changed: no.
+Checker normalization patched: no.
+Engine backends patched: no.
+
+Next safe action:
+- Keep failures visible; separately authorize SQLGlot PORT route/dialect documentation, same-engine checker label-policy triage, or Spark statement/preflight investigation if desired.
