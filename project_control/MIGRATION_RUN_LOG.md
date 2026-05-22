@@ -14215,3 +14215,71 @@ Push result:
 
 Next safe action:
 - Separately authorize a non-official local metrics calculator only if route-aware, denominator-aware, exact/timed-gated, and local-only boundaries remain explicit.
+
+## 2026-05-22 - local_metrics_v0_final_formula_decision_v0
+
+Mode: decision/audit-only local metrics formula decision.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/local_metrics_v0_final_formula_decision_v0/README.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/formula_decision_summary.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/metric_scope_v0.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/deferred_metrics.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/boundary_checklist.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/command_log.md`
+- `audits/local_metrics_v0_final_formula_decision_v0/protected_surface_check.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Decision result:
+- Verdict: `completed`.
+- Decision number used: D033.
+- Regression@20 removed from formal local metrics v0 implementation scope; it may remain legacy/reporting diagnostic only.
+- Generation Rate: `candidate_generated / selected`.
+- `preflight_passed` remains a funnel diagnostic, not part of Generation Rate.
+- Execution Coverage Rate: `candidate_executable / selected`.
+- `source_executable` remains a diagnostic/environment guard, not a numerator condition.
+- Result Consistency Rate: `exact / selected`.
+- Semantic Equivalence Rate is `N.A.` unless formal verifier evidence exists; local result checker output is not a substitute.
+- GM Speedup Ratio and Speedup Ratio Percentiles are computed only over strict exact + timed rows.
+- `label_only_mismatch` remains mismatch and timing-ineligible under the strict-label policy.
+- Cross-Engine GM Speedup Ratio replaces old Speedup Retention in latest-paper alignment, but is `N.A.` unless target-engine paired timing exists.
+- POCR remains deferred pending collaborator external skill script and stable `skill/` schema.
+- No skill folders or operation atoms are authorized now.
+- Local paper PDF was not found locally; this matches prior latest-paper alignment audit caveats.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Route-level metrics computed: no.
+Metrics calculator implemented: no.
+Timing/speedup newly computed: no.
+Common-core run performed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a non-official local metrics calculator v0 implementation for local diagnostic Coverage, Result Consistency, and exact+timed Performance only, preserving route/denominator/timing-policy boundaries and local-only claims.

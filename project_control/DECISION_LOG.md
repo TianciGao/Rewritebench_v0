@@ -861,3 +861,61 @@ Impact:
 - Existing user-entry local diagnostic outputs remain local-only and must not be promoted to retained evidence without a separate policy task.
 - No denominator, case membership, paper result, reports/results, raw retained evidence, official metrics, leaderboard, release/export/tag, or case package layout changes are authorized by this decision.
 - D018 remains historical context for the older formalized metrics contract; this decision records the latest-paper alignment direction and the need for a follow-up metrics contract delta/audit before implementation.
+
+## D033: Local metrics v0 formula and boundary decision
+
+Decision:
+
+The first non-official local metrics calculator v0 may implement Coverage, Result Consistency, and Performance summaries over local diagnostic runs only. It remains local-only and must not compute official metrics, update reports/results, promote retained evidence, render paper tables, or create leaderboard output.
+
+Regression@20 is removed from the new formal local metrics v0 implementation scope. It may remain a legacy or reporting diagnostic only.
+
+Coverage formulas for local metrics v0 are:
+
+- Generation Rate: `candidate_generated / selected`.
+- Execution Coverage Rate: `candidate_executable / selected`.
+
+`preflight_passed` remains a funnel diagnostic and is not part of the Generation Rate numerator.
+
+`source_executable` remains recorded as a diagnostic/environment guard and is not a numerator condition for Execution Coverage Rate.
+
+Correctness formula for local metrics v0:
+
+- Result Consistency Rate: `exact / selected`.
+
+Semantic Equivalence Rate is `N.A.` unless formal verifier evidence exists. The local result checker must not be substituted for formal semantic equivalence verification.
+
+Performance formulas for local metrics v0 are:
+
+- GM Speedup Ratio over strict exact + timed rows only.
+- Speedup Ratio Percentiles over strict exact + timed rows only.
+
+Under the current strict-label policy, `label_only_mismatch` remains a mismatch and remains timing-ineligible.
+
+Cross-Engine GM Speedup Ratio replaces old Speedup Retention in the latest-paper alignment, but it is `N.A.` unless target-engine paired timing exists.
+
+Positive Operation Coverage Rate remains deferred pending the collaborator's external skill script and stable `skill/` schema. No `skill/` folders or operation atoms should be created now.
+
+Reason:
+
+D032 authorized metrics/timing protocol alignment as the next project line, while keeping metrics computation and official outputs separately gated. The latest-paper alignment audit and timing schema review now provide enough local diagnostic infrastructure to define v0 local metrics formulas before implementation.
+
+The formula decisions keep local diagnostic summaries aligned with the latest-paper direction while avoiding older or ambiguous repository contract behavior:
+
+- Regression@20 is not part of latest Table 6 and should not enter the formal v0 local metrics calculator.
+- Candidate generation should mean raw adapter candidate emission, not preflight readiness.
+- Candidate execution success should drive Execution Coverage Rate, while source execution remains an environment guard.
+- Result consistency stays denominator-aware over selected rows.
+- Semantic equivalence requires verifier evidence and is not the same as local result consistency.
+- Performance interpretation remains exact-gated and timed-gated.
+- Cross-engine performance requires target-engine paired timing and must not reuse same-engine timing.
+- POCR requires explicit operation atoms and remains unsafe to implement before the external skill-adapter contract is stable.
+
+Impact:
+
+- A future local metrics calculator v0 may be implemented for non-official local diagnostic summaries of Coverage, Result Consistency, and Performance.
+- The calculator must be route-aware, method-aware, engine-aware, denominator-aware, timing-policy-aware, and local-only.
+- `preflight_passed`, `source_executable`, label-only diagnostics, N.A. counts, unsupported/fail-closed counts, and failure buckets should remain visible diagnostics.
+- Semantic Equivalence Rate, Cross-Engine GM Speedup Ratio, and POCR must report `N.A.` unless their required evidence exists.
+- Metrics calculator implementation remains unauthorized until a separate implementation task is approved.
+- Official metrics computation, reports/results updates, retained-evidence promotion, paper table rendering, leaderboard output, denominator changes, case membership changes, raw retained evidence changes, skill folders, and operation atoms remain unauthorized by this decision.
