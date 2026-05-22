@@ -12593,3 +12593,49 @@ Boundary:
 
 Next safe action:
 - Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
+
+## 2026-05-22 - user_entry_engine_backend_closeout_v0
+
+User-entry engine backend closeout completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: audit/closeout only.
+
+Verdict:
+- `engine_backend_phase_closed_with_deferred_items`.
+
+Status summary:
+- PostgreSQL backend: implemented and live rerun; latest bounded no-op rerun selected 40 rows, source executable 40, candidate executable 35, checker exact 35, mismatch 0, with 5 expected PORT no-op target-candidate failures.
+- MySQL backend: implemented and live rerun; latest bounded no-op rerun selected 40 rows, source executable 40, candidate executable 36, checker exact 36, mismatch 0, with 4 expected PORT no-op target-candidate failures.
+- PORT cross-dialect: bidirectional controlled local diagnostics closed; forward MySQL-source to PostgreSQL-target exact 5/5 and reverse PostgreSQL-source to MySQL-target exact 4/4.
+- Spark backend: fail-closed skeleton and environment detector implemented; live Spark SQL execution remains deferred.
+- Local output surface: `quality_summary.json`, `quality_report.md`, `tag_slices.csv`, ledger statuses, and failure buckets are available for local diagnostics.
+
+Deferred work:
+- Spark live execution.
+- Real user adapter evaluation.
+- Timing/speedup.
+- Official metrics.
+- Paper table rendering.
+- Reports/results migration.
+- Retained-evidence integration.
+- Release export/tagging.
+- Global leaderboard output.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs created or committed: no.
+
+Next safe action:
+- Return to release/paper planning, or separately authorize a narrow real-adapter local diagnostic evaluation under local-only non-metric boundaries. Spark live execution, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, and release export remain separate authorization boundaries.
