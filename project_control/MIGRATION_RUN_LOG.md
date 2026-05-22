@@ -12719,3 +12719,54 @@ Boundary:
 
 Next safe action:
 - If Spark work continues, authorize a bounded Common-core Spark local diagnostic trial under the same local-only, non-metric, no timing, no reports/results, and no leaderboard boundaries.
+
+## 2026-05-22 - common_core_spark_local_diagnostic_v0
+
+Common-core Spark local diagnostic trial completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic trial and audit only.
+
+Environment:
+- PostgreSQL probe: ok.
+- MySQL probe: ok.
+- Spark readiness: PySpark import available, `PYSPARK_PYTHON` set, `SQLRB_SPARK_MASTER` set, live local diagnostic backend available through PySpark.
+- No secrets printed.
+
+Run summary:
+- Local run output: `runs/user/common_core_spark_noop_db_checker/`.
+- Selected rows: 40.
+- Candidate generated rows: 40.
+- Candidate preflight passed rows: 40.
+- Spark source execution attempted rows: 31.
+- Spark source executable rows: 31.
+- Spark candidate execution attempted rows: 31.
+- Spark candidate executable rows: 31.
+- Checker attempted/exact/mismatch rows: 31/30/1.
+- Source-like rows: 40.
+- Failure buckets: `none=30`, `mismatch=1`, `unsupported_engine=9`.
+- Diagnostic modes: `same_engine=31`, `unsupported=9`.
+- Tag-slice summary created: yes.
+
+Failure summary:
+- `CONS_0011`: checker/normalization row-order mismatch; source result rows were `ALICE`, `BOB`, while candidate rows were `BOB`, `ALICE`.
+- PORT cases `PORT_0003`, `PORT_0004`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`: explicit Spark local diagnostic roles remain unsupported/fail-closed; no source, target, target_reference, or checker fallback was attempted.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Inventory changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/common_core_spark_noop_db_checker/` outputs committed: no.
+
+Next safe action:
+- Review the `CONS_0011` row-order checker behavior and keep PORT Spark roles fail-closed unless a separate Spark PORT role task is authorized; any broader Spark, timing, official metrics, reports/results, retained-evidence, leaderboard, or release-export work remains separate authorization.

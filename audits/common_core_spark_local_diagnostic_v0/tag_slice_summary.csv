@@ -1,0 +1,4 @@
+axis,slice_count,selected_rows_total,exact_rows_total,mismatch_rows_total,failure_rows_total,notes
+portability_risk,21,41,4,0,37,"Sums are across tag slices and may double-count cases with multiple tags; local diagnostic only, not scores or metrics."
+rewrite_opportunity,10,44,29,0,15,"Sums are across tag slices and may double-count cases with multiple tags; local diagnostic only, not scores or metrics."
+sql_feature,26,100,93,2,7,"Sums are across tag slices and may double-count cases with multiple tags; local diagnostic only, not scores or metrics."
