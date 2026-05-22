@@ -1,0 +1,7 @@
+engine,axis,slice_count,selected_rows_total,exact_rows_total,mismatch_rows_total,failure_rows_total,notes
+postgres,portability_risk,21,41,17,0,24,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."
+postgres,rewrite_opportunity,10,44,38,0,6,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."
+postgres,sql_feature,26,100,99,0,1,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."
+mysql,portability_risk,21,41,28,0,13,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."
+mysql,rewrite_opportunity,10,44,35,0,9,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."
+mysql,sql_feature,26,100,96,0,4,"Local diagnostic tag slices only; not scores, rankings, official metrics, or leaderboard inputs."

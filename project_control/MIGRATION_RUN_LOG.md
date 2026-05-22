@@ -12457,3 +12457,56 @@ Boundary:
 
 Next safe action:
 - Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
+
+## 2026-05-22 - user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0
+
+Bounded PostgreSQL/MySQL local diagnostic rerun completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic rerun and audit only.
+
+Environment:
+- PostgreSQL probe: ok.
+- MySQL probe: ok.
+- Spark: deferred/fail-closed.
+
+Run summary:
+- PostgreSQL run output: `runs/user/bounded_pg_noop_db_checker_current/`.
+- PostgreSQL selected rows: 40.
+- PostgreSQL candidate generated rows: 40.
+- PostgreSQL source-reference executable rows: 40.
+- PostgreSQL target-candidate executable rows: 35.
+- PostgreSQL checker attempted/exact/mismatch rows: 35/35/0.
+- PostgreSQL failure buckets: `candidate_execution_failed=5`, `none=35`.
+- MySQL run output: `runs/user/bounded_mysql_noop_db_checker_current/`.
+- MySQL selected rows: 40.
+- MySQL candidate generated rows: 40.
+- MySQL source-reference executable rows: 40.
+- MySQL target-candidate executable rows: 36.
+- MySQL checker attempted/exact/mismatch rows: 36/36/0.
+- MySQL failure buckets: `candidate_execution_failed=4`, `none=36`.
+- Tag-slice summaries were created for both engines.
+
+Interpretation:
+- The no-op adapter is source-like and is not a valid target-generating adapter for cross-dialect PORT exactness.
+- PostgreSQL's five remaining failures are target-candidate failures for MySQL-source to PostgreSQL-target PORT rows after MySQL source-reference execution succeeded.
+- MySQL's four remaining failures are target-candidate failures for PostgreSQL-source to MySQL-target PORT rows after PostgreSQL source-reference execution succeeded.
+- Controlled PORT target-reference diagnostics remain the evidence for cross-dialect target execution and checker handoff: forward exact 5/5 and reverse exact 4/4.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
