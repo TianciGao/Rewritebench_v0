@@ -135,9 +135,22 @@ local_diagnostic:
         reports_results_update: false
         leaderboard_input: false
     spark:
-      diagnostic_mode: unsupported
-      unsupported_reason: spark local diagnostic execution remains deferred/fail-closed
-      manual_review_required: true
+      diagnostic_mode: cross_dialect_reference
+      source_reference:
+        role: source_reference
+        engine: mysql
+        query: sql/source.sql
+      target_candidate:
+        role: adapter_output
+        engine: spark
+      target_reference:
+        role: positive_reference
+        engine: spark
+        query: sql/dialect_variants/spark/pos_02_spark.sql
+        use_for_checker_oracle: false
+        use_for_sanity_control: true
+      checker:
+        comparison: source_reference_result_to_target_candidate_result
       boundary:
         local_diagnostic_only: true
         official_metric_input: false

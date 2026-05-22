@@ -7,6 +7,7 @@ compute official metrics, update reports/results, or create leaderboard data.
 
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -1083,6 +1084,405 @@ def _execute_mysql_target_candidate(
             cleanup_log.write_text(f"cleanup_failed: {exc}\n", encoding="utf-8")
 
 
+def _spark_target_candidate_failure(
+    *,
+    row: SelectedCaseEngineRow,
+    execution_root: Path,
+    source_result: EngineExecutionResult,
+    failure_bucket: str,
+    execution_failure_class: str,
+    notes: str,
+    candidate_status: str,
+    backend_status: str,
+    schema_setup_status: str,
+    candidate_error_path: Path | None = None,
+    db_execution_attempted: bool = False,
+) -> EngineExecutionResult:
+    return EngineExecutionResult(
+        source_execution_status=source_result.source_execution_status,
+        candidate_execution_status=candidate_status,
+        source_result_path=source_result.source_result_path,
+        candidate_result_path=None,
+        db_artifact_dir=execution_root,
+        failure_bucket=failure_bucket,
+        execution_failure_class=execution_failure_class,
+        notes=source_result.notes + "; " + notes,
+        engine=row.engine,
+        case_id=row.case_id,
+        pool=row.pool,
+        denominator_id=row.denominator_id,
+        schema_setup_status=schema_setup_status,
+        source_error_path=source_result.source_error_path,
+        candidate_error_path=candidate_error_path,
+        db_execution_attempted=source_result.db_execution_attempted or db_execution_attempted,
+        source_executable=source_result.source_executable,
+        candidate_executable=False,
+        cross_dialect_status=CROSS_DIALECT_STATUS_SOURCE_REFERENCE_EXECUTED,
+        required_backend=f"{source_result.required_backend}_to_spark",
+        backend_status=backend_status,
+    )
+
+
+def _execute_spark_target_candidate(
+    *,
+    repo_root: Path,
+    run_id: str,
+    row: SelectedCaseEngineRow,
+    candidate_sql_path: Path,
+    workspace_dir: Path,
+    timeout_sec: int,
+    schema_prefix: str,
+    source_result: EngineExecutionResult,
+) -> EngineExecutionResult:
+    """Execute only the declared Spark target-candidate side."""
+
+    _ = timeout_sec
+    from .spark_execution import (
+        SPARK_APP_NAME_ENV,
+        _create_spark_session,
+        _database_name,
+        _execute_statement_batch,
+        _run_query_to_jsonl,
+        _split_sql_statements,
+        _write_environment_metadata,
+        _write_error,
+        inspect_spark_environment,
+        resolve_spark_schema_assets,
+    )
+
+    execution_root = workspace_dir / "execution"
+    execution_dir = execution_root / "spark_target"
+    execution_dir.mkdir(parents=True, exist_ok=True)
+    candidate_error_path = execution_dir / "candidate_error.txt"
+
+    status = inspect_spark_environment()
+    if status.backend_status == BACKEND_STATUS_CONFIG_MISSING:
+        metadata_path = _write_environment_metadata(
+            execution_dir,
+            row=row,
+            run_id=run_id,
+            status=status,
+            spark_sql_executed=False,
+            source_result_artifact_created=source_result.source_result_path is not None,
+            candidate_result_artifact_created=False,
+        )
+        return _spark_target_candidate_failure(
+            row=row,
+            execution_root=execution_root,
+            source_result=source_result,
+            failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+            execution_failure_class=status.failure_class,
+            notes=(
+                "Spark target-candidate environment is not configured; no Spark "
+                "session was started, no SQL was executed, and no PostgreSQL/MySQL "
+                f"fallback was used; metadata={metadata_path.name}"
+            ),
+            candidate_status=EXECUTION_STATUS_NOT_ENABLED,
+            backend_status=status.backend_status,
+            schema_setup_status="target_schema_not_attempted_config_missing",
+            candidate_error_path=candidate_error_path,
+        )
+    if status.backend_status == BACKEND_STATUS_CLIENT_MISSING:
+        metadata_path = _write_environment_metadata(
+            execution_dir,
+            row=row,
+            run_id=run_id,
+            status=status,
+            spark_sql_executed=False,
+            source_result_artifact_created=source_result.source_result_path is not None,
+            candidate_result_artifact_created=False,
+        )
+        return _spark_target_candidate_failure(
+            row=row,
+            execution_root=execution_root,
+            source_result=source_result,
+            failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+            execution_failure_class=status.failure_class,
+            notes=(
+                "PySpark is required for Spark target-candidate execution; "
+                "spark-sql CLI execution is not implemented, no SQL was executed, "
+                f"and no PostgreSQL/MySQL fallback was used; metadata={metadata_path.name}"
+            ),
+            candidate_status=EXECUTION_STATUS_NOT_ENABLED,
+            backend_status=status.backend_status,
+            schema_setup_status="target_schema_not_attempted_client_missing",
+            candidate_error_path=candidate_error_path,
+        )
+
+    try:
+        schema_assets = resolve_spark_schema_assets(repo_root=repo_root, row=row)
+    except ValueError as exc:
+        error_path = _write_error(candidate_error_path, str(exc))
+        _write_environment_metadata(
+            execution_dir,
+            row=row,
+            run_id=run_id,
+            status=status,
+            spark_sql_executed=False,
+            source_result_artifact_created=source_result.source_result_path is not None,
+            candidate_result_artifact_created=False,
+        )
+        return _spark_target_candidate_failure(
+            row=row,
+            execution_root=execution_root,
+            source_result=source_result,
+            failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+            execution_failure_class="spark_target_schema_missing",
+            notes=str(exc),
+            candidate_status=EXECUTION_STATUS_CANDIDATE_FAILED,
+            backend_status=BACKEND_STATUS_SCHEMA_MISSING,
+            schema_setup_status="target_schema_metadata_failed",
+            candidate_error_path=error_path,
+            db_execution_attempted=True,
+        )
+
+    for required in [candidate_sql_path, schema_assets.ddl_path, schema_assets.load_path]:
+        if not required.exists():
+            message = "missing required Spark target-candidate asset: " + str(required)
+            error_path = _write_error(candidate_error_path, message + "\n")
+            _write_environment_metadata(
+                execution_dir,
+                row=row,
+                run_id=run_id,
+                status=status,
+                spark_sql_executed=False,
+                source_result_artifact_created=source_result.source_result_path is not None,
+                candidate_result_artifact_created=False,
+                schema_assets=schema_assets,
+            )
+            return _spark_target_candidate_failure(
+                row=row,
+                execution_root=execution_root,
+                source_result=source_result,
+                failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+                execution_failure_class="spark_target_schema_missing",
+                notes=message,
+                candidate_status=EXECUTION_STATUS_CANDIDATE_FAILED,
+                backend_status=BACKEND_STATUS_SCHEMA_MISSING,
+                schema_setup_status="target_schema_metadata_failed",
+                candidate_error_path=error_path,
+                db_execution_attempted=True,
+            )
+
+    database = _database_name(schema_prefix, run_id, row.case_id + "_target")
+    setup_script_path = execution_dir / "setup.sql"
+    candidate_query_path = execution_dir / "candidate_query.sql"
+    candidate_result_path = execution_dir / "candidate_result.jsonl"
+    setup_script_path.write_text(
+        "\n".join(
+            [
+                f"DROP DATABASE IF EXISTS {database} CASCADE;",
+                f"CREATE DATABASE IF NOT EXISTS {database};",
+                f"USE {database};",
+                schema_assets.ddl_path.read_text(encoding="utf-8"),
+                schema_assets.load_path.read_text(encoding="utf-8"),
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    candidate_query_path.write_text(candidate_sql_path.read_text(encoding="utf-8"), encoding="utf-8")
+
+    spark = None
+    cleanup_note = ""
+    candidate_rows = 0
+    try:
+        try:
+            spark = _create_spark_session(
+                app_name=os.environ.get(SPARK_APP_NAME_ENV, f"SQLRB {run_id} {row.case_id} spark target"),
+                warehouse_dir=execution_dir / "spark_warehouse",
+            )
+        except Exception as exc:
+            error_path = _write_error(candidate_error_path, str(exc))
+            _write_environment_metadata(
+                execution_dir,
+                row=row,
+                run_id=run_id,
+                status=status,
+                spark_sql_executed=False,
+                source_result_artifact_created=source_result.source_result_path is not None,
+                candidate_result_artifact_created=False,
+                schema_assets=schema_assets,
+            )
+            return _spark_target_candidate_failure(
+                row=row,
+                execution_root=execution_root,
+                source_result=source_result,
+                failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+                execution_failure_class="spark_target_session_failed",
+                notes="Spark target-candidate session startup failed; no PostgreSQL/MySQL fallback was used",
+                candidate_status=EXECUTION_STATUS_NOT_ENABLED,
+                backend_status=BACKEND_STATUS_AVAILABLE,
+                schema_setup_status="target_spark_session_failed",
+                candidate_error_path=error_path,
+                db_execution_attempted=True,
+            )
+
+        try:
+            _execute_statement_batch(
+                spark,
+                _split_sql_statements(setup_script_path.read_text(encoding="utf-8")),
+            )
+        except Exception as exc:
+            error_path = _write_error(candidate_error_path, str(exc))
+            _write_environment_metadata(
+                execution_dir,
+                row=row,
+                run_id=run_id,
+                status=status,
+                spark_sql_executed=True,
+                source_result_artifact_created=source_result.source_result_path is not None,
+                candidate_result_artifact_created=False,
+                schema_assets=schema_assets,
+            )
+            return _spark_target_candidate_failure(
+                row=row,
+                execution_root=execution_root,
+                source_result=source_result,
+                failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+                execution_failure_class="spark_target_schema_setup_failed",
+                notes="Spark target-candidate schema/load setup failed; no PostgreSQL/MySQL fallback was used",
+                candidate_status=EXECUTION_STATUS_CANDIDATE_FAILED,
+                backend_status=BACKEND_STATUS_AVAILABLE,
+                schema_setup_status="target_schema_setup_failed",
+                candidate_error_path=error_path,
+                db_execution_attempted=True,
+            )
+
+        try:
+            candidate_rows = _run_query_to_jsonl(
+                spark=spark,
+                sql_path=candidate_query_path,
+                result_path=candidate_result_path,
+                error_path=candidate_error_path,
+            )
+        except TimeoutError as exc:
+            error_path = _write_error(candidate_error_path, str(exc))
+            _write_environment_metadata(
+                execution_dir,
+                row=row,
+                run_id=run_id,
+                status=status,
+                spark_sql_executed=True,
+                source_result_artifact_created=source_result.source_result_path is not None,
+                candidate_result_artifact_created=False,
+                schema_assets=schema_assets,
+            )
+            return _spark_target_candidate_failure(
+                row=row,
+                execution_root=execution_root,
+                source_result=source_result,
+                failure_bucket=FAILURE_EXECUTION_TIMEOUT,
+                execution_failure_class="spark_target_timeout",
+                notes="Spark target-candidate execution timed out",
+                candidate_status=EXECUTION_STATUS_TIMEOUT,
+                backend_status=BACKEND_STATUS_AVAILABLE,
+                schema_setup_status="target_schema_setup_success",
+                candidate_error_path=error_path,
+                db_execution_attempted=True,
+            )
+        except Exception:
+            _write_environment_metadata(
+                execution_dir,
+                row=row,
+                run_id=run_id,
+                status=status,
+                spark_sql_executed=True,
+                source_result_artifact_created=source_result.source_result_path is not None,
+                candidate_result_artifact_created=False,
+                schema_assets=schema_assets,
+            )
+            return _spark_target_candidate_failure(
+                row=row,
+                execution_root=execution_root,
+                source_result=source_result,
+                failure_bucket=FAILURE_CANDIDATE_EXECUTION_FAILED,
+                execution_failure_class="spark_target_candidate_execution_failed",
+                notes="Spark target-candidate SQL execution failed; no PostgreSQL/MySQL fallback was used",
+                candidate_status=EXECUTION_STATUS_CANDIDATE_FAILED,
+                backend_status=BACKEND_STATUS_AVAILABLE,
+                schema_setup_status="target_schema_setup_success",
+                candidate_error_path=candidate_error_path,
+                db_execution_attempted=True,
+            )
+
+        metadata_path = _write_environment_metadata(
+            execution_dir,
+            row=row,
+            run_id=run_id,
+            status=status,
+            spark_sql_executed=True,
+            source_result_artifact_created=source_result.source_result_path is not None,
+            candidate_result_artifact_created=True,
+            schema_assets=schema_assets,
+            row_counts={"candidate": candidate_rows},
+            cleanup_note=cleanup_note,
+        )
+        return EngineExecutionResult(
+            source_execution_status=source_result.source_execution_status,
+            candidate_execution_status=EXECUTION_STATUS_CANDIDATE_SUCCESS,
+            source_result_path=source_result.source_result_path,
+            candidate_result_path=candidate_result_path,
+            db_artifact_dir=execution_root,
+            failure_bucket=FAILURE_NONE,
+            execution_failure_class="",
+            notes=(
+                source_result.notes
+                + "; target candidate SQL executed locally through Spark/PySpark; "
+                "target_reference was not used as a checker oracle; "
+                f"metadata={metadata_path.name}"
+            ),
+            engine=row.engine,
+            case_id=row.case_id,
+            pool=row.pool,
+            denominator_id=row.denominator_id,
+            schema_setup_status="target_schema_setup_success",
+            source_error_path=source_result.source_error_path,
+            db_execution_attempted=True,
+            source_executable=source_result.source_executable,
+            candidate_executable=True,
+            cross_dialect_status=CROSS_DIALECT_STATUS_SOURCE_REFERENCE_EXECUTED,
+            required_backend=f"{source_result.required_backend}_to_spark",
+            backend_status=BACKEND_STATUS_AVAILABLE,
+        )
+    except Exception as exc:
+        error_path = _write_error(candidate_error_path, str(exc))
+        _write_environment_metadata(
+            execution_dir,
+            row=row,
+            run_id=run_id,
+            status=status,
+            spark_sql_executed=spark is not None,
+            source_result_artifact_created=source_result.source_result_path is not None,
+            candidate_result_artifact_created=candidate_result_path.exists(),
+            schema_assets=schema_assets,
+            row_counts={"candidate": candidate_rows},
+        )
+        return _spark_target_candidate_failure(
+            row=row,
+            execution_root=execution_root,
+            source_result=source_result,
+            failure_bucket=FAILURE_INTERNAL_RUNNER_ERROR,
+            execution_failure_class="spark_target_internal_error",
+            notes="Spark target-candidate backend hit an internal error",
+            candidate_status=EXECUTION_STATUS_INTERNAL_ERROR,
+            backend_status=BACKEND_STATUS_AVAILABLE,
+            schema_setup_status="target_internal_error",
+            candidate_error_path=error_path,
+            db_execution_attempted=True,
+        )
+    finally:
+        if spark is not None:
+            try:
+                spark.sql(f"DROP DATABASE IF EXISTS {database} CASCADE")
+            except Exception as exc:  # pragma: no cover - cleanup note only
+                cleanup_note = f"cleanup_failed: {exc}"
+            try:
+                spark.stop()
+            except Exception as exc:  # pragma: no cover - cleanup note only
+                cleanup_note = (cleanup_note + "; " if cleanup_note else "") + f"stop_failed: {exc}"
+
+
 def _execute_cross_dialect_case(
     *,
     repo_root: Path,
@@ -1104,22 +1504,22 @@ def _execute_cross_dialect_case(
             resolved_package=resolved_package,
             execution_failure_class="cross_dialect_target_engine_mismatch",
         )
-    if source_engine != "mysql":
-        if source_engine == "postgres" and row.engine == "mysql":
-            source_result = _execute_postgres_source_reference(
-                repo_root=repo_root,
-                run_id=run_id,
-                row=row,
-                workspace_dir=workspace_dir,
-                timeout_sec=timeout_sec,
-                schema_prefix=schema_prefix,
-                dsn_env=postgres_dsn_env,
-                resolved_package=resolved_package,
-            )
-            if source_result.failure_bucket != FAILURE_NONE:
-                return source_result
-            if source_result.source_execution_status != EXECUTION_STATUS_SOURCE_SUCCESS:
-                return source_result
+    if source_engine == "postgres" and row.engine in {"mysql", "spark"}:
+        source_result = _execute_postgres_source_reference(
+            repo_root=repo_root,
+            run_id=run_id,
+            row=row,
+            workspace_dir=workspace_dir,
+            timeout_sec=timeout_sec,
+            schema_prefix=schema_prefix,
+            dsn_env=postgres_dsn_env,
+            resolved_package=resolved_package,
+        )
+        if source_result.failure_bucket != FAILURE_NONE:
+            return source_result
+        if source_result.source_execution_status != EXECUTION_STATUS_SOURCE_SUCCESS:
+            return source_result
+        if row.engine == "mysql":
             return _execute_mysql_target_candidate(
                 repo_root=repo_root,
                 run_id=run_id,
@@ -1130,20 +1530,31 @@ def _execute_cross_dialect_case(
                 schema_prefix=schema_prefix,
                 source_result=source_result,
             )
+        return _execute_spark_target_candidate(
+            repo_root=repo_root,
+            run_id=run_id,
+            row=row,
+            candidate_sql_path=candidate_sql_path,
+            workspace_dir=workspace_dir,
+            timeout_sec=timeout_sec,
+            schema_prefix=schema_prefix,
+            source_result=source_result,
+        )
+    if source_engine != "mysql":
         return unsupported_local_diagnostic_role_result(
             row=row,
             workspace_dir=workspace_dir,
             resolved_package=resolved_package,
             execution_failure_class="cross_dialect_route_unsupported",
         )
-    if row.engine != "postgres":
+    if row.engine not in {"postgres", "spark"}:
         return unsupported_engine_result(
             row=row,
             workspace_dir=workspace_dir,
             execution_failure_class="cross_dialect_target_backend_unsupported",
             notes=(
                 "cross-dialect local diagnostic currently supports mysql "
-                "source_reference to postgres target_candidate only; no fallback "
+                "source_reference to postgres or spark target_candidate only; no fallback "
                 "or target_reference substitution was attempted"
             ),
         )
@@ -1163,6 +1574,17 @@ def _execute_cross_dialect_case(
         return source_result
     if source_result.source_execution_status != EXECUTION_STATUS_SOURCE_SUCCESS:
         return source_result
+    if row.engine == "spark":
+        return _execute_spark_target_candidate(
+            repo_root=repo_root,
+            run_id=run_id,
+            row=row,
+            candidate_sql_path=candidate_sql_path,
+            workspace_dir=workspace_dir,
+            timeout_sec=timeout_sec,
+            schema_prefix=schema_prefix,
+            source_result=source_result,
+        )
     return _execute_postgres_target_candidate(
         repo_root=repo_root,
         run_id=run_id,

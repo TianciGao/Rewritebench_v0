@@ -12844,3 +12844,31 @@ Boundary:
 
 Next safe action:
 - Use the fixed `CONS_0011` policy in future local Spark diagnostics; any broader checker-policy migration, official metrics, timing/speedup, reports/results update, retained-evidence promotion, leaderboard, or release-export work remains separate authorization.
+
+## 2026-05-22 - port_spark_target_role_mapping_v0
+
+PORT Spark target-engine role mapping completed with failures on branch `feature/case-package-v2-external-schema`.
+
+Summary:
+- Spark target roles declared: 4 (`PORT_0003`, `PORT_0004`, `PORT_0005`, `PORT_0013`).
+- Spark unsupported/fail-closed roles: 5 (`PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, `PORT_0025`).
+- Controlled Spark target diagnostic at `runs/user/port_spark_target_reference_controlled/`: selected/source-reference executable/Spark target-candidate executable/checker/exact/mismatch rows `4/4/4/4/2/2`.
+- Failure summary: `none=2`, `mismatch=2`; mismatches are `PORT_0004` and `PORT_0013` checker-normalization outcomes for MySQL string numeric values versus Spark numeric float values after both sides executed.
+- Unsupported Spark role check at `runs/user/port_spark_unsupported_role_check/`: selected 5, `unsupported_engine=5`, no source/target/checker fallback.
+- PG/MySQL behavior preservation: PostgreSQL target route exact `5/5`; MySQL target route exact `4/4`.
+- Non-PORT Spark behavior preservation: two-case Spark smoke exact `2/2`.
+
+Boundary:
+- Local diagnostic only.
+- No SQL changes.
+- No schema/checker/validation changes.
+- No `case_sets/` changes.
+- No reports/results changes.
+- No denominator, paper result, case membership, or raw retained evidence changes.
+- No official metrics computed.
+- No timing/speedup computed.
+- No global leaderboard created.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Audit/fix the MySQL-source to Spark-target numeric normalization gap for `PORT_0004` and `PORT_0013`, with PERF/CONS/LONGTAIL same-engine regression checks before any broader Spark PORT diagnostic.

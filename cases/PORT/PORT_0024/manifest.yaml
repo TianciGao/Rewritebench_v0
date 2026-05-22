@@ -124,7 +124,7 @@ local_diagnostic:
         leaderboard_input: false
     spark:
       diagnostic_mode: unsupported
-      unsupported_reason: spark local diagnostic execution remains deferred/fail-closed
+      unsupported_reason: spark_target_reference_not_declared
       manual_review_required: true
       boundary:
         local_diagnostic_only: true

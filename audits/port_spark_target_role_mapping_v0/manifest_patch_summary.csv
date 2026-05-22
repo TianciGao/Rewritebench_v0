@@ -1,0 +1,10 @@
+case_id,file_changed,change_type,spark_role_after,source_reference_engine,target_reference_query,notes
+PORT_0003,cases/PORT/PORT_0003/manifest.yaml,replace_spark_unsupported_with_cross_dialect_reference,cross_dialect_reference,postgres,sql/dialect_variants/spark/pos_02_spark.sql,Used existing Spark dialect variant path.
+PORT_0004,cases/PORT/PORT_0004/manifest.yaml,replace_spark_unsupported_with_cross_dialect_reference,cross_dialect_reference,mysql,sql/dialect_variants/spark/pos_02_spark.sql,Used manifest-declared Spark dialect variant path.
+PORT_0005,cases/PORT/PORT_0005/manifest.yaml,replace_spark_unsupported_with_cross_dialect_reference,cross_dialect_reference,postgres,sql/dialect_variants/spark/pos_02_spark.sql,Used manifest-declared Spark dialect variant path.
+PORT_0008,cases/PORT/PORT_0008/manifest.yaml,update_spark_unsupported_reason,unsupported,,,Explicit fail-closed reason set to spark_target_reference_not_declared.
+PORT_0012,cases/PORT/PORT_0012/manifest.yaml,update_spark_unsupported_reason,unsupported,,,Explicit fail-closed reason set to spark_target_reference_not_declared.
+PORT_0013,cases/PORT/PORT_0013/manifest.yaml,replace_spark_unsupported_with_cross_dialect_reference,cross_dialect_reference,mysql,sql/dialect_variants/spark/pos_02_spark.sql,Used manifest-declared Spark dialect variant path.
+PORT_0022,cases/PORT/PORT_0022/manifest.yaml,update_spark_unsupported_reason,unsupported,,,Explicit fail-closed reason set to spark_target_reference_not_declared.
+PORT_0024,cases/PORT/PORT_0024/manifest.yaml,update_spark_unsupported_reason,unsupported,,,Explicit fail-closed reason set to spark_target_reference_not_declared.
+PORT_0025,cases/PORT/PORT_0025/manifest.yaml,update_spark_unsupported_reason,unsupported,,,Explicit fail-closed reason set to spark_target_reference_not_declared.

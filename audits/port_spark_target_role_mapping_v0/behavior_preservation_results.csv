@@ -1,0 +1,5 @@
+check,run_output_path,selected_rows,source_executable_rows,target_or_candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,result,notes
+postgres_port_target_route,runs/user/port_pg_forward_preservation_after_spark_roles,5,5,5,5,5,0,passed,Existing MySQL-source to PostgreSQL-target controlled route preserved.
+mysql_port_target_route,runs/user/port_mysql_reverse_preservation_after_spark_roles,4,4,4,4,4,0,passed,Existing PostgreSQL-source to MySQL-target controlled route preserved.
+non_port_spark_two_case,runs/user/spark_two_case_regression_after_port_spark_roles,2,2,2,2,2,0,passed,PERF_0006 and CONS_0005 same-engine Spark smoke preserved.
+unsupported_spark_port_fail_closed,runs/user/port_spark_unsupported_role_check,5,0,0,0,0,0,passed,Unsupported Spark PORT rows remain explicit fail-closed.
