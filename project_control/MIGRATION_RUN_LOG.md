@@ -13855,3 +13855,85 @@ Push result:
 
 Next safe action:
 - Run a latest-paper metrics/timing protocol alignment audit comparing D032/Table 6 to the existing metrics contract before any timing schema or metrics implementation work.
+
+## 2026-05-22 - latest_paper_metrics_timing_protocol_alignment_v0
+
+Mode: audit/design-only latest-paper metrics and timing protocol alignment.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/README.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/paper_table6_metric_extraction.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/repo_contract_delta.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/denominator_set_definitions.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/timing_protocol_alignment.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/proposed_timing_artifact_schema.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/proposed_metrics_input_schema.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/proposed_metrics_output_schema.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/pocr_external_skill_adapter_boundary.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/implementation_phase_plan.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/open_questions_for_human.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/protected_surface_check.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/command_log.md`
+- `audits/latest_paper_metrics_timing_protocol_alignment_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability check, audit Markdown sanity check, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no `src/`, tests, scripts, cases, manifests, SQL files, schemas, checker configs, validation scripts, `baselines/`, `case_sets/`, inventory, reports/results, retained evidence, `repository_spec/`, `benchmark_spec/`, `project_control/DECISION_LOG.md`, or committed `runs/user/` outputs changed.
+
+Audit result:
+- Verdict: `completed_with_pdf_unavailable_caveat`.
+- No local `Beyond_Faster_SQL (5).pdf` was found under `/home/tianci_gao`, `/mnt/data`, or `/tmp`; latest Table 6 extraction uses D032/task context and should be rechecked against the PDF when available.
+- Extracted latest-paper scope: Generation Rate, Execution Coverage Rate, Result Consistency Rate, Semantic Equivalence Rate, GM Speedup Ratio, Speedup Ratio Percentiles, Positive Operation Coverage Rate, Cross-Engine Execution Coverage Rate, Cross-Engine Result Consistency Rate, and Cross-Engine GM Speedup Ratio.
+- Compared latest-paper metrics against `repository_spec/metrics_contract_v1.md` and `metrics_contract_v1_draft.md`.
+- Identified key deltas: Attribution Coverage -> POCR; Speedup Retention -> Cross-Engine GM Speedup Ratio; Regression@20 remains diagnostic/open; generation is candidate emission separate from preflight/readiness; execution coverage and result consistency denominator semantics need human confirmation; Semantic Equivalence should report N.A./unknown where verifier evidence is absent; local diagnostics remain non-official.
+- Defined denominator sets: `N_S`, `G_r`, `E_r`, `X_r`, `M_r`, `C_r`, `N_PORT`, `E_tgt_r`, `X_tgt_r`, and `M_tgt_r`.
+- Proposed timing defaults: paired source/candidate timing, same engine/environment/run context, exact-gated eligibility, configurable warmup/repetitions/timeouts, median runtime, sample arrays, N.A. policy, cache/session metadata, and environment metadata.
+- Proposed future timing artifact schema and metrics input/output schemas.
+- Marked POCR and skill-adapter integration as deferred per D032.
+- Recommended phases: timing artifact schema design, exact-gated local timing diagnostic, non-official local metrics calculator, POCR external skill-adapter integration after collaborator script readiness, retained-evidence/official metrics promotion, and paper table renderer.
+
+Open questions surfaced:
+- Regression@20 status.
+- Candidate generation vs preflight/ready reporting.
+- Execution Coverage numerator semantics.
+- Semantic Equivalence N.A. policy.
+- `C_r` selection/versioning for POCR.
+- Stage B POCR evidence.
+- Whether Cross-Engine GM Speedup Ratio fully replaces Speedup Retention.
+- Target-engine source/reference timing requirements.
+- Whether local timing diagnostics are allowed before official promotion.
+- Promotion gate for local timing artifacts to official paper evidence.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics implementation performed: no.
+Timing implementation performed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase 1 timing artifact schema design, still non-metric and local-diagnostic only.
