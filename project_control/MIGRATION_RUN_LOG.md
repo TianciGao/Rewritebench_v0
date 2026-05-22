@@ -14152,3 +14152,66 @@ Push result:
 
 Next safe action:
 - Review the local timing artifacts and implementation, then separately authorize timing hardening or a non-official local metrics calculator if desired.
+
+## 2026-05-22 - exact_gated_local_timing_artifact_review_v0
+
+Mode: audit/review-only local timing artifact review.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/exact_gated_local_timing_artifact_review_v0/README.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/timing_artifact_schema_conformance.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/timing_row_field_check.csv`
+- `audits/exact_gated_local_timing_artifact_review_v0/bounded_smoke_artifact_inventory.csv`
+- `audits/exact_gated_local_timing_artifact_review_v0/exact_gating_review.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/local_vs_official_boundary_review.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/recommendation.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/protected_surface_check.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/command_log.md`
+- `audits/exact_gated_local_timing_artifact_review_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Review result:
+- Verdict: `completed`.
+- Required prior commit `858511a9723f8648af4acea493f458e353bf0a92` was present.
+- Project-control writeback for `exact_gated_local_timing_diagnostic_v0` was present.
+- Metadata correction: prior `exact_gated_local_timing_diagnostic_v0` final commit was `858511a9723f8648af4acea493f458e353bf0a92` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Reviewed existing bounded SQLGlot noop timing smoke artifacts under `runs/user/timing_sqlglot_noop_postgres_smoke/`, `runs/user/timing_sqlglot_noop_mysql_smoke/`, and `runs/user/timing_sqlglot_noop_spark_smoke/`.
+- Each reviewed run contained `timing_policy.json`, `environment_metadata.json`, `timing_summary.json`, and two per-row timing JSON artifacts.
+- All six timing row artifacts contained the required v0 identity, exactness, timing, SQL hash, artifact path, and claim-boundary fields.
+- All reviewed timing artifacts kept `local_diagnostic_only=true`, `official_metric_input=false`, `paper_result_input=false`, `retained_evidence_promoted=false`, and `leaderboard_input=false`.
+- Bounded smoke exact rows were timed; non-exact, label-only mismatch, unsupported/fail-closed, and partial-failure behavior remains covered by committed regression tests and prior implementation audit.
+- No schema-blocking gap was found.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Route-level metrics computed: no.
+Timing/speedup newly computed: no, except reviewing existing local timing smoke artifacts.
+Metrics calculator implemented: no.
+POCR implemented: no.
+Skill folders created: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Separately authorize a non-official local metrics calculator only if route-aware, denominator-aware, exact/timed-gated, and local-only boundaries remain explicit.
