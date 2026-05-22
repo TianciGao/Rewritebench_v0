@@ -13525,3 +13525,60 @@ Push result:
 
 Next safe action:
 - Choose whether to authorize MySQL label-policy triage, SQLGlot noop PORT limitation documentation, a target-aware SQLGlot route design, or pause the SQLGlot line.
+
+## 2026-05-22 - mysql_label_policy_triage_v0
+
+Mode: audit-only MySQL SQLGlot noop label-policy triage.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/mysql_label_policy_triage_v0/README.md`
+- `audits/mysql_label_policy_triage_v0/label_policy_triage_matrix.csv`
+- `audits/mysql_label_policy_triage_v0/value_vs_label_examples.md`
+- `audits/mysql_label_policy_triage_v0/recommendation.md`
+- `audits/mysql_label_policy_triage_v0/protected_surface_check.md`
+- `audits/mysql_label_policy_triage_v0/command_log.md`
+- `audits/mysql_label_policy_triage_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability checks, audit Markdown/CSV sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Triage result:
+- Rows inspected: `PERF_0062`, `PORT_0004`, `PORT_0013`, `PORT_0022`, and `PORT_0024`.
+- All five rows had source/candidate execution success and checker mismatch in `runs/user/common_core_sqlglot_noop_mysql_snapshot`.
+- Source/candidate values matched positionally for every inspected row.
+- Row counts were equal, row ordering was not implicated, duplicate/multiplicity differences were not observed, and numeric/string/null normalization differences were not observed.
+- The only observed differences were MySQL expression result labels: aggregate function label case for `PERF_0062`, and expression whitespace/formatting labels for the PORT rows.
+- Classification: `PERF_0062` is a same-engine non-PORT label-only mismatch candidate; `PORT_0004`, `PORT_0013`, `PORT_0022`, and `PORT_0024` are same-engine PORT label-only mismatch candidates in the SQLGlot noop real-adapter surface.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Checker behavior changed: no.
+SQLGlot adapter behavior changed: no.
+Common-core rerun performed: no.
+SQLGlot optimize run: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Keep these rows fail-visible unless a separate task authorizes a narrow checker label-policy design/patch with PERF, CONS, LONGTAIL, same-engine PORT, and controlled PORT regression coverage.
