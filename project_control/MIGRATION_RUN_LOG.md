@@ -14669,3 +14669,76 @@ Push result:
 
 Next safe action:
 - Authorize D034/D035 Step 1: design the `output/results|logs|reports/<run_id>/` contract and user-facing CLI/interface contract without moving current repository directories.
+
+## 2026-05-22 - user_output_and_cli_contract_v0
+
+Mode: contract / design only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/user_output_and_cli_contract_v0/README.md`
+- `audits/user_output_and_cli_contract_v0/output_directory_contract.md`
+- `audits/user_output_and_cli_contract_v0/run_manifest_schema.md`
+- `audits/user_output_and_cli_contract_v0/result_artifact_contract.md`
+- `audits/user_output_and_cli_contract_v0/log_artifact_contract.md`
+- `audits/user_output_and_cli_contract_v0/report_artifact_contract.md`
+- `audits/user_output_and_cli_contract_v0/failure_bucket_and_tag_slice_reporting.md`
+- `audits/user_output_and_cli_contract_v0/verifier_output_placeholder.md`
+- `audits/user_output_and_cli_contract_v0/user_cli_contract.md`
+- `audits/user_output_and_cli_contract_v0/facade_policy.md`
+- `audits/user_output_and_cli_contract_v0/local_vs_official_output_boundary.md`
+- `audits/user_output_and_cli_contract_v0/transition_notes_runs_user_to_output.md`
+- `audits/user_output_and_cli_contract_v0/final_layout_alignment.md`
+- `audits/user_output_and_cli_contract_v0/protected_surface_check.md`
+- `audits/user_output_and_cli_contract_v0/command_log.md`
+- `audits/user_output_and_cli_contract_v0/boundary_checklist.md`
+- `repository_spec/user_output_contract_v0_draft.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- D034 and D035 were present; `project_control/` contained only the four active core files.
+- Defined output contract: `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- Defined `run_manifest.json` schema with local-only boundary flags.
+- Defined result/log/report artifact responsibilities.
+- Defined failure bucket and tag-slice placements in both machine-readable results and human-readable reports.
+- Defined future verifier output placement for VeriEQL and SQLSolver as support tools, not rewrite baselines.
+- Defined public CLI contract centered on `sqlrb user evaluate` and convenience commands.
+- Defined facade policy: public facade target `src/cli`, internal package `src/sql_rewrite_bench`, developer tools `src/dev`.
+- Defined transition policy from legacy/development `runs/user/` to future user-facing `output/`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Verifier implemented: no.
+Output writer implemented: no.
+CLI implemented: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize implementation planning for the user-facing output writer and `src/cli` facade, still without physical layout migration.
