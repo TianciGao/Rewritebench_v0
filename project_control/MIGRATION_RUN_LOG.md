@@ -12458,6 +12458,46 @@ Boundary:
 Next safe action:
 - Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
 
+## 2026-05-22 - spark_backend_design_v0
+
+Spark local diagnostic backend design completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: design/audit only.
+
+Verdict:
+- `ready_for_fail_closed_skeleton`.
+
+Main design decisions:
+- `spark_execution.py` should own Spark environment detection, session startup, per-case namespace isolation, Spark schema/load execution, source/candidate execution, JSONL result export, metadata/error artifacts, and cleanup.
+- `engine_execution.py` should keep routing, selected-engine role sequencing, common `EngineExecutionResult` handoff, and fail-closed behavior for missing/unsupported roles.
+- Spark schema assets must be resolved only through manifest `schema.external_profile` and external `engines.spark.ddl` / `engines.spark.load` metadata; PostgreSQL/MySQL assets must not be substituted.
+- `pyspark` local mode is recommended over `spark-sql` for stable result export and session control.
+- `SPARK_LOCAL_IP` alone is not enough to enable Spark execution; a future skeleton should require explicit local Spark opt-in and runtime availability checks.
+- Spark result artifacts should match the existing JSONL object shape consumed by `local_result_checker.py`.
+- Same-engine checker behavior remains strict unless case-local config says otherwise; no Spark-specific checker normalization is authorized.
+- All 9 Common-core PORT manifests currently declare Spark roles as unsupported/manual-review, so `--engine spark` must fail closed for PORT until a future task explicitly approves roles.
+
+Boundary:
+- Spark execution implemented: no.
+- Spark live run performed: no.
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs created or committed: no.
+
+Next safe action:
+- Authorize only a narrow Spark fail-closed skeleton/environment-detector task, or keep Spark deferred and continue release planning; live Spark execution, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, and release export require separate authorization.
+
 ## 2026-05-22 - user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0
 
 Bounded PostgreSQL/MySQL local diagnostic rerun completed on branch `feature/case-package-v2-external-schema`.

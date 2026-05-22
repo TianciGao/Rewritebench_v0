@@ -1,0 +1,13 @@
+field_name,type,required_now,required_future,produced_by,consumed_by,meaning,local_only,official_metric,notes
+source_execution_status,string,yes,yes,spark_execution.py,user_run.py; user_ledger.py; user_quality_report.py,"Whether Spark source-reference execution succeeded, failed, timed out, or was unsupported.",true,false,Use existing status values where possible.
+candidate_execution_status,string,yes,yes,spark_execution.py,user_run.py; user_ledger.py; user_quality_report.py,"Whether Spark target-candidate execution succeeded, failed, timed out, or was unsupported.",true,false,Failure prevents checker handoff.
+source_result_path,path|null,yes,yes,spark_execution.py,local_result_checker.py via user_run.py,Path to Spark source-reference result JSONL.,true,false,Only populated after successful source execution/export.
+candidate_result_path,path|null,yes,yes,spark_execution.py,local_result_checker.py via user_run.py,Path to Spark candidate result JSONL.,true,false,Only populated after successful candidate execution/export.
+db_artifact_dir,path,yes,yes,spark_execution.py,ledger; audit inspection,Per-row Spark artifact directory.,true,false,Suggested path `workspaces/<case>/<engine>/execution/spark_same_engine/`.
+failure_bucket,string,yes,yes,spark_execution.py,ledger; failures; quality; tag_slices,"Existing local diagnostic bucket such as source_execution_failed, candidate_execution_failed, execution_timeout, unsupported_engine, internal_runner_error, or none.",true,false,Do not add official metric fields.
+execution_failure_class,string,yes,yes,spark_execution.py,ledger; audits,Spark-specific short failure class such as spark_schema_missing.,true,false,"Used for diagnosis, not scoring."
+schema_setup_status,string,yes,yes,spark_execution.py,ledger/audit,Spark schema stage result.,true,false,"Examples: spark_schema_setup_success, spark_schema_missing, spark_schema_setup_failed."
+source_error_path,path|null,no,yes,spark_execution.py,audit/debug only,Short redacted Spark source error artifact.,true,false,Do not expose secrets or huge logs.
+candidate_error_path,path|null,no,yes,spark_execution.py,audit/debug only,Short redacted Spark candidate error artifact.,true,false,Do not expose secrets or huge logs.
+engine_version,string,no,yes,spark_execution.py,ledger/audit,Spark version string when available.,true,false,Do not use for denominator or metric changes.
+spark_execution_metadata.json,file,no,yes,spark_execution.py,audit/debug only,"Redacted metadata: runtime, master, namespace, asset paths, artifact paths, row counts.",true,false,Do not include timing samples unless separately authorized.
