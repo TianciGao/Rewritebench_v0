@@ -14283,3 +14283,80 @@ Push result:
 
 Next safe action:
 - Authorize a non-official local metrics calculator v0 implementation for local diagnostic Coverage, Result Consistency, and exact+timed Performance only, preserving route/denominator/timing-policy boundaries and local-only claims.
+
+## 2026-05-22 - non_official_local_metrics_calculator_v0
+
+Mode: local-only non-official metrics calculator implementation.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/sql_rewrite_bench/local_metrics.py`
+- `scripts/dev/compute_local_user_metrics.py`
+- `tests/user_entry/test_local_metrics.py`
+- `audits/non_official_local_metrics_calculator_v0/README.md`
+- `audits/non_official_local_metrics_calculator_v0/implementation_summary.md`
+- `audits/non_official_local_metrics_calculator_v0/metric_definitions_used.md`
+- `audits/non_official_local_metrics_calculator_v0/local_metrics_output_schema.md`
+- `audits/non_official_local_metrics_calculator_v0/bounded_metrics_smoke_summary.md`
+- `audits/non_official_local_metrics_calculator_v0/validation_results.md`
+- `audits/non_official_local_metrics_calculator_v0/protected_surface_check.md`
+- `audits/non_official_local_metrics_calculator_v0/command_log.md`
+- `audits/non_official_local_metrics_calculator_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Implementation result:
+- Verdict: `completed`.
+- D033 preflight passed: commit `2990340ec5a0d4682288e125606caf85d146d558` was present and D033 was recorded in `project_control/DECISION_LOG.md`.
+- Metadata correction: prior `local_metrics_v0_final_formula_decision_v0` final commit was `2990340ec5a0d4682288e125606caf85d146d558` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Implemented local-only calculator outputs under `runs/user/{run_name}/metrics/`: `local_metrics_summary.json`, `local_metrics_by_engine.csv`, `local_metrics_by_pool.csv`, `local_timing_speedup_rows.csv`, and `local_metrics_boundary.md`.
+- Implemented Generation Rate as `candidate_generated / selected`.
+- Kept `preflight_passed` as a funnel diagnostic, not a Generation Rate numerator condition.
+- Implemented Execution Coverage Rate as `candidate_executable / selected`.
+- Kept `source_executable` as a diagnostic/environment guard, not an Execution Coverage numerator condition.
+- Implemented Result Consistency Rate as `exact / selected`.
+- Implemented GM Speedup Ratio and Speedup Ratio Percentiles P10/P25/P50/P75/P90 only over strict exact + timed rows.
+- Kept label-only mismatches as mismatch and timing-ineligible.
+- Semantic Equivalence Rate, Cross-Engine GM Speedup Ratio, POCR, and Regression@20 remain N.A./deferred/not implemented under D033.
+- No winner, best-method, ranking, or leaderboard output is emitted.
+
+Bounded local metrics smoke:
+- Input runs: `runs/user/timing_sqlglot_noop_postgres_smoke/`, `runs/user/timing_sqlglot_noop_mysql_smoke/`, and `runs/user/timing_sqlglot_noop_spark_smoke/`.
+- PostgreSQL: selected 2, candidate_generated 2, candidate_executable 2, exact 2, timed 2, speedup denominator 2, local GM speedup 0.9958493720356396.
+- MySQL: selected 2, candidate_generated 2, candidate_executable 2, exact 2, timed 2, speedup denominator 2, local GM speedup 1.0001388459335048.
+- Spark: selected 2, candidate_generated 2, candidate_executable 2, exact 2, timed 2, speedup denominator 2, local GM speedup 1.0296001429221677.
+- Metrics smoke outputs remain under ignored `runs/user/*/metrics/` and were not staged or committed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Local diagnostic metrics computed: yes.
+Route-level paper metrics computed: no.
+Timing/speedup official: no.
+Metrics calculator implemented: yes.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review the non-official local metrics output shape, then separately authorize broader local diagnostic projection only if local-only and non-official boundaries remain explicit.
