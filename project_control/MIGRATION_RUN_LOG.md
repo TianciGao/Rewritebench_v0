@@ -14014,3 +14014,61 @@ Push result:
 
 Next safe action:
 - Review and approve the timing artifact schema and open questions before authorizing an exact-gated local timing diagnostic implementation task.
+
+## 2026-05-22 - timing_schema_open_questions_resolution_v0
+
+Mode: decision/audit-only timing schema open-question resolution.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/timing_schema_open_questions_resolution_v0/README.md`
+- `audits/timing_schema_open_questions_resolution_v0/resolved_open_questions.md`
+- `audits/timing_schema_open_questions_resolution_v0/approved_timing_defaults.md`
+- `audits/timing_schema_open_questions_resolution_v0/phase2_implementation_requirements.md`
+- `audits/timing_schema_open_questions_resolution_v0/remaining_risks.md`
+- `audits/timing_schema_open_questions_resolution_v0/protected_surface_check.md`
+- `audits/timing_schema_open_questions_resolution_v0/command_log.md`
+- `audits/timing_schema_open_questions_resolution_v0/boundary_checklist.md`
+
+Files modified:
+- `repository_spec/timing_artifact_schema_v0_draft.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Audit result:
+- Verdict: `completed`.
+- D032 was present in `project_control/DECISION_LOG.md`; `DECISION_LOG.md` was not modified because D032 already records the durable project-level timing/metrics and POCR deferral decision.
+- Local `Beyond_Faster_SQL (5).pdf` was not found under `/home/tianci_gao`, `/mnt/data`, or `/tmp`; defaults were resolved from D032, the latest-paper alignment audit, and the timing artifact schema design packet.
+- Metadata correction: prior `timing_artifact_schema_design_v0` final commit was `032fc2e` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Resolved Phase 2 defaults: local timing allowed before retained-evidence promotion only under local-only claim-boundary flags; inline sample arrays in v0 row JSON; required source/candidate SQL hashes; no cross-route source timing reuse in v0; default local policy warmup 1, measured repetitions 5, timeout 30 seconds, median statistic; cache/session/schema/execution-order policies recorded as metadata; partial timing failures visible with null speedup; strict label-only mismatches timing-ineligible; cross-engine timing requires target-engine paired source/reference and candidate timing in the same target-engine context; promotion requires a separate retained-evidence/official timing task; route mixing disallowed; POCR deferred.
+- Updated `repository_spec/timing_artifact_schema_v0_draft.md` with a small approved-defaults note.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Timing implementation performed: no.
+Metrics implementation performed: no.
+POCR implemented: no.
+Skill folders created: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a narrow exact-gated local timing diagnostic implementation using these v0 defaults, still local-only and non-official.

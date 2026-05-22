@@ -4,6 +4,23 @@ Status: draft design only.
 
 This draft specifies the intended artifact shape for a future exact-gated local timing diagnostic layer. It is not an implementation and does not authorize timing execution, speedup computation, official metrics, retained-evidence promotion, reports/results updates, paper rendering, POCR, skill folders, or leaderboard output.
 
+## Approved V0 Defaults
+
+The `timing_schema_open_questions_resolution_v0` audit approved these defaults for a separately authorized Phase 2 local timing diagnostic implementation:
+
+- local timing diagnostics are allowed before official retained-evidence promotion only with `claim_boundary=local_diagnostic_only` and all official/paper/retained/leaderboard flags false;
+- runtime sample arrays are stored inline in timing row JSON for v0;
+- timing rows must store `source_sql_hash` and `candidate_sql_hash`, with optional schema/data hash pointers if available;
+- source timing is not reused across routes in v0;
+- default policy values are `warmup_count=1`, `measured_repetitions=5`, `timeout_seconds=30`, and `statistic=median`;
+- cache, connection/session, schema setup, and execution order policies are recorded explicitly as metadata;
+- partial timing failures use `timing_status=partial_failure` and do not produce speedup;
+- strict label-only mismatches remain timing-ineligible;
+- cross-engine timing requires target-engine paired source/reference timing and candidate timing in the same target-engine run context;
+- promotion to official retained timing evidence requires a separate promotion task;
+- future summaries must group by route/method/engine/denominator/policy/run/candidate identity to prevent route mixing;
+- POCR remains deferred with no skill folders or operation atoms in v0.
+
 ## Claim Boundary
 
 Timing artifacts produced under this draft are local diagnostics unless a separate retained-evidence promotion task authorizes otherwise.
