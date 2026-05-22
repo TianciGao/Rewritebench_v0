@@ -1,0 +1,17 @@
+engine,path,exists_at_extraction,purpose,committed,notes
+postgres,runs/user/bounded_pg_noop_db_checker_current/selected_cases.csv,true,selection inventory,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/ledger.csv,true,row-level local diagnostic ledger,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/failures.csv,true,failure rows,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/summary.json,true,basic run summary,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/report.md,true,basic run report,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/quality_summary.json,true,local quality summary,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/quality_report.md,true,local quality report,false,local run output; not staged or committed
+postgres,runs/user/bounded_pg_noop_db_checker_current/tag_slices.csv,true,local tag slices,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/selected_cases.csv,true,selection inventory,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/ledger.csv,true,row-level local diagnostic ledger,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/failures.csv,true,failure rows,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/summary.json,true,basic run summary,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/report.md,true,basic run report,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/quality_summary.json,true,local quality summary,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/quality_report.md,true,local quality report,false,local run output; not staged or committed
+mysql,runs/user/bounded_mysql_noop_db_checker_current/tag_slices.csv,true,local tag slices,false,local run output; not staged or committed

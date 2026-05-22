@@ -12406,3 +12406,54 @@ Deferred:
 
 Next safe action:
 - Run a bounded PostgreSQL+MySQL local diagnostic rerun only if it remains local-only and non-metric, or continue release/paper planning; do not start timing implementation or official metrics from this closeout.
+
+## 2026-05-22 - user_entry_pg_mysql_current_diagnostic_rerun_v0
+
+Bounded PostgreSQL/MySQL current local diagnostic rerun completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic rerun and audit only.
+
+Environment:
+- PostgreSQL probe: ok.
+- MySQL probe: ok.
+- Spark: deferred/fail-closed.
+
+Run summary:
+- PostgreSQL run output: `runs/user/bounded_pg_noop_db_checker_current/`.
+- PostgreSQL selected rows: 40.
+- PostgreSQL candidate generated rows: 40.
+- PostgreSQL source-reference executable rows: 40.
+- PostgreSQL target-candidate executable rows: 35.
+- PostgreSQL checker attempted/exact/mismatch rows: 35/35/0.
+- PostgreSQL failure buckets: `none=35`, `candidate_execution_failed=5`.
+- MySQL run output: `runs/user/bounded_mysql_noop_db_checker_current/`.
+- MySQL selected rows: 40.
+- MySQL candidate generated rows: 40.
+- MySQL source-reference executable rows: 40.
+- MySQL target-candidate executable rows: 36.
+- MySQL checker attempted/exact/mismatch rows: 36/36/0.
+- MySQL failure buckets: `none=36`, `candidate_execution_failed=4`.
+
+Interpretation:
+- The no-op adapter is source-like and is not a valid target-generating adapter for cross-dialect PORT exactness.
+- The remaining failures are expected target-candidate execution failures on PORT cross-dialect rows after successful source-reference execution.
+- Controlled PORT target-reference diagnostics remain the evidence for cross-dialect target execution and checker handoff: forward exact 5/5 and reverse exact 4/4.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Treat this as the current PostgreSQL/MySQL no-op diagnostic snapshot; real adapter evaluation, Spark work, timing, official metrics, paper rendering, reports/results updates, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
