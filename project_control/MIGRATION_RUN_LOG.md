@@ -14360,3 +14360,69 @@ Push result:
 
 Next safe action:
 - Review the non-official local metrics output shape, then separately authorize broader local diagnostic projection only if local-only and non-official boundaries remain explicit.
+
+## 2026-05-22 - local_metrics_output_shape_review_v0
+
+Mode: audit/review-only local metrics output-shape review.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/local_metrics_output_shape_review_v0/README.md`
+- `audits/local_metrics_output_shape_review_v0/output_file_inventory.csv`
+- `audits/local_metrics_output_shape_review_v0/summary_json_shape_review.md`
+- `audits/local_metrics_output_shape_review_v0/csv_shape_review.md`
+- `audits/local_metrics_output_shape_review_v0/boundary_flags_review.md`
+- `audits/local_metrics_output_shape_review_v0/route_denominator_guard_review.md`
+- `audits/local_metrics_output_shape_review_v0/issues_and_recommendations.md`
+- `audits/local_metrics_output_shape_review_v0/protected_surface_check.md`
+- `audits/local_metrics_output_shape_review_v0/command_log.md`
+- `audits/local_metrics_output_shape_review_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Review result:
+- Verdict: `completed_with_minor_output_shape_note`.
+- Required prior commit `39d3bb43d96a138e3446b56a4ded1ce2b0b5f111` was present.
+- Project-control writeback for `non_official_local_metrics_calculator_v0` was present.
+- Metadata correction: prior `non_official_local_metrics_calculator_v0` final commit was `39d3bb43d96a138e3446b56a4ded1ce2b0b5f111` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Reviewed existing bounded SQLGlot noop metrics outputs under `runs/user/timing_sqlglot_noop_postgres_smoke/metrics/`, `runs/user/timing_sqlglot_noop_mysql_smoke/metrics/`, and `runs/user/timing_sqlglot_noop_spark_smoke/metrics/`.
+- All 15 expected output files exist.
+- `local_metrics_summary.json` shape is complete for all three runs.
+- `local_metrics_by_engine.csv` and `local_metrics_by_pool.csv` expose required local metric, diagnostic, deferred status, and boundary fields.
+- `local_timing_speedup_rows.csv` remains row-grained and does not rank methods or select winners.
+- Performance summaries use strict exact + timed rows only.
+- Minor output-shape note: the literal token `leaderboard` appears only in explicit false boundary/prohibited-output fields, not as a leaderboard artifact or ranking output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+New local diagnostic metrics computed: no, existing outputs reviewed only.
+Route-level paper metrics computed: no.
+Timing/speedup newly computed: no.
+Metrics calculator changed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize broader local diagnostic projection only if the explicit false leaderboard boundary vocabulary is accepted; otherwise authorize a narrow output-vocabulary patch first.
