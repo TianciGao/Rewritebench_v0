@@ -25,6 +25,21 @@ python baselines/sqlglot/sqlglot_user_adapter.py --route optimize
 
 These commands are intended to be passed through `--adapter-command` on `python -m sql_rewrite_bench.user_run`.
 
+## Known Context-free Optimize Limitation
+
+`--route noop` and `--route optimize` are separate user-entry adapter routes. Do not merge their local diagnostic outcomes into a single SQLGlot score.
+
+The current `--route optimize` implementation is context-free: it reads the source SQL, parses it using the selected engine dialect, calls SQLGlot `optimize(expression)` without case schema or catalog context, and emits candidate SQL.
+
+Because it has no case schema/catalog context, context-free optimize may emit invalid qualification for some correlated subqueries. A bounded local diagnostic found this on `CONS_0005`, where SQLGlot emitted invalid three-part references:
+
+- PostgreSQL: `"table1"."table2"."i"`
+- MySQL/Spark: `` `table1`.`table2`.`i` ``
+
+That failure is fail-visible adapter behavior. It is not a database backend failure, checker failure, timing issue, official metric, or benchmark code failure.
+
+Users should not interpret bounded local diagnostic SQLGlot route results as official retained baseline evidence. A future schema-aware SQLGlot route would need a separately named route and separate authorization because it changes route semantics and comparability.
+
 ## Boundaries
 
 - This is a non-DB user-entry adapter.

@@ -13092,3 +13092,49 @@ Retained evidence promoted: no.
 
 Next safe action:
 - Decide whether to document the context-free `sqlglot_optimize` limitation or authorize a separately named schema-aware SQLGlot route design; do not silently change the existing optimize route.
+
+## 2026-05-22 - sqlglot_context_free_optimize_doc_warning_v0
+
+Mode: documentation/audit only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Metadata correction note:
+- Preflight found that `project_control/MIGRATION_STATUS.md` and `project_control/MIGRATION_RUN_LOG.md` already contained `sqlglot_optimize_cons0005_triage_v0` entries.
+- Those prior entries did not explicitly record final triage commit/push metadata.
+- Non-destructive metadata note for the prior triage: final commit `98b4e9e`; push result `pushed to origin/feature/case-package-v2-external-schema`.
+
+Files created:
+- `audits/sqlglot_context_free_optimize_doc_warning_v0/README.md`
+- `audits/sqlglot_context_free_optimize_doc_warning_v0/documentation_change_summary.md`
+- `audits/sqlglot_context_free_optimize_doc_warning_v0/protected_surface_check.md`
+- `audits/sqlglot_context_free_optimize_doc_warning_v0/command_log.md`
+- `audits/sqlglot_context_free_optimize_doc_warning_v0/boundary_checklist.md`
+
+Files modified:
+- `baselines/sqlglot/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, Markdown sanity checks for the updated SQLGlot README and audit files, `git diff --check`, and protected-surface checks.
+- Confirmed no `src/`, tests, cases, manifests, SQL, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, adapter-code, or `runs/user/` outputs were changed or committed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Adapter behavior changed: no.
+Schema-aware route added: no.
+Broader SQLGlot trial performed: no.
+
+Next safe action:
+- Keep the current context-free optimize route fail-visible, or authorize a separately named schema-aware SQLGlot route design; do not silently change the existing optimize route.
