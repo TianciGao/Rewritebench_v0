@@ -4,7 +4,7 @@ import tempfile
 import tomllib
 import unittest
 from argparse import Namespace
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -57,6 +57,27 @@ class CliFacadeTests(unittest.TestCase):
         self.assertIn("local diagnostic", help_text)
         self.assertIn("outputs only", help_text)
         self.assertIn("leaderboard", help_text)
+
+    def test_user_command_help_carries_local_only_boundary(self) -> None:
+        for command in [
+            "evaluate",
+            "list-cases",
+            "explain-selection",
+            "show-output-schema",
+            "show-boundary",
+            "compute-local-metrics",
+            "summarize",
+        ]:
+            stdout = io.StringIO()
+            with self.assertRaises(SystemExit):
+                with redirect_stdout(stdout):
+                    main(["user", command, "--help"])
+            help_text = stdout.getvalue().lower()
+            self.assertIn("local diagnostic", help_text)
+            self.assertIn("official metrics", help_text)
+            self.assertIn("paper results", help_text)
+            self.assertIn("retained", help_text)
+            self.assertIn("leaderboard", help_text)
 
     def test_no_leaderboard_or_ranking_command_exists(self) -> None:
         parser = build_parser()
@@ -132,7 +153,36 @@ class CliFacadeTests(unittest.TestCase):
             self.assertIn("official", text.lower())
             self.assertIn("leaderboard", text.lower())
 
-    def test_evaluate_rejects_unimplemented_verifier_flag(self) -> None:
+    def test_evaluate_rejects_unimplemented_verifier_flags(self) -> None:
+        with patch("cli.main.user_run.run_user_benchmark") as run_mock:
+            for verifier in ["verieql", "sqlsolver"]:
+                stderr = io.StringIO()
+                with redirect_stderr(stderr):
+                    code = main(
+                        [
+                            "user",
+                            "evaluate",
+                            "--case-set",
+                            "common_core_v0",
+                            "--engines",
+                            "postgres",
+                            "--adapter-command",
+                            "python adapter.py",
+                            "--output-root",
+                            "output",
+                            "--run-id",
+                            "demo",
+                            "--verifier",
+                            verifier,
+                        ]
+                    )
+                self.assertEqual(code, 2)
+                self.assertIn("not implemented", stderr.getvalue())
+                self.assertIn("Semantic Equivalence Rate remains N.A.", stderr.getvalue())
+        self.assertEqual(code, 2)
+        run_mock.assert_not_called()
+
+    def test_evaluate_rejects_top_level_reports_output_before_running(self) -> None:
         with patch("cli.main.user_run.run_user_benchmark") as run_mock:
             code = main(
                 [
@@ -145,15 +195,53 @@ class CliFacadeTests(unittest.TestCase):
                     "--adapter-command",
                     "python adapter.py",
                     "--output-root",
-                    "output",
+                    "reports",
                     "--run-id",
                     "demo",
-                    "--verifier",
-                    "verieql",
                 ]
             )
         self.assertEqual(code, 2)
         run_mock.assert_not_called()
+
+    def test_compute_local_metrics_delegates_and_exports_local_only(self) -> None:
+        fake_outputs = SimpleNamespace(metrics_dir=REPO_ROOT / "runs" / "user" / "demo" / "metrics")
+        fake_paths = SimpleNamespace(result_root=REPO_ROOT / "output" / "results" / "demo")
+        fake_exported = SimpleNamespace(paths=fake_paths)
+        with patch("cli.main.compute_and_write_local_metrics", return_value=fake_outputs) as metrics_mock, patch(
+            "cli.main.export_run_to_output", return_value=fake_exported
+        ) as export_mock:
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(["user", "compute-local-metrics", "--run-id", "demo", "--output-root", "output"])
+        self.assertEqual(code, 0)
+        metrics_mock.assert_called_once_with(REPO_ROOT / "runs" / "user" / "demo")
+        export_mock.assert_called_once()
+        output = stdout.getvalue()
+        self.assertIn("local diagnostic metrics only", output)
+        self.assertIn("official_metric_input=false", output)
+        self.assertIn("leaderboard_input=false", output)
+
+    def test_compute_local_metrics_rejects_top_level_results_output_before_computing(self) -> None:
+        with patch("cli.main.compute_and_write_local_metrics") as metrics_mock:
+            code = main(["user", "compute-local-metrics", "--run-id", "demo", "--output-root", "results"])
+        self.assertEqual(code, 2)
+        metrics_mock.assert_not_called()
+
+    def test_summarize_reads_local_output_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "output"
+            summary = output_root / "reports" / "demo" / "summary.md"
+            summary.parent.mkdir(parents=True)
+            summary.write_text(
+                "# Summary\n\nThis is local diagnostic output only.\n\nOfficial metrics computed: `false`\n",
+                encoding="utf-8",
+            )
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(["user", "summarize", "--output-root", output_root.as_posix(), "--run-id", "demo"])
+        self.assertEqual(code, 0)
+        self.assertIn("local diagnostic output only", stdout.getvalue())
+        self.assertIn("Official metrics computed", stdout.getvalue())
 
     def test_show_boundary_reads_exported_boundary_when_present(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

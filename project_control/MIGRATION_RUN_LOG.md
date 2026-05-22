@@ -14941,3 +14941,68 @@ Push result:
 
 Next safe action:
 - Review Phase 2B CLI facade and then authorize Phase 2C summary/local-metrics facade hardening or verifier output contract planning.
+
+## 2026-05-23 - user_cli_facade_phase2b_review_v0
+
+Mode: review/hardening, CLI facade only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/user_cli_facade_phase2b_review_v0/README.md`
+- `audits/user_cli_facade_phase2b_review_v0/command_review_matrix.csv`
+- `audits/user_cli_facade_phase2b_review_v0/help_text_review.md`
+- `audits/user_cli_facade_phase2b_review_v0/output_path_review.md`
+- `audits/user_cli_facade_phase2b_review_v0/verifier_fail_closed_review.md`
+- `audits/user_cli_facade_phase2b_review_v0/local_metrics_summarize_review.md`
+- `audits/user_cli_facade_phase2b_review_v0/bounded_cli_smoke_summary.md`
+- `audits/user_cli_facade_phase2b_review_v0/protected_surface_check.md`
+- `audits/user_cli_facade_phase2b_review_v0/command_log.md`
+- `audits/user_cli_facade_phase2b_review_v0/boundary_checklist.md`
+
+Files modified:
+- `src/cli/main.py`
+- `tests/user_entry/test_cli_facade.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed_with_hardening`.
+- Reviewed `sqlrb user evaluate`, `list-cases`, `explain-selection`, `show-output-schema`, `show-boundary`, `compute-local-metrics`, and `summarize`.
+- Hardened command-level help so every implemented command carries the local-only boundary: no official metrics, paper results, retained-evidence promotion, or leaderboard output.
+- Hardened verifier fail-closed behavior so `--verifier verieql` and `--verifier sqlsolver` fail before evaluation and state Semantic Equivalence Rate remains `N.A.` without verifier evidence.
+- Hardened `evaluate` and `compute-local-metrics` to validate protected output roots before invoking internal runner or local metrics calculator.
+- Bounded PostgreSQL SQLGlot noop CLI smoke over `PERF_0006` and `CONS_0005` selected/generated/source-executable/candidate-executable/checker/exact/mismatch rows 2/2/2/2/2/2/0 with timing disabled.
+- Metadata correction: `user_cli_facade_phase2b_v0` final commit was `5344770` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical migration performed: no.
+CLI reviewed/hardened: yes.
+Verifier implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics computed: no, except no real local-metrics smoke was needed.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase 2C summary/local-metrics facade hardening or future verifier output contract planning.

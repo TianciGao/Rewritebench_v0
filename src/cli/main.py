@@ -32,6 +32,11 @@ Promotion to top-level reports/, results/, or retained evidence requires a
 separate authorized task.
 """
 
+LOCAL_ONLY_EPILOG = (
+    "Boundary: local diagnostic output only; no official metrics, paper results, "
+    "retained-evidence promotion, or leaderboard output."
+)
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -39,7 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
         description=(
             "SQL-RewriteBench public facade. Commands in this facade write local "
             "diagnostic outputs only; they do not compute official metrics or "
-            "create leaderboard output."
+            "paper results, promote retained evidence, or create leaderboard output."
         ),
     )
     subparsers = parser.add_subparsers(dest="command_group", required=True)
@@ -82,8 +87,9 @@ def _add_evaluate_parser(subparsers: argparse._SubParsersAction[argparse.Argumen
         description=(
             "Run a local diagnostic user evaluation. This delegates to the internal "
             "user-run pipeline and then exports artifacts to output/results|logs|reports. "
-            "No official metrics, retained evidence, or leaderboard output is created."
+            "No official metrics, paper results, retained evidence, or leaderboard output is created."
         ),
+        epilog=LOCAL_ONLY_EPILOG,
     )
     _add_selection_args(parser)
     parser.add_argument("--engines", required=True, help="Comma-separated engine list, e.g. postgres or postgres,mysql,spark.")
@@ -106,18 +112,31 @@ def _add_evaluate_parser(subparsers: argparse._SubParsersAction[argparse.Argumen
         action="append",
         choices=["verieql", "sqlsolver"],
         default=[],
-        help="Reserved for future verifier support; not implemented in Phase 2B.",
+        help=(
+            "Reserved for future verifier support; not implemented in Phase 2B. "
+            "Semantic Equivalence Rate remains N.A. without verifier evidence."
+        ),
     )
 
 
 def _add_list_cases_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
-    parser = subparsers.add_parser("list-cases", help="List metadata-selected cases.")
+    parser = subparsers.add_parser(
+        "list-cases",
+        help="List metadata-selected cases.",
+        description="List local diagnostic case selections without running adapters or computing metrics.",
+        epilog=LOCAL_ONLY_EPILOG,
+    )
     _add_selection_args(parser)
     parser.add_argument("--engines", default="all")
 
 
 def _add_explain_selection_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
-    parser = subparsers.add_parser("explain-selection", help="Explain the selected local diagnostic rows.")
+    parser = subparsers.add_parser(
+        "explain-selection",
+        help="Explain the selected local diagnostic rows.",
+        description="Explain local diagnostic row selection without running adapters or computing metrics.",
+        epilog=LOCAL_ONLY_EPILOG,
+    )
     _add_selection_args(parser)
     parser.add_argument("--engines", default="all")
 
@@ -126,11 +145,18 @@ def _add_show_output_schema_parser(subparsers: argparse._SubParsersAction[argpar
     subparsers.add_parser(
         "show-output-schema",
         help="Show local output schema and D035 output-root shape.",
+        description="Show the D035 local output contract for user-run diagnostic artifacts.",
+        epilog=LOCAL_ONLY_EPILOG,
     )
 
 
 def _add_show_boundary_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
-    parser = subparsers.add_parser("show-boundary", help="Show the local-only output boundary.")
+    parser = subparsers.add_parser(
+        "show-boundary",
+        help="Show the local-only output boundary.",
+        description="Show the local-only, non-official output boundary for a run or generic user output.",
+        epilog=LOCAL_ONLY_EPILOG,
+    )
     parser.add_argument("--output-root", type=Path, default=Path("output"))
     parser.add_argument("--run-id")
 
@@ -139,6 +165,11 @@ def _add_compute_local_metrics_parser(subparsers: argparse._SubParsersAction[arg
     parser = subparsers.add_parser(
         "compute-local-metrics",
         help="Delegate to the non-official local metrics calculator for an existing source run.",
+        description=(
+            "Compute non-official local diagnostic metrics for an existing local source run. "
+            "This does not compute official metrics or write top-level reports/results."
+        ),
+        epilog=LOCAL_ONLY_EPILOG,
     )
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--output-root", type=Path, default=Path("output"))
@@ -146,7 +177,12 @@ def _add_compute_local_metrics_parser(subparsers: argparse._SubParsersAction[arg
 
 
 def _add_summarize_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
-    parser = subparsers.add_parser("summarize", help="Print an existing output summary.")
+    parser = subparsers.add_parser(
+        "summarize",
+        help="Print an existing local output summary.",
+        description="Print local diagnostic output summaries without recomputing metrics or touching official surfaces.",
+        epilog=LOCAL_ONLY_EPILOG,
+    )
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--output-root", type=Path, default=Path("output"))
 
@@ -183,10 +219,16 @@ def _handle_user_command(args: argparse.Namespace) -> int:
 
 def _evaluate(args: argparse.Namespace) -> int:
     if args.verifier:
-        raise ValueError("verifier integration is not implemented in Phase 2B")
+        raise ValueError(
+            "verifier integration is not implemented in Phase 2B; "
+            "Semantic Equivalence Rate remains N.A. without verifier evidence"
+        )
     repo_root = repo_root_from_module()
     engines = _parse_engines(args.engines)
     output_root = _resolve_output_root(args.output_root, repo_root)
+    for engine in engines:
+        run_id = args.run_id if len(engines) == 1 else f"{args.run_id}__{engine}"
+        build_output_paths(output_root, run_id, repo_root=repo_root)
     results = []
     for engine in engines:
         run_id = args.run_id if len(engines) == 1 else f"{args.run_id}__{engine}"
@@ -278,10 +320,12 @@ def _show_boundary(args: argparse.Namespace) -> int:
 def _compute_local_metrics(args: argparse.Namespace) -> int:
     repo_root = repo_root_from_module()
     source_run_dir = _resolve_source_run_root(args.source_run_root, repo_root) / args.run_id
+    output_root = _resolve_output_root(args.output_root, repo_root)
+    build_output_paths(output_root, args.run_id, repo_root=repo_root)
     outputs = compute_and_write_local_metrics(source_run_dir)
     exported = export_run_to_output(
         source_run_dir,
-        _resolve_output_root(args.output_root, repo_root),
+        output_root,
         run_id=args.run_id,
         repo_root=repo_root,
     )
