@@ -1,0 +1,158 @@
+{
+  "schema_version": "sqlglot_user_adapter_bounded_smoke_v0",
+  "verdict": "completed_with_failures",
+  "sqlglot_dependency": {
+    "available": true,
+    "version": "30.2.1",
+    "installed_during_task": false
+  },
+  "adapter_commands": [
+    "python baselines/sqlglot/sqlglot_user_adapter.py --route noop",
+    "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize"
+  ],
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "paper_results_changed": false,
+  "denominator_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "retained_evidence_promoted": false,
+  "global_leaderboard_created": false,
+  "release_export_tag_created": false,
+  "runs_user_outputs_committed": false,
+  "routes": {
+    "noop": {
+      "route_verdict": "completed_with_port_probe_failures",
+      "engines_attempted": [
+        "postgres",
+        "mysql",
+        "spark"
+      ],
+      "phase_a_capture": {
+        "selected_rows": 2,
+        "adapter_invoked_rows": 2,
+        "candidate_generated_rows": 2,
+        "candidate_preflight_passed_rows": 2,
+        "run_path": "runs/user/sqlglot_noop_capture_pg_smoke"
+      },
+      "phase_b_same_engine": {
+        "selected_rows": 6,
+        "adapter_invoked_rows": 6,
+        "candidate_generated_rows": 6,
+        "candidate_preflight_passed_rows": 6,
+        "source_executable_rows": 6,
+        "candidate_executable_rows": 6,
+        "checker_attempted_rows": 6,
+        "exact_rows": 6,
+        "mismatch_rows": 0,
+        "failure_bucket_counts": {
+          "none": 6
+        }
+      },
+      "phase_c_port_probe": {
+        "run": true,
+        "selected_rows": 2,
+        "adapter_invoked_rows": 2,
+        "candidate_generated_rows": 1,
+        "candidate_preflight_passed_rows": 1,
+        "source_executable_rows": 1,
+        "candidate_executable_rows": 1,
+        "checker_attempted_rows": 1,
+        "exact_rows": 0,
+        "mismatch_rows": 1,
+        "adapter_failures": 1,
+        "parse_emit_optimize_failures": 1,
+        "failure_bucket_counts": {
+          "adapter_failed": 1,
+          "mismatch": 1
+        },
+        "run_paths": [
+          "runs/user/sqlglot_noop_port_pg_target_probe",
+          "runs/user/sqlglot_noop_port_mysql_target_probe"
+        ]
+      },
+      "aggregate_rows_in_this_task": {
+        "selected_rows": 10,
+        "adapter_invoked_rows": 10,
+        "candidate_generated_rows": 9,
+        "candidate_preflight_passed_rows": 9,
+        "source_executable_rows": 7,
+        "candidate_executable_rows": 7,
+        "checker_attempted_rows": 7,
+        "exact_rows": 6,
+        "mismatch_rows": 1,
+        "source_like_rows": 0,
+        "unsupported_fail_closed_rows": 0,
+        "adapter_failures": 1,
+        "parse_emit_optimize_failures": 1
+      }
+    },
+    "optimize": {
+      "route_verdict": "completed_with_candidate_execution_failures",
+      "engines_attempted": [
+        "postgres",
+        "mysql",
+        "spark"
+      ],
+      "phase_a_capture": {
+        "selected_rows": 2,
+        "adapter_invoked_rows": 2,
+        "candidate_generated_rows": 2,
+        "candidate_preflight_passed_rows": 2,
+        "run_path": "runs/user/sqlglot_optimize_capture_pg_smoke"
+      },
+      "phase_b_same_engine": {
+        "selected_rows": 6,
+        "adapter_invoked_rows": 6,
+        "candidate_generated_rows": 6,
+        "candidate_preflight_passed_rows": 6,
+        "source_executable_rows": 6,
+        "candidate_executable_rows": 3,
+        "checker_attempted_rows": 3,
+        "exact_rows": 3,
+        "mismatch_rows": 0,
+        "failure_bucket_counts": {
+          "none": 3,
+          "candidate_execution_failed": 3
+        },
+        "failing_case": "CONS_0005",
+        "failure_shape": "SQLGlot optimize emitted a candidate containing table1.table2.i; PostgreSQL, MySQL, and Spark rejected it during candidate execution."
+      },
+      "phase_c_port_probe": {
+        "run": false,
+        "skipped_reason": "Skipped because optimize route Phase B did not fully succeed."
+      },
+      "aggregate_rows_in_this_task": {
+        "selected_rows": 8,
+        "adapter_invoked_rows": 8,
+        "candidate_generated_rows": 8,
+        "candidate_preflight_passed_rows": 8,
+        "source_executable_rows": 6,
+        "candidate_executable_rows": 3,
+        "checker_attempted_rows": 3,
+        "exact_rows": 3,
+        "mismatch_rows": 0,
+        "source_like_rows": 0,
+        "unsupported_fail_closed_rows": 0,
+        "adapter_failures": 0,
+        "parse_emit_optimize_failures": 0
+      }
+    }
+  },
+  "spark": {
+    "readiness": "passed",
+    "bounded_smoke_run": true,
+    "noop_exact_rows": 2,
+    "noop_mismatch_rows": 0,
+    "optimize_exact_rows": 1,
+    "optimize_candidate_execution_failed_rows": 1
+  },
+  "port_probe": {
+    "controlled_target_reference_adapters_used": false,
+    "noop_postgres_target_probe": "adapter_failed_parse",
+    "noop_mysql_target_probe": "checker_mismatch",
+    "optimize_probe": "skipped_after_phase_b_failure"
+  }
+}

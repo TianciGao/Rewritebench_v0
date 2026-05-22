@@ -13007,3 +13007,45 @@ Real user adapter run performed: no.
 
 Next safe action:
 - Authorize one bounded real adapter smoke with an explicit adapter command, explicit case lists, local `runs/user/` output, and no timing, official metrics, reports/results, retained-evidence promotion, leaderboard, release export, or tag work.
+
+## 2026-05-22 - sqlglot_user_adapter_bounded_smoke_v0
+
+Mode: bounded local diagnostic user-entry adapter smoke.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/README.md`
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/route_summary.csv`
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/status_summary.json`
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/command_log.md`
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/protected_surface_check.md`
+- `audits/sqlglot_user_adapter_bounded_smoke_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit CSV/JSON/Markdown sanity, `git diff --check`, and protected-surface diff checks.
+- SQLGlot dependency available: yes, version `30.2.1`; no install required.
+- Engine readiness passed for PostgreSQL, MySQL, and Spark.
+- Phase A adapter-capture: noop and optimize each selected 2 PostgreSQL rows and generated/preflight-passed 2 candidates with DB/checker disabled.
+- Phase B same-engine smoke: noop exact `2/2` on PostgreSQL, MySQL, and Spark; optimize exact `1/2` on PostgreSQL, MySQL, and Spark with `CONS_0005` candidate execution failed on each engine.
+- Phase C PORT probe: noop PostgreSQL target probe `PORT_0004` adapter parse failed before candidate generation; noop MySQL target probe `PORT_0003` checker mismatched after source/candidate execution; optimize PORT probe skipped because optimize Phase B did not fully succeed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Next safe action:
+- Triage `sqlglot_optimize` on `CONS_0005` before any broader optimize-route trial; keep PORT real-adapter probes separate from controlled target-reference diagnostics and continue to avoid timing, official metrics, reports/results, retained-evidence promotion, leaderboard, release export, or tag work.
