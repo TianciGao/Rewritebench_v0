@@ -13719,3 +13719,63 @@ Push result:
 
 Next safe action:
 - Use label-only diagnostics to decide whether to keep these rows fail-visible, document the limitation, or separately authorize a case-local exactness-changing label policy patch.
+
+## 2026-05-22 - strict_label_policy_documentation_v0
+
+Mode: documentation-only user-entry checker policy clarification.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `docs/user_entry_checker_policy.md`
+- `audits/strict_label_policy_documentation_v0/README.md`
+- `audits/strict_label_policy_documentation_v0/documentation_change_summary.md`
+- `audits/strict_label_policy_documentation_v0/protected_surface_check.md`
+- `audits/strict_label_policy_documentation_v0/command_log.md`
+- `audits/strict_label_policy_documentation_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed Markdown sanity checks, project-control readability check, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no `src/`, tests, cases, checker configs, SQL files, `baselines/`, `case_sets/`, inventory, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Documentation result:
+- Created a dedicated user-entry checker policy document because no existing checker-policy document existed under `docs/`.
+- Documented strict default `local_result_checker.py` behavior.
+- Documented that same-engine JSONL result column labels/object keys are part of exactness.
+- Documented that label-only mismatches remain `checker_mismatch`, `exact_status=mismatch`, and `failure_bucket=mismatch`.
+- Documented diagnostic fields: `value_exact`, `label_exact`, `label_only_mismatch`, `label_policy`, `label_mismatch_class`, and `value_mismatch_reason`.
+- Documented that `label_only_mismatch=true` is diagnostic visibility only, not a correctness relaxation.
+- Documented that explicit alias differences remain strict and generated-expression labels are not automatically ignored.
+- Documented that PORT real-adapter rows remain separate from controlled PORT target-reference diagnostics.
+- Documented that any exactness-changing label policy requires separate case/role/config-gated authorization.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Checker behavior changed: no.
+Exact/mismatch semantics changed: no.
+Case-local label policy added: no.
+Global label-ignore behavior added: no.
+Common-core rerun performed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Keep label-only rows fail-visible under the documented strict policy unless a separate task authorizes a case- or role-gated exactness-changing label policy.
