@@ -1,0 +1,6 @@
+artifact,row_count,columns,sample_rows,notes
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/execution/source_result.jsonl,2,ENAME,"[{""ENAME"": ""ALICE""}, {""ENAME"": ""BOB""}]",Spark source artifact; unordered query returned ALICE then BOB.
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/execution/candidate_result.jsonl,2,ENAME,"[{""ENAME"": ""BOB""}, {""ENAME"": ""ALICE""}]",Spark candidate artifact; same values as source in reverse order.
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/checker/normalized_source_result.jsonl,2,ENAME,"[{""ENAME"": ""ALICE""}, {""ENAME"": ""BOB""}]",Checker normalization preserved source row order because no recognized sort_rows setting is present.
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/checker/normalized_candidate_result.jsonl,2,ENAME,"[{""ENAME"": ""BOB""}, {""ENAME"": ""ALICE""}]",Checker normalization preserved candidate row order because no recognized sort_rows setting is present.
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/checker/mismatch_summary.json,2,ENAME,"source_preview=[{""ENAME"": ""ALICE""}, {""ENAME"": ""BOB""}]; candidate_preview=[{""ENAME"": ""BOB""}, {""ENAME"": ""ALICE""}]",Mismatch artifact records equal row counts and row-order-only preview difference.

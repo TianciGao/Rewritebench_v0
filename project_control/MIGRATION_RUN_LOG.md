@@ -12770,3 +12770,39 @@ Boundary:
 
 Next safe action:
 - Review the `CONS_0011` row-order checker behavior and keep PORT Spark roles fail-closed unless a separate Spark PORT role task is authorized; any broader Spark, timing, official metrics, reports/results, retained-evidence, leaderboard, or release-export work remains separate authorization.
+
+## 2026-05-22 - cons0011_spark_row_order_triage_v0
+
+`CONS_0011` Spark row-order mismatch triage completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic audit only.
+
+Result:
+- Existing Common-core Spark local diagnostic artifacts were available; no `CONS_0011` rerun was needed.
+- Source/candidate row counts: 2/2.
+- Column labels equal: yes, `ENAME`.
+- Values match after sorting rows: yes.
+- Source SQL `ORDER BY`: absent.
+- Positive rewrite SQL `ORDER BY`: absent.
+- Workspace source and candidate SQL: identical unordered no-op diagnostic query.
+- Checker order policy: current local checker preserves row order unless a recognized top-level `sort_rows: true` is present in `checker/normalization.yaml`; `CONS_0011` does not declare that setting, and `compare_config.yaml` declares semantic equivalence without an order policy.
+- Verdict: `case_level_compare_config_gap`.
+- Likely root cause: order-insensitive case semantics/configuration gap surfaced by Spark nondeterministic row order, not a true semantic mismatch.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local run outputs committed: no.
+
+Next safe action:
+- Authorize a narrow `CONS_0011` case-local order-insensitive checker policy fix, preferably through the repository-supported `sort_rows` setting or a separately authorized compare-config support task, with representative PERF/CONS/LONGTAIL and hard-negative/control regression checks.
