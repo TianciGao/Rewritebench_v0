@@ -1,0 +1,13 @@
+metric,before_statement_patch,after_statement_patch,delta,notes
+selected_rows,40,40,0,Spark Common-core SQLGlot noop selected rows
+candidate_generated_rows,40,40,0,All Spark selected rows generated candidates before and after
+candidate_preflight_passed_rows,40,40,0,No preflight failures
+source_executable_rows,35,35,0,Five Spark unsupported PORT rows remain fail-closed
+candidate_executable_rows,27,33,6,Six statement-boundary rows now execute candidates
+checker_attempted_rows,27,33,6,Six statement-boundary rows now reach checker
+exact_rows,25,31,6,Six statement-boundary rows now exact
+mismatch_rows,2,2,0,Remaining mismatches are PORT SQLGlot noop behavior
+candidate_execution_failed_rows,8,2,-6,Remaining candidate execution failures are PORT_0003 and PORT_0013
+unsupported_engine_rows,5,5,0,Explicit unsupported Spark PORT roles unchanged
+non_port_spark_exact_rows,25,31,6,All 31 non-PORT same-engine Spark rows are now exact
+non_port_spark_total_rows,31,31,0,Non-PORT same-engine Spark rows selected under Spark

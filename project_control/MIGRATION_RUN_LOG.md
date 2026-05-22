@@ -13455,3 +13455,73 @@ Push result:
 
 Next safe action:
 - Keep remaining PORT SQLGlot noop failures fail-visible, or separately authorize PORT real-adapter route/dialect triage without mixing real-adapter rows with controlled target-reference diagnostics.
+
+## 2026-05-22 - sqlglot_noop_common_core_local_diagnostic_closeout_v0
+
+Mode: audit-only local diagnostic closeout.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/README.md`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/engine_current_summary.csv`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/remaining_failure_matrix.csv`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/spark_before_after_patch_summary.csv`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/closeout_status.json`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/recommendation.md`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/protected_surface_check.md`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/command_log.md`
+- `audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability checks, audit Markdown/CSV/JSON sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output check.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Closeout result:
+- Verdict: `closed_with_fail_visible_limitations`.
+- PostgreSQL current status: selected 40, generated/preflight 35/35, source/candidate/checker 35/35/35, exact/mismatch 35/0, with five PORT adapter parse/emit failures.
+- MySQL current status: selected 40, generated/preflight 40/40, source/candidate/checker 40/39/39, exact/mismatch 31/8, with one PORT candidate execution failure, three PORT real-adapter semantic mismatches, and five label-only checker/normalization candidates including `PERF_0062`.
+- Spark current status after statement-boundary patch: selected 40, generated/preflight 40/40, source/candidate/checker 35/33/33, exact/mismatch 31/2.
+- Spark non-PORT same-engine status: exact 31/31.
+- Six prior Spark statement-boundary false failures are exact: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, `PERF_0024`, and `PERF_0082`.
+- Remaining Spark failures are PORT-only or explicit unsupported/fail-closed roles.
+
+Combined current funnel:
+- Selected rows: 120.
+- Candidate generated/preflight passed rows: 115/115.
+- Source/candidate/checker rows: 110/107/107.
+- Exact/mismatch rows: 97/10.
+- Failure buckets: `adapter_failed=5`, `candidate_execution_failed=3`, `mismatch=10`, `none=97`, `unsupported_engine=5`.
+
+Reruns performed:
+- PostgreSQL: no.
+- MySQL: no.
+- Spark: no.
+- SQLGlot optimize: no.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Code/checker/backend patched: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Choose whether to authorize MySQL label-policy triage, SQLGlot noop PORT limitation documentation, a target-aware SQLGlot route design, or pause the SQLGlot line.
