@@ -1,0 +1,2 @@
+failure_bucket,count,affected_cases,likely_layer,notes
+none,2,PERF_0006;CONS_0005,none,Both rows executed Spark source and candidate SQL through PySpark and reached checker exact

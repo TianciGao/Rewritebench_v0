@@ -1,0 +1,28 @@
+case_id,artifact_path,exists,purpose,committed,notes
+ALL,audits/spark_live_two_case_smoke_v0/README.md,true,audit packet overview,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/environment_check.md,true,environment readiness summary without secrets,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/live_smoke_summary.json,true,structured smoke summary,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/case_outcome_matrix.csv,true,row outcome matrix,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/failure_bucket_summary.csv,true,failure bucket summary,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/artifact_inventory.csv,true,artifact inventory,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/protected_surface_check.md,true,protected surface validation notes,yes,intended committed audit artifact
+ALL,audits/spark_live_two_case_smoke_v0/command_log.md,true,command log,yes,intended committed audit artifact
+ALL,runs/user/spark_live_smoke/selected_cases.csv,true,local selected case rows,no,ignored local diagnostic output
+ALL,runs/user/spark_live_smoke/ledger.csv,true,local row ledger,no,ignored local diagnostic output
+ALL,runs/user/spark_live_smoke/failures.csv,true,local failures table,no,header only because no failures
+ALL,runs/user/spark_live_smoke/summary.json,true,local runner summary,no,ignored local diagnostic output
+ALL,runs/user/spark_live_smoke/quality_summary.json,true,local quality summary,no,ignored local diagnostic output
+ALL,runs/user/spark_live_smoke/quality_report.md,true,local quality report,no,ignored local diagnostic output
+ALL,runs/user/spark_live_smoke/tag_slices.csv,true,local tag slices,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/candidate_sql/PERF_0006__spark.sql,true,captured no-op candidate SQL,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/workspaces/PERF_0006/spark/candidate.sql,true,adapter workspace candidate SQL,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/workspaces/PERF_0006/spark/execution/spark_execution_metadata.json,true,Spark execution metadata,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/workspaces/PERF_0006/spark/execution/source_result.jsonl,true,Spark source result artifact,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/workspaces/PERF_0006/spark/execution/candidate_result.jsonl,true,Spark candidate result artifact,no,ignored local diagnostic output
+PERF_0006,runs/user/spark_live_smoke/workspaces/PERF_0006/spark/checker/checker_result.json,true,local checker result,no,ignored local diagnostic output
+CONS_0005,runs/user/spark_live_smoke/candidate_sql/CONS_0005__spark.sql,true,captured no-op candidate SQL,no,ignored local diagnostic output
+CONS_0005,runs/user/spark_live_smoke/workspaces/CONS_0005/spark/candidate.sql,true,adapter workspace candidate SQL,no,ignored local diagnostic output
+CONS_0005,runs/user/spark_live_smoke/workspaces/CONS_0005/spark/execution/spark_execution_metadata.json,true,Spark execution metadata,no,ignored local diagnostic output
+CONS_0005,runs/user/spark_live_smoke/workspaces/CONS_0005/spark/execution/source_result.jsonl,true,Spark source result artifact,no,empty result is expected for this row
+CONS_0005,runs/user/spark_live_smoke/workspaces/CONS_0005/spark/execution/candidate_result.jsonl,true,Spark candidate result artifact,no,empty result is expected for this row
+CONS_0005,runs/user/spark_live_smoke/workspaces/CONS_0005/spark/checker/checker_result.json,true,local checker result,no,ignored local diagnostic output

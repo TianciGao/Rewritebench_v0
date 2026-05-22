@@ -12669,3 +12669,53 @@ Boundary:
 
 Next safe action:
 - Configure a local PySpark environment and rerun the two-case Spark live smoke (`PERF_0006`, `CONS_0005`) before authorizing any broader Common-core Spark local diagnostic trial.
+
+## 2026-05-22 - spark_live_two_case_smoke_v0
+
+Spark two-case live local diagnostic smoke completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic smoke and audit only.
+
+Environment:
+- PostgreSQL probe: ok.
+- MySQL probe: ok.
+- Spark readiness: PySpark import available, `PYSPARK_PYTHON` set, `SQLRB_SPARK_MASTER` set, live local diagnostic backend available through PySpark.
+- No secrets printed.
+
+Run summary:
+- Local run output: `runs/user/spark_live_smoke/`.
+- Selected rows: 2.
+- Candidate generated rows: 2.
+- Candidate preflight passed rows: 2.
+- Spark source execution attempted rows: 2.
+- Spark source executable rows: 2.
+- Spark candidate execution attempted rows: 2.
+- Spark candidate executable rows: 2.
+- Checker attempted/exact/mismatch rows: 2/2/0.
+- Failure buckets: `none=2`.
+- `PERF_0006`: Spark source/candidate executed through PySpark, source rows 2, candidate rows 2, checker exact.
+- `CONS_0005`: Spark source/candidate executed through PySpark, source rows 0, candidate rows 0, checker exact.
+
+Interpretation:
+- The two-case Spark live backend smoke is validated for this subset.
+- A preliminary sandboxed Spark attempt failed to bind a local Py4J socket and was discarded as a sandbox-only blocker before the accepted local-socket run.
+- The no-op adapter remains a diagnostic adapter; this is not official paper evidence and not official metrics.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/spark_live_smoke/` outputs committed: no.
+
+Next safe action:
+- If Spark work continues, authorize a bounded Common-core Spark local diagnostic trial under the same local-only, non-metric, no timing, no reports/results, and no leaderboard boundaries.

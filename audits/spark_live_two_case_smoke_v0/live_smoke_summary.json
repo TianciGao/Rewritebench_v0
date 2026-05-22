@@ -1,0 +1,20 @@
+{
+  "candidate_generated_rows": 2,
+  "candidate_preflight_passed_rows": 2,
+  "checker_attempted_rows": 2,
+  "exact_rows": 2,
+  "failure_bucket_counts": {
+    "none": 2
+  },
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "mismatch_rows": 0,
+  "official_metrics_computed": false,
+  "reports_results_updated": false,
+  "selected_rows": 2,
+  "spark_candidate_executable_rows": 2,
+  "spark_candidate_execution_attempted_rows": 2,
+  "spark_source_executable_rows": 2,
+  "spark_source_execution_attempted_rows": 2,
+  "timing_or_speedup_computed": false
+}
