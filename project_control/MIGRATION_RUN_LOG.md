@@ -14808,3 +14808,70 @@ Push result:
 
 Next safe action:
 - Authorize Phase 2A output writer skeleton and bounded-smoke export path only, preserving `runs/user/` compatibility and local-only boundaries.
+
+## 2026-05-22 - user_output_writer_phase2a_v0
+
+Mode: implementation, local output writer only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/sql_rewrite_bench/user_output.py`
+- `tests/user_entry/test_user_output.py`
+- `audits/user_output_writer_phase2a_v0/README.md`
+- `audits/user_output_writer_phase2a_v0/implementation_summary.md`
+- `audits/user_output_writer_phase2a_v0/exported_output_shape.md`
+- `audits/user_output_writer_phase2a_v0/run_manifest_example.md`
+- `audits/user_output_writer_phase2a_v0/boundary_report_example.md`
+- `audits/user_output_writer_phase2a_v0/test_results.md`
+- `audits/user_output_writer_phase2a_v0/bounded_export_smoke_summary.md`
+- `audits/user_output_writer_phase2a_v0/protected_surface_check.md`
+- `audits/user_output_writer_phase2a_v0/command_log.md`
+- `audits/user_output_writer_phase2a_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Added a narrow internal output writer/exporter in `src/sql_rewrite_bench/user_output.py`.
+- The exporter maps existing `runs/user/<run_id>/` artifacts into `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- The exporter writes `run_manifest.json`, `boundary.md`, `summary.md`, failure bucket CSV/Markdown, tag-slice Markdown, metrics summary or N.A. report, verifier N.A. summary/status, and log summaries.
+- The exporter copies existing ledger, quality summary, tag slices, candidates, execution, checker, timing, and metrics artifacts when present.
+- Source `runs/user/` directories are not deleted, moved, or mutated.
+- Bounded export smoke used `runs/user/timing_sqlglot_noop_postgres_smoke` and a temporary output root only.
+- Focused output writer tests and the full user-entry suite passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Output writer implemented: yes.
+CLI implemented: no.
+Verifier implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics computed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase 2B CLI facade parsing and `sqlrb user evaluate` wrapper over existing internals and this exporter, still bounded to smoke validation and local-only output.
