@@ -153,6 +153,19 @@ class CliFacadeTests(unittest.TestCase):
             self.assertIn("official", text.lower())
             self.assertIn("leaderboard", text.lower())
 
+    def test_show_boundary_includes_na_and_deferred_metrics(self) -> None:
+        stdout = io.StringIO()
+        with redirect_stdout(stdout):
+            code = main(["user", "show-boundary"])
+        self.assertEqual(code, 0)
+        text = stdout.getvalue()
+        self.assertIn("Not official metrics", text)
+        self.assertIn("Not paper results", text)
+        self.assertIn("Not retained evidence", text)
+        self.assertIn("Not leaderboard input", text)
+        self.assertIn("Semantic Equivalence Rate is N.A.", text)
+        self.assertIn("POCR remains deferred", text)
+
     def test_evaluate_rejects_unimplemented_verifier_flags(self) -> None:
         with patch("cli.main.user_run.run_user_benchmark") as run_mock:
             for verifier in ["verieql", "sqlsolver"]:
@@ -205,7 +218,10 @@ class CliFacadeTests(unittest.TestCase):
 
     def test_compute_local_metrics_delegates_and_exports_local_only(self) -> None:
         fake_outputs = SimpleNamespace(metrics_dir=REPO_ROOT / "runs" / "user" / "demo" / "metrics")
-        fake_paths = SimpleNamespace(result_root=REPO_ROOT / "output" / "results" / "demo")
+        fake_paths = SimpleNamespace(
+            result_root=REPO_ROOT / "output" / "results" / "demo",
+            report_root=REPO_ROOT / "output" / "reports" / "demo",
+        )
         fake_exported = SimpleNamespace(paths=fake_paths)
         with patch("cli.main.compute_and_write_local_metrics", return_value=fake_outputs) as metrics_mock, patch(
             "cli.main.export_run_to_output", return_value=fake_exported
@@ -218,7 +234,13 @@ class CliFacadeTests(unittest.TestCase):
         export_mock.assert_called_once()
         output = stdout.getvalue()
         self.assertIn("local diagnostic metrics only", output)
+        self.assertIn("user-facing metrics output", output)
+        self.assertIn("metrics_summary.md", output)
+        self.assertIn("Semantic Equivalence Rate=N.A.", output)
+        self.assertIn("POCR=deferred", output)
         self.assertIn("official_metric_input=false", output)
+        self.assertIn("paper_result_input=false", output)
+        self.assertIn("retained_evidence_promoted=false", output)
         self.assertIn("leaderboard_input=false", output)
 
     def test_compute_local_metrics_rejects_top_level_results_output_before_computing(self) -> None:
@@ -227,7 +249,7 @@ class CliFacadeTests(unittest.TestCase):
         self.assertEqual(code, 2)
         metrics_mock.assert_not_called()
 
-    def test_summarize_reads_local_output_summary(self) -> None:
+    def test_summarize_reads_local_output_summary_and_related_reports(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output_root = Path(tmp) / "output"
             summary = output_root / "reports" / "demo" / "summary.md"
@@ -236,12 +258,80 @@ class CliFacadeTests(unittest.TestCase):
                 "# Summary\n\nThis is local diagnostic output only.\n\nOfficial metrics computed: `false`\n",
                 encoding="utf-8",
             )
+            (summary.parent / "failure_buckets.md").write_text(
+                "# Failure Buckets\n\n| failure_bucket | count |\n| --- | ---: |\n| mismatch | 1 |\n",
+                encoding="utf-8",
+            )
+            (summary.parent / "tag_slices.md").write_text(
+                "# Tag Slices\n\nRows available: `2`.\n",
+                encoding="utf-8",
+            )
+            (summary.parent / "metrics_summary.md").write_text(
+                "# Local Metrics Summary\n\n- Semantic Equivalence Rate: `N.A.` without verifier evidence\n- POCR: deferred\n",
+                encoding="utf-8",
+            )
+            (summary.parent / "verifier_summary.md").write_text(
+                "# Verifier Summary\n\n- Semantic Equivalence Rate: `N.A.`\n- VeriEQL: not run\n- SQLSolver: not run\n",
+                encoding="utf-8",
+            )
+            (summary.parent / "boundary.md").write_text(
+                "# Boundary\n\nThis is local diagnostic output only.\n\n- Leaderboard input: `false`\n",
+                encoding="utf-8",
+            )
             stdout = io.StringIO()
             with redirect_stdout(stdout):
                 code = main(["user", "summarize", "--output-root", output_root.as_posix(), "--run-id", "demo"])
         self.assertEqual(code, 0)
-        self.assertIn("local diagnostic output only", stdout.getvalue())
-        self.assertIn("Official metrics computed", stdout.getvalue())
+        output = stdout.getvalue()
+        self.assertIn("SQL-RewriteBench Local Output Summary", output)
+        self.assertIn("local diagnostic output only", output)
+        self.assertIn("Official metrics computed", output)
+        self.assertIn("Failure Buckets", output)
+        self.assertIn("mismatch", output)
+        self.assertIn("Tag Slices", output)
+        self.assertIn("Rows available", output)
+        self.assertIn("Local Metrics", output)
+        self.assertIn("Semantic Equivalence Rate", output)
+        self.assertIn("POCR", output)
+        self.assertIn("Verifier", output)
+        self.assertIn("SQLSolver", output)
+        self.assertIn("Boundary", output)
+
+    def test_summarize_reports_na_when_optional_reports_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "output"
+            manifest = output_root / "results" / "demo" / "run_manifest.json"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "run_id": "demo",
+                        "case_set": "common_core_v0",
+                        "selected_case_count": 2,
+                        "selected_engines": ["postgres"],
+                        "route_id": "sqlglot_noop",
+                        "method_id": "sqlglot",
+                        "local_diagnostic_only": True,
+                        "official_metric_input": False,
+                        "paper_result_input": False,
+                        "retained_evidence_promoted": False,
+                        "leaderboard_input": False,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(["user", "summarize", "--output-root", output_root.as_posix(), "--run-id", "demo"])
+        self.assertEqual(code, 0)
+        output = stdout.getvalue()
+        self.assertIn("Run Manifest", output)
+        self.assertIn("Failure buckets: N.A.", output)
+        self.assertIn("Tag slices: N.A.", output)
+        self.assertIn("Local metrics: N.A.", output)
+        self.assertIn("Verifier: N.A.", output)
+        self.assertIn("Semantic Equivalence Rate", output)
+        self.assertIn("POCR", output)
 
     def test_show_boundary_reads_exported_boundary_when_present(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -15065,3 +15065,65 @@ Push result:
 
 Next safe action:
 - Continue with D035-aligned Phase 2C or verifier-output planning without moving repository directories.
+
+## 2026-05-23 - user_cli_phase2c_summary_metrics_hardening_v0
+
+Mode: CLI summary/report hardening only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/README.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/command_hardening_summary.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/bounded_smoke_summary.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/test_results.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/protected_surface_check.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/command_log.md`
+- `audits/user_cli_phase2c_summary_metrics_hardening_v0/boundary_checklist.md`
+
+Files modified:
+- `src/cli/main.py`
+- `tests/user_entry/test_cli_facade.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Hardened `sqlrb user summarize` to print a composite local diagnostic summary from D035 output roots with run summary, failure buckets, tag slices, local metrics, verifier, and boundary sections.
+- Missing optional summary/report files now show explicit `N.A.` messages.
+- Hardened `compute-local-metrics` user-facing output to show exported metrics/report paths, Semantic Equivalence Rate `N.A.`, POCR deferred, and full local-only boundary flags.
+- Hardened generic `show-boundary` to state not official metrics, not paper results, not retained evidence, not leaderboard input, Semantic Equivalence Rate `N.A.`, and POCR deferred.
+- Validation used a temp-output fixture smoke only; no full Common-core run or real metrics smoke was performed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical migration performed: no.
+CLI summary/report commands hardened: yes.
+VeriEQL implemented: no.
+SQLSolver implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics computed: no; no real local-metrics smoke was run.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- VeriEQL + SQLSolver output contract planning.

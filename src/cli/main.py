@@ -23,10 +23,18 @@ LOCAL_BOUNDARY_TEXT = """# Local Diagnostic Boundary
 
 SQL-RewriteBench user outputs are local diagnostic artifacts only.
 
+- Not official metrics.
+- Not paper results.
+- Not retained evidence.
+- Not leaderboard input.
+
 - official_metric_input: false
 - paper_result_input: false
 - retained_evidence_promoted: false
 - leaderboard_input: false
+
+Semantic Equivalence Rate is N.A. until formal VeriEQL or SQLSolver evidence
+exists. POCR remains deferred pending external skill-adapter integration.
 
 Promotion to top-level reports/, results/, or retained evidence requires a
 separate authorized task.
@@ -330,8 +338,13 @@ def _compute_local_metrics(args: argparse.Namespace) -> int:
         repo_root=repo_root,
     )
     print(f"local metrics written: {outputs.metrics_dir}")
-    print(f"exported metrics output: {exported.paths.result_root / 'metrics'}")
-    print("boundary: local diagnostic metrics only; official_metric_input=false; leaderboard_input=false")
+    print(f"user-facing metrics output: {exported.paths.result_root / 'metrics'}")
+    print(f"user-facing metrics report: {exported.paths.report_root / 'metrics_summary.md'}")
+    print("deferred metrics: Semantic Equivalence Rate=N.A. without verifier evidence; POCR=deferred")
+    print(
+        "boundary: local diagnostic metrics only; official_metric_input=false; "
+        "paper_result_input=false; retained_evidence_promoted=false; leaderboard_input=false"
+    )
     return 0
 
 
@@ -340,14 +353,87 @@ def _summarize(args: argparse.Namespace) -> int:
     paths = build_output_paths(_resolve_output_root(args.output_root, repo_root), args.run_id, repo_root=repo_root)
     summary_path = paths.report_root / "summary.md"
     manifest_path = paths.result_root / "run_manifest.json"
+    if not summary_path.exists() and not manifest_path.exists():
+        raise ValueError(f"no exported output found for run id: {args.run_id}")
+
+    print("# SQL-RewriteBench Local Output Summary")
+    print()
+    print("This is local diagnostic output only.")
+    print()
+    print("## Output Roots")
+    print()
+    print(f"- results: `{paths.result_root}`")
+    print(f"- logs: `{paths.log_root}`")
+    print(f"- reports: `{paths.report_root}`")
+    print()
+
     if summary_path.exists():
-        print(summary_path.read_text(encoding="utf-8"), end="")
-        return 0
+        _print_report_file("Run Summary", summary_path)
+    else:
+        _print_manifest_summary(manifest_path)
+
+    _print_report_file(
+        "Failure Buckets",
+        paths.report_root / "failure_buckets.md",
+        missing_message="Failure buckets: N.A.; not available in this exported output.",
+    )
+    _print_report_file(
+        "Tag Slices",
+        paths.report_root / "tag_slices.md",
+        missing_message="Tag slices: N.A.; not available in this exported output.",
+    )
+    _print_report_file(
+        "Local Metrics",
+        paths.report_root / "metrics_summary.md",
+        missing_message=(
+            "Local metrics: N.A.; metrics were not computed for this exported output.\n\n"
+            "- Semantic Equivalence Rate: `N.A.` without verifier evidence\n"
+            "- POCR: deferred pending external skill adapter"
+        ),
+    )
+    _print_report_file(
+        "Verifier",
+        paths.report_root / "verifier_summary.md",
+        missing_message=(
+            "Verifier: N.A.; VeriEQL and SQLSolver evidence is not available.\n\n"
+            "- Semantic Equivalence Rate: `N.A.`"
+        ),
+    )
+    _print_report_file("Boundary", paths.report_root / "boundary.md", missing_message=LOCAL_BOUNDARY_TEXT.rstrip())
+    return 0
+
+
+def _print_manifest_summary(manifest_path: Path) -> None:
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        print(json.dumps(manifest, indent=2, sort_keys=True))
-        return 0
-    raise ValueError(f"no exported output found for run id: {args.run_id}")
+        print("## Run Manifest")
+        print()
+        for key in [
+            "run_id",
+            "case_set",
+            "selected_case_count",
+            "selected_engines",
+            "route_id",
+            "method_id",
+            "local_diagnostic_only",
+            "official_metric_input",
+            "paper_result_input",
+            "retained_evidence_promoted",
+            "leaderboard_input",
+        ]:
+            print(f"- {key}: `{manifest.get(key)}`")
+        print()
+
+
+def _print_report_file(title: str, path: Path, *, missing_message: str | None = None) -> None:
+    print(f"## {title}")
+    print()
+    if path.exists():
+        text = path.read_text(encoding="utf-8").strip()
+        print(text if text else f"{title}: N.A.; file is empty.")
+    else:
+        print(missing_message or f"{title}: N.A.; file not available.")
+    print()
 
 
 def _parse_engines(raw_engines: str) -> list[str]:
