@@ -770,3 +770,94 @@ Impact:
 - Spark remains a backlog backend unless separately authorized.
 - PERF, CONS, and LONGTAIL same-engine local diagnostics must remain unchanged.
 - This decision does not authorize source code changes, case or manifest edits, SQL rewrites, MySQL/Spark implementation, live DB/checker execution, official metrics, timing/speedup, paper rendering, reports/results migration, denominator changes, paper-result changes, case membership changes, raw legacy evidence changes, or global leaderboard creation.
+
+## D032: Latest paper metrics/timing phase and external skill-adapter deferral
+
+Decision:
+
+The project will proceed next with metrics/timing protocol alignment and performance-layer planning after completion of the user-entry local diagnostic layer.
+
+The latest paper Table 6 is the current target for metric naming and formula alignment:
+
+Coverage:
+
+- Generation Rate: `|G_r| / N_S`
+- Execution Coverage Rate: `|E_r| / N_S`
+
+Correctness:
+
+- Result Consistency Rate: `|X_r| / N_S`
+- Semantic Equivalence Rate: `|V_equiv_r| / |V_equiv_r union V_non_r|`, with unknown/undecidable verifier outcomes reported separately
+
+Performance:
+
+- GM Speedup Ratio: `exp(|M_r|^-1 sum_{i in M_r} log s_i)`, where `s_i = t_src_i / t_rw_i`
+- Speedup Ratio Percentiles: `P10`, `P25`, `P50`, `P75`, `P90` over `{s_i}_{i in M_r}`
+
+Interpretability:
+
+- Positive Operation Coverage Rate: `|C_r|^-1 sum_{i in C_r} (|A_hat_i| / |A_exp_i|)`
+
+Generalization:
+
+- Cross-Engine Execution Coverage Rate: `|E_tgt_r| / N_PORT`
+- Cross-Engine Result Consistency Rate: `|X_tgt_r| / N_PORT`
+- Cross-Engine GM Speedup Ratio: `exp(|M_tgt_r|^-1 sum_{i in M_tgt_r} log s_tgt_i)`
+
+Performance metrics are exact-gated and timed-gated: speedup is only interpretable over result-consistent rows with retained paired timing.
+
+Timing artifacts must record source/candidate paired timing in the same engine/environment/run context before metrics scripts can compute performance.
+
+Regression@20 remains a reporting diagnostic / open question unless separately confirmed as a formal metric in the latest paper contract.
+
+Positive Operation Coverage Rate is not implemented now. It is deferred as an external-skill-adapter integration line.
+
+The project will wait for the collaborator's external script and operation-atom schema before creating or populating case-local `skill/` folders.
+
+No operation atoms may be inferred from taxonomy tags, SQL text, or `positive.sql` automatically in the current phase.
+
+No `cases/<POOL>/<CASE_ID>/skill/` directories should be created until the external script schema and integration contract are reviewed and authorized.
+
+Future skill integration should be case-local and explicit, likely through files such as:
+
+- `skill/operation_atoms.yaml`
+- `skill/semantic_guard_atoms.yaml`
+- `skill/skill_definition.md`
+- `skill/positive_reference_mapping.yaml`
+
+Exact file names and schema remain pending external-script review.
+
+The next implementation sequence should be:
+
+1. latest paper metrics/timing protocol alignment audit
+2. timing artifact schema design
+3. exact-gated local timing diagnostic implementation
+4. non-official local metrics calculator for Coverage/Correctness/Performance/Generalization
+5. external skill-adapter integration for POCR after collaborator script is ready
+6. retained-evidence adapter / official metrics promotion
+7. paper table renderer
+
+These phases must remain separately authorized.
+
+Reason:
+
+User-entry local diagnostic is now sufficiently complete to support a transition toward metrics/timing planning: adapter entry, candidate capture, candidate preflight, PostgreSQL/MySQL/Spark local execution, `local_result_checker`, failure buckets, quality summary, tag slices, label-only mismatch diagnostics, and strict-label policy documentation are in place.
+
+The latest paper metric table differs from the older repository Metrics Contract v1, especially replacing Attribution Coverage with Positive Operation Coverage Rate and replacing Speedup Retention with Cross-Engine GM Speedup Ratio.
+
+POCR requires curated operation atoms and Stage A / Stage B evidence validation. Implementing it without the collaborator's script risks schema drift and unverifiable operation-atom definitions.
+
+Separating timing/metrics infrastructure from POCR integration avoids blocking exact-gated performance work while protecting the interpretability metric from premature implementation.
+
+The benchmark's core reporting policy requires role-aware and denominator-aware results, no global leaderboard, and performance interpretation only on exact + timed rows.
+
+Impact:
+
+- Metrics/timing protocol alignment is authorized as an audit/design next step.
+- Timing implementation remains unauthorized until a separate timing artifact schema and protocol task is approved.
+- Metrics computation remains unauthorized until a separate metrics implementation task is approved.
+- POCR implementation is explicitly deferred.
+- `skill/` folder creation/population is explicitly deferred.
+- Existing user-entry local diagnostic outputs remain local-only and must not be promoted to retained evidence without a separate policy task.
+- No denominator, case membership, paper result, reports/results, raw retained evidence, official metrics, leaderboard, release/export/tag, or case package layout changes are authorized by this decision.
+- D018 remains historical context for the older formalized metrics contract; this decision records the latest-paper alignment direction and the need for a follow-up metrics contract delta/audit before implementation.

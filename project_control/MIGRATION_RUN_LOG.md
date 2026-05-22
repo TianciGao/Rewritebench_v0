@@ -13779,3 +13779,79 @@ Push result:
 
 Next safe action:
 - Keep label-only rows fail-visible under the documented strict policy unless a separate task authorizes a case- or role-gated exactness-changing label policy.
+
+## 2026-05-22 - metrics_timing_skill_adapter_decision_record_v0
+
+Mode: decision-recording and audit-only metrics/timing/skill-adapter planning.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/metrics_timing_skill_adapter_decision_record_v0/README.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/decision_summary.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/latest_paper_metric_scope.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/deferred_skill_adapter_scope.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/implementation_sequence.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/boundary_checklist.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/protected_surface_check.md`
+- `audits/metrics_timing_skill_adapter_decision_record_v0/command_log.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability check, audit Markdown sanity check, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no `src/`, tests, scripts, cases, manifests, SQL files, schemas, checker configs, validation scripts, `baselines/`, `case_sets/`, inventory, reports/results, retained evidence, `repository_spec/`, `benchmark_spec/`, or committed `runs/user/` outputs changed.
+
+Decision result:
+- Added D032: `Latest paper metrics/timing phase and external skill-adapter deferral`.
+- Recorded that user-entry local diagnostics are complete enough to support a transition to metrics/timing protocol alignment and performance-layer planning.
+- Recorded latest-paper Table 6 target metric names and formulas from task context.
+- Recorded that performance metrics are exact-gated and timed-gated.
+- Recorded that timing artifacts must preserve source/candidate paired timing in the same engine/environment/run context before metrics scripts can compute performance.
+- Recorded that Regression@20 remains a reporting diagnostic / open question unless separately confirmed as a formal latest-paper metric.
+- Recorded that Positive Operation Coverage Rate and `skill/` integration are deferred until the collaborator's external operation-atom script and schema are stable.
+- Recorded that operation atoms must not be inferred from taxonomy tags, SQL text, or `positive.sql` in the current phase.
+- Recorded that D018 and `repository_spec/metrics_contract_v1.md` remain historical context requiring a latest-paper metrics contract delta/audit before implementation.
+
+Paper/PDF note:
+- No local copy of `Beyond_Faster_SQL (5).pdf` was found under `/home/tianci_gao`; latest-paper metric scope was recorded from the task context.
+
+Implementation sequence recorded:
+1. latest paper metrics/timing protocol alignment audit
+2. timing artifact schema design
+3. exact-gated local timing diagnostic implementation
+4. non-official local metrics calculator for Coverage/Correctness/Performance/Generalization
+5. external skill-adapter integration for POCR after collaborator script is ready
+6. retained-evidence adapter / official metrics promotion
+7. paper table renderer
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics implementation performed: no.
+Timing implementation performed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Run a latest-paper metrics/timing protocol alignment audit comparing D032/Table 6 to the existing metrics contract before any timing schema or metrics implementation work.
