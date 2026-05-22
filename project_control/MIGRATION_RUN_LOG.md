@@ -12920,3 +12920,49 @@ Raw legacy evidence changed: no.
 
 Next safe action:
 - Optionally rerun a broader Spark local diagnostic snapshot, keeping PORT role outputs local-only and separate from official metrics, timing/speedup, reports/results, paper results, retained-evidence promotion, and leaderboard surfaces.
+
+## 2026-05-22 - tri_engine_user_entry_local_diagnostic_closeout_v0
+
+Mode: audit-only local diagnostic closeout.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Metadata correction note:
+- Prior task `port_spark_numeric_normalization_v0` final code/audit commit hash: `8f7b2f8`.
+- Prior task push result: pushed to `origin/feature/case-package-v2-external-schema`.
+
+Files created:
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/README.md`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/engine_capability_matrix.csv`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/port_controlled_path_matrix.csv`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/role_class_summary.csv`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/closeout_summary.json`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/deferred_work.md`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/source_audit_inventory.csv`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/protected_surface_check.md`
+- `audits/tri_engine_user_entry_local_diagnostic_closeout_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit CSV/JSON/Markdown sanity, `git diff --check`, and protected-surface diff checks.
+- Closeout uses committed audit packets; no new local diagnostic reruns were performed.
+- PostgreSQL no-op local diagnostic snapshot: exact/mismatch `35/0`.
+- MySQL no-op local diagnostic snapshot: exact/mismatch `36/0`.
+- PORT controlled paths: PostgreSQL target `5/5`, MySQL target `4/4`, Spark target `4/4`, Spark unsupported/fail-closed `5`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+
+Next safe action:
+- Authorize a separate real user-adapter evaluation plan if desired, keeping timing, official metrics, paper rendering, reports/results migration, retained-evidence integration, and release/export/tag work separately scoped.
