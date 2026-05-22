@@ -12368,3 +12368,41 @@ Boundary:
 
 Next safe action:
 - Return to the main user-entry roadmap; any real PORT user-adapter evaluation, broader MySQL coverage, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, or release export requires separate authorization.
+
+## 2026-05-22 - user_entry_pg_mysql_local_diagnostic_closeout_v0
+
+PostgreSQL/MySQL user-entry local diagnostic closeout completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: audit-only closeout.
+
+Verdict:
+- `pg_mysql_local_diagnostic_ready_with_deferred_items`.
+
+Capability summary:
+- PostgreSQL same-engine local diagnostics are implemented and live validated through the Common-core PostgreSQL no-op diagnostic and subsequent PORT controlled forward repair.
+- MySQL same-engine local diagnostics are implemented and live smoke validated on `PERF_0006` and `CONS_0005`; the Common-core MySQL no-op diagnostic reached 31 exact executed rows and exposed PORT role-routing findings now addressed by bidirectional PORT diagnostics.
+- PORT bidirectional cross-dialect controlled diagnostics are validated: MySQL source-reference to PostgreSQL target-candidate exact 5/5, and PostgreSQL source-reference to MySQL target-candidate exact 4/4.
+- The user-entry harness produces local ledgers, quality summaries, quality reports, and tag slices; these remain local diagnostic artifacts only.
+- Spark remains deferred/fail-closed.
+
+Boundary:
+- Source code modified: no.
+- Scripts/tests/docs/examples modified: no.
+- Cases/manifests/SQL/schema/checker/validation files modified: no.
+- `case_sets/` changed: no.
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+- Local `runs/user/` outputs created or committed: no.
+
+Deferred:
+- Real user PORT adapter evaluation, Spark live execution, timing/speedup, official metrics, paper rendering, reports/results migration, retained evidence integration, release tag/export branch creation, and any leaderboard remain deferred.
+
+Next safe action:
+- Run a bounded PostgreSQL+MySQL local diagnostic rerun only if it remains local-only and non-metric, or continue release/paper planning; do not start timing implementation or official metrics from this closeout.
