@@ -21,6 +21,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+from .candidate_preflight import split_sql_statements_comment_aware
 from .case_selection import SelectedCaseEngineRow
 from .engine_execution import EngineExecutionResult
 from .user_run_schema import (
@@ -270,41 +271,8 @@ def _strip_sql_comments(sql: str) -> str:
 
 
 def _split_sql_statements(sql: str) -> list[str]:
-    statements: list[str] = []
-    current: list[str] = []
-    in_single = False
-    in_double = False
-    i = 0
     text = _strip_sql_comments(sql)
-    while i < len(text):
-        char = text[i]
-        if char == "'" and not in_double:
-            current.append(char)
-            if i + 1 < len(text) and text[i + 1] == "'":
-                current.append(text[i + 1])
-                i += 2
-                continue
-            in_single = not in_single
-            i += 1
-            continue
-        if char == '"' and not in_single:
-            in_double = not in_double
-            current.append(char)
-            i += 1
-            continue
-        if char == ";" and not in_single and not in_double:
-            statement = "".join(current).strip()
-            if statement:
-                statements.append(statement)
-            current = []
-            i += 1
-            continue
-        current.append(char)
-        i += 1
-    statement = "".join(current).strip()
-    if statement:
-        statements.append(statement)
-    return statements
+    return split_sql_statements_comment_aware(text)
 
 
 def _serialize_value(value: Any) -> Any:

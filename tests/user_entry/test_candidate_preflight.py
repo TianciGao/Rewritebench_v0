@@ -7,7 +7,11 @@ from argparse import Namespace
 from pathlib import Path
 from unittest import mock
 
-from sql_rewrite_bench.candidate_preflight import run_candidate_preflight
+from sql_rewrite_bench.candidate_preflight import (
+    run_candidate_preflight,
+    split_sql_statements_comment_aware,
+)
+from sql_rewrite_bench.spark_execution import _split_sql_statements as split_spark_statements
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
     CANDIDATE_PREFLIGHT_FAILURE_EMPTY_CANDIDATE,
@@ -84,6 +88,12 @@ def _write_adapter(path: Path, candidate_sql: str) -> None:
 
 
 class CandidatePreflightTests(unittest.TestCase):
+    def assert_preflight_and_spark_single_statement(self, sql: str) -> None:
+        result = run_candidate_preflight(source_sql_text="select 1;", candidate_sql_text=sql)
+        self.assertEqual(result.candidate_preflight_status, CANDIDATE_PREFLIGHT_STATUS_PASSED)
+        self.assertEqual(len(split_sql_statements_comment_aware(sql)), 1)
+        self.assertEqual(len(split_spark_statements(sql)), 1)
+
     def test_valid_select_candidate_passes(self) -> None:
         result = run_candidate_preflight(
             source_sql_text="select 1;",
@@ -127,6 +137,40 @@ class CandidatePreflightTests(unittest.TestCase):
             result.candidate_preflight_failure_class,
             CANDIDATE_PREFLIGHT_FAILURE_MULTI_STATEMENT,
         )
+        self.assertEqual(len(split_spark_statements("select 1; select 2;")), 2)
+
+    def test_with_followed_by_unsafe_second_statement_fails(self) -> None:
+        candidate = "with x as (select 1) select * from x; drop table demo;"
+        result = run_candidate_preflight(source_sql_text="select 1;", candidate_sql_text=candidate)
+        self.assertEqual(
+            result.candidate_preflight_failure_class,
+            CANDIDATE_PREFLIGHT_FAILURE_MULTI_STATEMENT,
+        )
+        self.assertEqual(len(split_spark_statements(candidate)), 2)
+
+    def test_block_comment_semicolon_before_statement_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement(
+            "/* comment; still comment */ SELECT 1"
+        )
+
+    def test_block_comment_semicolon_after_statement_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement(
+            "SELECT 1 /* comment; still comment */"
+        )
+
+    def test_line_comment_semicolon_before_statement_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement(
+            "-- comment; still comment\nSELECT 1"
+        )
+
+    def test_string_literal_semicolon_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement("SELECT 'a;b'")
+
+    def test_backtick_identifier_semicolon_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement("SELECT `a;b` FROM demo")
+
+    def test_quoted_identifier_semicolon_is_single_statement(self) -> None:
+        self.assert_preflight_and_spark_single_statement('SELECT "a;b" FROM demo')
 
     def test_non_query_top_level_statement_fails(self) -> None:
         result = run_candidate_preflight(

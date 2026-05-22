@@ -146,12 +146,81 @@ def _first_statement_keyword(sql: str) -> str:
     return match.group(1).upper() if match else ""
 
 
+def split_sql_statements_comment_aware(sql: str) -> list[str]:
+    """Split SQL on semicolons that are outside comments and quoted text."""
+
+    statements: list[str] = []
+    current: list[str] = []
+    quote: str | None = None
+    line_comment = False
+    block_comment = False
+    index = 0
+    while index < len(sql):
+        char = sql[index]
+        next_char = sql[index + 1] if index + 1 < len(sql) else ""
+
+        if line_comment:
+            current.append(char)
+            if char == "\n":
+                line_comment = False
+            index += 1
+            continue
+        if block_comment:
+            current.append(char)
+            if char == "*" and next_char == "/":
+                current.append(next_char)
+                block_comment = False
+                index += 2
+            else:
+                index += 1
+            continue
+        if quote is not None:
+            current.append(char)
+            if char == quote:
+                if next_char == quote:
+                    current.append(next_char)
+                    index += 2
+                    continue
+                quote = None
+            index += 1
+            continue
+
+        if char == "-" and next_char == "-":
+            current.extend([char, next_char])
+            line_comment = True
+            index += 2
+            continue
+        if char == "/" and next_char == "*":
+            current.extend([char, next_char])
+            block_comment = True
+            index += 2
+            continue
+        if char in {"'", '"', "`"}:
+            quote = char
+            current.append(char)
+            index += 1
+            continue
+        if char == ";":
+            _append_statement_if_present(statements, current)
+            current = []
+            index += 1
+            continue
+
+        current.append(char)
+        index += 1
+
+    _append_statement_if_present(statements, current)
+    return statements
+
+
+def _append_statement_if_present(statements: list[str], current: list[str]) -> None:
+    statement = "".join(current).strip()
+    if statement and _strip_leading_comments(statement).strip():
+        statements.append(statement)
+
+
 def _has_multiple_statements(sql: str) -> bool:
-    for semicolon_index in _semicolon_positions(sql):
-        remainder = _strip_leading_comments(sql[semicolon_index + 1 :]).strip()
-        if remainder:
-            return True
-    return False
+    return len(split_sql_statements_comment_aware(sql)) > 1
 
 
 def _semicolon_positions(sql: str) -> list[int]:
@@ -193,7 +262,7 @@ def _semicolon_positions(sql: str) -> list[int]:
             block_comment = True
             index += 2
             continue
-        if char in {"'", '"'}:
+        if char in {"'", '"', "`"}:
             quote = char
             index += 1
             continue

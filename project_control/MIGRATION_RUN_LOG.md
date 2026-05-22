@@ -13307,3 +13307,75 @@ Push result:
 
 Next safe action:
 - Keep rows fail-visible or authorize a narrow Spark statement-boundary/preflight patch with regression coverage for block-comment semicolons, string-literal semicolons, trailing semicolon handling, and genuine multi-statement rejection.
+
+## 2026-05-22 - spark_statement_boundary_comment_aware_patch_v0
+
+Mode: narrow local-diagnostic infrastructure consistency patch.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/spark_statement_boundary_comment_aware_patch_v0/README.md`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/patch_summary.md`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/regression_tests.md`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/affected_rows_before_after.csv`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/command_log.md`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/protected_surface_check.md`
+- `audits/spark_statement_boundary_comment_aware_patch_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/candidate_preflight.py`
+- `src/sql_rewrite_bench/spark_execution.py`
+- `tests/user_entry/test_candidate_preflight.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed focused candidate-preflight/Spark statement-boundary tests, full `tests/user_entry` suite, Python compile checks, environment check, targeted six-row Spark SQLGlot noop rerun, Spark two-case SQLGlot noop smoke, project-control readability, audit Markdown/CSV sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output check.
+- Confirmed no `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Patch result:
+- Root cause addressed: Spark statement splitting now reuses candidate preflight's comment-aware statement splitter.
+- Block comments containing semicolons, line comments containing semicolons, string-literal semicolons, double-quoted identifier semicolons, and backtick identifier semicolons are treated as part of a single statement.
+- Genuine multi-statement SQL remains rejected.
+- Existing Spark full-line `--` comment normalization remains in place.
+
+Targeted affected-row rerun:
+- Run path: `runs/user/spark_sqlglot_noop_statement_boundary_after_patch`.
+- Selected rows: 6.
+- Candidate generated rows: 6.
+- Candidate preflight passed rows: 6.
+- Source/candidate executable rows: 6/6.
+- Checker attempted/exact/mismatch rows: 6/6/0.
+
+Spark smoke:
+- Run path: `runs/user/spark_sqlglot_noop_two_case_smoke_after_statement_patch`.
+- Cases: `PERF_0006`, `CONS_0005`.
+- Source/candidate executable rows: 2/2.
+- Checker attempted/exact/mismatch rows: 2/2/0.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+SQLGlot adapter behavior changed: no.
+Checker normalization changed: no.
+Full Common-core rerun performed: no.
+SQLGlot optimize run: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Optionally authorize a broader Common-core Spark SQLGlot noop local diagnostic snapshot to confirm aggregate failure-bucket movement while keeping PORT real-adapter and unsupported/fail-closed rows separate.
