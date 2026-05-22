@@ -14072,3 +14072,83 @@ Push result:
 
 Next safe action:
 - Authorize a narrow exact-gated local timing diagnostic implementation using these v0 defaults, still local-only and non-official.
+
+## 2026-05-22 - exact_gated_local_timing_diagnostic_v0
+
+Mode: local-diagnostic timing implementation only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/sql_rewrite_bench/local_timing.py`
+- `tests/user_entry/test_local_timing.py`
+- `audits/exact_gated_local_timing_diagnostic_v0/README.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/implementation_summary.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/timing_artifact_examples.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/bounded_timing_smoke_summary.csv`
+- `audits/exact_gated_local_timing_diagnostic_v0/timing_status_counts.json`
+- `audits/exact_gated_local_timing_diagnostic_v0/regression_tests.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/protected_surface_check.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/command_log.md`
+- `audits/exact_gated_local_timing_diagnostic_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/user_run.py`
+- `src/sql_rewrite_bench/user_ledger.py`
+- `src/sql_rewrite_bench/user_run_schema.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Implementation result:
+- Verdict: `completed`.
+- Added opt-in `--collect-timing` plus `--timing-warmup`, `--timing-repetitions`, and `--timing-timeout`.
+- Default timing policy: warmup 1, measured repetitions 5, timeout 30 seconds, median statistic.
+- Timing remains disabled by default and requires DB execution plus checker.
+- Exact-gated timing eligibility requires candidate generation, preflight success, source execution success, candidate execution success, checker success, strict exact status, no failure bucket, no label-only mismatch, and supported same-engine diagnostic mode.
+- Per-row timing artifacts are written under `runs/user/{run_name}/timing/rows/`; `timing_policy.json`, `environment_metadata.json`, and `timing_summary.json` are written under `runs/user/{run_name}/timing/`.
+- Non-exact, label-only mismatch, unsupported/fail-closed, and partial-failure rows remain visible with explicit `timing_na_reason` and null `speedup_ratio`.
+- Per-row `speedup_ratio` is local diagnostic only and is present only for complete exact timed rows.
+
+Bounded local timing smoke:
+- Adapter: `python baselines/sqlglot/sqlglot_user_adapter.py --route noop`.
+- Cases: `PERF_0006`, `CONS_0005`.
+- PostgreSQL: selected 2, exact 2, timing eligible 2, timed 2.
+- MySQL: selected 2, exact 2, timing eligible 2, timed 2.
+- Spark: selected 2, exact 2, timing eligible 2, timed 2.
+- Local run outputs remain under `runs/user/` and were not staged or committed.
+
+Metadata correction:
+- Prior `timing_schema_open_questions_resolution_v0` final commit was `b3ad644` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Route-level metrics computed: no.
+Local timing artifacts produced: yes, under ignored `runs/user/` output.
+Local per-row diagnostic `speedup_ratio` produced for exact timed rows: yes.
+Timing implementation performed: yes.
+Metrics calculator implemented: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review the local timing artifacts and implementation, then separately authorize timing hardening or a non-official local metrics calculator if desired.

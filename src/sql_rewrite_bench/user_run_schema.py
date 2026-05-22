@@ -31,6 +31,11 @@ LEDGER_FIELDS = [
     "checker_status",
     "exact_status",
     "timed_status",
+    "timing_eligible",
+    "timing_status",
+    "timing_na_reason",
+    "timing_artifact_path",
+    "speedup_ratio",
     "failure_bucket",
     "artifact_path",
     "notes",
@@ -112,6 +117,11 @@ EXACT_STATUS_TIMEOUT = "not_exact_due_to_timeout"
 EXACT_STATUS_CHECKER_MISSING = "not_evaluated_checker_missing"
 
 TIMED_STATUS_NON_DB = "not_timed_non_db_mvp"
+TIMING_STATUS_NOT_REQUESTED = "not_requested"
+TIMING_STATUS_NOT_ELIGIBLE = "not_eligible"
+TIMING_STATUS_TIMED = "timed"
+TIMING_STATUS_PARTIAL_FAILURE = "partial_failure"
+TIMING_STATUS_FAILED_INTERNAL = "failed_internal"
 
 CANDIDATE_PREFLIGHT_STATUS_NOT_RUN = "not_run"
 CANDIDATE_PREFLIGHT_STATUS_PASSED = "passed"

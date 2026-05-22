@@ -1,0 +1,26 @@
+{
+  "local_diagnostic_only": true,
+  "official_metric_input": false,
+  "paper_result_input": false,
+  "retained_evidence_promoted": false,
+  "leaderboard_input": false,
+  "routes": {
+    "sqlglot_noop": {
+      "mysql": {
+        "selected_rows": 2,
+        "timed": 2,
+        "timing_eligible_rows": 2
+      },
+      "postgres": {
+        "selected_rows": 2,
+        "timed": 2,
+        "timing_eligible_rows": 2
+      },
+      "spark": {
+        "selected_rows": 2,
+        "timed": 2,
+        "timing_eligible_rows": 2
+      }
+    }
+  }
+}

@@ -36,6 +36,12 @@ from .case_selection import (
 )
 from .engine_execution import execute_engine_case
 from .local_result_checker import run_local_checker
+from .local_timing import (
+    TimingPolicy,
+    collect_timing_for_row,
+    write_environment_metadata,
+    write_timing_policy,
+)
 from .tag_slices import build_tag_slice_rows, write_tag_slices
 from .user_output_schema import output_schema_text
 from .user_ledger import (
@@ -123,6 +129,17 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--postgres-dsn-env", default="SQLRB_POSTGRES_DSN")
     parser.add_argument("--execution-timeout-sec", type=int, default=30)
     parser.add_argument("--db-schema-prefix", default="sqlrb_user")
+    parser.add_argument(
+        "--collect-timing",
+        action="store_true",
+        help=(
+            "Opt in to exact-gated local timing diagnostics. Requires "
+            "--enable-db-execution and --enable-checker."
+        ),
+    )
+    parser.add_argument("--timing-warmup", type=int, default=1)
+    parser.add_argument("--timing-repetitions", type=int, default=5)
+    parser.add_argument("--timing-timeout", type=float, default=30.0)
     return parser.parse_args(argv)
 
 
@@ -537,8 +554,10 @@ def _summary_payload(
     dry_run: bool,
     db_execution_enabled: bool,
     checker_enabled: bool,
+    timing_enabled: bool,
 ) -> dict[str, object]:
     failure_counts = Counter(row["failure_bucket"] for row in ledger_rows)
+    timing_status_counts = Counter(row.get("timing_status", "not_requested") for row in ledger_rows)
     return {
         "run_id": run_id,
         "task_type": "user_entry_db_checker_mvp_local"
@@ -557,6 +576,12 @@ def _summary_payload(
         ],
         "db_execution_enabled": db_execution_enabled,
         "checker_enabled": checker_enabled,
+        "timing_enabled": timing_enabled,
+        "timing_eligible_rows": sum(
+            row.get("timing_eligible") == "true" for row in ledger_rows
+        ),
+        "timed_rows": sum(row.get("timing_status") == "timed" for row in ledger_rows),
+        "timing_status_counts": dict(sorted(timing_status_counts.items())),
         "source_execution_success_rows": sum(
             row.get("source_execution_status") == EXECUTION_STATUS_SOURCE_SUCCESS
             for row in ledger_rows
@@ -643,7 +668,7 @@ def _write_report(
                 f"{summary.get('candidate_execution_success_rows', 0)}"
             ),
             f"- Local exact rows: {summary.get('exact_rows_local', 0)}",
-            "- Timed rows: 0 (not_timed_non_db_mvp)",
+            f"- Timed rows: {summary.get('timed_rows', 0)}",
             "",
             "## Pool Breakdown",
             "",
@@ -680,6 +705,20 @@ def _write_report(
                 "- No global leaderboard is created.",
             ]
         )
+    if summary.get("timing_enabled"):
+        lines.extend(
+            [
+                "",
+                "## Local Timing Diagnostics",
+                "",
+                "- Timing enabled: `True`",
+                f"- Timing eligible rows: {summary.get('timing_eligible_rows', 0)}",
+                f"- Timed rows: {summary.get('timed_rows', 0)}",
+                "- Timing artifacts are local diagnostics only.",
+                "- Per-row speedup ratios are local diagnostic fields, not official metrics.",
+                "- Reports/results, retained evidence, paper tables, and leaderboard outputs are not updated.",
+            ]
+        )
     lines.extend(["", "## Artifact Links", ""])
     for row in ledger_rows:
         candidate = row["candidate_sql_path"] or "no candidate SQL"
@@ -694,7 +733,7 @@ def _write_report(
             "- Per-row workspace path is provided through `SQLRB_WORKSPACE_DIR`.",
             "- Candidate file path is provided through `SQLRB_CANDIDATE_SQL_PATH`.",
             "- Candidate SQL is captured from workspace `candidate.sql` first, then stdout.",
-            "- Candidate SQL is not executed, checked, timed, or scored.",
+            "- Candidate SQL is executed, checked, or timed only when the corresponding local diagnostic flags are enabled.",
             "",
             "## Required Warnings",
             "",
@@ -712,8 +751,20 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
     _require_normal_run_args(args)
     enable_db_execution = bool(getattr(args, "enable_db_execution", False))
     enable_checker = bool(getattr(args, "enable_checker", False))
+    collect_timing = bool(getattr(args, "collect_timing", False))
     if enable_checker and not enable_db_execution:
         raise ValueError("--enable-checker requires --enable-db-execution")
+    if collect_timing and not (enable_db_execution and enable_checker):
+        raise ValueError("--collect-timing requires --enable-db-execution and --enable-checker")
+    timing_warmup = int(getattr(args, "timing_warmup", 1))
+    timing_repetitions = int(getattr(args, "timing_repetitions", 5))
+    timing_timeout = float(getattr(args, "timing_timeout", 30.0))
+    if timing_warmup < 0:
+        raise ValueError("--timing-warmup must be non-negative")
+    if timing_repetitions <= 0:
+        raise ValueError("--timing-repetitions must be positive")
+    if timing_timeout <= 0:
+        raise ValueError("--timing-timeout must be positive")
 
     out_dir = validate_output_root(args.out, repo_root)
     run_id = args.run_id or args.out.name
@@ -755,6 +806,10 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         "postgres_dsn_env": getattr(args, "postgres_dsn_env", "SQLRB_POSTGRES_DSN"),
         "execution_timeout_sec": getattr(args, "execution_timeout_sec", 30),
         "db_schema_prefix": getattr(args, "db_schema_prefix", "sqlrb_user"),
+        "timing_enabled": collect_timing,
+        "timing_warmup": timing_warmup,
+        "timing_repetitions": timing_repetitions,
+        "timing_timeout": timing_timeout,
         "official_metrics_computed": False,
         "paper_results_updated": False,
         "retained_evidence_updated": False,
@@ -825,6 +880,66 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
             ledger["checker_enabled"] = "true" if enable_checker else "false"
             ledger["source_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
             ledger["candidate_execution_status"] = EXECUTION_STATUS_NOT_ENABLED
+    if collect_timing and not getattr(args, "dry_run", False):
+        timing_dir = out_dir / "timing"
+        policy = TimingPolicy(
+            warmup_count=timing_warmup,
+            measured_repetitions=timing_repetitions,
+            timeout_seconds=timing_timeout,
+        )
+        write_timing_policy(timing_dir, policy)
+        environment_metadata_path = write_environment_metadata(
+            timing_dir, repo_root=repo_root, run_id=run_id
+        )
+        timing_results = []
+        for ledger, row, resolved in zip(ledger_rows, selected, resolved_packages, strict=True):
+            result = collect_timing_for_row(
+                ledger=ledger,
+                row=row,
+                resolved_package=resolved,
+                repo_root=repo_root,
+                out_dir=out_dir,
+                run_id=run_id,
+                adapter_command=args.adapter_command,
+                policy=policy,
+                postgres_dsn_env=getattr(args, "postgres_dsn_env", "SQLRB_POSTGRES_DSN"),
+                db_schema_prefix=getattr(args, "db_schema_prefix", "sqlrb_user"),
+                timing_dir=timing_dir,
+                environment_metadata_path=environment_metadata_path,
+            )
+            timing_results.append(result)
+            ledger["timing_eligible"] = "true" if result.timing_eligible else "false"
+            ledger["timing_status"] = result.timing_status
+            ledger["timed_status"] = result.timing_status
+            ledger["timing_na_reason"] = result.timing_na_reason
+            ledger["timing_artifact_path"] = _relative_to_repo(
+                result.timing_artifact_path, repo_root
+            )
+            ledger["speedup_ratio"] = (
+                "" if result.speedup_ratio is None else repr(result.speedup_ratio)
+            )
+        timing_status_counts = Counter(result.timing_status for result in timing_results)
+        (timing_dir / "timing_summary.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "local_timing_summary_v0",
+                    "run_id": run_id,
+                    "selected_rows": len(ledger_rows),
+                    "timing_eligible_rows": sum(result.timing_eligible for result in timing_results),
+                    "timed_rows": timing_status_counts["timed"],
+                    "timing_status_counts": dict(sorted(timing_status_counts.items())),
+                    "local_diagnostic_only": True,
+                    "official_metric_input": False,
+                    "paper_result_input": False,
+                    "retained_evidence_promoted": False,
+                    "leaderboard_input": False,
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
     write_ledger(out_dir / "ledger.csv", ledger_rows)
     failure_rows = failure_rows_from_ledger(ledger_rows)
     write_failures(out_dir / "failures.csv", failure_rows)
@@ -835,6 +950,7 @@ def run_user_benchmark(args: argparse.Namespace, repo_root: Path) -> dict[str, o
         dry_run=bool(getattr(args, "dry_run", False)),
         db_execution_enabled=enable_db_execution,
         checker_enabled=enable_checker,
+        timing_enabled=collect_timing,
     )
     (out_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"

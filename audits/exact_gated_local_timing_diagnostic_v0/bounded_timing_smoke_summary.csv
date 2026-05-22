@@ -1,0 +1,4 @@
+engine,run_path,selected_rows,exact_rows,timing_eligible_rows,timed_rows,timing_status_counts,timing_row_artifacts,source_sample_count_per_timed_row,candidate_sample_count_per_timed_row,local_speedup_ratio_present,notes
+postgres,runs/user/timing_sqlglot_noop_postgres_smoke,2,2,2,2,timed=2,2,5,5,yes,SQLGlot noop local timing smoke only
+mysql,runs/user/timing_sqlglot_noop_mysql_smoke,2,2,2,2,timed=2,2,5,5,yes,SQLGlot noop local timing smoke only
+spark,runs/user/timing_sqlglot_noop_spark_smoke,2,2,2,2,timed=2,2,5,5,yes,SQLGlot noop local timing smoke only
