@@ -14491,3 +14491,60 @@ Push result:
 
 Next safe action:
 - Review the non-official Common-core SQLGlot noop local metrics projection; if label-only diagnostics are required at Common-core scope, separately authorize a bounded post-label-diagnostics refresh rather than inferring those fields into old snapshots.
+
+## 2026-05-22 - local_evaluation_workbench_v0_closeout
+
+Mode: audit-only local evaluation workbench v0 closeout.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/local_evaluation_workbench_v0_closeout/README.md`
+- `audits/local_evaluation_workbench_v0_closeout/component_summary.csv`
+- `audits/local_evaluation_workbench_v0_closeout/local_timing_and_metrics_summary.csv`
+- `audits/local_evaluation_workbench_v0_closeout/deferred_scope.md`
+- `audits/local_evaluation_workbench_v0_closeout/closeout_status.json`
+- `audits/local_evaluation_workbench_v0_closeout/protected_surface_check.md`
+- `audits/local_evaluation_workbench_v0_closeout/command_log.md`
+- `audits/local_evaluation_workbench_v0_closeout/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Closeout result:
+- Verdict: `closed_for_local_evaluation_workbench_v0`.
+- User-entry local diagnostic surface is complete for v0: adapter entry, candidate capture, preflight, tri-engine local execution for supported roles, checker handoff, ledgers, failure buckets, quality summaries, and tag slices.
+- Checker/failure explanations are recorded, including SQLGlot noop fail-visible rows and Spark statement-boundary repair closeout.
+- Strict label policy is documented; behavior-preserving label-only diagnostics are available and do not change exact/mismatch semantics.
+- Exact-gated local timing is implemented and bounded smoke passed over `PERF_0006` and `CONS_0005` on PostgreSQL, MySQL, and Spark with 2 timed rows per engine.
+- Non-official local metrics calculator is implemented and projected over existing Common-core SQLGlot noop snapshots.
+- Common-core SQLGlot noop local projection remains: PostgreSQL selected/generated/candidate-executable/exact/mismatch 40/35/35/35/0; MySQL 40/40/39/31/8; Spark 40/40/33/31/2 with 5 unsupported/fail-closed rows.
+- Common-core projection performance is N.A. because no timing artifacts are present in those snapshots.
+- POCR and skill adapter integration remain deferred pending external operation-atom script/schema.
+- Official metrics, retained-evidence promotion, paper rendering, reports/results migration, leaderboard output, broader timing, and exactness-changing label policy remain deferred.
+- Metadata correction: prior `common_core_sqlglot_noop_local_metrics_projection_v0` final commit was `e83bd232cc65c59bb118f94fb139d9661c9cd2d5` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+New timing collected: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Pause the local evaluation workbench line or separately authorize one of bounded post-label-diagnostics refresh, timing hardening, retained-evidence/official promotion design, or public-release packaging.

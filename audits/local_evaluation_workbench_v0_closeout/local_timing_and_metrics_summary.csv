@@ -1,0 +1,7 @@
+surface,engine_or_scope,selected,generated,candidate_executable,exact,mismatch,timed,speedup_denominator,performance_status,notes
+exact_gated_timing_smoke,postgres,2,2,2,2,0,2,2,local_per_row_speedup_available,Bounded SQLGlot noop timing smoke only; not official metrics.
+exact_gated_timing_smoke,mysql,2,2,2,2,0,2,2,local_per_row_speedup_available,Bounded SQLGlot noop timing smoke only; not official metrics.
+exact_gated_timing_smoke,spark,2,2,2,2,0,2,2,local_per_row_speedup_available,Bounded SQLGlot noop timing smoke only; not official metrics.
+common_core_sqlglot_noop_projection,postgres,40,35,35,35,0,0,0,N.A. no timing artifacts,Local diagnostic projection only.
+common_core_sqlglot_noop_projection,mysql,40,40,39,31,8,0,0,N.A. no timing artifacts,Local diagnostic projection only; source snapshot predates label-only diagnostics.
+common_core_sqlglot_noop_projection,spark,40,40,33,31,2,0,0,N.A. no timing artifacts,Local diagnostic projection only; unsupported/fail-closed rows remain visible.
