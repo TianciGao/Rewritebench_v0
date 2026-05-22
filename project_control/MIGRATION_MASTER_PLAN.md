@@ -78,6 +78,13 @@
 
 ## 5. 目标 public release layout 标记
 
+Status update:
+
+- D035 is the current authoritative final public repository layout decision.
+- The older top-level layout with active `cases/`, `case_sets/`, `schemas/`, `inventory/`, and `scripts/` entries is superseded as the final public target.
+- Physical migration is deferred. Current working paths remain valid until a separate layout migration/export task updates resolvers, validators, tests, docs, and references.
+- Future output and CLI work must align with `output/results/<run_id>/`, `output/logs/<run_id>/`, `output/reports/<run_id>/`, and `src/cli`.
+
 标记说明：
 
 - [MUST] v1 公开版必须有；
@@ -90,32 +97,42 @@
 目标顶层结构：
 
 ```text
-sql-rewrite-bench/
-  README.md                         [MUST]
-  LICENSE                           [MUST]
-  .gitignore                        [MUST]
-  CITATION.cff                      [SHOULD]
-  CONTRIBUTING.md                   [SHOULD]
-  pyproject.toml                    [SHOULD]
-  Makefile                          [OPTIONAL]
-
-  benchmark_spec/                   [MUST]
-  taxonomy/                         [MUST]
-  inventory/                        [MUST]
-  case_sets/                        [MUST]
+.github/                            [SHOULD]
+benchmarks/                         [MUST]
   cases/                            [MUST]
-  scripts/                          [MUST]
-  docs/                             [MUST]
-  reports/                          [MUST]
-  results/                          [SHOULD]
-  baselines/                        [SHOULD]
-  tests/                            [SHOULD]
-  src/                              [SHOULD]
-
-  runs/                             [LOCAL]
-  repository_spec/                  [SHOULD]
-  .github/                          [SHOULD]
+  case_sets/                        [MUST]
+  schemas/                          [MUST]
+  inventory/                        [MUST]
+baselines/                          [SHOULD]
+docs/                               [MUST]
+  guide/                            [MUST]
+  spec/                             [MUST]
+  templates/                        [SHOULD]
+examples/                           [SHOULD]
+output/                             [LOCAL]
+  results/                          [LOCAL]
+  logs/                             [LOCAL]
+  reports/                          [LOCAL]
+src/                                [SHOULD]
+  sql_rewrite_bench/                [SHOULD]
+  cli/                              [SHOULD]
+  dev/                              [SHOULD]
+CITATION.cff                        [SHOULD]
+CONTRIBUTING.md                     [SHOULD]
+LICENSE                             [MUST]
+README.md                           [MUST]
+pyproject.toml                      [SHOULD]
 ```
+
+D035 layout interpretation:
+
+- `benchmarks/` is the final public target for cases, case sets, schemas, and inventory.
+- Current working paths `cases/`, `case_sets/`, `schemas/`, and `inventory/` remain valid until a separately authorized migration/export task physically moves them.
+- Existing `scripts/` remain valid during transition. The final public target splits user-facing CLI into `src/cli` and development/validation tools into `src/dev`.
+- `src/sql_rewrite_bench` remains the internal implementation package.
+- `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/` are local user-run output surfaces and must remain distinct from top-level `reports/` and `results/`.
+- Top-level `reports/` and `results/`, when present or later authorized, remain official/paper/release-facing surfaces and must not be updated by local user-run tasks.
+- This plan update records the target only. It does not create `benchmarks/`, `output/`, `src/dev`, or perform any physical migration.
 
 ## 6. case package 目标原则
 

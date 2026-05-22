@@ -15006,3 +15006,62 @@ Push result:
 
 Next safe action:
 - Authorize Phase 2C summary/local-metrics facade hardening or future verifier output contract planning.
+
+## 2026-05-23 - migration_master_plan_d035_layout_sync_v0
+
+Mode: documentation/control-file alignment only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/migration_master_plan_d035_layout_sync_v0/README.md`
+- `audits/migration_master_plan_d035_layout_sync_v0/master_plan_layout_delta.md`
+- `audits/migration_master_plan_d035_layout_sync_v0/d035_alignment_summary.md`
+- `audits/migration_master_plan_d035_layout_sync_v0/protected_surface_check.md`
+- `audits/migration_master_plan_d035_layout_sync_v0/command_log.md`
+- `audits/migration_master_plan_d035_layout_sync_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Synchronized `MIGRATION_MASTER_PLAN.md` with D035 final public layout target.
+- Marked the older top-level layout as superseded as the final public target.
+- Recorded `benchmarks/` as the final public target for cases, case sets, schemas, and inventory.
+- Recorded `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/` as local user-run output surfaces.
+- Recorded `src/cli` as the public-facing facade target and `src/dev` as the future development/validation tool target.
+- Clarified that current working paths remain valid until a separately authorized physical migration/export task.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Output writer changed: no.
+CLI changed: no.
+Verifier implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+POCR implemented: no.
+Skill folders created: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Continue with D035-aligned Phase 2C or verifier-output planning without moving repository directories.
