@@ -13582,3 +13582,63 @@ Push result:
 
 Next safe action:
 - Keep these rows fail-visible unless a separate task authorizes a narrow checker label-policy design/patch with PERF, CONS, LONGTAIL, same-engine PORT, and controlled PORT regression coverage.
+
+## 2026-05-22 - checker_label_policy_design_v0
+
+Mode: design/audit-only checker label-policy planning.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/checker_label_policy_design_v0/README.md`
+- `audits/checker_label_policy_design_v0/current_behavior.md`
+- `audits/checker_label_policy_design_v0/inspected_examples.md`
+- `audits/checker_label_policy_design_v0/proposed_policy.md`
+- `audits/checker_label_policy_design_v0/patch_options.md`
+- `audits/checker_label_policy_design_v0/regression_plan.md`
+- `audits/checker_label_policy_design_v0/risk_assessment.md`
+- `audits/checker_label_policy_design_v0/protected_surface_check.md`
+- `audits/checker_label_policy_design_v0/command_log.md`
+- `audits/checker_label_policy_design_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability checks, audit Markdown sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no `src/`, tests, cases, checker configs, SQL files, `baselines/`, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Design result:
+- Current checker label behavior: same-engine comparison preserves JSON object keys and compares full normalized row dictionaries; result-column labels are part of exactness implicitly.
+- Labels are not controlled by an explicit same-engine `compare_column_labels` or `label_policy` config today.
+- Cross-dialect positional comparison is already manifest/role-gated and should remain separate from same-engine label policy.
+- Proposed first patch: behavior-preserving label-only diagnostics that report `value_exact`, `label_exact`, and `label_only_mismatch` without changing `exact_status`.
+- Explicit aliases should remain strict by default.
+- Generated-expression labels should not be ignored unless case config or provenance explicitly says they are non-semantic.
+- Any exactness-changing policy should be case/role opt-in only, with PERF, CONS, LONGTAIL, same-engine PORT, and controlled PORT regression coverage.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Checker behavior changed: no.
+Exact counts changed: no.
+Common-core rerun performed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a behavior-preserving checker label-only diagnostics patch, or pause with strict-label fail-visible behavior documented.
