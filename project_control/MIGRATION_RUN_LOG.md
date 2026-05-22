@@ -14742,3 +14742,69 @@ Push result:
 
 Next safe action:
 - Authorize implementation planning for the user-facing output writer and `src/cli` facade, still without physical layout migration.
+
+## 2026-05-22 - user_output_writer_cli_facade_implementation_plan_v0
+
+Mode: implementation planning only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/README.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/current_output_inventory.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/output_writer_plan.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/cli_facade_plan.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/phase2_implementation_slices.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/transition_strategy_runs_user_to_output.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/test_plan.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/risk_assessment.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/protected_surface_check.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/command_log.md`
+- `audits/user_output_writer_cli_facade_implementation_plan_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Metadata correction:
+- The prior `user_output_and_cli_contract_v0` entry records commit and push as pending, but the branch contains final commit `9b12239` (`docs(spec): define user output and CLI contract`) and it was pushed to `origin/feature/case-package-v2-external-schema`.
+
+Result:
+- Verdict: `completed`.
+- D034 and D035 were present; `project_control/` contained only the four active core files.
+- `audits/user_output_and_cli_contract_v0/` and `repository_spec/user_output_contract_v0_draft.md` were present.
+- Current `runs/user/` artifacts were inventoried and mapped to the future D035 output surface.
+- Planned a future `src/sql_rewrite_bench/user_output.py` output writer with run manifest, result/log/report export, boundary report, failure bucket report, tag-slice report, and metrics summary report responsibilities.
+- Planned a future `src/cli` facade centered on `sqlrb user evaluate`, plus list, explain, schema, local metrics, summarize, and boundary commands.
+- Defined Phase 2A output writer skeleton, Phase 2B CLI core, and Phase 2C metrics/summary facade slices.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Output writer implemented: no.
+CLI implemented: no.
+Verifier implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+POCR implemented: no.
+Skill folders created: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase 2A output writer skeleton and bounded-smoke export path only, preserving `runs/user/` compatibility and local-only boundaries.
