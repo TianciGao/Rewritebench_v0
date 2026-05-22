@@ -14875,3 +14875,69 @@ Push result:
 
 Next safe action:
 - Authorize Phase 2B CLI facade parsing and `sqlrb user evaluate` wrapper over existing internals and this exporter, still bounded to smoke validation and local-only output.
+
+## 2026-05-23 - user_cli_facade_phase2b_v0
+
+Mode: implementation, CLI facade only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/cli/__init__.py`
+- `src/cli/__main__.py`
+- `src/cli/main.py`
+- `tests/user_entry/test_cli_facade.py`
+- `audits/user_cli_facade_phase2b_v0/README.md`
+- `audits/user_cli_facade_phase2b_v0/implementation_summary.md`
+- `audits/user_cli_facade_phase2b_v0/cli_command_contract.md`
+- `audits/user_cli_facade_phase2b_v0/bounded_cli_smoke_summary.md`
+- `audits/user_cli_facade_phase2b_v0/test_results.md`
+- `audits/user_cli_facade_phase2b_v0/protected_surface_check.md`
+- `audits/user_cli_facade_phase2b_v0/command_log.md`
+- `audits/user_cli_facade_phase2b_v0/boundary_checklist.md`
+
+Files modified:
+- `pyproject.toml`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Added the thin `src/cli` public facade package and `sqlrb` console-script entry point.
+- Implemented `sqlrb user evaluate`, `list-cases`, `explain-selection`, `show-output-schema`, `show-boundary`, `compute-local-metrics`, and `summarize`.
+- `evaluate` delegates to the existing user-run pipeline and then exports through the Phase 2A output writer into `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- Bounded PostgreSQL SQLGlot noop CLI smoke over `PERF_0006` and `CONS_0005` selected/generated/source-executable/candidate-executable/checker/exact/mismatch rows 2/2/2/2/2/2/0 with timing disabled.
+- Verifier flags fail closed; VeriEQL and SQLSolver integration remains deferred.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Output writer changed only as needed: no.
+CLI implemented: yes.
+Verifier implemented: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Metrics computed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review Phase 2B CLI facade and then authorize Phase 2C summary/local-metrics facade hardening or verifier output contract planning.
