@@ -1,0 +1,8 @@
+component,status,local_diagnostic_only,official_metric,notes
+spark_environment_detector,updated,true,false,"Reports PySpark availability and keeps Spark optional when absent"
+spark_schema_resolver,implemented,true,false,"Resolves manifest schema.external_profile engines.spark.ddl/load only"
+spark_execution_backend,implemented,true,false,"Uses PySpark local mode when PySpark is importable; no PostgreSQL/MySQL fallback"
+spark_result_artifacts,implemented,true,false,"Writes source_query.sql candidate_query.sql source_result.jsonl candidate_result.jsonl and spark_execution_metadata.json under the row workspace"
+checker_handoff,implemented,true,false,"Existing local_result_checker consumes Spark JSONL artifacts when both source and candidate execute"
+fail_closed_statuses,implemented,true,false,"Uses spark_config_missing spark_pyspark_missing spark_schema_missing spark_session_failed spark_schema_setup_failed spark_source_execution_failed spark_candidate_execution_failed spark_timeout and spark_internal_error"
+live_smoke,not_run_environment_blocked,true,false,"Local Spark/PySpark environment unavailable on this machine"

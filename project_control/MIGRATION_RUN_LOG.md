@@ -12639,3 +12639,33 @@ Boundary:
 
 Next safe action:
 - Return to release/paper planning, or separately authorize a narrow real-adapter local diagnostic evaluation under local-only non-metric boundaries. Spark live execution, timing, official metrics, reports/results updates, paper rendering, retained-evidence promotion, leaderboard output, and release export remain separate authorization boundaries.
+
+## 2026-05-22 - spark_live_backend_v0
+
+Spark live local diagnostic backend v0 completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: local diagnostic infrastructure only.
+
+Status summary:
+- Spark backend: upgraded from fail-closed skeleton to PySpark-backed local diagnostic execution when PySpark is available.
+- Schema/load: resolves manifest external schema metadata `engines.spark.ddl` and `engines.spark.load`; PostgreSQL/MySQL schema assets are not used for Spark.
+- Execution/artifacts: same-engine Spark source and candidate SQL run in an isolated diagnostic namespace, with local `source_result.jsonl`, `candidate_result.jsonl`, query copies, errors, and Spark metadata under the row workspace.
+- Checker handoff: existing local checker consumes Spark JSONL artifacts when both source and candidate execute.
+- Fail-closed statuses: environment, schema, session, setup, source, candidate, timeout, and internal Spark failures are explicit local diagnostic statuses.
+- Live Spark smoke: not run because local Spark/PySpark is not configured (`spark-sql` missing, Spark env unset, `pyspark` unavailable).
+- Validation: py_compile passed; environment checker passed; help/readability commands passed; user-entry unittest suite passed (119 tests, 2 skipped); 40/40 Common-core validators passed; Spark fail-closed smoke selected 2 rows and failed closed without crashing; PostgreSQL and MySQL two-case DB/checker smokes each reached exact 2/2.
+
+Boundary:
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Paper tables rendered: no.
+- Reports/results updated: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Global leaderboard created: no.
+- Release tag/export branch created: no.
+
+Next safe action:
+- Configure a local PySpark environment and rerun the two-case Spark live smoke (`PERF_0006`, `CONS_0005`) before authorizing any broader Common-core Spark local diagnostic trial.

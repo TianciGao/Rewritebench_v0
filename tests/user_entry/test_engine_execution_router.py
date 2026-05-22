@@ -14,17 +14,25 @@ from sql_rewrite_bench.engine_execution import EngineExecutionResult, execute_en
 from sql_rewrite_bench.postgres_execution import PostgresExecutionResult
 from sql_rewrite_bench.spark_execution import (
     SparkEnvironmentStatus,
+    execute_spark_case,
     inspect_spark_environment,
 )
+from sql_rewrite_bench.local_result_checker import run_local_checker
 from sql_rewrite_bench.user_run import run_user_benchmark
 from sql_rewrite_bench.user_run_schema import (
+    BACKEND_STATUS_AVAILABLE,
     BACKEND_STATUS_CLIENT_MISSING,
     BACKEND_STATUS_CONFIG_MISSING,
-    BACKEND_STATUS_NOT_IMPLEMENTED,
+    BACKEND_STATUS_SCHEMA_MISSING,
     EXECUTION_STATUS_CANDIDATE_SUCCESS,
+    EXECUTION_STATUS_CANDIDATE_FAILED,
+    EXECUTION_STATUS_SOURCE_BACKEND_MISSING,
+    EXECUTION_STATUS_SOURCE_FAILED,
     EXECUTION_STATUS_SOURCE_SUCCESS,
     EXECUTION_STATUS_UNSUPPORTED,
+    FAILURE_CANDIDATE_EXECUTION_FAILED,
     FAILURE_NONE,
+    FAILURE_SOURCE_EXECUTION_FAILED,
     FAILURE_UNSUPPORTED_ENGINE,
 )
 
@@ -75,6 +83,114 @@ def _args(out: Path, case_list: Path, *, engine: str) -> Namespace:
     )
 
 
+def _spark_available_status() -> SparkEnvironmentStatus:
+    return SparkEnvironmentStatus(
+        spark_local_ip_set=True,
+        spark_home_set=False,
+        pyspark_python_set=False,
+        spark_sql_path="",
+        pyspark_importable=True,
+        environment_configured=True,
+        client_available=True,
+        backend_status=BACKEND_STATUS_AVAILABLE,
+        failure_class="",
+    )
+
+
+class _FakeRow:
+    def __init__(self, values: list[object]) -> None:
+        self._values = values
+
+    def __getitem__(self, index: int) -> object:
+        return self._values[index]
+
+
+class _FakeDataFrame:
+    columns = ["answer", "amount"]
+
+    def collect(self) -> list[_FakeRow]:
+        return [_FakeRow([1, "1.00"])]
+
+
+class _FakeSpark:
+    def __init__(self, *, fail_on_source: bool = False, fail_on_candidate: bool = False) -> None:
+        self.statements: list[str] = []
+        self.query_count = 0
+        self.fail_on_source = fail_on_source
+        self.fail_on_candidate = fail_on_candidate
+        self.stopped = False
+
+    def sql(self, statement: str) -> _FakeDataFrame | None:
+        self.statements.append(statement)
+        if statement.strip().lower().startswith("select"):
+            self.query_count += 1
+            if self.fail_on_source and self.query_count == 1:
+                raise RuntimeError("source failed")
+            if self.fail_on_candidate and self.query_count == 2:
+                raise RuntimeError("candidate failed")
+            return _FakeDataFrame()
+        return None
+
+    def stop(self) -> None:
+        self.stopped = True
+
+
+def _write_minimal_spark_case(root: Path) -> tuple[SelectedCaseEngineRow, Path, Path]:
+    case_dir = root / "cases" / "PERF" / "PERF_0006"
+    schema_dir = root / "schemas" / "minimal_spark_v0" / "spark"
+    checker_dir = case_dir / "checker"
+    (case_dir / "sql").mkdir(parents=True)
+    schema_dir.mkdir(parents=True)
+    checker_dir.mkdir(parents=True)
+    (case_dir / "manifest.yaml").write_text(
+        "\n".join(
+            [
+                "case_id: PERF_0006",
+                "pool: PERF",
+                "schema:",
+                "  external_profile: schemas/minimal_spark_v0/schema_profile.yaml",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (root / "schemas" / "minimal_spark_v0" / "schema_profile.yaml").write_text(
+        "\n".join(
+            [
+                "schema_id: minimal_spark_v0",
+                "engines:",
+                "  spark:",
+                "    ddl: schemas/minimal_spark_v0/spark/ddl.sql",
+                "    load: schemas/minimal_spark_v0/spark/load.sql",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (schema_dir / "ddl.sql").write_text("CREATE TABLE numbers (answer INT, amount STRING);\n", encoding="utf-8")
+    (schema_dir / "load.sql").write_text("INSERT INTO numbers VALUES (1, '1.00');\n", encoding="utf-8")
+    (case_dir / "sql" / "source.sql").write_text("SELECT answer, amount FROM numbers;\n", encoding="utf-8")
+    (checker_dir / "checker.yaml").write_text("case_id: PERF_0006\n", encoding="utf-8")
+    (checker_dir / "normalization.yaml").write_text(
+        "case_id: PERF_0006\nsort_rows: true\n", encoding="utf-8"
+    )
+    (checker_dir / "compare_config.yaml").write_text("case_id: PERF_0006\n", encoding="utf-8")
+    row = SelectedCaseEngineRow(
+        denominator_id="PERF_0006__spark",
+        case_id="PERF_0006",
+        pool="PERF",
+        engine="spark",
+        planned="true",
+        case_path="cases/PERF/PERF_0006",
+        source_sql_path="cases/PERF/PERF_0006/sql/source.sql",
+    )
+    workspace = root / "runs" / "user" / "spark" / "workspaces" / "PERF_0006" / "spark"
+    candidate = workspace / "candidate.sql"
+    candidate.parent.mkdir(parents=True)
+    candidate.write_text("SELECT answer, amount FROM numbers;\n", encoding="utf-8")
+    return row, workspace, candidate
+
+
 class EngineExecutionRouterTests(unittest.TestCase):
     def test_spark_environment_detector_reports_missing_config(self) -> None:
         status = inspect_spark_environment(
@@ -86,8 +202,8 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertFalse(status.environment_configured)
         self.assertFalse(status.client_available)
         self.assertEqual(status.backend_status, BACKEND_STATUS_CONFIG_MISSING)
-        self.assertEqual(status.failure_class, "spark_not_configured")
-        self.assertEqual(status.implementation_status, "spark_execution_not_implemented")
+        self.assertEqual(status.failure_class, "spark_config_missing")
+        self.assertEqual(status.implementation_status, "spark_live_backend_v0")
 
     def test_spark_environment_detector_reports_missing_client(self) -> None:
         status = inspect_spark_environment(
@@ -99,9 +215,9 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertTrue(status.environment_configured)
         self.assertFalse(status.client_available)
         self.assertEqual(status.backend_status, BACKEND_STATUS_CLIENT_MISSING)
-        self.assertEqual(status.failure_class, "spark_client_missing")
+        self.assertEqual(status.failure_class, "spark_pyspark_missing")
 
-    def test_spark_environment_detector_reports_not_implemented_when_client_visible(self) -> None:
+    def test_spark_environment_detector_reports_missing_pyspark_when_only_cli_visible(self) -> None:
         status = inspect_spark_environment(
             {"SPARK_LOCAL_IP": "127.0.0.1"},
             spark_sql_path="/usr/bin/spark-sql",
@@ -109,9 +225,21 @@ class EngineExecutionRouterTests(unittest.TestCase):
         )
 
         self.assertTrue(status.environment_configured)
+        self.assertFalse(status.client_available)
+        self.assertEqual(status.backend_status, BACKEND_STATUS_CLIENT_MISSING)
+        self.assertEqual(status.failure_class, "spark_pyspark_missing")
+
+    def test_spark_environment_detector_reports_available_when_pyspark_visible(self) -> None:
+        status = inspect_spark_environment(
+            {},
+            spark_sql_path="",
+            pyspark_importable=True,
+        )
+
+        self.assertTrue(status.environment_configured)
         self.assertTrue(status.client_available)
-        self.assertEqual(status.backend_status, BACKEND_STATUS_NOT_IMPLEMENTED)
-        self.assertEqual(status.failure_class, "spark_execution_not_implemented")
+        self.assertEqual(status.backend_status, BACKEND_STATUS_AVAILABLE)
+        self.assertEqual(status.failure_class, "")
 
     def test_router_dispatches_postgres_to_existing_executor(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -205,7 +333,7 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertEqual(result.failure_bucket, FAILURE_NONE)
         self.assertTrue(result.db_execution_attempted)
 
-    def test_router_dispatches_spark_to_fail_closed_stub(self) -> None:
+    def test_router_dispatches_spark_to_fail_closed_backend_when_pyspark_missing(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             workspace = root / "runs" / "user" / "router" / "workspaces" / "PERF_0006" / "spark"
@@ -219,9 +347,9 @@ class EngineExecutionRouterTests(unittest.TestCase):
                 spark_sql_path="/usr/bin/spark-sql",
                 pyspark_importable=False,
                 environment_configured=True,
-                client_available=True,
-                backend_status=BACKEND_STATUS_NOT_IMPLEMENTED,
-                failure_class="spark_execution_not_implemented",
+                client_available=False,
+                backend_status=BACKEND_STATUS_CLIENT_MISSING,
+                failure_class="spark_pyspark_missing",
             )
             with mock.patch(
                 "sql_rewrite_bench.engine_execution.execute_postgres_case"
@@ -247,9 +375,9 @@ class EngineExecutionRouterTests(unittest.TestCase):
             self.assertEqual(result.source_execution_status, EXECUTION_STATUS_UNSUPPORTED)
             self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_UNSUPPORTED)
             self.assertEqual(result.failure_bucket, FAILURE_UNSUPPORTED_ENGINE)
-            self.assertEqual(result.execution_failure_class, "spark_execution_not_implemented")
+            self.assertEqual(result.execution_failure_class, "spark_pyspark_missing")
             self.assertEqual(result.required_backend, "spark")
-            self.assertEqual(result.backend_status, BACKEND_STATUS_NOT_IMPLEMENTED)
+            self.assertEqual(result.backend_status, BACKEND_STATUS_CLIENT_MISSING)
             self.assertIn("no PostgreSQL/MySQL fallback", result.notes)
             self.assertFalse(result.db_execution_attempted)
             self.assertIsNone(result.source_result_path)
@@ -259,7 +387,7 @@ class EngineExecutionRouterTests(unittest.TestCase):
             metadata = result.db_artifact_dir / "spark_environment_status.json"
             self.assertTrue(metadata.exists())
             payload = json.loads(metadata.read_text(encoding="utf-8"))
-            self.assertFalse(payload["spark_live_execution_implemented"])
+            self.assertTrue(payload["spark_live_execution_implemented"])
             self.assertFalse(payload["spark_sql_executed"])
 
     def test_router_fails_closed_for_unknown_engine(self) -> None:
@@ -350,7 +478,7 @@ class EngineExecutionRouterTests(unittest.TestCase):
                 environment_configured=False,
                 client_available=False,
                 backend_status=BACKEND_STATUS_CONFIG_MISSING,
-                failure_class="spark_not_configured",
+                failure_class="spark_config_missing",
             )
             with mock.patch(
                 "sql_rewrite_bench.spark_execution.inspect_spark_environment",
@@ -367,7 +495,7 @@ class EngineExecutionRouterTests(unittest.TestCase):
             rows = list(csv.DictReader(f))
         self.assertEqual(rows[0]["engine"], "spark")
         self.assertEqual(rows[0]["failure_bucket"], FAILURE_UNSUPPORTED_ENGINE)
-        self.assertEqual(rows[0]["execution_failure_class"], "spark_not_configured")
+        self.assertEqual(rows[0]["execution_failure_class"], "spark_config_missing")
         self.assertEqual(rows[0]["backend_status"], BACKEND_STATUS_CONFIG_MISSING)
         self.assertEqual(rows[0]["required_backend"], "spark")
         self.assertEqual(rows[0]["checker_status"], "checker_not_enabled")
@@ -379,6 +507,138 @@ class EngineExecutionRouterTests(unittest.TestCase):
         self.assertFalse((out_dir / "workspaces" / "PERF_0006" / "spark" / "checker").exists())
         for name in ["quality_summary.json", "quality_report.md", "tag_slices.csv"]:
             self.assertTrue((out_dir / name).exists())
+
+    def test_spark_backend_writes_artifacts_under_mocked_success(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            row, workspace, candidate = _write_minimal_spark_case(root)
+            fake_spark = _FakeSpark()
+            with mock.patch(
+                "sql_rewrite_bench.spark_execution.inspect_spark_environment",
+                return_value=_spark_available_status(),
+            ), mock.patch(
+                "sql_rewrite_bench.spark_execution._create_spark_session",
+                return_value=fake_spark,
+            ):
+                result = execute_spark_case(
+                    repo_root=root,
+                    run_id="spark_success",
+                    row=row,
+                    candidate_sql_path=candidate,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                )
+
+            self.assertEqual(result.source_execution_status, EXECUTION_STATUS_SOURCE_SUCCESS)
+            self.assertEqual(result.candidate_execution_status, EXECUTION_STATUS_CANDIDATE_SUCCESS)
+            self.assertEqual(result.failure_bucket, FAILURE_NONE)
+            self.assertEqual(result.required_backend, "spark")
+            self.assertEqual(result.backend_status, BACKEND_STATUS_AVAILABLE)
+            self.assertTrue(result.source_result_path and result.source_result_path.exists())
+            self.assertTrue(result.candidate_result_path and result.candidate_result_path.exists())
+            payload = json.loads(result.source_result_path.read_text(encoding="utf-8").strip())
+            self.assertEqual(payload, {"answer": 1, "amount": "1.00"})
+            metadata = result.db_artifact_dir / "spark_execution_metadata.json"
+            self.assertTrue(metadata.exists())
+            self.assertIn("DROP DATABASE", fake_spark.statements[-1])
+
+            checker = run_local_checker(
+                case_dir=root / row.case_path,
+                source_result_path=result.source_result_path,
+                candidate_result_path=result.candidate_result_path,
+                checker_dir=workspace / "checker",
+            )
+            self.assertEqual(checker.failure_bucket, FAILURE_NONE)
+
+    def test_spark_backend_fails_closed_when_schema_assets_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            row, workspace, candidate = _write_minimal_spark_case(root)
+            (root / "schemas" / "minimal_spark_v0" / "schema_profile.yaml").write_text(
+                "schema_id: minimal_spark_v0\nengines:\n  postgres: {}\n",
+                encoding="utf-8",
+            )
+            with mock.patch(
+                "sql_rewrite_bench.spark_execution.inspect_spark_environment",
+                return_value=_spark_available_status(),
+            ), mock.patch("sql_rewrite_bench.spark_execution._create_spark_session") as create:
+                result = execute_spark_case(
+                    repo_root=root,
+                    run_id="spark_schema_missing",
+                    row=row,
+                    candidate_sql_path=candidate,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                )
+
+            create.assert_not_called()
+            self.assertEqual(result.execution_failure_class, "spark_schema_missing")
+            self.assertEqual(result.backend_status, BACKEND_STATUS_SCHEMA_MISSING)
+            self.assertEqual(result.failure_bucket, FAILURE_SOURCE_EXECUTION_FAILED)
+            self.assertEqual(result.source_execution_status, EXECUTION_STATUS_SOURCE_BACKEND_MISSING)
+            self.assertIsNone(result.source_result_path)
+            self.assertFalse((result.db_artifact_dir / "source_result.jsonl").exists())
+
+    def test_spark_backend_separates_source_and_candidate_failures(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            row, workspace, candidate = _write_minimal_spark_case(root)
+            with mock.patch(
+                "sql_rewrite_bench.spark_execution.inspect_spark_environment",
+                return_value=_spark_available_status(),
+            ), mock.patch(
+                "sql_rewrite_bench.spark_execution._create_spark_session",
+                return_value=_FakeSpark(fail_on_source=True),
+            ):
+                source_failed = execute_spark_case(
+                    repo_root=root,
+                    run_id="spark_source_failure",
+                    row=row,
+                    candidate_sql_path=candidate,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                )
+
+            self.assertEqual(source_failed.execution_failure_class, "spark_source_execution_failed")
+            self.assertEqual(source_failed.source_execution_status, EXECUTION_STATUS_SOURCE_FAILED)
+            self.assertEqual(source_failed.failure_bucket, FAILURE_SOURCE_EXECUTION_FAILED)
+            self.assertIsNone(source_failed.source_result_path)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            row, workspace, candidate = _write_minimal_spark_case(root)
+            with mock.patch(
+                "sql_rewrite_bench.spark_execution.inspect_spark_environment",
+                return_value=_spark_available_status(),
+            ), mock.patch(
+                "sql_rewrite_bench.spark_execution._create_spark_session",
+                return_value=_FakeSpark(fail_on_candidate=True),
+            ):
+                candidate_failed = execute_spark_case(
+                    repo_root=root,
+                    run_id="spark_candidate_failure",
+                    row=row,
+                    candidate_sql_path=candidate,
+                    workspace_dir=workspace,
+                    timeout_sec=30,
+                    schema_prefix="sqlrb_user",
+                )
+
+            self.assertEqual(candidate_failed.execution_failure_class, "spark_candidate_execution_failed")
+            self.assertEqual(candidate_failed.source_execution_status, EXECUTION_STATUS_SOURCE_SUCCESS)
+            self.assertEqual(
+                candidate_failed.candidate_execution_status,
+                EXECUTION_STATUS_CANDIDATE_FAILED,
+            )
+            self.assertEqual(candidate_failed.failure_bucket, FAILURE_CANDIDATE_EXECUTION_FAILED)
+            self.assertTrue(
+                candidate_failed.source_result_path
+                and candidate_failed.source_result_path.exists()
+            )
+            self.assertIsNone(candidate_failed.candidate_result_path)
 
 
 if __name__ == "__main__":

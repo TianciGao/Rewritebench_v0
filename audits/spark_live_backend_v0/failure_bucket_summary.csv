@@ -1,0 +1,6 @@
+scope,engine,selected_rows,failure_bucket,count,execution_failure_class,likely_layer,notes
+env_blocked_spark_smoke,spark,2,unsupported_engine,2,spark_config_missing,environment,"Fail-closed smoke selected PERF_0006 and CONS_0005; no Spark SQL executed because PySpark was unavailable"
+mocked_success,spark,1,none,1,,backend,"Mocked PySpark execution wrote source/candidate JSONL and checker reached exact"
+mocked_schema_missing,spark,1,source_execution_failed,1,spark_schema_missing,schema,"Spark schema metadata missing failed closed before session startup"
+mocked_source_failure,spark,1,source_execution_failed,1,spark_source_execution_failed,source_execution,"Source SQL failure recorded separately"
+mocked_candidate_failure,spark,1,candidate_execution_failed,1,spark_candidate_execution_failed,candidate_execution,"Candidate SQL failure recorded separately after source artifact creation"

@@ -50,11 +50,19 @@ python scripts/dev/check_local_engine_env.py
 
 ## Spark
 
-Spark local execution remains deferred and fail-closed in the current user-entry path. This branch includes only a Spark environment detector and fail-closed execution skeleton; it does not implement live Spark SQL execution.
+Spark local diagnostics use PySpark when a local PySpark client is available. The backend resolves explicit Spark DDL/load assets from the case manifest external schema profile, runs source and candidate SQL in an isolated local diagnostic Spark database, writes JSONL source/candidate artifacts under `runs/user/<run_id>/`, and hands those artifacts to the local checker when both executions succeed.
 
-`SPARK_LOCAL_IP`, `SPARK_HOME`, and `PYSPARK_PYTHON` may be useful for future local Spark diagnostics, so `scripts/env_spark.example.sh` documents them as preparatory settings only. Setting them does not enable Spark SQL execution.
+The current backend is local-diagnostic only. It does not compute official metrics, timing, speedup, report/result updates, retained evidence, or leaderboard rows.
 
-When `--engine spark --enable-db-execution` is selected, Spark rows fail closed with local diagnostic statuses until a future live Spark backend is authorized. PostgreSQL and MySQL remain the current live local diagnostic backends.
+Configure Spark with a local PySpark-capable Python environment. Useful variables:
+
+- `SPARK_LOCAL_IP`
+- `SPARK_HOME`
+- `PYSPARK_PYTHON`
+- optional `SQLRB_SPARK_MASTER`, defaulting to `local[1]`
+- optional `SQLRB_SPARK_APP_NAME`
+
+`spark-sql` CLI availability is reported by the environment checker, but the live backend uses PySpark. If PySpark is unavailable or Spark schema metadata is missing, Spark rows fail closed with explicit local diagnostic statuses. PostgreSQL and MySQL behavior is unaffected.
 
 ## Convenience Sourcing
 

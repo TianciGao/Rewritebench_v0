@@ -174,9 +174,14 @@ def _print_spark(env: Mapping[str, str]) -> None:
     print(f"  SPARK_LOCAL_IP: {_set_unset('SPARK_LOCAL_IP', env)}")
     print(f"  SPARK_HOME: {_set_unset('SPARK_HOME', env)}")
     print(f"  PYSPARK_PYTHON: {_set_unset('PYSPARK_PYTHON', env)}")
+    print(f"  SQLRB_SPARK_MASTER: {_set_unset('SQLRB_SPARK_MASTER', env)}")
     print(f"  pyspark import: {'available' if status.pyspark_importable else 'unavailable'}")
-    print(f"  backend status: fail-closed/not live implemented ({status.failure_class})")
-    print("  probe: skipped")
+    if status.pyspark_importable:
+        print("  backend status: live local diagnostic backend available through PySpark")
+        print("  probe: skipped; no Spark session is started by this environment checker")
+    else:
+        print(f"  backend status: fail-closed until PySpark is available ({status.failure_class})")
+        print("  probe: skipped")
 
 
 def main() -> int:
