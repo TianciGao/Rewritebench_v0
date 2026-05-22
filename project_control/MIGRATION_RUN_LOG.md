@@ -15127,3 +15127,68 @@ Push result:
 
 Next safe action:
 - VeriEQL + SQLSolver output contract planning.
+
+## 2026-05-23 - verifier_support_output_contract_plan_v0
+
+Mode: verifier output-contract planning only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/verifier_support_output_contract_plan_v0/README.md`
+- `audits/verifier_support_output_contract_plan_v0/verifier_role_boundary.md`
+- `audits/verifier_support_output_contract_plan_v0/verifier_output_directory_contract.md`
+- `audits/verifier_support_output_contract_plan_v0/verifier_pair_schema.md`
+- `audits/verifier_support_output_contract_plan_v0/verifier_verdict_schema.md`
+- `audits/verifier_support_output_contract_plan_v0/semantic_equivalence_summary_schema.md`
+- `audits/verifier_support_output_contract_plan_v0/verieql_placeholder_contract.md`
+- `audits/verifier_support_output_contract_plan_v0/sqlsolver_placeholder_contract.md`
+- `audits/verifier_support_output_contract_plan_v0/cli_placeholder_behavior.md`
+- `audits/verifier_support_output_contract_plan_v0/local_metrics_integration_plan.md`
+- `audits/verifier_support_output_contract_plan_v0/implementation_phase_plan.md`
+- `audits/verifier_support_output_contract_plan_v0/protected_surface_check.md`
+- `audits/verifier_support_output_contract_plan_v0/command_log.md`
+- `audits/verifier_support_output_contract_plan_v0/boundary_checklist.md`
+- `repository_spec/verifier_support_output_contract_v0_draft.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Planned VeriEQL and SQLSolver as future verifier/support tools, not rewrite baselines or candidate generators.
+- Defined future verifier output placement under `output/results/<run_id>/verifier/`, `output/logs/<run_id>/verifier.log`, and `output/reports/<run_id>/verifier_summary.md`.
+- Defined `verifier_pairs.csv`, `verifier_verdicts.jsonl`, and `semantic_equivalence_summary.json` schemas.
+- Defined verifier pair types: `source_vs_candidate`, `source_vs_positive`, `source_vs_hard_negative`, `source_vs_candidate_port_target`, and `support_pair_smoke`.
+- Recorded that Semantic Equivalence Rate remains `N.A.` unless formal verifier evidence exists.
+- Planned future phases from synthetic fixture/normalization tests through bounded VeriEQL and SQLSolver canaries and later metrics join.
+- Metadata correction: `user_cli_phase2c_summary_metrics_hardening_v0` final commit was `7e24dca` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Verifier implemented: no.
+Verifier run performed: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase V1 synthetic verifier fixture and verdict-normalization tests.
