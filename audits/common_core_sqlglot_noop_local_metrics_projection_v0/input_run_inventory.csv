@@ -1,0 +1,4 @@
+engine,run_dir,source_audit,exists,ledger_exists,metrics_dir,metrics_files_written,timing_artifacts_present,selected_rows,notes
+postgres,runs/user/common_core_sqlglot_noop_postgres_snapshot,audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0,true,true,runs/user/common_core_sqlglot_noop_postgres_snapshot/metrics,5,false,40,Prior tri-engine SQLGlot noop snapshot; no rerun performed.
+mysql,runs/user/common_core_sqlglot_noop_mysql_snapshot,audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0,true,true,runs/user/common_core_sqlglot_noop_mysql_snapshot/metrics,5,false,40,Prior tri-engine SQLGlot noop snapshot; no rerun performed.
+spark,runs/user/common_core_spark_sqlglot_noop_after_statement_patch,audits/common_core_spark_sqlglot_noop_after_statement_patch_v0,true,true,runs/user/common_core_spark_sqlglot_noop_after_statement_patch/metrics,5,false,40,Post statement-boundary Spark SQLGlot noop snapshot; no rerun performed.

@@ -14426,3 +14426,68 @@ Push result:
 
 Next safe action:
 - Authorize broader local diagnostic projection only if the explicit false leaderboard boundary vocabulary is accepted; otherwise authorize a narrow output-vocabulary patch first.
+
+## 2026-05-22 - common_core_sqlglot_noop_local_metrics_projection_v0
+
+Mode: local diagnostic metrics projection over existing Common-core SQLGlot noop snapshots.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/README.md`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/input_run_inventory.csv`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/projected_metrics_summary.csv`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/projected_metrics_by_engine.csv`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/projected_metrics_by_pool.csv`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/performance_na_review.md`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/boundary_flags_review.md`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/command_log.md`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/protected_surface_check.md`
+- `audits/common_core_sqlglot_noop_local_metrics_projection_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Projection result:
+- Verdict: `completed_with_fail_visible_limitations`.
+- Required prior commits `a91884b4778d3acd348026421ac59bc19c9aa838` and `39d3bb43d96a138e3446b56a4ded1ce2b0b5f111` were present.
+- D033 was present in `project_control/DECISION_LOG.md`.
+- Project-control writeback for `local_metrics_output_shape_review_v0` was present.
+- Metadata correction: prior `local_metrics_output_shape_review_v0` final commit was `a91884b4778d3acd348026421ac59bc19c9aa838` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Input runs used: `runs/user/common_core_sqlglot_noop_postgres_snapshot`, `runs/user/common_core_sqlglot_noop_mysql_snapshot`, and `runs/user/common_core_spark_sqlglot_noop_after_statement_patch`.
+- PostgreSQL projection: selected 40, candidate generated 35, candidate executable 35, exact 35, mismatch 0, Generation Rate 0.875, Execution Coverage Rate 0.875, Result Consistency Rate 0.875.
+- MySQL projection: selected 40, candidate generated 40, candidate executable 39, exact 31, mismatch 8, Generation Rate 1.0, Execution Coverage Rate 0.975, Result Consistency Rate 0.775.
+- Spark projection: selected 40, candidate generated 40, candidate executable 33, exact 31, mismatch 2, unsupported/fail-closed 5, Generation Rate 1.0, Execution Coverage Rate 0.825, Result Consistency Rate 0.775.
+- Performance metrics are N.A. for all three projections because no Common-core snapshot timing artifacts are present.
+- The current Common-core MySQL snapshot predates the label-only diagnostics patch, so projected `label_only_mismatch=0` even though later audits identify label-only candidates.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Local diagnostic metrics projected: yes.
+New timing collected: no.
+Route-level paper metrics computed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review the non-official Common-core SQLGlot noop local metrics projection; if label-only diagnostics are required at Common-core scope, separately authorize a bounded post-label-diagnostics refresh rather than inferring those fields into old snapshots.
