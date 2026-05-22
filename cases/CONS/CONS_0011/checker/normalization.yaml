@@ -1,6 +1,7 @@
 normalization_version: canonical_case_package_layout_v2
 case_id: CONS_0011
 pool: CONS
+sort_rows: true
 sql_paths:
   source: sql/source.sql
   positive: sql/pos_01.sql

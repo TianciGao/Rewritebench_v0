@@ -1,0 +1,5 @@
+scope,run_path,selected_rows,source_executable_rows,candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,failure_bucket_counts,notes
+CONS_0011_before_fix,runs/user/common_core_spark_noop_db_checker,1,1,1,1,0,1,mismatch=1,Before triage/fix; row-order-only checker mismatch in the Common-core Spark local diagnostic.
+CONS_0011_after_fix,runs/user/cons0011_spark_order_fix,1,1,1,1,1,0,none=1,Targeted Spark local diagnostic reached exact after top-level sort_rows true was added.
+Common_core_spark_before_fix,runs/user/common_core_spark_noop_db_checker,40,31,31,31,30,1,none=30;mismatch=1;unsupported_engine=9,Before fix; sole same-engine mismatch was CONS_0011 and PORT Spark remained fail-closed.
+Common_core_spark_after_fix,runs/user/common_core_spark_after_cons0011_order_fix,40,31,31,31,31,0,none=31;unsupported_engine=9,After fix; same-engine Spark rows reached 31/31 exact and PORT Spark remained fail-closed.

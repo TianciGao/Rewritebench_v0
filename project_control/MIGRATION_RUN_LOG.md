@@ -12806,3 +12806,41 @@ Boundary:
 
 Next safe action:
 - Authorize a narrow `CONS_0011` case-local order-insensitive checker policy fix, preferably through the repository-supported `sort_rows` setting or a separately authorized compare-config support task, with representative PERF/CONS/LONGTAIL and hard-negative/control regression checks.
+
+## 2026-05-22 - cons0011_order_insensitive_policy_fix_v0
+
+`CONS_0011` order-insensitive checker policy fix completed on branch `feature/case-package-v2-external-schema`.
+
+Mode: case-local local diagnostic checker policy fix only.
+
+Change:
+- Added top-level `sort_rows: true` only to `cases/CONS/CONS_0011/checker/normalization.yaml`.
+- Preserved existing normalization rules.
+- SQL files modified: no.
+- Manifest files modified: no.
+- Global checker/source behavior modified: no.
+- Other case checker configs modified: no.
+
+Validation:
+- Environment check: PostgreSQL probe ok, MySQL probe ok, Spark PySpark import available, live local diagnostic backend available through PySpark.
+- `CONS_0011` Spark rerun at `runs/user/cons0011_spark_order_fix/`: selected/source/candidate/checker/exact/mismatch rows 1/1/1/1/1/0; failure buckets `none=1`.
+- Two-case Spark regression at `runs/user/spark_two_case_regression_after_cons0011_fix/`: selected/source/candidate/checker/exact/mismatch rows 2/2/2/2/2/0; failure buckets `none=2`.
+- Common-core Spark rerun at `runs/user/common_core_spark_after_cons0011_order_fix/`: selected/source/candidate/checker/exact/mismatch rows 40/31/31/31/31/0; failure buckets `none=31`, `unsupported_engine=9`; PORT Spark rows remained explicit fail-closed.
+- YAML parse check for modified normalization config: passed.
+- Case-package v2 reference validator over all 40 Common-core cases: passed 40/40.
+- `PYTHONPATH=src pytest tests/user_entry`: passed, 118 passed and 1 skipped.
+- `git diff --check`: passed.
+
+Boundary:
+- Reports/results changed: no.
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Global leaderboard created: no.
+- Local `runs/user/` outputs committed: no.
+
+Next safe action:
+- Use the fixed `CONS_0011` policy in future local Spark diagnostics; any broader checker-policy migration, official metrics, timing/speedup, reports/results update, retained-evidence promotion, leaderboard, or release-export work remains separate authorization.

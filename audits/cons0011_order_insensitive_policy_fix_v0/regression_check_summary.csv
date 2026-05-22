@@ -1,0 +1,10 @@
+check,command_or_path,result,key_counts,notes
+environment_check,PYTHONPATH=src python scripts/dev/check_local_engine_env.py,passed,"PostgreSQL ok; MySQL ok; Spark PySpark available",No secrets printed.
+CONS_0011_spark_rerun,runs/user/cons0011_spark_order_fix,passed,"selected=1; source=1; candidate=1; checker=1; exact=1; mismatch=0",Local diagnostic only.
+two_case_spark_regression,runs/user/spark_two_case_regression_after_cons0011_fix,passed,"selected=2; source=2; candidate=2; checker=2; exact=2; mismatch=0",Prior Spark smoke subset remained exact.
+common_core_spark_regression,runs/user/common_core_spark_after_cons0011_order_fix,passed,"selected=40; source=31; candidate=31; checker=31; exact=31; mismatch=0; unsupported_engine=9",Same-engine exact improved from 30/31 to 31/31; PORT remained fail-closed.
+yaml_parse,cases/CONS/CONS_0011/checker/normalization.yaml,passed,sort_rows=true; existing rules preserved,Parsed with PyYAML.
+case_package_v2_refs,common_core_v0 cases,passed,40/40,Static non-destructive v2 reference validator.
+user_entry_tests,PYTHONPATH=src pytest tests/user_entry,passed,118 passed; 1 skipped,Pytest available.
+git_diff_check,git diff --check,passed,no output,Whitespace validation passed.
+protected_surface_check,git status/protected path checks,passed,only allowed tracked paths changed,Local runs/user outputs not staged or committed.
