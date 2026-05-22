@@ -119,14 +119,55 @@ def _decimal_string_equal(left: object, right: object) -> bool:
         return False
 
 
+def _safe_decimal(value: object) -> Decimal | None:
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, Decimal):
+        decimal = value
+    elif isinstance(value, (int, float)):
+        try:
+            decimal = Decimal(str(value))
+        except (InvalidOperation, ValueError):
+            return None
+    elif isinstance(value, str):
+        stripped = value.strip()
+        if not stripped:
+            return None
+        try:
+            decimal = Decimal(stripped)
+        except (InvalidOperation, ValueError):
+            return None
+    else:
+        return None
+    if not decimal.is_finite():
+        return None
+    return decimal
+
+
+def _mixed_numeric_equal(left: object, right: object) -> bool:
+    left_is_string = isinstance(left, str)
+    right_is_string = isinstance(right, str)
+    if left_is_string == right_is_string:
+        return False
+    left_decimal = _safe_decimal(left)
+    right_decimal = _safe_decimal(right)
+    if left_decimal is None or right_decimal is None:
+        return False
+    return left_decimal == right_decimal
+
+
 def _cross_dialect_compare(
     source_rows: list[dict[str, object]],
     candidate_rows: list[dict[str, object]],
+    *,
+    enable_mixed_numeric_equivalence: bool = False,
 ) -> tuple[bool, dict[str, object]]:
     details: dict[str, object] = {
         "cross_dialect_normalization_active": True,
         "positional_column_comparison_used": True,
         "decimal_string_equivalence_used": False,
+        "mixed_numeric_equivalence_enabled": enable_mixed_numeric_equivalence,
+        "mixed_numeric_equivalence_used": False,
         "mismatch_reason": "",
     }
     if len(source_rows) != len(candidate_rows):
@@ -152,6 +193,11 @@ def _cross_dialect_compare(
             if _decimal_string_equal(source_value, candidate_value):
                 details["decimal_string_equivalence_used"] = True
                 continue
+            if enable_mixed_numeric_equivalence and _mixed_numeric_equal(
+                source_value, candidate_value
+            ):
+                details["mixed_numeric_equivalence_used"] = True
+                continue
             details["mismatch_reason"] = "value_mismatch"
             details["mismatch_row_index"] = row_index
             details["mismatch_column_index"] = column_index
@@ -166,6 +212,8 @@ def _comparison_details(*, cross_dialect_active: bool) -> dict[str, object]:
         "cross_dialect_normalization_active": cross_dialect_active,
         "positional_column_comparison_used": False,
         "decimal_string_equivalence_used": False,
+        "mixed_numeric_equivalence_enabled": False,
+        "mixed_numeric_equivalence_used": False,
         "mismatch_reason": "none",
     }
 
@@ -182,6 +230,8 @@ def _notes_suffix(
         parts.append("positional column comparison used")
     if details.get("decimal_string_equivalence_used"):
         parts.append("decimal string equivalence used")
+    if details.get("mixed_numeric_equivalence_used"):
+        parts.append("mixed numeric equivalence used")
     if unknown_keys:
         parts.append(f"unknown normalization keys recorded: {unknown_keys}")
     return ("; " + "; ".join(parts)) if parts else ""
@@ -194,6 +244,7 @@ def run_local_checker(
     candidate_result_path: Path,
     checker_dir: Path,
     enable_cross_dialect_normalization: bool = False,
+    enable_mixed_numeric_equivalence: bool = False,
 ) -> CheckerResult:
     """Compare local source and candidate JSONL results using case-local configs."""
 
@@ -266,7 +317,9 @@ def run_local_checker(
         exact_match = normalized_source == normalized_candidate
         if not exact_match and enable_cross_dialect_normalization:
             exact_match, details = _cross_dialect_compare(
-                normalized_source, normalized_candidate
+                normalized_source,
+                normalized_candidate,
+                enable_mixed_numeric_equivalence=enable_mixed_numeric_equivalence,
             )
 
         if exact_match:

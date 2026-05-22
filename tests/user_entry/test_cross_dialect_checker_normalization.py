@@ -6,7 +6,10 @@ from pathlib import Path
 from sql_rewrite_bench.case_package_resolver import resolve_case_package
 from sql_rewrite_bench.case_selection import resolve_common_core_selection
 from sql_rewrite_bench.local_result_checker import run_local_checker
-from sql_rewrite_bench.user_run import _cross_dialect_checker_normalization_enabled
+from sql_rewrite_bench.user_run import (
+    _cross_dialect_checker_normalization_enabled,
+    _mysql_to_spark_numeric_equivalence_enabled,
+)
 from sql_rewrite_bench.user_run_schema import (
     CHECKER_STATUS_MISMATCH,
     CHECKER_STATUS_SUCCESS,
@@ -45,12 +48,12 @@ def _case_list(tmp_path: Path, case_id: str) -> Path:
     return path
 
 
-def _selected_row(case_id: str):
+def _selected_row(case_id: str, *, engine: str = "postgres"):
     with tempfile.TemporaryDirectory() as temp_dir:
         rows = resolve_common_core_selection(
             repo_root=REPO_ROOT,
             case_set="common_core_v0",
-            engine="postgres",
+            engine=engine,
             case_list=_case_list(Path(temp_dir), case_id),
         )
     if len(rows) != 1:
@@ -65,6 +68,7 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
         candidate_rows: list[dict[str, object]],
         *,
         enable_cross_dialect_normalization: bool,
+        enable_mixed_numeric_equivalence: bool = False,
         normalize_numeric: bool = True,
     ):
         root = Path(self.enterContext(tempfile.TemporaryDirectory()))
@@ -80,6 +84,7 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
             candidate_result_path=candidate,
             checker_dir=root / "checker_out",
             enable_cross_dialect_normalization=enable_cross_dialect_normalization,
+            enable_mixed_numeric_equivalence=enable_mixed_numeric_equivalence,
         )
 
     def test_cross_dialect_single_column_different_labels_can_match(self) -> None:
@@ -115,6 +120,71 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
 
         self.assertEqual(result.exact_status, EXACT_STATUS_EXACT)
         self.assertTrue(result.details["decimal_string_equivalence_used"])
+
+    def test_mysql_spark_mixed_numeric_equivalence_can_match_when_opted_in(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"mysql_expr": "4.80"}],
+            [{"spark_expr": 4.8}],
+            enable_cross_dialect_normalization=True,
+            enable_mixed_numeric_equivalence=True,
+            normalize_numeric=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_SUCCESS)
+        self.assertEqual(result.exact_status, EXACT_STATUS_EXACT)
+        self.assertTrue(result.details["mixed_numeric_equivalence_enabled"])
+        self.assertTrue(result.details["mixed_numeric_equivalence_used"])
+
+    def test_mixed_numeric_equivalence_requires_explicit_opt_in(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"mysql_expr": "4.80"}],
+            [{"spark_expr": 4.8}],
+            enable_cross_dialect_normalization=True,
+            enable_mixed_numeric_equivalence=False,
+            normalize_numeric=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["mixed_numeric_equivalence_enabled"])
+        self.assertFalse(result.details["mixed_numeric_equivalence_used"])
+
+    def test_same_engine_mixed_numeric_representation_remains_strict(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"source_label": "4.80"}],
+            [{"source_label": 4.8}],
+            enable_cross_dialect_normalization=False,
+            enable_mixed_numeric_equivalence=True,
+            normalize_numeric=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["cross_dialect_normalization_active"])
+
+    def test_mixed_numeric_equivalence_does_not_coerce_booleans(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"mysql_expr": "1"}],
+            [{"spark_expr": True}],
+            enable_cross_dialect_normalization=True,
+            enable_mixed_numeric_equivalence=True,
+            normalize_numeric=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertEqual(result.details["mismatch_reason"], "value_mismatch")
+        self.assertFalse(result.details["mixed_numeric_equivalence_used"])
+
+    def test_mixed_numeric_equivalence_does_not_coerce_nonnumeric_strings(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"mysql_expr": "ALICE"}],
+            [{"spark_expr": 0}],
+            enable_cross_dialect_normalization=True,
+            enable_mixed_numeric_equivalence=True,
+            normalize_numeric=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertEqual(result.details["mismatch_reason"], "value_mismatch")
+        self.assertFalse(result.details["mixed_numeric_equivalence_used"])
 
     def test_cross_dialect_true_value_difference_remains_mismatch(self) -> None:
         result = self._run_synthetic_checker(
@@ -214,6 +284,17 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
         row = _selected_row("PORT_0004")
         resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
         self.assertTrue(_cross_dialect_checker_normalization_enabled(resolved))
+        self.assertFalse(_mysql_to_spark_numeric_equivalence_enabled(resolved))
+
+        spark_row = _selected_row("PORT_0004", engine="spark")
+        spark_resolved = resolve_case_package(repo_root=REPO_ROOT, row=spark_row)
+        self.assertTrue(_cross_dialect_checker_normalization_enabled(spark_resolved))
+        self.assertTrue(_mysql_to_spark_numeric_equivalence_enabled(spark_resolved))
+
+        mysql_row = _selected_row("PORT_0003", engine="mysql")
+        mysql_resolved = resolve_case_package(repo_root=REPO_ROOT, row=mysql_row)
+        self.assertTrue(_cross_dialect_checker_normalization_enabled(mysql_resolved))
+        self.assertFalse(_mysql_to_spark_numeric_equivalence_enabled(mysql_resolved))
 
     def test_checker_details_do_not_add_official_metric_fields_or_reports(self) -> None:
         result = self._run_synthetic_checker(

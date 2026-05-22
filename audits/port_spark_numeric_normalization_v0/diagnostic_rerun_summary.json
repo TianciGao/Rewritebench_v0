@@ -1,0 +1,86 @@
+{
+  "schema_version": "port_spark_numeric_normalization_audit_v0",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "before": {
+    "run_output_path": "runs/user/port_spark_target_reference_controlled",
+    "selected_rows": 4,
+    "source_reference_executable_rows": 4,
+    "spark_target_candidate_executable_rows": 4,
+    "checker_attempted_rows": 4,
+    "exact_rows": 2,
+    "mismatch_rows": 2,
+    "failure_bucket_counts": {
+      "none": 2,
+      "mismatch": 2
+    }
+  },
+  "after": {
+    "run_output_path": "runs/user/port_spark_target_reference_controlled_after_numeric_fix",
+    "selected_rows": 4,
+    "candidate_generated_rows": 4,
+    "candidate_preflight_passed_rows": 4,
+    "source_reference_executable_rows": 4,
+    "spark_target_candidate_executable_rows": 4,
+    "checker_attempted_rows": 4,
+    "exact_rows": 4,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 4
+    },
+    "fixed_cases": [
+      "PORT_0004",
+      "PORT_0013"
+    ]
+  },
+  "unsupported_spark_role_check": {
+    "run_output_path": "runs/user/port_spark_unsupported_role_check_after_numeric_fix",
+    "selected_rows": 5,
+    "source_reference_executable_rows": 0,
+    "spark_target_candidate_executable_rows": 0,
+    "checker_attempted_rows": 0,
+    "failure_bucket_counts": {
+      "unsupported_engine": 5
+    }
+  },
+  "preservation": {
+    "postgres_port_target_route": {
+      "run_output_path": "runs/user/port_pg_forward_preservation_after_numeric_fix",
+      "selected_rows": 5,
+      "source_reference_executable_rows": 5,
+      "target_candidate_executable_rows": 5,
+      "checker_attempted_rows": 5,
+      "exact_rows": 5,
+      "mismatch_rows": 0
+    },
+    "mysql_port_target_route": {
+      "run_output_path": "runs/user/port_mysql_reverse_preservation_after_numeric_fix",
+      "selected_rows": 4,
+      "source_reference_executable_rows": 4,
+      "target_candidate_executable_rows": 4,
+      "checker_attempted_rows": 4,
+      "exact_rows": 4,
+      "mismatch_rows": 0
+    },
+    "non_port_spark_two_case": {
+      "run_output_path": "runs/user/spark_two_case_regression_after_numeric_fix",
+      "selected_rows": 2,
+      "source_executable_rows": 2,
+      "candidate_executable_rows": 2,
+      "checker_attempted_rows": 2,
+      "exact_rows": 2,
+      "mismatch_rows": 0
+    },
+    "common_core_spark_full_noop": {
+      "run": false,
+      "reason": "This task reran targeted Spark PORT controlled rows plus non-PORT Spark smoke. After PORT Spark role mapping, a full no-op Spark run is no longer a pure same-engine 31-row check because four PORT rows have declared cross-dialect Spark target roles."
+    }
+  }
+}

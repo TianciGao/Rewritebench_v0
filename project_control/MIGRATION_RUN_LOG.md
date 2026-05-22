@@ -12872,3 +12872,51 @@ Boundary:
 
 Next safe action:
 - Audit/fix the MySQL-source to Spark-target numeric normalization gap for `PORT_0004` and `PORT_0013`, with PERF/CONS/LONGTAIL same-engine regression checks before any broader Spark PORT diagnostic.
+
+## 2026-05-22 - port_spark_numeric_normalization_v0
+
+Mode: narrow local-diagnostic checker fix only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/port_spark_numeric_normalization_v0/README.md`
+- `audits/port_spark_numeric_normalization_v0/normalization_change_summary.md`
+- `audits/port_spark_numeric_normalization_v0/before_after_summary.csv`
+- `audits/port_spark_numeric_normalization_v0/diagnostic_rerun_summary.json`
+- `audits/port_spark_numeric_normalization_v0/preservation_results.csv`
+- `audits/port_spark_numeric_normalization_v0/test_results.md`
+- `audits/port_spark_numeric_normalization_v0/protected_surface_check.md`
+- `audits/port_spark_numeric_normalization_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/local_result_checker.py`
+- `src/sql_rewrite_bench/user_run.py`
+- `tests/user_entry/test_cross_dialect_checker_normalization.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Root cause confirmed for `PORT_0004` and `PORT_0013`: MySQL string numeric values vs Spark JSON numeric values.
+- Spark PORT controlled rerun moved from exact/mismatch `2/2` to `4/0`.
+- Unsupported Spark role check remained `unsupported_engine=5`.
+- PostgreSQL PORT target route remained exact `5/5`.
+- MySQL PORT target route remained exact `4/4`.
+- Non-PORT Spark two-case smoke remained exact `2/2`.
+- Focused checker tests passed: 18 tests.
+- `PYTHONPATH=src pytest tests/user_entry -q` passed: 130 passed, 1 skipped, 12 subtests.
+- Common-core case-package validator passed 40/40.
+- Environment check passed for PostgreSQL/MySQL probes and Spark PySpark readiness.
+- `git diff --check` passed.
+
+Commit hash: pending at project-control writeback time; final report records the pushed commit hash.
+Push result: pending at project-control writeback time; final report records the push result.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+
+Next safe action:
+- Optionally rerun a broader Spark local diagnostic snapshot, keeping PORT role outputs local-only and separate from official metrics, timing/speedup, reports/results, paper results, retained-evidence promotion, and leaderboard surfaces.

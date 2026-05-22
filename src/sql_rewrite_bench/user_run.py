@@ -441,6 +441,9 @@ def _apply_db_checker_for_row(
         enable_cross_dialect_normalization=_cross_dialect_checker_normalization_enabled(
             resolved_package
         ),
+        enable_mixed_numeric_equivalence=_mysql_to_spark_numeric_equivalence_enabled(
+            resolved_package
+        ),
     )
     ledger.update(
         {
@@ -480,6 +483,16 @@ def _cross_dialect_checker_normalization_enabled(
     return (
         resolved_package.diagnostic_mode == DIAGNOSTIC_MODE_CROSS_DIALECT_REFERENCE
         and resolved_package.checker_comparison == LOCAL_DIAGNOSTIC_COMPARISON
+    )
+
+
+def _mysql_to_spark_numeric_equivalence_enabled(
+    resolved_package: ResolvedCasePackage,
+) -> bool:
+    return (
+        _cross_dialect_checker_normalization_enabled(resolved_package)
+        and resolved_package.source_reference_engine == "mysql"
+        and resolved_package.target_candidate_engine == "spark"
     )
 
 
