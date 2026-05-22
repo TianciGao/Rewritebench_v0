@@ -13250,3 +13250,60 @@ Engine backends patched: no.
 
 Next safe action:
 - Keep failures visible; separately authorize SQLGlot PORT route/dialect documentation, same-engine checker label-policy triage, or Spark statement/preflight investigation if desired.
+
+## 2026-05-22 - spark_sqlglot_noop_statement_preflight_triage_v0
+
+Mode: audit-only Spark statement-boundary triage.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/README.md`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/affected_rows.csv`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/candidate_statement_examples.md`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/root_cause_matrix.csv`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/recommendation.md`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/protected_surface_check.md`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/command_log.md`
+- `audits/spark_sqlglot_noop_statement_preflight_triage_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed project-control readability, audit Markdown/CSV sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output check.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Triage result:
+- Affected rows: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, `PERF_0024`, and `PERF_0082`.
+- All six candidates passed user-entry preflight and all six sources executed successfully.
+- All six candidates failed Spark candidate execution at the local diagnostic statement-count guard with `Spark diagnostic query must contain exactly one statement`.
+- Root cause category: Spark local diagnostic statement splitter / preflight consistency gap.
+- SQLGlot noop emitted one query with leading `/* ... */` block comments and a trailing semicolon. The block comments preserve metadata/provenance semicolons.
+- Candidate preflight ignores semicolons inside block comments, but the Spark splitter currently strips only full-line `--` comments and splits on semicolons inside block comments.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Code/checker/backend patched: no.
+Common-core rerun performed: no.
+SQLGlot optimize run: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Keep rows fail-visible or authorize a narrow Spark statement-boundary/preflight patch with regression coverage for block-comment semicolons, string-literal semicolons, trailing semicolon handling, and genuine multi-statement rejection.

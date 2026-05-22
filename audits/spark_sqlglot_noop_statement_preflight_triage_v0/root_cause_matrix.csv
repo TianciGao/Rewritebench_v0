@@ -1,0 +1,8 @@
+hypothesis,assessment,evidence,recommendation
+SQLGlot emitted genuinely multiple executable statements,rejected,comment-aware preflight sees one outside-comment semicolon and no nonempty text after the final terminator,do not classify as multi-statement method output
+SQLGlot emitted one query plus block comments with semicolons,supported,all six candidates contain leading block comments and only one semicolon outside comments,keep fail-visible until backend handling is authorized
+Spark backend statement splitter misclassified comment semicolons,likely,current Spark splitter strips full-line dash comments but not block comments and returned two to four fragments for affected candidates,authorize narrow Spark splitter patch if desired
+Candidate preflight and Spark backend are inconsistent,supported,preflight ignores block comments and passed all six while Spark backend rejected all six,align preflight and backend statement-boundary handling in a separate task
+Spark SQL parser limitation,unlikely,the rejection happened before Spark SQL parser execution,do not attribute to Spark parser without a targeted rerun after boundary handling
+Case-specific SQL feature issue,unlikely,the shared failure shape is comment-semicolon handling rather than query operator syntax,do not patch case SQL
+Pure diagnostic stripping would pass statement-boundary gate,supported,after ignoring comments each candidate has one trailing statement terminator and no second executable statement,use only as diagnostic evidence unless a patch is authorized
