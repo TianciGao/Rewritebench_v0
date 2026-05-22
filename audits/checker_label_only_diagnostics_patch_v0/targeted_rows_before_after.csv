@@ -1,0 +1,6 @@
+case_id,pool,engine,before_checker_status,before_exact_status,before_failure_bucket,after_checker_status,after_exact_status,after_failure_bucket,value_exact,label_exact,label_only_mismatch,exact_mismatch_changed,notes
+PERF_0062,PERF,mysql,checker_mismatch,mismatch,mismatch,checker_mismatch,mismatch,mismatch,true,false,true,false,"same-engine MySQL SQLGlot noop row remains strict mismatch; values match positionally and labels differ"
+PORT_0004,PORT,mysql,checker_mismatch,mismatch,mismatch,checker_mismatch,mismatch,mismatch,true,false,true,false,"same-engine PORT SQLGlot noop row remains strict mismatch; values match positionally and labels differ"
+PORT_0013,PORT,mysql,checker_mismatch,mismatch,mismatch,checker_mismatch,mismatch,mismatch,true,false,true,false,"same-engine PORT SQLGlot noop row remains strict mismatch; values match positionally and labels differ"
+PORT_0022,PORT,mysql,checker_mismatch,mismatch,mismatch,checker_mismatch,mismatch,mismatch,true,false,true,false,"same-engine PORT SQLGlot noop row remains strict mismatch; values match positionally and labels differ"
+PORT_0024,PORT,mysql,checker_mismatch,mismatch,mismatch,checker_mismatch,mismatch,mismatch,true,false,true,false,"same-engine PORT SQLGlot noop row remains strict mismatch; values match positionally and labels differ"

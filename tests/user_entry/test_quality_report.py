@@ -94,6 +94,7 @@ class UserQualityReportTests(unittest.TestCase):
         self.assertEqual(payload["funnel_counts"]["source_like_rows"], 2)
         self.assertIn("none", payload["failure_bucket_counts"])
         self.assertEqual(payload["failure_bucket_counts"]["none"], 2)
+        self.assertEqual(payload["diagnostic_counts"]["label_only_mismatch_rows"], 0)
         self.assertIs(payload["scope"]["official_metrics"], False)
         self.assertIs(payload["scope"]["paper_results_updated"], False)
         self.assertIs(payload["scope"]["retained_evidence_input"], False)
@@ -106,6 +107,48 @@ class UserQualityReportTests(unittest.TestCase):
         self.assertIn("Tag-aware slices are available as local diagnostics", report)
         self.assertIn("Timing and speedup are not included", report)
         self.assertTrue((out_dir / "tag_slices.csv").exists())
+
+    def test_quality_summary_counts_label_only_mismatch_notes(self) -> None:
+        from sql_rewrite_bench.user_quality_report import build_quality_summary
+
+        payload = build_quality_summary(
+            [
+                {
+                    "selected": "true",
+                    "adapter_invoked": "true",
+                    "candidate_generated": "true",
+                    "candidate_preflight_status": "passed",
+                    "candidate_preflight_passed": "true",
+                    "execution_status": "candidate_execution_success",
+                    "source_execution_status": "source_execution_success",
+                    "candidate_execution_status": "candidate_execution_success",
+                    "checker_status": "checker_mismatch",
+                    "exact_status": "mismatch",
+                    "failure_bucket": "mismatch",
+                    "source_like_status": "changed",
+                    "timed_status": "not_timed_non_db_mvp",
+                    "notes": "local checker mismatch; label_only_mismatch=true",
+                },
+                {
+                    "selected": "true",
+                    "adapter_invoked": "true",
+                    "candidate_generated": "true",
+                    "candidate_preflight_status": "passed",
+                    "candidate_preflight_passed": "true",
+                    "execution_status": "candidate_execution_success",
+                    "source_execution_status": "source_execution_success",
+                    "candidate_execution_status": "candidate_execution_success",
+                    "checker_status": "checker_mismatch",
+                    "exact_status": "mismatch",
+                    "failure_bucket": "mismatch",
+                    "source_like_status": "changed",
+                    "timed_status": "not_timed_non_db_mvp",
+                    "notes": "local checker mismatch; value mismatch",
+                },
+            ]
+        )
+
+        self.assertEqual(payload["diagnostic_counts"]["label_only_mismatch_rows"], 1)
 
     def test_quality_summary_has_no_timing_or_speedup_fields(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

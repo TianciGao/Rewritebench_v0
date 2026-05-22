@@ -207,6 +207,43 @@ def _cross_dialect_compare(
     return True, details
 
 
+def _strict_label_value_details(
+    source_rows: list[dict[str, object]], candidate_rows: list[dict[str, object]]
+) -> dict[str, object]:
+    details: dict[str, object] = {
+        "value_exact": False,
+        "label_exact": False,
+        "label_only_mismatch": False,
+        "label_policy": "strict",
+        "label_mismatch_class": "none",
+        "value_mismatch_reason": "none",
+    }
+    if len(source_rows) != len(candidate_rows):
+        details["value_mismatch_reason"] = "row_count_mismatch"
+        return details
+
+    label_exact = True
+    for source_row, candidate_row in zip(source_rows, candidate_rows, strict=True):
+        source_labels = list(source_row.keys())
+        candidate_labels = list(candidate_row.keys())
+        if len(source_labels) != len(candidate_labels):
+            details["value_mismatch_reason"] = "column_count_mismatch"
+            return details
+        if source_labels != candidate_labels:
+            label_exact = False
+        if list(source_row.values()) != list(candidate_row.values()):
+            details["label_exact"] = label_exact
+            details["value_mismatch_reason"] = "value_mismatch"
+            return details
+
+    details["value_exact"] = True
+    details["label_exact"] = label_exact
+    details["label_only_mismatch"] = not label_exact
+    if not label_exact:
+        details["label_mismatch_class"] = "unclassified_label_difference"
+    return details
+
+
 def _comparison_details(*, cross_dialect_active: bool) -> dict[str, object]:
     return {
         "cross_dialect_normalization_active": cross_dialect_active,
@@ -215,6 +252,12 @@ def _comparison_details(*, cross_dialect_active: bool) -> dict[str, object]:
         "mixed_numeric_equivalence_enabled": False,
         "mixed_numeric_equivalence_used": False,
         "mismatch_reason": "none",
+        "value_exact": False,
+        "label_exact": False,
+        "label_only_mismatch": False,
+        "label_policy": "strict",
+        "label_mismatch_class": "none",
+        "value_mismatch_reason": "none",
     }
 
 
@@ -232,9 +275,25 @@ def _notes_suffix(
         parts.append("decimal string equivalence used")
     if details.get("mixed_numeric_equivalence_used"):
         parts.append("mixed numeric equivalence used")
+    if details.get("label_only_mismatch"):
+        parts.append(
+            "label-only mismatch diagnostic: value_exact=true, "
+            "label_exact=false, label_only_mismatch=true"
+        )
     if unknown_keys:
         parts.append(f"unknown normalization keys recorded: {unknown_keys}")
     return ("; " + "; ".join(parts)) if parts else ""
+
+
+def _label_diagnostics(details: dict[str, object]) -> dict[str, object]:
+    return {
+        "value_exact": bool(details.get("value_exact")),
+        "label_exact": bool(details.get("label_exact")),
+        "label_only_mismatch": bool(details.get("label_only_mismatch")),
+        "label_policy": str(details.get("label_policy", "strict")),
+        "label_mismatch_class": str(details.get("label_mismatch_class", "none")),
+        "value_mismatch_reason": str(details.get("value_mismatch_reason", "none")),
+    }
 
 
 def run_local_checker(
@@ -314,13 +373,24 @@ def run_local_checker(
         details = _comparison_details(
             cross_dialect_active=enable_cross_dialect_normalization
         )
+        strict_label_details = _strict_label_value_details(
+            normalized_source, normalized_candidate
+        )
+        details.update(strict_label_details)
         exact_match = normalized_source == normalized_candidate
         if not exact_match and enable_cross_dialect_normalization:
-            exact_match, details = _cross_dialect_compare(
+            cross_exact_match, cross_details = _cross_dialect_compare(
                 normalized_source,
                 normalized_candidate,
                 enable_mixed_numeric_equivalence=enable_mixed_numeric_equivalence,
             )
+            exact_match = cross_exact_match
+            cross_details.update(strict_label_details)
+            if exact_match:
+                cross_details["value_exact"] = True
+                cross_details["value_mismatch_reason"] = "none"
+                cross_details["label_only_mismatch"] = False
+            details = cross_details
 
         if exact_match:
             result = CheckerResult(
@@ -336,6 +406,7 @@ def run_local_checker(
         else:
             mismatch_payload = {
                 "cross_dialect_normalization": details,
+                "label_diagnostics": _label_diagnostics(details),
                 "source_row_count": len(normalized_source),
                 "candidate_row_count": len(normalized_candidate),
                 "source_preview": normalized_source[:5],

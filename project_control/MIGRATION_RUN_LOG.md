@@ -13642,3 +13642,80 @@ Push result:
 
 Next safe action:
 - Authorize a behavior-preserving checker label-only diagnostics patch, or pause with strict-label fail-visible behavior documented.
+
+## 2026-05-22 - checker_label_only_diagnostics_patch_v0
+
+Mode: behavior-preserving local diagnostic checker diagnostics patch.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Metadata correction:
+- `checker_label_policy_design_v0` final commit was `6236ba8` and was pushed to `origin/feature/case-package-v2-external-schema`; the previous run-log entry remains non-destructively preserved with pending metadata.
+
+Files created:
+- `audits/checker_label_only_diagnostics_patch_v0/README.md`
+- `audits/checker_label_only_diagnostics_patch_v0/patch_summary.md`
+- `audits/checker_label_only_diagnostics_patch_v0/regression_tests.md`
+- `audits/checker_label_only_diagnostics_patch_v0/targeted_rows_before_after.csv`
+- `audits/checker_label_only_diagnostics_patch_v0/diagnostic_fields_schema.md`
+- `audits/checker_label_only_diagnostics_patch_v0/command_log.md`
+- `audits/checker_label_only_diagnostics_patch_v0/protected_surface_check.md`
+- `audits/checker_label_only_diagnostics_patch_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/local_result_checker.py`
+- `src/sql_rewrite_bench/user_quality_report.py`
+- `tests/user_entry/test_cross_dialect_checker_normalization.py`
+- `tests/user_entry/test_quality_report.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed focused checker/quality-report tests, full `tests/user_entry`, project-control readability check, audit Markdown/CSV sanity checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output checks.
+- Confirmed no cases, manifests, SQL files, schemas, checker configs, validation scripts, `baselines/sqlglot/`, `case_sets/`, inventory, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Patch result:
+- Added behavior-preserving label-only mismatch diagnostics to local checker details and mismatch artifacts.
+- Added local quality-summary diagnostic count `label_only_mismatch_rows`.
+- Exact/mismatch semantics did not change.
+- Label-only mismatches are not converted to exact.
+- Strict labels remain the default policy.
+- No case-local label policy was added.
+- No global label-ignore behavior was introduced.
+- Existing controlled cross-dialect role gates, including MySQL-source to Spark-target numeric normalization, remain preserved.
+
+Targeted rerun:
+- Run path: `runs/user/mysql_label_only_diagnostics_patch_check`.
+- Case list: `PERF_0062`, `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`.
+- Selected rows: 5.
+- Candidate generated/preflight passed rows: 5/5.
+- Source/candidate executable rows: 5/5.
+- Checker attempted rows: 5.
+- Exact/mismatch rows: 0/5.
+- Label-only diagnostic rows: 5.
+- Exact/mismatch changed: no.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+SQLGlot adapter behavior changed: no.
+Checker normalization relaxed: no.
+Common-core rerun performed: no, except targeted five-row diagnostic rerun.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Use label-only diagnostics to decide whether to keep these rows fail-visible, document the limitation, or separately authorize a case-local exactness-changing label policy patch.

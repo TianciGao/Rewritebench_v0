@@ -99,6 +99,9 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
         self.assertEqual(result.failure_bucket, FAILURE_NONE)
         self.assertTrue(result.details["cross_dialect_normalization_active"])
         self.assertTrue(result.details["positional_column_comparison_used"])
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
 
     def test_cross_dialect_multi_column_compares_by_position(self) -> None:
         result = self._run_synthetic_checker(
@@ -134,6 +137,8 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
         self.assertEqual(result.exact_status, EXACT_STATUS_EXACT)
         self.assertTrue(result.details["mixed_numeric_equivalence_enabled"])
         self.assertTrue(result.details["mixed_numeric_equivalence_used"])
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
 
     def test_mixed_numeric_equivalence_requires_explicit_opt_in(self) -> None:
         result = self._run_synthetic_checker(
@@ -159,6 +164,8 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
 
         self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
         self.assertFalse(result.details["cross_dialect_normalization_active"])
+        self.assertFalse(result.details["value_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
 
     def test_mixed_numeric_equivalence_does_not_coerce_booleans(self) -> None:
         result = self._run_synthetic_checker(
@@ -222,6 +229,8 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
 
         self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
         self.assertEqual(result.details["mismatch_reason"], "row_count_mismatch")
+        self.assertEqual(result.details["value_mismatch_reason"], "row_count_mismatch")
+        self.assertFalse(result.details["label_only_mismatch"])
 
     def test_same_engine_perf_like_comparison_still_respects_labels(self) -> None:
         result = self._run_synthetic_checker(
@@ -232,6 +241,117 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
 
         self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
         self.assertFalse(result.details["cross_dialect_normalization_active"])
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_exact"])
+        self.assertTrue(result.details["label_only_mismatch"])
+
+    def test_strict_exact_records_value_and_label_exact(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1", "b": "x"}],
+            [{"a": "1", "b": "x"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_SUCCESS)
+        self.assertEqual(result.exact_status, EXACT_STATUS_EXACT)
+        self.assertTrue(result.details["value_exact"])
+        self.assertTrue(result.details["label_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
+
+    def test_strict_label_mismatch_records_label_only_without_exact(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1"}],
+            [{"b": "1"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertEqual(result.exact_status, EXACT_STATUS_MISMATCH)
+        self.assertEqual(result.failure_bucket, FAILURE_MISMATCH)
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_exact"])
+        self.assertTrue(result.details["label_only_mismatch"])
+        self.assertEqual(result.details["label_policy"], "strict")
+        self.assertEqual(result.details["label_mismatch_class"], "unclassified_label_difference")
+        payload = json.loads(result.mismatch_artifact_path.read_text(encoding="utf-8"))
+        self.assertTrue(payload["label_diagnostics"]["value_exact"])
+        self.assertFalse(payload["label_diagnostics"]["label_exact"])
+        self.assertTrue(payload["label_diagnostics"]["label_only_mismatch"])
+
+    def test_value_mismatch_is_not_label_only(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1"}],
+            [{"a": "2"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["value_exact"])
+        self.assertTrue(result.details["label_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
+        self.assertEqual(result.details["value_mismatch_reason"], "value_mismatch")
+
+    def test_row_count_mismatch_is_not_label_only(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1"}, {"a": "2"}],
+            [{"a": "1"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["value_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
+        self.assertEqual(result.details["value_mismatch_reason"], "row_count_mismatch")
+
+    def test_column_count_mismatch_is_not_label_only(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1", "b": "2"}],
+            [{"a": "1"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["value_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
+        self.assertEqual(result.details["value_mismatch_reason"], "column_count_mismatch")
+
+    def test_duplicate_multiplicity_mismatch_is_not_label_only(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"a": "1"}, {"a": "1"}],
+            [{"a": "1"}, {"a": "2"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertFalse(result.details["value_exact"])
+        self.assertFalse(result.details["label_only_mismatch"])
+        self.assertEqual(result.details["value_mismatch_reason"], "value_mismatch")
+
+    def test_explicit_alias_mismatch_remains_strict(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"alias_a": "same"}],
+            [{"alias_b": "same"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertEqual(result.exact_status, EXACT_STATUS_MISMATCH)
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_exact"])
+        self.assertTrue(result.details["label_only_mismatch"])
+
+    def test_generated_expression_label_mismatch_is_diagnostic_only(self) -> None:
+        result = self._run_synthetic_checker(
+            [{"avg(x)": "1.0000"}],
+            [{"AVG(x)": "1.0000"}],
+            enable_cross_dialect_normalization=False,
+        )
+
+        self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertEqual(result.exact_status, EXACT_STATUS_MISMATCH)
+        self.assertTrue(result.details["value_exact"])
+        self.assertFalse(result.details["label_exact"])
+        self.assertTrue(result.details["label_only_mismatch"])
 
     def _assert_real_case_same_engine_label_mismatch(self, case_id: str) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -248,6 +368,7 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
                 enable_cross_dialect_normalization=False,
             )
         self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertTrue(result.details["label_only_mismatch"])
 
     def test_perf_0006_same_engine_behavior_unaffected(self) -> None:
         self._assert_real_case_same_engine_label_mismatch("PERF_0006")
@@ -279,6 +400,7 @@ class CrossDialectCheckerNormalizationTests(unittest.TestCase):
                 ),
             )
         self.assertEqual(result.checker_status, CHECKER_STATUS_MISMATCH)
+        self.assertTrue(result.details["label_only_mismatch"])
 
     def test_cross_dialect_gating_comes_from_manifest_metadata(self) -> None:
         row = _selected_row("PORT_0004")

@@ -76,6 +76,9 @@ def build_quality_summary(
             "timed_rows": _timed_rows(ledger_rows),
         },
         "failure_bucket_counts": dict(sorted(failure_counts.items())),
+        "diagnostic_counts": {
+            "label_only_mismatch_rows": _label_only_mismatch_rows(ledger_rows),
+        },
         "status_counts": {
             "candidate_preflight_status": _counter(ledger_rows, "candidate_preflight_status"),
             "execution_status": _counter(ledger_rows, "execution_status"),
@@ -118,6 +121,7 @@ def write_quality_summary(summary: dict[str, object], output_path: Path) -> None
 def write_quality_report(summary: dict[str, object], output_path: Path) -> None:
     funnel = summary["funnel_counts"]
     failure_counts = summary["failure_bucket_counts"]
+    diagnostic_counts = summary.get("diagnostic_counts", {})
     status_counts = summary["status_counts"]
     scope = summary["scope"]
 
@@ -151,6 +155,13 @@ def write_quality_report(summary: dict[str, object], output_path: Path) -> None:
             lines.append(f"- {bucket}: {count}")
     else:
         lines.append("- none: 0")
+
+    lines.extend(["", "## Diagnostic classifications", ""])
+    if isinstance(diagnostic_counts, dict):
+        for key, value in diagnostic_counts.items():
+            lines.append(f"- {key}: {value}")
+    else:
+        lines.append("- label_only_mismatch_rows: 0")
 
     lines.extend(["", "## Status counts", ""])
     for family, counts in status_counts.items():
@@ -258,6 +269,10 @@ def _mismatch_rows(rows: list[dict[str, object]]) -> int:
         or _text(row.get("failure_bucket")) == FAILURE_MISMATCH
         for row in rows
     )
+
+
+def _label_only_mismatch_rows(rows: list[dict[str, object]]) -> int:
+    return sum("label_only_mismatch=true" in _text(row.get("notes")) for row in rows)
 
 
 def _timed_rows(rows: list[dict[str, object]]) -> int:
