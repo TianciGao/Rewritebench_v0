@@ -1,0 +1,98 @@
+{
+  "schema_version": "common_core_spark_sqlglot_noop_after_statement_patch_v0",
+  "verdict": "completed_with_remaining_port_failures",
+  "branch": "feature/case-package-v2-external-schema",
+  "patch_commit_under_test": "b62c41c",
+  "case_set": "common_core_v0",
+  "engine": "spark",
+  "route": "sqlglot_noop",
+  "adapter_command": "python baselines/sqlglot/sqlglot_user_adapter.py --route noop",
+  "run_path": "runs/user/common_core_spark_sqlglot_noop_after_statement_patch",
+  "previous_spark_snapshot": {
+    "selected_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "source_executable_rows": 35,
+    "candidate_executable_rows": 27,
+    "checker_attempted_rows": 27,
+    "exact_rows": 25,
+    "mismatch_rows": 2,
+    "failure_bucket_counts": {
+      "candidate_execution_failed": 8,
+      "mismatch": 2,
+      "none": 25,
+      "unsupported_engine": 5
+    }
+  },
+  "after_statement_patch_snapshot": {
+    "selected_rows": 40,
+    "adapter_invoked_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "source_executable_rows": 35,
+    "candidate_executable_rows": 33,
+    "checker_attempted_rows": 33,
+    "exact_rows": 31,
+    "mismatch_rows": 2,
+    "source_like_rows": 2,
+    "timed_rows": 0,
+    "failure_bucket_counts": {
+      "candidate_execution_failed": 2,
+      "mismatch": 2,
+      "none": 31,
+      "unsupported_engine": 5
+    },
+    "diagnostic_mode_counts": {
+      "same_engine": 31,
+      "cross_dialect_reference": 4,
+      "unsupported": 5
+    }
+  },
+  "statement_boundary_rows_resolved": [
+    "PERF_0008",
+    "PERF_0013",
+    "PERF_0017",
+    "PERF_0019",
+    "PERF_0024",
+    "PERF_0082"
+  ],
+  "remaining_failures": {
+    "candidate_execution_failed": [
+      "PORT_0003",
+      "PORT_0013"
+    ],
+    "mismatch": [
+      "PORT_0004",
+      "PORT_0005"
+    ],
+    "unsupported_engine": [
+      "PORT_0008",
+      "PORT_0012",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ]
+  },
+  "metadata_correction": {
+    "prior_task": "spark_statement_boundary_comment_aware_patch_v0",
+    "prior_run_log_had_pending_commit_push": true,
+    "final_commit": "b62c41c",
+    "push_result": "pushed to origin/feature/case-package-v2-external-schema"
+  },
+  "boundaries": {
+    "local_diagnostic_only": true,
+    "postgres_engine_snapshot_run": false,
+    "mysql_engine_snapshot_run": false,
+    "sqlglot_optimize_run": false,
+    "official_metrics_computed": false,
+    "timing_or_speedup_computed": false,
+    "reports_results_updated": false,
+    "retained_evidence_promoted": false,
+    "global_leaderboard_created": false,
+    "denominator_changed": false,
+    "paper_results_changed": false,
+    "case_membership_changed": false,
+    "raw_retained_evidence_changed": false,
+    "runs_user_outputs_committed": false
+  }
+}

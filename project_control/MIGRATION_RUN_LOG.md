@@ -13379,3 +13379,79 @@ Push result:
 
 Next safe action:
 - Optionally authorize a broader Common-core Spark SQLGlot noop local diagnostic snapshot to confirm aggregate failure-bucket movement while keeping PORT real-adapter and unsupported/fail-closed rows separate.
+
+## 2026-05-22 - common_core_spark_sqlglot_noop_after_statement_patch_v0
+
+Mode: Spark-only Common-core SQLGlot noop local diagnostic snapshot.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Metadata correction:
+- The prior `spark_statement_boundary_comment_aware_patch_v0` entry still recorded commit hash and push result as pending.
+- Non-destructive correction: prior task final commit was `b62c41c`, pushed to `origin/feature/case-package-v2-external-schema`.
+
+Files created:
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/README.md`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/aggregate_comparison.csv`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/affected_statement_rows.csv`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/remaining_failures.csv`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/status_summary.json`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/command_log.md`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/protected_surface_check.md`
+- `audits/common_core_spark_sqlglot_noop_after_statement_patch_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Passed audit Markdown/CSV/JSON sanity checks, project-control readability checks, `git diff --check`, protected-surface checks, and `runs/user/` uncommitted-output check.
+- Confirmed no `src/`, tests, `baselines/sqlglot/`, cases, manifests, SQL files, schemas, checker configs, validation scripts, `case_sets/`, reports/results, retained evidence, or committed `runs/user/` outputs changed.
+
+Run path:
+- `runs/user/common_core_spark_sqlglot_noop_after_statement_patch`
+
+Diagnostic result:
+- Selected rows: 40.
+- Candidate generated/preflight passed rows: 40/40.
+- Source/candidate/checker rows: 35/33/33.
+- Exact/mismatch rows: 31/2.
+- Failure buckets: `none=31`, `candidate_execution_failed=2`, `mismatch=2`, `unsupported_engine=5`.
+- Diagnostic modes: `same_engine=31`, `cross_dialect_reference=4`, `unsupported=5`.
+
+Before/after movement:
+- Previous Spark snapshot source/candidate/checker rows: 35/27/27; after: 35/33/33.
+- Previous exact/mismatch rows: 25/2; after: 31/2.
+- Previous candidate execution failed rows: 8; after: 2.
+- Previous unsupported rows: 5; after: 5.
+- Statement-boundary rows resolved: `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, `PERF_0024`, and `PERF_0082`.
+
+Remaining failures:
+- Candidate execution failed: `PORT_0003`, `PORT_0013`.
+- Mismatch: `PORT_0004`, `PORT_0005`.
+- Unsupported/fail-closed: `PORT_0008`, `PORT_0012`, `PORT_0022`, `PORT_0024`, `PORT_0025`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw retained evidence changed: no.
+Reports/results changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+PostgreSQL engine snapshot run: no.
+MySQL engine snapshot run: no.
+SQLGlot optimize run: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Keep remaining PORT SQLGlot noop failures fail-visible, or separately authorize PORT real-adapter route/dialect triage without mixing real-adapter rows with controlled target-reference diagnostics.
