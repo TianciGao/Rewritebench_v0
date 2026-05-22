@@ -15192,3 +15192,72 @@ Push result:
 
 Next safe action:
 - Authorize Phase V1 synthetic verifier fixture and verdict-normalization tests.
+
+## 2026-05-23 - verifier_support_synthetic_fixture_v1
+
+Mode: synthetic verifier fixture and verdict-normalization implementation only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/sql_rewrite_bench/verifier_support/__init__.py`
+- `src/sql_rewrite_bench/verifier_support/pairs.py`
+- `src/sql_rewrite_bench/verifier_support/verdicts.py`
+- `src/sql_rewrite_bench/verifier_support/summary.py`
+- `src/sql_rewrite_bench/verifier_support/fixtures.py`
+- `tests/user_entry/test_verifier_support.py`
+- `audits/verifier_support_synthetic_fixture_v1/README.md`
+- `audits/verifier_support_synthetic_fixture_v1/implementation_summary.md`
+- `audits/verifier_support_synthetic_fixture_v1/verdict_normalization_policy.md`
+- `audits/verifier_support_synthetic_fixture_v1/synthetic_fixture_examples.md`
+- `audits/verifier_support_synthetic_fixture_v1/semantic_equivalence_summary_examples.md`
+- `audits/verifier_support_synthetic_fixture_v1/schema_conformance.md`
+- `audits/verifier_support_synthetic_fixture_v1/test_results.md`
+- `audits/verifier_support_synthetic_fixture_v1/protected_surface_check.md`
+- `audits/verifier_support_synthetic_fixture_v1/command_log.md`
+- `audits/verifier_support_synthetic_fixture_v1/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Added common verifier-support helpers for contract-shaped pair validation, verdict normalization, verdict validation, synthetic fixture output, and semantic-equivalence summary generation.
+- Normalized verdict vocabulary: `equivalent`, `non_equivalent`, `unknown`, `timeout`, `unsupported`, `tool_error`, and `not_attempted`.
+- Synthetic Semantic Equivalence Rate uses only decidable verifier outcomes: `equivalent / (equivalent + non_equivalent)`.
+- If no decidable synthetic verifier outcomes exist, Semantic Equivalence Rate is `null` with `na_reason`.
+- Unknown, timeout, unsupported, tool-error, and not-attempted outcomes remain separately counted.
+- Local result-checker exactness is not used as verifier equivalence.
+- Synthetic fixtures write only temp-test D035-shaped outputs.
+- Metadata correction: `verifier_support_output_contract_plan_v0` final commit was `e19af82` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Real VeriEQL implemented: no.
+Real SQLSolver implemented: no.
+Verifier tool run performed: no.
+Semantic Equivalence Rate official computed: no.
+Synthetic semantic-equivalence summary tested: yes.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Phase V2 bounded VeriEQL canary planning/integration, or review the synthetic verifier-support fixture layer first.
