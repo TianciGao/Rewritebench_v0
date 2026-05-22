@@ -919,3 +919,93 @@ Impact:
 - Semantic Equivalence Rate, Cross-Engine GM Speedup Ratio, and POCR must report `N.A.` unless their required evidence exists.
 - Metrics calculator implementation remains unauthorized until a separate implementation task is approved.
 - Official metrics computation, reports/results updates, retained-evidence promotion, paper table rendering, leaderboard output, denominator changes, case membership changes, raw retained evidence changes, skill folders, and operation atoms remain unauthorized by this decision.
+
+## D034: Project-control hygiene and next-phase execution order
+
+Decision:
+
+`project_control/` is reserved for durable control state, not one-off working plans.
+
+Active control state should live in:
+
+- `MIGRATION_MASTER_PLAN.md` for stable global migration rules;
+- `MIGRATION_STATUS.md` for current snapshot and next safe action;
+- `MIGRATION_RUN_LOG.md` for chronological execution history;
+- `DECISION_LOG.md` for durable policy and roadmap decisions.
+
+Completed or superseded planning files should be archived under audit packets, not left as active top-level `project_control/` files.
+
+Future one-off plans should usually live under `audits/<task_name>/`, not as new top-level `project_control/` plan files.
+
+The approved next-phase roadmap after local evaluation workbench v0 closeout is:
+
+0. Project-control hygiene and roadmap reset.
+1. Define the `output/` run-output contract and user-facing CLI/interface contract. The intended user-facing shape is:
+
+```text
+output/<run_id>/
+  results/
+  logs/
+  reports/
+```
+
+`output/` is local/user-run output and must remain distinct from top-level `reports/` and `results/` official/paper surfaces.
+
+2. Implement a user-facing entry facade so users do not need to call internal `src/sql_rewrite_bench/` modules directly. A thin interface may live under `src/user/` or an equivalent public CLI wrapper, while `src/sql_rewrite_bench/` remains the internal implementation package.
+3. Promote failure bucket summaries and tag-slice summaries into the user output report surface:
+
+- `output/<run_id>/results/failure_buckets.csv`
+- `output/<run_id>/results/tag_slices.csv`
+- `output/<run_id>/reports/failure_buckets.md`
+- `output/<run_id>/reports/tag_slices.md`
+
+4. Integrate verifier support for both VeriEQL and SQLSolver. This is a support/verifier layer, not a rewrite baseline. It should support Semantic Equivalence Rate only when formal verifier evidence exists. Without verifier evidence, Semantic Equivalence Rate remains `N.A.`. Verifier outputs should remain separate from method-generated candidate failures and hard-negative checker controls.
+5. Run or prepare other baseline routes on Common-core v0 using the local workbench:
+
+- SQLGlot noop;
+- SQLGlot optimize;
+- Calcite HEP fail-closed;
+- Direct LLM;
+- Direct LLM + Repair-1;
+- portability routes such as SQLGlot Transpile and LLM Translate where applicable.
+
+Each route must remain route-aware and denominator-aware. Routes must not be merged into a global leaderboard.
+
+6. Broaden local exact-gated timing and non-official local metrics only after the output contract and baseline/verifier interfaces are stable.
+7. Design official evidence promotion, retained-evidence integration, reports/results outputs, and paper table rendering only after local runs and verifier/baseline routes are stable.
+
+Legacy evidence policy:
+
+- New-repo clean evidence is preferred.
+- Legacy/old-repo retained evidence is an emergency fallback only, for example if new-repo experiments cannot complete before a submission deadline.
+- Legacy evidence must not be silently mixed into new official results.
+- Any legacy evidence use requires retention mapping, denominator mapping, route identity mapping, environment/provenance notes, and explicit claim boundaries.
+
+POCR and skill policy:
+
+- Positive Operation Coverage Rate remains deferred pending the collaborator's external skill script and operation-atom schema.
+- Do not create `skill/` folders now.
+- Do not infer operation atoms from taxonomy tags, SQL text, or `positive.sql`.
+- Future skill integration must be separately authorized.
+
+Output/reporting boundary:
+
+- `output/<run_id>/` is for local/user-run outputs.
+- top-level `reports/` and `results/` are official/paper/release-facing surfaces and must not be updated by user-run tasks unless separately authorized.
+- local metrics are not official metrics.
+- local timing artifacts are not retained evidence.
+- no leaderboard output is allowed.
+
+Reason:
+
+Local evaluation workbench v0 is closed for the current phase. The repository now has user-entry diagnostics, tri-engine local execution for supported roles, strict-label diagnostics, exact-gated local timing, and a non-official local metrics calculator. The next implementation phase needs a clean project-control surface and a durable execution order before adding user-facing output contracts, public entry points, verifier support, more baseline routes, or official evidence promotion design.
+
+Archiving completed and superseded top-level project-control plans prevents stale working plans from competing with the active control files. Keeping the roadmap in `DECISION_LOG.md` makes the next sequence durable without modifying `MIGRATION_MASTER_PLAN.md`.
+
+Impact:
+
+- Top-level `project_control/` should contain only the four active control files unless a future file is explicitly justified as active.
+- Completed or superseded planning files may be archived under audit packets with manifest entries.
+- Step 1 output-contract design is the next safe implementation-planning step.
+- VeriEQL and SQLSolver are included in the roadmap as verifier/support integrations, not rewrite baselines.
+- Official metrics, timing broadening, retained-evidence promotion, reports/results updates, paper rendering, POCR, skill folders, operation atoms, leaderboard output, release/export/tag creation, denominator changes, case membership changes, paper-result changes, and raw retained evidence changes remain separately gated.

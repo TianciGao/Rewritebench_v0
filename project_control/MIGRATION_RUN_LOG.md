@@ -14548,3 +14548,67 @@ Push result:
 
 Next safe action:
 - Pause the local evaluation workbench line or separately authorize one of bounded post-label-diagnostics refresh, timing hardening, retained-evidence/official promotion design, or public-release packaging.
+
+## 2026-05-22 - project_control_hygiene_and_next_phase_roadmap_v0
+
+Mode: hygiene / audit / decision-recording only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/project_control_hygiene_v0/README.md`
+- `audits/project_control_hygiene_v0/project_control_inventory_before.csv`
+- `audits/project_control_hygiene_v0/project_control_classification.csv`
+- `audits/project_control_hygiene_v0/project_control_archive_manifest.csv`
+- `audits/project_control_hygiene_v0/project_control_inventory_after.csv`
+- `audits/project_control_hygiene_v0/active_control_files_after.md`
+- `audits/project_control_hygiene_v0/moved_or_archived_files.md`
+- `audits/project_control_hygiene_v0/protected_surface_check.md`
+- `audits/project_control_hygiene_v0/command_log.md`
+- `audits/project_control_hygiene_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+- archived `project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md` to `audits/project_control_hygiene_v0/retired_project_control_docs/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md`
+- archived `project_control/RELEASE_SURFACE_POLICY_DECISIONS.md` to `audits/project_control_hygiene_v0/retired_project_control_docs/RELEASE_SURFACE_POLICY_DECISIONS.md`
+- archived `project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md` to `audits/project_control_hygiene_v0/retired_project_control_docs/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- `project_control/` now contains only the active core files: `MIGRATION_MASTER_PLAN.md`, `MIGRATION_STATUS.md`, `MIGRATION_RUN_LOG.md`, and `DECISION_LOG.md`.
+- Added D034, recording project-control hygiene policy and next-phase execution order.
+- Next-phase roadmap order: project-control reset; `output/<run_id>/` contract and user-facing CLI/interface contract; user-facing entry facade; failure bucket and tag-slice report surfaces; VeriEQL and SQLSolver verifier support; route-aware Common-core baseline routes; broader local exact-gated timing and non-official local metrics after interfaces stabilize; official evidence promotion, reports/results, and paper rendering only after local runs and verifier/baseline routes stabilize.
+- Legacy evidence fallback policy recorded: new-repo clean evidence is preferred, legacy retained evidence is emergency fallback only and requires retention, denominator, route identity, environment/provenance, and claim-boundary mapping.
+- POCR and skill integration remain deferred pending the collaborator external script/schema.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Verifier implemented: no.
+`output/` implemented: no.
+CLI implemented: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize Step 1 of D034: define the `output/<run_id>/` run-output contract and user-facing CLI/interface contract.

@@ -1,0 +1,5 @@
+path,tracked,type,classification,notes
+project_control/DECISION_LOG.md,yes,file,ACTIVE_CORE,"durable policy and roadmap decisions"
+project_control/MIGRATION_MASTER_PLAN.md,yes,file,ACTIVE_CORE,"stable global migration rules"
+project_control/MIGRATION_RUN_LOG.md,yes,file,ACTIVE_CORE,"chronological execution history"
+project_control/MIGRATION_STATUS.md,yes,file,ACTIVE_CORE,"current snapshot and next safe action"

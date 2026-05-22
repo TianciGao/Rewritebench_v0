@@ -1,0 +1,4 @@
+source_path,archive_path,classification,moved,delete_performed,notes
+project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md,audits/project_control_hygiene_v0/retired_project_control_docs/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md,COMPLETED_ARCHIVE,yes,no,"archived intact; no silent deletion"
+project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,audits/project_control_hygiene_v0/retired_project_control_docs/RELEASE_SURFACE_POLICY_DECISIONS.md,SUPERSEDED_ARCHIVE,yes,no,"archived intact; D030 remains the durable active policy"
+project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md,audits/project_control_hygiene_v0/retired_project_control_docs/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md,COMPLETED_ARCHIVE,yes,no,"archived intact; local evaluation workbench v0 closeout remains active evidence"
