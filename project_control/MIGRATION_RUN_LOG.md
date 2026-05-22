@@ -13937,3 +13937,80 @@ Push result:
 
 Next safe action:
 - Authorize Phase 1 timing artifact schema design, still non-metric and local-diagnostic only.
+
+## 2026-05-22 - timing_artifact_schema_design_v0
+
+Mode: schema/design-only Phase 1 timing artifact design for exact-gated local timing diagnostics.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/timing_artifact_schema_design_v0/README.md`
+- `audits/timing_artifact_schema_design_v0/timing_row_schema.md`
+- `audits/timing_artifact_schema_design_v0/timing_policy_schema.md`
+- `audits/timing_artifact_schema_design_v0/timing_environment_metadata_schema.md`
+- `audits/timing_artifact_schema_design_v0/timing_status_and_na_policy.md`
+- `audits/timing_artifact_schema_design_v0/exact_gating_and_denominator_policy.md`
+- `audits/timing_artifact_schema_design_v0/local_vs_official_timing_boundary.md`
+- `audits/timing_artifact_schema_design_v0/integration_points_with_user_run.md`
+- `audits/timing_artifact_schema_design_v0/future_metrics_join_plan.md`
+- `audits/timing_artifact_schema_design_v0/open_questions_for_human.md`
+- `audits/timing_artifact_schema_design_v0/protected_surface_check.md`
+- `audits/timing_artifact_schema_design_v0/command_log.md`
+- `audits/timing_artifact_schema_design_v0/boundary_checklist.md`
+- `repository_spec/timing_artifact_schema_v0_draft.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Audit result:
+- Verdict: `completed_with_metadata_correction`.
+- D032 was present in `project_control/DECISION_LOG.md`.
+- Prior latest-paper alignment commit `469b2b2` and `audits/latest_paper_metrics_timing_protocol_alignment_v0/` were present.
+- Metadata correction: the prior `latest_paper_metrics_timing_protocol_alignment_v0` final commit was `469b2b2` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+- Designed exact-gated timing row schema, timing policy schema, timing environment metadata schema, timing status/N.A. policy, denominator-preserving eligibility policy, local-vs-official timing boundary, user-run integration points, and future metrics join plan.
+- Created draft repository spec `repository_spec/timing_artifact_schema_v0_draft.md` as a design-only artifact.
+
+Open questions surfaced:
+- Whether local timing diagnostics are allowed for non-official user adapter runs before retained-evidence promotion.
+- Whether timing sample arrays should live inline as JSON arrays or in per-row files referenced by path.
+- Whether timing artifacts should store source/candidate SQL hashes.
+- Whether source timing must be remeasured for every candidate route or can be reused within one local run under identical schema/session/cache policy.
+- Default cache policy for local diagnostics.
+- Partial timing sample failure policy.
+- Label-only mismatch timing eligibility under strict current policy.
+- Target-engine timing representation for Cross-Engine GM Speedup Ratio.
+- Promotion gate from local timing artifacts to official retained timing evidence.
+- Route-mixing prevention in future summaries.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Timing implementation performed: no.
+Metrics implementation performed: no.
+POCR implemented: no.
+Skill folders created: no.
+Operation atoms inferred: no.
+Paper tables rendered: no.
+Leaderboard created: no.
+Release/export/tag created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review and approve the timing artifact schema and open questions before authorizing an exact-gated local timing diagnostic implementation task.
