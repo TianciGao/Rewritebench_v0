@@ -14612,3 +14612,60 @@ Push result:
 
 Next safe action:
 - Authorize Step 1 of D034: define the `output/<run_id>/` run-output contract and user-facing CLI/interface contract.
+
+## 2026-05-22 - final_public_layout_target_decision_v0
+
+Mode: decision / spec / audit only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/final_public_layout_target_decision_v0/README.md`
+- `audits/final_public_layout_target_decision_v0/final_layout_target.md`
+- `audits/final_public_layout_target_decision_v0/current_vs_target_layout_delta.md`
+- `audits/final_public_layout_target_decision_v0/migration_timing_recommendation.md`
+- `audits/final_public_layout_target_decision_v0/next_step_1_contract_adjustment.md`
+- `audits/final_public_layout_target_decision_v0/protected_surface_check.md`
+- `audits/final_public_layout_target_decision_v0/command_log.md`
+- `audits/final_public_layout_target_decision_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Added D035, recording the final public repository layout target and delayed physical migration policy.
+- Final target layout records `benchmarks/` for cases, case sets, schemas, and inventory; `baselines/`; `docs/guide`, `docs/spec`, and `docs/templates`; `examples/`; `output/results`, `output/logs`, and `output/reports`; `src/sql_rewrite_bench`; `src/cli`; `src/dev`; and root public metadata files.
+- Physical migration is deferred; current working paths remain valid until a separate migration/export task.
+- Output contract adjustment recorded: future user-run output should use `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- CLI location decision recorded: `src/cli` is preferred for the public-facing facade; `src/sql_rewrite_bench` remains internal implementation.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Physical layout migration performed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Output writer implemented: no.
+CLI implemented: no.
+Verifier implemented: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize D034/D035 Step 1: design the `output/results|logs|reports/<run_id>/` contract and user-facing CLI/interface contract without moving current repository directories.

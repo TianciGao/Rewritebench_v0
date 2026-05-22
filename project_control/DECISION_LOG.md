@@ -1009,3 +1009,88 @@ Impact:
 - Step 1 output-contract design is the next safe implementation-planning step.
 - VeriEQL and SQLSolver are included in the roadmap as verifier/support integrations, not rewrite baselines.
 - Official metrics, timing broadening, retained-evidence promotion, reports/results updates, paper rendering, POCR, skill folders, operation atoms, leaderboard output, release/export/tag creation, denominator changes, case membership changes, paper-result changes, and raw retained evidence changes remain separately gated.
+
+## D035: Final public repository layout target and delayed physical migration
+
+Decision:
+
+The team-approved final external/public repository layout target is:
+
+```text
+.github/
+benchmarks/
+  cases/
+  case_sets/
+  schemas/
+  inventory/
+baselines/
+docs/
+  guide/
+  spec/
+  templates/
+examples/
+output/
+  results/
+  logs/
+  reports/
+src/
+  sql_rewrite_bench/
+  cli/
+  dev/
+CITATION.cff
+CONTRIBUTING.md
+LICENSE
+README.md
+pyproject.toml
+```
+
+The final layout uses:
+
+- `benchmarks/` for cases, case sets, schemas, and inventory;
+- `baselines/` for baseline adapters and routes;
+- `docs/guide`, `docs/spec`, and `docs/templates` for documentation;
+- `examples/` for adapter examples and minimal runnable samples;
+- `output/results`, `output/logs`, and `output/reports` for user-run outputs;
+- `src/sql_rewrite_bench` for core implementation;
+- `src/cli` for the user-facing CLI/facade;
+- `src/dev` for development and validation tools.
+
+This layout is the target external/public layout. Immediate physical migration is not authorized.
+
+Current working paths remain valid until a separate layout migration or export-layout restructuring task is authorized.
+
+Future output contract and CLI contract work must align with the new layout.
+
+Future user-run output should use:
+
+- `output/results/<run_id>/`
+- `output/logs/<run_id>/`
+- `output/reports/<run_id>/`
+
+instead of `output/<run_id>/...`.
+
+`src/cli` is the preferred public-facing entry/facade location.
+
+`src/sql_rewrite_bench` remains the internal implementation package.
+
+Physical migration of `cases/`, `case_sets/`, `schemas/`, and `inventory/` into `benchmarks/` must be delayed until path resolvers, tests, validators, docs, and case-set references are ready.
+
+No denominator, case membership, paper results, reports/results official surfaces, retained evidence, timing, metrics, or leaderboard output is changed by this decision.
+
+Legacy retained evidence and `runs/` remain protected by existing retention rules.
+
+Reason:
+
+The final layout affects output and CLI contracts, so it must be recorded before Step 1 of D034 proceeds.
+
+Moving repository directories now would risk breaking case resolution, validators, scripts, audits, and existing Common-core denominator references.
+
+Recording the target now prevents new output and CLI work from being designed around an obsolete layout.
+
+Impact:
+
+- D034 remains valid, but Step 1 must use `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- Future Step 2 should implement the public CLI facade under `src/cli`, not `src/user`.
+- Later physical layout migration or export restructuring must be separately planned and validated.
+- Existing local evaluation workbench v0 remains closed and unchanged.
+- No physical directory migration, output writer, CLI implementation, verifier implementation, timing, metrics, reports/results update, retained-evidence promotion, paper rendering, leaderboard, denominator change, case membership change, or paper result change is authorized.
