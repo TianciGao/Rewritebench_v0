@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- reports/results changed: no
+- raw retained evidence changed: no
+- VeriEQL source tree modified: no
+- legacy repo files modified: no
+- dependencies installed: no
+- VeriEQL copied/vendorized: no
+- full Common-core run: no
+- real CONS/CONS_0007 VeriEQL canary run: no
+- official Semantic Equivalence Rate computed: no
+- local dry-run verifier summary produced: yes
+- official metrics computed: no
+- timing/speedup computed: no
+- retained evidence promoted: no
+- leaderboard created: no
+- `runs/user/` outputs committed: no
+- output runtime artifacts committed: no

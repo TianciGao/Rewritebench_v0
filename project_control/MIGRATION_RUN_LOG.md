@@ -15720,3 +15720,78 @@ Push result:
 
 Next safe action:
 - Authorize a narrow VeriEQL adapter compatibility task for `SQLRB_VERIEQL_ROOT`/JSONL batch execution, or keep wrappers fail-closed until explicit tool command paths are provided.
+
+## 2026-05-23 - verieql_adapter_jsonl_compatibility_v0
+
+Mode: narrow VeriEQL adapter compatibility implementation.
+
+Legacy repo modified: no.
+Staged VeriEQL source tree modified: no.
+Release repo modified: yes, verifier wrapper/tests/audit/project-control only.
+
+Files created:
+- `audits/verieql_adapter_jsonl_compatibility_v0/README.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/implementation_summary.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/verieql_root_and_command_contract.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/jsonl_pair_format.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/cons0007_future_canary_plan.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/dependency_gap_handling.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/output_parser_review.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/test_results.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/protected_surface_check.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/command_log.md`
+- `audits/verieql_adapter_jsonl_compatibility_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/verieql.py`
+- `tests/user_entry/test_verieql_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `jsonl_compatibility_layer_implemented_fail_closed_local_only`.
+- Added `SQLRB_VERIEQL_ROOT` / `VERIEQL_ROOT` detection for staged VeriEQL source roots.
+- Added JSONL batch mode for roots containing `parallel/cli_within_timeout.py`.
+- Added VeriEQL-style JSONL pair generation with `index`, metadata, `schema`, `constraint`, and `pair`.
+- Added batch command construction for `python -m parallel.cli_within_timeout -f <pairs.jsonl> -t <timeout> -o <output.jsonl>`.
+- Added output JSONL parser and normalization for `EQU`/`EQ`, `NEQ`, `NSE`, `TMO`, `err`, and `counterexample` signals.
+- Added dry-run mode that writes JSONL and command metadata without invoking VeriEQL.
+- Added missing-dependency fail-closed handling for `ModuleNotFoundError` / missing import failures, with summary `na_reason=verieql_dependency_missing`.
+- Preserved the existing direct-command synthetic wrapper behavior.
+- Recorded `CONS_0007` as future first canary candidate; no real `CONS_0007` verification was run.
+- Temp-root staged-root dry-run smoke produced JSONL input and `semantic_equivalence_rate=null` with `na_reason=verieql_dry_run_not_executed`.
+
+Validation:
+- `PYTHONPATH=src pytest tests/user_entry/test_verieql_support.py -q`: 13 passed.
+- `PYTHONPATH=src pytest tests/user_entry/test_verifier_support.py tests/user_entry/test_verieql_support.py tests/user_entry/test_cli_facade.py -q`: 40 passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/verieql.py src/sql_rewrite_bench/verifier_support/verdicts.py src/sql_rewrite_bench/verifier_support/summary.py src/cli/main.py`: passed.
+- `PYTHONPATH=src pytest tests/user_entry -q`: 211 passed, 1 skipped, 12 subtests passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Dependencies installed: no.
+VeriEQL copied/vendorized: no.
+Staged VeriEQL source modified: no.
+Real CONS/Common-core verifier run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Install/provide VeriEQL dependencies outside the release repo and authorize a bounded one-case VeriEQL canary, or keep the wrapper in fail-closed/dry-run mode.
