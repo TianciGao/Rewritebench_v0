@@ -15867,3 +15867,79 @@ Push result:
 
 Next safe action:
 - Authorize a bounded one-pair `CONS_0007` VeriEQL canary using the external venv and staged-root JSONL batch wrapper, or keep the wrapper in fail-closed/dry-run mode.
+
+## 2026-05-23 - verieql_cons0007_one_pair_canary_v0
+
+Mode: bounded local VeriEQL verifier-support canary.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_cons0007_one_pair_canary_v0` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_cons0007_one_pair_canary_v0/README.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/canary_pair_definition.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/command_log.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/raw_output_review.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/normalized_verdict_review.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/semantic_equivalence_summary_review.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/tool_environment.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/source_tree_cleanliness.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/protected_surface_check.md`
+- `audits/verieql_cons0007_one_pair_canary_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `canary_ran_unsupported_no_decidable_verdict`.
+- VeriEQL root: `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`.
+- VeriEQL Python: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`.
+- Pair executed: `CONS_0007_source_vs_positive_pos_01`, `source_vs_positive`.
+- Source SQL: `cases/CONS/CONS_0007/sql/source.sql`.
+- Positive SQL: `cases/CONS/CONS_0007/sql/pos_01.sql`.
+- Schema context: `schemas/calcite_core_sql_tests_cons0007_v0/postgres/ddl.sql`.
+- Raw batch invocation status: VeriEQL batch CLI completed and wrote output JSONL.
+- Raw VeriEQL output: `states=["NSE"]`, `err="Not supported feature: EXISTS"`.
+- Normalized verdict: `unsupported`.
+- Local summary: `semantic_equivalence_rate=null`, `semantic_equivalence_rate_status=not_applicable`, `decidable_count=0`, `unsupported_count=1`, `result_checker_exactness_used=false`.
+
+Validation:
+- Summary JSON sanity check passed.
+- Pair input JSONL, VeriEQL output JSONL, and normalized verdict JSONL sanity checks passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Project-control readability check passed.
+- `git diff --check`: passed.
+- Protected-surface check passed; no `src/`, `tests/`, `scripts/`, `cases/`, `case_sets/`, `schemas/`, `inventory/`, `baselines/`, `reports/`, `results/`, `output/`, `benchmarks/`, or `runs/user/` paths were modified or staged.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL tool run performed: yes, one bounded local canary.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+SQLSolver run performed: no.
+Full CONS run performed: no.
+Common-core run performed: no.
+Method-generated candidates used: no.
+Timing/speedup computed: no.
+Official Semantic Equivalence Rate computed: no.
+Local semantic-equivalence summary produced: yes, N.A. / not applicable.
+Official metrics computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Treat `CONS_0007` as VeriEQL-unsupported due `EXISTS`; either select a narrower VeriEQL-supported canary pair/case or inspect VeriEQL feature-support limits before broader verifier integration.

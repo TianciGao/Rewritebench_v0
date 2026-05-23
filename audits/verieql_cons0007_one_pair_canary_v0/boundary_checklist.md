@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- reports/results changed: no
+- raw retained evidence changed: no
+- VeriEQL tool run performed: yes, one bounded local canary
+- VeriEQL source tree modified: no
+- dependencies installed: no
+- SQLSolver run performed: no
+- full CONS run performed: no
+- Common-core run performed: no
+- method-generated candidates used: no
+- timing/speedup computed: no
+- official Semantic Equivalence Rate computed: no
+- local semantic-equivalence summary produced: yes, N.A. / not applicable
+- official metrics computed: no
+- leaderboard created: no
+- retained evidence promoted: no
+- `runs/user/` outputs committed: no
+- output runtime artifacts committed: no
