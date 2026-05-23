@@ -16158,3 +16158,78 @@ Push result:
 
 Next safe action:
 - If decidable synthetic verifier evidence is still needed, separately authorize a minimal FROM-clause synthetic smoke with a schema context, such as `SELECT a FROM T` vs `SELECT a FROM T` and a safe non-equivalent counterpart.
+
+## 2026-05-23 - verieql_synthetic_from_clause_smoke_v0
+
+Mode: bounded local VeriEQL synthetic verifier-support smoke.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_synthetic_from_clause_smoke_v0` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_synthetic_from_clause_smoke_v0/README.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/synthetic_schema_and_pair_definitions.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/command_log.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/raw_output_review.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/normalized_verdict_review.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/semantic_equivalence_summary_review.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/tool_environment.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/source_tree_cleanliness.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/protected_surface_check.md`
+- `audits/verieql_synthetic_from_clause_smoke_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `synthetic_from_clause_smoke_ran_mixed_timeout_and_non_equivalent`.
+- VeriEQL root: `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`.
+- VeriEQL Python: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`.
+- Schema used: synthetic table `T(a integer, b integer)`.
+- Pairs executed: `synthetic_from_equivalent` and `synthetic_from_nonequivalent`.
+- Raw batch invocation status: VeriEQL batch CLI completed and wrote output JSONL.
+- Raw output for `synthetic_from_equivalent`: repeated `EQU` states followed by `TMO`, `err=null`.
+- Raw output for `synthetic_from_nonequivalent`: `states=["NEQ"]`, `err="Symbolic reasoning: NOT EQUIVALENT."`.
+- Normalized verdicts: `timeout` for `synthetic_from_equivalent`; `non_equivalent` for `synthetic_from_nonequivalent`.
+- Local synthetic summary: `semantic_equivalence_rate=0.0`, `semantic_equivalence_rate_status=computed`, `decidable_count=1`, `non_equivalent_count=1`, `timeout_count=1`, `result_checker_exactness_used=false`.
+- Official Semantic Equivalence Rate: no.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Runtime JSON/JSONL sanity checks passed for `semantic_equivalence_summary.json`, `verifier_verdicts.jsonl`, VeriEQL pair input JSONL, and VeriEQL output JSONL.
+- `git diff --check`: passed.
+- Protected-surface check passed; only `audits/verieql_synthetic_from_clause_smoke_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md` changed.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL tool run performed: yes, bounded synthetic local smoke.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+SQLSolver run performed: no.
+Common-core run performed: no.
+PERF/CONS/PORT/LONGTAIL cases run: no.
+Method-generated candidates used: no.
+Timing/speedup computed: no.
+Official Semantic Equivalence Rate computed: no.
+Local synthetic semantic-equivalence summary produced: yes.
+Official metrics computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Decide whether to accept the synthetic `non_equivalent` refutation as sufficient wrapper/tool decidability evidence, or separately authorize a smaller equivalent-shape timeout-policy probe to find a clean `equivalent` synthetic verdict.
