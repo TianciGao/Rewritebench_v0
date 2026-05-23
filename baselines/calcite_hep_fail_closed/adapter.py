@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed Calcite HEP adapter scaffold for user-entry local runs.
+"""Fail-closed Calcite HEP baseline adapter for user-entry local runs.
 
 The adapter follows the public ``sql_rewrite_bench.user_run`` environment
 contract and writes a per-row status artifact into the provided workspace. It

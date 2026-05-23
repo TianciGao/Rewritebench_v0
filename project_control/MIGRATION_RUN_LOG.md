@@ -18072,3 +18072,77 @@ Push result:
 
 Next safe action:
 - Separately authorize external Calcite HEP runtime/invocation staging before a bounded PostgreSQL-only Calcite candidate-generation run.
+
+## 2026-05-23 - calcite_hep_baseline_layout_contract_v0
+
+Mode: D035 baseline layout correction/audit and tiny fail-closed validation.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source tree modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_baseline_layout_contract_v0/` only.
+
+Files created:
+- `baselines/calcite_hep_fail_closed/README.md`
+- `baselines/calcite_hep_fail_closed/adapter.py`
+- `audits/calcite_hep_baseline_layout_contract_v0/README.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/current_layout_review.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/d035_mapping.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/move_or_shim_decision.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/route_registration_review.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/tiny_validation_results.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/protected_surface_check.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/command_log.md`
+- `audits/calcite_hep_baseline_layout_contract_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/local_timing.py`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Files removed:
+- `src/sql_rewrite_bench/calcite_hep_fail_closed_adapter.py`
+
+Result:
+- Calcite HEP adapter classified as route-specific baseline code, not reusable core.
+- Adapter moved to `baselines/calcite_hep_fail_closed/adapter.py`.
+- No compatibility shim remains under `src/sql_rewrite_bench/`.
+- Route identity detection now targets the baseline adapter path.
+- User-entry invocation through `python -m cli.main user evaluate --adapter-command "python baselines/calcite_hep_fail_closed/adapter.py"` still works.
+- Tiny validation selected `CONS_0036`, `CONS_0037`, and `PERF_0006`; all 3 rows failed closed with `no_candidate_sql`, and D035 manifest route/method ids remained `calcite_hep_fail_closed`.
+
+Validation:
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 3 passed.
+- `pytest tests/user_entry -q`: 227 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py src/sql_rewrite_bench/local_timing.py`: passed.
+- Tiny D035 user-output smoke passed under `/tmp`, then transient `runs/user/calcite_hep_layout_smoke` was removed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/build outputs committed: no.
+Full Common-core run performed: no.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Separately authorize external Calcite HEP runtime/invocation staging using `baselines/calcite_hep_fail_closed/adapter.py`.

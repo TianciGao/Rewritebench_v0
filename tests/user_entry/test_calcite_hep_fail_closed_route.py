@@ -16,7 +16,7 @@ from sql_rewrite_bench.user_run_schema import EXTRACTION_NO_CANDIDATE_SQL, FAILU
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-ADAPTER = REPO_ROOT / "src" / "sql_rewrite_bench" / "calcite_hep_fail_closed_adapter.py"
+ADAPTER = REPO_ROOT / "baselines" / "calcite_hep_fail_closed" / "adapter.py"
 
 
 def _postgres_smoke_row():
@@ -46,7 +46,7 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
             ("calcite_hep_fail_closed", "calcite_hep_fail_closed"),
         )
         self.assertEqual(
-            route_identity(f"{sys.executable} -m sql_rewrite_bench.calcite_hep_fail_closed_adapter"),
+            route_identity(f"{sys.executable} {REPO_ROOT / 'baselines' / 'calcite_hep_fail_closed' / 'adapter.py'}"),
             ("calcite_hep_fail_closed", "calcite_hep_fail_closed"),
         )
 

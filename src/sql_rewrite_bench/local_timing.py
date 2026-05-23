@@ -80,8 +80,8 @@ def route_identity(adapter_command: str) -> tuple[str, str]:
 
     text = adapter_command.strip()
     if (
-        "calcite_hep_fail_closed_adapter" in text
-        or "sql_rewrite_bench.calcite_hep_fail_closed_adapter" in text
+        "baselines/calcite_hep_fail_closed/adapter.py" in text
+        or "calcite_hep_fail_closed/adapter.py" in text
         or re.search(r"--route(?:=|\s+)calcite_hep_fail_closed\b", text)
     ):
         return "calcite_hep_fail_closed", "calcite_hep_fail_closed"
