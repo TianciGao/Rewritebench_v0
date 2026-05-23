@@ -1,0 +1,25 @@
+# Boundary Checklist
+
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- reports/results changed: no
+- raw retained evidence changed: no
+- all 120 Track-A rows run: no
+- MySQL rows run: no
+- Spark rows run: no
+- SQLSolver run performed: no
+- official Semantic Equivalence Rate computed: no
+- local diagnostic Semantic Equivalence Rate computed: yes
+- official metrics computed: no
+- timing/speedup computed: no
+- top-level reports/results updated: no
+- retained evidence promoted: no
+- leaderboard created: no
+- dependencies installed: no
+- VeriEQL patched/copied/vendorized: no
+- VeriEQL source tree modified: no
+- repository case SQL or DDL rewritten: no
+- repository-level `output/` runtime artifacts committed: no
+- `runs/user/` outputs committed: no
