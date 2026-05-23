@@ -15795,3 +15795,75 @@ Push result:
 
 Next safe action:
 - Install/provide VeriEQL dependencies outside the release repo and authorize a bounded one-case VeriEQL canary, or keep the wrapper in fail-closed/dry-run mode.
+
+## 2026-05-23 - verieql_dependency_staging_external_env_v0
+
+Mode: local external VeriEQL dependency staging only.
+
+Release repo modified: yes, audit/project-control only.
+External venv modified: yes, `/home/tianci_gao/.venvs/sqlrb-verieql`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_dependency_staging_external_env_v0/README.md`
+- `audits/verieql_dependency_staging_external_env_v0/environment_setup.md`
+- `audits/verieql_dependency_staging_external_env_v0/dependency_versions.txt`
+- `audits/verieql_dependency_staging_external_env_v0/help_probe_result.md`
+- `audits/verieql_dependency_staging_external_env_v0/future_command_contract.md`
+- `audits/verieql_dependency_staging_external_env_v0/source_tree_cleanliness.md`
+- `audits/verieql_dependency_staging_external_env_v0/protected_surface_check.md`
+- `audits/verieql_dependency_staging_external_env_v0/command_log.md`
+- `audits/verieql_dependency_staging_external_env_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `external_env_staged_help_probe_ready`.
+- External venv path: `/home/tianci_gao/.venvs/sqlrb-verieql`.
+- Python version: `Python 3.12.3`.
+- Pip upgraded to `26.1.1`.
+- Installed dependencies from staged VeriEQL `requirements.txt` into the external venv.
+- Import probe passed for `ujson`, `z3`, `ordered_set`, `lark`, `prettytable`, and `mysql.connector`.
+- Help probe passed: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python -m parallel.cli_within_timeout --help` from the staged VeriEQL root.
+- Future environment contract recorded:
+  - `SQLRB_VERIEQL_ROOT=/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`
+  - `SQLRB_VERIEQL_PYTHON=/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`
+  - `SQLRB_VERIEQL_CMD=/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`
+- `CONS_0007` canary is environment-ready for a future separately authorized one-pair canary, but was not run in this task.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- `git diff --check`: passed.
+- Protected-surface check passed; no `src/`, `tests/`, `scripts/`, `cases/`, `case_sets/`, `schemas/`, `inventory/`, `baselines/`, `reports/`, `results/`, `output/`, `benchmarks/`, or `runs/user/` paths were modified or staged.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL copied/vendorized into release repo: no.
+VeriEQL source tree modified by this task: no.
+External venv created/updated: yes.
+System Python modified: no.
+`CONS_0007` canary run: no.
+Full Common-core run performed: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a bounded one-pair `CONS_0007` VeriEQL canary using the external venv and staged-root JSONL batch wrapper, or keep the wrapper in fail-closed/dry-run mode.
