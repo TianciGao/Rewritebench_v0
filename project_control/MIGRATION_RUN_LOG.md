@@ -16945,3 +16945,75 @@ Push result:
 
 Next safe action:
 - Run only a small timeout-aware feature-aware subset expansion or a targeted `CONS_0037` timeout/bound policy probe; full Common-core exact-candidate verifier pass remains blocked.
+
+## 2026-05-23 - verieql_cons0037_bound_timeout_policy_probe_v0
+
+Mode: targeted local-only VeriEQL finite-bound bound/timeout policy probe.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_cons0037_bound_timeout_policy_probe_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/README.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/bound_timeout_matrix.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/per_setting_verdicts.csv`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/policy_interpretation.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/command_log.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/protected_surface_check.md`
+- `audits/verieql_cons0037_bound_timeout_policy_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source row inspected: `CONS_0037` from `runs/user/common_core_pg_noop_db_checker`.
+- Exact gate passed: selected, source executable, candidate generated, candidate executable, checker success, and exact.
+- VeriEQL settings: `verifier_mode=finite_bound`, schema canonicalization enabled, `cores=1`.
+- Clean all-`EQU` settings: `bound_size=1`, `2`, `3`, and `4` at `timeout_seconds=30`.
+- Timeout settings: `bound_size=5` and `10` at 30 seconds, and `bound_size=5` and `10` at 120 seconds.
+- Increasing timeout from 30 to 120 seconds did not make bounds 5 or 10 decidable.
+- No 300-second run was performed because the 120-second retries did not produce a clean or policy-changing result.
+- Recommended policy: do not mix bound sizes inside one Semantic Equivalence Rate denominator without a separate durable policy; use one declared uniform smaller bound, such as `bound_size=4`, for a small feature-aware subset if `CONS_0037` is included.
+- Full Common-core exact-candidate verifier pass remains blocked.
+
+Validation:
+- Audit Markdown/CSV sanity passed: 7 Markdown files non-empty and `per_setting_verdicts.csv` has 8 data rows.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source tree modified: no.
+SQLSolver run performed: no.
+Full Common-core run performed: no.
+All exact rows run through VeriEQL: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Plan a small feature-aware exact-candidate VeriEQL subset with one uniform declared bound/timeout policy; full Common-core exact-candidate verifier pass remains blocked.
