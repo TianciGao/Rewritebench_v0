@@ -16010,3 +16010,79 @@ Push result:
 
 Next safe action:
 - Separately authorize exactly one bounded local VeriEQL canary for `PERF_0062 source_vs_positive pos_01`, or keep the verifier line paused.
+
+## 2026-05-23 - verieql_perf0062_one_pair_canary_v0
+
+Mode: bounded local VeriEQL verifier-support canary.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_perf0062_one_pair_canary_v0` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_perf0062_one_pair_canary_v0/README.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/canary_pair_definition.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/command_log.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/raw_output_review.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/normalized_verdict_review.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/semantic_equivalence_summary_review.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/tool_environment.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/source_tree_cleanliness.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/protected_surface_check.md`
+- `audits/verieql_perf0062_one_pair_canary_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `canary_ran_timeout_no_decidable_verdict`.
+- VeriEQL root: `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`.
+- VeriEQL Python: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`.
+- Pair executed: `PERF_0062_source_vs_positive_pos_01`, `source_vs_positive`.
+- Source SQL: `cases/PERF/PERF_0062/sql/source.sql`.
+- Positive SQL: `cases/PERF/PERF_0062/sql/pos_01.sql`.
+- Schema context: `schemas/tpcds_perf0062_v0/postgres/ddl.sql`.
+- Raw batch invocation status: VeriEQL batch CLI completed and wrote output JSONL.
+- Raw VeriEQL output: `states=["EQU","TMO"]`, `err=null`.
+- Normalized verdict: `timeout`.
+- Local summary: `semantic_equivalence_rate=null`, `semantic_equivalence_rate_status=not_applicable`, `decidable_count=0`, `timeout_count=1`, `result_checker_exactness_used=false`.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Runtime JSON/JSONL sanity checks passed for `semantic_equivalence_summary.json`, `verifier_verdicts.jsonl`, VeriEQL pair input JSONL, and VeriEQL output JSONL.
+- `git diff --check`: passed.
+- Protected-surface check passed; no `src/`, `tests/`, `scripts/`, `cases/`, `case_sets/`, `schemas/`, `inventory/`, `baselines/`, `reports/`, `results/`, `output/`, `benchmarks/`, or `runs/user/` paths were modified or staged.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL tool run performed: yes, one bounded local canary.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+SQLSolver run performed: no.
+Full PERF run performed: no.
+CONS run performed: no.
+Common-core run performed: no.
+Method-generated candidates used: no.
+Timing/speedup computed: no.
+Official Semantic Equivalence Rate computed: no.
+Local semantic-equivalence summary produced: yes, N.A. / not applicable.
+Official metrics computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Treat `PERF_0062` as a timed-out VeriEQL canary at the 30 second bound; either select an even smaller support canary such as a compact PORT/CONS fallback or separately authorize a timeout-policy experiment if the team wants to distinguish partial `EQU,TMO` behavior.
