@@ -17420,3 +17420,82 @@ Push result:
 
 Next safe action:
 - Stop paper-facing VeriEQL SER expansion unless identity failures are addressed by verifier-support work, or compare this class with an independent SQLSolver path.
+
+## 2026-05-23 - verieql_bound4_pg_noop_support_closeout_v0
+
+Mode: audit/closeout only for the current VeriEQL finite-bound support line on SQLGlot noop / PostgreSQL.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: no.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/README.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/evidence_chain_summary.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/identity_guard_summary.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/pg_noop_verifier_coverage_summary.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/local_metric_display_policy.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/paper_table_boundary.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/unsupported_blocker_backlog.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/next_options.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/verieql_pg_noop_support_summary.json`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/verieql_pg_noop_support_summary.csv`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/command_log.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/protected_surface_check.md`
+- `audits/verieql_bound4_pg_noop_support_closeout_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run summarized: `runs/user/common_core_pg_noop_db_checker`.
+- Verifier policy summarized: `finite_bound_bound4_timeout30_cores1`.
+- New verifier pairs run: no.
+- VeriEQL finite-bound support status: technically integrated and locally usable.
+- All 35 exact SQLGlot-noop PostgreSQL rows were already attempted under one uniform policy in the prior all-exact audit.
+- Raw source-vs-candidate counts: 4 equivalent, 1 non-equivalent, 8 timeout, 16 unsupported, 5 not-implemented, 1 tool-error.
+- `LONGTAIL_0023` non-equivalent was triaged as a VeriEQL identity/modeling gap, not SQLGlot-noop semantic drift.
+- Identity guard corrected counts: 4 equivalent, 0 non-equivalent, 4 decidable.
+- Corrected local diagnostic SER: 1.0 over 4 corrected decidable rows.
+- Corrected coverage: 4/35 exact rows.
+- Paper-facing Semantic Equivalence Rate remains blocked and coverage-limited.
+- Full Common-core or full baseline SER must not be claimed from VeriEQL in the current state.
+- Recommended next path: independent SQLSolver setup/smoke/wrapper line, or targeted VeriEQL support-class work only after identity-guard policy is maintained.
+
+Validation:
+- Audit Markdown/CSV/JSON sanity passed: 11 Markdown files non-empty, `verieql_pg_noop_support_summary.json` parsed, and `verieql_pg_noop_support_summary.csv` has 1 data row.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed before staging.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed before staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+New VeriEQL pairs run: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Local diagnostic closeout summary produced: yes.
+Official metrics computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Start an independent SQLSolver setup/smoke/wrapper line for formal-coverage comparison, or pause paper-facing SER work until verifier identity/support failures are addressed.
