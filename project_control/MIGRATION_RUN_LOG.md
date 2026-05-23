@@ -15652,3 +15652,71 @@ Push result:
 
 Next safe action:
 - Authorize a narrow VeriEQL adapter compatibility task that adds `SQLRB_VERIEQL_ROOT` support, generates VeriEQL JSONL pair input, runs `parallel.cli_within_timeout` from the VeriEQL root, parses output JSONL, and keeps fail-closed/local-only boundaries.
+
+## 2026-05-23 - legacy_baseline_smoke_verifier_clue_audit_v0
+
+Mode: read-only legacy baseline smoke verifier clue audit.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit/project-control only.
+
+Files created:
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/README.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/baseline_smoke_inventory.csv`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/support_readiness_file_review.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/generating_scripts_review.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/recommended_candidate_cases.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/cons0007_support_candidate_review.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/missing_requirements_matrix.csv`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/reusable_clues_for_new_verifier_integration.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/historical_only_evidence_review.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/next_canary_plan_recommendation.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/protected_surface_check.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/command_log.md`
+- `audits/legacy_baseline_smoke_verifier_clue_audit_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed_static_readiness_clues_found_no_new_verifier_evidence`.
+- Inspected legacy repo `/home/tianci_gao/code/sql-rewrite-bench` and target folder `/home/tianci_gao/code/sql-rewrite-bench/reports/baseline_smoke`.
+- Legacy repo had pre-existing dirty state with `1280` porcelain entries; this task used read-only commands only and did not modify legacy files.
+- Direct SQLSolver/VeriEQL readiness files found under baseline smoke: `sqlsolver_verieql_support_readiness_v0.json` and `sqlsolver_verieql_support_readiness_execute_refused_v0.json`.
+- Both baseline smoke readiness files are static readiness/refusal artifacts, not real SQLSolver/VeriEQL execution outputs and not Semantic Equivalence Rate evidence.
+- Generator found: legacy `scripts/cli.py` command `baseline-smoke-sqlsolver-verieql-readiness`.
+- Guardrails found: SQLSolver, VeriEQL, SMT solver, database, SQLGlot, Calcite, LLM, dependency-install, artifact-download, and case-artifact writes disabled.
+- First recommended support candidate: `CONS_0007`.
+- Secondary historical clue: `CONS_0035`, caveated by constraint-sensitive legacy VeriEQL/SQLSolver notes outside baseline smoke.
+- Reusable clues: candidate-selection logic, static SQL-shape signals, pair schema ideas, SQLSolver verdict mapping, VeriEQL JSONL shape, timeout-policy ideas, and constraint-bridge warnings.
+- Historical-only evidence: adjacent SQLSolver support smoke summaries and VeriEQL support JSONL outputs outside baseline smoke; not promoted.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo files modified: no.
+VeriEQL installed/copied: no.
+SQLSolver installed/copied: no.
+Real verifier tools run: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a narrow VeriEQL adapter compatibility task for `SQLRB_VERIEQL_ROOT`/JSONL batch execution, or keep wrappers fail-closed until explicit tool command paths are provided.

@@ -1,0 +1,6 @@
+path,file_kind,sqlsolver_verieql_relevance,real_verifier_execution_output,notes
+reports/baseline_smoke/sqlsolver_verieql_support_readiness_v0.json,static_readiness_json,direct,False,"Primary readiness artifact; command baseline-smoke-sqlsolver-verieql-readiness; selected 9 cases; execution_attempted_count=0."
+reports/baseline_smoke/sqlsolver_verieql_support_readiness_execute_refused_v0.json,execute_refusal_json,direct,False,"Explicit refusal artifact for --execute; states scaffold never executes SQLSolver, VeriEQL, or SMT solver."
+reports/baseline_smoke/*,baseline_smoke_folder_summary,context,False,"87 files were present at maxdepth 2; only the two sqlsolver_verieql files were directly related to SQLSolver/VeriEQL readiness."
+reports/formal_expansion/verieql_support/*.jsonl,adjacent_legacy_verieql_outputs,indirect_historical_only,True,"Outside baseline_smoke; contains historical VeriEQL pair/output JSONL clues, not new-repo official evidence."
+docs/_scratch/SQLSOLVER_SUPPORT_SMOKE_CONS_0007_0035_v1.md,adjacent_legacy_sqlsolver_note,indirect_historical_only,True,"Outside baseline_smoke; summarizes historical SQLSolver support smoke, not reusable official evidence."
