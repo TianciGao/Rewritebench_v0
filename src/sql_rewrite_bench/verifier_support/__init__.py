@@ -15,6 +15,13 @@ from .verdicts import (
     normalize_verdict,
     validate_verdict_record,
 )
+from .verieql import (
+    VeriEQLAvailability,
+    VeriEQLCanaryOutput,
+    detect_verieql,
+    normalize_verieql_output,
+    write_verieql_canary,
+)
 
 __all__ = [
     "ALLOWED_VERDICTS",
@@ -22,10 +29,15 @@ __all__ = [
     "PAIR_FIELDS",
     "PAIR_TYPES",
     "SyntheticVerifierFixture",
+    "VeriEQLAvailability",
+    "VeriEQLCanaryOutput",
     "VERDICT_FIELDS",
+    "detect_verieql",
     "generate_semantic_equivalence_summary",
     "normalize_verdict",
+    "normalize_verieql_output",
     "validate_pair_record",
     "validate_verdict_record",
+    "write_verieql_canary",
     "write_synthetic_verifier_fixture",
 ]
