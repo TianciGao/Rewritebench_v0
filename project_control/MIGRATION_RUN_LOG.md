@@ -18945,3 +18945,104 @@ Push result:
 
 Next safe action:
 - Use the refreshed PostgreSQL Calcite route card for a bounded local diagnostic comparison against SQLGlot noop; keep MySQL/Spark/full-120 blocked pending PORT source-role, DATETIME/TIMESTAMP, schema-fallback, and mismatch triage.
+
+## 2026-05-24 - sqlglot_noop_pg_current_route_card_refresh_v0
+
+Mode: local-only PostgreSQL SQLGlot noop current route-card refresh.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_noop_pg_current_route_card_refresh_v0/` only.
+
+Files created:
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/README.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/run_scope.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/candidate_generation_summary.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/execution_checker_summary.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/timing_summary.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/route_card.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/non_exact_frontier.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/paper_boundary.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/next_comparison_plan.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/command_log.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/protected_surface_check.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/boundary_checklist.md`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/per_row_candidate_status.csv`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/per_row_execution_checker_status.csv`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/per_row_timing.csv`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/route_card.json`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/route_card.csv`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/diagnostic_summary.json`
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/run_sqlglot_noop_pg_route_card.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `b261ee0bde85856ae57bc4e310eadb0fcbdc6cf2`.
+- Confirmed D033, D034, and D035 exist.
+- Confirmed refreshed Calcite post-quoting route-card audit exists.
+- Confirmed SQLGlot noop adapter exists at `baselines/sqlglot/sqlglot_user_adapter.py`.
+- Confirmed PostgreSQL local execution environment is available.
+- Ran candidate generation over 40 Common-core v0 PostgreSQL rows.
+- Generated candidates: 35.
+- No-candidate rows: 5.
+- Execution/checker attempted rows: 35.
+- Source-executable rows: 35.
+- Candidate-executable rows: 35.
+- Checker-attempted rows: 35.
+- Exact/result-consistent rows: 35.
+- Mismatch rows: 0.
+- Source execution failures: 0.
+- Candidate execution failures: 0.
+- Timing attempted rows: 35.
+- Timed exact rows: 35.
+- Timing failures: 0.
+- Local diagnostic generation rate: 0.875000.
+- Local diagnostic execution coverage rate: 0.875000.
+- Local diagnostic result consistency rate: 0.875000.
+- Diagnostic GM speedup over exact timed rows: 0.995912.
+- Diagnostic speedup P10/P25/P50/P75/P90: 0.988128 / 0.995110 / 1.002522 / 1.009285 / 1.016506.
+- Non-exact frontier: five cross-dialect PORT no-candidate rows, `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- No Calcite rerun, MySQL/Spark, all-120 Track-A, Direct LLM, Repair-1, SQLSolver, VeriEQL, official metrics, official Semantic Equivalence Rate, formal Regression@20, paper update, retained-evidence promotion, or leaderboard output occurred.
+
+Validation:
+- Audit Markdown non-empty.
+- `per_row_candidate_status.csv` has 40 rows.
+- `per_row_execution_checker_status.csv` has 40 rows.
+- `per_row_timing.csv` has 40 rows.
+- `route_card.csv` has 1 row.
+- `route_card.json` and `diagnostic_summary.json` parse with expected counts.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output before final staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Timing collected: yes, local diagnostic exact-gated only.
+Verifier pass performed: no.
+Calcite run performed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+LLM baseline run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Produce a bounded local PostgreSQL route-card comparison between refreshed SQLGlot noop and refreshed Calcite HEP; keep both non-exact frontiers visible and local-only.
