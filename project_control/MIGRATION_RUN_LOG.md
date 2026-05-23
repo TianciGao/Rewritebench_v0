@@ -15395,3 +15395,68 @@ Push result:
 
 Next safe action:
 - Review SQLSolver and VeriEQL fail-closed wrappers together, or provide/authorize a local SQLSolver command path for the two-pair synthetic smoke.
+
+## 2026-05-23 - verifier_support_fail_closed_closeout_v0
+
+Mode: audit-only closeout for fail-closed verifier support.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/verifier_support_fail_closed_closeout_v0/README.md`
+- `audits/verifier_support_fail_closed_closeout_v0/verifier_component_matrix.csv`
+- `audits/verifier_support_fail_closed_closeout_v0/verieql_status.md`
+- `audits/verifier_support_fail_closed_closeout_v0/sqlsolver_status.md`
+- `audits/verifier_support_fail_closed_closeout_v0/semantic_equivalence_policy.md`
+- `audits/verifier_support_fail_closed_closeout_v0/output_contract_review.md`
+- `audits/verifier_support_fail_closed_closeout_v0/real_tool_readiness_gates.md`
+- `audits/verifier_support_fail_closed_closeout_v0/recommendation.md`
+- `audits/verifier_support_fail_closed_closeout_v0/protected_surface_check.md`
+- `audits/verifier_support_fail_closed_closeout_v0/command_log.md`
+- `audits/verifier_support_fail_closed_closeout_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `closed_for_fail_closed_verifier_support_phase`.
+- Shared verifier pair validation exists.
+- Shared verdict normalization and verdict-record validation exist.
+- Synthetic fixture output writing exists.
+- Synthetic/local `semantic_equivalence_summary.json` generation exists.
+- VeriEQL wrapper exists and fails closed when the tool is unavailable.
+- SQLSolver wrapper exists and fails closed when the tool is unavailable.
+- Current local real-tool status remains unavailable for both wrappers.
+- Neither wrapper fakes verifier evidence or substitutes local_result_checker exactness for formal verifier evidence.
+- VeriEQL and SQLSolver remain support/verifier tools, not rewrite baselines, candidate generators, timing/speedup participants, or ranked routes.
+- Metadata correction: `sqlsolver_bounded_smoke_v3` final commit was `a39d3ff91895e51283cf7024227d7f1b8f9da209` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL installed: no.
+SQLSolver installed: no.
+Real verifier tool run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Provide/authorize a local VeriEQL command path for a one-pair canary, provide/authorize a local SQLSolver command path for the two-pair synthetic smoke, or implement a fail-closed local-only `sqlrb user verify` facade.
