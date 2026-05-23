@@ -36,6 +36,8 @@ def _clear_calcite_env() -> None:
         "SQLRB_CALCITE_HEP_JAR",
         "SQLRB_CALCITE_HEP_ROOT",
         "SQLRB_CALCITE_HEP_JAVA",
+        "SQLRB_CALCITE_HEP_MODE",
+        "SQLRB_CALCITE_HEP_TIMEOUT",
     ]:
         os.environ.pop(name, None)
 
@@ -84,6 +86,85 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertFalse(payload["candidate_generated"])
         self.assertIn(payload["preflight_status"], {"calcite_runtime_unavailable", "calcite_java_missing"})
         self.assertFalse(payload["official_metric_input"])
+
+    def test_adapter_invokes_configured_external_command(self) -> None:
+        row = _postgres_smoke_row()
+        resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            runtime_script = Path(temp_dir) / "fake_calcite_runtime.py"
+            runtime_script.write_text(
+                "\n".join(
+                    [
+                        "import pathlib",
+                        "import sys",
+                        "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
+                        "assert pathlib.Path(args['--source-sql']).exists()",
+                        "assert pathlib.Path(args['--ddl']).exists()",
+                        "pathlib.Path(args['--output-sql']).write_text('SELECT 1;\\n', encoding='utf-8')",
+                        "print('runtime_ok=true')",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_external_runtime_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+
+        self.assertTrue(result.adapter_invoked)
+        self.assertEqual(result.adapter_exit_code, 0)
+        self.assertTrue(result.candidate_generated)
+        self.assertEqual(result.candidate_capture_mode, "candidate_file")
+        self.assertEqual(payload["preflight_status"], "calcite_invocation_succeeded")
+        self.assertTrue(payload["candidate_generated"])
+        self.assertEqual(payload["failure_bucket"], "none")
+        self.assertTrue(payload["schema_ddl_exists"])
+        self.assertFalse(payload["official_metric_input"])
+
+    def test_adapter_fails_closed_when_external_command_fails(self) -> None:
+        row = _postgres_smoke_row()
+        resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            runtime_script = Path(temp_dir) / "failing_calcite_runtime.py"
+            runtime_script.write_text(
+                "import sys\nprint('boom', file=sys.stderr)\nsys.exit(7)\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_external_runtime_failure_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+
+        self.assertTrue(result.adapter_invoked)
+        self.assertEqual(result.adapter_exit_code, 0)
+        self.assertFalse(result.candidate_generated)
+        self.assertEqual(result.extraction_status, EXTRACTION_NO_CANDIDATE_SQL)
+        self.assertEqual(result.failure_bucket_hint, FAILURE_NO_CANDIDATE_SQL)
+        self.assertEqual(payload["preflight_status"], "calcite_invocation_failed")
+        self.assertFalse(payload["candidate_generated"])
+        self.assertEqual(payload["failure_bucket"], FAILURE_NO_CANDIDATE_SQL)
+        self.assertEqual(payload["runtime"]["exit_code"], 7)
 
     def test_user_run_captures_calcite_fail_closed_rows(self) -> None:
         out = _unique_user_out("calcite_fail_closed_unit")

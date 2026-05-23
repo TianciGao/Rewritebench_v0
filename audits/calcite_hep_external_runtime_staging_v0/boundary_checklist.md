@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- Full Common-core run: no.
+- All 120 Track-A rows run: no.
+- MySQL/Spark run: no.
+- LLM baseline run: no.
+- Verifier pass: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Timing/speedup computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Calcite vendored into release repo: no.
+- Calcite source/JAR/build outputs committed: no.
+- `runs/user/` artifacts committed: no.
+- Repository-level `output/` artifacts committed: no.
+- Runtime artifacts limited to `/tmp` and external staging paths: yes.

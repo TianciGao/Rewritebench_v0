@@ -18218,3 +18218,80 @@ Push result:
 
 Next safe action:
 - Rerun/monitor `user-entry-smoke`; if green, proceed only with separately authorized external Calcite HEP runtime/invocation staging.
+
+## 2026-05-23 - calcite_hep_external_runtime_staging_v0
+
+Mode: bounded external Calcite HEP runtime staging and tiny local smoke.
+
+Legacy repo modified: no tracked legacy changes intentionally made.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: yes, outside the release repo only under `/home/tianci_gao/.local/share/sqlrb/calcite_hep/` and the existing external Calcite checkout/build tree.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_external_runtime_staging_v0/` only.
+
+Files created:
+- `audits/calcite_hep_external_runtime_staging_v0/README.md`
+- `audits/calcite_hep_external_runtime_staging_v0/runtime_discovery_review.md`
+- `audits/calcite_hep_external_runtime_staging_v0/external_staging_review.md`
+- `audits/calcite_hep_external_runtime_staging_v0/adapter_runtime_contract.md`
+- `audits/calcite_hep_external_runtime_staging_v0/tiny_smoke_results.md`
+- `audits/calcite_hep_external_runtime_staging_v0/output_shape_review.md`
+- `audits/calcite_hep_external_runtime_staging_v0/fail_closed_policy.md`
+- `audits/calcite_hep_external_runtime_staging_v0/next_bounded_pg_run_plan.md`
+- `audits/calcite_hep_external_runtime_staging_v0/command_log.md`
+- `audits/calcite_hep_external_runtime_staging_v0/protected_surface_check.md`
+- `audits/calcite_hep_external_runtime_staging_v0/boundary_checklist.md`
+
+Files modified:
+- `baselines/calcite_hep_fail_closed/adapter.py`
+- `baselines/calcite_hep_fail_closed/README.md`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `150fa810f113d18d75ec436800085cf491608a05`.
+- Confirmed public GitHub Actions `user-entry-smoke` was green for that head before staging.
+- Staged an external Calcite HEP invocation command under `/home/tianci_gao/.local/share/sqlrb/calcite_hep/bin/calcite-hep-rewrite-smoke`.
+- The first manual runtime probe failed on missing `org.joou.UShort`; rerunning the Calcite Gradle wrapper with external `GRADLE_USER_HOME` materialized the missing dependency outside the release repo.
+- Adapter now discovers external runtime through env vars only and invokes command/JAR with `--case-id`, `--source-sql`, `--ddl`, `--output-sql`, and `--mode`.
+- Adapter resolves schema DDL from case/external schema profile metadata.
+- Adapter preserves fail-closed statuses for missing runtime, missing schema, invocation failure, timeout, and no candidate SQL.
+- Tiny PostgreSQL smoke selected `CONS_0036`, `CONS_0037`, and `PERF_0006`; all 3 generated candidate SQL via the external runtime.
+- D035 output was written only under `/tmp/.../smoke_output/results|logs|reports/`.
+- Transient `runs/user/calcite_hep_external_runtime_smoke` was removed after copying local smoke workspace evidence to `/tmp`.
+
+Validation:
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 5 passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py`: passed.
+- `pytest tests/user_entry -q`: 229 passed, 1 skipped, 15 subtests passed.
+- `git diff --check`: passed.
+- `git status -sb`: only allowed release-repo paths changed before staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/build outputs committed: no.
+Full Common-core run performed: no.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Authorize a bounded PostgreSQL-only Calcite HEP local diagnostic candidate-generation run, then authorize execution/checker separately only after generated candidates are reviewed.
