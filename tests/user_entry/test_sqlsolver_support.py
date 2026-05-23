@@ -111,6 +111,29 @@ class SQLSolverSupportTests(unittest.TestCase):
             self.assertEqual(availability.ld_library_path, lib.as_posix())
             self.assertEqual(availability.tool_version, "SQLSolver v-test")
 
+    def test_env_jar_discovery_fails_closed_when_java_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            root = tmp_path / "SQLSolver"
+            jar = root / "build" / "libs" / "sqlsolver.jar"
+            lib = root / "lib"
+            jar.parent.mkdir(parents=True)
+            lib.mkdir(parents=True)
+            jar.write_text("fake jar\n", encoding="utf-8")
+
+            availability = detect_sqlsolver(
+                env={
+                    "SQLRB_SQLSOLVER_JAR": jar.as_posix(),
+                    "SQLRB_SQLSOLVER_JAVA": (tmp_path / "missing_java").as_posix(),
+                    "SQLRB_SQLSOLVER_LD_LIBRARY_PATH": lib.as_posix(),
+                },
+                search_path="",
+            )
+
+            self.assertFalse(availability.tool_available)
+            self.assertEqual(availability.invocation_mode, "jar_cli")
+            self.assertEqual(availability.detection_reason, "java_not_found")
+
     def test_fake_available_command_writes_decidable_local_summary(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)

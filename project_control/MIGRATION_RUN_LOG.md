@@ -17769,3 +17769,78 @@ Push result:
 
 Next safe action:
 - Prepare a separate policy/authorization packet for whether a bounded SQLSolver verifier-support row can be paper-facing with explicit coverage and identity-guard caveats; official SER remains blocked until then.
+
+## 2026-05-23 - sqlsolver_support_layout_config_contract_v0
+
+Mode: layout/config audit with one focused fail-closed test hardening change.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit, test, and project-control files only.
+External SQLSolver source tree modified: no.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/sqlsolver_support_layout_config_contract_v0/README.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/current_layout_review.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/config_discovery_policy.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/runtime_output_policy.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/source_hardcoded_path_scan.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/test_coverage_review.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/recommendation.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/command_log.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/protected_surface_check.md`
+- `audits/sqlsolver_support_layout_config_contract_v0/boundary_checklist.md`
+
+Files modified:
+- `tests/user_entry/test_sqlsolver_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- SQLSolver support code is located under `src/sql_rewrite_bench/verifier_support/sqlsolver.py`.
+- No misplaced SQLSolver support/config files or directories were found.
+- External SQLSolver source/JAR/lib files are absent from the release repo.
+- Machine-local SQLSolver paths are absent from committed source/tests/scripts/docs/workflows outside audit/project-control provenance.
+- Approved discovery is environment-variable based through `SQLRB_SQLSOLVER_JAR`, `SQLRB_SQLSOLVER_ROOT`, `SQLRB_SQLSOLVER_LD_LIBRARY_PATH`, and `SQLRB_SQLSOLVER_JAVA`.
+- Runtime output boundaries remain D035-aligned for user-facing output and `/tmp`-only for audits.
+- Added missing-Java fail-closed coverage in `tests/user_entry/test_sqlsolver_support.py`.
+
+Validation:
+- Audit Markdown sanity passed: 10 Markdown files non-empty.
+- `pytest tests/user_entry/test_sqlsolver_support.py -q`: 11 passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`: passed.
+- SQLSolver-specific hardcoded path scan over source/tests/scripts/docs/repository spec/workflows: no committed local SQLSolver root, JAR, or library path found.
+- `git diff --check`: passed before staging.
+- Protected-surface check passed before staging; only this audit packet, `tests/user_entry/test_sqlsolver_support.py`, and project-control files changed.
+- No SQLSolver source tree, support folder, JAR, native library, ANTLR library, Gradle cache, or build output found inside the release repo.
+- External SQLSolver source tree status: clean at commit `dcc2a91d8971a4c4d30b055f99d7d8428a1b754b`.
+- Staged diff check passed.
+- Staged protected-path and third-party artifact checks passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+SQLSolver source/JAR/libs committed: no.
+Full Common-core run performed: no.
+MySQL/Spark run performed: no.
+VeriEQL run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Prepare a separate policy/authorization packet for whether a bounded SQLSolver verifier-support row can be paper-facing with explicit coverage and identity-guard caveats.

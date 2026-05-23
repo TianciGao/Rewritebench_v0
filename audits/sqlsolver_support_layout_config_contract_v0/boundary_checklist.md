@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- New top-level SQLSolver support folder created: no.
+- `tools/sqlsolver/` created: no.
+- `configs/sqlsolver/` created: no.
+- SQLSolver source/JAR/libs committed: no.
+- Machine-local SQLSolver paths hard-coded in committed source: no.
+- Runtime artifacts committed from `runs/user`: no.
+- Repository-level `output` artifacts committed: no.
+- Full Common-core run performed: no.
+- MySQL/Spark run performed: no.
+- VeriEQL run performed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
