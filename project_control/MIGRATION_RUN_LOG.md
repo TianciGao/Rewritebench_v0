@@ -16797,3 +16797,71 @@ Push result:
 
 Next safe action:
 - Authorize the bounded two-row `CONS_0036`/`CONS_0037` exact-candidate VeriEQL pass.
+
+## 2026-05-23 - ci_user_entry_smoke_checkout_failure_probe_v0
+
+Mode: audit-only CI checkout failure probe.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Workflow file modified: no.
+Runtime artifacts written: no repository-level runtime artifacts; validation-only packaging metadata and generated smoke refresh were cleaned up.
+
+Files created:
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/README.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/workflow_comparison.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/github_run_context.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/local_validation_results.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/protected_surface_check.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/command_log.md`
+- `audits/ci_user_entry_smoke_checkout_failure_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- GitHub `user-entry-smoke` run `#453` on commit `0c53cc7d492bc14cf4bf9d97506ce86e002b4976` failed at `Checkout repository` before Python setup or tests.
+- GitHub `user-entry-smoke` run `#454` on the same commit succeeded and ran all smoke steps.
+- GitHub `Ledger fixture smoke` run `#551` on the same commit succeeded and its checkout step passed.
+- `user_entry_smoke.yml` and `ledger-fixture-smoke.yml` use the same `actions/checkout@v4` step with no checkout options and `contents: read`.
+- No submodule config, `.gitmodules`, or `.gitattributes` LFS rule was found.
+- The failed commit did not modify `.github/workflows/`.
+- Root-cause classification: likely GitHub checkout/auth/run-context transient or GitHub-side credential issue, not benchmark code or VeriEQL DDL parser hardening.
+
+Validation:
+- `python -m pip install -e .`: passed.
+- `python -m pip install pytest PyYAML`: passed.
+- `python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `python scripts/dev/smoke_ledger_fixtures.py`: passed.
+- Audit Markdown sanity passed: 7 Markdown files non-empty.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Verifier run performed: no.
+Common-core run performed: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Benchmark logic changed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Rerun or monitor `user-entry-smoke`; if the checkout failure recurs, inspect GitHub token/ref context or add narrowly scoped checkout diagnostics without changing benchmark logic.
