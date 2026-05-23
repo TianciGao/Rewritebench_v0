@@ -17339,3 +17339,84 @@ Push result:
 
 Next safe action:
 - Plan a VeriEQL identity-invariant/tool-semantics audit for CTE + aggregate + outer join + NULL shapes, and keep paper-facing Semantic Equivalence Rate blocked/coverage-limited until this verifier class is explained or excluded by authorized policy.
+
+## 2026-05-23 - verieql_pg_noop_identity_guard_reclassification_v0
+
+Mode: local diagnostic VeriEQL identity-guard reclassification of an existing PostgreSQL SQLGlot-noop exact-row attempt.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_pg_noop_identity_guard_reclassification_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/README.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/identity_guard_policy.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/source_run_review.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/per_row_identity_recheck.csv`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/reclassified_verdicts.csv`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/reclassified_summary.json`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/reclassified_metric_interpretation.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/paper_boundary_recommendation.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/blocker_backlog.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/command_log.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/protected_surface_check.md`
+- `audits/verieql_pg_noop_identity_guard_reclassification_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Exact candidate rows identity-checked: 35.
+- Identity passed rows: 4 (`CONS_0036`, `CONS_0037`, `PORT_0003`, `PORT_0005`).
+- Identity failed rows: 31.
+- Identity failed categories: 16 unsupported, 8 timeout, 5 not-implemented, 1 tool-error, 1 non-equivalent.
+- All previously equivalent rows passed identity sanity.
+- `LONGTAIL_0023` remained identity-guard failed as `identity_guard_failed_non_equivalent`.
+- Corrected equivalent rows: 4.
+- Corrected non-equivalent rows: 0.
+- Corrected decidable rows: 4.
+- Corrected local diagnostic SER: 1.0 over 4 corrected decidable rows.
+- Corrected verifier decidability coverage over exact rows: 4/35.
+- Identity pass rate: 4/35.
+- Paper-facing Semantic Equivalence Rate remains blocked and coverage-limited.
+
+Validation:
+- Audit Markdown/CSV/JSON sanity passed: 9 Markdown files non-empty, `per_row_identity_recheck.csv` has 70 data rows, `reclassified_verdicts.csv` has 40 data rows, and `reclassified_summary.json` parsed.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed before staging.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed before staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Corrected local diagnostic SER computed: yes.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Stop paper-facing VeriEQL SER expansion unless identity failures are addressed by verifier-support work, or compare this class with an independent SQLSolver path.
