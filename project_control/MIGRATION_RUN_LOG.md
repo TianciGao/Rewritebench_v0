@@ -17923,3 +17923,76 @@ Push result:
 
 Next safe action:
 - Keep VeriEQL as bounded support evidence only; use the SQLSolver line for any separately authorized bounded verifier-support paper-facing policy packet.
+
+## 2026-05-23 - verifier_user_facing_rerun_contract_v0
+
+Mode: design/audit-only user-facing verifier rerun contract.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+External SQLSolver source tree modified: no.
+External VeriEQL source tree modified: no.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/verifier_user_facing_rerun_contract_v0/README.md`
+- `audits/verifier_user_facing_rerun_contract_v0/current_readiness_summary.md`
+- `audits/verifier_user_facing_rerun_contract_v0/user_command_contract.md`
+- `audits/verifier_user_facing_rerun_contract_v0/output_schema_contract.md`
+- `audits/verifier_user_facing_rerun_contract_v0/identity_guard_policy.md`
+- `audits/verifier_user_facing_rerun_contract_v0/rerun_plan.md`
+- `audits/verifier_user_facing_rerun_contract_v0/non_promotion_boundary.md`
+- `audits/verifier_user_facing_rerun_contract_v0/open_gaps_before_final_rerun.md`
+- `audits/verifier_user_facing_rerun_contract_v0/command_log.md`
+- `audits/verifier_user_facing_rerun_contract_v0/protected_surface_check.md`
+- `audits/verifier_user_facing_rerun_contract_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Current SQLSolver and VeriEQL audit diagnostics should not be promoted now.
+- Future paper-facing or release-facing verifier evidence must be rerun through the user-facing D035 output path.
+- Future verifier output must include per-row identity guard fields, corrected verdict fields, raw output traces, and coverage summaries.
+- Identity guard is mandatory before a source-vs-candidate row can enter corrected `V_equiv` or corrected `V_non`.
+- Local result-checker exactness remains only an eligibility gate and must never substitute for formal verifier equivalence.
+- Current CLI gap: `sqlrb user verify` only supports `synthetic-smoke`; `run-candidates` and `evaluate --verifier` remain unimplemented/fail-closed.
+
+Validation:
+- Audit Markdown sanity passed: 11 Markdown files non-empty.
+- `git diff --check`: passed before staging.
+- Protected-surface check passed before staging; only this audit packet and project-control files changed.
+- External SQLSolver source tree status: clean.
+- External VeriEQL source tree unchanged except pre-existing `M constants.py`.
+- No source code, tests, cases, case sets, baselines, top-level reports/results, retained evidence, repository-level output, or `runs/user` files changed.
+- Staged diff check passed.
+- Staged protected-path check passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+SQLSolver rows run: no.
+VeriEQL rows run: no.
+Full Common-core run performed: no.
+MySQL/Spark run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Implement a narrow local-only `sqlrb user verify --pair-scope run-candidates` exact-candidate rerun facade with identity guard and D035 outputs; paper-facing SER remains blocked until rerun and separate authorization.
