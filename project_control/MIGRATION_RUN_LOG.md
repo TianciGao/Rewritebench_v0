@@ -14038,7 +14038,7 @@ Files modified:
 - `project_control/MIGRATION_RUN_LOG.md`
 
 Validation result:
-- Pending at writeback time; final validation recorded in the audit command log and final report.
+- Passed before commit; final commit/push metadata recorded in the final report.
 
 Audit result:
 - Verdict: `completed`.
@@ -15589,3 +15589,66 @@ Push result:
 
 Next safe action:
 - Keep the verifier wrappers fail-closed until an explicit external VeriEQL or SQLSolver command path is provided, then authorize a bounded one-tool canary/smoke task.
+
+## 2026-05-23 - local_verieql_raw_directory_probe_v0
+
+Mode: read-only local VeriEQL raw directory probe.
+
+Legacy/raw repo modified: no.
+Release repo modified: yes, audit/project-control only.
+
+Files created:
+- `audits/local_verieql_raw_directory_probe_v0/README.md`
+- `audits/local_verieql_raw_directory_probe_v0/directory_inventory.md`
+- `audits/local_verieql_raw_directory_probe_v0/entrypoint_probe.md`
+- `audits/local_verieql_raw_directory_probe_v0/dependency_probe.md`
+- `audits/local_verieql_raw_directory_probe_v0/wrapper_reuse_assessment.md`
+- `audits/local_verieql_raw_directory_probe_v0/protected_surface_check.md`
+- `audits/local_verieql_raw_directory_probe_v0/command_log.md`
+- `audits/local_verieql_raw_directory_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `verieql_source_present_but_not_directly_reusable_by_current_wrapper`.
+- Raw root `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql` exists but contains only `incoming/`, `notes/`, and `staged/` at top level.
+- Staged source root `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL` contains VeriEQL source markers: `README.md`, `requirements.txt`, `__main__.py`, `parallel/`, `benchmarks/`, parser/verifier modules, and `z3py_libs/`.
+- Staged source checkout is `main...origin/main` from `https://github.com/VeriEQL/VeriEQL.git` at commit `493cbb81000205e33b0623cfd1c39106fa035fae`, with a pre-existing `constants.py` modification left untouched.
+- Active Python was `/home/tianci_gao/code/sql-rewrite-bench/.venv/bin/python`, version `Python 3.12.3`.
+- `python -m __main__ --help` failed with `ValueError: __main__.__spec__ is None`.
+- `python -m parallel.cli_within_timeout --help` failed with `ModuleNotFoundError: No module named 'ujson'`.
+- Import probes also found missing `z3`, `ordered_set`, `lark`, `prettytable`, and `mysql.connector`.
+- Recommended future root: `SQLRB_VERIEQL_ROOT=/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`.
+- No direct current `SQLRB_VERIEQL_CMD` value is sufficient for the existing wrapper because the wrapper passes direct SQL file paths, while VeriEQL expects JSONL batch input with `-f`, `-t`, and `-o` from the VeriEQL root.
+- Current wrapper cannot use this source directly; a small future adapter adjustment is needed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL copied/vendorized: no.
+Dependencies installed: no.
+Real verifier experiment run: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+Verifier wrapper code changed: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a narrow VeriEQL adapter compatibility task that adds `SQLRB_VERIEQL_ROOT` support, generates VeriEQL JSONL pair input, runs `parallel.cli_within_timeout` from the VeriEQL root, parses output JSONL, and keeps fail-closed/local-only boundaries.
