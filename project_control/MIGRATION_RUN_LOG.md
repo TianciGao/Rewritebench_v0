@@ -17996,3 +17996,79 @@ Push result:
 
 Next safe action:
 - Implement a narrow local-only `sqlrb user verify --pair-scope run-candidates` exact-candidate rerun facade with identity guard and D035 outputs; paper-facing SER remains blocked until rerun and separate authorization.
+
+## 2026-05-23 - calcite_hep_fail_closed_user_route_scaffold_v0
+
+Mode: local-only user-route scaffold and tiny fail-closed smoke; no official metrics; no paper/report promotion.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source tree modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_fail_closed_user_route_scaffold_v0/` only.
+
+Files created:
+- `src/sql_rewrite_bench/calcite_hep_fail_closed_adapter.py`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/README.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/route_contract.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/current_adapter_inventory.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/dependency_environment_review.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/tiny_smoke_results.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/output_shape_review.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/fail_closed_policy.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/next_full_local_run_plan.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/command_log.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/protected_surface_check.md`
+- `audits/calcite_hep_fail_closed_user_route_scaffold_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/local_timing.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Calcite HEP fail-closed route scaffold added under `src/sql_rewrite_bench/`.
+- User-entry reachability confirmed through the existing `--adapter-command` path.
+- D035 output manifest route identity confirmed as `calcite_hep_fail_closed`.
+- Java is available, but no Calcite HEP runtime env vars are configured, so the route fails closed with `calcite_runtime_unavailable`.
+- Tiny smoke selected `CONS_0036`, `CONS_0037`, and `PERF_0006`; all 3 rows produced no candidate SQL and recorded `no_candidate_sql`.
+- Direct LLM and Repair-1 remain deferred.
+
+Validation:
+- Preflight user commands passed through the current-repo facade: list cases, explain selection, show output schema, show boundary, and evaluate help.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 3 passed.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py tests/user_entry/test_local_metrics.py tests/user_entry/test_user_output.py -q`: 14 passed.
+- `pytest tests/user_entry -q`: 227 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile src/sql_rewrite_bench/calcite_hep_fail_closed_adapter.py src/sql_rewrite_bench/local_timing.py`: passed.
+- Tiny adapter-runner smoke passed with 3 fail-closed rows under `/tmp`.
+- D035 user-output smoke passed under `/tmp`, then transient `runs/user/calcite_hep_scaffold_smoke` was removed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs committed: no.
+Full Common-core run performed: no.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+Direct LLM or Repair-1 run performed: no.
+Verifier pass performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Separately authorize external Calcite HEP runtime/invocation staging before a bounded PostgreSQL-only Calcite candidate-generation run.

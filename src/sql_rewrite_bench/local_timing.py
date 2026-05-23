@@ -79,6 +79,12 @@ def route_identity(adapter_command: str) -> tuple[str, str]:
     """Return route/method ids suitable for local diagnostic grouping."""
 
     text = adapter_command.strip()
+    if (
+        "calcite_hep_fail_closed_adapter" in text
+        or "sql_rewrite_bench.calcite_hep_fail_closed_adapter" in text
+        or re.search(r"--route(?:=|\s+)calcite_hep_fail_closed\b", text)
+    ):
+        return "calcite_hep_fail_closed", "calcite_hep_fail_closed"
     if "sqlglot_user_adapter.py" in text:
         route_match = re.search(r"--route(?:=|\s+)([A-Za-z0-9_.-]+)", text)
         route = route_match.group(1) if route_match else "unknown"
