@@ -16233,3 +16233,78 @@ Push result:
 
 Next safe action:
 - Decide whether to accept the synthetic `non_equivalent` refutation as sufficient wrapper/tool decidability evidence, or separately authorize a smaller equivalent-shape timeout-policy probe to find a clean `equivalent` synthetic verdict.
+
+## 2026-05-23 - verieql_equivalent_timeout_policy_probe_v0
+
+Mode: bounded local VeriEQL timeout-policy probe.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_equivalent_timeout_policy_probe_v0` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_equivalent_timeout_policy_probe_v0/README.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/timeout_probe_matrix.csv`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/command_log.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/raw_output_review.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/normalized_verdict_review.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/semantic_equivalence_summary_review.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/tool_environment.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/source_tree_cleanliness.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/protected_surface_check.md`
+- `audits/verieql_equivalent_timeout_policy_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `equivalent_path_timeout_or_internal_subcheck_timeout`.
+- VeriEQL root: `/home/tianci_gao/code/sql-rewrite-bench/datasets/raw/verieql/staged/VeriEQL`.
+- VeriEQL Python: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python`.
+- Schema used: synthetic table `T(a integer, b integer)`.
+- Pair executed: `synthetic_from_equivalent`, `SELECT a FROM T` vs `SELECT a FROM T`.
+- Timeout values tested: 30, 120, and 300 seconds.
+- Raw state behavior: all attempts produced repeated `EQU` states followed by `TMO`.
+- Clean equivalent verdict obtained: no.
+- Normalized verdict policy: all attempts remained `timeout`; partial `EQU+TMO` was not reinterpreted as equivalent.
+- Local semantic-equivalence summaries: `semantic_equivalence_rate=null`, `semantic_equivalence_rate_status=not_applicable`, `decidable_count=0`, `timeout_count=1`, `result_checker_exactness_used=false`.
+- Official Semantic Equivalence Rate: no.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown/CSV sanity check passed.
+- Runtime JSON/JSONL sanity checks passed for all three timeout outputs.
+- `git diff --check`: passed.
+- Protected-surface check passed; only `audits/verieql_equivalent_timeout_policy_probe_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md` changed.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL tool run performed: yes, bounded synthetic timeout-policy probe.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+SQLSolver run performed: no.
+Common-core run performed: no.
+PERF/CONS/PORT/LONGTAIL cases run: no.
+Method-generated candidates used: no.
+Timing/speedup computed: no.
+Official Semantic Equivalence Rate computed: no.
+Local synthetic semantic-equivalence summaries produced: yes, N.A. / not applicable.
+Official metrics computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Inspect VeriEQL internal state semantics, bound-size behavior, or schema/constraint encoding before expanding equivalent-path real-case canaries; keep `EQU+TMO` classified as timeout.
