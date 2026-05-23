@@ -67,6 +67,7 @@ class CliFacadeTests(unittest.TestCase):
             "show-boundary",
             "compute-local-metrics",
             "summarize",
+            "verify",
         ]:
             stdout = io.StringIO()
             with self.assertRaises(SystemExit):
@@ -354,9 +355,120 @@ class CliFacadeTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn("custom local boundary", stdout.getvalue())
 
+    def test_verify_verieql_unavailable_writes_fail_closed_local_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "output"
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(
+                    [
+                        "user",
+                        "verify",
+                        "--run-id",
+                        "verify_verieql",
+                        "--tool",
+                        "verieql",
+                        "--tool-cmd",
+                        "/definitely/missing/verieql",
+                        "--output-root",
+                        output_root.as_posix(),
+                    ]
+                )
+
+            self.assertEqual(code, 0)
+            self.assertIn("tool_available=false", stdout.getvalue())
+            verifier_root = output_root / "results" / "verify_verieql" / "verifier"
+            summary = json.loads((verifier_root / "semantic_equivalence_summary.json").read_text(encoding="utf-8"))
+            verdicts = _read_jsonl(verifier_root / "verifier_verdicts.jsonl")
+            self.assertEqual(summary["semantic_equivalence_rate"], None)
+            self.assertEqual(summary["semantic_equivalence_rate_status"], "not_applicable")
+            self.assertEqual(summary["na_reason"], "verieql_unavailable")
+            self.assertFalse(summary["result_checker_exactness_used"])
+            self.assertTrue(summary["local_diagnostic_only"])
+            self.assertFalse(summary["official_metric_input"])
+            self.assertFalse(summary["paper_result_input"])
+            self.assertFalse(summary["retained_evidence_promoted"])
+            self.assertFalse(summary["leaderboard_input"])
+            self.assertEqual(len(verdicts), 1)
+            self.assertEqual(verdicts[0]["normalized_verdict"], "not_attempted")
+            self.assertTrue((output_root / "logs" / "verify_verieql" / "verifier.log").exists())
+            self.assertTrue((output_root / "reports" / "verify_verieql" / "verifier_summary.md").exists())
+            self.assertFalse((Path(tmp) / "reports").exists())
+            self.assertFalse((Path(tmp) / "results").exists())
+            payload = json.dumps(summary) + "\n".join(json.dumps(row) for row in verdicts)
+            for token in ["winner", "best_method", "rank"]:
+                self.assertNotIn(token, payload)
+
+    def test_verify_sqlsolver_unavailable_writes_fail_closed_local_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            output_root = Path(tmp) / "output"
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(
+                    [
+                        "user",
+                        "verify",
+                        "--run-id",
+                        "verify_sqlsolver",
+                        "--tool",
+                        "sqlsolver",
+                        "--tool-cmd",
+                        "/definitely/missing/sqlsolver",
+                        "--output-root",
+                        output_root.as_posix(),
+                    ]
+                )
+
+            self.assertEqual(code, 0)
+            self.assertIn("tool_available=false", stdout.getvalue())
+            verifier_root = output_root / "results" / "verify_sqlsolver" / "verifier"
+            summary = json.loads((verifier_root / "semantic_equivalence_summary.json").read_text(encoding="utf-8"))
+            verdicts = _read_jsonl(verifier_root / "verifier_verdicts.jsonl")
+            self.assertEqual(summary["semantic_equivalence_rate"], None)
+            self.assertEqual(summary["semantic_equivalence_rate_status"], "not_applicable")
+            self.assertEqual(summary["na_reason"], "sqlsolver_unavailable")
+            self.assertFalse(summary["result_checker_exactness_used"])
+            self.assertEqual(len(verdicts), 2)
+            self.assertTrue(all(row["normalized_verdict"] == "not_attempted" for row in verdicts))
+            self.assertTrue((output_root / "logs" / "verify_sqlsolver" / "verifier.log").exists())
+            self.assertTrue((output_root / "reports" / "verify_sqlsolver" / "verifier_summary.md").exists())
+            self.assertFalse((Path(tmp) / "reports").exists())
+            self.assertFalse((Path(tmp) / "results").exists())
+            payload = json.dumps(summary) + "\n".join(json.dumps(row) for row in verdicts)
+            for token in ["winner", "best_method", "rank"]:
+                self.assertNotIn(token, payload)
+
+    def test_verify_invalid_tool_fails_with_clear_argparse_error(self) -> None:
+        stderr = io.StringIO()
+        with self.assertRaises(SystemExit):
+            with redirect_stderr(stderr):
+                main(["user", "verify", "--run-id", "demo", "--tool", "bogus"])
+        self.assertIn("invalid choice", stderr.getvalue())
+
+    def test_verify_rejects_top_level_results_output_before_writing(self) -> None:
+        code = main(
+            [
+                "user",
+                "verify",
+                "--run-id",
+                "demo",
+                "--tool",
+                "verieql",
+                "--output-root",
+                "results",
+                "--tool-cmd",
+                "/definitely/missing/verieql",
+            ]
+        )
+        self.assertEqual(code, 2)
+
     def test_pyproject_exposes_sqlrb_console_script(self) -> None:
         pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(pyproject["project"]["scripts"]["sqlrb"], "cli.main:main")
+
+
+def _read_jsonl(path: Path) -> list[dict[str, object]]:
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 if __name__ == "__main__":

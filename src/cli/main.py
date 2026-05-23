@@ -18,6 +18,9 @@ from sql_rewrite_bench.case_selection import ALLOWED_ENGINES, ALLOWED_POOLS, rep
 from sql_rewrite_bench.local_metrics import compute_and_write_local_metrics
 from sql_rewrite_bench.user_output import build_output_paths, export_run_to_output
 from sql_rewrite_bench.user_output_schema import output_schema_text
+from sql_rewrite_bench.verifier_support.pairs import boundary_flags_as_csv, validate_pair_record
+from sql_rewrite_bench.verifier_support.sqlsolver import write_sqlsolver_smoke
+from sql_rewrite_bench.verifier_support.verieql import write_verieql_canary
 
 LOCAL_BOUNDARY_TEXT = """# Local Diagnostic Boundary
 
@@ -72,6 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_show_boundary_parser(user_subparsers)
     _add_compute_local_metrics_parser(user_subparsers)
     _add_summarize_parser(user_subparsers)
+    _add_verify_parser(user_subparsers)
     return parser
 
 
@@ -195,6 +199,30 @@ def _add_summarize_parser(subparsers: argparse._SubParsersAction[argparse.Argume
     parser.add_argument("--output-root", type=Path, default=Path("output"))
 
 
+def _add_verify_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "verify",
+        help="Run a bounded local-only verifier smoke or fail-closed verifier check.",
+        description=(
+            "Run a bounded local-only verifier smoke through the existing VeriEQL or SQLSolver wrappers. "
+            "This does not compute official Semantic Equivalence Rate, official metrics, retained evidence, "
+            "paper results, or leaderboard output."
+        ),
+        epilog=LOCAL_ONLY_EPILOG,
+    )
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--tool", required=True, choices=["verieql", "sqlsolver"])
+    parser.add_argument("--output-root", type=Path, default=Path("output"))
+    parser.add_argument("--tool-cmd", help="Explicit local verifier command path or command string.")
+    parser.add_argument("--timeout", type=float, default=30.0)
+    parser.add_argument(
+        "--pair-scope",
+        choices=["synthetic-smoke", "run-candidates", "controls"],
+        default="synthetic-smoke",
+        help="Only synthetic-smoke is implemented in this local-only fail-closed phase.",
+    )
+
+
 def _add_selection_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--case-set", choices=["common_core_v0"], required=True)
     parser.add_argument("--pool", default="all", choices=sorted(ALLOWED_POOLS | {"all"}))
@@ -222,6 +250,8 @@ def _handle_user_command(args: argparse.Namespace) -> int:
         return _compute_local_metrics(args)
     if command == "summarize":
         return _summarize(args)
+    if command == "verify":
+        return _verify(args)
     raise ValueError(f"unknown user command: {command}")
 
 
@@ -401,6 +431,123 @@ def _summarize(args: argparse.Namespace) -> int:
     )
     _print_report_file("Boundary", paths.report_root / "boundary.md", missing_message=LOCAL_BOUNDARY_TEXT.rstrip())
     return 0
+
+
+def _verify(args: argparse.Namespace) -> int:
+    if args.pair_scope != "synthetic-smoke":
+        raise ValueError("only --pair-scope synthetic-smoke is supported for local verifier facade v0")
+    repo_root = repo_root_from_module()
+    output_root = _resolve_output_root(args.output_root, repo_root)
+    paths = build_output_paths(output_root, args.run_id, repo_root=repo_root)
+    pairs = _write_synthetic_verify_pairs(paths.result_root, args.run_id, args.tool)
+    if args.tool == "verieql":
+        output = write_verieql_canary(
+            output_root=output_root,
+            run_id=args.run_id,
+            pair_records=pairs,
+            command=args.tool_cmd,
+            timeout_seconds=args.timeout,
+        )
+    elif args.tool == "sqlsolver":
+        output = write_sqlsolver_smoke(
+            output_root=output_root,
+            run_id=args.run_id,
+            pair_records=pairs,
+            command=args.tool_cmd,
+            timeout_seconds=args.timeout,
+        )
+    else:
+        raise ValueError(f"unsupported verifier tool: {args.tool}")
+
+    rate = output.summary.get("semantic_equivalence_rate")
+    rate_text = "N.A." if rate is None else str(rate)
+    print(
+        "sqlrb user verify complete: "
+        f"run_id={args.run_id} tool={args.tool} "
+        f"tool_available={str(output.tool_available).lower()} "
+        f"semantic_equivalence_rate={rate_text}"
+    )
+    print(f"verifier results: {output.result_verifier_dir}")
+    print(f"verifier log: {output.log_path}")
+    print(f"verifier report: {output.report_path}")
+    print(
+        "boundary: local verifier diagnostic only; official_metric_input=false; "
+        "paper_result_input=false; retained_evidence_promoted=false; leaderboard_input=false"
+    )
+    return 0
+
+
+def _write_synthetic_verify_pairs(result_root: Path, run_id: str, tool: str) -> list[dict[str, str]]:
+    verifier_dir = result_root / "verifier"
+    if tool == "verieql":
+        return [
+            _write_synthetic_pair(
+                verifier_dir=verifier_dir,
+                run_id=run_id,
+                tool=tool,
+                pair_id="synthetic_equivalent",
+                source_sql="SELECT 1\n",
+                candidate_sql="SELECT 1\n",
+            )
+        ]
+    if tool == "sqlsolver":
+        return [
+            _write_synthetic_pair(
+                verifier_dir=verifier_dir,
+                run_id=run_id,
+                tool=tool,
+                pair_id="synthetic_equivalent",
+                source_sql="SELECT 1\n",
+                candidate_sql="SELECT 1\n",
+            ),
+            _write_synthetic_pair(
+                verifier_dir=verifier_dir,
+                run_id=run_id,
+                tool=tool,
+                pair_id="synthetic_non_equivalent",
+                source_sql="SELECT 1\n",
+                candidate_sql="SELECT 2\n",
+            ),
+        ]
+    raise ValueError(f"unsupported verifier tool: {tool}")
+
+
+def _write_synthetic_pair(
+    *,
+    verifier_dir: Path,
+    run_id: str,
+    tool: str,
+    pair_id: str,
+    source_sql: str,
+    candidate_sql: str,
+) -> dict[str, str]:
+    pair_dir = verifier_dir / "tools" / tool / pair_id
+    pair_dir.mkdir(parents=True, exist_ok=True)
+    source_path = pair_dir / "source.sql"
+    candidate_path = pair_dir / "candidate.sql"
+    source_path.write_text(source_sql, encoding="utf-8")
+    candidate_path.write_text(candidate_sql, encoding="utf-8")
+    return validate_pair_record(
+        {
+            "pair_id": pair_id,
+            "run_id": run_id,
+            "tool": tool,
+            "case_id": "SYNTHETIC_VERIFIER_SMOKE",
+            "pool": "SYNTHETIC",
+            "engine": "generic",
+            "route_id": "verifier_synthetic_smoke",
+            "method_id": tool,
+            "pair_type": "support_pair_smoke",
+            "source_sql_path": source_path.as_posix(),
+            "candidate_sql_path": candidate_path.as_posix(),
+            "positive_sql_path": "",
+            "negative_sql_path": "",
+            "schema_context_path": "",
+            "checker_context_path": "",
+            "denominator_id": "verifier_synthetic_smoke_v0",
+            **boundary_flags_as_csv(),
+        }
+    )
 
 
 def _print_manifest_summary(manifest_path: Path) -> None:

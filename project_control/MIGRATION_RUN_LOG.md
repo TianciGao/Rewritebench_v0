@@ -15460,3 +15460,67 @@ Push result:
 
 Next safe action:
 - Provide/authorize a local VeriEQL command path for a one-pair canary, provide/authorize a local SQLSolver command path for the two-pair synthetic smoke, or implement a fail-closed local-only `sqlrb user verify` facade.
+
+## 2026-05-23 - user_verify_facade_fail_closed_v0
+
+Mode: local-only verifier CLI facade implementation.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `audits/user_verify_facade_fail_closed_v0/README.md`
+- `audits/user_verify_facade_fail_closed_v0/implementation_summary.md`
+- `audits/user_verify_facade_fail_closed_v0/command_contract.md`
+- `audits/user_verify_facade_fail_closed_v0/fail_closed_behavior.md`
+- `audits/user_verify_facade_fail_closed_v0/output_contract_conformance.md`
+- `audits/user_verify_facade_fail_closed_v0/semantic_equivalence_na_policy.md`
+- `audits/user_verify_facade_fail_closed_v0/test_results.md`
+- `audits/user_verify_facade_fail_closed_v0/protected_surface_check.md`
+- `audits/user_verify_facade_fail_closed_v0/command_log.md`
+- `audits/user_verify_facade_fail_closed_v0/boundary_checklist.md`
+
+Files modified:
+- `src/cli/main.py`
+- `tests/user_entry/test_cli_facade.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed`.
+- Added `sqlrb user verify --run-id <run_id> --tool verieql|sqlsolver --output-root output`.
+- Added optional `--tool-cmd`, `--timeout`, and `--pair-scope`; only `synthetic-smoke` is implemented.
+- VeriEQL verify uses one synthetic pair and delegates to `write_verieql_canary`.
+- SQLSolver verify uses two synthetic pairs and delegates to `write_sqlsolver_smoke`.
+- Unavailable tools fail closed with `not_attempted` verdict rows and `semantic_equivalence_rate=null`.
+- Temp-root CLI smoke produced local verifier `N.A.` summaries for both tools.
+- `sqlrb user evaluate --verifier ...` remains fail-closed.
+- Metadata correction: `verifier_support_fail_closed_closeout_v0` final commit was `3041c8bf467fc42626a594fa608c2bb9e95ae5ab` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Real VeriEQL run performed: no.
+Real SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Local verifier N.A. summaries produced: yes, temp-root fail-closed CLI smoke only.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Provide/authorize a real VeriEQL command path for a one-pair canary or a real SQLSolver command path for the two-pair synthetic smoke; otherwise keep verifier summaries as local-only `N.A.` outputs.
