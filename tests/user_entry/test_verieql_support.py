@@ -6,7 +6,9 @@ from pathlib import Path
 
 from sql_rewrite_bench.verifier_support.fixtures import synthetic_pair_record
 from sql_rewrite_bench.verifier_support.verieql import (
+    VERIEQL_FINITE_BOUND_MODE,
     build_verieql_batch_command,
+    canonicalize_verieql_schema,
     detect_verieql,
     normalize_verieql_jsonl_record,
     normalize_verieql_output,
@@ -61,6 +63,21 @@ class VeriEQLSupportTests(unittest.TestCase):
             self.assertEqual(availability.verieql_root, root.as_posix())
             self.assertIn("parallel.cli_within_timeout", availability.command or ())
 
+    def test_detect_verieql_root_uses_finite_bound_batch_mode(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = _fake_verieql_root(Path(tmp))
+            availability = detect_verieql(
+                env={"SQLRB_VERIEQL_ROOT": root.as_posix()},
+                search_path="",
+                verifier_mode=VERIEQL_FINITE_BOUND_MODE,
+            )
+
+            self.assertTrue(availability.tool_available)
+            self.assertEqual(availability.detection_reason, "verieql_root_available")
+            self.assertEqual(availability.invocation_mode, "jsonl_batch_finite_bound")
+            self.assertEqual(availability.verieql_root, root.as_posix())
+            self.assertIn("parallel.cli_within_bound", availability.command or ())
+
     def test_missing_verieql_root_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output = write_verieql_canary(
@@ -89,11 +106,26 @@ class VeriEQLSupportTests(unittest.TestCase):
 
     def test_verieql_jsonl_output_normalization(self) -> None:
         self.assertEqual(normalize_verieql_jsonl_record({"states": ["EQU"]}), "equivalent")
+        self.assertEqual(normalize_verieql_jsonl_record({"states": ["EQU", "EQU"]}), "equivalent")
         self.assertEqual(normalize_verieql_jsonl_record({"states": ["EQU", "NEQ"], "counterexample": "rows"}), "non_equivalent")
+        self.assertEqual(normalize_verieql_jsonl_record({"states": ["EQU", "TMO"]}), "timeout")
         self.assertEqual(normalize_verieql_jsonl_record({"states": ["NSE"], "err": "Not supported feature: EXISTS"}), "unsupported")
+        self.assertEqual(normalize_verieql_jsonl_record({"states": ["OTE"], "err": "A"}), "tool_error")
         self.assertEqual(normalize_verieql_jsonl_record({"states": ["TMO"]}), "timeout")
         self.assertEqual(normalize_verieql_jsonl_record({"err": "parser crashed"}), "tool_error")
         self.assertEqual(normalize_verieql_jsonl_record({"states": []}), "unknown")
+
+    def test_schema_identifier_canonicalization(self) -> None:
+        canonical = canonicalize_verieql_schema(
+            {
+                "public.t": {"a": "int", "`b`": "bigint"},
+                '"quoted_table"': {'"mixedCase"': "varchar(10)"},
+            }
+        )
+
+        self.assertEqual(canonical["T"]["A"], "INT")
+        self.assertEqual(canonical["T"]["B"], "BIGINT")
+        self.assertEqual(canonical["QUOTED_TABLE"]["MIXEDCASE"], "VARCHAR(10)")
 
     def test_jsonl_pair_file_generation_and_command_construction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -128,6 +160,75 @@ class VeriEQLSupportTests(unittest.TestCase):
             self.assertEqual(records[0]["pair_role"], "support_pair_smoke")
             self.assertEqual(parsed["schema"]["T"]["ID"], "BIGINT")
             self.assertEqual(command[-6:], ["parallel.cli_within_timeout", "-f", output_jsonl.as_posix(), "-t", "30", "-o", (tmp_path / "out.jsonl").as_posix()][-6:])
+
+    def test_jsonl_generation_canonicalizes_synthetic_from_pairs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            source = tmp_path / "source.sql"
+            equivalent = tmp_path / "equivalent.sql"
+            nonequivalent = tmp_path / "nonequivalent.sql"
+            schema = tmp_path / "schema.json"
+            source.write_text("SELECT a FROM T\n", encoding="utf-8")
+            equivalent.write_text("SELECT a FROM T\n", encoding="utf-8")
+            nonequivalent.write_text("SELECT b FROM T\n", encoding="utf-8")
+            schema.write_text(json.dumps({"T": {"a": "int", "b": "int"}}), encoding="utf-8")
+            pairs = [
+                synthetic_pair_record(
+                    pair_id="synthetic_from_equivalent",
+                    run_id="jsonl",
+                    tool="verieql",
+                    pair_type="support_pair_smoke",
+                    source_sql_path=source.as_posix(),
+                    candidate_sql_path=equivalent.as_posix(),
+                    schema_context_path=schema.as_posix(),
+                ),
+                synthetic_pair_record(
+                    pair_id="synthetic_from_nonequivalent",
+                    run_id="jsonl",
+                    tool="verieql",
+                    pair_type="support_pair_smoke",
+                    source_sql_path=source.as_posix(),
+                    candidate_sql_path=nonequivalent.as_posix(),
+                    schema_context_path=schema.as_posix(),
+                ),
+            ]
+
+            records = write_verieql_pair_jsonl(pairs, tmp_path / "pairs.jsonl")
+
+            self.assertEqual(records[0]["schema"], {"T": {"A": "INT", "B": "INT"}})
+            self.assertEqual(records[0]["pair"], ["SELECT a FROM T\n", "SELECT a FROM T\n"])
+            self.assertEqual(records[1]["pair"], ["SELECT a FROM T\n", "SELECT b FROM T\n"])
+
+    def test_finite_bound_command_construction(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            command = build_verieql_batch_command(
+                [sys.executable, "-m", "parallel.cli_within_bound"],
+                input_jsonl=tmp_path / "pairs.jsonl",
+                output_jsonl=tmp_path / "out.jsonl",
+                timeout_seconds=30,
+                verifier_mode=VERIEQL_FINITE_BOUND_MODE,
+                bound_size=10,
+                cores=1,
+            )
+
+            self.assertIn("parallel.cli_within_bound", command)
+            self.assertEqual(
+                command[-10:],
+                [
+                    "parallel.cli_within_bound",
+                    "-f",
+                    (tmp_path / "pairs.jsonl").as_posix(),
+                    "-s",
+                    "10",
+                    "-t",
+                    "30",
+                    "-c",
+                    "1",
+                    "-o",
+                    (tmp_path / "out.jsonl").as_posix(),
+                ][-10:],
+            )
 
     def test_jsonl_dry_run_records_cons0007_plan_without_execution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -202,6 +303,79 @@ class VeriEQLSupportTests(unittest.TestCase):
             self.assertEqual(output.summary["semantic_equivalence_rate"], None)
             self.assertEqual(output.summary["na_reason"], "verieql_dependency_missing")
             self.assertTrue(verdicts[0]["artifact_paths"]["dependency_missing"])
+
+    def test_finite_bound_fake_root_writes_decidable_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            root = _fake_verieql_root(
+                tmp_path / "verieql",
+                bound_body=[
+                    "import argparse, json",
+                    "parser = argparse.ArgumentParser()",
+                    "parser.add_argument('-f')",
+                    "parser.add_argument('-s')",
+                    "parser.add_argument('-t')",
+                    "parser.add_argument('-c')",
+                    "parser.add_argument('-o')",
+                    "args = parser.parse_args()",
+                    "rows = [json.loads(line) for line in open(args.f, encoding='utf-8') if line.strip()]",
+                    "with open(args.o, 'w', encoding='utf-8') as out:",
+                    "    for row in rows:",
+                    "        states = ['EQU'] * int(args.s) if row['index'] == 1 else ['NEQ']",
+                    "        out.write(json.dumps({'index': row['index'], 'states': states, 'err': None}) + '\\n')",
+                ],
+            )
+            source = tmp_path / "source.sql"
+            equivalent = tmp_path / "equivalent.sql"
+            nonequivalent = tmp_path / "nonequivalent.sql"
+            schema = tmp_path / "schema.json"
+            source.write_text("SELECT a FROM T\n", encoding="utf-8")
+            equivalent.write_text("SELECT a FROM T\n", encoding="utf-8")
+            nonequivalent.write_text("SELECT b FROM T\n", encoding="utf-8")
+            schema.write_text(json.dumps({"T": {"a": "int", "b": "int"}}), encoding="utf-8")
+            pairs = [
+                synthetic_pair_record(
+                    pair_id="synthetic_from_equivalent",
+                    run_id="finite_fake",
+                    tool="verieql",
+                    pair_type="support_pair_smoke",
+                    source_sql_path=source.as_posix(),
+                    candidate_sql_path=equivalent.as_posix(),
+                    schema_context_path=schema.as_posix(),
+                ),
+                synthetic_pair_record(
+                    pair_id="synthetic_from_nonequivalent",
+                    run_id="finite_fake",
+                    tool="verieql",
+                    pair_type="support_pair_smoke",
+                    source_sql_path=source.as_posix(),
+                    candidate_sql_path=nonequivalent.as_posix(),
+                    schema_context_path=schema.as_posix(),
+                ),
+            ]
+
+            output = write_verieql_canary(
+                output_root=tmp_path / "output",
+                run_id="finite_fake",
+                pair_records=pairs,
+                env={"SQLRB_VERIEQL_ROOT": root.as_posix()},
+                verifier_mode=VERIEQL_FINITE_BOUND_MODE,
+                bound_size=3,
+                timeout_seconds=30,
+                result_consistent_pairs=2,
+            )
+
+            verdicts = _read_jsonl(output.verdicts_path)
+            self.assertEqual(verdicts[0]["normalized_verdict"], "equivalent")
+            self.assertEqual(verdicts[0]["artifact_paths"]["raw_states"], ["EQU", "EQU", "EQU"])
+            self.assertEqual(verdicts[0]["artifact_paths"]["verifier_mode"], "finite_bound")
+            self.assertEqual(verdicts[0]["artifact_paths"]["bound_size"], 3)
+            self.assertFalse(verdicts[0]["artifact_paths"]["result_checker_exactness_used"])
+            self.assertEqual(verdicts[1]["normalized_verdict"], "non_equivalent")
+            self.assertEqual(output.summary["semantic_equivalence_rate"], 0.5)
+            self.assertEqual(output.summary["verifier_mode"], "finite_bound")
+            self.assertEqual(output.summary["bound_size"], 3)
+            self.assertFalse(output.summary["result_checker_exactness_used"])
 
     def test_parse_verieql_output_file_by_index(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -330,7 +504,7 @@ def _read_jsonl(path: Path) -> list[dict[str, object]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def _fake_verieql_root(path: Path, body: list[str] | None = None) -> Path:
+def _fake_verieql_root(path: Path, body: list[str] | None = None, bound_body: list[str] | None = None) -> Path:
     root = path
     module_dir = root / "parallel"
     module_dir.mkdir(parents=True, exist_ok=True)
@@ -344,6 +518,23 @@ def _fake_verieql_root(path: Path, body: list[str] | None = None) -> Path:
                 "parser = argparse.ArgumentParser()",
                 "parser.add_argument('-f')",
                 "parser.add_argument('-t')",
+                "parser.add_argument('-o')",
+                "args = parser.parse_args()",
+                "open(args.o, 'w', encoding='utf-8').write('{\"index\": 1, \"states\": [\"EQU\"]}\\n')",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (module_dir / "cli_within_bound.py").write_text(
+        "\n".join(
+            bound_body
+            or [
+                "import argparse",
+                "parser = argparse.ArgumentParser()",
+                "parser.add_argument('-f')",
+                "parser.add_argument('-s')",
+                "parser.add_argument('-t')",
+                "parser.add_argument('-c')",
                 "parser.add_argument('-o')",
                 "args = parser.parse_args()",
                 "open(args.o, 'w', encoding='utf-8').write('{\"index\": 1, \"states\": [\"EQU\"]}\\n')",

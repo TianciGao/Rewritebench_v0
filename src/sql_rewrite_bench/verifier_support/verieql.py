@@ -31,9 +31,14 @@ VERIEQL_TOOL = "verieql"
 DEFAULT_VERIEQL_COMMANDS = ("verieql", "VeriEQL", "verieql-cli", "veri-eql")
 VERIEQL_ENV_VARS = ("SQLRB_VERIEQL_CMD", "SQLRB_VERIEQL_COMMAND", "VERIEQL_COMMAND", "VERIEQL_BIN")
 VERIEQL_ROOT_ENV_VARS = ("SQLRB_VERIEQL_ROOT", "VERIEQL_ROOT")
-VERIEQL_BATCH_MODULE = "parallel.cli_within_timeout"
+VERIEQL_TIMEOUT_BATCH_MODULE = "parallel.cli_within_timeout"
+VERIEQL_FINITE_BOUND_BATCH_MODULE = "parallel.cli_within_bound"
+VERIEQL_BATCH_MODULE = VERIEQL_TIMEOUT_BATCH_MODULE
 VERIEQL_JSONL_INPUT_NAME = "verieql_pairs.jsonl"
 VERIEQL_JSONL_OUTPUT_NAME = "verieql_output.jsonl"
+VERIEQL_TIMEOUT_MODE = "timeout"
+VERIEQL_FINITE_BOUND_MODE = "finite_bound"
+VERIEQL_BATCH_MODES = {VERIEQL_TIMEOUT_MODE, VERIEQL_FINITE_BOUND_MODE}
 
 
 @dataclass(frozen=True)
@@ -71,6 +76,7 @@ def detect_verieql(
     env: Mapping[str, str] | None = None,
     search_path: str | None = None,
     version_timeout_seconds: float = 5.0,
+    verifier_mode: str = VERIEQL_TIMEOUT_MODE,
 ) -> VeriEQLAvailability:
     """Detect a local VeriEQL command or staged VeriEQL root.
 
@@ -81,6 +87,7 @@ def detect_verieql(
     """
 
     effective_env = dict(os.environ if env is None else env)
+    _validate_verifier_mode(verifier_mode)
     root_value = _first_env_value(effective_env, VERIEQL_ROOT_ENV_VARS)
     if root_value:
         root = Path(root_value)
@@ -94,7 +101,7 @@ def detect_verieql(
                 invocation_mode="jsonl_batch",
                 verieql_root=root.as_posix(),
             )
-        base_command = _batch_base_command(command, effective_env)
+        base_command = _batch_base_command(command, effective_env, verifier_mode=verifier_mode)
         if not _command_executable_available(base_command, search_path=search_path):
             return VeriEQLAvailability(
                 tool_available=False,
@@ -102,7 +109,7 @@ def detect_verieql(
                 command_path=None,
                 tool_version=None,
                 detection_reason="verieql_batch_command_not_found",
-                invocation_mode="jsonl_batch",
+                invocation_mode=_jsonl_invocation_mode(verifier_mode),
                 verieql_root=root.as_posix(),
             )
         version = _probe_version(base_command, timeout_seconds=version_timeout_seconds, cwd=root)
@@ -112,7 +119,7 @@ def detect_verieql(
             command_path=base_command[0],
             tool_version=version,
             detection_reason="verieql_root_available",
-            invocation_mode="jsonl_batch",
+            invocation_mode=_jsonl_invocation_mode(verifier_mode),
             verieql_root=root.as_posix(),
         )
 
@@ -201,10 +208,12 @@ def normalize_verieql_jsonl_record(record: Mapping[str, Any] | None) -> str:
         token in text for token in ["not equivalent", "non_equivalent", "counterexample"]
     ):
         return "non_equivalent"
-    if states and states[-1] in {"EQU", "EQ", "EQUIVALENT"} and not err:
-        return "equivalent"
-    if "unknown" in text or "undecidable" in text:
+    if any(state in {"UNK", "UNKNOWN"} for state in states) or "unknown" in text or "undecidable" in text:
         return "unknown"
+    if any(state in {"SYN", "NIE", "OOM", "OTE"} for state in states):
+        return "tool_error"
+    if states and all(state in {"EQU", "EQ", "EQUIVALENT"} for state in states) and not err:
+        return "equivalent"
     if err:
         return "tool_error"
     return "unknown"
@@ -221,10 +230,16 @@ def write_verieql_canary(
     search_path: str | None = None,
     result_consistent_pairs: int | None = None,
     dry_run: bool = False,
+    verifier_mode: str = VERIEQL_TIMEOUT_MODE,
+    bound_size: int | None = None,
+    cores: int = 1,
 ) -> VeriEQLCanaryOutput:
     """Run a bounded VeriEQL canary or write fail-closed unavailable outputs."""
 
-    availability = detect_verieql(command=command, env=env, search_path=search_path)
+    _validate_verifier_mode(verifier_mode)
+    if verifier_mode == VERIEQL_FINITE_BOUND_MODE and (bound_size is None or bound_size < 1):
+        raise ValueError("finite-bound VeriEQL mode requires bound_size >= 1")
+    availability = detect_verieql(command=command, env=env, search_path=search_path, verifier_mode=verifier_mode)
     root = Path(output_root)
     verifier_dir = root / "results" / run_id / "verifier"
     log_dir = root / "logs" / run_id
@@ -243,7 +258,7 @@ def write_verieql_canary(
     jsonl_input_path: Path | None = None
     jsonl_output_path: Path | None = None
     if availability.tool_available and availability.command:
-        if availability.invocation_mode == "jsonl_batch":
+        if availability.invocation_mode.startswith("jsonl_batch"):
             verdict_records, jsonl_input_path, jsonl_output_path = _run_jsonl_batch_pairs(
                 pairs=pairs,
                 availability=availability,
@@ -251,6 +266,9 @@ def write_verieql_canary(
                 timeout_seconds=timeout_seconds,
                 env=env,
                 dry_run=dry_run,
+                verifier_mode=verifier_mode,
+                bound_size=bound_size,
+                cores=cores,
             )
         else:
             verdict_records = [
@@ -290,6 +308,9 @@ def write_verieql_canary(
     summary["tool_version"] = availability.tool_version
     summary["detection_reason"] = availability.detection_reason
     summary["invocation_mode"] = availability.invocation_mode
+    summary["verifier_mode"] = verifier_mode
+    summary["bound_size"] = bound_size
+    summary["result_checker_exactness_used"] = False
     summary["verieql_root"] = availability.verieql_root
     if jsonl_input_path is not None:
         summary["verieql_jsonl_input_path"] = jsonl_input_path.as_posix()
@@ -351,10 +372,30 @@ def build_verieql_jsonl_record(pair: Mapping[str, str], *, index: int) -> dict[s
         "pair_id": pair_id,
         "pair_type": pair["pair_type"],
         "pair_role": pair_role,
-        "schema": _schema_from_context(pair.get("schema_context_path", "")),
+        "schema": canonicalize_verieql_schema(_schema_from_context(pair.get("schema_context_path", ""))),
         "constraint": [],
         "pair": [source_sql, comparison_sql],
     }
+
+
+def canonicalize_verieql_schema(schema: Mapping[str, Any]) -> dict[str, dict[str, str]]:
+    """Canonicalize schema metadata to VeriEQL-compatible uppercase identifiers."""
+
+    canonical: dict[str, dict[str, str]] = {}
+    for table, columns in schema.items():
+        if not isinstance(columns, Mapping):
+            continue
+        table_name = _canonicalize_identifier(table)
+        if not table_name:
+            continue
+        canonical_columns: dict[str, str] = {}
+        for column, column_type in columns.items():
+            column_name = _canonicalize_identifier(column)
+            if column_name:
+                canonical_columns[column_name] = str(column_type).strip().upper()
+        if canonical_columns:
+            canonical[table_name] = canonical_columns
+    return canonical
 
 
 def build_verieql_batch_command(
@@ -363,18 +404,33 @@ def build_verieql_batch_command(
     input_jsonl: Path,
     output_jsonl: Path,
     timeout_seconds: float,
+    verifier_mode: str = VERIEQL_TIMEOUT_MODE,
+    bound_size: int | None = None,
+    cores: int = 1,
 ) -> list[str]:
     """Build the staged VeriEQL batch CLI command line."""
 
-    return [
+    _validate_verifier_mode(verifier_mode)
+    command = [
         *[str(part) for part in base_command],
         "-f",
         input_jsonl.as_posix(),
+    ]
+    if verifier_mode == VERIEQL_FINITE_BOUND_MODE:
+        if bound_size is None or bound_size < 1:
+            raise ValueError("finite-bound VeriEQL mode requires bound_size >= 1")
+        command.extend(["-s", str(bound_size)])
+    command.extend([
         "-t",
         str(int(timeout_seconds) if float(timeout_seconds).is_integer() else timeout_seconds),
+    ])
+    if verifier_mode == VERIEQL_FINITE_BOUND_MODE:
+        command.extend(["-c", str(cores)])
+    command.extend([
         "-o",
         output_jsonl.as_posix(),
-    ]
+    ])
+    return command
 
 
 def parse_verieql_output_file(path: Path) -> dict[int, dict[str, Any]]:
@@ -402,6 +458,9 @@ def _run_jsonl_batch_pairs(
     timeout_seconds: float,
     env: Mapping[str, str] | None,
     dry_run: bool,
+    verifier_mode: str,
+    bound_size: int | None,
+    cores: int,
 ) -> tuple[list[dict[str, Any]], Path, Path]:
     batch_dir = verifier_dir / "tools" / VERIEQL_TOOL / "batch"
     batch_dir.mkdir(parents=True, exist_ok=True)
@@ -415,6 +474,9 @@ def _run_jsonl_batch_pairs(
         input_jsonl=input_jsonl,
         output_jsonl=output_jsonl,
         timeout_seconds=timeout_seconds,
+        verifier_mode=verifier_mode,
+        bound_size=bound_size,
+        cores=cores,
     )
 
     if dry_run:
@@ -430,6 +492,8 @@ def _run_jsonl_batch_pairs(
                     command=command,
                     input_jsonl=input_jsonl,
                     output_jsonl=output_jsonl,
+                    verifier_mode=verifier_mode,
+                    bound_size=bound_size,
                 )
                 for pair in pairs
             ],
@@ -476,6 +540,8 @@ def _run_jsonl_batch_pairs(
                     input_jsonl=input_jsonl,
                     output_jsonl=output_jsonl,
                     tool_version=availability.tool_version,
+                    verifier_mode=verifier_mode,
+                    bound_size=bound_size,
                 )
                 for pair in pairs
             ],
@@ -500,6 +566,8 @@ def _run_jsonl_batch_pairs(
                     output_jsonl=output_jsonl,
                     tool_version=availability.tool_version,
                     dependency_missing=dependency_missing,
+                    verifier_mode=verifier_mode,
+                    bound_size=bound_size,
                 )
                 for pair in pairs
             ],
@@ -529,6 +597,8 @@ def _run_jsonl_batch_pairs(
                 input_jsonl=input_jsonl,
                 output_jsonl=output_jsonl,
                 tool_version=availability.tool_version,
+                verifier_mode=verifier_mode,
+                bound_size=bound_size,
             )
         )
     return verdict_records, input_jsonl, output_jsonl
@@ -632,6 +702,8 @@ def _batch_not_attempted_pair(
     command: Sequence[str],
     input_jsonl: Path,
     output_jsonl: Path,
+    verifier_mode: str,
+    bound_size: int | None,
 ) -> dict[str, Any]:
     pair_id = pair["pair_id"]
     tool_dir = verifier_dir / "tools" / VERIEQL_TOOL / pair_id
@@ -656,7 +728,11 @@ def _batch_not_attempted_pair(
             "verieql_jsonl_input": input_jsonl.as_posix(),
             "verieql_jsonl_output": output_jsonl.as_posix(),
             "detection_reason": reason,
-            "invocation_mode": "jsonl_batch",
+            "invocation_mode": _jsonl_invocation_mode(verifier_mode),
+            "verifier_mode": verifier_mode,
+            "bound_size": bound_size,
+            "command_shape": _command_shape(command),
+            "result_checker_exactness_used": False,
         },
     )
 
@@ -676,6 +752,8 @@ def _batch_failure_pair(
     output_jsonl: Path,
     tool_version: str | None,
     dependency_missing: bool = False,
+    verifier_mode: str,
+    bound_size: int | None,
 ) -> dict[str, Any]:
     pair_id = pair["pair_id"]
     tool_dir = verifier_dir / "tools" / VERIEQL_TOOL / pair_id
@@ -700,7 +778,11 @@ def _batch_failure_pair(
             "verieql_jsonl_input": input_jsonl.as_posix(),
             "verieql_jsonl_output": output_jsonl.as_posix(),
             "dependency_missing": dependency_missing,
-            "invocation_mode": "jsonl_batch",
+            "invocation_mode": _jsonl_invocation_mode(verifier_mode),
+            "verifier_mode": verifier_mode,
+            "bound_size": bound_size,
+            "command_shape": _command_shape(command),
+            "result_checker_exactness_used": False,
         },
     )
 
@@ -719,6 +801,8 @@ def _batch_output_pair(
     input_jsonl: Path,
     output_jsonl: Path,
     tool_version: str | None,
+    verifier_mode: str,
+    bound_size: int | None,
 ) -> dict[str, Any]:
     pair_id = pair["pair_id"]
     tool_dir = verifier_dir / "tools" / VERIEQL_TOOL / pair_id
@@ -742,7 +826,15 @@ def _batch_output_pair(
             "command": _redacted_command(command),
             "verieql_jsonl_input": input_jsonl.as_posix(),
             "verieql_jsonl_output": output_jsonl.as_posix(),
-            "invocation_mode": "jsonl_batch",
+            "invocation_mode": _jsonl_invocation_mode(verifier_mode),
+            "verifier_mode": verifier_mode,
+            "bound_size": bound_size,
+            "timeout_seconds": timeout_seconds,
+            "raw_states": _raw_states(output_record),
+            "normalized_verdict": normalized,
+            "tool_available": True,
+            "command_shape": _command_shape(command),
+            "result_checker_exactness_used": False,
         },
     )
 
@@ -794,18 +886,24 @@ def _candidate_commands(
     return candidates
 
 
-def _batch_base_command(command: str | Sequence[str] | None, env: Mapping[str, str]) -> tuple[str, ...]:
+def _batch_base_command(
+    command: str | Sequence[str] | None,
+    env: Mapping[str, str],
+    *,
+    verifier_mode: str,
+) -> tuple[str, ...]:
     raw_command = command
+    module = _batch_module(verifier_mode)
     if raw_command is None:
         raw_command = _first_env_value(env, VERIEQL_ENV_VARS)
     if raw_command is None:
-        return (sys.executable, "-m", VERIEQL_BATCH_MODULE)
+        return (sys.executable, "-m", module)
     parts = _split_command(raw_command)
-    if VERIEQL_BATCH_MODULE in parts:
+    if module in parts:
         return parts
     if "-m" in parts:
         return parts
-    return (*parts, "-m", VERIEQL_BATCH_MODULE)
+    return (*parts, "-m", module)
 
 
 def _split_command(command: str | Sequence[str]) -> tuple[str, ...]:
@@ -827,7 +925,11 @@ def _first_env_value(env: Mapping[str, str], names: Sequence[str]) -> str | None
 
 
 def _is_valid_verieql_root(root: Path) -> bool:
-    return root.is_dir() and (root / "parallel" / "cli_within_timeout.py").is_file()
+    return (
+        root.is_dir()
+        and (root / "parallel" / "cli_within_timeout.py").is_file()
+        and (root / "parallel" / "cli_within_bound.py").is_file()
+    )
 
 
 def _command_executable_available(command: Sequence[str], *, search_path: str | None) -> bool:
@@ -873,11 +975,7 @@ def _schema_from_context(path_text: str) -> dict[str, dict[str, str]]:
         except json.JSONDecodeError:
             return {}
         if isinstance(loaded, dict):
-            return {
-                str(table).upper(): {str(col).upper(): str(col_type).upper() for col, col_type in columns.items()}
-                for table, columns in loaded.items()
-                if isinstance(columns, Mapping)
-            }
+            return canonicalize_verieql_schema(loaded)
     return _parse_create_table_schema(text)
 
 
@@ -922,6 +1020,41 @@ def _as_list(value: Any) -> list[Any]:
     if value is None:
         return []
     return [value]
+
+
+def _raw_states(output_record: Mapping[str, Any] | None) -> list[str]:
+    if output_record is None:
+        return []
+    return [str(state).strip().upper() for state in _as_list(output_record.get("states")) if str(state).strip()]
+
+
+def _canonicalize_identifier(value: Any) -> str:
+    text = str(value).strip().strip('`"[]')
+    if "." in text:
+        text = text.split(".")[-1]
+    return text.upper()
+
+
+def _validate_verifier_mode(verifier_mode: str) -> None:
+    if verifier_mode not in VERIEQL_BATCH_MODES:
+        raise ValueError(f"unsupported VeriEQL verifier_mode: {verifier_mode}")
+
+
+def _batch_module(verifier_mode: str) -> str:
+    _validate_verifier_mode(verifier_mode)
+    if verifier_mode == VERIEQL_FINITE_BOUND_MODE:
+        return VERIEQL_FINITE_BOUND_BATCH_MODULE
+    return VERIEQL_TIMEOUT_BATCH_MODULE
+
+
+def _jsonl_invocation_mode(verifier_mode: str) -> str:
+    if verifier_mode == VERIEQL_FINITE_BOUND_MODE:
+        return "jsonl_batch_finite_bound"
+    return "jsonl_batch"
+
+
+def _command_shape(command: Sequence[str]) -> str:
+    return " ".join(shlex.quote(str(part)) for part in _redacted_command(command))
 
 
 def _is_dependency_missing(stderr: str) -> bool:

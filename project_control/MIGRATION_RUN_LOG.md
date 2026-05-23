@@ -16463,3 +16463,83 @@ Push result:
 
 Next safe action:
 - Implement a finite-bound VeriEQL wrapper mode with schema identifier canonicalization and synthetic regression tests before any exact-candidate local verifier pass; until that exists, keep Semantic Equivalence Rate as `N.A.`.
+
+## 2026-05-23 - verieql_finite_bound_wrapper_mode_v0
+
+Mode: local-only VeriEQL finite-bound wrapper implementation.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_finite_bound_wrapper_mode_v0/` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_finite_bound_wrapper_mode_v0/README.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/implementation_summary.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/schema_canonicalization_review.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/verdict_normalization_review.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/synthetic_regression_tests.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/command_log.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/protected_surface_check.md`
+- `audits/verieql_finite_bound_wrapper_mode_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/verieql.py`
+- `tests/user_entry/test_verieql_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Finite-bound wrapper mode implemented: yes.
+- Schema canonicalization implemented: yes, schema table/column identifiers are canonicalized to VeriEQL-compatible uppercase metadata for JSONL.
+- Existing timeout/direct/fail-closed behavior preserved: yes.
+- Strict normalization implemented: all-`EQU` means `equivalent`; `NEQ` means `non_equivalent`; any `TMO` remains `timeout`; `NSE` remains `unsupported`; `UNK` remains `unknown`; `SYN`/`NIE`/`OOM`/`OTE` remain `tool_error`.
+- Output metadata includes `verifier_mode`, `bound_size`, `timeout_seconds`, `raw_states`, `normalized_verdict`, `tool_available`, `command_shape`, and `result_checker_exactness_used=false`.
+- Optional real synthetic smoke ran: yes, under `/tmp/sqlrb_verieql_finite_bound_wrapper_mode_v0/`.
+- Optional real synthetic smoke result: bound 10 produced `equivalent` for `SELECT a FROM T` vs `SELECT a FROM T` and `non_equivalent` for `SELECT a FROM T` vs `SELECT b FROM T`.
+- Semantic Equivalence Rate readiness: ready for a separately authorized tiny exact-candidate local verifier pass; not official and not ready for evidence promotion.
+
+Validation:
+- Focused tests passed: `pytest tests/user_entry/test_verieql_support.py -q` reported 18 passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/verieql.py` passed.
+- Full user-entry tests passed: `pytest tests/user_entry -q` reported 216 passed, 1 skipped, 12 subtests passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- `git diff --check`: passed.
+- Protected-surface check passed; only `src/sql_rewrite_bench/verifier_support/verieql.py`, `tests/user_entry/test_verieql_support.py`, `audits/verieql_finite_bound_wrapper_mode_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md` changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts were staged or committed.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo modified: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL patched: no.
+VeriEQL copied/vendorized: no.
+Common-core run performed: no.
+Method-generated candidate rows run: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Local result checker exactness used as verifier equivalence: no.
+Synthetic smoke used as Common-core/paper evidence: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a tiny exact-candidate local VeriEQL verifier pass, exact/result-consistency gated and local-only, before any broader verifier expansion or official evidence promotion.
