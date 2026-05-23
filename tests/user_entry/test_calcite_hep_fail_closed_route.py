@@ -1,4 +1,5 @@
 import csv
+import importlib.util
 import json
 import os
 import shutil
@@ -30,6 +31,27 @@ def _postgres_smoke_row():
     )[0]
 
 
+def _postgres_case_row(case_id: str):
+    rows = resolve_common_core_selection(
+        repo_root=REPO_ROOT,
+        case_set="common_core_v0",
+        engine="postgres",
+    )
+    for row in rows:
+        if row.case_id == case_id:
+            return row
+    raise AssertionError(f"case not selected: {case_id}")
+
+
+def _load_adapter_module():
+    spec = importlib.util.spec_from_file_location("calcite_hep_fail_closed_adapter", ADAPTER)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def _clear_calcite_env() -> None:
     for name in [
         "SQLRB_CALCITE_HEP_CMD",
@@ -47,6 +69,25 @@ def _unique_user_out(name: str) -> Path:
 
 
 class CalciteHepFailClosedRouteTests(unittest.TestCase):
+    def test_postgres_identifier_normalization_unquotes_schema_identifiers_only(self) -> None:
+        adapter = _load_adapter_module()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            ddl = Path(temp_dir) / "ddl.sql"
+            ddl.write_text("CREATE TABLE DEPT (NAME VARCHAR(32));\n", encoding="utf-8")
+            normalized, metadata = adapter.normalize_postgres_calcite_identifiers(
+                'SELECT "NAME", COUNT(*) AS "C" FROM "DEPT" GROUP BY "NAME";\n',
+                ddl,
+            )
+
+        self.assertEqual(
+            normalized,
+            'SELECT name, COUNT(*) AS "C" FROM dept GROUP BY name;\n',
+        )
+        self.assertTrue(metadata["enabled"])
+        self.assertEqual(metadata["policy"], "postgres_only_unquoted_ddl_identifier_fold_v0")
+        self.assertEqual(metadata["replacement_count"], 3)
+        self.assertEqual(metadata["replacement_identifiers"], {"DEPT": "dept", "NAME": "name"})
+
     def test_route_identity_recognizes_calcite_adapter(self) -> None:
         command = f"{sys.executable} {ADAPTER}"
         self.assertEqual(
@@ -131,6 +172,56 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertEqual(payload["failure_bucket"], "none")
         self.assertTrue(payload["schema_ddl_exists"])
         self.assertFalse(payload["official_metric_input"])
+
+    def test_adapter_postprocesses_calcite_quoted_postgres_schema_identifiers(self) -> None:
+        row = _postgres_case_row("CONS_0036")
+        resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            runtime_script = Path(temp_dir) / "fake_calcite_runtime.py"
+            runtime_script.write_text(
+                "\n".join(
+                    [
+                        "import pathlib",
+                        "import sys",
+                        "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
+                        "assert pathlib.Path(args['--source-sql']).exists()",
+                        "assert pathlib.Path(args['--ddl']).exists()",
+                        "pathlib.Path(args['--output-sql']).write_text(",
+                        "    'SELECT \"NAME\", COUNT(*) AS \"C\"\\nFROM \"DEPT\"\\nGROUP BY \"NAME\"\\n',",
+                        "    encoding='utf-8',",
+                        ")",
+                        "print('runtime_ok=true')",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_postgres_identifier_postprocess_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            candidate_sql = result.candidate_sql_path.read_text(encoding="utf-8")
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+
+        self.assertTrue(result.candidate_generated)
+        self.assertIn("FROM dept", candidate_sql)
+        self.assertIn("GROUP BY name", candidate_sql)
+        self.assertIn('AS "C"', candidate_sql)
+        self.assertNotIn('"DEPT"', candidate_sql)
+        self.assertNotIn('"NAME"', candidate_sql)
+        postprocess = payload["candidate_postprocess"]
+        self.assertTrue(postprocess["changed"])
+        self.assertEqual(postprocess["policy"], "postgres_only_unquoted_ddl_identifier_fold_v0")
+        self.assertEqual(postprocess["replacement_identifiers"], {"DEPT": "dept", "NAME": "name"})
 
     def test_adapter_fails_closed_when_external_command_fails(self) -> None:
         row = _postgres_smoke_row()

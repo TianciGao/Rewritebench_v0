@@ -18746,3 +18746,93 @@ Push result:
 
 Next safe action:
 - Authorize a narrow Calcite identifier-quoting adapter/runtime fix candidate, or run a PostgreSQL-only route-card comparison against SQLGlot noop while preserving local-only boundaries.
+
+## 2026-05-23 - calcite_hep_pg_identifier_quoting_fix_v0
+
+Mode: local-only narrow Calcite HEP PostgreSQL identifier-quoting adapter fix with targeted generation and execution/checker validation.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_pg_identifier_quoting_fix_v0/` only.
+
+Files created:
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/README.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/source_frontier_review.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/root_cause.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/fix_summary.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/target_rows.csv`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/targeted_validation_summary.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/before_after_status.csv`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/targeted_validation_summary.json`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/remaining_blockers.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/output_shape_review.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/next_pg_rerun_plan.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/command_log.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_identifier_quoting_fix_v0/run_targeted_quote_validation.py`
+
+Files modified:
+- `baselines/calcite_hep_fail_closed/adapter.py`
+- `baselines/calcite_hep_fail_closed/README.md`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `0191b6425638eef72f494bdd5995d508d8de8ff4`.
+- Confirmed D033, D034, and D035 exist.
+- Confirmed Calcite adapter remains at `baselines/calcite_hep_fail_closed/adapter.py`.
+- Implemented PostgreSQL-only candidate postprocessing policy `postgres_only_unquoted_ddl_identifier_fold_v0`.
+- The postprocess unquotes/lowercases only simple quoted identifiers whose lowercase form appears in unquoted PostgreSQL DDL table/column metadata.
+- Aliases and computed names not present in DDL remain quoted.
+- Targeted rows: `PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0011`, `LONGTAIL_0012`, `LONGTAIL_0013`.
+- Targeted validation rows: 9.
+- Candidate generated after fix: 5.
+- Source/candidate executable after fix: 5.
+- Exact/result-consistent after fix: 1 (`CONS_0037`).
+- Improved to candidate executable but checker mismatch: 4 (`CONS_0036`, `LONGTAIL_0011`, `LONGTAIL_0012`, `LONGTAIL_0013`).
+- Unchanged no-candidate rows: 4 (`PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`).
+- Regressions: 0.
+- No timing, verifier pass, official metrics, official Semantic Equivalence Rate, formal Regression@20, MySQL/Spark run, full Track-A run, paper result update, retained-evidence promotion, or leaderboard output occurred.
+
+Validation:
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 7 passed.
+- `pytest tests/user_entry -q`: 231 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py audits/calcite_hep_pg_identifier_quoting_fix_v0/run_targeted_quote_validation.py`: passed.
+- Audit Markdown/CSV/JSON sanity passed: 11 Markdown files non-empty, `target_rows.csv` has 9 rows, `before_after_status.csv` has 9 rows, and `targeted_validation_summary.json` parses with target rows 9 and regressions 0.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Changed-path scan confirmed only allowed audit, baseline adapter/README, focused test, and project-control paths changed.
+- Calcite artifact scan found no JAR/class/build outputs staged.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+Timing collected: no.
+Verifier pass performed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+LLM baseline run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Rerun the bounded PostgreSQL Calcite candidate-generation/execution/checker/timing diagnostic chain to refresh the local route card; keep DATETIME/TIMESTAMP, PORT source-role, schema-fallback, and mismatch semantics as separate tasks.

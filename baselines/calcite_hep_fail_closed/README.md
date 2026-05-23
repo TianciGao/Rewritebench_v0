@@ -32,5 +32,13 @@ successfully and writes a non-empty candidate file. Missing runtime, missing
 schema DDL, command failure, timeout, or empty output all fail closed without
 candidate SQL.
 
+For PostgreSQL only, generated candidate SQL is post-processed by a narrow
+identifier-folding guard: simple double-quoted identifiers are unquoted and
+lowercased only when their lowercase form appears as an unquoted table or
+column identifier in the resolved PostgreSQL DDL. Aliases and computed names
+that are not DDL identifiers remain unchanged. This keeps the fix scoped to
+Calcite output that quotes source DDL names such as `"DEPT"` even though
+PostgreSQL loaded the unquoted relation as `dept`.
+
 No Calcite source code, JARs, native libraries, build outputs, or dependency
 caches belong in this repository.

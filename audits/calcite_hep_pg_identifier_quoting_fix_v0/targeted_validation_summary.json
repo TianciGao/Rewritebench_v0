@@ -1,0 +1,28 @@
+{
+  "after_candidate_executable_rows": 5,
+  "after_candidate_generated_rows": 5,
+  "after_exact_rows": 1,
+  "after_failure_bucket_counts": {
+    "mismatch": 4,
+    "no_candidate_sql": 4,
+    "none": 1
+  },
+  "after_source_executable_rows": 5,
+  "improved_to_candidate_executable_rows": 4,
+  "improved_to_exact_rows": 1,
+  "improvement_status_counts": {
+    "improved_to_candidate_executable": 4,
+    "improved_to_exact": 1,
+    "unchanged_no_candidate": 4
+  },
+  "local_only": true,
+  "official_metric_input": false,
+  "output_root": "/tmp/sqlrb_calcite_hep_pg_identifier_quoting_fix_v0",
+  "paper_result": false,
+  "regressed_rows": 0,
+  "run_id": "calcite_hep_pg_identifier_quoting_fix",
+  "schema_version": "calcite_pg_identifier_quoting_fix_validation_summary_v0",
+  "target_rows": 9,
+  "timing_collected": false,
+  "verifier_run": false
+}

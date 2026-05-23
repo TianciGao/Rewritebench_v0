@@ -61,6 +61,14 @@ ENGINE_SCHEMA_SUFFIX = {
     "spark": "spark",
 }
 
+DDL_CONSTRAINT_KEYWORDS = {
+    "check",
+    "constraint",
+    "foreign",
+    "primary",
+    "unique",
+}
+
 
 class AdapterError(Exception):
     """Expected adapter configuration error."""
@@ -280,6 +288,119 @@ def _runtime_mode() -> str:
     return os.environ.get("SQLRB_CALCITE_HEP_MODE", "real_route_canary").strip() or "real_route_canary"
 
 
+def _identifier_token_parts(token: str) -> tuple[str, bool]:
+    stripped = token.strip()
+    if stripped.startswith('"') and stripped.endswith('"') and len(stripped) >= 2:
+        return stripped[1:-1].replace('""', '"'), True
+    return stripped, False
+
+
+def _split_top_level_csv(text: str) -> list[str]:
+    parts: list[str] = []
+    start = 0
+    depth = 0
+    in_single = False
+    in_double = False
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char == "'" and not in_double:
+            in_single = not in_single
+        elif char == '"' and not in_single:
+            in_double = not in_double
+        elif not in_single and not in_double:
+            if char == "(":
+                depth += 1
+            elif char == ")" and depth > 0:
+                depth -= 1
+            elif char == "," and depth == 0:
+                parts.append(text[start:index].strip())
+                start = index + 1
+        index += 1
+    tail = text[start:].strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
+
+def _postgres_folded_schema_identifiers(schema_ddl_path: Path) -> set[str]:
+    """Return unquoted DDL identifiers that PostgreSQL folds to lowercase."""
+
+    text = schema_ddl_path.read_text(encoding="utf-8")
+    identifiers: set[str] = set()
+    table_pattern = re.compile(
+        r"\bCREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?"
+        r"(?P<table>(?:\"(?:[^\"]|\"\")+\"|[A-Za-z_][A-Za-z0-9_$]*)(?:\s*\.\s*(?:\"(?:[^\"]|\"\")+\"|[A-Za-z_][A-Za-z0-9_$]*))?)"
+        r"\s*\((?P<body>.*?)\)\s*;",
+        re.IGNORECASE | re.DOTALL,
+    )
+    token_pattern = re.compile(r'^\s*("[^"]+"|[A-Za-z_][A-Za-z0-9_$]*)')
+    for match in table_pattern.finditer(text):
+        table_token = match.group("table").split(".")[-1].strip()
+        table_name, table_quoted = _identifier_token_parts(table_token)
+        if not table_quoted and table_name:
+            identifiers.add(table_name.lower())
+        for column_def in _split_top_level_csv(match.group("body")):
+            token_match = token_pattern.match(column_def)
+            if not token_match:
+                continue
+            column_token = token_match.group(1)
+            column_name, column_quoted = _identifier_token_parts(column_token)
+            if column_quoted or column_name.lower() in DDL_CONSTRAINT_KEYWORDS:
+                continue
+            identifiers.add(column_name.lower())
+    return identifiers
+
+
+def normalize_postgres_calcite_identifiers(sql: str, schema_ddl_path: Path) -> tuple[str, dict[str, object]]:
+    """Unquote/lowercase Calcite identifiers that match unquoted PostgreSQL DDL names.
+
+    This is intentionally narrower than a SQL rewriter: only simple double-quoted
+    identifiers whose lowercase form is present in the resolved PostgreSQL DDL
+    are normalized. Calcite aliases and computed names not present in DDL remain
+    unchanged.
+    """
+
+    ddl_identifiers = _postgres_folded_schema_identifiers(schema_ddl_path)
+    replacements: dict[str, str] = {}
+    replacement_count = 0
+
+    def replace(match: re.Match[str]) -> str:
+        nonlocal replacement_count
+        raw = match.group(1)
+        lowered = raw.lower()
+        if lowered not in ddl_identifiers:
+            return match.group(0)
+        replacements[raw] = lowered
+        replacement_count += 1
+        return lowered
+
+    normalized = re.sub(r'"([A-Za-z_][A-Za-z0-9_]*)"', replace, sql)
+    return normalized, {
+        "enabled": True,
+        "ddl_identifier_count": len(ddl_identifiers),
+        "replacement_count": replacement_count,
+        "replacement_identifiers": dict(sorted(replacements.items())),
+        "policy": "postgres_only_unquoted_ddl_identifier_fold_v0",
+    }
+
+
+def _postprocess_candidate_sql_if_needed(
+    *,
+    env: dict[str, str],
+    schema_ddl_path: Path,
+    candidate_path: Path,
+) -> dict[str, object]:
+    if env["SQLRB_ENGINE"] != "postgres":
+        return {"enabled": False, "policy": "postgres_only"}
+    original = candidate_path.read_text(encoding="utf-8")
+    normalized, metadata = normalize_postgres_calcite_identifiers(original, schema_ddl_path)
+    metadata["changed"] = normalized != original
+    if normalized != original:
+        candidate_path.write_text(normalized, encoding="utf-8")
+    return metadata
+
+
 def invoke_calcite_runtime(
     *,
     env: dict[str, str],
@@ -364,12 +485,18 @@ def invoke_calcite_runtime(
             "runtime": runtime,
         }
     if candidate_path.exists() and candidate_path.read_text(encoding="utf-8").strip():
+        postprocess = _postprocess_candidate_sql_if_needed(
+            env=env,
+            schema_ddl_path=schema_ddl_path,
+            candidate_path=candidate_path,
+        )
         return {
             "preflight_status": "calcite_invocation_succeeded",
             "unsupported_reason": "",
             "candidate_generated": True,
             "failure_bucket": "none",
             "runtime": runtime,
+            "candidate_postprocess": postprocess,
         }
     return {
         "preflight_status": "calcite_no_candidate_sql",
