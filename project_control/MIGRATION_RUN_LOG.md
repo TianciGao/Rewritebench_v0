@@ -17017,3 +17017,82 @@ Push result:
 
 Next safe action:
 - Plan a small feature-aware exact-candidate VeriEQL subset with one uniform declared bound/timeout policy; full Common-core exact-candidate verifier pass remains blocked.
+
+## 2026-05-23 - verieql_bound4_two_row_uniform_policy_pass_v0
+
+Mode: local-only exact-gated two-row VeriEQL finite-bound pass under one uniform declared policy.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_bound4_two_row_uniform_policy_pass_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/README.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/selection_review.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/exact_gate_review.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/verifier_policy.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/verifier_pair_shape_review.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/verifier_results_summary.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/per_row_verdicts.csv`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/diagnostic_summary.json`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/command_log.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/protected_surface_check.md`
+- `audits/verieql_bound4_two_row_uniform_policy_pass_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Rows selected: `CONS_0036`, `CONS_0037`.
+- Both rows passed exact/result-consistency gate.
+- Uniform VeriEQL policy: `finite_bound_bound4_timeout30_cores1`.
+- `CONS_0036` verdict at bound 4: `equivalent`, raw states `EQU,EQU,EQU,EQU`.
+- `CONS_0037` verdict at bound 4: `equivalent`, raw states `EQU,EQU,EQU,EQU`.
+- Local bound-4 two-row diagnostic Semantic Equivalence Rate: 1.0 over two decidable rows.
+- Verifier decidability rate: 1.0.
+- Verifier eligibility rate: 1.0.
+- New blockers: none in this two-row bound-4 pass.
+- This result is tied only to the declared `bound_size=4` policy and does not imply equivalence under `bound_size=10`.
+
+Validation:
+- Audit Markdown/CSV/JSON sanity passed: 10 Markdown files non-empty, `per_row_verdicts.csv` has 2 data rows, and `diagnostic_summary.json` parsed.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source tree modified: no.
+SQLSolver run performed: no.
+Full Common-core run performed: no.
+All exact rows run through VeriEQL: no.
+Official Semantic Equivalence Rate computed: no.
+Local bound-4 two-row diagnostic Semantic Equivalence Rate computed: yes.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Plan a small feature-aware one-baseline exact-candidate VeriEQL subset using one uniform declared bound-4 policy; full Common-core exact-candidate verifier pass remains blocked.
