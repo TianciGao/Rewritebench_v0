@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- PostgreSQL only: yes.
+- Selected rows: 40.
+- MySQL/Spark run: no.
+- All 120 Track-A rows run: no.
+- Direct LLM or Repair-1 run: no.
+- SQLSolver or VeriEQL run: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Calcite vendored or committed: no.
+- Runtime artifacts committed: no.
+- Schema-fallback candidates excluded by policy: yes.
+- Exact-gated timing only: yes.

@@ -18836,3 +18836,112 @@ Push result:
 
 Next safe action:
 - Rerun the bounded PostgreSQL Calcite candidate-generation/execution/checker/timing diagnostic chain to refresh the local route card; keep DATETIME/TIMESTAMP, PORT source-role, schema-fallback, and mismatch semantics as separate tasks.
+
+## 2026-05-24 - calcite_hep_pg_post_quoting_chain_rerun_v0
+
+Mode: local-only PostgreSQL Calcite HEP diagnostic chain rerun after identifier-quoting fix.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_pg_post_quoting_chain_rerun_v0/` only.
+
+Files created:
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/README.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/run_scope.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/candidate_generation_summary.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/execution_checker_summary.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/timing_summary.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/route_card.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/pre_post_fix_comparison.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/non_exact_frontier.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/remaining_blockers.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/paper_boundary.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/next_steps.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/command_log.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/per_row_candidate_status.csv`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/per_row_execution_checker_status.csv`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/per_row_timing.csv`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/route_card.json`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/route_card.csv`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/diagnostic_summary.json`
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/run_post_quoting_chain.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `a429bd300137483d504d25b9a6e6d7e5d9fdc14f`.
+- Confirmed D033, D034, and D035 exist.
+- Confirmed Calcite adapter remains at `baselines/calcite_hep_fail_closed/adapter.py`.
+- Confirmed required prior audit packets exist.
+- Confirmed external Calcite runtime and PostgreSQL local execution environment are available.
+- Reran candidate generation over 40 Common-core v0 PostgreSQL rows.
+- Generated candidates: 33.
+- No-candidate rows: 7.
+- Schema-fallback candidates: 4.
+- Schema-fallback candidates excluded by policy: 4.
+- Execution/checker attempted rows: 29.
+- Source-executable rows: 28.
+- Candidate-executable rows: 28.
+- Checker-attempted rows: 28.
+- Exact/result-consistent rows: 22.
+- Mismatch rows: 6.
+- Source execution failures: 1.
+- Candidate execution failures: 0.
+- Timing attempted rows: 22.
+- Timed exact rows: 22.
+- Timing failures: 0.
+- Local diagnostic generation rate: 0.825000.
+- Local diagnostic execution coverage rate: 0.700000.
+- Local diagnostic result consistency rate: 0.550000.
+- Diagnostic GM speedup over exact timed rows: 1.009852.
+- Diagnostic speedup P10/P25/P50/P75/P90: 0.981979 / 0.989623 / 0.995700 / 1.005620 / 1.008519.
+- Compared with pre-fix route card: generated candidates 33 -> 33, candidate-executable rows 23 -> 28, exact rows 20 -> 22, mismatches 3 -> 6, candidate execution failures 8 -> 0, no-candidate rows 7 -> 7, timed exact rows 20 -> 22, diagnostic GM speedup 0.995749 -> 1.009852.
+- Remaining frontier: 7 no-candidate rows, 4 schema-fallback policy exclusions, 1 source execution failure, and 6 checker mismatches.
+- No MySQL/Spark, all-120 Track-A, Direct LLM, Repair-1, SQLSolver, VeriEQL, official metrics, official Semantic Equivalence Rate, formal Regression@20, paper update, retained-evidence promotion, or leaderboard output occurred.
+
+Validation:
+- Audit Markdown non-empty.
+- `per_row_candidate_status.csv` has 40 rows.
+- `per_row_execution_checker_status.csv` has 40 rows.
+- `per_row_timing.csv` has 40 rows.
+- `route_card.csv` has 1 row.
+- `route_card.json` and `diagnostic_summary.json` parse with expected counts.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 7 passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py audits/calcite_hep_pg_post_quoting_chain_rerun_v0/run_post_quoting_chain.py`: passed.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+Timing collected: yes, local diagnostic exact-gated only.
+Verifier pass performed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+LLM baseline run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Use the refreshed PostgreSQL Calcite route card for a bounded local diagnostic comparison against SQLGlot noop; keep MySQL/Spark/full-120 blocked pending PORT source-role, DATETIME/TIMESTAMP, schema-fallback, and mismatch triage.
