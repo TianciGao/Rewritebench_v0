@@ -16865,3 +16865,83 @@ Push result:
 
 Next safe action:
 - Rerun or monitor `user-entry-smoke`; if the checkout failure recurs, inspect GitHub token/ref context or add narrowly scoped checkout diagnostics without changing benchmark logic.
+
+## 2026-05-23 - verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0
+
+Mode: bounded local-only VeriEQL finite-bound exact-candidate pass.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/README.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/selection_review.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/exact_gate_review.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/verifier_pair_shape_review.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/verifier_results_summary.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/per_row_verdicts.csv`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/diagnostic_summary.json`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/command_log.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/protected_surface_check.md`
+- `audits/verieql_cons0036_cons0037_two_row_exact_candidate_pass_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Rows selected: `CONS_0036`, `CONS_0037`.
+- Both rows passed exact/result-consistency gate.
+- VeriEQL finite-bound settings: `bound_size=10`, `timeout_seconds=30`, `cores=1`.
+- `CONS_0036` verdict: `equivalent`, raw states all `EQU`.
+- `CONS_0037` verdict: `timeout`, raw states `EQU,EQU,EQU,EQU,TMO`.
+- `CONS_0037` DDL parser blocker is resolved; schema metadata reached VeriEQL with `DEPT.NAME=VARCHAR(32)`.
+- New blocker: `CONS_0037` is not decidable at current bound/timeout because of timeout.
+- Local two-row diagnostic Semantic Equivalence Rate: 1.0 over one decidable row.
+- Verifier decidability rate: 0.5.
+- Verifier eligibility rate: 1.0.
+- This is not official Semantic Equivalence Rate and not paper evidence.
+
+Validation:
+- Focused VeriEQL tests passed: `pytest tests/user_entry/test_verieql_support.py -q` reported 20 passed and 3 subtests passed.
+- Audit Markdown/CSV/JSON sanity passed: 9 Markdown files non-empty, `per_row_verdicts.csv` has 2 data rows, and `diagnostic_summary.json` parsed.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source tree modified: no.
+SQLSolver run performed: no.
+Full Common-core run performed: no.
+All exact rows run through VeriEQL: no.
+Official Semantic Equivalence Rate computed: no.
+Local two-row diagnostic Semantic Equivalence Rate computed: yes.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Run only a small timeout-aware feature-aware subset expansion or a targeted `CONS_0037` timeout/bound policy probe; full Common-core exact-candidate verifier pass remains blocked.
