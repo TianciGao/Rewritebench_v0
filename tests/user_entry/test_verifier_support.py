@@ -26,6 +26,9 @@ class VerifierSupportTests(unittest.TestCase):
             "unknown": ["unknown", "inconclusive", "undecidable"],
             "timeout": ["timeout", "timed_out"],
             "unsupported": ["unsupported", "not supported"],
+            "syntax_error": ["syntax_error", "syntax error", "syn"],
+            "not_implemented": ["not_implemented", "not implemented", "nie"],
+            "out_of_memory": ["out_of_memory", "out of memory", "oom"],
             "tool_error": ["tool_error", "parse_error", "crash"],
             "not_attempted": ["not_attempted", "skipped", ""],
         }
@@ -96,6 +99,9 @@ class VerifierSupportTests(unittest.TestCase):
         self.assertEqual(summary["unknown_count"], 1)
         self.assertEqual(summary["timeout_count"], 1)
         self.assertEqual(summary["unsupported_count"], 1)
+        self.assertEqual(summary["syntax_error_count"], 0)
+        self.assertEqual(summary["not_implemented_count"], 0)
+        self.assertEqual(summary["out_of_memory_count"], 0)
         self.assertEqual(summary["tool_error_count"], 1)
         self.assertEqual(summary["not_attempted_count"], 1)
         self.assertFalse(summary["result_checker_exactness_used"])

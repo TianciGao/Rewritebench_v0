@@ -13,6 +13,9 @@ ALLOWED_VERDICTS = {
     "unknown",
     "timeout",
     "unsupported",
+    "syntax_error",
+    "not_implemented",
+    "out_of_memory",
     "tool_error",
     "not_attempted",
 }
@@ -68,6 +71,9 @@ _NORMALIZATION_ALIASES = {
     "unknown": {"unknown", "inconclusive", "undecidable", "unknown_or_undecidable"},
     "timeout": {"timeout", "timed_out", "time_limit", "time_limit_exceeded", "time limit exceeded"},
     "unsupported": {"unsupported", "unsupported_sql", "unsupported_syntax", "not_supported", "not supported"},
+    "syntax_error": {"syntax_error", "syntax error", "syn"},
+    "not_implemented": {"not_implemented", "not implemented", "nie", "implementation_missing"},
+    "out_of_memory": {"out_of_memory", "out of memory", "oom", "memory_limit"},
     "tool_error": {"tool_error", "error", "exception", "crash", "parse_error", "failed", "failure"},
     "not_attempted": {"not_attempted", "not attempted", "not_run", "not run", "skipped"},
 }
@@ -75,6 +81,9 @@ _NORMALIZATION_ALIASES = {
 _STATUS_ALIASES = {
     "timeout": {"timeout", "timed_out"},
     "unsupported": {"unsupported", "not_supported"},
+    "syntax_error": {"syntax_error"},
+    "not_implemented": {"not_implemented"},
+    "out_of_memory": {"out_of_memory"},
     "tool_error": {"tool_error", "error", "failed", "failure", "crash"},
     "not_attempted": {"not_attempted", "not_run", "skipped"},
 }

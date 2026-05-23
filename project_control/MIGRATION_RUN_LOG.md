@@ -16543,3 +16543,95 @@ Push result:
 
 Next safe action:
 - Authorize a tiny exact-candidate local VeriEQL verifier pass, exact/result-consistency gated and local-only, before any broader verifier expansion or official evidence promotion.
+
+## 2026-05-23 - verieql_exact_candidate_tiny_local_pass_v0
+
+Mode: tiny local-only VeriEQL finite-bound exact-candidate pass.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_exact_candidate_tiny_local_pass_v0/` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/README.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/selection_review.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/exact_gate_review.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/verifier_pair_shape_review.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/verifier_results_summary.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/command_log.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/protected_surface_check.md`
+- `audits/verieql_exact_candidate_tiny_local_pass_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/summary.py`
+- `src/sql_rewrite_bench/verifier_support/verdicts.py`
+- `src/sql_rewrite_bench/verifier_support/verieql.py`
+- `tests/user_entry/test_verieql_support.py`
+- `tests/user_entry/test_verifier_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Input run/source of candidate rows: `runs/user/common_core_pg_noop_db_checker`.
+- Route/method and engine: SQLGlot noop, PostgreSQL.
+- Selected rows: `CONS_0036`, `PERF_0077`, and `PERF_0082`.
+- Exact/result-consistency gated rows: 3/3.
+- Verifier attempted rows: 3.
+- VeriEQL settings: `verifier_mode=finite_bound`, `bound_size=10`, `timeout_seconds=30`, `cores=1`.
+- `CONS_0036` returned clean all-`EQU` states and normalized to `equivalent`.
+- `PERF_0077` returned `NIE` on a `LIKE` predicate shape and normalized to `not_implemented`.
+- `PERF_0082` returned `NIE` on a `LIKE` predicate shape and normalized to `not_implemented`.
+- Local tiny diagnostic counts: equivalent 1, non-equivalent 0, unknown 0, timeout 0, unsupported 0, syntax error 0, not implemented 2, out of memory 0, tool error 0, not attempted 0.
+- Decidable count: 1.
+- Local tiny diagnostic semantic equivalence rate: 1.0 over the one decidable row.
+- Verifier decidability rate: 0.3333333333333333.
+- Local result checker exactness used as verifier equivalence: no.
+- New blockers: VeriEQL `LIKE` predicate support surfaced as `not_implemented`; DDL parser should be hardened for parameterized types before broader exact-candidate passes.
+- Broader readiness: ready for a bounded feature-aware one-baseline subset plan; full Common-core exact-candidate verifier pass remains blocked.
+
+Validation:
+- Focused preflight tests passed: `pytest tests/user_entry/test_verieql_support.py -q` reported 18 passed.
+- Focused post-normalization tests passed: `pytest tests/user_entry/test_verieql_support.py -q` reported 18 passed.
+- Focused verifier-support tests passed: `pytest tests/user_entry/test_verifier_support.py -q` reported 7 passed.
+- Full user-entry tests passed: `pytest tests/user_entry -q` reported 216 passed, 1 skipped, 12 subtests passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/summary.py src/sql_rewrite_bench/verifier_support/verdicts.py src/sql_rewrite_bench/verifier_support/verieql.py` passed.
+- Audit Markdown sanity check passed; 9 Markdown files were non-empty.
+- `git diff --check`: passed.
+- Protected-surface check passed; only allowed verifier-support, focused tests, audit, and project-control paths changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed before commit.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo modified: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL patched: no.
+VeriEQL copied/vendorized: no.
+Common-core run performed: no.
+All Track-A rows run: no.
+Method-generated candidate rows beyond tiny selected set run: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Plan a bounded one-baseline exact-candidate VeriEQL subset with feature-aware row selection and DDL parser hardening before any broader or official verifier pass.

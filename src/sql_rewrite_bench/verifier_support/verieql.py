@@ -210,7 +210,13 @@ def normalize_verieql_jsonl_record(record: Mapping[str, Any] | None) -> str:
         return "non_equivalent"
     if any(state in {"UNK", "UNKNOWN"} for state in states) or "unknown" in text or "undecidable" in text:
         return "unknown"
-    if any(state in {"SYN", "NIE", "OOM", "OTE"} for state in states):
+    if any(state in {"SYN"} for state in states):
+        return "syntax_error"
+    if any(state in {"NIE"} for state in states):
+        return "not_implemented"
+    if any(state in {"OOM"} for state in states):
+        return "out_of_memory"
+    if any(state in {"OTE"} for state in states):
         return "tool_error"
     if states and all(state in {"EQU", "EQ", "EQUIVALENT"} for state in states) and not err:
         return "equivalent"
@@ -581,7 +587,7 @@ def _run_jsonl_batch_pairs(
         output_record = output_records.get(index)
         normalized = normalize_verieql_jsonl_record(output_record)
         invocation_status = "completed"
-        if normalized in {"timeout", "unsupported", "tool_error"}:
+        if normalized in {"timeout", "unsupported", "syntax_error", "not_implemented", "out_of_memory", "tool_error"}:
             invocation_status = normalized
         verdict_records.append(
             _batch_output_pair(
