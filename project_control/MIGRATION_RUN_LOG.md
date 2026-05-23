@@ -15329,3 +15329,69 @@ Push result:
 
 Next safe action:
 - Review the fail-closed VeriEQL canary wrapper or provide/authorize a local VeriEQL command path for a one-pair `CONS_0005` canary.
+
+## 2026-05-23 - sqlsolver_bounded_smoke_v3
+
+Mode: bounded SQLSolver adapter wrapper and fail-closed smoke.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+
+Files created:
+- `src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `tests/user_entry/test_sqlsolver_support.py`
+- `audits/sqlsolver_bounded_smoke_v3/README.md`
+- `audits/sqlsolver_bounded_smoke_v3/implementation_summary.md`
+- `audits/sqlsolver_bounded_smoke_v3/tool_detection.md`
+- `audits/sqlsolver_bounded_smoke_v3/smoke_pair_selection.md`
+- `audits/sqlsolver_bounded_smoke_v3/verdict_normalization_review.md`
+- `audits/sqlsolver_bounded_smoke_v3/semantic_equivalence_summary_review.md`
+- `audits/sqlsolver_bounded_smoke_v3/output_contract_conformance.md`
+- `audits/sqlsolver_bounded_smoke_v3/test_results.md`
+- `audits/sqlsolver_bounded_smoke_v3/protected_surface_check.md`
+- `audits/sqlsolver_bounded_smoke_v3/command_log.md`
+- `audits/sqlsolver_bounded_smoke_v3/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed_with_unavailable_tool_fail_closed_smoke`.
+- Added a narrow SQLSolver wrapper for local command detection, fail-closed unavailable handling, bounded synthetic smoke invocation when a command is explicitly available, output normalization, and D035 verifier output writing.
+- Local detection found SQLSolver unavailable: `tool_available=false`, `tool_version=null`, `detection_reason=sqlsolver_command_not_found`.
+- No external tool was installed.
+- Real SQLSolver smoke execution was skipped.
+- Temp-root fail-closed smoke wrote one `not_attempted` row with `semantic_equivalence_rate=null` and `na_reason=sqlsolver_unavailable`.
+- VeriEQL behavior was not changed or run.
+- Metadata correction: `verieql_bounded_canary_v2` final commit was `269fc40` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+SQLSolver adapter implemented: yes.
+Real SQLSolver run performed: no.
+VeriEQL changed/run: no.
+Official Semantic Equivalence Rate computed: no.
+Local bounded semantic-equivalence summary produced: yes, fail-closed temp smoke only.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Review SQLSolver and VeriEQL fail-closed wrappers together, or provide/authorize a local SQLSolver command path for the two-pair synthetic smoke.

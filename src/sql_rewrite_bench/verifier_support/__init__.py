@@ -15,6 +15,13 @@ from .verdicts import (
     normalize_verdict,
     validate_verdict_record,
 )
+from .sqlsolver import (
+    SQLSolverAvailability,
+    SQLSolverSmokeOutput,
+    detect_sqlsolver,
+    normalize_sqlsolver_output,
+    write_sqlsolver_smoke,
+)
 from .verieql import (
     VeriEQLAvailability,
     VeriEQLCanaryOutput,
@@ -28,16 +35,21 @@ __all__ = [
     "DECIDABLE_VERDICTS",
     "PAIR_FIELDS",
     "PAIR_TYPES",
+    "SQLSolverAvailability",
+    "SQLSolverSmokeOutput",
     "SyntheticVerifierFixture",
     "VeriEQLAvailability",
     "VeriEQLCanaryOutput",
     "VERDICT_FIELDS",
+    "detect_sqlsolver",
     "detect_verieql",
     "generate_semantic_equivalence_summary",
+    "normalize_sqlsolver_output",
     "normalize_verdict",
     "normalize_verieql_output",
     "validate_pair_record",
     "validate_verdict_record",
+    "write_sqlsolver_smoke",
     "write_verieql_canary",
     "write_synthetic_verifier_fixture",
 ]
