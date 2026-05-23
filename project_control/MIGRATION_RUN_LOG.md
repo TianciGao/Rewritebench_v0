@@ -16635,3 +16635,85 @@ Push result:
 
 Next safe action:
 - Plan a bounded one-baseline exact-candidate VeriEQL subset with feature-aware row selection and DDL parser hardening before any broader or official verifier pass.
+
+## 2026-05-23 - verieql_one_baseline_feature_aware_subset_plan_v0
+
+Mode: planning/audit only for feature-aware VeriEQL exact-candidate subset design.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: no verifier runtime artifacts.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/README.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/source_run_review.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/exact_row_inventory.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/exact_row_inventory.csv`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/feature_eligibility_review.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/feature_eligibility_matrix.csv`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/ddl_parser_gap_review.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/proposed_bounded_subset.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/proposed_bounded_subset.csv`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/semantic_equivalence_denominator_policy.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/next_pass_prompt.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/command_log.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/protected_surface_check.md`
+- `audits/verieql_one_baseline_feature_aware_subset_plan_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Baseline/engine: SQLGlot noop on PostgreSQL.
+- Selected rows in source run: 40.
+- Exact/result-consistent rows: 35.
+- Non-exact verifier-ineligible rows: 5, all source-execution failures.
+- Primary feature eligibility counts: `verifier_eligible_candidate=1`, `blocked_ddl_parser=1`, `blocked_like_not_implemented=4`, `blocked_exists_or_subquery=17`, `blocked_function_or_datetime=10`, `blocked_dialect_syntax=2`.
+- Cross-cutting DDL parser rough edge count: 17 exact rows have parameterized DDL types currently parsed with malformed/truncated type metadata.
+- Proposed next bounded subset: `CONS_0036` as positive control and `CONS_0037` as first expansion candidate after DDL parser hardening.
+- Denominator policy recorded: selected rows, exact candidate rows, verifier eligible exact rows, verifier attempted rows, decidable rows, non-decidable outcome buckets, local diagnostic semantic equivalence rate, verifier decidability rate, and verifier eligibility rate.
+- Ready for bounded one-baseline verifier pass: yes after DDL parser hardening; without hardening, only `CONS_0036` is safe to repeat.
+
+Validation:
+- Audit Markdown sanity passed: 11 Markdown files non-empty.
+- Audit CSV sanity passed: `exact_row_inventory.csv` has 35 data rows, `feature_eligibility_matrix.csv` has 35 data rows, and `proposed_bounded_subset.csv` has 2 data rows.
+- `git diff --check`: passed.
+- Protected-surface check passed; only the audit packet and project-control status/log changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed before commit.
+- Staged VeriEQL source tree unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo modified: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL patched: no.
+VeriEQL copied/vendorized: no.
+Full Common-core verifier pass run: no.
+All exact rows run through VeriEQL: no.
+Real VeriEQL verifier execution run in this task: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Harden DDL parsing for parameterized types, then authorize a bounded two-row `CONS_0036`/`CONS_0037` exact-candidate VeriEQL pass.
