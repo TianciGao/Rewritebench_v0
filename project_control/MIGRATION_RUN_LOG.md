@@ -18295,3 +18295,89 @@ Push result:
 
 Next safe action:
 - Authorize a bounded PostgreSQL-only Calcite HEP local diagnostic candidate-generation run, then authorize execution/checker separately only after generated candidates are reviewed.
+
+## 2026-05-23 - calcite_hep_pg_bounded_candidate_generation_v0
+
+Mode: bounded local-only PostgreSQL candidate generation for the Calcite HEP fail-closed route.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_pg_bounded_candidate_generation_v0/` only.
+
+Files created:
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/README.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/run_scope.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/runtime_environment.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/candidate_generation_summary.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/per_row_candidate_status.csv`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/generated_candidate_review.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/fail_closed_review.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/output_shape_review.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/next_execution_checker_plan.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/command_log.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_bounded_candidate_generation_v0/diagnostic_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `38a56dddbeb69d5668d181222873e878d09195fa`.
+- Confirmed D034 and D035 exist.
+- Confirmed Calcite adapter path `baselines/calcite_hep_fail_closed/adapter.py`.
+- Confirmed external Calcite runtime command `/home/tianci_gao/.local/share/sqlrb/calcite_hep/bin/calcite-hep-rewrite-smoke`.
+- Confirmed Java was available locally.
+- Ran `python -m cli.main user evaluate` for Common-core v0 PostgreSQL only, using `route_id=calcite_hep_fail_closed` and `method_id=calcite_hep_fail_closed`.
+- Selected rows: 40.
+- Adapter-invoked rows: 40.
+- Adapter exit-zero rows: 40.
+- Candidate-generated rows: 33.
+- Fail-closed rows: 7, all with `failure_bucket=no_candidate_sql`.
+- Generated candidates: 29 `calcite_rel_to_sql` rows and 4 `calcite_parse_only` schema-fallback rows requiring manual review before execution/checker authorization.
+- Fail-closed blocker buckets: four `calcite_parse_double_quote_identifier` PORT rows and three `calcite_parse_datetime_keyword_or_ddl_type` PORT rows.
+- D035 runtime output stayed under `/tmp/.../output/results|logs|reports/<run_id>/`.
+- Transient `runs/user/calcite_hep_pg_candidate_generation` workspace was copied to `/tmp` for local review and removed from the release repo.
+
+Validation:
+- Audit Markdown non-empty, `per_row_candidate_status.csv` has 40 data rows, and `diagnostic_summary.json` parses.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 5 passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py`: passed.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Tracked Calcite artifact scan found no Calcite JAR/class/build artifacts in the release repo.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+Full Common-core run performed: PostgreSQL candidate generation only; no full Track-A 120, MySQL, or Spark run.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Candidate SQL executed: no.
+Source/candidate database execution run: no.
+Result checker run: no.
+Timing/speedup collected: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Authorize a separate PostgreSQL-only execution/checker diagnostic pass over the 33 generated Calcite candidates, preserving the seven no-candidate rows and keeping timing, verifiers, and official metrics disabled.

@@ -1,0 +1,84 @@
+{
+  "adapter_exit_zero_rows": 40,
+  "adapter_invoked_rows": 40,
+  "blocker_category_counts": {
+    "calcite_parse_datetime_keyword_or_ddl_type": 3,
+    "calcite_parse_double_quote_identifier": 4,
+    "schema_ingestion_unsupported_column_definition": 1,
+    "schema_ingestion_unsupported_sql_type": 3
+  },
+  "calcite_command": "/home/tianci_gao/.local/share/sqlrb/calcite_hep/bin/calcite-hep-rewrite-smoke",
+  "calcite_runtime_status_counts": {
+    "calcite_invocation_succeeded": 33,
+    "calcite_no_candidate_sql": 7
+  },
+  "candidate_generated_rows": 33,
+  "candidate_review_status_counts": {
+    "fail_closed_no_candidate": 7,
+    "generated_calcite_rel_to_sql": 29,
+    "generated_parse_only_schema_fallback_review": 4
+  },
+  "db_execution_run": false,
+  "emission_mode_counts": {
+    "calcite_parse_only": 4,
+    "calcite_rel_to_sql": 29,
+    "failed": 7
+  },
+  "engine": "postgres",
+  "fail_closed_case_ids": [
+    "PORT_0003",
+    "PORT_0004",
+    "PORT_0005",
+    "PORT_0008",
+    "PORT_0012",
+    "PORT_0022",
+    "PORT_0025"
+  ],
+  "fail_closed_rows": 7,
+  "failure_bucket_counts": {
+    "no_candidate_sql": 7,
+    "none": 33
+  },
+  "generated_empty_rows": 0,
+  "generated_source_like_normalized_rows": 0,
+  "leaderboard_input": false,
+  "method_id": "calcite_hep_fail_closed",
+  "official_metric_input": false,
+  "official_metrics_computed": false,
+  "paper_result": false,
+  "parse_only_schema_fallback_rows": [
+    "PORT_0013",
+    "LONGTAIL_0022",
+    "LONGTAIL_0023",
+    "LONGTAIL_0024"
+  ],
+  "pool_counts": {
+    "CONS": {
+      "generated": 9,
+      "selected": 9
+    },
+    "LONGTAIL": {
+      "generated": 6,
+      "selected": 6
+    },
+    "PERF": {
+      "generated": 16,
+      "selected": 16
+    },
+    "PORT": {
+      "fail_closed": 7,
+      "generated": 2,
+      "selected": 9
+    }
+  },
+  "result_checker_run": false,
+  "retained_evidence_promoted": false,
+  "route_id": "calcite_hep_fail_closed",
+  "run_id": "calcite_hep_pg_candidate_generation",
+  "runtime_root": "/tmp/sqlrb_calcite_hep_pg_bounded_candidate_generation_v0",
+  "selected_rows": 40,
+  "source_case_set": "common_core_v0",
+  "task_title": "calcite_hep_pg_bounded_candidate_generation_v0",
+  "timing_collected": false,
+  "verifier_run": false
+}
