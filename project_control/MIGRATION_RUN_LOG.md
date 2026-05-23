@@ -17096,3 +17096,80 @@ Push result:
 
 Next safe action:
 - Plan a small feature-aware one-baseline exact-candidate VeriEQL subset using one uniform declared bound-4 policy; full Common-core exact-candidate verifier pass remains blocked.
+
+## 2026-05-23 - verieql_bound4_feature_aware_subset_plan_v0
+
+Mode: planning/audit only for a small feature-aware SQLGlot-noop PostgreSQL exact-candidate VeriEQL subset under one uniform declared policy.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: no.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/README.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/source_run_review.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/exact_row_inventory.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/exact_row_inventory.csv`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/updated_feature_eligibility_review.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/updated_feature_eligibility_matrix.csv`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/bound4_policy.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/proposed_bound4_subset.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/proposed_bound4_subset.csv`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/semantic_equivalence_denominator_policy.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/next_pass_prompt.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/command_log.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/protected_surface_check.md`
+- `audits/verieql_bound4_feature_aware_subset_plan_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Selected rows: 40.
+- Exact/result-consistent rows: 35.
+- Non-exact verifier-ineligible rows: 5.
+- Updated exact-row eligibility counts: 2 `already_validated_bound4_equivalent`, 17 `blocked_exists_or_subquery`, 10 `blocked_function_or_datetime`, 4 `blocked_like_not_implemented`, and 2 `blocked_dialect_syntax`.
+- Already validated bound-4 rows: `CONS_0036` and `CONS_0037`.
+- Proposed next subset: `CONS_0036` and `CONS_0037` under `finite_bound_bound4_timeout30_cores1`.
+- No broader VeriEQL subset pass was run.
+
+Validation:
+- Audit Markdown/CSV sanity passed: 11 Markdown files non-empty, `exact_row_inventory.csv` has 35 data rows, `updated_feature_eligibility_matrix.csv` has 35 data rows, and `proposed_bound4_subset.csv` has 2 data rows.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Broader subset run through VeriEQL: no.
+Full Common-core run performed: no.
+All exact rows run through VeriEQL: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Run the actual small two-row bound-4 feature-aware exact-candidate verifier pass for `CONS_0036` and `CONS_0037`, then keep broader expansion blocked until LIKE/subquery/function/dialect blockers are addressed or explicitly scoped.
