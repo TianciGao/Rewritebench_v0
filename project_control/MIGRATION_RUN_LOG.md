@@ -16308,3 +16308,75 @@ Push result:
 
 Next safe action:
 - Inspect VeriEQL internal state semantics, bound-size behavior, or schema/constraint encoding before expanding equivalent-path real-case canaries; keep `EQU+TMO` classified as timeout.
+
+## 2026-05-23 - verieql_internal_state_schema_probe_v0
+
+Mode: read-only VeriEQL internal state/schema audit.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: no.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_internal_state_schema_probe_v0/README.md`
+- `audits/verieql_internal_state_schema_probe_v0/state_semantics_review.md`
+- `audits/verieql_internal_state_schema_probe_v0/jsonl_schema_expectation_review.md`
+- `audits/verieql_internal_state_schema_probe_v0/constraint_schema_gap_review.md`
+- `audits/verieql_internal_state_schema_probe_v0/equivalent_timeout_hypotheses.md`
+- `audits/verieql_internal_state_schema_probe_v0/builtin_examples_review.md`
+- `audits/verieql_internal_state_schema_probe_v0/recommendation.md`
+- `audits/verieql_internal_state_schema_probe_v0/command_log.md`
+- `audits/verieql_internal_state_schema_probe_v0/protected_surface_check.md`
+- `audits/verieql_internal_state_schema_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: timeout-mode semantics explain `EQU...TMO`; no immediate wrapper JSONL input-format bug found.
+- State semantics recorded: `EQU` finite-bound equivalence, `NEQ` non-equivalence/counterexample, `TMO` timeout, `NSE` unsupported feature.
+- Multiple states per pair: yes, the timeout runner increases finite `bound_size` after each `EQU`.
+- Policy: any `TMO` in the state list remains normalized as `timeout`; partial `EQU+TMO` is not official or local clean equivalence evidence.
+- JSONL expectation: records need `index`, `schema`, `constraint`, and `pair`; wrapper traceability fields are tolerated.
+- Schema/constraint conclusion: current synthetic schema is sufficient to reach tool logic; missing constraints are not the leading explanation for identical-pair `EQU+TMO`.
+- Built-in examples: direct finite-bound API and `parallel.cli_within_bound` are the likely paths for a future clean equivalent toy smoke; timeout-mode historical outputs mostly show `EQU...TMO` rather than clean all-`EQU`.
+- Official Semantic Equivalence Rate: no.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Audit CSV sanity check: not applicable; this packet does not create CSV files.
+- `git diff --check`: passed.
+- Protected-surface check passed; only `audits/verieql_internal_state_schema_probe_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md` changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts were staged or committed.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source tree modified: no.
+New real VeriEQL canary run: no.
+SQLSolver run performed: no.
+Common-core run performed: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+Tools copied/vendorized: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize a local-only finite-bound VeriEQL toy smoke using `parallel.cli_within_bound`, proceed to SQLSolver setup/smoke, or pause verifier expansion and keep Semantic Equivalence Rate as `N.A.`.
