@@ -18146,3 +18146,75 @@ Push result:
 
 Next safe action:
 - Separately authorize external Calcite HEP runtime/invocation staging using `baselines/calcite_hep_fail_closed/adapter.py`.
+
+## 2026-05-23 - ci_user_entry_smoke_calcite_layout_failure_fix_v0
+
+Mode: narrow CI user-entry smoke diagnosis and test-only fix.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source tree modified: no.
+Runtime artifacts written: temporary local validation artifacts only; none staged.
+
+Files created:
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/README.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/root_cause.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/fix_summary.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/validation.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/protected_surface_check.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/command_log.md`
+- `audits/ci_user_entry_smoke_calcite_layout_failure_fix_v0/boundary_checklist.md`
+
+Files modified:
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Root cause reproduced from a fresh archive copy with no `runs/user` directory.
+- The Calcite route test assumed `runs/user` existed by passing it as `tempfile.TemporaryDirectory(dir=...)`.
+- Fresh checkout failure was `FileNotFoundError` before the test could call the user runner.
+- Test now uses a unique relative `runs/user/calcite_fail_closed_unit_<uuid>` path and lets `run_user_benchmark` create the directory.
+- Test removes only its own output directory in `finally`.
+- No workflow, CI script, or Calcite adapter change was required.
+- Calcite baseline adapter remains D035-compliant at `baselines/calcite_hep_fail_closed/adapter.py`.
+
+Validation:
+- Fresh archive copy before fix reproduced `FileNotFoundError`.
+- Fresh copy after fix with no pre-existing `runs/user`: focused Calcite route test passed.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 3 passed.
+- `python scripts/dev/run_user_entry_ci_smoke.py`: passed.
+- `pytest tests/user_entry -q`: 227 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py`: passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/build outputs committed: no.
+Workflow modified: no.
+CI smoke script modified: no.
+Calcite adapter modified: no.
+Full Common-core run performed: no.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Rerun/monitor `user-entry-smoke`; if green, proceed only with separately authorized external Calcite HEP runtime/invocation staging.

@@ -1,9 +1,11 @@
 import csv
 import json
 import os
+import shutil
 import sys
 import tempfile
 import unittest
+import uuid
 from pathlib import Path
 from unittest.mock import patch
 
@@ -36,6 +38,10 @@ def _clear_calcite_env() -> None:
         "SQLRB_CALCITE_HEP_JAVA",
     ]:
         os.environ.pop(name, None)
+
+
+def _unique_user_out(name: str) -> Path:
+    return Path("runs") / "user" / f"{name}_{uuid.uuid4().hex}"
 
 
 class CalciteHepFailClosedRouteTests(unittest.TestCase):
@@ -80,8 +86,8 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertFalse(payload["official_metric_input"])
 
     def test_user_run_captures_calcite_fail_closed_rows(self) -> None:
-        with tempfile.TemporaryDirectory(dir=REPO_ROOT / "runs" / "user") as temp_dir:
-            out = Path(temp_dir).relative_to(REPO_ROOT)
+        out = _unique_user_out("calcite_fail_closed_unit")
+        try:
             with patch.dict(os.environ, {}, clear=False):
                 _clear_calcite_env()
                 summary = run_user_benchmark(
@@ -104,6 +110,8 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
                 )
             with (REPO_ROOT / out / "ledger.csv").open(newline="", encoding="utf-8") as f:
                 rows = list(csv.DictReader(f))
+        finally:
+            shutil.rmtree(REPO_ROOT / out, ignore_errors=True)
 
         self.assertEqual(summary["selected_rows"], 2)
         self.assertEqual(summary["adapter_invoked_rows"], 2)
