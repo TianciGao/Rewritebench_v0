@@ -1,0 +1,24 @@
+# Boundary Checklist
+
+- PostgreSQL Common-core v0 slice only in recorded diagnostic run: yes.
+- Generated candidates execution/checker only: yes.
+- No-candidate rows preserved: yes.
+- Schema-fallback rows reported separately: yes.
+- Timing collected: no.
+- SQLSolver run: no.
+- VeriEQL run: no.
+- Official Semantic Equivalence Rate computed: no.
+- Official metrics computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- MySQL/Spark recorded diagnostic run: no.
+- Full Track-A 120 run: no.
+- Direct LLM/Repair-1 run: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Calcite vendored into release repo: no.
+- `runs/user/` artifacts committed: no.
+- Repository-level `output/` artifacts committed: no.
+- Runtime artifacts limited to `/tmp`: yes.

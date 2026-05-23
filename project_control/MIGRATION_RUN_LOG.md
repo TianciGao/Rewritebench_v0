@@ -18381,3 +18381,94 @@ Push result:
 
 Next safe action:
 - Authorize a separate PostgreSQL-only execution/checker diagnostic pass over the 33 generated Calcite candidates, preserving the seven no-candidate rows and keeping timing, verifiers, and official metrics disabled.
+
+## 2026-05-23 - calcite_hep_pg_execution_checker_diagnostic_v0
+
+Mode: local-only PostgreSQL execution/checker diagnostic over prior Calcite HEP generated candidates.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_pg_execution_checker_diagnostic_v0/` only.
+
+Files created:
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/README.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/run_scope.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/source_generation_input_review.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/schema_fallback_review.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/execution_checker_summary.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/per_row_execution_checker_status.csv`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/failure_bucket_review.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/output_shape_review.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/next_timing_or_tri_engine_plan.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/command_log.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/diagnostic_summary.json`
+- `audits/calcite_hep_pg_execution_checker_diagnostic_v0/run_pg_execution_checker_from_prior_candidates.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `2598ea6da2fdf7b34bd13cf8cc4cdf5ac7e8c0e5`.
+- Confirmed D034 and D035 exist.
+- Confirmed source candidate-generation audit exists: `audits/calcite_hep_pg_bounded_candidate_generation_v0/`.
+- Confirmed Calcite adapter path remains `baselines/calcite_hep_fail_closed/adapter.py`.
+- Confirmed PostgreSQL local execution environment with `scripts/env_postgres.local.sh` and `scripts/dev/check_local_engine_env.py`.
+- Confirmed source candidate-generation audit remains local-only and non-paper (`official_metric_input=false`, `paper_result=false`).
+- A preliminary user-entry replay path was discarded because existing user-entry PORT role mapping can use cross-dialect source-reference execution for generated PORT rows; that runtime output was removed and is not used as the audit result.
+- The recorded diagnostic pass used an audit-only PostgreSQL helper to execute strictly via PostgreSQL using prior generated candidate SQL.
+- Selected rows: 40.
+- Generated candidate rows: 33.
+- No-candidate rows preserved: 7.
+- Execution-attempted rows: 33.
+- Source-executable rows: 31.
+- Candidate-executable rows: 23.
+- Checker-attempted rows: 23.
+- Exact/result-consistent rows: 20.
+- Mismatch rows: 3.
+- Source-execution failed rows: 2.
+- Candidate-execution failed rows: 8.
+- Schema-fallback rows: 4; schema-fallback exact rows: 0; schema-fallback failed rows: 4.
+- Local diagnostic result-consistency rate over selected rows: 20/40 = 0.5; this is not an official metric.
+- Failure buckets: `none=20`, `candidate_execution_failed=8`, `no_candidate_sql=7`, `mismatch=3`, `source_execution_failed=2`.
+
+Validation:
+- Audit Markdown non-empty, `per_row_execution_checker_status.csv` has 40 data rows, and `diagnostic_summary.json` parses.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 5 passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py audits/calcite_hep_pg_execution_checker_diagnostic_v0/run_pg_execution_checker_from_prior_candidates.py`: passed.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Tracked Calcite artifact scan found no Calcite JAR/class/build artifacts in the release repo.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+Full Common-core run performed: PostgreSQL generated-candidate execution/checker diagnostic only; no full Track-A 120, MySQL, or Spark recorded diagnostic run.
+All 120 Track-A rows run: no.
+MySQL/Spark recorded diagnostic run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Timing/speedup collected: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Authorize PostgreSQL-only timing for the 20 exact rows only, or first address Calcite identifier quoting and PORT dialect/source-role blockers before timing.
