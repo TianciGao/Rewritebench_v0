@@ -79,6 +79,35 @@ class VeriEQLSupportTests(unittest.TestCase):
             self.assertEqual(availability.verieql_root, root.as_posix())
             self.assertIn("parallel.cli_within_bound", availability.command or ())
 
+    def test_detect_verieql_root_uses_explicit_python_env(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            root = _fake_verieql_root(tmp_path / "verieql")
+            fake_python = tmp_path / "fake_python.py"
+            fake_python.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
+            fake_python.chmod(0o755)
+
+            availability = detect_verieql(
+                env={
+                    "SQLRB_VERIEQL_ROOT": root.as_posix(),
+                    "SQLRB_VERIEQL_PYTHON": fake_python.as_posix(),
+                },
+                search_path="",
+            )
+
+            self.assertTrue(availability.tool_available)
+            self.assertEqual(availability.command_path, fake_python.as_posix())
+            self.assertEqual(availability.command[:3], (fake_python.as_posix(), "-m", "parallel.cli_within_timeout"))
+
+    def test_detect_verieql_root_accepts_legacy_root_env_alias(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = _fake_verieql_root(Path(tmp))
+            availability = detect_verieql(env={"VERIEQL_ROOT": root.as_posix()}, search_path="")
+
+            self.assertTrue(availability.tool_available)
+            self.assertEqual(availability.detection_reason, "verieql_root_available")
+            self.assertEqual(availability.verieql_root, root.as_posix())
+
     def test_missing_verieql_root_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output = write_verieql_canary(

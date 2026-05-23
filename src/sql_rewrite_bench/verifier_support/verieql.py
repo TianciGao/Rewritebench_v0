@@ -31,6 +31,7 @@ VERIEQL_TOOL = "verieql"
 DEFAULT_VERIEQL_COMMANDS = ("verieql", "VeriEQL", "verieql-cli", "veri-eql")
 VERIEQL_ENV_VARS = ("SQLRB_VERIEQL_CMD", "SQLRB_VERIEQL_COMMAND", "VERIEQL_COMMAND", "VERIEQL_BIN")
 VERIEQL_ROOT_ENV_VARS = ("SQLRB_VERIEQL_ROOT", "VERIEQL_ROOT")
+VERIEQL_PYTHON_ENV_VARS = ("SQLRB_VERIEQL_PYTHON",)
 VERIEQL_TIMEOUT_BATCH_MODULE = "parallel.cli_within_timeout"
 VERIEQL_FINITE_BOUND_BATCH_MODULE = "parallel.cli_within_bound"
 VERIEQL_BATCH_MODULE = VERIEQL_TIMEOUT_BATCH_MODULE
@@ -902,6 +903,10 @@ def _batch_base_command(
     module = _batch_module(verifier_mode)
     if raw_command is None:
         raw_command = _first_env_value(env, VERIEQL_ENV_VARS)
+    if raw_command is None:
+        python_command = _first_env_value(env, VERIEQL_PYTHON_ENV_VARS)
+        if python_command:
+            return (*_split_command(python_command), "-m", module)
     if raw_command is None:
         return (sys.executable, "-m", module)
     parts = _split_command(raw_command)

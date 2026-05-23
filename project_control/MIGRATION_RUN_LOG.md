@@ -17844,3 +17844,82 @@ Push result:
 
 Next safe action:
 - Prepare a separate policy/authorization packet for whether a bounded SQLSolver verifier-support row can be paper-facing with explicit coverage and identity-guard caveats.
+
+## 2026-05-23 - verieql_support_layout_config_contract_v0
+
+Mode: layout/config audit with narrow staged-root Python env support hardening.
+
+Legacy repo modified: no.
+Release repo modified: yes, wrapper, test, audit, and project-control files only.
+External VeriEQL source tree modified: no.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/verieql_support_layout_config_contract_v0/README.md`
+- `audits/verieql_support_layout_config_contract_v0/current_layout_review.md`
+- `audits/verieql_support_layout_config_contract_v0/config_discovery_policy.md`
+- `audits/verieql_support_layout_config_contract_v0/runtime_output_policy.md`
+- `audits/verieql_support_layout_config_contract_v0/source_hardcoded_path_scan.md`
+- `audits/verieql_support_layout_config_contract_v0/test_coverage_review.md`
+- `audits/verieql_support_layout_config_contract_v0/recommendation.md`
+- `audits/verieql_support_layout_config_contract_v0/command_log.md`
+- `audits/verieql_support_layout_config_contract_v0/protected_surface_check.md`
+- `audits/verieql_support_layout_config_contract_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/verieql.py`
+- `tests/user_entry/test_verieql_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- VeriEQL support code is located under `src/sql_rewrite_bench/verifier_support/verieql.py`.
+- No misplaced VeriEQL support/config files or directories were found.
+- External VeriEQL source/venv/dependency files are absent from the release repo.
+- Machine-local VeriEQL paths are absent from committed source/tests/scripts/docs/workflows outside audit/project-control provenance.
+- Approved discovery is environment-variable based through `SQLRB_VERIEQL_ROOT`, `VERIEQL_ROOT`, `SQLRB_VERIEQL_PYTHON`, and `SQLRB_VERIEQL_CMD`.
+- Added narrow `SQLRB_VERIEQL_PYTHON` staged-root batch-mode support and focused tests for that path plus `VERIEQL_ROOT`.
+- Runtime output boundaries remain D035-aligned for user-facing output and `/tmp`-only for audits.
+- VeriEQL paper-facing SER promotion remains blocked due the existing coverage/identity limitation.
+
+Validation:
+- Audit Markdown sanity passed: 10 Markdown files non-empty.
+- `pytest tests/user_entry/test_verieql_support.py -q`: 22 passed, 3 subtests passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/verieql.py`: passed.
+- VeriEQL-specific hardcoded path scan over source/tests/scripts/docs/repository spec/workflows: no committed local VeriEQL root, Python venv, or env-var assignment to a local path found.
+- `git diff --check`: passed before staging.
+- Protected-surface check passed before staging; only the wrapper, focused VeriEQL test, audit packet, and project-control files changed.
+- No VeriEQL support folder, external VeriEQL source tree, venv, native dependency tree, or build output found inside the release repo.
+- External VeriEQL source tree unchanged except pre-existing `M constants.py`.
+- External SQLSolver source tree status: clean.
+- Staged diff check passed.
+- Staged protected-path and external VeriEQL artifact checks passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source/venv/dependency files committed: no.
+Full Common-core run performed: no.
+MySQL/Spark run performed: no.
+SQLSolver run performed: no.
+New VeriEQL benchmark pairs run: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Keep VeriEQL as bounded support evidence only; use the SQLSolver line for any separately authorized bounded verifier-support paper-facing policy packet.
