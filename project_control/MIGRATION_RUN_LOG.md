@@ -15943,3 +15943,70 @@ Push result:
 
 Next safe action:
 - Treat `CONS_0007` as VeriEQL-unsupported due `EXISTS`; either select a narrower VeriEQL-supported canary pair/case or inspect VeriEQL feature-support limits before broader verifier integration.
+
+## 2026-05-23 - verieql_feature_support_next_canary_selection_v0
+
+Mode: audit/selection only.
+
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: no.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_feature_support_next_canary_selection_v0/README.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/verieql_feature_support_notes.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/cons0007_unsupported_review.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/candidate_pair_scan.csv`
+- `audits/verieql_feature_support_next_canary_selection_v0/next_canary_recommendation.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/command_log.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/protected_surface_check.md`
+- `audits/verieql_feature_support_next_canary_selection_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Verdict: `next_canary_selected_no_verifier_run`.
+- `CONS_0007` review: prior VeriEQL canary completed batch invocation but returned `states=["NSE"]` and `err="Not supported feature: EXISTS"`, normalized to `unsupported`.
+- Feature-support notes: confirmed/high-risk blockers include `EXISTS`, window `OVER`, subquery-in-SELECT, query-in-SELECT, non-DAY interval/TIMESTAMPDIFF paths, some date formats, stddev/variance aggregates, selected `COUNT` expressions, and some `IN`/`NOT IN` and outer-join edge cases.
+- Static candidate scan: all 40 Common-core `source_vs_positive` pairs were screened for feature-risk signals. This was syntax screening only, not verifier evidence.
+- Recommended next canary: `PERF_0062 source_vs_positive pos_01`.
+- Fallback: `PORT_0024 source_vs_positive pos_01` if PORT caveats are acceptable.
+- CONS-only fallback: `CONS_0036 source_vs_positive pos_01`, with nested-select risk.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Audit CSV sanity check passed; `candidate_pair_scan.csv` parsed successfully with 40 rows.
+- `git diff --check`: passed.
+- Protected-surface check passed; no `src/`, `tests/`, `scripts/`, `cases/`, `case_sets/`, `schemas/`, `inventory/`, `baselines/`, `reports/`, `results/`, `output/`, `benchmarks/`, or `runs/user/` paths were modified or staged.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL copied/vendorized into release repo: no.
+Real VeriEQL canary run: no.
+SQLSolver run performed: no.
+Common-core run performed: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Separately authorize exactly one bounded local VeriEQL canary for `PERF_0062 source_vs_positive pos_01`, or keep the verifier line paused.
