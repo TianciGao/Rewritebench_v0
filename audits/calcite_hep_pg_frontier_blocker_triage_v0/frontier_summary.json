@@ -1,0 +1,36 @@
+{
+  "blocker_category_counts": {
+    "calcite_generated_candidate_semantic_mismatch": 3,
+    "calcite_identifier_quoting_blocker": 9,
+    "datetime_timestamp_syntax_or_type_blocker": 3,
+    "port_source_dialect_not_pg_executable": 2,
+    "schema_fallback_candidate_failed": 3
+  },
+  "frontier_bucket_counts": {
+    "candidate_execution_failed": 8,
+    "mismatch": 3,
+    "no_candidate_sql": 7,
+    "source_execution_failed": 2
+  },
+  "frontier_rows": 20,
+  "input_audits": [
+    "audits/calcite_hep_pg_bounded_candidate_generation_v0/",
+    "audits/calcite_hep_pg_execution_checker_diagnostic_v0/",
+    "audits/calcite_hep_pg_exact_timing_diagnostic_v0/",
+    "audits/calcite_hep_pg_local_metrics_projection_v0/"
+  ],
+  "local_only": true,
+  "paper_result": false,
+  "recommended_first_fix": "adapter_quoting_fix_candidate",
+  "schema_fallback_policy": "exclude_from_future_execution_by_default_until_schema_ingestion_hardened",
+  "schema_fallback_rows": [
+    "PORT_0013",
+    "LONGTAIL_0022",
+    "LONGTAIL_0023",
+    "LONGTAIL_0024"
+  ],
+  "schema_version": "calcite_hep_pg_frontier_blocker_triage_summary_v0",
+  "tri_engine_full_120_ready": false,
+  "pg_only_route_card_comparison_ready": true,
+  "official_metric_input": false
+}

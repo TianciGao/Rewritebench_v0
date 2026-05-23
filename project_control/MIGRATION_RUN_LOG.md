@@ -18658,3 +18658,91 @@ Push result:
 
 Next safe action:
 - Triage Calcite identifier quoting, DATETIME/TIMESTAMP, and PORT dialect/source-role blockers; optionally authorize a bounded PostgreSQL-only route-card comparison against SQLGlot noop; defer MySQL/Spark/full-120 until blockers are addressed.
+
+## 2026-05-23 - calcite_hep_pg_frontier_blocker_triage_v0
+
+Mode: local-only audit triage of the Calcite HEP PostgreSQL non-exact / non-timed frontier.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/README.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/source_audit_inputs.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/frontier_inventory.csv`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/no_candidate_triage.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/mismatch_triage.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/execution_failure_triage.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/schema_fallback_triage.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/blocker_summary.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/fix_candidate_plan.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/tri_engine_readiness.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/paper_boundary.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/command_log.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_frontier_blocker_triage_v0/frontier_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `64b645772397b763139f42dd8bc9fc2486393bff`.
+- Confirmed D033, D034, and D035 exist.
+- Confirmed Calcite adapter remains at `baselines/calcite_hep_fail_closed/adapter.py`.
+- Confirmed no protected runtime surfaces were staged before work.
+- Used existing audit outputs only: candidate-generation, execution/checker, exact-timing, and local metrics projection.
+- Frontier rows inventoried: 20.
+- Frontier bucket counts: `no_candidate_sql=7`, `mismatch=3`, `source_execution_failed=2`, `candidate_execution_failed=8`.
+- Primary blocker counts: `calcite_identifier_quoting_blocker=9`, `datetime_timestamp_syntax_or_type_blocker=3`, `port_source_dialect_not_pg_executable=2`, `calcite_generated_candidate_semantic_mismatch=3`, `schema_fallback_candidate_failed=3`.
+- Schema-fallback rows: `PORT_0013`, `LONGTAIL_0022`, `LONGTAIL_0023`, `LONGTAIL_0024`.
+- Quoting fix candidates: `PORT_0003`, `PORT_0005`, `PORT_0008`, `PORT_0012`, `CONS_0036`, `CONS_0037`, `LONGTAIL_0011`, `LONGTAIL_0012`, `LONGTAIL_0013`.
+- DATETIME/TIMESTAMP mapping candidates: `PORT_0004`, `PORT_0022`, `PORT_0025`, plus `LONGTAIL_0022`, `LONGTAIL_0023`, and `LONGTAIL_0024` if schema-ingestion hardening is authorized.
+- Route-scope / PORT-source-role blockers: `PORT_0013`, `PORT_0024`, with broader PORT policy review needed before tri-engine/full-120 expansion.
+- Mismatch rows requiring manual case review: `PERF_0035`, `PERF_0062`, `CONS_0011`.
+- PostgreSQL-only route-card comparison against SQLGlot noop is safe as a local diagnostic comparison if the frontier remains denominator-visible.
+- MySQL/Spark/full-120 expansion remains blocked.
+
+Validation:
+- Audit Markdown non-empty.
+- `frontier_inventory.csv` has 20 rows and expected bucket counts: 7 no-candidate, 3 mismatch, 2 source execution failed, 8 candidate execution failed.
+- `frontier_summary.json` parses and records `frontier_rows=20` and `tri_engine_full_120_ready=false`.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Changed-path scan confirmed only allowed audit and project-control paths changed.
+- Staged artifact scan found no Calcite JAR/class/build outputs.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+New candidate generation performed: no.
+SQL execution/checker performed: no.
+Timing collected: no.
+Verifier pass performed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+LLM baseline run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Authorize a narrow Calcite identifier-quoting adapter/runtime fix candidate, or run a PostgreSQL-only route-card comparison against SQLGlot noop while preserving local-only boundaries.
