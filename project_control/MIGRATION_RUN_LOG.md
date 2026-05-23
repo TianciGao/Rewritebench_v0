@@ -18563,3 +18563,98 @@ Push result:
 
 Next safe action:
 - Either authorize a bounded local metrics projection that keeps the non-exact/no-candidate frontier visible, or first triage Calcite identifier quoting, DATETIME/TIMESTAMP, and PORT blockers before broader MySQL/Spark or full-120 expansion.
+
+## 2026-05-23 - calcite_hep_pg_local_metrics_projection_v0
+
+Mode: local-only PostgreSQL bounded route-card / metrics projection from existing Calcite HEP diagnostic audits.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/calcite_hep_pg_local_metrics_projection_v0/README.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/source_audit_inputs.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/route_card.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/diagnostic_metrics_summary.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/non_exact_frontier.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/blocker_summary.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/paper_boundary.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/next_steps.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/command_log.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/route_card.json`
+- `audits/calcite_hep_pg_local_metrics_projection_v0/route_card.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `245b19d1ae3f69ae1cd519434511407c3e3d33f0`.
+- Confirmed D033, D034, and D035 exist.
+- Confirmed source audits exist: `audits/calcite_hep_pg_bounded_candidate_generation_v0/`, `audits/calcite_hep_pg_execution_checker_diagnostic_v0/`, and `audits/calcite_hep_pg_exact_timing_diagnostic_v0/`.
+- Confirmed Calcite adapter remains at `baselines/calcite_hep_fail_closed/adapter.py`.
+- Used existing audit outputs only; no generation, execution/checker, timing, verifier, MySQL/Spark, or full Track-A run was performed.
+- Route: `method_id=calcite_hep_fail_closed`, `route_id=calcite_hep_fail_closed`, `baseline_family=calcite`, `engine=postgres`.
+- Selected rows: 40.
+- Generated candidate rows: 33.
+- No-candidate rows: 7.
+- Source-executable rows: 31.
+- Candidate-executable rows: 23.
+- Checker-attempted rows: 23.
+- Exact/result-consistent rows: 20.
+- Mismatch rows: 3 (`PERF_0035`, `PERF_0062`, `CONS_0011`).
+- Source execution failed rows: 2.
+- Candidate execution failed rows: 8.
+- Timed exact rows: 20.
+- Timing failed rows: 0.
+- Local generation rate: 0.825000.
+- Local execution coverage rate: 0.575000.
+- Local result consistency rate: 0.500000.
+- Diagnostic GM speedup: 0.995749.
+- Diagnostic speedup percentiles: P10 0.955860, P25 0.977056, P50 0.994866, P75 1.005032, P90 1.057408.
+- Non-exact frontier preserved: 7 no-candidate rows, 3 mismatch rows, 2 source execution failures, 8 candidate execution failures.
+
+Validation:
+- Audit Markdown non-empty.
+- `route_card.json` parses and records selected/generated/exact rows as 40/33/20.
+- `route_card.csv` has the expected headers and one data row for `calcite_hep_fail_closed`.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Changed-path scan confirmed only allowed audit and project-control paths changed.
+- Staged artifact scan found no Calcite JAR/class/build outputs.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+New candidate generation performed: no.
+SQL execution/checker performed: no.
+Timing collected: no.
+Verifier pass performed: no.
+MySQL/Spark run performed: no.
+All 120 Track-A rows run: no.
+LLM baseline run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Triage Calcite identifier quoting, DATETIME/TIMESTAMP, and PORT dialect/source-role blockers; optionally authorize a bounded PostgreSQL-only route-card comparison against SQLGlot noop; defer MySQL/Spark/full-120 until blockers are addressed.
