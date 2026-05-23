@@ -18472,3 +18472,94 @@ Push result:
 
 Next safe action:
 - Authorize PostgreSQL-only timing for the 20 exact rows only, or first address Calcite identifier quoting and PORT dialect/source-role blockers before timing.
+
+## 2026-05-23 - calcite_hep_pg_exact_timing_diagnostic_v0
+
+Mode: local-only PostgreSQL timing diagnostic over prior exact/result-consistent Calcite HEP rows.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+External Calcite source/build artifacts modified: no.
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_pg_exact_timing_diagnostic_v0/` only.
+
+Files created:
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/README.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/run_scope.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/exact_gate_source_review.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/timing_policy.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/per_row_timing.csv`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/timing_summary.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/non_timed_frontier.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/local_metric_interpretation.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/output_shape_review.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/next_triage_or_tri_engine_plan.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/command_log.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/protected_surface_check.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/boundary_checklist.md`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/diagnostic_summary.json`
+- `audits/calcite_hep_pg_exact_timing_diagnostic_v0/run_pg_exact_timing_from_execution_audit.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed branch head includes `23ec34242fc98dc98b6c5dff73f6ee1f65301cfe`.
+- Confirmed D034 and D035 exist.
+- Confirmed source candidate-generation and execution/checker audits exist.
+- Confirmed Calcite adapter path remains `baselines/calcite_hep_fail_closed/adapter.py`.
+- Confirmed external Calcite runtime path exists at `/home/tianci_gao/.local/share/sqlrb/calcite_hep/bin/calcite-hep-rewrite-smoke`.
+- Confirmed PostgreSQL local execution environment with `scripts/env_postgres.local.sh` and `scripts/dev/check_local_engine_env.py`.
+- Timing gate source: `audits/calcite_hep_pg_execution_checker_diagnostic_v0/per_row_execution_checker_status.csv`.
+- Selected rows: 40.
+- Generated candidate rows: 33.
+- No-candidate rows: 7.
+- Exact/result-consistent rows: 20.
+- Timing-attempted rows: 20.
+- Timed rows: 20.
+- Timing failed rows: 0.
+- Non-timed not-exact rows: 20.
+- Non-timed frontier: 7 no-candidate rows, 3 mismatch rows, 2 source execution failures, 8 candidate execution failures.
+- Diagnostic GM speedup over timed exact rows: 0.995749.
+- Diagnostic median speedup: 0.994866.
+- Diagnostic speedup percentiles: P10 0.955860, P25 0.977056, P50 0.994866, P75 1.005032, P90 1.057408.
+- Win/tie/loss diagnostic was not computed because no existing durable timing policy defines thresholds for those labels.
+
+Validation:
+- Audit Markdown non-empty, `per_row_timing.csv` has 40 data rows, and `diagnostic_summary.json` parses.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 5 passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py audits/calcite_hep_pg_exact_timing_diagnostic_v0/run_pg_exact_timing_from_execution_audit.py`: passed.
+- `git diff --check`: passed.
+- `git status --porcelain -- runs/user output reports results`: no output.
+- Tracked artifact scan found no Calcite JAR/class/build outputs staged.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Calcite source/JAR/libs/classes/build outputs committed: no.
+Full Common-core run performed: no; PostgreSQL timing diagnostic only over prior exact rows.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+LLM baseline run performed: no.
+Verifier pass performed: no.
+Result checker run: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Either authorize a bounded local metrics projection that keeps the non-exact/no-candidate frontier visible, or first triage Calcite identifier quoting, DATETIME/TIMESTAMP, and PORT blockers before broader MySQL/Spark or full-120 expansion.

@@ -1,0 +1,55 @@
+{
+  "candidate_execution_failed_rows": 8,
+  "exact_rows": 20,
+  "generated_candidate_rows": 33,
+  "gm_speedup_diagnostic": 0.9957489860355769,
+  "leaderboard_output_created": false,
+  "local_only": true,
+  "median_speedup_diagnostic": 0.9948663522097903,
+  "mismatch_rows": 3,
+  "no_candidate_rows": 7,
+  "non_timed_not_exact_rows": 20,
+  "not_timed_no_candidate_rows": 7,
+  "official_metric_input": false,
+  "output_shape": {
+    "logs": "/tmp/sqlrb_calcite_hep_pg_exact_timing_diagnostic_v0/output/logs/calcite_hep_pg_exact_timing",
+    "reports": "/tmp/sqlrb_calcite_hep_pg_exact_timing_diagnostic_v0/output/reports/calcite_hep_pg_exact_timing",
+    "results": "/tmp/sqlrb_calcite_hep_pg_exact_timing_diagnostic_v0/output/results/calcite_hep_pg_exact_timing"
+  },
+  "paper_result": false,
+  "prior_failure_bucket_counts": {
+    "candidate_execution_failed": 8,
+    "mismatch": 3,
+    "no_candidate_sql": 7,
+    "none": 20,
+    "source_execution_failed": 2
+  },
+  "run_id": "calcite_hep_pg_exact_timing",
+  "runtime_output_root": "/tmp/sqlrb_calcite_hep_pg_exact_timing_diagnostic_v0",
+  "schema_version": "calcite_pg_exact_timing_diagnostic_summary_v0",
+  "selected_rows": 40,
+  "source_execution_checker_audit": "audits/calcite_hep_pg_execution_checker_diagnostic_v0/",
+  "source_execution_failed_rows": 2,
+  "speedup_percentiles_diagnostic": {
+    "p10": 0.9558596310519712,
+    "p25": 0.9770556544793763,
+    "p50": 0.9948663522097903,
+    "p75": 1.0050319626965538,
+    "p90": 1.057408419230161
+  },
+  "timed_rows": 20,
+  "timing_attempted_rows": 20,
+  "timing_failed_rows": 0,
+  "timing_failure_bucket_counts": {},
+  "timing_policy": {
+    "execution_order_policy": "source_then_candidate",
+    "measured_repetitions": 5,
+    "schema_setup_policy": "fresh_schema_per_timing_row",
+    "statistic": "median",
+    "timeout_seconds": 30.0,
+    "timing_policy_id": "local_exact_gated_default_v0",
+    "warmup_count": 1
+  },
+  "win_tie_loss_diagnostic": null,
+  "win_tie_loss_reason": "not_computed_no_existing_policy"
+}
