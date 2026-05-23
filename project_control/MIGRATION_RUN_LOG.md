@@ -13966,7 +13966,7 @@ Files modified:
 - `project_control/MIGRATION_RUN_LOG.md`
 
 Validation result:
-- Pending at writeback time; final validation recorded in the audit command log and final report.
+- Passed before commit; final commit/push metadata recorded in the final report.
 
 Audit result:
 - Verdict: `completed_with_metadata_correction`.
@@ -15524,3 +15524,68 @@ Push result:
 
 Next safe action:
 - Provide/authorize a real VeriEQL command path for a one-pair canary or a real SQLSolver command path for the two-pair synthetic smoke; otherwise keep verifier summaries as local-only `N.A.` outputs.
+
+## 2026-05-23 - legacy_verifier_tool_availability_audit_v0
+
+Mode: read-only verifier tool availability audit.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit/project-control only.
+
+Files created:
+- `audits/legacy_verifier_tool_availability_audit_v0/README.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/legacy_verifier_inventory.csv`
+- `audits/legacy_verifier_tool_availability_audit_v0/verieql_candidate_paths.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/sqlsolver_candidate_paths.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/retained_verifier_outputs_review.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/reuse_recommendation.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/environment_requirements.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/protected_surface_check.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/command_log.md`
+- `audits/legacy_verifier_tool_availability_audit_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Pending at writeback time; final validation recorded in the audit command log and final report.
+
+Result:
+- Verdict: `completed_no_reusable_local_tool_path_found`.
+- Inspected release repo `/home/tianci_gao/code/Rewritebench_v0`.
+- Inspected legacy artifact repo `/home/tianci_gao/code/sql-rewrite-bench-artifact-clean`.
+- Inspected WSL-equivalent path `\\wsl.localhost\Ubuntu\home\tianci_gao\code\sql-rewrite-bench-artifact-clean` by verifying the Linux path.
+- Opened GitHub reference branch `https://github.com/TianciGao/sql-rewrite-bench/tree/artifact/case-package-contract-alignment-clean`.
+- Legacy checkout branch `artifact/case-package-contract-alignment-clean` matched remote commit `428e74514b87956edd3289d40a6ebf15113f119c`.
+- No `.jar` files, reusable VeriEQL command/tree, or reusable SQLSolver command/jar/source checkout were found in the inspected legacy checkout.
+- No `verieql`, `VeriEQL`, `sqlsolver`, or `SQLSolver` command was found on PATH.
+- No relevant `VERIEQL`, `SQLSOLVER`, `JAVA_HOME`, `LD_LIBRARY_PATH`, or `Z3` environment variable was visible.
+- Historical VeriEQL and SQLSolver docs/reports/provenance artifacts exist and remain classified as historical support evidence only.
+- Candidate command paths are unavailable for `SQLRB_VERIEQL_CMD` and `SQLRB_SQLSOLVER_CMD`.
+- Metadata correction: `user_verify_facade_fail_closed_v0` final commit was `d5c40bc982bb2b622ad852d952d50da9c1c238c6` and was pushed to `origin/feature/case-package-v2-external-schema`, although its older run-log entry still says pending.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+VeriEQL installed/copied: no.
+SQLSolver installed/copied: no.
+Real verifier experiment run: no.
+Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Leaderboard created: no.
+Retained evidence promoted: no.
+`runs/user/` outputs committed: no.
+Output runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Keep the verifier wrappers fail-closed until an explicit external VeriEQL or SQLSolver command path is provided, then authorize a bounded one-tool canary/smoke task.
