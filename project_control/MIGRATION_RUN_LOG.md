@@ -17586,3 +17586,93 @@ Push result:
 
 Next safe action:
 - Run a tiny exact-candidate SQLSolver local pass with identity sanity gates before any broader or paper-facing SER work.
+
+## 2026-05-23 - sqlsolver_pg_noop_tiny_exact_candidate_pass_v0
+
+Mode: local-only SQLSolver exact-candidate diagnostic with identity sanity gates.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+External SQLSolver source tree modified: no.
+Runtime artifacts written: yes, local-only SQLSolver artifacts under `/tmp/sqlrb_sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/`; not committed.
+
+Files created:
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/README.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/selection_review.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/exact_gate_review.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/sqlsolver_environment.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/verifier_pair_shape_review.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/identity_guard_results.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/cross_verifier_comparison.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/local_metric_interpretation.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/semantic_equivalence_rate_readiness.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/command_log.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/protected_surface_check.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/boundary_checklist.md`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/per_pair_verdicts.csv`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/per_row_identity_summary.csv`
+- `audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/diagnostic_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Selected rows: `CONS_0036`, `CONS_0037`, `LONGTAIL_0023`, `PORT_0003`, `PORT_0005`.
+- Exact/result-consistency gate: all five rows passed.
+- SQLSolver external root: `/home/tianci_gao/.local/share/sqlrb/sqlsolver/SQLSolver`.
+- SQLSolver JAR: `/home/tianci_gao/.local/share/sqlrb/sqlsolver/SQLSolver/build/libs/sqlsolver-v1.1.0.jar`.
+- SQLSolver commit: `dcc2a91d8971a4c4d30b055f99d7d8428a1b754b`.
+- SQLSolver logical pairs run: 15 total, three per exact row.
+- Identity passed rows: 3 (`CONS_0036`, `CONS_0037`, `LONGTAIL_0023`).
+- Identity failed rows: 2 (`PORT_0003`, `PORT_0005`) due `UNKNOWN` on identity and source-candidate checks.
+- Corrected equivalent rows: 3.
+- Corrected non-equivalent rows: 0.
+- Corrected decidable rows: 3.
+- Corrected local SQLSolver tiny SER: 1.0 over 3 corrected decidable rows.
+- Corrected SQLSolver decidability rate: 3/5.
+- Identity pass rate: 3/5.
+- `LONGTAIL_0023` cross-verifier result: VeriEQL identity/modeling failure, but SQLSolver returned `EQ` for source-vs-source, candidate-vs-candidate, and source-vs-candidate.
+
+Validation:
+- Audit Markdown/CSV/JSON sanity passed: 12 Markdown files non-empty, `per_pair_verdicts.csv` has 15 rows, `per_row_identity_summary.csv` has 5 rows, and `diagnostic_summary.json` parsed.
+- `pytest tests/user_entry/test_sqlsolver_support.py -q`: 10 passed.
+- `git diff --check`: passed before staging.
+- Protected-surface check passed before staging; only this audit packet and project-control files changed.
+- External SQLSolver source tree status: clean.
+- Staged VeriEQL source tree unchanged except pre-existing `M constants.py`.
+- No SQLSolver source, JAR, native library, ANTLR library, or external build output found inside the release repo.
+- Staged diff check passed.
+- Staged protected-path and third-party artifact checks passed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+SQLSolver source/JAR/libs committed: no.
+Full Common-core run performed: no.
+All 35 SQLGlot-noop PostgreSQL exact rows run: no.
+All 120 Track-A rows run: no.
+MySQL/Spark run performed: no.
+VeriEQL run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Local diagnostic SQLSolver tiny SER computed: yes.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Plan a bounded one-baseline SQLSolver exact-candidate subset attempt with identity gates and coverage reporting; paper-facing SER remains blocked.
