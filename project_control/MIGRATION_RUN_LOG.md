@@ -17499,3 +17499,90 @@ Push result:
 
 Next safe action:
 - Start an independent SQLSolver setup/smoke/wrapper line for formal-coverage comparison, or pause paper-facing SER work until verifier identity/support failures are addressed.
+
+## 2026-05-23 - sqlsolver_external_setup_wrapper_smoke_v0
+
+Mode: external SQLSolver setup plus release-repo wrapper/test implementation.
+
+Legacy repo modified: no.
+Release repo modified: yes, wrapper, focused tests, audit, and project-control files only.
+External SQLSolver repo modified: yes, cloned and built outside the release repo at `/home/tianci_gao/.local/share/sqlrb/sqlsolver/SQLSolver`.
+Runtime artifacts written: yes, local-only synthetic smoke artifacts under `/tmp/sqlrb_sqlsolver_external_setup_wrapper_smoke_v0/`; not committed.
+
+Files created:
+- `audits/sqlsolver_external_install_review.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/README.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/official_source_review.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/build_environment.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/wrapper_implementation_summary.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/command_shape_review.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/verdict_normalization_review.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/synthetic_smoke_results.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/semantic_equivalence_rate_readiness.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/command_log.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/protected_surface_check.md`
+- `audits/sqlsolver_external_setup_wrapper_smoke_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `tests/user_entry/test_sqlsolver_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Official SQLSolver source cloned externally from `https://github.com/SJTU-IPADS/SQLSolver`.
+- SQLSolver commit used: `dcc2a91d8971a4c4d30b055f99d7d8428a1b754b`.
+- Build command: `./gradlew fatJar`.
+- Build result: success.
+- JAR path: `/home/tianci_gao/.local/share/sqlrb/sqlsolver/SQLSolver/build/libs/sqlsolver-v1.1.0.jar`.
+- Java: OpenJDK 17.0.18.
+- Gradle: project wrapper Gradle 7.4; system `gradle` unavailable.
+- Required native library path: `/home/tianci_gao/.local/share/sqlrb/sqlsolver/SQLSolver/lib`.
+- SQLSolver wrapper implemented under `src/sql_rewrite_bench/verifier_support/sqlsolver.py`.
+- Wrapper discovery supports `SQLRB_SQLSOLVER_JAR`, `SQLRB_SQLSOLVER_ROOT`, `SQLRB_SQLSOLVER_LD_LIBRARY_PATH`, and `SQLRB_SQLSOLVER_JAVA`.
+- Command shape implemented: `java -jar <sqlsolver.jar> -sql1=<sql1_file> -sql2=<sql2_file> -schema=<schema_file> -output=<output_file>`.
+- Synthetic smoke equivalent pair returned raw `EQ` and normalized to `equivalent`.
+- Synthetic smoke non-equivalent pair returned raw `NEQ` and normalized to `non_equivalent`.
+- Tool evidence remains local-only support evidence with coverage/decidability boundaries.
+
+Validation:
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`: passed.
+- `pytest tests/user_entry/test_sqlsolver_support.py -q`: 10 passed.
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/user_entry/test_verifier_support.py tests/user_entry/test_cli_facade.py -q`: 37 passed.
+- `pytest tests/user_entry -q`: 221 passed, 1 skipped, 15 subtests passed.
+- Synthetic SQLSolver smoke under `/tmp/sqlrb_sqlsolver_external_setup_wrapper_smoke_v0/`: passed with `EQ` and `NEQ`.
+- Audit Markdown sanity passed: 12 Markdown files non-empty.
+- `git diff --check`: passed before staging.
+- Protected-surface check passed before staging; no cases, case sets, baselines, reports, results, repository-level output, `runs/user`, retained evidence, `MIGRATION_MASTER_PLAN.md`, or `DECISION_LOG.md` paths changed.
+- External SQLSolver source tree status after build: clean.
+- Staged VeriEQL source tree unchanged except pre-existing `M constants.py`.
+- Staged diff check passed.
+- Staged third-party artifact check passed; no SQLSolver source, JAR, libraries, Gradle wrapper/cache, or build outputs staged.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+SQLSolver source/JAR/libs committed: no.
+Real benchmark rows verified by SQLSolver: no.
+Common-core run performed: no.
+All 120 Track-A rows run: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Run a tiny exact-candidate SQLSolver local pass with identity sanity gates before any broader or paper-facing SER work.

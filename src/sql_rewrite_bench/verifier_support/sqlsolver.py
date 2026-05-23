@@ -15,6 +15,7 @@ import os
 import shlex
 import shutil
 import subprocess
+import tempfile
 import time
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -28,6 +29,16 @@ from .verdicts import build_verdict_record
 SQLSOLVER_TOOL = "sqlsolver"
 DEFAULT_SQLSOLVER_COMMANDS = ("sqlsolver", "SQLSolver", "sql-solver", "sqlsolver-cli")
 SQLSOLVER_ENV_VARS = ("SQLRB_SQLSOLVER_CMD", "SQLSOLVER_COMMAND", "SQLSOLVER_BIN")
+SQLSOLVER_JAR_ENV_VAR = "SQLRB_SQLSOLVER_JAR"
+SQLSOLVER_ROOT_ENV_VAR = "SQLRB_SQLSOLVER_ROOT"
+SQLSOLVER_LD_LIBRARY_PATH_ENV_VAR = "SQLRB_SQLSOLVER_LD_LIBRARY_PATH"
+SQLSOLVER_JAVA_ENV_VAR = "SQLRB_SQLSOLVER_JAVA"
+SQLSOLVER_LEGACY_COMMAND_MODE = "command_cli"
+SQLSOLVER_JAR_MODE = "jar_cli"
+SQLSOLVER_COMMAND_SHAPE = (
+    "java -jar <sqlsolver.jar> -sql1=<sql1_file> -sql2=<sql2_file> "
+    "-schema=<schema_file> -output=<output_file>"
+)
 
 
 @dataclass(frozen=True)
@@ -37,6 +48,12 @@ class SQLSolverAvailability:
     command_path: str | None
     tool_version: str | None
     detection_reason: str
+    invocation_mode: str = SQLSOLVER_LEGACY_COMMAND_MODE
+    jar_path: str | None = None
+    sqlsolver_root: str | None = None
+    ld_library_path: str | None = None
+    java_command: tuple[str, ...] | None = None
+    command_shape: str = "sqlsolver <sql1_file> <sql2_file> [--schema <schema_file>]"
 
 
 @dataclass(frozen=True)
@@ -62,22 +79,47 @@ def detect_sqlsolver(
     search_path: str | None = None,
     version_timeout_seconds: float = 5.0,
 ) -> SQLSolverAvailability:
-    """Detect a local SQLSolver command without installing anything."""
+    """Detect a local SQLSolver command or external SQLSolver JAR.
+
+    The preferred SQL-RewriteBench integration path is the official SQLSolver
+    JAR outside this repository, discovered through ``SQLRB_SQLSOLVER_JAR`` or
+    ``SQLRB_SQLSOLVER_ROOT``. The older command-style path is retained for
+    fail-closed tests and local developer shims.
+    """
 
     effective_env = dict(os.environ if env is None else env)
-    for candidate in _candidate_commands(command, effective_env, search_path=search_path):
-        executable = shutil.which(candidate[0], path=search_path)
-        command_path = executable or candidate[0]
-        if not executable and not Path(candidate[0]).exists():
-            continue
-        version = _probe_version((command_path, *candidate[1:]), timeout_seconds=version_timeout_seconds)
-        return SQLSolverAvailability(
-            tool_available=True,
-            command=(command_path, *candidate[1:]),
-            command_path=command_path,
-            tool_version=version,
-            detection_reason="command_available",
+    if command:
+        explicit = _split_command(command)
+        jar_availability = _detect_explicit_jar_command(
+            explicit,
+            effective_env,
+            search_path=search_path,
+            version_timeout_seconds=version_timeout_seconds,
         )
+        if jar_availability is not None:
+            return jar_availability
+        return _detect_legacy_command(
+            explicit,
+            search_path=search_path,
+            version_timeout_seconds=version_timeout_seconds,
+        )
+
+    jar_availability = _detect_env_jar(
+        effective_env,
+        search_path=search_path,
+        version_timeout_seconds=version_timeout_seconds,
+    )
+    if jar_availability is not None:
+        return jar_availability
+
+    for candidate in _candidate_commands(command, effective_env, search_path=search_path):
+        availability = _detect_legacy_command(
+            candidate,
+            search_path=search_path,
+            version_timeout_seconds=version_timeout_seconds,
+        )
+        if availability.tool_available:
+            return availability
     return SQLSolverAvailability(
         tool_available=False,
         command=None,
@@ -87,10 +129,37 @@ def detect_sqlsolver(
     )
 
 
+def build_sqlsolver_jar_command(
+    *,
+    java_command: Sequence[str],
+    jar_path: str | Path,
+    sql1_path: str | Path,
+    sql2_path: str | Path,
+    schema_path: str | Path,
+    output_path: str | Path,
+    print_output: bool = False,
+) -> list[str]:
+    """Build the official SQLSolver JAR CLI invocation."""
+
+    command = [
+        *[str(part) for part in java_command],
+        "-jar",
+        str(jar_path),
+        f"-sql1={sql1_path}",
+        f"-sql2={sql2_path}",
+        f"-schema={schema_path}",
+    ]
+    if print_output:
+        command.append("-print")
+    command.append(f"-output={output_path}")
+    return command
+
+
 def normalize_sqlsolver_output(
     *,
     stdout: str,
     stderr: str = "",
+    output_text: str = "",
     returncode: int = 0,
     timed_out: bool = False,
 ) -> str:
@@ -98,17 +167,23 @@ def normalize_sqlsolver_output(
 
     if timed_out:
         return "timeout"
-    text = f"{stdout}\n{stderr}".strip().lower()
-    compact = text.replace("-", "_").replace(" ", "_")
+    text = f"{output_text}\n{stdout}\n{stderr}".strip()
+    compact = text.lower().replace("-", "_").replace(" ", "_")
     if any(token in compact for token in ["timeout", "timed_out", "time_limit_exceeded"]):
         return "timeout"
     if any(token in compact for token in ["unsupported", "not_supported", "unsupported_sql", "unsupported_syntax"]):
         return "unsupported"
+    if returncode != 0:
+        return "tool_error"
+    official = _normalize_official_result_lines(text)
+    if official is not None:
+        return official
     if any(
         token in compact
         for token in [
             "non_equivalent",
             "not_equivalent",
+            "not_equiv",
             "inequivalent",
             "counterexample",
             "counter_example",
@@ -239,6 +314,31 @@ def _run_available_pair(
     timeout_seconds: float,
     env: Mapping[str, str] | None,
 ) -> dict[str, Any]:
+    if availability.invocation_mode == SQLSOLVER_JAR_MODE:
+        return _run_available_jar_pair(
+            pair=pair,
+            availability=availability,
+            verifier_dir=verifier_dir,
+            timeout_seconds=timeout_seconds,
+            env=env,
+        )
+    return _run_available_command_pair(
+        pair=pair,
+        availability=availability,
+        verifier_dir=verifier_dir,
+        timeout_seconds=timeout_seconds,
+        env=env,
+    )
+
+
+def _run_available_command_pair(
+    *,
+    pair: dict[str, str],
+    availability: SQLSolverAvailability,
+    verifier_dir: Path,
+    timeout_seconds: float,
+    env: Mapping[str, str] | None,
+) -> dict[str, Any]:
     pair_id = pair["pair_id"]
     tool_dir = verifier_dir / "tools" / SQLSOLVER_TOOL / pair_id
     tool_dir.mkdir(parents=True, exist_ok=True)
@@ -287,6 +387,187 @@ def _run_available_pair(
         artifact_paths={
             "tool_dir": tool_dir.as_posix(),
             "command": _redacted_command(command),
+            "command_shape": availability.command_shape,
+            "verifier_mode": availability.invocation_mode,
+            "tool_available": True,
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
+        },
+    )
+
+
+def _run_available_jar_pair(
+    *,
+    pair: dict[str, str],
+    availability: SQLSolverAvailability,
+    verifier_dir: Path,
+    timeout_seconds: float,
+    env: Mapping[str, str] | None,
+) -> dict[str, Any]:
+    pair_id = pair["pair_id"]
+    tool_dir = verifier_dir / "tools" / SQLSOLVER_TOOL / pair_id
+    tool_dir.mkdir(parents=True, exist_ok=True)
+    stdout_path = tool_dir / "raw_stdout.txt"
+    stderr_path = tool_dir / "raw_stderr.txt"
+    raw_output_path = tool_dir / "sqlsolver_output.txt"
+    if not availability.jar_path or not availability.java_command:
+        return _tool_error_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            reason="sqlsolver_jar_invocation_incomplete",
+            availability=availability,
+        )
+    schema_context = pair.get("schema_context_path")
+    if not schema_context:
+        return _tool_error_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            reason="sqlsolver_schema_context_missing",
+            availability=availability,
+        )
+
+    comparison_path = _comparison_sql_path(pair)
+    try:
+        source_sql = _read_sql_line(Path(pair["source_sql_path"]))
+        comparison_sql = _read_sql_line(Path(comparison_path))
+        schema_sql = Path(schema_context).read_text(encoding="utf-8")
+    except OSError as exc:
+        return _tool_error_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            reason=f"sqlsolver_input_read_failed:{type(exc).__name__}",
+            availability=availability,
+        )
+
+    started = time.monotonic()
+    timed_out = False
+    stdout = ""
+    stderr = ""
+    returncode = 0
+    output_text = ""
+    with tempfile.TemporaryDirectory(prefix=f"sqlrb_sqlsolver_{_safe_name(pair_id)}_") as tmp:
+        tmp_path = Path(tmp)
+        sql1_path = tmp_path / "sql1.sql"
+        sql2_path = tmp_path / "sql2.sql"
+        schema_path = tmp_path / "schema.sql"
+        output_path = tmp_path / "sqlsolver_result.txt"
+        sql1_path.write_text(source_sql + "\n", encoding="utf-8")
+        sql2_path.write_text(comparison_sql + "\n", encoding="utf-8")
+        schema_path.write_text(schema_sql, encoding="utf-8")
+        command = build_sqlsolver_jar_command(
+            java_command=availability.java_command,
+            jar_path=availability.jar_path,
+            sql1_path=sql1_path,
+            sql2_path=sql2_path,
+            schema_path=schema_path,
+            output_path=output_path,
+        )
+        try:
+            completed = subprocess.run(
+                command,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=timeout_seconds,
+                env=_sqlsolver_process_env(env, availability),
+            )
+            stdout = completed.stdout
+            stderr = completed.stderr
+            returncode = completed.returncode
+        except subprocess.TimeoutExpired as exc:
+            timed_out = True
+            stdout = exc.stdout if isinstance(exc.stdout, str) else ""
+            stderr = exc.stderr if isinstance(exc.stderr, str) else ""
+            returncode = 124
+        if output_path.exists():
+            output_text = output_path.read_text(encoding="utf-8", errors="replace")
+
+    runtime_ms = (time.monotonic() - started) * 1000
+    stdout_path.write_text(stdout, encoding="utf-8")
+    stderr_path.write_text(stderr, encoding="utf-8")
+    raw_output_path.write_text(output_text, encoding="utf-8")
+    normalized = normalize_sqlsolver_output(
+        stdout=stdout,
+        stderr=stderr,
+        output_text=output_text,
+        returncode=returncode,
+        timed_out=timed_out,
+    )
+    invocation_status = "completed"
+    if normalized in {"timeout", "unsupported", "tool_error"}:
+        invocation_status = normalized
+    return build_verdict_record(
+        pair_id=pair_id,
+        tool=SQLSOLVER_TOOL,
+        raw_verdict=normalized,
+        invocation_status=invocation_status,
+        tool_version=availability.tool_version or "unknown",
+        raw_stdout_path=stdout_path.as_posix(),
+        raw_stderr_path=stderr_path.as_posix(),
+        runtime_ms=runtime_ms,
+        timeout_seconds=timeout_seconds,
+        artifact_paths={
+            "tool_dir": tool_dir.as_posix(),
+            "raw_output_path": raw_output_path.as_posix(),
+            "command_shape": availability.command_shape,
+            "verifier_mode": SQLSOLVER_JAR_MODE,
+            "jar_path": availability.jar_path,
+            "ld_library_path": availability.ld_library_path,
+            "tool_available": True,
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
+        },
+    )
+
+
+def _tool_error_pair(
+    *,
+    pair: dict[str, str],
+    tool_dir: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+    raw_output_path: Path,
+    timeout_seconds: float,
+    reason: str,
+    availability: SQLSolverAvailability,
+) -> dict[str, Any]:
+    stdout_path.write_text("", encoding="utf-8")
+    stderr_path.write_text(reason + "\n", encoding="utf-8")
+    raw_output_path.write_text("", encoding="utf-8")
+    return build_verdict_record(
+        pair_id=pair["pair_id"],
+        tool=SQLSOLVER_TOOL,
+        raw_verdict="tool_error",
+        invocation_status="tool_error",
+        tool_version=availability.tool_version or "unknown",
+        raw_stdout_path=stdout_path.as_posix(),
+        raw_stderr_path=stderr_path.as_posix(),
+        runtime_ms=None,
+        timeout_seconds=timeout_seconds,
+        artifact_paths={
+            "tool_dir": tool_dir.as_posix(),
+            "raw_output_path": raw_output_path.as_posix(),
+            "detection_reason": reason,
+            "command_shape": availability.command_shape,
+            "verifier_mode": availability.invocation_mode,
+            "tool_available": availability.tool_available,
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
         },
     )
 
@@ -315,7 +596,16 @@ def _not_attempted_pair(
         raw_stderr_path=stderr_path.as_posix(),
         runtime_ms=None,
         timeout_seconds=timeout_seconds,
-        artifact_paths={"tool_dir": tool_dir.as_posix(), "detection_reason": reason},
+        artifact_paths={
+            "tool_dir": tool_dir.as_posix(),
+            "detection_reason": reason,
+            "command_shape": SQLSOLVER_COMMAND_SHAPE,
+            "verifier_mode": SQLSOLVER_JAR_MODE,
+            "tool_available": False,
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
+        },
     )
 
 
@@ -335,6 +625,169 @@ def _comparison_sql_path(pair: Mapping[str, str]) -> str:
     if pair_type == "source_vs_hard_negative":
         return pair["negative_sql_path"]
     raise ValueError(f"unsupported SQLSolver smoke pair type: {pair_type}")
+
+
+def _detect_env_jar(
+    env: Mapping[str, str],
+    *,
+    search_path: str | None,
+    version_timeout_seconds: float,
+) -> SQLSolverAvailability | None:
+    jar_value = env.get(SQLSOLVER_JAR_ENV_VAR)
+    root_value = env.get(SQLSOLVER_ROOT_ENV_VAR)
+    if not jar_value and not root_value:
+        return None
+    root = Path(root_value).expanduser() if root_value else None
+    jar_path = Path(jar_value).expanduser() if jar_value else _find_sqlsolver_jar(root)
+    return _detect_jar(
+        jar_path=jar_path,
+        root=root,
+        java_value=env.get(SQLSOLVER_JAVA_ENV_VAR),
+        ld_library_path_value=env.get(SQLSOLVER_LD_LIBRARY_PATH_ENV_VAR),
+        search_path=search_path,
+        version_timeout_seconds=version_timeout_seconds,
+    )
+
+
+def _detect_explicit_jar_command(
+    command: tuple[str, ...],
+    env: Mapping[str, str],
+    *,
+    search_path: str | None,
+    version_timeout_seconds: float,
+) -> SQLSolverAvailability | None:
+    if len(command) == 1 and command[0].endswith(".jar"):
+        jar_path = Path(command[0]).expanduser()
+        root = _infer_sqlsolver_root_from_jar(jar_path)
+        return _detect_jar(
+            jar_path=jar_path,
+            root=root,
+            java_value=env.get(SQLSOLVER_JAVA_ENV_VAR),
+            ld_library_path_value=env.get(SQLSOLVER_LD_LIBRARY_PATH_ENV_VAR),
+            search_path=search_path,
+            version_timeout_seconds=version_timeout_seconds,
+        )
+    if "-jar" in command:
+        jar_index = command.index("-jar") + 1
+        if jar_index >= len(command):
+            return SQLSolverAvailability(
+                tool_available=False,
+                command=None,
+                command_path=None,
+                tool_version=None,
+                detection_reason="sqlsolver_jar_not_found",
+                invocation_mode=SQLSOLVER_JAR_MODE,
+                command_shape=SQLSOLVER_COMMAND_SHAPE,
+            )
+        java_command = command[: jar_index - 1]
+        jar_path = Path(command[jar_index]).expanduser()
+        root = _infer_sqlsolver_root_from_jar(jar_path)
+        return _detect_jar(
+            jar_path=jar_path,
+            root=root,
+            java_value=" ".join(java_command),
+            ld_library_path_value=env.get(SQLSOLVER_LD_LIBRARY_PATH_ENV_VAR),
+            search_path=search_path,
+            version_timeout_seconds=version_timeout_seconds,
+        )
+    return None
+
+
+def _detect_jar(
+    *,
+    jar_path: Path | None,
+    root: Path | None,
+    java_value: str | None,
+    ld_library_path_value: str | None,
+    search_path: str | None,
+    version_timeout_seconds: float,
+) -> SQLSolverAvailability:
+    if jar_path is None or not jar_path.exists():
+        return SQLSolverAvailability(
+            tool_available=False,
+            command=None,
+            command_path=None,
+            tool_version=None,
+            detection_reason="sqlsolver_jar_not_found",
+            invocation_mode=SQLSOLVER_JAR_MODE,
+            jar_path=jar_path.as_posix() if jar_path else None,
+            sqlsolver_root=root.as_posix() if root else None,
+            command_shape=SQLSOLVER_COMMAND_SHAPE,
+        )
+    java_command = _split_command(java_value or "java")
+    java_path = _resolve_executable(java_command[0], search_path=search_path)
+    if java_path is None:
+        return SQLSolverAvailability(
+            tool_available=False,
+            command=None,
+            command_path=None,
+            tool_version=None,
+            detection_reason="java_not_found",
+            invocation_mode=SQLSOLVER_JAR_MODE,
+            jar_path=jar_path.as_posix(),
+            sqlsolver_root=root.as_posix() if root else None,
+            command_shape=SQLSOLVER_COMMAND_SHAPE,
+        )
+    resolved_java_command = (java_path, *java_command[1:])
+    ld_library_path = _resolve_ld_library_path(ld_library_path_value, root, jar_path)
+    if not ld_library_path:
+        return SQLSolverAvailability(
+            tool_available=False,
+            command=None,
+            command_path=None,
+            tool_version=None,
+            detection_reason="sqlsolver_ld_library_path_not_found",
+            invocation_mode=SQLSOLVER_JAR_MODE,
+            jar_path=jar_path.as_posix(),
+            sqlsolver_root=root.as_posix() if root else None,
+            java_command=resolved_java_command,
+            command_shape=SQLSOLVER_COMMAND_SHAPE,
+        )
+    version = _probe_jar_version(
+        java_command=resolved_java_command,
+        jar_path=jar_path,
+        ld_library_path=ld_library_path,
+        root=root,
+        timeout_seconds=version_timeout_seconds,
+    )
+    return SQLSolverAvailability(
+        tool_available=True,
+        command=(*resolved_java_command, "-jar", jar_path.as_posix()),
+        command_path=resolved_java_command[0],
+        tool_version=version,
+        detection_reason="sqlsolver_jar_available",
+        invocation_mode=SQLSOLVER_JAR_MODE,
+        jar_path=jar_path.as_posix(),
+        sqlsolver_root=root.as_posix() if root else None,
+        ld_library_path=ld_library_path,
+        java_command=resolved_java_command,
+        command_shape=SQLSOLVER_COMMAND_SHAPE,
+    )
+
+
+def _detect_legacy_command(
+    command: tuple[str, ...],
+    *,
+    search_path: str | None,
+    version_timeout_seconds: float,
+) -> SQLSolverAvailability:
+    executable = _resolve_executable(command[0], search_path=search_path)
+    if executable is None:
+        return SQLSolverAvailability(
+            tool_available=False,
+            command=None,
+            command_path=None,
+            tool_version=None,
+            detection_reason="sqlsolver_command_not_found",
+        )
+    version = _probe_version((executable, *command[1:]), timeout_seconds=version_timeout_seconds)
+    return SQLSolverAvailability(
+        tool_available=True,
+        command=(executable, *command[1:]),
+        command_path=executable,
+        tool_version=version,
+        detection_reason="command_available",
+    )
 
 
 def _candidate_commands(
@@ -366,6 +819,96 @@ def _split_command(command: str | Sequence[str]) -> tuple[str, ...]:
     return parts
 
 
+def _resolve_executable(executable: str, *, search_path: str | None) -> str | None:
+    resolved = shutil.which(executable, path=search_path)
+    if resolved:
+        return resolved
+    path = Path(executable)
+    if path.exists() and os.access(path, os.X_OK):
+        return path.as_posix()
+    return None
+
+
+def _find_sqlsolver_jar(root: Path | None) -> Path | None:
+    if root is None or not root.exists():
+        return None
+    candidates = sorted((root / "build" / "libs").glob("*.jar"))
+    if not candidates:
+        candidates = sorted(root.glob("*.jar"))
+    if not candidates:
+        return None
+    preferred = [path for path in candidates if "sqlsolver" in path.name.lower()]
+    return preferred[0] if preferred else candidates[0]
+
+
+def _infer_sqlsolver_root_from_jar(jar_path: Path) -> Path | None:
+    parts = jar_path.parts
+    if len(parts) >= 3 and parts[-3:] and parts[-3] == "build" and parts[-2] == "libs":
+        return Path(*parts[:-3])
+    for parent in jar_path.parents:
+        if (parent / "lib").is_dir() and (parent / "README.md").exists():
+            return parent
+    return None
+
+
+def _resolve_ld_library_path(value: str | None, root: Path | None, jar_path: Path) -> str | None:
+    candidates: list[Path] = []
+    if value:
+        for item in value.split(os.pathsep):
+            if item:
+                candidates.append(Path(item).expanduser())
+    if root is not None:
+        candidates.append(root / "lib")
+    inferred_root = _infer_sqlsolver_root_from_jar(jar_path)
+    if inferred_root is not None:
+        candidates.append(inferred_root / "lib")
+    valid = [path.as_posix() for path in candidates if path.exists()]
+    return os.pathsep.join(dict.fromkeys(valid)) if valid else None
+
+
+def _probe_jar_version(
+    *,
+    java_command: tuple[str, ...],
+    jar_path: Path,
+    ld_library_path: str,
+    root: Path | None,
+    timeout_seconds: float,
+) -> str | None:
+    env = _sqlsolver_process_env({}, SQLSolverAvailability(
+        tool_available=True,
+        command=(*java_command, "-jar", jar_path.as_posix()),
+        command_path=java_command[0],
+        tool_version=None,
+        detection_reason="sqlsolver_jar_available",
+        invocation_mode=SQLSOLVER_JAR_MODE,
+        jar_path=jar_path.as_posix(),
+        sqlsolver_root=root.as_posix() if root else None,
+        ld_library_path=ld_library_path,
+        java_command=java_command,
+        command_shape=SQLSOLVER_COMMAND_SHAPE,
+    ))
+    try:
+        completed = subprocess.run(
+            [*java_command, "-jar", jar_path.as_posix(), "-help"],
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=timeout_seconds,
+            env=env,
+        )
+    except Exception:
+        return None
+    version_text = None
+    if root is not None and (root / "version").exists():
+        version_text = (root / "version").read_text(encoding="utf-8", errors="replace").strip()
+    help_line = (completed.stdout or completed.stderr).strip().splitlines()
+    if version_text:
+        return f"SQLSolver {version_text}"
+    if help_line:
+        return help_line[0][:200]
+    return None
+
+
 def _probe_version(command: tuple[str, ...], *, timeout_seconds: float) -> str | None:
     for flag in ("--version", "-version", "-h", "--help"):
         try:
@@ -384,6 +927,47 @@ def _probe_version(command: tuple[str, ...], *, timeout_seconds: float) -> str |
     return None
 
 
+def _sqlsolver_process_env(env: Mapping[str, str] | None, availability: SQLSolverAvailability) -> dict[str, str]:
+    process_env = dict(os.environ if env is None else env)
+    if availability.ld_library_path:
+        existing = process_env.get("LD_LIBRARY_PATH")
+        process_env["LD_LIBRARY_PATH"] = (
+            availability.ld_library_path
+            if not existing
+            else availability.ld_library_path + os.pathsep + existing
+        )
+    return process_env
+
+
+def _read_sql_line(path: Path) -> str:
+    text = path.read_text(encoding="utf-8").strip()
+    if text.endswith(";"):
+        text = text[:-1].strip()
+    return " ".join(text.split())
+
+
+def _normalize_official_result_lines(text: str) -> str | None:
+    lines = [line.strip().upper() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return None
+    official = [line for line in lines if line in {"EQ", "NEQ", "UNKNOWN", "TIMEOUT"}]
+    if not official:
+        return None
+    if any(line == "TIMEOUT" for line in official):
+        return "timeout"
+    if any(line == "NEQ" for line in official):
+        return "non_equivalent"
+    if any(line == "UNKNOWN" for line in official):
+        return "unknown"
+    if official and all(line == "EQ" for line in official):
+        return "equivalent"
+    return None
+
+
+def _safe_name(value: str) -> str:
+    return "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in value)[:80] or "pair"
+
+
 def _log_text(availability: SQLSolverAvailability, pair_count: int) -> str:
     return "\n".join(
         [
@@ -391,6 +975,10 @@ def _log_text(availability: SQLSolverAvailability, pair_count: int) -> str:
             f"tool_available={str(availability.tool_available).lower()}",
             f"tool_version={availability.tool_version or 'unknown'}",
             f"detection_reason={availability.detection_reason}",
+            f"verifier_mode={availability.invocation_mode}",
+            f"command_shape={availability.command_shape}",
+            f"jar_path={availability.jar_path or 'none'}",
+            f"ld_library_path={availability.ld_library_path or 'none'}",
             f"pairs_planned={pair_count}",
             "official_metric_input=false",
             "leaderboard_input=false",
@@ -410,6 +998,8 @@ def _report_text(summary: Mapping[str, Any], availability: SQLSolverAvailability
             "",
             f"- Tool available: `{str(availability.tool_available).lower()}`",
             f"- Tool version: `{availability.tool_version or 'unknown'}`",
+            f"- Verifier mode: `{availability.invocation_mode}`",
+            f"- Command shape: `{availability.command_shape}`",
             f"- Semantic Equivalence Rate: `{rate_text}`",
             f"- N.A. reason: `{summary.get('na_reason') or 'none'}`",
             f"- Decidable pairs: `{summary.get('decidable_count', 0)}`",
