@@ -16380,3 +16380,86 @@ Push result:
 
 Next safe action:
 - Authorize a local-only finite-bound VeriEQL toy smoke using `parallel.cli_within_bound`, proceed to SQLSolver setup/smoke, or pause verifier expansion and keep Semantic Equivalence Rate as `N.A.`.
+
+## 2026-05-23 - verieql_cli_within_bound_equivalent_path_probe_v0
+
+Mode: local-only VeriEQL finite-bound tool-behavior probe.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit/project-control only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_cli_within_bound_equivalent_path_probe_v0/` only.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/README.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/command_log.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/source_review.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/probe_input_shape.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/probe_results.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/verdict_normalization_recommendation.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/protected_surface_check.md`
+- `audits/verieql_cli_within_bound_equivalent_path_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- `parallel.cli_within_bound` ran successfully with the external VeriEQL venv.
+- Exact command shape: `/home/tianci_gao/.venvs/sqlrb-verieql/bin/python -m parallel.cli_within_bound -f <pairs.jsonlines> -s <bound> -t 30 -c 1 -o <output.jsonl>`.
+- Bound sizes tested: 1, 2, 3, 5, and 10.
+- Equivalent pair: `SELECT a FROM T` vs `SELECT a FROM T`.
+- Non-equivalent pair: `SELECT a FROM T` vs `SELECT b FROM T`.
+- Final schema shape: logical `T(a,b)` encoded with VeriEQL-compatible uppercase column keys `A` and `B`.
+- Equivalent result by bound: clean all-`EQU` at 1, 2, 3, 5, and 10.
+- Non-equivalent result by bound: clean `NEQ` at 1, 2, 3, 5, and 10.
+- Initial lowercase schema-key pass produced `OTE` with error `'A'` for the non-equivalent row; future wrapper work should canonicalize schema identifiers.
+- Clean bounded `EQU` found: yes.
+- Clean `NEQ` found: yes.
+- Timeout-mode was the main blocker for the equivalent toy path: yes.
+- Wrapper/schema input adjustment needed: yes, schema identifier canonicalization before exact-candidate pass.
+- Semantic Equivalence Rate readiness: not ready for exact-candidate local verifier pass until finite-bound wrapper mode and schema canonicalization are implemented; synthetic smoke remains non-official.
+
+Validation:
+- Project-control readability check passed.
+- Audit Markdown sanity check passed; no empty Markdown files were found.
+- Audit CSV sanity check: not applicable; this packet does not create CSV files.
+- `git diff --check`: passed.
+- Protected-surface check passed; only `audits/verieql_cli_within_bound_equivalent_path_probe_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md` changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts were staged or committed.
+- Staged VeriEQL source tree remained unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo modified: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL patched: no.
+VeriEQL copied/vendorized: no.
+Common-core run performed: no.
+Method-generated candidate rows run: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Local result checker exactness used as verifier equivalence: no.
+Synthetic smoke used as Common-core/paper evidence: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Implement a finite-bound VeriEQL wrapper mode with schema identifier canonicalization and synthetic regression tests before any exact-candidate local verifier pass; until that exists, keep Semantic Equivalence Rate as `N.A.`.

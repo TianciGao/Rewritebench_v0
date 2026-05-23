@@ -1,0 +1,26 @@
+# Boundary Checklist
+
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- reports/results changed: no
+- raw retained evidence changed: no
+- raw legacy evidence changed: no
+- legacy repo modified: no
+- VeriEQL source tree modified: no
+- dependencies installed: no
+- VeriEQL patched: no
+- VeriEQL copied/vendorized: no
+- Common-core run performed: no
+- method-generated candidate rows run: no
+- SQLSolver run performed: no
+- official Semantic Equivalence Rate computed: no
+- official metrics computed: no
+- timing/speedup computed: no
+- top-level reports/results updated: no
+- retained evidence promoted: no
+- leaderboard created: no
+- local result checker exactness used as verifier equivalence: no
+- synthetic smoke used as Common-core/paper evidence: no
+- `runs/user/` outputs committed: no
+- repository-level `output/` runtime artifacts committed: no
