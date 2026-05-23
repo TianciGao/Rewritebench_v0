@@ -17263,3 +17263,79 @@ Push result:
 
 Next safe action:
 - Investigate the `LONGTAIL_0023` non-equivalent diagnostic result and the `PORT_0012` tool error before any paper-facing promotion; then decide whether to improve VeriEQL support for the unsupported/not-implemented/timeout categories or keep Semantic Equivalence Rate coverage-limited.
+
+## 2026-05-23 - verieql_longtail0023_non_equivalent_triage_v0
+
+Mode: local diagnostic triage of one VeriEQL non-equivalent row.
+
+Legacy repo modified: no.
+Release repo modified: yes, audit and project-control files only.
+Runtime artifacts written: yes, under `/tmp/sqlrb_verieql_longtail0023_non_equivalent_triage_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/README.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/source_candidate_diff.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/exact_gate_review.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/local_checker_review.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/verieql_recheck_results.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/recheck_matrix.csv`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/counterexample_or_raw_output_review.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/triage_verdict.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/paper_boundary_recommendation.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/command_log.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/protected_surface_check.md`
+- `audits/verieql_longtail0023_non_equivalent_triage_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Source run inspected: `runs/user/common_core_pg_noop_db_checker`.
+- Case inspected: `LONGTAIL_0023`.
+- Exact gate reconfirmed: selected, source executable, candidate generated, candidate executable, checker success, and exact/result-consistent.
+- Source and SQLGlot-noop candidate SQL are byte-identical: 776 bytes each, SHA-256 `758d318d64074b7bad77fdb1bc5418f9a87058603922d710161549eb43ebe926`.
+- `diff -u` showed no source/candidate differences.
+- Retained local source and candidate result JSONL files each have 5 identical rows.
+- VeriEQL rechecks: source-vs-candidate is equivalent at bound 1 and non-equivalent at bounds 2, 3, and 4; source-vs-source at bound 4 is non-equivalent; candidate-vs-candidate at bound 4 is non-equivalent.
+- Raw VeriEQL reason for non-equivalent rechecks: `Symbolic reasoning: NOT EQUIVALENT.` with counterexample output present.
+- Triage classification: primary `possible_verieql_modeling_gap`; secondary `possible_bag_null_order_semantics_gap`; retained `unresolved_manual_review_required`.
+- `likely_candidate_semantic_drift` is not supported; `possible_pair_construction_gap` is not supported as primary because identity support pairs fail.
+- Paper-facing Semantic Equivalence Rate promotion remains blocked.
+
+Validation:
+- Audit Markdown/CSV sanity passed: 11 Markdown files non-empty and `recheck_matrix.csv` has 6 data rows.
+- `git diff --check`: passed.
+- Protected-surface check passed; only this audit packet and project-control status/log files changed before staging.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed.
+- Staged VeriEQL source tree unchanged relative to preflight, except pre-existing `M constants.py`: confirmed before staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Full Common-core run performed: no.
+All exact rows run again: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Dependencies installed: no.
+VeriEQL patched/copied/vendorized: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Plan a VeriEQL identity-invariant/tool-semantics audit for CTE + aggregate + outer join + NULL shapes, and keep paper-facing Semantic Equivalence Rate blocked/coverage-limited until this verifier class is explained or excluded by authorized policy.
