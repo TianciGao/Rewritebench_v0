@@ -15,6 +15,7 @@ from sql_rewrite_bench.verifier_support.verieql import (
     parse_verieql_output_file,
     write_verieql_pair_jsonl,
     write_verieql_canary,
+    _schema_from_context,
 )
 
 
@@ -130,6 +131,35 @@ class VeriEQLSupportTests(unittest.TestCase):
         self.assertEqual(canonical["T"]["B"], "BIGINT")
         self.assertEqual(canonical["QUOTED_TABLE"]["MIXEDCASE"], "VARCHAR(10)")
 
+    def test_create_table_parser_preserves_parameterized_types(self) -> None:
+        examples = [
+            ("CREATE TABLE T (A VARCHAR(32));", "VARCHAR(32)"),
+            ("CREATE TABLE T (A NUMERIC(15,2));", "NUMERIC(15,2)"),
+            ("CREATE TABLE T (A DECIMAL(9,2));", "DECIMAL(9,2)"),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            schema = Path(tmp) / "schema.sql"
+            for ddl, expected_type in examples:
+                with self.subTest(expected_type=expected_type):
+                    schema.write_text(ddl, encoding="utf-8")
+                    parsed = _schema_from_context(schema.as_posix())
+
+                    self.assertEqual(parsed["T"]["A"], expected_type)
+
+    def test_create_table_parser_preserves_mixed_column_types(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            schema = Path(tmp) / "schema.sql"
+            schema.write_text(
+                "CREATE TABLE public.t (a INTEGER, b VARCHAR(32), c NUMERIC(15,2));",
+                encoding="utf-8",
+            )
+
+            parsed = _schema_from_context(schema.as_posix())
+
+            self.assertEqual(parsed["T"]["A"], "INTEGER")
+            self.assertEqual(parsed["T"]["B"], "VARCHAR(32)")
+            self.assertEqual(parsed["T"]["C"], "NUMERIC(15,2)")
+
     def test_jsonl_pair_file_generation_and_command_construction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
@@ -162,6 +192,7 @@ class VeriEQLSupportTests(unittest.TestCase):
             self.assertEqual(records[0]["pair"], ["SELECT 1\n", "SELECT 1\n"])
             self.assertEqual(records[0]["pair_role"], "support_pair_smoke")
             self.assertEqual(parsed["schema"]["T"]["ID"], "BIGINT")
+            self.assertEqual(parsed["schema"]["T"]["NAME"], "VARCHAR(10)")
             self.assertEqual(command[-6:], ["parallel.cli_within_timeout", "-f", output_jsonl.as_posix(), "-t", "30", "-o", (tmp_path / "out.jsonl").as_posix()][-6:])
 
     def test_jsonl_generation_canonicalizes_synthetic_from_pairs(self) -> None:

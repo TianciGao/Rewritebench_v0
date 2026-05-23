@@ -987,21 +987,109 @@ def _schema_from_context(path_text: str) -> dict[str, dict[str, str]]:
 
 def _parse_create_table_schema(sql_text: str) -> dict[str, dict[str, str]]:
     schema: dict[str, dict[str, str]] = {}
-    pattern = re.compile(r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([`\"A-Za-z0-9_.]+)\s*\((.*?)\)", re.IGNORECASE | re.DOTALL)
-    for match in pattern.finditer(sql_text):
-        table = match.group(1).strip('`"').split(".")[-1].upper()
+    for table_name, column_block in _iter_create_table_blocks(sql_text):
+        table = table_name.strip('`"').split(".")[-1].upper()
         columns: dict[str, str] = {}
-        for raw_column in _split_sql_columns(match.group(2)):
-            parts = raw_column.strip().split()
-            if len(parts) < 2:
+        for raw_column in _split_sql_columns(column_block):
+            parsed_column = _parse_column_definition(raw_column)
+            if parsed_column is None:
                 continue
-            column_name = parts[0].strip('`",').upper()
-            if column_name in {"PRIMARY", "FOREIGN", "UNIQUE", "CONSTRAINT", "CHECK", "KEY"}:
-                continue
-            columns[column_name] = parts[1].strip(",").upper()
+            column_name, column_type = parsed_column
+            columns[column_name] = column_type
         if columns:
             schema[table] = columns
     return schema
+
+
+def _iter_create_table_blocks(sql_text: str) -> list[tuple[str, str]]:
+    pattern = re.compile(r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([`\"A-Za-z0-9_.]+)\s*\(", re.IGNORECASE)
+    blocks: list[tuple[str, str]] = []
+    for match in pattern.finditer(sql_text):
+        open_index = match.end() - 1
+        close_index = _find_matching_parenthesis(sql_text, open_index)
+        if close_index is None:
+            continue
+        blocks.append((match.group(1), sql_text[open_index + 1 : close_index]))
+    return blocks
+
+
+def _find_matching_parenthesis(text: str, open_index: int) -> int | None:
+    depth = 0
+    quote: str | None = None
+    index = open_index
+    while index < len(text):
+        char = text[index]
+        if quote:
+            if char == quote:
+                quote = None
+            elif char == "\\":
+                index += 1
+        elif char in {"'", '"'}:
+            quote = char
+        elif char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                return index
+        index += 1
+    return None
+
+
+def _parse_column_definition(raw_column: str) -> tuple[str, str] | None:
+    column = raw_column.strip().rstrip(",")
+    if not column:
+        return None
+    name, type_text = _split_column_name_and_type(column)
+    if not name or not type_text:
+        return None
+    column_name = name.strip('`",').upper()
+    if column_name in {"PRIMARY", "FOREIGN", "UNIQUE", "CONSTRAINT", "CHECK", "KEY"}:
+        return None
+    column_type = _column_type_before_constraints(type_text)
+    if not column_type:
+        return None
+    return column_name, column_type.upper()
+
+
+def _split_column_name_and_type(column: str) -> tuple[str, str]:
+    column = column.strip()
+    if not column:
+        return "", ""
+    if column[0] in {'"', "`"}:
+        quote = column[0]
+        end = column.find(quote, 1)
+        if end == -1:
+            return "", ""
+        return column[: end + 1], column[end + 1 :].strip()
+    pieces = column.split(None, 1)
+    if len(pieces) != 2:
+        return "", ""
+    return pieces[0], pieces[1]
+
+
+def _column_type_before_constraints(type_text: str) -> str:
+    tokens = type_text.strip().split()
+    type_tokens: list[str] = []
+    constraint_keywords = {
+        "PRIMARY",
+        "FOREIGN",
+        "UNIQUE",
+        "CONSTRAINT",
+        "CHECK",
+        "KEY",
+        "NOT",
+        "NULL",
+        "DEFAULT",
+        "REFERENCES",
+        "COLLATE",
+        "GENERATED",
+    }
+    for token in tokens:
+        if token.strip().strip(",").upper() in constraint_keywords:
+            break
+        type_tokens.append(token.strip().strip(","))
+    return " ".join(type_tokens)
 
 
 def _split_sql_columns(column_block: str) -> list[str]:

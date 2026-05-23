@@ -16717,3 +16717,83 @@ Push result:
 
 Next safe action:
 - Harden DDL parsing for parameterized types, then authorize a bounded two-row `CONS_0036`/`CONS_0037` exact-candidate VeriEQL pass.
+
+## 2026-05-23 - verieql_ddl_parameterized_type_parser_hardening_v0
+
+Mode: narrow code hardening for VeriEQL DDL schema parsing.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, schema-only smoke under `/tmp/sqlrb_verieql_ddl_parameterized_type_parser_hardening_v0/`.
+Staged VeriEQL source tree modified: no new changes; pre-existing `M constants.py` remains.
+
+Files created:
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/README.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/implementation_summary.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/ddl_parser_regression_tests.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/cons0037_readiness_check.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/semantic_equivalence_rate_readiness.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/command_log.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/protected_surface_check.md`
+- `audits/verieql_ddl_parameterized_type_parser_hardening_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/verieql.py`
+- `tests/user_entry/test_verieql_support.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- CREATE TABLE body parsing now uses balanced parentheses instead of stopping at the first `)`.
+- Parameterized type strings are preserved: `VARCHAR(32)`, `NUMERIC(15,2)`, and `DECIMAL(9,2)`.
+- Identifier canonicalization to uppercase VeriEQL schema metadata is preserved.
+- Finite-bound verdict normalization was not changed.
+- Repository case SQL and DDL files were not rewritten.
+- `CONS_0037` schema-only JSONL smoke confirmed `DEPT.NAME=VARCHAR(32)` and `EMP.DEPTNO=BIGINT`.
+- Parser scan over 35 exact rows from `runs/user/common_core_pg_noop_db_checker` found 17 rows with parameterized DDL types and 0 malformed/truncated type strings after hardening.
+- Ready for two-row `CONS_0036`/`CONS_0037` exact-candidate VeriEQL pass: yes, separately authorized.
+
+Validation:
+- Focused tests passed: `pytest tests/user_entry/test_verieql_support.py -q` reported 20 passed and 3 subtests passed.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/verieql.py` passed.
+- Full user-entry tests passed: `pytest tests/user_entry -q` reported 218 passed, 1 skipped, 15 subtests passed.
+- Audit Markdown sanity passed: 8 Markdown files non-empty.
+- `git diff --check`: passed.
+- Protected-surface check passed; only allowed VeriEQL wrapper, focused tests, audit, and project-control paths changed.
+- No `runs/user/` or repository-level `output/` runtime artifacts staged or committed: confirmed before commit.
+- Staged VeriEQL source tree unchanged relative to preflight, with only pre-existing `M constants.py`.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Legacy repo modified: no.
+VeriEQL source tree modified: no.
+Dependencies installed: no.
+VeriEQL patched: no.
+VeriEQL copied/vendorized: no.
+Full Common-core run performed: no.
+All exact rows run through VeriEQL: no.
+CONS_0036/CONS_0037 verifier pass run: no.
+Real VeriEQL invocation run in this task: no.
+SQLSolver run performed: no.
+Official Semantic Equivalence Rate computed: no.
+Official metrics computed: no.
+Timing/speedup computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+Repository case SQL or DDL rewritten: no.
+`runs/user/` outputs committed: no.
+Repository-level `output/` runtime artifacts committed: no.
+
+Commit hash:
+- Pending.
+
+Push result:
+- Pending.
+
+Next safe action:
+- Authorize the bounded two-row `CONS_0036`/`CONS_0037` exact-candidate VeriEQL pass.
