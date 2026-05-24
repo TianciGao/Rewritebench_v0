@@ -20015,3 +20015,72 @@ Boundary:
 
 Next safe action:
 - Build the local-only `sqlglot_optimize_schema_aware` route-card projection from the 120-row execution/checker audit and this exact-gated timing packet.
+
+## 2026-05-24 - user_metrics_source_of_truth_alignment_v0
+
+Task: `user_metrics_source_of_truth_alignment_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Files created:
+- `audits/user_metrics_source_of_truth_alignment_v0/README.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/canonical_metric_path.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/audit_output_classification.csv`
+- `audits/user_metrics_source_of_truth_alignment_v0/sqlglot_optimize_alignment_review.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/calcite_alignment_review.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/sqlglot_noop_alignment_review.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/required_rerun_or_reprocess_plan.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/forbidden_manual_metric_patterns.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/command_log.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/protected_surface_check.md`
+- `audits/user_metrics_source_of_truth_alignment_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Canonical metric source-of-truth verdict:
+- Canonical local diagnostic route metrics must be computed by `src/sql_rewrite_bench/local_metrics.py`.
+- The canonical API is `compute_and_write_local_metrics(run_dir)`.
+- The user-facing command is `python -m cli.main user compute-local-metrics --run-id <run_id> --source-run-root runs/user --output-root <output_root>`.
+- The current CLI does not expose `--run-dir`; it uses `--run-id` and `--source-run-root`.
+
+Audit classification:
+- Reviewed audit packets: 6.
+- Canonical `local_metrics.py` outputs found in reviewed audit packets: 0.
+- `audit_helper_projection_only`: 5 packets.
+- `diagnostic_raw_evidence_only`: 1 packet.
+- `canonical_local_metrics_output`: 0 packets.
+- `canonical_user_run_but_metrics_not_computed`: 0 packets.
+
+Reviewed packets classified:
+- `audits/sqlglot_noop_pg_current_route_card_refresh_v0/`: audit-helper projection only; needs user-facade rerun for refreshed timed metrics.
+- `audits/calcite_hep_pg_local_metrics_projection_v0/`: audit-helper projection only; needs user-facade rerun.
+- `audits/calcite_hep_pg_post_quoting_chain_rerun_v0/`: audit-helper projection only; needs user-facade rerun.
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/`: audit-helper projection only; needs canonical reprocess after canonical route metrics exist.
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/`: audit-helper projection only; needs user-facade rerun.
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/`: diagnostic raw evidence only; needs user-facade rerun or separately authorized canonical reprocess path.
+
+Correction:
+- Existing helper `route_card.json`, `route_card.csv`, `comparison_table.csv`, and helper-computed diagnostic speedup summaries are provisional audit summaries only.
+- The previous next step to build a SQLGlot optimize route card directly from audit CSV/JSON is superseded.
+- The replacement next task should produce standard source-run directories through `python -m cli.main user evaluate`, run `compute-local-metrics`, and only then summarize canonical `metrics/local_metrics_*` outputs.
+
+Boundary:
+- Candidate generation run: no.
+- Execution/checker run: no.
+- Timing run: no.
+- Verifier pass performed: no.
+- Official metrics computed: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize a canonical `sqlglot_optimize_schema_aware` user-facade rerun plus `compute-local-metrics`, or first authorize a narrow canonical reprocess bridge if rerun is deferred.
