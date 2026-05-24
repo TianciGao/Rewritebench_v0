@@ -1,0 +1,55 @@
+# Command Log
+
+Read-only inspection commands used:
+
+```bash
+git status -sb
+git branch --show-current
+find src/sql_rewrite_bench/verifier_support -maxdepth 2 -type f | sort
+sed -n '1,120p' audits/track_a_120_existing_baseline_evidence_inventory_v0/exact_row_verifier_eligibility_by_route.csv
+sed -n '1,120p' audits/track_a_120_tag_failure_slices_v0/tag_failure_boundary.md
+sed -n '1,260p' src/sql_rewrite_bench/verifier_support/pairs.py
+sed -n '1,260p' src/sql_rewrite_bench/verifier_support/sqlsolver.py
+sed -n '1,260p' src/sql_rewrite_bench/verifier_support/verieql.py
+sed -n '1,220p' src/sql_rewrite_bench/verifier_support/verdicts.py
+sed -n '1,220p' src/sql_rewrite_bench/verifier_support/summary.py
+rg -n "SQLSolver|sqlsolver|VeriEQL|verieql|identity guard|identity_guard|Semantic Equivalence|SER|coverage_limited|formal verifier|not_applicable|coverage" project_control/MIGRATION_STATUS.md project_control/DECISION_LOG.md project_control/MIGRATION_RUN_LOG.md repository_spec/metrics_contract_v1.md src/sql_rewrite_bench/local_metrics.py src/sql_rewrite_bench/tag_slices.py src/sql_rewrite_bench/verifier_support
+sed -n '120,190p' repository_spec/metrics_contract_v1.md
+sed -n '1,120p' audits/track_a_120_existing_baseline_evidence_inventory_v0/verifier_pair_recovery_plan.md
+sed -n '1,120p' audits/track_a_120_tag_failure_slices_v0/README.md
+find audits/verifier_user_facing_rerun_contract_v0 audits/sqlsolver_pg_noop_all_exact_identity_guard_pass_v0 audits/verieql_support_layout_config_contract_v0 audits/sqlsolver_support_layout_config_contract_v0 -maxdepth 1 -type f 2>/dev/null | sort
+sed -n '1,220p' audits/verifier_user_facing_rerun_contract_v0/identity_guard_policy.md 2>/dev/null || true
+sed -n '1,220p' audits/verifier_user_facing_rerun_contract_v0/README.md 2>/dev/null || true
+sed -n '1,180p' audits/sqlsolver_support_layout_config_contract_v0/recommendation.md 2>/dev/null || true
+sed -n '1,180p' audits/verieql_support_layout_config_contract_v0/recommendation.md 2>/dev/null || true
+```
+
+Generation command:
+
+```bash
+python - <<'PY_AUDIT_GENERATOR'
+# Parsed existing ledgers and selected_cases.csv, hashed source/candidate SQL files,
+# and wrote path/hash planning outputs only.
+PY_AUDIT_GENERATOR
+```
+
+No adapter, DB execution, checker execution, timing collection, LLM call, SQLSolver command, VeriEQL command, `compute-local-metrics`, official metric, paper rendering, or run artifact modification occurred.
+
+Validation commands run after generation:
+
+```bash
+python - <<'PY_VALIDATION'
+# Parsed generated CSV files, checked Markdown/text non-empty status,
+# reconciled eligible pair counts to prior inventory estimates,
+# verified source/candidate/schema paths, and rehashed source/candidate SQL.
+PY_VALIDATION
+python - <<'PY_BOUNDARY'
+# Checked logged command blocks for prohibited adapter, DB, checker, timing,
+# LLM, SQLSolver, VeriEQL, compute-local-metrics, and paper-rendering commands.
+PY_BOUNDARY
+git diff --check
+rg -n --no-heading -S -e '<secret-patterns>' audits/track_a_120_verifier_pair_materialization_plan_v0
+python - <<'PY_PROTECTED_PATHS'
+# Reviewed git status paths against the task's allowed modification surface.
+PY_PROTECTED_PATHS
+```

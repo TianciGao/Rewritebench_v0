@@ -21357,3 +21357,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Proceed to verifier-phase exact-candidate pair inventory/materialization design or bounded verifier pass planning, without running Repair-1 yet.
+
+## track_a_120_verifier_pair_materialization_plan_v0
+
+Date: 2026-05-24
+
+Task title: `track_a_120_verifier_pair_materialization_plan_v0`
+
+Mode: verifier-phase planning/materialization packet over existing canonical Track A 120 artifacts; no verifier, adapter, execution, checker, timing, LLM, or metric run
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Routes covered:
+- `direct_llm_original` / `direct_llm_original_track_a_120_canonical_v0`
+- `sqlglot_noop` / `sqlglot_noop_track_a_120_canonical_v0`
+- `sqlglot_optimize_schema_aware` / `sqlglot_optimize_schema_aware_track_a_120_canonical_v0`
+- `calcite_hep_fail_closed` / `calcite_hep_track_a_120_canonical_v0`
+
+Files created:
+- `audits/track_a_120_verifier_pair_materialization_plan_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Materialization summary:
+- `verifier_pair_inventory.csv` records all 480 selected route rows with exact/candidate/schema blocker fields.
+- `verifier_pair_materialization_manifest.csv` records 346 exact/result-consistent source-vs-candidate pair references using `path_reference_plus_hash`.
+- Eligible pair counts reconcile to prior inventory estimates: `direct_llm_original=102`, `sqlglot_noop=97`, `sqlglot_optimize_schema_aware=66`, and `calcite_hep_fail_closed=81`.
+- All eligible pairs have recoverable source SQL, candidate SQL, schema reference, and source/candidate SHA256 hashes.
+- `verifier_tool_applicability_matrix.csv` recommends SQLSolver first on a bounded deterministic `sqlglot_noop` PostgreSQL exact subset; MySQL/Spark verifier applicability remains deferred.
+- No SQL text was copied into the audit packet beyond path references and hashes.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Source path existence checks: passed.
+- Candidate SQL path existence checks: passed.
+- Hash generation checks: passed.
+- Pair count sanity against inventory estimates: passed.
+- No-prohibited-command check: passed.
+- No primary metric recomputed or changed: passed.
+- No official metric computed: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- Staged-file secret scan and staged protected-path review: passed.
+
+Boundary:
+- No SQLSolver run occurred.
+- No VeriEQL run occurred.
+- No SER was computed.
+- No official metric was produced.
+- Local checker exactness is only an eligibility gate and is not SER evidence.
+- SQLSolver and VeriEQL remain verifier/support tools, not rewrite baselines.
+- Verifier limitations must not be counted as method rewrite failures.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+- No adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, paper table rendering, retained-evidence promotion, leaderboard output, or runtime artifact commit occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a bounded SQLSolver-first verifier pass on a small deterministic exact-pair subset, with identity guards and fail-closed boundary reporting, before broader verifier coverage or any Repair-1 execution.
