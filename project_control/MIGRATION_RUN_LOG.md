@@ -20939,3 +20939,105 @@ Boundary:
 
 Next safe action:
 - Run a larger bounded canonical Direct LLM original live smoke before any Track A 120 authorization.
+
+## direct_llm_original_track_a_120_canonical_user_rerun_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Mode: canonical D035 user-facade Track A 120 local diagnostic with canonical local metrics
+Legacy repo modified: no
+Release repo modified: yes
+Commit: canonical Direct LLM original Track A metrics commit recorded in final task report
+Push: pending at entry creation
+Scope:
+- Route: `direct_llm_original`.
+- Method: `direct_llm_original`.
+- Adapter: `baselines/direct_llm_original/adapter.py`.
+- Provider/model: GPTSAPI OpenAI-compatible `gpt-5.4`.
+- Case set: Common-core v0.
+- Engines: PostgreSQL, MySQL, Spark.
+- Planned rows: 120.
+
+Preflight:
+- `git status -sb` reviewed; two unrelated untracked prior Direct LLM audit directories were present and left untouched.
+- Branch confirmed: `feature/case-package-v2-external-schema`.
+- `git fetch origin` completed.
+- `0e07e08` confirmed in `HEAD` and `origin/feature/case-package-v2-external-schema`.
+- Project-control files were read from `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- D033, D034, and D035 were present on `origin/feature/case-package-v2-external-schema`; `origin/main` did not contain those decision IDs.
+- Direct LLM original adapter existed and included `User-Agent: SQL-RewriteBench/0.1`.
+- Required live env was present without printing secret values.
+- PostgreSQL, MySQL, and Spark local diagnostics were available.
+- Tracked-file secret scan passed.
+- No staged `runs/user`, repository-level `output`, top-level `reports`, or `results` artifacts were present.
+
+Provider health:
+- One minimal `POST /v1/chat/completions` health check succeeded with HTTP 200.
+- `code_1010_detected=false`.
+
+Evaluate command:
+- Ran `python -m cli.main user evaluate --case-set common_core_v0 --engines postgres,mysql,spark --adapter-command "python baselines/direct_llm_original/adapter.py" --output-root /tmp/sqlrb_direct_llm_original_track_a_120_canonical_user_rerun_v0/output --run-id direct_llm_original_track_a_120_canonical_v0 --enable-db-execution --enable-checker --collect-timing`.
+
+Evaluate results:
+- Selected rows: 120.
+- Live API call success: 120.
+- Extraction status `extracted`: 120.
+- Candidate generated rows: 120.
+- Source executable rows: 115.
+- Candidate executable rows: 112.
+- Checker success rows: 102.
+- Checker mismatch rows: 10.
+- Exact rows: 102.
+- Not exact due to execution failure: 8.
+- Exact timed rows: 90.
+- Failure buckets: `none=102`, `mismatch=10`, `candidate_execution_failed=3`, `unsupported_engine=5`.
+
+Canonical metrics command:
+- Ran `python -m cli.main user compute-local-metrics --run-id-prefix direct_llm_original_track_a_120_canonical_v0 --engines postgres,mysql,spark --aggregate-run-id direct_llm_original_track_a_120_canonical_v0 --source-run-root runs/user --output-root /tmp/sqlrb_direct_llm_original_track_a_120_canonical_user_rerun_v0/output`.
+- Metrics were computed only through `src/sql_rewrite_bench/local_metrics.py`.
+
+Canonical metrics:
+- Overall generation rate: `1.0`.
+- Overall execution coverage rate: `0.9333333333333333`.
+- Overall result consistency rate: `0.85`.
+- Overall GM speedup ratio: `1.0132043433789995`.
+- Speedup P10/P25/P50/P75/P90: `0.9719964696445886` / `0.9869093109718886` / `1.0010427055066198` / `1.012834345802451` / `1.0499237208126873`.
+- PostgreSQL: selected 40, generated 40, candidate executable 40, exact 39, mismatch 1, timed 34, GM speedup `1.0207730373187183`.
+- MySQL: selected 40, generated 40, candidate executable 40, exact 32, mismatch 8, timed 29, GM speedup `1.0022893818022647`.
+- Spark: selected 40, generated 40, candidate executable 32, exact 31, mismatch 1, unsupported 5, timed 27, GM speedup `1.015498492165199`.
+
+Frontier:
+- Mismatches: `CONS_0005/postgres`, `PERF_0062/mysql`, `CONS_0005/mysql`, `CONS_0037/mysql`, `PORT_0004/mysql`, `PORT_0012/mysql`, `PORT_0013/mysql`, `PORT_0022/mysql`, `PORT_0024/mysql`, `CONS_0005/spark`.
+- Candidate execution failures: `CONS_0009/spark`, `CONS_0011/spark`, `LONGTAIL_0012/spark`.
+- Unsupported/fail-closed Spark rows: `PORT_0008/spark`, `PORT_0012/spark`, `PORT_0022/spark`, `PORT_0024/spark`, `PORT_0025/spark`.
+
+Validation:
+- Canonical metrics JSON/CSV parse: passed.
+- D035 output shape under `/tmp/sqlrb_direct_llm_original_track_a_120_canonical_user_rerun_v0/output`: passed.
+- `pytest tests/user_entry/test_direct_llm_adapter.py -q`: passed.
+- `python -m py_compile baselines/direct_llm_original/adapter.py`: passed.
+- `python -m cli.main user compute-local-metrics --help`: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Staged-file secret scan: passed.
+- Staged protected-artifact check: passed.
+
+Files created:
+- `audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Boundary:
+- Local diagnostic only.
+- No Repair-1, SQLSolver, VeriEQL, official metrics, official SER, formal Regression@20, POCR, top-level reports/results update, retained-evidence promotion, leaderboard, committed runtime artifact, env file, or secret was included.
+
+Next safe action:
+- Review the 18-row non-exact frontier and draft a separate Repair-1 design packet before any Repair-1 execution.
