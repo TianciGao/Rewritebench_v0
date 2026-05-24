@@ -41,6 +41,16 @@ FAILURE_BUCKET_FIELDS = [
     "explanation",
 ]
 
+VERIFIER_STATUS_SCHEMA_VERSION = "user_output_verifier_status_v0"
+VERIFIER_STATUS_NA = "N.A."
+VERIFIER_STATUS_COVERAGE_LIMITED = "coverage_limited"
+VERIFIER_STATUS_COMPUTED_LOCAL_SUPPORT = "computed_local_support"
+VERIFIER_STATUS_VALUES = {
+    VERIFIER_STATUS_NA,
+    VERIFIER_STATUS_COVERAGE_LIMITED,
+    VERIFIER_STATUS_COMPUTED_LOCAL_SUPPORT,
+}
+
 
 @dataclass(frozen=True)
 class UserOutputPaths:
@@ -102,8 +112,12 @@ def export_run_to_output(
 
     copied: list[Path] = []
     generated: list[Path] = []
+    verifier_status = _build_verifier_status(source_run_dir, effective_run_id)
 
     copied.extend(_export_results(source_run_dir, paths))
+    verifier_copied, verifier_generated = _export_verifier_artifacts(source_run_dir, paths, verifier_status)
+    copied.extend(verifier_copied)
+    generated.extend(verifier_generated)
     failure_bucket_rows = _write_failure_buckets_csv(
         paths.result_root / "failure_buckets.csv",
         ledger_rows=ledger_rows,
@@ -117,11 +131,12 @@ def export_run_to_output(
         config=config,
         selected_cases=selected_cases,
         ledger_rows=ledger_rows,
+        verifier_status=verifier_status,
         git_commit=git_commit or _git_commit(repo_root),
     )
     generated.append(manifest_path)
 
-    generated.extend(_write_logs(source_run_dir, paths, config, failure_bucket_rows))
+    generated.extend(_write_logs(source_run_dir, paths, config, failure_bucket_rows, verifier_status))
     generated.extend(
         _write_reports(
             source_run_dir=source_run_dir,
@@ -130,9 +145,9 @@ def export_run_to_output(
             summary=summary,
             quality_summary=_read_json(source_run_dir / "quality_summary.json"),
             failure_bucket_rows=failure_bucket_rows,
+            verifier_status=verifier_status,
         )
     )
-    generated.extend(_write_verifier_placeholder(paths))
     return ExportedUserOutput(
         run_id=effective_run_id,
         paths=paths,
@@ -149,6 +164,7 @@ def write_run_manifest(
     config: dict[str, Any],
     selected_cases: list[dict[str, str]],
     ledger_rows: list[dict[str, str]],
+    verifier_status: dict[str, Any] | None = None,
     git_commit: str | None = None,
 ) -> Path:
     """Write ``run_manifest.json`` for an exported local diagnostic run."""
@@ -160,7 +176,7 @@ def write_run_manifest(
     selected_engines = sorted({_text(row.get("engine")) for row in selected_cases or ledger_rows if _text(row.get("engine"))})
     denominator_ids = sorted({_text(row.get("denominator_id")) for row in selected_cases or ledger_rows if _text(row.get("denominator_id"))})
     timing_policy = _read_json(source_run_dir / "timing" / "timing_policy.json")
-    verifier_dir = source_run_dir / "verifier"
+    verifier_status = verifier_status or _build_verifier_status(source_run_dir, run_id)
     manifest = {
         "schema_version": "user_output_run_manifest_v0",
         "run_id": run_id,
@@ -183,9 +199,11 @@ def write_run_manifest(
         "denominator_ids": denominator_ids,
         "timing_enabled": _bool_like(config.get("timing_enabled")) or (source_run_dir / "timing").exists(),
         "timing_policy_id": timing_policy.get("timing_policy_id") if timing_policy else None,
-        "verifier_enabled": verifier_dir.exists(),
-        "verifier_tools_requested": [],
-        "verifier_tools_completed": [],
+        "verifier_enabled": bool(verifier_status.get("verifier_enabled")),
+        "verifier_tools_requested": verifier_status.get("verifier_tools_requested", []),
+        "verifier_tools_completed": verifier_status.get("verifier_tools_completed", []),
+        "semantic_equivalence_rate_status": verifier_status.get("semantic_equivalence_rate_status", VERIFIER_STATUS_NA),
+        "official_SER": bool(verifier_status.get("official_SER", False)),
         "output_contract_version": OUTPUT_CONTRACT_VERSION,
         **BOUNDARY_FLAGS,
     }
@@ -426,11 +444,295 @@ def _export_workspace_subdirs(workspaces_dir: Path, target_root: Path, subdir_na
         copied.append(dst)
 
 
+def _build_verifier_status(source_run_dir: Path, run_id: str) -> dict[str, Any]:
+    source_verifier_dir = source_run_dir / "verifier"
+    source_status = _read_json(source_verifier_dir / "verifier_status.json")
+    semantic_summary = _read_json(source_verifier_dir / "semantic_equivalence_summary.json")
+    verifier_enabled = source_verifier_dir.exists() and source_verifier_dir.is_dir() and bool(source_status or semantic_summary)
+    raw_status = (
+        _text(source_status.get("semantic_equivalence_rate_status"))
+        or _text(source_status.get("SER_status"))
+        or _text(semantic_summary.get("semantic_equivalence_rate_status"))
+        or _text(semantic_summary.get("SER_status"))
+    )
+    status = _normalize_verifier_status(raw_status, verifier_enabled=verifier_enabled, semantic_summary=semantic_summary)
+    requested = _list_value(source_status.get("verifier_tools_requested")) or _list_value(
+        semantic_summary.get("verifier_tools_requested")
+    )
+    completed = _list_value(source_status.get("verifier_tools_completed")) or _list_value(
+        semantic_summary.get("verifier_tools_completed")
+    )
+    tool_summaries = source_status.get("tool_summaries")
+    if not isinstance(tool_summaries, list) or not tool_summaries:
+        tool_summaries = _tool_summaries_from_semantic_summary(semantic_summary, requested=requested)
+    reason = _text(source_status.get("reason"))
+    if status == VERIFIER_STATUS_NA and not reason:
+        reason = _text(semantic_summary.get("na_reason")) or "formal_verifier_evidence_missing"
+    boundary_notes = source_status.get("boundary_notes")
+    if not isinstance(boundary_notes, list):
+        boundary_notes = []
+    boundary_notes = [str(note) for note in boundary_notes]
+    for note in [
+        "local diagnostic verifier support only",
+        "official_SER=false",
+        "local checker exactness is not SER evidence",
+        "no paper result input",
+    ]:
+        if note not in boundary_notes:
+            boundary_notes.append(note)
+    payload = {
+        "schema_version": VERIFIER_STATUS_SCHEMA_VERSION,
+        "run_id": run_id,
+        "verifier_enabled": verifier_enabled,
+        "verifier_tools_requested": requested,
+        "verifier_tools_completed": completed,
+        "semantic_equivalence_rate_status": status,
+        "official_SER": False,
+        "result_checker_exactness_used": False,
+        "local_diagnostic_only": True,
+        "paper_result_input": False,
+        "retained_evidence_promoted": False,
+        "leaderboard_input": False,
+        "tool_summaries": tool_summaries,
+        "boundary_notes": boundary_notes,
+        "source_artifacts_present": verifier_enabled,
+    }
+    if reason:
+        payload["reason"] = reason
+    for optional_key in [
+        "semantic_equivalence_rate",
+        "bounded_verifier_support_ratio_if_decidable",
+        "decidable_actual_pairs",
+        "selected_pairs",
+        "eligible_exact_pairs",
+        "actual_attempted_pairs",
+    ]:
+        if optional_key in source_status:
+            payload[optional_key] = source_status[optional_key]
+        elif optional_key in semantic_summary:
+            payload[optional_key] = semantic_summary[optional_key]
+    return payload
+
+
+def _normalize_verifier_status(
+    status: str,
+    *,
+    verifier_enabled: bool,
+    semantic_summary: dict[str, Any],
+) -> str:
+    normalized = status.strip()
+    normalized_lower = normalized.lower().replace("-", "_").replace(" ", "_")
+    if normalized in VERIFIER_STATUS_VALUES:
+        return normalized
+    if normalized_lower in {"n.a.", "n_a", "na", "not_applicable", "not_available"}:
+        return VERIFIER_STATUS_NA
+    if normalized_lower in {"coverage_limited", "limited", "computed_bounded_support"}:
+        return VERIFIER_STATUS_COVERAGE_LIMITED
+    if normalized_lower in {"computed", "computed_local_support", "local_support"}:
+        return VERIFIER_STATUS_COMPUTED_LOCAL_SUPPORT
+    if not verifier_enabled:
+        return VERIFIER_STATUS_NA
+    if _has_non_decidable_verifier_counts(semantic_summary):
+        return VERIFIER_STATUS_COVERAGE_LIMITED
+    if semantic_summary.get("semantic_equivalence_rate") is not None:
+        return VERIFIER_STATUS_COMPUTED_LOCAL_SUPPORT
+    return VERIFIER_STATUS_COVERAGE_LIMITED
+
+
+def _has_non_decidable_verifier_counts(summary: dict[str, Any]) -> bool:
+    for key in [
+        "unknown_count",
+        "timeout_count",
+        "unsupported_count",
+        "syntax_error_count",
+        "not_implemented_count",
+        "out_of_memory_count",
+        "tool_error_count",
+        "not_attempted_count",
+        "no_verifier_support",
+        "no_verifier_support_count",
+    ]:
+        if _int_like(summary.get(key)) > 0:
+            return True
+    return False
+
+
+def _tool_summaries_from_semantic_summary(
+    semantic_summary: dict[str, Any],
+    *,
+    requested: list[str],
+) -> list[dict[str, Any]]:
+    if not semantic_summary:
+        return []
+    tool_value = _text(semantic_summary.get("tool"))
+    tools = [tool_value] if tool_value else requested or _list_value(semantic_summary.get("verifier_tools_requested"))
+    if not tools:
+        tools = ["unknown"]
+    selected = _first_present(semantic_summary, ["selected_pairs", "pairs_planned"])
+    attempted = _first_present(semantic_summary, ["actual_attempted_pairs", "pairs_attempted"])
+    decidable = _first_present(semantic_summary, ["decidable_actual_pairs", "decidable_count"])
+    return [
+        {
+            "tool": tool,
+            "selected_pairs": selected,
+            "eligible_pairs": _first_present(semantic_summary, ["eligible_exact_pairs", "result_consistent_pairs"]),
+            "attempted_pairs": attempted,
+            "decidable_pairs": decidable,
+            "equivalent": _first_present(semantic_summary, ["equivalent", "equivalent_count"]),
+            "non_equivalent": _first_present(semantic_summary, ["non_equivalent", "non_equivalent_count"]),
+            "unknown": _first_present(semantic_summary, ["unknown", "unknown_count"]),
+            "timeout": _first_present(semantic_summary, ["timeout", "timeout_count"]),
+            "unsupported": _first_present(semantic_summary, ["unsupported", "unsupported_count"]),
+            "no_verifier_support": _first_present(
+                semantic_summary,
+                ["no_verifier_support", "no_verifier_support_count"],
+            ),
+            "tool_error": _first_present(semantic_summary, ["tool_error", "tool_error_count"]),
+        }
+        for tool in tools
+    ]
+
+
+def _verifier_summary_text(verifier_status: dict[str, Any]) -> str:
+    status = _text(verifier_status.get("semantic_equivalence_rate_status")) or VERIFIER_STATUS_NA
+    lines = [
+        "# Verifier Summary",
+        "",
+        "This is local diagnostic verifier-support output only.",
+        "",
+        f"- SER status: `{status}`",
+        f"- official_SER: `{str(bool(verifier_status.get('official_SER'))).lower()}`",
+        f"- result_checker_exactness_used: `{str(bool(verifier_status.get('result_checker_exactness_used'))).lower()}`",
+        f"- local_diagnostic_only: `{str(bool(verifier_status.get('local_diagnostic_only'))).lower()}`",
+        f"- paper_result_input: `{str(bool(verifier_status.get('paper_result_input'))).lower()}`",
+        "",
+    ]
+    if status == VERIFIER_STATUS_NA:
+        lines.extend(
+            [
+                "Verifier support was not run.",
+                "",
+                "Verifier evidence unavailable.",
+                "",
+                f"- Reason: `{verifier_status.get('reason') or 'formal_verifier_evidence_missing'}`",
+                "- Semantic Equivalence Rate: `N.A.`",
+                "",
+            ]
+        )
+    elif status == VERIFIER_STATUS_COVERAGE_LIMITED:
+        lines.extend(
+            [
+                "Coverage-limited verifier support is present.",
+                "",
+                "Non-decidable verifier outcomes are reported separately and excluded from the decidable denominator.",
+                "",
+            ]
+        )
+    elif status == VERIFIER_STATUS_COMPUTED_LOCAL_SUPPORT:
+        lines.extend(
+            [
+                "Computed local bounded verifier support is present.",
+                "",
+                "This is not official SER and must not be promoted to paper results.",
+                "",
+            ]
+        )
+    tool_summaries = verifier_status.get("tool_summaries")
+    if isinstance(tool_summaries, list) and tool_summaries:
+        lines.extend(
+            [
+                "## Tool Summaries",
+                "",
+                "| tool | selected | eligible | attempted | decidable | equivalent | non_equivalent | unknown | timeout | unsupported | no_verifier_support | tool_error |",
+                "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for row in tool_summaries:
+            if not isinstance(row, dict):
+                continue
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _text(row.get("tool") or "unknown"),
+                        _summary_value(row.get("selected_pairs")),
+                        _summary_value(row.get("eligible_pairs")),
+                        _summary_value(row.get("attempted_pairs")),
+                        _summary_value(row.get("decidable_pairs")),
+                        _summary_value(row.get("equivalent")),
+                        _summary_value(row.get("non_equivalent")),
+                        _summary_value(row.get("unknown")),
+                        _summary_value(row.get("timeout")),
+                        _summary_value(row.get("unsupported")),
+                        _summary_value(row.get("no_verifier_support")),
+                        _summary_value(row.get("tool_error")),
+                    ]
+                )
+                + " |"
+            )
+        lines.append("")
+    lines.extend(
+        [
+            "## Boundary",
+            "",
+            "- SQLSolver and VeriEQL are verifier/support tools, not rewrite baselines.",
+            "- `coverage_limited`, `no_verifier_support`, `unsupported`, `unknown`, `timeout`, and `tool_error` are verifier-support statuses, not method failure buckets.",
+            "- Local checker exactness remains Result Consistency evidence only, not SER evidence.",
+            "- No official SER is produced by this export.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def _verifier_log_text(verifier_status: dict[str, Any]) -> str:
+    status = _text(verifier_status.get("semantic_equivalence_rate_status")) or VERIFIER_STATUS_NA
+    tools = ", ".join(_list_value(verifier_status.get("verifier_tools_completed")) or []) or "none"
+    return (
+        "Verifier output export log\n\n"
+        f"SER status: {status}\n"
+        f"official_SER: {str(bool(verifier_status.get('official_SER'))).lower()}\n"
+        f"verifier tools completed: {tools}\n"
+        "Boundary: local diagnostic verifier support only; not official metrics; not paper results.\n"
+    )
+
+
+def _list_value(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, tuple):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, str) and value:
+        return [value]
+    return []
+
+
+def _first_present(mapping: dict[str, Any], keys: list[str]) -> Any:
+    for key in keys:
+        if key in mapping:
+            return mapping[key]
+    return None
+
+
+def _summary_value(value: Any) -> str:
+    return "" if value is None else _text(value)
+
+
+def _int_like(value: Any) -> int:
+    try:
+        if value is None or value == "":
+            return 0
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _write_logs(
     source_run_dir: Path,
     paths: UserOutputPaths,
     config: dict[str, Any],
     failure_bucket_rows: list[dict[str, str]],
+    verifier_status: dict[str, Any],
 ) -> list[Path]:
     generated: list[Path] = []
     command_log = paths.log_root / "command.log"
@@ -488,7 +790,7 @@ def _write_logs(
         timing_log.write_text("Timing artifacts are not available in this source run.\n", encoding="utf-8")
     generated.append(timing_log)
     verifier_log = paths.log_root / "verifier.log"
-    verifier_log.write_text("Verifier support was not run. VeriEQL and SQLSolver outputs are N.A.\n", encoding="utf-8")
+    verifier_log.write_text(_verifier_log_text(verifier_status), encoding="utf-8")
     generated.append(verifier_log)
     return generated
 
@@ -501,6 +803,7 @@ def _write_reports(
     summary: dict[str, Any],
     quality_summary: dict[str, Any],
     failure_bucket_rows: list[dict[str, str]],
+    verifier_status: dict[str, Any],
 ) -> list[Path]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     generated = [
@@ -513,59 +816,36 @@ def _write_reports(
         write_failure_bucket_report(paths.report_root, failure_bucket_rows),
         write_tag_slice_report(source_run_dir / "tag_slices.csv", paths.report_root),
         write_metrics_summary_report(source_run_dir / "metrics", paths.report_root),
-        _write_verifier_summary(paths.report_root),
+        _write_verifier_summary(paths.report_root, verifier_status),
         write_boundary_report(paths.report_root),
     ]
     return generated
 
 
-def _write_verifier_summary(report_root: Path) -> Path:
+def _write_verifier_summary(report_root: Path, verifier_status: dict[str, Any]) -> Path:
     path = report_root / "verifier_summary.md"
-    path.write_text(
-        "\n".join(
-            [
-                "# Verifier Summary",
-                "",
-                "Verifier support was not run.",
-                "",
-                "Formal verifier evidence is not available in this exported run.",
-                "",
-                "- Semantic Equivalence Rate: `N.A.`",
-                "- VeriEQL: not run",
-                "- SQLSolver: not run",
-                "",
-                "Future verifier artifacts should live under `output/results/<run_id>/verifier/`.",
-                "",
-            ]
-        ),
-        encoding="utf-8",
-    )
+    path.write_text(_verifier_summary_text(verifier_status), encoding="utf-8")
     return path
 
 
-def _write_verifier_placeholder(paths: UserOutputPaths) -> list[Path]:
+def _export_verifier_artifacts(
+    source_run_dir: Path,
+    paths: UserOutputPaths,
+    verifier_status: dict[str, Any],
+) -> tuple[list[Path], list[Path]]:
+    copied: list[Path] = []
+    generated: list[Path] = []
+    source_verifier_dir = source_run_dir / "verifier"
     verifier_dir = paths.result_root / "verifier"
-    verifier_dir.mkdir(parents=True, exist_ok=True)
+    if source_verifier_dir.exists() and source_verifier_dir.is_dir():
+        _copy_tree(source_verifier_dir, verifier_dir)
+        copied.append(verifier_dir)
+    else:
+        verifier_dir.mkdir(parents=True, exist_ok=True)
     path = verifier_dir / "verifier_status.json"
-    path.write_text(
-        json.dumps(
-            {
-                "schema_version": "user_output_verifier_status_v0",
-                "verifier_enabled": False,
-                "verifier_tools_requested": [],
-                "verifier_tools_completed": [],
-                "semantic_equivalence_rate_status": "not_applicable",
-                "reason": "formal_verifier_evidence_missing",
-                "future_tools": ["verieql", "sqlsolver"],
-                **BOUNDARY_FLAGS,
-            },
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    return [path]
+    path.write_text(json.dumps(verifier_status, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    generated.append(path)
+    return copied, generated
 
 
 def _write_failure_buckets_csv(

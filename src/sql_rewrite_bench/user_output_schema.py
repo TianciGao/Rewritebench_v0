@@ -61,6 +61,30 @@ def output_schema_text() -> str:
         "Tags are loaded from package metadata, not inferred from SQL text.",
         _fields_line(TAG_SLICE_FIELDS),
         "",
+        "## verifier/verifier_status.json",
+        "",
+        "Purpose: local diagnostic verifier-support status exported when formal "
+        "verifier artifacts exist, or an explicit N.A. placeholder otherwise.",
+        "Key fields: schema_version, run_id, verifier_enabled, "
+        "verifier_tools_requested, verifier_tools_completed, "
+        "semantic_equivalence_rate_status, official_SER, "
+        "result_checker_exactness_used, local_diagnostic_only, "
+        "paper_result_input, retained_evidence_promoted, leaderboard_input, "
+        "tool_summaries, boundary_notes.",
+        "Allowed semantic_equivalence_rate_status values: `N.A.`, "
+        "`coverage_limited`, `computed_local_support`.",
+        "`coverage_limited`, `no_verifier_support`, `unsupported`, `unknown`, "
+        "`timeout`, and `tool_error` are verifier-support statuses, not method "
+        "failure buckets.",
+        "",
+        "## verifier_summary.md",
+        "",
+        "Purpose: human-readable local verifier-support summary.",
+        "It distinguishes missing verifier evidence (`N.A.`), coverage-limited "
+        "formal verifier support, and computed local bounded support.",
+        "It must report `official_SER=false` unless a separate official "
+        "promotion task is authorized.",
+        "",
         "## Boundary",
         "",
         "- Local diagnostic only.",

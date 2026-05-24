@@ -1,0 +1,27 @@
+# Command Log
+
+Read-only/preflight commands:
+
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n ... src/sql_rewrite_bench/user_output.py`
+- `sed -n ... src/sql_rewrite_bench/user_output_schema.py`
+- `sed -n ... src/sql_rewrite_bench/verifier_support/summary.py`
+- `sed -n ... src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n ... src/cli/main.py`
+- `sed -n ... repository_spec/metrics_contract_v1.md`
+- `sed -n ... audits/sqlsolver_coverage_limited_boundary_v0/`
+- `sed -n ... audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_after_guards_v0/`
+
+Implementation/validation commands:
+
+- `pytest tests/user_entry/test_user_output.py -q`
+- `python -m py_compile src/sql_rewrite_bench/user_output.py src/sql_rewrite_bench/user_output_schema.py`
+- `pytest tests/user_entry/test_readability_commands.py::UserRunReadabilityCommandTests::test_show_output_schema_prints_local_only_schema_without_outputs -q` (selector typo; no tests ran)
+- `pytest tests/user_entry/test_readability_commands.py::ReadabilityCommandTests::test_show_output_schema_prints_local_only_schema_without_outputs -q`
+
+Prohibited commands not run:
+
+- No SQLSolver command.
+- No VeriEQL command.
+- No adapter, DB execution, checker execution, timing collection, LLM call, compute-local-metrics, official metrics, paper rendering, Repair-1, or broader verifier pass command.

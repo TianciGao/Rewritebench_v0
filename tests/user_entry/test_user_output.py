@@ -197,6 +197,68 @@ def _write_fixture_run(root: Path, *, include_optional: bool = True) -> Path:
     return run_dir
 
 
+def _write_coverage_limited_verifier_artifacts(run_dir: Path) -> None:
+    verifier_dir = run_dir / "verifier"
+    verifier_dir.mkdir()
+    status = {
+        "schema_version": "user_output_verifier_status_v0",
+        "run_id": "fixture_run",
+        "verifier_enabled": True,
+        "verifier_tools_requested": ["sqlsolver"],
+        "verifier_tools_completed": ["sqlsolver"],
+        "semantic_equivalence_rate_status": "coverage_limited",
+        "official_SER": False,
+        "result_checker_exactness_used": False,
+        "local_diagnostic_only": True,
+        "paper_result_input": False,
+        "retained_evidence_promoted": False,
+        "leaderboard_input": False,
+        "tool_summaries": [
+            {
+                "tool": "SQLSolver",
+                "selected_pairs": 8,
+                "eligible_pairs": 8,
+                "attempted_pairs": 2,
+                "decidable_pairs": 2,
+                "equivalent": 2,
+                "non_equivalent": 0,
+                "unknown": 3,
+                "timeout": 0,
+                "unsupported": 0,
+                "no_verifier_support": 3,
+                "tool_error": 0,
+            }
+        ],
+        "boundary_notes": [
+            "coverage-limited verifier support only",
+            "official_SER=false",
+            "local checker exactness is not SER evidence",
+        ],
+    }
+    (verifier_dir / "verifier_status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
+    (verifier_dir / "semantic_equivalence_summary.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "semantic_equivalence_summary_v0",
+                "run_id": "fixture_run",
+                "SER_status": "coverage_limited",
+                "tool": "SQLSolver",
+                "selected_pairs": 8,
+                "actual_attempted_pairs": 2,
+                "decidable_actual_pairs": 2,
+                "equivalent": 2,
+                "non_equivalent": 0,
+                "unknown": 3,
+                "no_verifier_support": 3,
+                "official_SER": False,
+                "result_checker_exactness_used": False,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
 def _file_snapshot(root: Path) -> dict[str, str]:
     return {
         path.relative_to(root).as_posix(): path.read_text(encoding="utf-8", errors="replace")
@@ -319,6 +381,45 @@ class UserOutputWriterTests(unittest.TestCase):
                 "Verifier support was not run",
                 (report_root / "verifier_summary.md").read_text(encoding="utf-8"),
             )
+            verifier_status = json.loads((result_root / "verifier" / "verifier_status.json").read_text(encoding="utf-8"))
+            self.assertEqual(verifier_status["semantic_equivalence_rate_status"], "N.A.")
+            self.assertEqual(verifier_status["reason"], "formal_verifier_evidence_missing")
+            self.assertFalse(verifier_status["official_SER"])
+
+    def test_export_preserves_coverage_limited_verifier_status(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_dir = _write_fixture_run(root)
+            metrics_before = (run_dir / "metrics" / "local_metrics_summary.json").read_text(encoding="utf-8")
+            tag_slices_before = (run_dir / "tag_slices.csv").read_text(encoding="utf-8")
+            _write_coverage_limited_verifier_artifacts(run_dir)
+            export_run_to_output(run_dir, root / "output", repo_root=root)
+
+            result_root = root / "output" / "results" / "fixture_run"
+            report_root = root / "output" / "reports" / "fixture_run"
+            status = json.loads((result_root / "verifier" / "verifier_status.json").read_text(encoding="utf-8"))
+            summary = (report_root / "verifier_summary.md").read_text(encoding="utf-8")
+            failure_buckets = (result_root / "failure_buckets.csv").read_text(encoding="utf-8")
+
+            self.assertEqual(status["semantic_equivalence_rate_status"], "coverage_limited")
+            self.assertFalse(status["official_SER"])
+            self.assertFalse(status["result_checker_exactness_used"])
+            self.assertTrue(status["local_diagnostic_only"])
+            self.assertFalse(status["paper_result_input"])
+            self.assertFalse(status["retained_evidence_promoted"])
+            self.assertFalse(status["leaderboard_input"])
+            self.assertEqual(status["tool_summaries"][0]["no_verifier_support"], 3)
+            self.assertTrue((result_root / "verifier" / "semantic_equivalence_summary.json").exists())
+            self.assertIn("SER status: `coverage_limited`", summary)
+            self.assertIn("official_SER: `false`", summary)
+            self.assertIn("no_verifier_support", summary)
+            self.assertIn("not method failure buckets", summary)
+            self.assertIn("mismatch", failure_buckets)
+            self.assertNotIn("no_verifier_support", failure_buckets)
+            self.assertEqual((result_root / "metrics" / "local_metrics_summary.json").read_text(encoding="utf-8"), metrics_before)
+            self.assertEqual((result_root / "tag_slices.csv").read_text(encoding="utf-8"), tag_slices_before)
+            self.assertFalse((root / "reports").exists())
+            self.assertFalse((root / "results").exists())
 
 
 if __name__ == "__main__":

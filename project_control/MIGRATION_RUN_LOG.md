@@ -21938,3 +21938,69 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Integrate coverage-limited verifier status into the user-facing diagnostic summary/output chain, or return to Repair-1 fake-provider implementation. Do not broaden SQLSolver coverage unless a separate residual schema-modeling fix is authorized.
+
+## user_output_verifier_status_integration_v0
+
+Date: 2026-05-24
+
+Task title: `user_output_verifier_status_integration_v0`
+
+Mode: local diagnostic user-output verifier status export/rendering integration; no verifier execution, no official SER, no metrics recomputation, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/user_output_verifier_status_integration_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/user_output.py`
+- `src/sql_rewrite_bench/user_output_schema.py`
+- `tests/user_entry/test_user_output.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation summary:
+- User-output export now detects source-run `verifier/` artifacts and copies them into `output/results/<run_id>/verifier/`.
+- Export writes normalized `verifier_status.json` with `N.A.`, `coverage_limited`, or `computed_local_support`.
+- Export renders `verifier_summary.md` from verifier status instead of hardcoding N.A.
+- Missing verifier evidence still gets an N.A. placeholder with `reason=formal_verifier_evidence_missing`.
+- Coverage-limited summaries include separate verifier-support counts for equivalent, non-equivalent, unknown, timeout, unsupported, `no_verifier_support`, and tool-error outcomes.
+- `official_SER=false`, `result_checker_exactness_used=false`, local-only, no-paper, no-retained-evidence, and no-leaderboard fields remain explicit.
+- `no_verifier_support` remains separate from method failure buckets.
+
+Validation result:
+- `pytest tests/user_entry/test_user_output.py -q`: passed, `6 passed`.
+- `python -m py_compile src/sql_rewrite_bench/user_output.py src/sql_rewrite_bench/user_output_schema.py`: passed.
+- `pytest tests/user_entry/test_readability_commands.py::ReadabilityCommandTests::test_show_output_schema_prints_local_only_schema_without_outputs -q`: passed, `1 passed`.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- No-prohibited-command review: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed, with no secret values found in the diff.
+- Protected-path review: passed.
+
+Boundary:
+- No SQLSolver command was run.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, Repair-1, or broader verifier pass command was run.
+- No official SER was produced and no bounded support ratio was promoted.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- No `repository_spec/metrics_contract_v1.md`, verifier tool wrapper, `local_metrics.py`, `tag_slices.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Return to Repair-1 fake-provider implementation and fixture tests. SQLSolver remains coverage-limited verifier support for public v0 unless a separate residual schema-modeling fix is authorized.
