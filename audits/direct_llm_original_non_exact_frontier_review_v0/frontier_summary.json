@@ -1,0 +1,40 @@
+{
+  "task_id": "direct_llm_original_non_exact_frontier_review_v0",
+  "run_id": "direct_llm_original_track_a_120_canonical_v0",
+  "route_id": "direct_llm_original",
+  "method_id": "direct_llm_original",
+  "source_inputs": [
+    "runs/user/direct_llm_original_track_a_120_canonical_v0/metrics/local_metrics_summary.json",
+    "runs/user/direct_llm_original_track_a_120_canonical_v0/metrics/local_metrics_by_engine.csv",
+    "audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/canonical_metrics_snapshot.json",
+    "audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/per_row_metadata.csv"
+  ],
+  "local_diagnostic_only": true,
+  "official_metric_input": false,
+  "paper_result": false,
+  "repair1_executed": false,
+  "new_metrics_computed": false,
+  "frontier_counts": {
+    "total": 18,
+    "mismatch": 10,
+    "candidate_execution_failed": 3,
+    "unsupported_engine": 5,
+    "repair1_attempt_recommended": 13,
+    "repair1_attempt_not_recommended": 5
+  },
+  "canonical_counts": {
+    "selected": 120,
+    "candidate_generated": 120,
+    "source_executable": 115,
+    "candidate_executable": 112,
+    "exact": 102,
+    "mismatch": 10,
+    "exact_timed": 90
+  },
+  "repair1_feedback_types": {
+    "mismatch": "checker_mismatch_feedback",
+    "candidate_execution_failed": "candidate_execution_error_feedback",
+    "unsupported_engine": "unsupported_engine_boundary_feedback"
+  },
+  "repair1_readiness_verdict": "Design-ready for the 13 actionable mismatch/execution-failure rows; not execution-ready until Repair-1 implementation and live-run authorization are provided. Unsupported Spark rows remain excluded boundary rows."
+}

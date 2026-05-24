@@ -21041,3 +21041,49 @@ Boundary:
 
 Next safe action:
 - Review the 18-row non-exact frontier and draft a separate Repair-1 design packet before any Repair-1 execution.
+
+## direct_llm_original_non_exact_frontier_review_v0
+
+Date: 2026-05-24
+
+Branch: `feature/case-package-v2-external-schema`
+
+Mode: audit-only Direct LLM original non-exact frontier review and Repair-1 design packet
+
+Commit: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push: pending at entry creation
+
+Scope:
+- Source run: `direct_llm_original_track_a_120_canonical_v0`.
+- Source material limited to canonical local metrics outputs and committed audit snapshots.
+- Frontier buckets reviewed: `mismatch=10`, `candidate_execution_failed=3`, `unsupported_engine=5`.
+- Repair-1 design packet drafted without execution.
+
+Files created:
+- `audits/direct_llm_original_non_exact_frontier_review_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation:
+- Audit CSV/JSON parse checks: passed.
+- Markdown non-empty checks: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Staged-file secret scan: passed.
+- Staged protected-surface review: passed.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw retained evidence changed: no
+- official reports/results changed: no
+
+Boundary:
+- No Repair-1 run, live LLM call, benchmark rerun, new metrics computation, official metrics, official SER, formal Regression@20, POCR, retained-evidence promotion, leaderboard output, source/case/schema/baseline/local-metrics change, runtime artifact commit, env file, or secret was included.
+
+Next safe action:
+- Authorize a bounded Repair-1 implementation plan and fixture/fake-provider tests before any live Repair-1 run.
