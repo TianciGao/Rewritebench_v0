@@ -1,0 +1,67 @@
+Commands used:
+
+- `git status -sb`
+- `git branch --show-current`
+- `pwd`
+- `sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 120 project_control/MIGRATION_STATUS.md`
+- `tail -n 160 project_control/DECISION_LOG.md`
+- `tail -n 180 project_control/MIGRATION_RUN_LOG.md`
+- `rg -n "Semantic Equivalence|official_SER|local diagnostic|leaderboard|POCR|verifier" repository_spec/metrics_contract_v1.md`
+- `sed -n '1,620p' baselines/learnedrewrite/adapter.py`
+- `sed -n '1,220p' baselines/learnedrewrite/README.md`
+- `find audits/learnedrewrite_external_runtime_synthetic_preflight_v0 audits/learnedrewrite_legacy_runtime_recovery_v0 -maxdepth 1 -type f | sort`
+- `sed -n '1,220p' audits/learnedrewrite_external_runtime_synthetic_preflight_v0/runtime_candidate_probe.md`
+- `sed -n '1,220p' audits/learnedrewrite_external_runtime_synthetic_preflight_v0/runtime_blockers.md`
+- `sed -n '1,220p' audits/learnedrewrite_legacy_runtime_recovery_v0/official_runtime_contract_review.md`
+- `test -f /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`
+- `test -f /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rules_for_selected/standard.txt`
+- `ls -la /tmp/sqlrb_prior_methods_sources/LearnedRewrite | sed -n '1,80p'`
+- `stat -c '%n|%s|%F|%a' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rules_for_selected/standard.txt`
+- `sha256sum /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rules_for_selected/standard.txt`
+- `sed -n '1,220p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/README.md`
+- `sed -n '1,220p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/request.txt`
+- `sed -n '1,120p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/src/main/schema.json`
+- `sed -n '1,235p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/src/server.java`
+- `sed -n '1,130p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/src/main/GenerateSchema.java`
+- `sed -n '1,115p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/src/main/Rewriter.java`
+- `strings /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar | rg -n "/rewrite|/rewriter|/parser|/eq" | sed -n '1,80p'`
+- `ss -ltnp 2>/dev/null | rg ':6336|:26336' || true`
+- `pgrep -af 'rewriter_java.jar|LearnedRewrite' || true`
+- `sed -n '1,220p' audits/learnedrewrite_external_runtime_synthetic_preflight_v0/command_log.txt`
+- `cat audits/learnedrewrite_external_runtime_synthetic_preflight_v0/synthetic_preflight_command_redacted.txt`
+- `cat audits/learnedrewrite_external_runtime_synthetic_preflight_v0/synthetic_preflight_result.json`
+- temp staging and runtime command:
+
+```bash
+STAGE=/tmp/sqlrb_learnedrewrite_runtime_staging_v0
+SRC=/tmp/sqlrb_prior_methods_sources/LearnedRewrite
+JAR="$SRC/rewriter_java.jar"
+PORT=6336
+rm -rf "$STAGE"
+mkdir -p "$STAGE"
+cp -a "$SRC/rules_for_selected" "$STAGE/rules_for_selected"
+printf '%s\n' '{"sql":"SELECT order_id FROM tiny_orders WHERE amount > 10","schema":"[{\"table\":\"tiny_orders\",\"rows\":3,\"columns\":[{\"name\":\"order_id\",\"type\":\"integer\"},{\"name\":\"amount\",\"type\":\"numeric\"}]}]"}' > "$STAGE/synthetic_request.json"
+cd "$STAGE"
+java -jar "$JAR"
+```
+
+- exactly one synthetic POST:
+
+```bash
+curl -sS --max-time 30 -o response.json -w '%{http_code} %{time_total}' \
+  -X POST http://127.0.0.1:6336/rewriter \
+  -H 'Content-Type: application/json' \
+  --data-binary @synthetic_request.json
+```
+
+- runtime shutdown:
+
+```bash
+kill <temporary_learnedrewrite_server_pid>
+```
+
+No Common-core SQL, user-facade external runtime smoke, DB/checker/timing,
+`compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official
+metrics, paper rendering, retained-evidence promotion, leaderboard, or Track A
+120 command was run.

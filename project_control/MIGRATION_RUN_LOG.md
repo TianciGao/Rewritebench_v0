@@ -22889,3 +22889,65 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a temp-only runtime staging fix for `rules_for_selected/` and rerun exactly one synthetic non-benchmark preflight. Do not send Common-core SQL or run a user-facade external-runtime smoke until one synthetic preflight yields an extractable SQL candidate.
+
+## 2026-05-25 - learnedrewrite_temp_runtime_staging_preflight_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Temp-only LearnedRewrite runtime asset staging and exactly one synthetic non-benchmark `/rewriter` preflight.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_temp_runtime_staging_preflight_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- External runtime candidate checked: `/tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`.
+- `rules_for_selected/standard.txt` was found under the external source tree with SHA-256 `364dcbfffd1b5b1e1297f9ec20d98fed94fc83c13deef521c1d6c929e4e7f0b2`.
+- Temp-only staging was used under `/tmp/sqlrb_learnedrewrite_runtime_staging_v0/`; `rules_for_selected/` was copied only there, not into the release repo.
+- Java availability check passed with `openjdk version "17.0.18" 2026-01-20`.
+- The runtime started from the temp workdir on local port `6336`.
+- Exactly one synthetic non-benchmark `POST /rewriter` was sent using artificial `tiny_orders` SQL/schema.
+- The response was HTTP 200 and parseable JSON with `status=true`, `message=SUCCESS`, and `data.rewritten_sql`.
+- Single SQL extractable: yes.
+- The returned SQL matched the synthetic input and `is_rewritten=false`; this is runtime-contract evidence only.
+- The runtime was stopped after the request.
+
+Validation result:
+- CSV parse checks: planned/passed before closeout for `learnedrewrite_runtime_readiness_matrix.csv`.
+- JSON parse checks: planned/passed before closeout for `synthetic_request.json` and `synthetic_preflight_result.json`.
+- Markdown/text non-empty checks: planned/passed before closeout.
+- No Common-core SQL sent: passed by synthetic request and command log review.
+- No DB/checker/timing/local_metrics/verifier/R-Bot/LLM-R2/live LLM command: passed by command log review.
+- No JAR/source/rules asset copied into release repo: planned/passed before closeout.
+- No old result copied as canonical metrics: passed by changed-file review.
+- Runtime shutdown check: passed; no `rewriter_java.jar` process or port `6336` listener remained.
+- Targeted LearnedRewrite adapter tests and py_compile: planned/passed before closeout.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- No LearnedRewrite Common-core run, user-facade external runtime smoke, benchmark evidence, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM call, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, runtime asset copy into the release repo, old result import, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a narrow LearnedRewrite HTTP-runtime adapter implementation and then a 1-2 row PostgreSQL-only external-runtime user-facade smoke without DB/checker/timing. Do not run Common-core or Track A 120 yet.
