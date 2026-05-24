@@ -1,0 +1,43 @@
+Read-only commands and references used:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD`
+- `git log -1 --oneline`
+- `test -d /home/tianci_gao/code/sql-rewrite-bench-artifact-clean`
+- `test -d /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0`
+- `sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -120 project_control/MIGRATION_STATUS.md`
+- `tail -120 project_control/DECISION_LOG.md`
+- `tail -160 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,240p' repository_spec/metrics_contract_v1.md`
+- `sed -n '1,260p' baselines/learnedrewrite/adapter.py`
+- `sed -n '1,200p' baselines/learnedrewrite/README.md`
+- `sed -n '1,200p' audits/learnedrewrite_external_runtime_preflight_v0/README.md`
+- `sed -n '1,220p' audits/learnedrewrite_external_runtime_preflight_v0/external_contract_review.md`
+- `find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean \( -iname '*learned*' -o -iname '*rewrite*' -o -iname '*rewriter*' -o -iname '*schema.json' -o -iname '*.jar' \) -type f | sort | head -200`
+- `rg -i -l "LearnedRewrite|learnedrewrite|learned_rewrite|evolveRewrite|rewriter_java|/rewriter|schema\.json|prior_method|pg10|source_like|no-op|\blearned\b|\brewriter\b" /home/tianci_gao/code/sql-rewrite-bench-artifact-clean | sort | head -300`
+- `find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0 -maxdepth 4 -type f | sort | head -300`
+- `find /tmp/sqlrb_prior_methods_sources/LearnedRewrite -maxdepth 4 -type f \( -iname '*readme*' -o -iname '*.jar' -o -iname '*request*' -o -iname '*schema*' -o -iname '*pom*' \) | sort | head -200`
+- `find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean -iname '*learned*' -o -iname '*learnedrewrite*' -o -iname '*learned_rewrite*' | sort | head -200`
+- `find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean -iname '*.jar' | sort | head -200`
+- `rg -n -i "rewriter_java|/rewriter|--server\.port|6336|SQLRB_LEARNEDREWRITE|schema\.json|LearnedRewrite|learned rewrite|evolveRewrite" /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/docs/_scratch /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/00_PAPER_EVIDENCE_FREEZE_V1 | head -300`
+- `sed -n '1,180p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/docs/_scratch/LEARNEDREWRITE_LLM4REWRITE_JAR_CLASSPATH_RECOVERY_AUDIT_v1.md`
+- `sed -n '1,180p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/docs/_scratch/LEARNEDREWRITE_LLM4REWRITE_JVM_JAR_PREFLIGHT_v1.md`
+- `sed -n '1,180p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/learnedrewrite_120_preflight_v1.md`
+- `sed -n '1,220p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/learnedrewrite_120_run_plan_v1.json`
+- `sed -n '1,220p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/README.md`
+- `find /tmp/rewritebench_prior_method_audit /tmp/rewritebench_learnedrewrite_classpath_recovery /tmp/sqlrb_prior_methods_sources/LearnedRewrite -maxdepth 5 -type f \( -iname '*LearnedRewrite*.jar' -o -iname 'rewriter_java.jar' -o -iname 'request.txt' -o -iname 'schema.json' \) 2>/dev/null | sort | head -100`
+- `java -version`
+- `env | cut -d= -f1 | rg '^SQLRB_LEARNEDREWRITE_(CMD|URL|ALLOW_RUNTIME|TIMEOUT|SCHEMA_JSON)$|^JAVA_HOME$' | sort`
+- `ss -ltnp 2>/dev/null | rg ':6336\b' || true`
+- `sed -n '1,80p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/request.txt`
+- `sed -n '1,120p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/src/main/schema.json`
+- `find /tmp/rewritebench_prior_method_audit/LLM4Rewrite -maxdepth 6 -type f \( -name 'LearnedRewrite.jar' -o -name 'test_learned_rewrite.py' -o -name 'rewrite.py' -o -name 'LearnedRewriter.java' \) 2>/dev/null | sort`
+
+Web/source references:
+
+- `https://github.com/XuanheZhou/LearnedRewrite`
+- `https://raw.githubusercontent.com/XuanheZhou/LearnedRewrite/main/README.md`
+- `https://github.com/TianciGao/sql-rewrite-bench/tree/artifact/case-package-contract-alignment-clean/reports/evaluation/common_core_v0`
+
+No Common-core SQL, DB/checker/timing, local_metrics, verifier, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, leaderboard, or Track A 120 command was run. No synthetic preflight request was sent.

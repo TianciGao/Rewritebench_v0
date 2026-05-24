@@ -22764,3 +22764,64 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Keep LearnedRewrite blocked until a configured external runtime passes synthetic non-benchmark preflight. If no runtime is available, move to R-Bot / LLM-R2 wrapper planning under the GPTSAPI `gpt-5.4` adapted-local-diagnostic policy.
+
+## 2026-05-25 - learnedrewrite_legacy_runtime_recovery_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Read-only legacy/upstream runtime recovery and safe preflight planning for LearnedRewrite.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_legacy_runtime_recovery_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- The legacy local repo was inspected read-only for LearnedRewrite setup clues.
+- No LearnedRewrite JAR was found under the legacy repo.
+- Legacy notes recover an embedded LLM4Rewrite/JPype path, a signed-JAR class-loading blocker, a temp-only classpath recovery note, and a future single-case command shape, but those are setup clues only.
+- Official upstream documentation and the local upstream source clone recover the HTTP runtime shape: external `rewriter_java.jar --server.port=6336` and `POST /rewriter` with SQL plus schema.
+- A local external runtime binary candidate exists at `/tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`, but it was not copied or started.
+- `SQLRB_LEARNEDREWRITE_CMD` and `SQLRB_LEARNEDREWRITE_URL` were not configured, `SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME=1` was not set, and port `6336` was not listening.
+- No synthetic preflight was attempted because no safe configured external runtime was available.
+- No Common-core SQL was sent to a real runtime.
+- Old LearnedRewrite results remain legacy facts only and were not copied as current canonical metrics.
+
+Validation result:
+- CSV parse checks: planned/passed before closeout for generated CSV files.
+- JSON parse checks: planned/passed before closeout for `synthetic_preflight_request_safe.json`.
+- Markdown/text non-empty checks: planned/passed before closeout.
+- Old repo inspected read-only: passed by command log review.
+- No Common-core SQL sent: passed; no runtime request was issued.
+- No DB/checker/timing/local_metrics/verifier/R-Bot/LLM-R2/live LLM command: passed by command log review.
+- No upstream or legacy source/JAR/dependency artifact copied: planned/passed before closeout.
+- No old results copied as canonical metrics: passed by changed-file review.
+- No top-level reports/results update and no runtime outputs staged: planned/passed before closeout.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- No LearnedRewrite benchmark run, Common-core SQL runtime request, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM call, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, upstream/legacy artifact copy, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Configure an external LearnedRewrite runtime outside the release repo and run exactly one synthetic non-benchmark preflight. Only after that succeeds should a 1-2 row PostgreSQL-only D035 user-facade smoke without DB/checker/timing be authorized.

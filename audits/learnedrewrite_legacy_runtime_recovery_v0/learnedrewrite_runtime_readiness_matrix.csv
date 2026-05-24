@@ -1,0 +1,12 @@
+check,status,evidence,blocker,recommended_action,notes
+java_available,pass,"openjdk version ""17.0.18"" 2026-01-20",none,keep Java version recorded for future preflight,"Read-only java -version only"
+legacy_runtime_command_found,partial,"Legacy notes recover embedded LLM4Rewrite JPype command shape and official README recovers java -jar server shape",no configured release wrapper command,prefer official HTTP runtime path for future synthetic preflight,"Old embedded command is future-only and depends on JPype/PostgreSQL assumptions"
+legacy_runtime_url_found,no,"No legacy release env URL found and port 6336 was not listening",no configured runtime URL,configure an external local /rewriter endpoint before synthetic preflight,"Do not invent a URL"
+external_runtime_candidate_found,yes,"/tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar exists outside release repo",candidate is not configured and must not be copied,reference external path only if future task authorizes runtime startup,"Dependency JARs also remain external"
+runtime_start_or_query_safe,no,"No configured URL/CMD and no listening port 6336",starting JAR would be runtime setup not safe query,stop and document setup blockers,"No server was started"
+synthetic_preflight_attempted,no,"No configured runtime available",runtime unavailable,attempt one synthetic request only after endpoint or command is configured,"Synthetic request JSON was planned but not sent"
+synthetic_response_parseable,N.A.,"No synthetic response",no response available,validate JSON in future preflight,"Expected data.rewritten_sql or equivalent"
+single_sql_extractable,N.A.,"No synthetic response",no response available,apply adapter single-SQL extraction after future preflight,"Reject empty prose and multiple statements"
+schema_json_mapping_ready,partial,"Official schema example and release DDL mapping plan documented",schema serializer not implemented or tested,implement fixture serializer before Common-core smoke,"PostgreSQL-only first"
+common_core_smoke_authorized,no,"Synthetic preflight not completed",runtime and schema contract unproven,do not send Common-core SQL yet,"No Common-core SQL sent"
+track_a_120_ready,no,"No runtime preflight and no Common-core smoke",runtime unavailable and adapter real hooks fail closed,do not run Track A 120,"Use staged synthetic then 1-2 row smoke first"
