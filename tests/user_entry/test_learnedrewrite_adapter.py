@@ -5,6 +5,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 
@@ -64,6 +66,52 @@ def _run_adapter(env: dict[str, str]) -> subprocess.CompletedProcess[str]:
 
 def _status(temp_dir: Path) -> dict[str, object]:
     return json.loads((temp_dir / "workspace" / "learnedrewrite_status.json").read_text(encoding="utf-8"))
+
+
+class _LearnedRewriteHTTPHandler(BaseHTTPRequestHandler):
+    request_count = 0
+    response_payload: dict[str, object] = {
+        "status": True,
+        "message": "SUCCESS",
+        "data": {"rewritten_sql": "SELECT a FROM table1 WHERE a > 4"},
+    }
+    last_payload: dict[str, object] | None = None
+
+    def log_message(self, format: str, *args: object) -> None:
+        return
+
+    def do_POST(self) -> None:
+        type(self).request_count += 1
+        length = int(self.headers.get("Content-Length", "0"))
+        raw = self.rfile.read(length).decode("utf-8")
+        type(self).last_payload = json.loads(raw)
+        body = json.dumps(type(self).response_payload).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+
+class _HTTPServerContext:
+    def __enter__(self) -> str:
+        _LearnedRewriteHTTPHandler.request_count = 0
+        _LearnedRewriteHTTPHandler.last_payload = None
+        _LearnedRewriteHTTPHandler.response_payload = {
+            "status": True,
+            "message": "SUCCESS",
+            "data": {"rewritten_sql": "SELECT a FROM table1 WHERE a > 4"},
+        }
+        self.server = ThreadingHTTPServer(("127.0.0.1", 0), _LearnedRewriteHTTPHandler)
+        self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
+        self.thread.start()
+        host, port = self.server.server_address
+        return f"http://{host}:{port}/rewriter"
+
+    def __exit__(self, exc_type: object, exc: object, tb: object) -> None:
+        self.server.shutdown()
+        self.server.server_close()
+        self.thread.join(timeout=5)
 
 
 class LearnedRewriteAdapterTests(unittest.TestCase):
@@ -228,7 +276,7 @@ class LearnedRewriteAdapterTests(unittest.TestCase):
             ({"SQLRB_LEARNEDREWRITE_MODE": "http"}, "http_runtime_missing_env"),
             (
                 {"SQLRB_LEARNEDREWRITE_MODE": "http", "SQLRB_LEARNEDREWRITE_URL": "http://127.0.0.1:6336/rewriter"},
-                "external_runtime_not_implemented",
+                "runtime_not_allowed",
             ),
         ]
         for extra_env, expected_bucket in fixtures:
@@ -245,6 +293,62 @@ class LearnedRewriteAdapterTests(unittest.TestCase):
                 self.assertFalse(status["java_runtime_invoked"])
                 self.assertFalse(status["network_invoked"])
                 self.assertFalse(status["candidate_generated"])
+
+    def test_http_runtime_success_extracts_data_rewritten_sql(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_name, _HTTPServerContext() as url:
+            temp_dir = Path(temp_name)
+            env = _adapter_env(temp_dir)
+            env.update(
+                {
+                    "SQLRB_LEARNEDREWRITE_MODE": "http",
+                    "SQLRB_LEARNEDREWRITE_URL": url,
+                    "SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME": "1",
+                }
+            )
+            completed = _run_adapter(env)
+            status = _status(temp_dir)
+            candidate = (temp_dir / "workspace" / "candidate.sql").read_text(encoding="utf-8")
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(_LearnedRewriteHTTPHandler.request_count, 1)
+        self.assertEqual(candidate, "SELECT a FROM table1 WHERE a > 4;\n")
+        self.assertTrue(status["candidate_generated"])
+        self.assertEqual(status["runtime_mode"], "http")
+        self.assertTrue(status["network_invoked"])
+        self.assertTrue(status["http_runtime_invoked"])
+        self.assertFalse(status["java_runtime_invoked"])
+        self.assertEqual(status["runtime_status"], "http_runtime_success")
+        self.assertEqual(status["schema_payload_status"], "ddl_derived_schema_json")
+        self.assertEqual(status["schema_table_count"], 1)
+        payload = _LearnedRewriteHTTPHandler.last_payload
+        self.assertIsInstance(payload, dict)
+        self.assertEqual(payload["sql"], "SELECT a FROM table1 WHERE a > 0")
+        self.assertIsInstance(payload["schema"], str)
+        self.assertIn('"table":"table1"', payload["schema"])
+
+    def test_http_runtime_status_false_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_name, _HTTPServerContext() as url:
+            _LearnedRewriteHTTPHandler.response_payload = {
+                "status": False,
+                "message": "Get Error",
+            }
+            temp_dir = Path(temp_name)
+            env = _adapter_env(temp_dir)
+            env.update(
+                {
+                    "SQLRB_LEARNEDREWRITE_MODE": "http",
+                    "SQLRB_LEARNEDREWRITE_URL": url,
+                    "SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME": "1",
+                }
+            )
+            completed = _run_adapter(env)
+            status = _status(temp_dir)
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(_LearnedRewriteHTTPHandler.request_count, 1)
+        self.assertEqual(status["failure_bucket"], "runtime_status_false")
+        self.assertFalse(status["candidate_generated"])
+        self.assertTrue(status["network_invoked"])
 
     def test_metadata_secret_hygiene_and_no_runtime_flags(self) -> None:
         secret_value = "fixture-secret-value-123"

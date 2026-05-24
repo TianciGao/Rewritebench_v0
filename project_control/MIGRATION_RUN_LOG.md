@@ -22951,3 +22951,73 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a narrow LearnedRewrite HTTP-runtime adapter implementation and then a 1-2 row PostgreSQL-only external-runtime user-facade smoke without DB/checker/timing. Do not run Common-core or Track A 120 yet.
+
+## 2026-05-25 - learnedrewrite_http_runtime_e2e_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Narrow LearnedRewrite HTTP-runtime adapter implementation and one-row PostgreSQL user-facade smoke with DB/checker/timing.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_http_runtime_e2e_smoke_v0/`
+
+Files modified:
+- `baselines/learnedrewrite/adapter.py`
+- `baselines/learnedrewrite/README.md`
+- `tests/user_entry/test_learnedrewrite_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented gated HTTP mode for `baselines/learnedrewrite/adapter.py`.
+- Preserved fixture fake mode; command mode remains a fail-closed future hook.
+- Added narrow PostgreSQL DDL-to-LearnedRewrite schema JSON serialization.
+- Added focused HTTP-mode tests using a synthetic local HTTP server; targeted tests passed with `14 passed, 8 subtests passed`.
+- Started the external LearnedRewrite JAR only from temp staging under `/tmp/sqlrb_learnedrewrite_http_runtime_e2e_smoke_v0/runtime_staging/`.
+- Selected one PostgreSQL row: `CONS_0036/postgres`.
+- Candidate generated: 1/1.
+- Source execution success: 1/1.
+- Candidate execution success: 1/1.
+- Checker exact: 1/1.
+- Timed rows: 1/1.
+- Fail-closed rows: 0.
+- `PERF_0006` was deferred because TPC-H date/comment-heavy SQL needs a separate bounded runtime diagnostic.
+
+Validation result:
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`: passed, `14 passed, 8 subtests passed`.
+- `python -m py_compile baselines/learnedrewrite/adapter.py`: passed.
+- CSV parse checks: planned/passed before closeout for generated audit CSVs.
+- Markdown/text non-empty checks: planned/passed before closeout.
+- Run JSON artifact parse checks: planned/passed before cleanup.
+- Selected row count check: passed, one PostgreSQL row.
+- Candidate generation / DB / checker / timing bounded-scope checks: passed for selected row only.
+- No `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, leaderboard, Track A 120, MySQL, or Spark command occurred.
+- No JAR/source/runtime asset copied into the release repo: planned/passed before closeout.
+- Runtime shutdown check: passed.
+- Runtime output staging check: planned/passed before closeout.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is a bounded local diagnostic smoke only. No official metrics, paper results, retained evidence, leaderboard, Track A 120, top-level reports/results update, denominator change, case membership change, paper result change, raw legacy evidence change, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a 5-10 row PostgreSQL-only LearnedRewrite bounded diagnostic with DB/checker/timing. Do not run Track A 120 until that bounded diagnostic passes.

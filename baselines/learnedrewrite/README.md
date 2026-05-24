@@ -1,7 +1,7 @@
 # LearnedRewrite External Wrapper
 
-Status: fixture-only adapter scaffold. The adapter supports fake runtime mode
-only; command and HTTP modes are present as fail-closed future hooks.
+Status: adapter scaffold with fixture fake mode and gated HTTP runtime mode.
+Command mode remains a fail-closed future hook.
 
 Planned route identity:
 
@@ -17,7 +17,7 @@ baselines/learnedrewrite/adapter.py
 ```
 
 The adapter reads the standard D035 user-facade row environment, parses a fake
-fixture response, and writes exactly one complete SQL candidate to
+fixture response or a gated HTTP runtime response, and writes exactly one complete SQL candidate to
 `SQLRB_CANDIDATE_SQL_PATH` only when extraction is unambiguous. Expected
 fail-closed cases exit with code 0 and write `learnedrewrite_status.json` under
 `SQLRB_WORKSPACE_DIR` without writing candidate SQL.
@@ -47,9 +47,31 @@ SQLRB_LEARNEDREWRITE_FAKE_SQL='SELECT 1 AS ok' \
 python baselines/learnedrewrite/adapter.py
 ```
 
-This implementation is fixture-only and no-runtime. Real Java execution, DB
-execution, checker execution, timing, local metrics, verifier use, and Track A
-120 are separate future authorizations.
+HTTP runtime mode:
+
+```bash
+SQLRB_LEARNEDREWRITE_MODE=http \
+SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME=1 \
+SQLRB_LEARNEDREWRITE_URL='http://127.0.0.1:6336/rewriter' \
+python baselines/learnedrewrite/adapter.py
+```
+
+HTTP mode assumes the external LearnedRewrite server is already running outside
+this repository. For the recovered JAR, stage required runtime assets such as
+`rules_for_selected/` in a temporary workdir outside the release repo and start
+the external JAR from that workdir. The adapter does not start Java and does not
+copy runtime assets.
+
+The HTTP request sends:
+
+- `sql`: source SQL with comments stripped and terminal semicolon normalized;
+- `schema`: a JSON-array string derived from PostgreSQL DDL or supplied through
+  `SQLRB_LEARNEDREWRITE_SCHEMA_JSON`.
+
+The HTTP response must contain `status=true` and `data.rewritten_sql`.
+
+DB execution, checker execution, timing, local metrics, verifier use, and Track
+A 120 are separate explicit authorizations.
 
 Boundary:
 
