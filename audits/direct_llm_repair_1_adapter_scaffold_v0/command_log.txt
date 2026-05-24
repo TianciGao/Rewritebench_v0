@@ -1,0 +1,37 @@
+Commands run:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD`
+- `sed -n '1,260p' baselines/direct_llm_original/adapter.py`
+- `sed -n '260,620p' baselines/direct_llm_original/adapter.py`
+- `sed -n '620,760p' baselines/direct_llm_original/adapter.py`
+- `sed -n '1,240p' baselines/direct_llm_original/README.md`
+- `sed -n '1,240p' baselines/direct_llm_repair_1/README.md`
+- `rg --files audits/direct_llm_original_non_exact_frontier_review_v0 audits/user_output_verifier_status_integration_v0 project_control repository_spec | sort`
+- `sed -n '1,240p' audits/direct_llm_original_non_exact_frontier_review_v0/repair1_prompt_contract.md`
+- `sed -n '1,260p' audits/direct_llm_original_non_exact_frontier_review_v0/repair1_design_requirements.md`
+- `sed -n '1,220p' audits/direct_llm_original_non_exact_frontier_review_v0/repair1_fail_closed_policy.md`
+- `sed -n '1,180p' audits/direct_llm_original_non_exact_frontier_review_v0/frontier_summary.json`
+- `sed -n '1,220p' audits/direct_llm_original_non_exact_frontier_review_v0/frontier_table.csv`
+- `sed -n '1,220p' audits/user_output_verifier_status_integration_v0/no_ser_boundary.md`
+- `rg -n "Result Consistency|Semantic Equivalence|official|local checker|SER|POCR|local diagnostic" repository_spec/metrics_contract_v1.md`
+- `sed -n '1,220p' project_control/MIGRATION_STATUS.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,160p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 120 project_control/DECISION_LOG.md`
+- `rg --files tests/user_entry tests/verifier_support | sort`
+- `sed -n '1,260p' tests/user_entry/test_direct_llm_adapter.py`
+- `ls -la baselines/direct_llm_repair_1`
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`
+- CSV parse check for `feedback_type_matrix.csv` and `fake_provider_test_matrix.csv`
+- Markdown/text non-empty check for audit packet files
+- `git diff --check`
+- Protected-path review over `git status --short`
+- Changed-file secret scan over allowed changed paths
+
+Validation commands are recorded in `validation_notes.md`.
+
+No live LLM, DB execution, checker execution, timing, local metrics, SQLSolver,
+VeriEQL, official metrics, paper rendering, Track A 120, or Repair-1 live route
+command was run.

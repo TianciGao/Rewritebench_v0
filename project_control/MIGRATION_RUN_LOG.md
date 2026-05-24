@@ -22004,3 +22004,64 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Return to Repair-1 fake-provider implementation and fixture tests. SQLSolver remains coverage-limited verifier support for public v0 unless a separate residual schema-modeling fix is authorized.
+
+## direct_llm_repair_1_adapter_scaffold_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_adapter_scaffold_v0`
+
+Mode: fake-provider-only Repair-1 adapter scaffold and fixture tests; no live LLM, no DB/checker/timing, no metrics, no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `baselines/direct_llm_repair_1/adapter.py`
+- `tests/user_entry/test_direct_llm_repair_1_adapter.py`
+- `audits/direct_llm_repair_1_adapter_scaffold_v0/`
+
+Files modified:
+- `baselines/direct_llm_repair_1/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation summary:
+- Added a separate `direct_llm_repair_1` adapter scaffold that consumes explicit original Direct LLM candidate SQL and execution/checker feedback JSON.
+- Added Repair-1 prompt construction with `repair_prompt_template_id=direct_llm_repair_1_feedback_sql_only_v0`.
+- Added metadata recording for `original_candidate_id`, `feedback_type`, `repaired_candidate_id`, provider/model fields, and `extraction_policy=single_sql_candidate_repair_v0`.
+- Added fake-provider support for fixture tests without network calls.
+- Added fail-closed handling for missing original candidate, missing feedback, unsupported feedback, unsupported-engine boundary rows, missing live gate/API key, provider failure, empty/prose/multiple-SQL extraction, and ambiguous extraction.
+- Preserved unsupported Spark frontier rows as excluded boundary rows; future Repair-1 scope remains 13 actionable rows (`mismatch=10`, `candidate_execution_failed=3`).
+
+Validation result:
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed; only allowed paths plus two known unrelated untracked Direct LLM original audit directories were present.
+
+Boundary:
+- No live LLM call was run.
+- No DB execution, checker execution, timing collection, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, Track A 120, or Repair-1 live route was run.
+- No Direct LLM original adapter, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a tiny Repair-1 fixture/facade dry-run integration or a bounded fake-provider user-facade smoke before any live Repair-1 attempt.

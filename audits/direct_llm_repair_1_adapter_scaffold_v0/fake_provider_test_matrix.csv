@@ -1,0 +1,8 @@
+test_name,target_behavior,provider_mode,expected_result,actual_result,passed,notes
+test_mismatch_repair_prompt_construction,mismatch prompt construction,fake,candidate_generated,candidate_generated,true,"Prompt includes checker mismatch feedback and original candidate context"
+test_candidate_execution_failed_repair_prompt_construction,candidate execution failure prompt construction,fake,candidate_generated,candidate_generated,true,"Prompt includes execution error feedback and normalized error class"
+test_unsupported_engine_row_excluded,unsupported engine boundary exclusion,fake,fail_closed_without_call,fail_closed_without_call,true,"Unsupported Spark-style boundary row is excluded before provider call"
+test_missing_feedback_fails_closed,missing feedback fail-closed,fake,fail_closed_without_call,fail_closed_without_call,true,"No feedback path means no provider call and no candidate"
+test_multiple_sql_extraction_fails_closed,multiple SQL extraction fail-closed,fake,fail_closed_after_fake_response,fail_closed_after_fake_response,true,"Multiple statements are rejected"
+test_secret_hygiene_for_fake_provider_outputs,secret hygiene,fake,no_secret_written,no_secret_written,true,"API key presence is recorded without writing key values"
+test_extraction_rejects_prose,prose extraction fail-closed,unit,fail_closed,fail_closed,true,"Non-SQL prose is rejected"

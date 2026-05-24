@@ -1,0 +1,6 @@
+frontier_bucket,repair1_feedback_type,repair1_should_attempt,adapter_behavior,notes
+mismatch,checker_mismatch_feedback,true,build_prompt_and_call_provider,"Actionable future Repair-1 row; 10 Direct LLM original frontier rows"
+candidate_execution_failed,candidate_execution_error_feedback,true,build_prompt_and_call_provider,"Actionable future Repair-1 row; 3 Direct LLM original frontier rows"
+unsupported_engine,unsupported_engine_boundary_feedback,false,fail_closed_without_provider_call,"Excluded boundary rows; 5 unsupported Spark rows are not attempted"
+missing_feedback,,false,fail_closed_without_provider_call,"Feedback path or summary is required"
+unknown_feedback,unsupported_feedback,false,fail_closed_without_provider_call,"Unsupported feedback types are not passed to the provider"
