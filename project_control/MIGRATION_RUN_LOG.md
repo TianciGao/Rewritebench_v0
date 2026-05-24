@@ -23142,3 +23142,62 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Move to R-Bot / LLM-R2 GPTSAPI `gpt-5.4` wrapper planning or fake adapter scaffold. Do not expand LearnedRewrite beyond PG40 without separate failure/engine-support authorization.
+
+## 2026-05-25 - rbot_gpt54_adapter_scaffold_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Fake/no-live adapted R-Bot GPT-5.4 wrapper scaffold plus fixture tests and a tiny no-runtime user-facade smoke.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `baselines/rbot/adapter.py`
+- `baselines/rbot/README.md`
+- `tests/user_entry/test_rbot_adapter.py`
+- `audits/rbot_gpt54_adapter_scaffold_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added `route_id=rbot_gpt54_adapted` / `method_id=rbot` adapter scaffold.
+- Implemented fake runtime mode only, with future live provider/RAG placeholders that fail closed.
+- Recorded provider policy metadata for future adapted calls: OpenAI-compatible/GPTSAPI-compatible, `gpt-5.4`, `SQLRB_LLM_ALLOW_LIVE=1`, env-only secrets.
+- Implemented single `SELECT`/`WITH` SQL extraction and fail-closed guards for missing source/schema, unsupported engine, malformed JSON, prose/empty/multiple SQL output, live gate/key absence, and missing retrieval configuration.
+- Ran a tiny fake user-facade smoke over `PERF_0006/postgres` and `CONS_0036/postgres`; selected rows = 2 and generated candidates = 2, with no DB/checker/timing/local_metrics/verifier flags.
+- Searched legacy R-Bot evidence read-only for configuration/output-contract clues; no old logs, candidates, metrics, or generated outputs were copied.
+
+Validation result:
+- `pytest tests/user_entry/test_rbot_adapter.py -q`: passed, `11 passed, 5 subtests passed`.
+- `python -m py_compile baselines/rbot/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Tiny fake user-facade smoke: passed.
+- Runtime output staging check: passed; fake smoke outputs under `/tmp` and `runs/user/` were removed before commit.
+- No live LLM/API, official R-Bot runtime, RAG index build, Chroma, CalciteRewrite, DB/checker/timing, `compute-local-metrics`, SQLSolver, VeriEQL, LearnedRewrite, LLM-R2, official metrics, paper rendering, retained-evidence promotion, leaderboard, or Track A 120 occurred.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is an adapted local diagnostic scaffold only. It is not original R-Bot paper reproduction, not official metrics, not a paper result, not retained-evidence promotion, not verifier evidence, not Track A 120, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a tiny bounded live GPT-5.4 R-Bot-adapted generation smoke over 1-2 PostgreSQL rows. Do not run DB/checker/timing or Track A 120 until live generation is stable.
