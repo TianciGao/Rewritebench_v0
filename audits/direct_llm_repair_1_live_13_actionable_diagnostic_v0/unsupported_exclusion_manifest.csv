@@ -1,0 +1,6 @@
+case_id,engine,pool,failure_bucket,excluded_from_repair1,exclusion_reason,notes
+PORT_0008,spark,PORT,unsupported_engine,true,unsupported_engine boundary row; Repair-1 diagnostic excludes these rows until engine support policy changes,"Not selected, not attempted, and not included in live Repair-1 diagnostic."
+PORT_0012,spark,PORT,unsupported_engine,true,unsupported_engine boundary row; Repair-1 diagnostic excludes these rows until engine support policy changes,"Not selected, not attempted, and not included in live Repair-1 diagnostic."
+PORT_0022,spark,PORT,unsupported_engine,true,unsupported_engine boundary row; Repair-1 diagnostic excludes these rows until engine support policy changes,"Not selected, not attempted, and not included in live Repair-1 diagnostic."
+PORT_0024,spark,PORT,unsupported_engine,true,unsupported_engine boundary row; Repair-1 diagnostic excludes these rows until engine support policy changes,"Not selected, not attempted, and not included in live Repair-1 diagnostic."
+PORT_0025,spark,PORT,unsupported_engine,true,unsupported_engine boundary row; Repair-1 diagnostic excludes these rows until engine support policy changes,"Not selected, not attempted, and not included in live Repair-1 diagnostic."

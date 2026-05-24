@@ -22263,3 +22263,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a 13-actionable-row live Repair-1 diagnostic run with DB/checker/timing. Do not run Repair-1 Track A 120 until the 13-row actionable diagnostic passes and a 120-route assembly policy is written.
+
+## direct_llm_repair_1_live_13_actionable_diagnostic_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_live_13_actionable_diagnostic_v0`
+
+Mode: bounded live Repair-1 D035 user-facade diagnostic over 13 actionable rows only; DB/checker/timing enabled; no aggregate metrics, no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_live_13_actionable_diagnostic_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Diagnostic summary:
+- Selected rows: 13 (`mismatch=10`, `candidate_execution_failed=3`).
+- Unsupported Spark `unsupported_engine` rows attempted: 0; excluded rows: 5.
+- Provider preflight: env presence check passed and `/v1/models` returned HTTP 200 with configured model listed.
+- Live call rows: 13.
+- Repaired candidate generated rows: 13.
+- Candidate preflight passed rows: 13.
+- Source executable rows: 13.
+- Candidate executable rows: 13.
+- Checker exact rows: 9.
+- Checker mismatch rows: 4.
+- Candidate execution failed rows: 0.
+- Timed rows: 9.
+- Fail-closed rows: 0.
+
+Validation result:
+- User-facade live diagnostic commands: passed, exit 0 for PostgreSQL/MySQL/Spark commands.
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- CSV parse checks: passed.
+- JSON parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Runtime output staging review: passed; temporary `runs/user` live diagnostic directories were removed before staging.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed; no secret values in changed files or added project-control lines.
+- Staged-file secret scan: passed.
+- Protected-path review: passed; only allowed audit and project-control paths changed, with unrelated untracked historical live-smoke audit dirs left untouched.
+
+Boundary:
+- No `compute-local-metrics` command was run.
+- No SQLSolver, VeriEQL, official metric, official SER, paper rendering, Track A 120, full 120-row Repair-1 route, or leaderboard was run.
+- No Direct LLM original adapter, Repair-1 adapter source, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, retained evidence, paper result file, env file, API key value, or secret was modified or committed.
+- Temporary `/tmp` outputs are not committed.
+- Temporary `runs/user/direct_llm_repair_1_live_13_actionable_diagnostic_v0__*` runtime output is excluded from commit and removed before staging.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a Repair-1 Track A 120 route assembly policy before running the full Repair-1 120 canonical local diagnostic.
