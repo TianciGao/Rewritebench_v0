@@ -22541,3 +22541,57 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a LearnedRewrite no-live external-wrapper design and fixture-test task after confirming license/source hygiene. Keep R-Bot and LLM-R2 execution blocked until their substrate and wrapper risks are narrowed.
+
+## 2026-05-25 - learnedrewrite_external_wrapper_design_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Design-only no-live external-wrapper plan and fixture-test scaffold for LearnedRewrite.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_external_wrapper_design_v0/`
+- `baselines/learnedrewrite/README.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- LearnedRewrite is defined as a future external tool wrapper, not vendored source.
+- Future adapter target is `baselines/learnedrewrite/adapter.py` with `route_id=learnedrewrite` and `method_id=learnedrewrite`.
+- The design covers source hygiene, external runtime policy, fake/http/cmd modes, schema serialization expectations, complete-SQL output extraction, fail-closed statuses, fixture I/O examples, and risk matrix.
+- Source hygiene verdict: no repository-level license file was found in the official source clone, and upstream source/JAR/dependency JAR/checkpoint/dataset/generated-output copies are not allowed in the release repo.
+- Future R-Bot and LLM-R2 live calls, if separately authorized, must use the Direct LLM OpenAI-compatible GPTSAPI/gpt-5.4 provider policy and be labeled `adapted_gpt54_local_diagnostic`, not original-paper reproduction.
+
+Validation result:
+- CSV parse checks: passed for `learnedrewrite_fixture_io_examples.csv` and `learnedrewrite_risk_matrix.csv`.
+- Markdown/text non-empty checks: passed for all generated Markdown/text files and `baselines/learnedrewrite/README.md`.
+- Required file presence checks: passed for all requested audit packet files.
+- Prohibited command review: no LearnedRewrite, R-Bot, LLM-R2, Java server/JAR, live LLM, DB/checker/timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, or leaderboard command was run.
+- Upstream copy review: passed; no upstream source file, JAR, dependency JAR, checkpoint, dataset, generated output, request log, or old legacy output was copied into the release repo.
+- Changed-file secret scan: passed; no API key values or bearer-token-shaped values were found in changed files.
+- `git diff --check`: passed.
+- Protected-path review: passed for intended changed paths.
+
+Boundary:
+- No adapter implementation, method execution, Java runtime, experiment, local metric computation, verifier run, official metric, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a fixture-only LearnedRewrite adapter scaffold with fake external runtime tests. Do not run the real Java runtime until wrapper contract tests, schema JSON fixtures, source-hygiene boundaries, and output extraction guards are stable.

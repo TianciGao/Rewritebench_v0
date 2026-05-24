@@ -1,0 +1,55 @@
+Commands and references used for this design packet.
+
+Release repo read-only commands:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD`
+- `sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 120 project_control/MIGRATION_STATUS.md`
+- `sed -n '1,260p' project_control/DECISION_LOG.md`
+- `tail -n 180 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,260p' repository_spec/metrics_contract_v1.md`
+- `find baselines -maxdepth 3 -type f | sort`
+- `rg -n "route_id|method_id|adapter-command|metadata|candidate_sql|preflight|fail_closed|compute-local-metrics|user evaluate" src/cli src/sql_rewrite_bench baselines -g '*.py' -g '*.md'`
+- `rg --files audits/prior_methods_onboarding_feasibility_v0`
+- `sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/README.md`
+- `sed -n '1,260p' audits/prior_methods_onboarding_feasibility_v0/method_source_inventory.csv`
+- `sed -n '1,260p' audits/prior_methods_onboarding_feasibility_v0/method_runtime_entrypoints.csv`
+- `sed -n '1,260p' audits/prior_methods_onboarding_feasibility_v0/integration_risk_matrix.csv`
+- `sed -n '1,260p' audits/prior_methods_onboarding_feasibility_v0/benchmark_role_mapping.md`
+- `sed -n '1,240p' audits/prior_methods_onboarding_feasibility_v0/proposed_sequence.md`
+
+Official LearnedRewrite source inspection:
+
+- `git -C /tmp/sqlrb_prior_methods_sources/LearnedRewrite rev-parse --short HEAD`
+- `sed -n '1,260p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/README.md`
+- `find /tmp/sqlrb_prior_methods_sources/LearnedRewrite -maxdepth 2 -type f | sort`
+- `find /tmp/sqlrb_prior_methods_sources/LearnedRewrite -maxdepth 2 \( -iname 'LICENSE*' -o -iname 'COPYING*' -o -iname 'NOTICE*' \) -type f -print`
+- targeted `rg` over the official README and Java source for wrapper contract terms.
+
+Legacy repo read-only references:
+
+- `git -C /tmp/sqlrb_prior_methods/legacy rev-parse --short HEAD`
+- targeted `rg` over `/tmp/sqlrb_prior_methods/legacy/reports`, `/tmp/sqlrb_prior_methods/legacy/docs/_scratch`, and `/tmp/sqlrb_prior_methods/legacy/README.md` for LearnedRewrite references.
+
+Web/source references:
+
+- LearnedRewrite official source: `https://github.com/XuanheZhou/LearnedRewrite`
+- LearnedRewrite paper PDF: `https://dbgroup.cs.tsinghua.edu.cn/ligl/papers/vldb22-query-rewrite.pdf`
+- Prior onboarding packet source inventory: `audits/prior_methods_onboarding_feasibility_v0/`
+
+Prohibited command check:
+
+- No LearnedRewrite command was run.
+- No R-Bot command was run.
+- No LLM-R2 command was run.
+- No Java server or JAR runtime was run.
+- No live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, or leaderboard command was run.
+
+Validation commands:
+
+- CSV parse and Markdown/text non-empty checks using a local Python one-shot over `audits/learnedrewrite_external_wrapper_design_v0/` and `baselines/learnedrewrite/README.md`.
+- `git diff --check`
+- `git diff --name-only`
+- `find audits/learnedrewrite_external_wrapper_design_v0 baselines/learnedrewrite -type f | rg -n "\\.(jar|class|zip|tar|gz|bin|pt|pth|ckpt|java)$"`
+- Changed-file secret scan over the audit packet, `baselines/learnedrewrite/`, and project-control edits.
