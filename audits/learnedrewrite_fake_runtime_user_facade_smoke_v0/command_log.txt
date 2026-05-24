@@ -1,0 +1,89 @@
+Commands run for this task, with no secrets included.
+
+Preflight/read-only:
+
+```bash
+git status -sb
+git rev-parse --abbrev-ref HEAD
+git log -1 --oneline
+rg --files project_control repository_spec baselines/learnedrewrite tests/user_entry audits/learnedrewrite_external_wrapper_design_v0 audits/learnedrewrite_adapter_scaffold_v0 | sort
+sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md
+tail -n 220 project_control/MIGRATION_STATUS.md
+tail -n 220 project_control/DECISION_LOG.md
+tail -n 260 project_control/MIGRATION_RUN_LOG.md
+sed -n '1,240p' repository_spec/metrics_contract_v1.md
+sed -n '1,260p' baselines/learnedrewrite/adapter.py
+sed -n '260,920p' baselines/learnedrewrite/adapter.py
+sed -n '1,220p' baselines/learnedrewrite/README.md
+sed -n '1,560p' tests/user_entry/test_learnedrewrite_adapter.py
+sed -n '1,220p' audits/learnedrewrite_adapter_scaffold_v0/README.md
+sed -n '1,220p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_adapter_design.md
+```
+
+Targeted validation before smoke:
+
+```bash
+pytest tests/user_entry/test_learnedrewrite_adapter.py -q
+python -m py_compile baselines/learnedrewrite/adapter.py
+```
+
+Facade smoke:
+
+```bash
+rm -rf /tmp/sqlrb_learnedrewrite_fake_runtime_user_facade_smoke_v0
+printf 'PERF_0006\nCONS_0036\n' > /tmp/sqlrb_learnedrewrite_fake_runtime_case_list.txt
+SQLRB_LEARNEDREWRITE_MODE=fake \
+SQLRB_LEARNEDREWRITE_FAKE_RESPONSE='{"status":"ok","rewritten_sql":"SELECT 1 AS learnedrewrite_fake_candidate"}' \
+python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --engines postgres \
+  --case-list /tmp/sqlrb_learnedrewrite_fake_runtime_case_list.txt \
+  --adapter-command "python baselines/learnedrewrite/adapter.py" \
+  --output-root /tmp/sqlrb_learnedrewrite_fake_runtime_user_facade_smoke_v0/output \
+  --run-id learnedrewrite_fake_runtime_user_facade_smoke_v0
+```
+
+Facade result:
+
+```text
+selected_rows=2
+candidate_generated_rows=2
+```
+
+Output inspection:
+
+```bash
+find /tmp/sqlrb_learnedrewrite_fake_runtime_user_facade_smoke_v0/output -maxdepth 5 -type f | sort
+find runs/user/learnedrewrite_fake_runtime_user_facade_smoke_v0 -maxdepth 5 -type f | sort
+python - <<'PY'
+# parsed source run ledger and per-row learnedrewrite_status.json metadata
+PY
+```
+
+Fail-closed smoke checks:
+
+```bash
+python - <<'PY'
+# created temporary synthetic row envs and invoked baselines/learnedrewrite/adapter.py
+# cases: missing fake response, multiple statements, prose-only response, unsupported engine
+PY
+```
+
+Prohibited commands not run:
+
+- real LearnedRewrite Java runtime
+- Java server/JAR
+- R-Bot
+- LLM-R2
+- live LLM call
+- DB execution
+- checker execution
+- timing collection
+- `compute-local-metrics`
+- SQLSolver
+- VeriEQL
+- official metrics
+- paper rendering
+- retained-evidence promotion
+- leaderboard generation
+- Track A 120

@@ -22647,3 +22647,61 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a no-runtime D035 user-facade smoke for LearnedRewrite fake runtime. Do not run the real Java runtime until fake user-facade integration and extraction guards are stable.
+
+## 2026-05-25 - learnedrewrite_fake_runtime_user_facade_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- No-runtime D035 user-facade smoke for LearnedRewrite fake runtime.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_fake_runtime_user_facade_smoke_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Ran `python -m cli.main user evaluate` with `baselines/learnedrewrite/adapter.py`, PostgreSQL only, and fake runtime mode.
+- Selected rows: `PERF_0006/postgres` and `CONS_0036/postgres`.
+- Selected rows: 2.
+- Candidate SQL generated: 2.
+- Candidate preflight passed: 2.
+- Adapter metadata recorded `route_id=learnedrewrite`, `method_id=learnedrewrite`, `runtime_mode=fake`, `fake_runtime=true`, `external_runtime_configured=false`, Java/network/DB/checker/timing/local_metrics/verifier invocation flags false, local diagnostic flags, and no-upstream-source/JAR boundary.
+- Adapter-level fail-closed checks passed for missing fake response, multiple SQL statements, prose-only response, and unsupported engine.
+
+Validation result:
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`: passed, `12 passed, 8 subtests passed`.
+- `python -m py_compile baselines/learnedrewrite/adapter.py`: passed.
+- User-facade fake runtime smoke: passed, selected 2 rows and generated 2 candidates.
+- CSV parse checks: passed for `adapter_output_review.csv`.
+- Markdown/text non-empty checks: passed for all generated Markdown/text audit files.
+- No Java/runtime/DB/checker/timing/local_metrics/verifier command review: passed by command log review.
+- Runtime output staging check: passed before explicit staging; runtime `runs/user` and `/tmp` outputs are not in the changed-file set.
+- Changed-file secret scan: passed for secret-shaped values in audit and project-control changed files.
+- Protected-path review: passed; only allowed audit and project-control paths are intended for staging, and unrelated pre-existing untracked Direct LLM audit directories remain untouched.
+- `git diff --check`: passed.
+
+Boundary:
+- No real LearnedRewrite Java runtime, Java server/JAR, R-Bot, LLM-R2, live LLM, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, upstream source/JAR copy, env file, API key value, or secret was included.
+- Runtime `runs/user` and `/tmp` outputs are not intended for staging or commit.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a LearnedRewrite external-runtime availability/preflight audit. Do not run the real Java runtime on Common-core cases until external runtime path, request/response schema, extraction guards, and source-hygiene boundaries are verified.
