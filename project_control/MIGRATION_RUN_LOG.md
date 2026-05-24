@@ -23088,3 +23088,57 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a LearnedRewrite PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG appendix evidence or authorize a separate Track A support assessment. Do not run full Track A 120 without a route policy.
+
+## 2026-05-25 - learnedrewrite_pg40_route_boundary_policy_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Policy-only LearnedRewrite PostgreSQL route boundary packet based on existing PG40 bounded local diagnostic evidence.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_pg40_route_boundary_policy_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Recorded the PG40 metric boundary from existing `local_metrics.py` outputs only: selected 40, generated 29, candidate executable 23, exact 17, timed exact rows 17, mismatch 6, candidate execution failed 6, fail-closed/no-candidate 11, Generation Rate 0.725, Execution Coverage 0.575, Result Consistency 0.425, GM speedup 1.0291029729677286, P10/P25/P50/P75/P90 0.8134186116858578/0.9784093859740545/1.0023559404279565/1.014471169398659/1.704766251233957.
+- Route placement verdict: LearnedRewrite should stop at bounded PostgreSQL prior-method appendix diagnostic evidence for public v0.
+- Track A 120 readiness verdict: not ready.
+- MySQL/Spark remain unsupported/not assessed unless a separate adapter/runtime policy is authorized.
+- Failure frontier policy recorded exact 17, mismatch 6, candidate execution failed 6, and fail-closed/no-candidate 11.
+- Source-like boundary recorded source-like/no-op diagnostic count 2 and nontrivial generated candidates 27; source-like classification is not POCR, SER, a ranking metric, or leaderboard input.
+
+Validation result:
+- Markdown non-empty checks: planned/passed before closeout.
+- Source audit existence checks: planned/passed before closeout.
+- Copied PG40 metric value checks against the existing PG40 audit packet: planned/passed before closeout.
+- No new CSV or JSON files were created in the policy packet.
+- No LearnedRewrite runtime, MySQL, Spark, Track A 120, DB/checker/timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, leaderboard, or top-level reports/results update occurred.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is a policy-only packet. It is not a new experiment, not official metrics, not a paper result, not retained-evidence promotion, not verifier evidence, not official SER, not POCR, not Track A 120, and not a leaderboard.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Move to R-Bot / LLM-R2 GPTSAPI `gpt-5.4` wrapper planning or fake adapter scaffold. Do not expand LearnedRewrite beyond PG40 without separate failure/engine-support authorization.
