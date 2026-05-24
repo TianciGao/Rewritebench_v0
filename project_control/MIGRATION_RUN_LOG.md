@@ -22489,3 +22489,55 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Review the Repair-1 Track A 120 canonical local diagnostic results and compare them against Direct LLM original using role-aware, denominator-aware local diagnostic evidence only. Do not promote to paper or retained evidence without a separate promotion task.
+
+## 2026-05-24 - prior_methods_onboarding_feasibility_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Audit-only prior-method onboarding feasibility review.
+
+Files created:
+- `audits/prior_methods_onboarding_feasibility_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Methods reviewed:
+- R-Bot / LLM4Rewrite.
+- LLM-R2.
+- LearnedRewrite.
+
+Summary:
+- Official source repositories, paper/README contracts, and legacy branch references were reviewed for input/output contracts, dependencies, entrypoints, artifact availability, denominator compatibility, and integration risk.
+- R-Bot has the richest legacy bounded evidence but is blocked for execution by retrieval/RAG index, provider, Java, PostgreSQL, corpus contamination, and route-boundary work.
+- LLM-R2 has official source plus a TPCH selector checkpoint and legacy PG9/PG6 evidence, but requires a strict one-row D035 wrapper, checkpoint/provenance review, provider-contract cleanup, and native input conversion before bounded execution.
+- LearnedRewrite is the narrowest next no-live scaffold candidate because the core path is Java/Calcite, but it still needs license/source hygiene review and schema/dialect adapter design before any runtime experiment.
+
+Validation result:
+- CSV parse checks: passed for all generated audit CSVs.
+- Markdown/text non-empty checks: passed for all generated Markdown/text files.
+- All three methods represented in required matrices: passed for `r_bot`, `llm_r2`, and `learnedrewrite`.
+- Prohibited command review: no R-Bot, LLM-R2, LearnedRewrite, live LLM, DB/checker/timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, or leaderboard command was run.
+- Protected-path review: passed; only allowed audit and project-control paths are intended for staging, and unrelated pre-existing untracked live-smoke audit dirs remain untouched.
+- Changed-file secret scan: passed; no API key values or bearer-token-shaped values were found in changed files.
+- `git diff --check`: passed.
+
+Boundary:
+- No adapter implementation, method execution, experiment, local metric computation, verifier run, official metric, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a LearnedRewrite no-live external-wrapper design and fixture-test task after confirming license/source hygiene. Keep R-Bot and LLM-R2 execution blocked until their substrate and wrapper risks are narrowed.
