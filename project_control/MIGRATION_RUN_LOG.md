@@ -19192,3 +19192,64 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Review the D035 docs skeleton, then authorize a narrow docs/examples follow-up or a separate physical migration/export plan if needed.
+
+## 2026-05-24 - calcite_vs_sqlglot_noop_pg_local_comparison_v0
+
+Mode: bounded local-only PostgreSQL comparison audit.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/README.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/source_audits.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/denominator_chain_comparison.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/diagnostic_rate_comparison.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/speedup_diagnostic_comparison.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/frontier_comparison.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/interpretation_boundary.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/next_steps.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/command_log.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/protected_surface_check.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/boundary_checklist.md`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/comparison_table.csv`
+- `audits/calcite_vs_sqlglot_noop_pg_local_comparison_v0/comparison_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `comparison_summary.json` parses.
+- `comparison_table.csv` has 2 rows and required headers.
+- Audit Markdown files are non-empty.
+- `git status --porcelain -- runs/user output reports results src tests baselines cases case_sets` produced no output.
+- `git diff --check` passed.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Track A 120 rerun readiness plan.

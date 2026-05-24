@@ -1,0 +1,132 @@
+{
+  "schema_version": "calcite_vs_sqlglot_noop_pg_local_comparison_v0",
+  "source_audits": [
+    "audits/sqlglot_noop_pg_current_route_card_refresh_v0/",
+    "audits/calcite_hep_pg_post_quoting_chain_rerun_v0/"
+  ],
+  "engine": "postgres",
+  "comparison_scope": "bounded_local_diagnostic_pg_only",
+  "official_metric_input": false,
+  "paper_result": false,
+  "leaderboard_output_created": false,
+  "routes": [
+    {
+      "route_id": "sqlglot_noop",
+      "method_id": "sqlglot_noop",
+      "baseline_family": "sqlglot",
+      "engine": "postgres",
+      "selected_rows": 40,
+      "generated_candidate_rows": 35,
+      "no_candidate_rows": 5,
+      "execution_attempted_rows": 35,
+      "source_executable_rows": 35,
+      "candidate_executable_rows": 35,
+      "checker_attempted_rows": 35,
+      "exact_rows": 35,
+      "timed_exact_rows": 35,
+      "timing_failed_rows": 0,
+      "local_generation_rate": 0.875,
+      "local_execution_coverage_rate": 0.875,
+      "local_result_consistency_rate": 0.875,
+      "diagnostic_gm_speedup": 0.995912,
+      "diagnostic_speedup_p10": 0.988128,
+      "diagnostic_speedup_p25": 0.99511,
+      "diagnostic_speedup_p50": 1.002522,
+      "diagnostic_speedup_p75": 1.009285,
+      "diagnostic_speedup_p90": 1.016506,
+      "diagnostic_median_speedup": 1.002522,
+      "frontier_summary": "5 no-candidate PORT rows: PORT_0004, PORT_0013, PORT_0022, PORT_0024, PORT_0025",
+      "frontier_rows": {
+        "no_candidate_sql": [
+          "PORT_0004",
+          "PORT_0013",
+          "PORT_0022",
+          "PORT_0024",
+          "PORT_0025"
+        ]
+      },
+      "official_metric_input": false,
+      "paper_result": false,
+      "leaderboard_output_created": false
+    },
+    {
+      "route_id": "calcite_hep_fail_closed",
+      "method_id": "calcite_hep_fail_closed",
+      "baseline_family": "calcite",
+      "engine": "postgres",
+      "selected_rows": 40,
+      "generated_candidate_rows": 33,
+      "no_candidate_rows": 7,
+      "schema_fallback_rows": 4,
+      "schema_fallback_excluded_rows": 4,
+      "execution_attempted_rows": 29,
+      "source_executable_rows": 28,
+      "candidate_executable_rows": 28,
+      "checker_attempted_rows": 28,
+      "exact_rows": 22,
+      "timed_exact_rows": 22,
+      "timing_failed_rows": 0,
+      "local_generation_rate": 0.825,
+      "local_execution_coverage_rate": 0.7,
+      "local_result_consistency_rate": 0.55,
+      "diagnostic_gm_speedup": 1.009852,
+      "diagnostic_speedup_p10": 0.981979,
+      "diagnostic_speedup_p25": 0.989623,
+      "diagnostic_speedup_p50": 0.9957,
+      "diagnostic_speedup_p75": 1.00562,
+      "diagnostic_speedup_p90": 1.008519,
+      "diagnostic_median_speedup": 0.9957,
+      "frontier_summary": "18-row frontier: 7 no-candidate, 4 schema-fallback exclusions, 1 source execution failure, 6 checker mismatches",
+      "frontier_rows": {
+        "no_candidate_sql": [
+          "PORT_0003",
+          "PORT_0004",
+          "PORT_0005",
+          "PORT_0008",
+          "PORT_0012",
+          "PORT_0022",
+          "PORT_0025"
+        ],
+        "schema_fallback_excluded": [
+          "PORT_0013",
+          "LONGTAIL_0022",
+          "LONGTAIL_0023",
+          "LONGTAIL_0024"
+        ],
+        "source_execution_failed": [
+          "PORT_0024"
+        ],
+        "checker_mismatch": [
+          "PERF_0035",
+          "PERF_0062",
+          "CONS_0036",
+          "LONGTAIL_0011",
+          "LONGTAIL_0012",
+          "LONGTAIL_0013"
+        ]
+      },
+      "official_metric_input": false,
+      "paper_result": false,
+      "leaderboard_output_created": false
+    }
+  ],
+  "safe_conclusions": [
+    "SQLGlot noop has higher PostgreSQL exact coverage in this local diagnostic run: 35/40 versus Calcite HEP 22/40.",
+    "Calcite HEP has a slightly above-parity diagnostic GM speedup over its own 22 exact-timed rows.",
+    "SQLGlot noop is a low-transform infrastructure/control route, not an optimizer-strength claim.",
+    "Calcite HEP exposes route-development frontier: no-candidate rows, schema-fallback exclusions, one source-role failure, and mismatches.",
+    "The comparison is bounded local PostgreSQL diagnostic evidence only."
+  ],
+  "forbidden_conclusions": [
+    "global leaderboard",
+    "winner",
+    "official metrics",
+    "paper-facing result",
+    "full Track-A result",
+    "full 120-row comparison",
+    "formal Regression@20",
+    "Semantic Equivalence Rate",
+    "production evidence promotion"
+  ],
+  "next_safe_action": "Track A 120 rerun readiness plan"
+}
