@@ -19926,3 +19926,92 @@ Boundary:
 
 Next safe action:
 - Authorize exact-gated timing over the 66 exact/result-consistent rows, keeping the 54-row non-exact frontier visible and local-only.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0
+
+Task: `sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/run_scope.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/exact_gate_source_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/timing_policy.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/per_row_timing.csv`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/engine_timing_summaries.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/pool_timing_summaries.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/timing_summary.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/non_timed_frontier.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/local_metric_interpretation.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/paper_boundary.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/next_route_card_plan.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/diagnostic_summary.json`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_exact_timing_v0/run_track_a_120_exact_timing.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Diagnostic result:
+- Exact gate source: `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/`.
+- Selected/planned rows: 120.
+- Generated candidate rows from gate audit: 105.
+- Fail-closed rows from gate audit: 20.
+- Candidate-executable rows from gate audit: 91.
+- Checker-attempted rows from gate audit: 91.
+- Exact/result-consistent rows: 66.
+- Non-exact frontier rows: 54.
+- Timing attempted rows: 66.
+- Timed exact rows: 66.
+- Timing failed rows: 0.
+- Overall diagnostic GM speedup: 1.022011.
+- Overall diagnostic P10/P25/P50/P75/P90: 0.942395/0.986440/0.997147/1.011439/1.097909.
+
+Per-engine timing result:
+- PostgreSQL: 29 timed exact rows, 0 timing failures, GM speedup 1.055509.
+- MySQL: 20 timed exact rows, 0 timing failures, GM speedup 1.000881.
+- Spark: 17 timed exact rows, 0 timing failures, GM speedup 0.991375.
+
+Non-timed frontier:
+- `candidate_execution_failed`: 9.
+- `label_only_mismatch`: 16.
+- `mysql_unsupported_array_any`: 1.
+- `semantic_mismatch`: 9.
+- `sqlglot_optimize_failed`: 5.
+- `sqlglot_parse_failed`: 5.
+- `sqlglot_schema_parse_failed`: 4.
+- `unsupported_engine`: 5.
+
+Validation result:
+- CSV validation passed: `per_row_timing.csv` has 120 data rows plus header.
+- JSON validation passed: `diagnostic_summary.json` parsed.
+- Helper py_compile passed.
+- `pytest tests/user_entry/test_local_timing.py -q` passed with 7 passed.
+- `pytest tests/user_entry/test_sqlglot_adapter.py -q` passed with 14 passed and 1 skipped.
+
+Boundary:
+- Verifier pass performed: no.
+- SQLGlot noop run: no.
+- Calcite run: no.
+- Direct LLM / Repair-1 run: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.
+- External artifacts committed: no.
+
+Next safe action:
+- Build the local-only `sqlglot_optimize_schema_aware` route-card projection from the 120-row execution/checker audit and this exact-gated timing packet.
