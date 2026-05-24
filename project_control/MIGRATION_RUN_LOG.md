@@ -20291,3 +20291,88 @@ Validation:
 
 Next safe action:
 - Produce canonical SQLGlot noop and Calcite metrics through the same `user evaluate` plus `compute-local-metrics` path before any route comparison.
+
+## 2026-05-24 - sqlglot_noop_track_a_120_canonical_user_rerun_v0
+
+Task: `sqlglot_noop_track_a_120_canonical_user_rerun_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Run id:
+- `sqlglot_noop_track_a_120_canonical_v0`
+
+Commands:
+- `python -m cli.main user evaluate --case-set common_core_v0 --engines postgres,mysql,spark --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" --output-root /tmp/sqlrb_sqlglot_noop_track_a_120_canonical_user_rerun_v0/output --run-id sqlglot_noop_track_a_120_canonical_v0 --enable-db-execution --enable-checker --collect-timing`
+- `python -m cli.main user compute-local-metrics --run-id-prefix sqlglot_noop_track_a_120_canonical_v0 --engines postgres,mysql,spark --aggregate-run-id sqlglot_noop_track_a_120_canonical_v0 --source-run-root runs/user --output-root /tmp/sqlrb_sqlglot_noop_track_a_120_canonical_user_rerun_v0/output`
+
+Files created:
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/README.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/user_commands.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/source_run_layout.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/canonical_metrics_outputs.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/local_metrics_summary_review.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/engine_metrics_review.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/frontier_review.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/d035_output_shape_review.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/provisional_audit_replacement_note.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/paper_boundary.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/next_steps.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/command_log.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/protected_surface_check.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/boundary_checklist.md`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/canonical_metrics_snapshot.json`
+- `audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0/canonical_engine_metrics_snapshot.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Canonical metrics summary:
+- selected rows: 120.
+- candidate generated rows: 115.
+- source executable rows: 110.
+- candidate executable rows: 107.
+- exact/result-consistent rows: 97.
+- timed exact rows: 97.
+- generation rate: 0.9583333333333334.
+- execution coverage rate: 0.8916666666666667.
+- result consistency rate: 0.8083333333333333.
+- GM speedup over strict exact-timed rows: 0.9798350077258852.
+- speedup P10/P25/P50/P75/P90: 0.9402013795777502 / 0.9830818562518341 / 0.9973694789124162 / 1.0082898937485303 / 1.0268045388090905.
+
+Per-engine canonical metrics:
+- PostgreSQL: selected 40, generated 35, source executable 35, candidate executable 35, exact 35, timed 35, GM speedup 0.965868094391865.
+- MySQL: selected 40, generated 40, source executable 40, candidate executable 39, exact 31, timed 31, GM speedup 0.9987204731888261.
+- Spark: selected 40, generated 40, source executable 35, candidate executable 33, exact 31, timed 31, GM speedup 0.9770158651493955.
+
+Canonical frontier:
+- Exact status counts: `exact=97`, `mismatch=10`, `not_evaluated_non_db_mvp=5`, `not_exact_due_to_execution_failure=8`.
+- Failure bucket counts: `none=97`, `mismatch=10`, `adapter_failed=5`, `candidate_execution_failed=3`, `unsupported_engine=5`.
+- Timing status counts: `timed=97`, `not_eligible=23`.
+
+Boundary:
+- User facade used: yes.
+- Metrics computed through `src/sql_rewrite_bench/local_metrics.py`: yes.
+- Metrics recomputed by audit helper: no.
+- Official metrics computed: no.
+- Official SER computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- SQLSolver/VeriEQL run: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- Runtime `runs/user` and `/tmp/.../output` artifacts committed: no.
+
+Validation:
+- Canonical source JSON/CSV parse: passed.
+- D035 temp output shape check: passed.
+- `python -m cli.main user compute-local-metrics --help`: passed.
+- `git diff --check`: passed.
+- Protected runtime/output path staged check: passed.
+
+Next safe action:
+- Rerun/reprocess Calcite HEP through the same canonical user-facade plus `compute-local-metrics` path before any route comparison.
