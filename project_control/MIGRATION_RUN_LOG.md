@@ -20833,3 +20833,109 @@ Boundary:
 
 Next safe action:
 - Rerun the bounded Direct LLM original live smoke with the fixed adapter only if explicitly authorized.
+
+## direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Mode: bounded live local diagnostic smoke through D035 user facade
+Legacy repo modified: no
+Release repo modified: yes
+Commit: smoke closeout commit recorded in final task report
+Push: pending at entry creation
+Scope:
+- Rerun Direct LLM original live smoke after the GPTSAPI User-Agent fix.
+- Cases: `CONS_0036`, `PERF_0006`.
+- Engines: PostgreSQL, MySQL, Spark.
+- Planned rows: 6.
+- Provider: `openai_compatible`.
+- Base URL host: `api.gptsapi.net`.
+- Model: `gpt-5.4`.
+
+Preflight:
+- `git status -sb` reviewed; two unrelated untracked prior Direct LLM audit directories were present and left untouched.
+- Branch confirmed: `feature/case-package-v2-external-schema`.
+- `git fetch origin` completed.
+- `ea2d52f` confirmed in `HEAD` and `origin/feature/case-package-v2-external-schema`.
+- Project-control files were read from `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- D033, D034, and D035 were present on `origin/feature/case-package-v2-external-schema`; `origin/main` did not contain those decision IDs.
+- Direct LLM original adapter existed and included `User-Agent: SQL-RewriteBench/0.1`.
+- Tracked-file secret scan passed.
+- No staged `runs/user`, repository-level `output`, top-level `reports`, or `results` artifacts were present.
+
+Live environment:
+- `SQLRB_LLM_ALLOW_LIVE=1`: present.
+- Provider env matched `openai_compatible`.
+- Base URL env matched `https://api.gptsapi.net/v1`.
+- Model env matched `gpt-5.4`.
+- API key present through the accepted env contract.
+- API key value was not printed.
+
+Command:
+- Ran `python -m cli.main user evaluate` with `--case-list /tmp/sqlrb_direct_llm_original_post_user_agent_case_list.txt`, `--engines postgres,mysql,spark`, Direct LLM original adapter, DB execution enabled, and checker enabled.
+- Output root was `/tmp/sqlrb_direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/output`.
+
+Results:
+- Selected rows: 6.
+- Live API call success: 6.
+- `HTTP 403` / `code 1010`: 0.
+- SQL extraction status `extracted`: 6.
+- Candidate generated rows: 6.
+- Source execution success: 6.
+- Candidate execution success: 6.
+- Checker success: 6.
+- Exact rows: 6.
+- Mismatch rows: 0.
+- Failure bucket `none`: 6.
+
+Metadata:
+- Prompt template: `direct_llm_original_sql_only_v0`.
+- Extraction policy: `single_sql_candidate_v0`.
+- Temperature: `0.0`.
+- Top-p: `1.0`.
+- Max tokens: `2048`.
+- Timeout seconds: `60.0`.
+- Raw response saved: false.
+- Local only: true.
+- Official metric input: false.
+- Paper result: false.
+
+Validation:
+- `per_row_status.csv` header and 6-row count validation: passed.
+- `pytest tests/user_entry/test_direct_llm_adapter.py -q`: passed.
+- `python -m py_compile baselines/direct_llm_original/adapter.py`: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Staged-file secret scan: passed.
+- Staged protected-artifact check: passed.
+
+Files created:
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/README.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/live_env_review.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/user_command.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/provider_call_results.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/prompt_metadata_review.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/extraction_results.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/per_row_status.csv`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/execution_checker_summary.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/secret_safety_review.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/next_track_a_plan.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/command_log.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/protected_surface_check.md`
+- `audits/direct_llm_original_bounded_live_api_smoke_post_user_agent_fix_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Boundary:
+- No Track A 120, Repair-1, SQLSolver, VeriEQL, timing, official metrics, official SER, formal Regression@20, top-level reports/results update, retained-evidence promotion, leaderboard, denominator change, case membership change, paper result change, source change, committed runtime artifact, env file, or secret was included.
+
+Next safe action:
+- Run a larger bounded canonical Direct LLM original live smoke before any Track A 120 authorization.
