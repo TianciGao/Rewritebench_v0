@@ -40,5 +40,13 @@ that are not DDL identifiers remain unchanged. This keeps the fix scoped to
 Calcite output that quotes source DDL names such as `"DEPT"` even though
 PostgreSQL loaded the unquoted relation as `dept`.
 
+For MySQL and Spark, the current external smoke runtime is treated as
+PostgreSQL-dialect unless it emits target-dialect SQL. If generated SQL contains
+known PostgreSQL-only forms for those targets, such as double-quoted
+identifiers or `DOUBLE PRECISION`, the adapter fails closed before DB execution.
+The unsupported SQL is retained in the local row workspace as
+`unsupported_candidate.sql`, while `SQLRB_CANDIDATE_SQL_PATH` is left absent so
+the user-run ledger records no executable candidate.
+
 No Calcite source code, JARs, native libraries, build outputs, or dependency
 caches belong in this repository.

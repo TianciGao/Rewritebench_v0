@@ -69,6 +69,33 @@ DDL_CONSTRAINT_KEYWORDS = {
     "unique",
 }
 
+NON_POSTGRES_DIALECT_GUARDS = {
+    "mysql": [
+        (
+            re.compile(r'"[A-Za-z_][A-Za-z0-9_]*"'),
+            "mysql_postgres_dialect_quoted_identifier",
+            "Calcite emitted PostgreSQL-style double-quoted identifiers for MySQL.",
+        ),
+        (
+            re.compile(r"\bDOUBLE\s+PRECISION\b", re.IGNORECASE),
+            "mysql_postgres_dialect_double_precision",
+            "Calcite emitted PostgreSQL DOUBLE PRECISION syntax for MySQL.",
+        ),
+    ],
+    "spark": [
+        (
+            re.compile(r'"[A-Za-z_][A-Za-z0-9_]*"'),
+            "spark_postgres_dialect_quoted_identifier",
+            "Calcite emitted PostgreSQL-style double-quoted identifiers for Spark.",
+        ),
+        (
+            re.compile(r"\bDOUBLE\s+PRECISION\b", re.IGNORECASE),
+            "spark_postgres_dialect_double_precision",
+            "Calcite emitted PostgreSQL DOUBLE PRECISION syntax for Spark.",
+        ),
+    ],
+}
+
 
 class AdapterError(Exception):
     """Expected adapter configuration error."""
@@ -401,6 +428,56 @@ def _postprocess_candidate_sql_if_needed(
     return metadata
 
 
+def detect_non_postgres_target_dialect_block(sql: str, engine: str) -> dict[str, object]:
+    """Detect Calcite PostgreSQL-dialect output that should fail closed elsewhere."""
+
+    guards = NON_POSTGRES_DIALECT_GUARDS.get(engine, [])
+    for pattern, bucket, reason in guards:
+        match = pattern.search(sql)
+        if match:
+            return {
+                "enabled": True,
+                "blocked": True,
+                "bucket": bucket,
+                "reason": reason,
+                "matched_text": match.group(0),
+                "policy": "non_postgres_postgresql_dialect_fail_closed_v0",
+            }
+    return {
+        "enabled": bool(guards),
+        "blocked": False,
+        "bucket": "",
+        "reason": "",
+        "matched_text": "",
+        "policy": "non_postgres_postgresql_dialect_fail_closed_v0",
+    }
+
+
+def _fail_closed_for_unsupported_target_dialect_if_needed(
+    *,
+    env: dict[str, str],
+    candidate_path: Path,
+) -> dict[str, object]:
+    engine = env["SQLRB_ENGINE"]
+    if engine == "postgres":
+        return {"enabled": False, "blocked": False, "policy": "postgres_supported"}
+    if not candidate_path.exists():
+        return {
+            "enabled": engine in NON_POSTGRES_DIALECT_GUARDS,
+            "blocked": False,
+            "policy": "candidate_missing",
+        }
+    sql = candidate_path.read_text(encoding="utf-8")
+    guard = detect_non_postgres_target_dialect_block(sql, engine)
+    if not guard["blocked"]:
+        return guard
+    unsupported_path = candidate_path.parent / "unsupported_candidate.sql"
+    unsupported_path.write_text(sql, encoding="utf-8")
+    candidate_path.unlink()
+    guard["unsupported_candidate_sql_path"] = str(unsupported_path)
+    return guard
+
+
 def invoke_calcite_runtime(
     *,
     env: dict[str, str],
@@ -485,6 +562,19 @@ def invoke_calcite_runtime(
             "runtime": runtime,
         }
     if candidate_path.exists() and candidate_path.read_text(encoding="utf-8").strip():
+        dialect_guard = _fail_closed_for_unsupported_target_dialect_if_needed(
+            env=env,
+            candidate_path=candidate_path,
+        )
+        if dialect_guard.get("blocked"):
+            return {
+                "preflight_status": "calcite_target_dialect_unsupported",
+                "unsupported_reason": str(dialect_guard["reason"]),
+                "candidate_generated": False,
+                "failure_bucket": "no_candidate_sql",
+                "runtime": runtime,
+                "target_dialect_guard": dialect_guard,
+            }
         postprocess = _postprocess_candidate_sql_if_needed(
             env=env,
             schema_ddl_path=schema_ddl_path,
@@ -497,6 +587,7 @@ def invoke_calcite_runtime(
             "failure_bucket": "none",
             "runtime": runtime,
             "candidate_postprocess": postprocess,
+            "target_dialect_guard": dialect_guard,
         }
     return {
         "preflight_status": "calcite_no_candidate_sql",

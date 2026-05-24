@@ -20376,3 +20376,78 @@ Validation:
 
 Next safe action:
 - Rerun/reprocess Calcite HEP through the same canonical user-facade plus `compute-local-metrics` path before any route comparison.
+## 2026-05-24 - calcite_hep_tri_engine_readiness_and_adapter_gap_v0
+
+Mode: bounded local-only Calcite HEP tri-engine readiness smoke and narrow adapter hardening.
+
+Branch: `feature/case-package-v2-external-schema`
+
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_tri_engine_readiness_and_adapter_gap_v0/` only.
+
+Files created:
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/README.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/run_scope.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/runtime_environment.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/adapter_engine_mode_review.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/bounded_tri_engine_smoke_results.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/per_row_status.csv`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/blocker_classification.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/fix_candidate_plan.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/canonical_120_readiness.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/command_log.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/protected_surface_check.md`
+- `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/boundary_checklist.md`
+
+Files modified:
+- `baselines/calcite_hep_fail_closed/adapter.py`
+- `baselines/calcite_hep_fail_closed/README.md`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Preflight:
+- Working tree was clean before edits.
+- Branch confirmed as `feature/case-package-v2-external-schema`.
+- Origin fetched.
+- Current project-control files read from `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- D033, D034, and D035 confirmed in `project_control/DECISION_LOG.md`.
+- Calcite adapter confirmed at `baselines/calcite_hep_fail_closed/adapter.py`.
+- External runtime confirmed at `/home/tianci_gao/.local/share/sqlrb/calcite_hep/bin/calcite-hep-rewrite-smoke`.
+- PostgreSQL, MySQL, and Spark local execution environments were available.
+
+Scope:
+- Route: `calcite_hep_fail_closed`.
+- Method: `calcite_hep_fail_closed`.
+- Engines: PostgreSQL, MySQL, Spark.
+- Cases: `PERF_0006`, `CONS_0005`, `CONS_0036`, `CONS_0037`, `PORT_0004`, `PORT_0024`.
+- Planned rows: 18.
+
+Adapter hardening:
+- Added a non-PostgreSQL target-dialect fail-closed guard under `baselines/calcite_hep_fail_closed/adapter.py`.
+- MySQL/Spark candidates containing known PostgreSQL-dialect forms, including double-quoted identifiers and `DOUBLE PRECISION`, are now blocked before DB execution.
+- Unsupported generated SQL is retained only in the local row workspace as `unsupported_candidate.sql`.
+- The executable candidate path is removed so the user-run ledger records no executable candidate.
+- PostgreSQL behavior and the existing PostgreSQL-only identifier postprocess remain unchanged.
+
+Post-guard bounded smoke:
+- PostgreSQL: selected 6, generated 5, fail-closed/no-candidate 1, source executable 5, candidate executable 5, checker attempted 5, exact 4, mismatch 1.
+- MySQL: selected 6, generated 0, fail-closed/no executable candidate 6, source executable 0, candidate executable 0, checker attempted 0, exact 0.
+- Spark: selected 6, generated 0, fail-closed/no executable candidate 6, source executable 0, candidate executable 0, checker attempted 0, exact 0.
+
+Main blockers:
+- External Calcite runtime remains PostgreSQL-dialect for MySQL/Spark in this smoke and has no committed `--engine` target-dialect contract.
+- MySQL/Spark target-dialect candidates need external runtime support or a separately authorized adapter/runtime engine-mode task.
+- `PORT_0004` remains a DATETIME/TIMESTAMP-style no-candidate row.
+- `PORT_0024` remains a PORT source-role / cross-dialect policy row outside PostgreSQL exact success.
+- `CONS_0036` remains a strict checker label-only mismatch on PostgreSQL.
+
+Validation:
+- `per_row_status.csv` header and row-count validation: passed with 18 rows, 6 per engine.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 9 passed.
+- `pytest tests/user_entry -q`: 246 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py`: passed.
+- `git diff --check`: passed.
+- No full Track A 120 run, `compute-local-metrics`, timing, verifier pass, official metric, official Semantic Equivalence Rate, paper result, retained evidence promotion, leaderboard, denominator change, case membership change, or top-level reports/results update occurred.
+
+Next safe action:
+- Authorize a narrow Calcite runtime/adapter engine-mode task to produce target-dialect MySQL/Spark candidates, then rerun a bounded tri-engine smoke before any canonical Track A 120 user-facade metrics run.

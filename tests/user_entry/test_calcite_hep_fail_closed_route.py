@@ -223,6 +223,114 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertEqual(postprocess["policy"], "postgres_only_unquoted_ddl_identifier_fold_v0")
         self.assertEqual(postprocess["replacement_identifiers"], {"DEPT": "dept", "NAME": "name"})
 
+    def test_adapter_fails_closed_for_mysql_postgres_dialect_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            case_list = Path(temp_dir) / "cases.txt"
+            case_list.write_text("CONS_0036\n", encoding="utf-8")
+            row = resolve_common_core_selection(
+                repo_root=REPO_ROOT,
+                case_set="common_core_v0",
+                engine="mysql",
+                case_list=case_list,
+            )[0]
+            resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+            runtime_script = Path(temp_dir) / "fake_calcite_runtime.py"
+            runtime_script.write_text(
+                "\n".join(
+                    [
+                        "import pathlib",
+                        "import sys",
+                        "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
+                        "pathlib.Path(args['--output-sql']).write_text(",
+                        "    'SELECT \"NAME\" FROM \"DEPT\"\\n',",
+                        "    encoding='utf-8',",
+                        ")",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_mysql_target_dialect_guard_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+            unsupported_path_exists = Path(
+                payload["target_dialect_guard"]["unsupported_candidate_sql_path"]
+            ).exists()
+
+        self.assertFalse(result.candidate_generated)
+        self.assertIsNone(result.candidate_sql_path)
+        self.assertFalse((result.workspace_dir / "candidate.sql").exists())
+        self.assertEqual(payload["preflight_status"], "calcite_target_dialect_unsupported")
+        guard = payload["target_dialect_guard"]
+        self.assertTrue(guard["blocked"])
+        self.assertEqual(guard["bucket"], "mysql_postgres_dialect_quoted_identifier")
+        self.assertTrue(unsupported_path_exists)
+
+    def test_adapter_fails_closed_for_spark_postgres_dialect_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            case_list = Path(temp_dir) / "cases.txt"
+            case_list.write_text("CONS_0036\n", encoding="utf-8")
+            row = resolve_common_core_selection(
+                repo_root=REPO_ROOT,
+                case_set="common_core_v0",
+                engine="spark",
+                case_list=case_list,
+            )[0]
+            resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+            runtime_script = Path(temp_dir) / "fake_calcite_runtime.py"
+            runtime_script.write_text(
+                "\n".join(
+                    [
+                        "import pathlib",
+                        "import sys",
+                        "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
+                        "pathlib.Path(args['--output-sql']).write_text(",
+                        "    'SELECT CAST(\"id\" AS DOUBLE PRECISION) FROM \"cards\"\\n',",
+                        "    encoding='utf-8',",
+                        ")",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_spark_target_dialect_guard_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+            unsupported_path_exists = Path(
+                payload["target_dialect_guard"]["unsupported_candidate_sql_path"]
+            ).exists()
+
+        self.assertFalse(result.candidate_generated)
+        self.assertIsNone(result.candidate_sql_path)
+        self.assertFalse((result.workspace_dir / "candidate.sql").exists())
+        self.assertEqual(payload["preflight_status"], "calcite_target_dialect_unsupported")
+        guard = payload["target_dialect_guard"]
+        self.assertTrue(guard["blocked"])
+        self.assertEqual(guard["bucket"], "spark_postgres_dialect_quoted_identifier")
+        self.assertTrue(unsupported_path_exists)
+
     def test_adapter_fails_closed_when_external_command_fails(self) -> None:
         row = _postgres_smoke_row()
         resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
