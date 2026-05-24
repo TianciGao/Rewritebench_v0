@@ -1,0 +1,23 @@
+{
+  "candidate_generated_rows": 9,
+  "cases": [
+    "CONS_0005",
+    "PERF_0006",
+    "CONS_0036"
+  ],
+  "db_execution_run": false,
+  "engines": [
+    "postgres",
+    "mysql",
+    "spark"
+  ],
+  "invalid_cons0005_qualification_rows": 0,
+  "method_id": "sqlglot",
+  "official_metric_input": false,
+  "paper_result": false,
+  "preflight_passed_rows": 9,
+  "route_id": "sqlglot_optimize_schema_aware",
+  "rows_attempted": 9,
+  "task": "sqlglot_optimize_schema_aware_route_design_fix_v0",
+  "timing_collected": false
+}

@@ -309,6 +309,12 @@ class LocalTimingTests(unittest.TestCase):
             route_identity("python baselines/sqlglot/sqlglot_user_adapter.py --route optimize"),
             ("sqlglot_optimize", "sqlglot"),
         )
+        self.assertEqual(
+            route_identity(
+                "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware"
+            ),
+            ("sqlglot_optimize_schema_aware", "sqlglot"),
+        )
 
 
 if __name__ == "__main__":

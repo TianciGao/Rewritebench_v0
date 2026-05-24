@@ -19315,3 +19315,80 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Authorize SQLGlot noop Track A 120 local diagnostic rerun through the D035 user-facing facade, or implement `sqlrb user verify --pair-scope run-candidates` first if verifier support is required before rerun.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_route_design_fix_v0
+
+Mode: narrow route implementation plus bounded local diagnostic smoke.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_route_design_fix_v0/` only.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/prior_context_free_failure_review.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/route_policy.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/schema_context_design.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/implementation_summary.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/cons0005_before_after.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/bounded_tri_engine_smoke_results.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/output_shape_review.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/track_a_120_readiness.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/per_row_smoke_status.csv`
+- `audits/sqlglot_optimize_schema_aware_route_design_fix_v0/diagnostic_summary.json`
+
+Files modified:
+- `baselines/sqlglot/README.md`
+- `baselines/sqlglot/sqlglot_user_adapter.py`
+- `tests/user_entry/test_local_timing.py`
+- `tests/user_entry/test_sqlglot_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation result:
+- Added separately named SQLGlot route `sqlglot_optimize_schema_aware`.
+- Preserved context-free `sqlglot_optimize`.
+- Added schema DDL resolution and DDL-derived SQLGlot schema mapping in the baseline adapter.
+- Added fail-closed buckets for unavailable schema context, schema parse failure, optimize failure, and generation failure.
+
+Bounded smoke result:
+- Cases: `CONS_0005`, `PERF_0006`, `CONS_0036`.
+- Engines: PostgreSQL, MySQL, Spark.
+- Rows attempted: 9.
+- Candidate generated rows: 9.
+- Candidate preflight passed rows: 9.
+- Prior invalid `CONS_0005` three-part qualification rows: 0.
+- DB execution/checker/timing/verifier run: no.
+
+Validation result:
+- `pytest tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py -q` passed: 18 passed, 1 skipped.
+- `python -m py_compile baselines/sqlglot/sqlglot_user_adapter.py tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py` passed.
+- Audit Markdown files are non-empty.
+- `per_row_smoke_status.csv` has required headers and 9 rows.
+- `diagnostic_summary.json` parses and records 9 attempted / 9 generated / 9 preflight-passed rows.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results cases case_sets schemas inventory src` produced no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize bounded tri-engine execution/checker diagnostics for `sqlglot_optimize_schema_aware` before any larger local Track A diagnostic rerun.

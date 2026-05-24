@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- [x] Branch checked: `feature/case-package-v2-external-schema`
+- [x] Existing context-free `sqlglot_optimize` preserved.
+- [x] New route is separately named: `sqlglot_optimize_schema_aware`.
+- [x] SQLGlot route-specific logic kept under `baselines/sqlglot/`.
+- [x] No route-specific SQLGlot logic added under `src/sql_rewrite_bench/`.
+- [x] DDL/schema context is resolved from case metadata, not hard-coded tables.
+- [x] Missing schema context fails closed.
+- [x] `CONS_0005` invalid three-part qualification regression checked.
+- [x] Bounded validation only; no full Track A 120.
+- [x] No DB execution/checker in this task.
+- [x] No timing.
+- [x] No verifier pass.
+- [x] No official metrics.
+- [x] No Semantic Equivalence Rate.
+- [x] No formal Regression@20.
+- [x] No top-level reports/results update.
+- [x] No retained-evidence promotion.
+- [x] No leaderboard output.
+- [x] No denominator or case-membership change.

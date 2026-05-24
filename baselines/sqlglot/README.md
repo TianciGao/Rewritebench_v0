@@ -2,12 +2,15 @@
 
 This directory contains optional non-DB SQLGlot adapters for the B-line user-entry runner.
 
-The adapters expose two candidate-generation routes:
+The adapters expose three candidate-generation routes:
 
 - `sqlglot_noop`: invoked as `--route noop`
 - `sqlglot_optimize`: invoked as `--route optimize`
+- `sqlglot_optimize_schema_aware`: invoked as `--route optimize_schema_aware`
 
-Both routes read the source SQL path provided by the user-entry runner, use the selected engine to infer a SQLGlot dialect, and write candidate SQL to `SQLRB_CANDIDATE_SQL_PATH`.
+All routes read the source SQL path provided by the user-entry runner, use the
+selected engine to infer a SQLGlot dialect, and write candidate SQL to
+`SQLRB_CANDIDATE_SQL_PATH`.
 
 ## Usage
 
@@ -23,14 +26,22 @@ or:
 python baselines/sqlglot/sqlglot_user_adapter.py --route optimize
 ```
 
+or:
+
+```bash
+python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware
+```
+
 These commands are intended to be passed through `--adapter-command` on the
 public facade, `sqlrb user evaluate` or `python -m cli.main user evaluate`.
 The lower-level `python -m sql_rewrite_bench.user_run` path remains an internal
 implementation path.
 
-## Known Context-free Optimize Limitation
+## Optimize Route Policy
 
-`--route noop` and `--route optimize` are separate user-entry adapter routes. Do not merge their local diagnostic outcomes into a single SQLGlot score.
+`--route noop`, `--route optimize`, and `--route optimize_schema_aware` are
+separate user-entry adapter routes. Do not merge their local diagnostic outcomes
+into a single SQLGlot score.
 
 The current `--route optimize` implementation is context-free: it reads the source SQL, parses it using the selected engine dialect, calls SQLGlot `optimize(expression)` without case schema or catalog context, and emits candidate SQL.
 
@@ -41,7 +52,21 @@ Because it has no case schema/catalog context, context-free optimize may emit in
 
 That failure is fail-visible adapter behavior. It is not a database backend failure, checker failure, timing issue, official metric, or benchmark code failure.
 
-Users should not interpret bounded local diagnostic SQLGlot route results as official retained baseline evidence. A future schema-aware SQLGlot route would need a separately named route and separate authorization because it changes route semantics and comparability.
+`--route optimize_schema_aware` is the explicit schema-aware route. It resolves
+the selected case's per-engine DDL from the manifest/schema profile, builds the
+simple table/column schema mapping expected by SQLGlot, and calls
+`optimize(expression, schema=..., dialect=...)`. If schema context cannot be
+resolved or parsed, it fails closed with one of:
+
+- `schema_context_unavailable`
+- `sqlglot_schema_parse_failed`
+- `sqlglot_optimize_failed`
+- `candidate_generation_failed`
+
+Users should not interpret bounded local diagnostic SQLGlot route results as
+official retained baseline evidence. Schema-aware optimize changes route
+semantics and comparability, so it must be reported under its separate
+`sqlglot_optimize_schema_aware` route id.
 
 ## Boundaries
 
