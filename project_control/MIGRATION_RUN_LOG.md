@@ -22132,3 +22132,67 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a bounded no-live Repair-1 dry run over the 13 actionable Direct LLM original frontier rows. Keep live Repair-1 blocked until the no-live path is stable.
+
+## direct_llm_repair_1_no_live_13_frontier_dry_run_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_no_live_13_frontier_dry_run_v0`
+
+Mode: bounded fake-provider no-live Repair-1 D035 user-facade dry run; no DB/checker/timing, no metrics, no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_no_live_13_frontier_dry_run_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Dry-run summary:
+- Selected actionable frontier rows: 13 (`mismatch=10`, `candidate_execution_failed=3`).
+- Unsupported Spark `unsupported_engine` rows excluded: 5.
+- Engine-scoped facade commands selected rows: PostgreSQL 1, MySQL 8, Spark 4.
+- Adapter invoked rows: 13.
+- Repaired candidate generated rows: 13.
+- Candidate preflight passed rows: 13.
+- Fail-closed rows: 0.
+- Adapter metadata recorded `provider=fake`, `model_id=gpt-5.4`, `live_call=false`, and `api_key_present=false` for every attempted row.
+
+Validation result:
+- User-facade dry-run commands: passed, exit 0 for PostgreSQL/MySQL/Spark commands.
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Runtime output staging review: passed; temporary `runs/user` dry-run directories were removed before staging.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed; no secret values in changed files.
+- Protected-path review: passed; only allowed audit and project-control paths changed, with unrelated untracked live-smoke audit dirs left untouched.
+
+Boundary:
+- No live LLM call was run.
+- No DB execution, checker execution, timing collection, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, Track A 120, or Repair-1 live route was run.
+- No Direct LLM original adapter, Repair-1 adapter source, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, retained evidence, paper result file, env file, API key, or secret was modified.
+- Temporary `/tmp` outputs were not committed.
+- Temporary `runs/user/direct_llm_repair_1_no_live_13_frontier_dry_run_v0__*` runtime output is excluded from commit and removed before staging.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a tiny bounded live Repair-1 smoke over 3-6 actionable rows. Do not run Repair-1 Track A 120 until bounded live smoke passes.
