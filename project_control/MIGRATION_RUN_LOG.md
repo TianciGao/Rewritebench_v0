@@ -20604,3 +20604,66 @@ Validation:
 
 Next safe action:
 - Run exact-gated timing over the 81 exact/result-consistent rows, still local-only and without `compute-local-metrics`; canonical metrics should wait until after exact timing.
+
+## calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Scope:
+- Common-core v0 Track A same-engine local diagnostic.
+- Route: `calcite_hep_fail_closed`.
+- Engines: PostgreSQL, MySQL, Spark.
+- Planned rows: 120.
+
+Canonical commands:
+- `python -m cli.main user evaluate --case-set common_core_v0 --engines postgres,mysql,spark --adapter-command "python baselines/calcite_hep_fail_closed/adapter.py" --output-root /tmp/sqlrb_calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0/output --run-id calcite_hep_track_a_120_canonical_v0 --enable-db-execution --enable-checker --collect-timing`
+- `python -m cli.main user compute-local-metrics --run-id-prefix calcite_hep_track_a_120_canonical_v0 --engines postgres,mysql,spark --aggregate-run-id calcite_hep_track_a_120_canonical_v0 --source-run-root runs/user --output-root /tmp/sqlrb_calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0/output`
+
+Canonical metrics source:
+- `runs/user/calcite_hep_track_a_120_canonical_v0/metrics/local_metrics_summary.json`
+- `runs/user/calcite_hep_track_a_120_canonical_v0/metrics/local_metrics_by_engine.csv`
+- `runs/user/calcite_hep_track_a_120_canonical_v0/metrics/local_metrics_by_pool.csv`
+- `runs/user/calcite_hep_track_a_120_canonical_v0/metrics/local_timing_speedup_rows.csv`
+- `runs/user/calcite_hep_track_a_120_canonical_v0/metrics/local_metrics_boundary.md`
+
+Canonical overall metrics copied from `local_metrics.py` outputs:
+- Selected rows: 120.
+- Candidate generated rows: 99.
+- Source executable rows: 98.
+- Candidate executable rows: 95.
+- Exact/result-consistent rows: 81.
+- Timed rows: 80.
+- Generation rate: 0.825.
+- Execution coverage rate: 0.7916666666666666.
+- Result consistency rate: 0.675.
+- GM speedup: 0.9852158585899714.
+- P10/P25/P50/P75/P90: 0.9348057176014165 / 0.9802357647404241 / 0.9952238487768534 / 1.0054822795790077 / 1.026117745021687.
+
+Per-engine canonical exact/timed rows:
+- PostgreSQL: exact 25/40, timed 24.
+- MySQL: exact 26/40, timed 26.
+- Spark: exact 30/40, timed 30.
+
+Frontier copied from canonical status counts:
+- `mismatch=14`.
+- `no_candidate_sql=21`.
+- `candidate_execution_failed=3`.
+- `unsupported_engine=1`.
+- Exact but timing-ineligible: `PORT_0024/postgres`.
+
+Validation:
+- Canonical metrics JSON/CSV parse: passed.
+- D035 output shape under `/tmp/sqlrb_calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0/output`: passed.
+- `python -m cli.main user compute-local-metrics --help`: passed.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 10 passed.
+- `git diff --check`: passed.
+- No staged `runs/user`, repository-level `output`, top-level `reports`, top-level `results`, or external artifact was found.
+
+Boundary:
+- Local diagnostic only.
+- Metrics computed through `src/sql_rewrite_bench/local_metrics.py`.
+- No audit-helper route-card metrics were computed.
+- No SQLGlot, LLM, SQLSolver, VeriEQL, official metrics, official SER, formal Regression@20, POCR, paper reports/results update, retained-evidence promotion, leaderboard, denominator change, case membership change, source/baseline/test/case/schema/inventory change, committed `runs/user`, repository-level output, top-level reports/results artifact, or external artifact changed.
+
+Next safe action:
+- Produce a canonical local-only route comparison packet using only canonical metrics outputs for SQLGlot noop, SQLGlot optimize schema-aware, and Calcite HEP.

@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+- [x] Used D035 user-facing `sqlrb user evaluate` facade.
+- [x] Enabled candidate generation/capture.
+- [x] Enabled source/candidate execution where applicable.
+- [x] Enabled local checker.
+- [x] Enabled exact-gated timing through the canonical run path.
+- [x] Computed metrics with `python -m cli.main user compute-local-metrics`.
+- [x] Metrics source of truth is `src/sql_rewrite_bench/local_metrics.py`.
+- [x] Did not compute audit-helper route metrics.
+- [x] Did not run SQLGlot noop or optimize.
+- [x] Did not run Direct LLM or Repair-1.
+- [x] Did not run SQLSolver or VeriEQL.
+- [x] Did not compute official metrics.
+- [x] Did not compute official SER.
+- [x] Did not emit formal Regression@20.
+- [x] Did not update top-level `reports/`.
+- [x] Did not update top-level `results/`.
+- [x] Did not promote retained evidence.
+- [x] Did not create leaderboard output.
+- [x] Did not change denominator or case membership.
+- [x] Did not modify source, tests, baselines, cases, case sets, schemas, or inventory.
