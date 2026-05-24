@@ -21871,3 +21871,70 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a coverage-limited verifier boundary or schema-modeling triage packet before any broader SQLSolver coverage. Do not broaden to SQLGlot no-op PostgreSQL 35 exact rows, the 346-pair manifest, other routes, or Repair-1 until the same-8 blocker status is resolved.
+
+## sqlsolver_coverage_limited_boundary_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_coverage_limited_boundary_v0`
+
+Mode: boundary/triage packet for coverage-limited SQLSolver verifier support after same-8 after-guards rerun; no verifier execution, no official SER, no broader pass, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_coverage_limited_boundary_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Boundary summary:
+- SQLSolver status recommendation: `coverage_limited verifier support`.
+- Same-8 stability verdict: failed.
+- Selected pairs reconciled from after-guards audit: 8.
+- Identity guard passed pairs: 2/8.
+- Explicit `no_verifier_support` rows: 3/8 (`LONGTAIL_0011`, `PORT_0003`, `PORT_0005`).
+- Residual unclassified identity blockers: 3/8 (`CONS_0005`, `LONGTAIL_0012`, `PERF_0007`).
+- Actual source-candidate checks attempted: 2.
+- Actual source-candidate verdicts: `equivalent=2`, `non_equivalent=0`.
+- `ready_for_sqlglot_noop_pg_35=false`.
+- `official_SER=false`; bounded 2/2 equivalent support is not promoted.
+
+Boundary:
+- No SQLSolver command was run.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, Repair-1, or larger verifier pass command was run.
+- SQLSolver `unknown` and `no_verifier_support` rows remain verifier-support/schema-modeling limitations, not rewrite-method failures.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- The SQLGlot no-op PostgreSQL 35-row pass, 346-pair manifest, and cross-route verifier coverage remain blocked.
+- No `repository_spec/metrics_contract_v1.md`, verifier support source, tests, `local_metrics.py`, `tag_slices.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Source audit artifact existence checks: passed during generation.
+- Same-8 row reconciliation checks: passed during generation.
+- Residual/no-verifier-support row coverage checks: passed during generation.
+- No-prohibited-command review: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed, with no secret values found in the diff.
+- Protected-path review: passed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Integrate coverage-limited verifier status into the user-facing diagnostic summary/output chain, or return to Repair-1 fake-provider implementation. Do not broaden SQLSolver coverage unless a separate residual schema-modeling fix is authorized.
