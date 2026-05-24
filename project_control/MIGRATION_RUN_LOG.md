@@ -20084,3 +20084,62 @@ Boundary:
 
 Next safe action:
 - Authorize a canonical `sqlglot_optimize_schema_aware` user-facade rerun plus `compute-local-metrics`, or first authorize a narrow canonical reprocess bridge if rerun is deferred.
+
+## 2026-05-24 - canonical_user_metrics_multiengine_path_v0
+
+Task: `canonical_user_metrics_multiengine_path_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Files created:
+- `audits/canonical_user_metrics_multiengine_path_v0/README.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/current_cli_metrics_path.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/multiengine_gap_review.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/implementation_summary.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/test_coverage.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/forbidden_audit_helper_metrics.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/reprocess_rerun_plan.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/command_log.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/protected_surface_check.md`
+- `audits/canonical_user_metrics_multiengine_path_v0/boundary_checklist.md`
+
+Files modified:
+- `src/sql_rewrite_bench/local_metrics.py`
+- `src/cli/main.py`
+- `tests/user_entry/test_local_metrics.py`
+- `tests/user_entry/test_cli_facade.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation:
+- Added canonical aggregate metrics support under `src/sql_rewrite_bench/local_metrics.py`.
+- Kept single-run `compute_and_write_local_metrics(run_dir)` behavior.
+- Added `compute_aggregate_local_metrics(...)` and `compute_and_write_aggregate_local_metrics(...)` for per-engine source-run aggregation.
+- Added CLI aggregate mode:
+  `python -m cli.main user compute-local-metrics --run-id-prefix <run_id> --engines postgres,mysql,spark --aggregate-run-id <run_id> --source-run-root runs/user --output-root <output_root>`.
+- The aggregate path writes canonical `metrics/local_metrics_summary.json`, `metrics/local_metrics_by_engine.csv`, `metrics/local_metrics_by_pool.csv`, `metrics/local_timing_speedup_rows.csv`, and `metrics/local_metrics_boundary.md`.
+
+Validation:
+- `pytest tests/user_entry/test_local_metrics.py tests/user_entry/test_cli_facade.py -q`: 31 passed.
+- `pytest tests/user_entry -q`: 244 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile src/sql_rewrite_bench/local_metrics.py src/cli/main.py tests/user_entry/test_local_metrics.py tests/user_entry/test_cli_facade.py`: passed.
+
+Boundary:
+- Track A 120 rerun: no.
+- Candidate generation run: no.
+- Execution/checker run: no.
+- Timing run: no.
+- Verifier pass: no.
+- Official metrics computed: no.
+- Semantic Equivalence Rate computed: no.
+- Formal Regression@20 emitted: no.
+- POCR emitted: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- `runs/user`, repository-level `output`, top-level `reports`, or top-level `results` artifacts committed: no.
+
+Next safe action:
+- Run a canonical SQLGlot optimize schema-aware user-facade Track A local diagnostic with timing, then compute aggregate local metrics through the new multi-engine command.

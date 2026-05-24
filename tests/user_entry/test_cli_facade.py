@@ -244,6 +244,59 @@ class CliFacadeTests(unittest.TestCase):
         self.assertIn("retained_evidence_promoted=false", output)
         self.assertIn("leaderboard_input=false", output)
 
+    def test_compute_local_metrics_aggregates_per_engine_runs(self) -> None:
+        fake_outputs = SimpleNamespace(metrics_dir=REPO_ROOT / "runs" / "user" / "track_a" / "metrics")
+        fake_paths = SimpleNamespace(
+            result_root=REPO_ROOT / "output" / "results" / "track_a",
+            report_root=REPO_ROOT / "output" / "reports" / "track_a",
+        )
+        fake_exported = SimpleNamespace(paths=fake_paths)
+        with patch("cli.main.compute_and_write_aggregate_local_metrics", return_value=fake_outputs) as metrics_mock, patch(
+            "cli.main.export_run_to_output", return_value=fake_exported
+        ) as export_mock:
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(
+                    [
+                        "user",
+                        "compute-local-metrics",
+                        "--run-id-prefix",
+                        "track_a",
+                        "--engines",
+                        "postgres,mysql,spark",
+                        "--aggregate-run-id",
+                        "track_a",
+                        "--output-root",
+                        "output",
+                    ]
+                )
+        self.assertEqual(code, 0)
+        metrics_mock.assert_called_once_with(
+            [
+                REPO_ROOT / "runs" / "user" / "track_a__postgres",
+                REPO_ROOT / "runs" / "user" / "track_a__mysql",
+                REPO_ROOT / "runs" / "user" / "track_a__spark",
+            ],
+            REPO_ROOT / "runs" / "user" / "track_a",
+            aggregate_run_id="track_a",
+        )
+        export_mock.assert_called_once()
+        self.assertEqual(export_mock.call_args.args[0], REPO_ROOT / "runs" / "user" / "track_a")
+        self.assertEqual(export_mock.call_args.kwargs["run_id"], "track_a")
+        output = stdout.getvalue()
+        self.assertIn("local aggregate metrics written", output)
+        self.assertIn("source runs aggregated: track_a__postgres, track_a__mysql, track_a__spark", output)
+        self.assertIn("user-facing metrics output", output)
+
+    def test_compute_local_metrics_requires_complete_aggregate_options(self) -> None:
+        with patch("cli.main.compute_and_write_aggregate_local_metrics") as metrics_mock:
+            stderr = io.StringIO()
+            with redirect_stderr(stderr):
+                code = main(["user", "compute-local-metrics", "--run-id-prefix", "track_a"])
+        self.assertEqual(code, 2)
+        self.assertIn("--run-id-prefix, --engines, and --aggregate-run-id", stderr.getvalue())
+        metrics_mock.assert_not_called()
+
     def test_compute_local_metrics_rejects_top_level_results_output_before_computing(self) -> None:
         with patch("cli.main.compute_and_write_local_metrics") as metrics_mock:
             code = main(["user", "compute-local-metrics", "--run-id", "demo", "--output-root", "results"])

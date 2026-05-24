@@ -26,6 +26,8 @@ from .user_run_schema import (
     EXECUTION_STATUS_SOURCE_SUCCESS,
     FAILURE_NONE,
     FAILURE_UNSUPPORTED_ENGINE,
+    LEDGER_FIELDS,
+    SELECTED_CASE_FIELDS,
     TIMING_STATUS_PARTIAL_FAILURE,
     TIMING_STATUS_TIMED,
 )
@@ -44,6 +46,14 @@ NA_METRIC = {
 }
 
 PERCENTILES = (10, 25, 50, 75, 90)
+
+AGGREGATE_RUN_ALLOWED_NAMES = {
+    "config.yaml",
+    "ledger.csv",
+    "selected_cases.csv",
+    "summary.json",
+    "metrics",
+}
 
 ENGINE_FIELDS = [
     "local_run_id",
@@ -168,6 +178,36 @@ def compute_and_write_local_metrics(run_dir: Path) -> LocalMetricsOutputs:
     """Compute local diagnostic metrics for one user-run directory."""
 
     metrics = compute_local_metrics(run_dir)
+    return _write_metrics_outputs(run_dir, metrics)
+
+
+def compute_and_write_aggregate_local_metrics(
+    run_dirs: list[Path],
+    aggregate_run_dir: Path,
+    *,
+    aggregate_run_id: str,
+) -> LocalMetricsOutputs:
+    """Compute canonical local metrics for a multi-run local diagnostic aggregate."""
+
+    source_run_dirs = [Path(run_dir) for run_dir in run_dirs]
+    _validate_aggregate_run_dir_safe(aggregate_run_dir, source_run_dirs)
+    metrics = compute_aggregate_local_metrics(
+        source_run_dirs,
+        aggregate_run_id=aggregate_run_id,
+        aggregate_run_dir=aggregate_run_dir,
+    )
+    _write_aggregate_source_run(
+        aggregate_run_dir=aggregate_run_dir,
+        metrics=metrics,
+        source_run_dirs=source_run_dirs,
+        aggregate_run_id=aggregate_run_id,
+    )
+    return _write_metrics_outputs(aggregate_run_dir, metrics)
+
+
+def _write_metrics_outputs(run_dir: Path, metrics: dict[str, Any]) -> LocalMetricsOutputs:
+    """Write already-computed local metrics artifacts under a run directory."""
+
     metrics_dir = run_dir / "metrics"
     metrics_dir.mkdir(parents=True, exist_ok=True)
     summary_path = metrics_dir / "local_metrics_summary.json"
@@ -197,24 +237,109 @@ def compute_and_write_local_metrics(run_dir: Path) -> LocalMetricsOutputs:
 def compute_local_metrics(run_dir: Path) -> dict[str, Any]:
     """Return local diagnostic metrics payloads for one user-run directory."""
 
-    ledger_rows = _read_csv(run_dir / "ledger.csv")
+    run_path = Path(run_dir)
+    enriched_rows, run_id = _load_enriched_rows(run_path)
+    return _metrics_from_enriched_rows(
+        enriched_rows,
+        run_path=run_path,
+        run_id=run_id,
+        aggregate=False,
+        source_run_ids=[run_id],
+        source_run_paths=[run_path.as_posix()],
+    )
+
+
+def compute_aggregate_local_metrics(
+    run_dirs: list[Path],
+    *,
+    aggregate_run_id: str,
+    aggregate_run_dir: Path | None = None,
+) -> dict[str, Any]:
+    """Return local diagnostic metrics for a canonical multi-run aggregate.
+
+    The aggregate path is intended for D035 Track A-style runs where the user
+    facade creates one source run per engine, for example
+    ``<run_id>__postgres``, ``<run_id>__mysql``, and ``<run_id>__spark``.
+    """
+
+    source_run_dirs = [Path(run_dir) for run_dir in run_dirs]
+    if not source_run_dirs:
+        raise ValueError("at least one source run directory is required")
+    if (
+        not aggregate_run_id
+        or aggregate_run_id in {".", ".."}
+        or "/" in aggregate_run_id
+        or "\\" in aggregate_run_id
+        or ".." in Path(aggregate_run_id).parts
+    ):
+        raise ValueError("aggregate_run_id must be a single non-empty path component")
+
+    enriched_rows: list[dict[str, Any]] = []
+    source_run_ids: list[str] = []
+    source_run_paths: list[str] = []
+    for source_run_dir in source_run_dirs:
+        source_enriched, source_run_id = _load_enriched_rows(
+            source_run_dir,
+            local_run_id_override=aggregate_run_id,
+        )
+        source_run_ids.append(source_run_id)
+        source_run_paths.append(source_run_dir.as_posix())
+        for row in source_enriched:
+            row["source_run_id"] = source_run_id
+            row["source_run_path"] = source_run_dir.as_posix()
+        enriched_rows.extend(source_enriched)
+
+    return _metrics_from_enriched_rows(
+        enriched_rows,
+        run_path=aggregate_run_dir or Path(aggregate_run_id),
+        run_id=aggregate_run_id,
+        aggregate=True,
+        source_run_ids=source_run_ids,
+        source_run_paths=source_run_paths,
+    )
+
+
+def _load_enriched_rows(
+    run_dir: Path,
+    *,
+    local_run_id_override: str | None = None,
+) -> tuple[list[dict[str, Any]], str]:
+    ledger_path = run_dir / "ledger.csv"
+    if not ledger_path.exists():
+        raise ValueError(f"ledger.csv is required for local metrics: {ledger_path}")
+    ledger_rows = _read_csv(ledger_path)
     config = _read_config(run_dir / "config.yaml")
     summary = _read_json_if_exists(run_dir / "summary.json")
+    source_run_id = _text(config.get("run_id") or summary.get("run_id") or run_dir.name)
+    local_run_id = local_run_id_override or source_run_id
     timing_rows = _load_timing_rows(run_dir)
-    run_id = _text(config.get("run_id") or summary.get("run_id") or run_dir.name)
     default_route_id, default_method_id = route_identity(_text(config.get("adapter_command")))
-
-    enriched_rows = [
-        _enrich_row(
-            row,
-            timing_rows=timing_rows,
-            run_id=run_id,
-            default_route_id=default_route_id,
-            default_method_id=default_method_id,
+    enriched_rows = []
+    for row in ledger_rows:
+        row_for_metrics = dict(row)
+        if local_run_id_override:
+            row_for_metrics["run_id"] = local_run_id
+        enriched_rows.append(
+            _enrich_row(
+                row_for_metrics,
+                timing_rows=timing_rows,
+                run_id=local_run_id,
+                default_route_id=default_route_id,
+                default_method_id=default_method_id,
+            )
         )
-        for row in ledger_rows
-    ]
+    return enriched_rows, source_run_id
 
+
+def _metrics_from_enriched_rows(
+    enriched_rows: list[dict[str, Any]],
+    *,
+    run_path: Path,
+    run_id: str,
+    aggregate: bool,
+    source_run_ids: list[str],
+    source_run_paths: list[str],
+) -> dict[str, Any]:
     route_groups = _group_rows(enriched_rows, ("local_run_id", "route_id", "method_id"))
     overall = (
         _summarize_group(enriched_rows)
@@ -253,7 +378,7 @@ def compute_local_metrics(run_dir: Path) -> dict[str, Any]:
     summary_payload = {
         "schema_version": "local_metrics_summary_v0",
         "created_at_utc": _utc_now_iso(),
-        "run_path": run_dir.as_posix(),
+        "run_path": run_path.as_posix(),
         "local_run_id": run_id,
         "route_ids": sorted({row["route_id"] for row in enriched_rows}),
         "method_ids": sorted({row["method_id"] for row in enriched_rows}),
@@ -263,9 +388,19 @@ def compute_local_metrics(run_dir: Path) -> dict[str, Any]:
             "engine_aware": True,
             "denominator_aware": True,
             "timing_policy_aware": True,
+            "multi_engine_aggregate_supported": True,
             "route_mixing_allowed": False,
             "leaderboard_output": False,
             "method_ordering_output": False,
+        },
+        "aggregation_policy": {
+            "multi_run_aggregate": aggregate,
+            "source_run_count": len(source_run_ids),
+            "source_run_ids": source_run_ids,
+            "source_run_paths": source_run_paths,
+            "denominator_combination": "sum_selected_rows_across_source_runs",
+            "timing_combination": "concatenate_strict_exact_timed_rows_across_source_runs",
+            "official_metric_input": False,
         },
         "metric_definitions": _metric_definitions(),
         "overall": overall,
@@ -307,7 +442,130 @@ def compute_local_metrics(run_dir: Path) -> dict[str, Any]:
         "by_engine": by_engine,
         "by_pool": by_pool,
         "speedup_rows": speedup_rows,
+        "aggregate_source_rows": enriched_rows,
     }
+
+
+def _write_aggregate_source_run(
+    *,
+    aggregate_run_dir: Path,
+    metrics: dict[str, Any],
+    source_run_dirs: list[Path],
+    aggregate_run_id: str,
+) -> None:
+    """Create a minimal source-run directory for exporting aggregate metrics."""
+
+    aggregate_run_dir.mkdir(parents=True, exist_ok=True)
+    enriched_rows = metrics.get("aggregate_source_rows", [])
+    ledger_rows = [_aggregate_ledger_row(row, aggregate_run_id) for row in enriched_rows]
+    selected_case_rows = [_selected_case_row(row, aggregate_run_id) for row in ledger_rows if _is_true(row.get("selected"))]
+    source_configs = [_read_config(run_dir / "config.yaml") for run_dir in source_run_dirs]
+    adapter_commands = sorted({_text(config.get("adapter_command")) for config in source_configs if _text(config.get("adapter_command"))})
+    case_sets = sorted({_text(config.get("case_set")) for config in source_configs if _text(config.get("case_set"))})
+    pools = sorted({_text(config.get("pool")) for config in source_configs if _text(config.get("pool"))})
+    engines = sorted({_text(row.get("engine")) for row in ledger_rows if _text(row.get("engine"))})
+    source_run_ids = metrics["summary"]["aggregation_policy"]["source_run_ids"]
+    overall = metrics["summary"].get("overall", {})
+    counts = overall.get("counts", {}) if isinstance(overall, dict) else {}
+    config = {
+        "run_id": aggregate_run_id,
+        "created_at_utc": _utc_now_iso(),
+        "case_set": case_sets[0] if len(case_sets) == 1 else ",".join(case_sets),
+        "pool": pools[0] if len(pools) == 1 else ",".join(pools) or "all",
+        "engine": ",".join(engines),
+        "adapter_command": adapter_commands[0] if len(adapter_commands) == 1 else "",
+        "out_dir": aggregate_run_dir.as_posix(),
+        "local_metrics_aggregate": True,
+        "source_run_ids": ";".join(source_run_ids),
+        "db_execution_enabled": True,
+        "checker_enabled": True,
+        "timing_enabled": bool(counts.get("timed", 0)),
+        "official_metrics_computed": False,
+        "paper_results_updated": False,
+        "retained_evidence_updated": False,
+        "no_global_leaderboard": True,
+    }
+    _write_config(aggregate_run_dir / "config.yaml", config)
+    _write_csv(aggregate_run_dir / "ledger.csv", ledger_rows, LEDGER_FIELDS)
+    _write_csv(aggregate_run_dir / "selected_cases.csv", selected_case_rows, SELECTED_CASE_FIELDS)
+    (aggregate_run_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "aggregate_user_run_summary_v0",
+                "run_id": aggregate_run_id,
+                "source_run_ids": source_run_ids,
+                "source_run_paths": metrics["summary"]["aggregation_policy"]["source_run_paths"],
+                "selected_rows": counts.get("selected", 0),
+                "candidate_generated_rows": counts.get("candidate_generated", 0),
+                "candidate_preflight_passed_rows": counts.get("preflight_passed", 0),
+                "source_executable_rows": counts.get("source_executable", 0),
+                "candidate_executable_rows": counts.get("candidate_executable", 0),
+                "exact_rows": counts.get("exact", 0),
+                "mismatch_rows": counts.get("mismatch", 0),
+                "timed_rows": counts.get("timed", 0),
+                "local_diagnostic_only": True,
+                "official_metric_input": False,
+                "paper_result_input": False,
+                "retained_evidence_promoted": False,
+                "leaderboard_input": False,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def _aggregate_ledger_row(row: dict[str, Any], aggregate_run_id: str) -> dict[str, str]:
+    ledger_row = {field: _text(row.get(field)) for field in LEDGER_FIELDS}
+    ledger_row["run_id"] = aggregate_run_id
+    return ledger_row
+
+
+def _selected_case_row(row: dict[str, str], aggregate_run_id: str) -> dict[str, str]:
+    return {
+        "run_id": aggregate_run_id,
+        "case_id": _text(row.get("case_id")),
+        "pool": _text(row.get("pool")),
+        "engine": _text(row.get("engine")),
+        "denominator_id": _text(row.get("denominator_id")),
+        "planned": _text(row.get("planned")),
+        "case_path": _text(row.get("case_path")),
+        "source_sql_path": _text(row.get("source_sql_path")),
+    }
+
+
+def _write_config(path: Path, config: dict[str, object]) -> None:
+    lines = []
+    for key, value in config.items():
+        if isinstance(value, bool):
+            rendered = "true" if value else "false"
+        elif value is None:
+            rendered = ""
+        else:
+            rendered = str(value)
+        lines.append(f"{key}: {rendered}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _validate_aggregate_run_dir_safe(aggregate_run_dir: Path, source_run_dirs: list[Path]) -> None:
+    aggregate_resolved = aggregate_run_dir.resolve()
+    source_resolved = {run_dir.resolve() for run_dir in source_run_dirs}
+    if aggregate_resolved in source_resolved:
+        raise ValueError("aggregate_run_dir must be distinct from source run directories")
+    if not aggregate_run_dir.exists():
+        return
+    unexpected = sorted(
+        child.name
+        for child in aggregate_run_dir.iterdir()
+        if child.name not in AGGREGATE_RUN_ALLOWED_NAMES
+    )
+    if unexpected:
+        raise ValueError(
+            "aggregate_run_dir contains non-aggregate artifacts that could be exported as stale output: "
+            + ", ".join(unexpected)
+        )
 
 
 def _enrich_row(

@@ -4,7 +4,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from sql_rewrite_bench.local_metrics import compute_and_write_local_metrics, compute_local_metrics
+from sql_rewrite_bench.local_metrics import (
+    compute_aggregate_local_metrics,
+    compute_and_write_aggregate_local_metrics,
+    compute_and_write_local_metrics,
+    compute_local_metrics,
+)
 from sql_rewrite_bench.user_run_schema import LEDGER_FIELDS
 
 
@@ -152,6 +157,40 @@ def _write_fixture_run(root: Path) -> Path:
     return run_dir
 
 
+def _write_engine_run(
+    root: Path,
+    *,
+    run_id: str,
+    engine: str,
+    rows: list[dict[str, str]],
+) -> Path:
+    run_dir = root / "runs" / "user" / run_id
+    run_dir.mkdir(parents=True)
+    (run_dir / "config.yaml").write_text(
+        "\n".join(
+            [
+                f"run_id: {run_id}",
+                "case_set: common_core_v0",
+                "pool: all",
+                f"engine: {engine}",
+                "adapter_command: python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    for row in rows:
+        row.update(
+            {
+                "run_id": run_id,
+                "engine": engine,
+                "denominator_id": f"track_a_same_engine:{row['case_id']}:{engine}",
+            }
+        )
+    _write_csv(run_dir / "ledger.csv", rows)
+    return run_dir
+
+
 class LocalMetricsTests(unittest.TestCase):
     def test_d033_rates_and_diagnostics(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -267,6 +306,93 @@ class LocalMetricsTests(unittest.TestCase):
         self.assertEqual(summary["deferred_metrics"]["semantic_equivalence_rate"]["status"], "not_applicable")
         self.assertEqual(summary["deferred_metrics"]["cross_engine_gm_speedup_ratio"]["status"], "not_applicable")
         self.assertTrue(summary["deferred_metrics"]["positive_operation_coverage_rate"]["skill_adapter_pending"])
+
+    def test_multi_engine_aggregate_sums_counts_and_speedups(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pg_exact = _base_row("PERF_A")
+            mysql_exact = _base_row("PERF_B")
+            spark_mismatch = _base_row("PERF_C")
+            spark_mismatch.update({"exact_status": "mismatch", "failure_bucket": "mismatch"})
+            pg_dir = _write_engine_run(root, run_id="track_a__postgres", engine="postgres", rows=[pg_exact])
+            mysql_dir = _write_engine_run(root, run_id="track_a__mysql", engine="mysql", rows=[mysql_exact])
+            spark_dir = _write_engine_run(root, run_id="track_a__spark", engine="spark", rows=[spark_mismatch])
+            for run_dir, row, speedup in [(pg_dir, pg_exact, 2.0), (mysql_dir, mysql_exact, 8.0)]:
+                artifact = _write_timing_row(run_dir, row, speedup=speedup, route_id="sqlglot_optimize_schema_aware")
+                row.update(
+                    {
+                        "timing_eligible": "true",
+                        "timing_status": "timed",
+                        "timed_status": "timed",
+                        "timing_artifact_path": artifact,
+                        "speedup_ratio": str(speedup),
+                    }
+                )
+                _write_csv(run_dir / "ledger.csv", [row])
+
+            payload = compute_aggregate_local_metrics(
+                [pg_dir, mysql_dir, spark_dir],
+                aggregate_run_id="track_a",
+                aggregate_run_dir=root / "runs" / "user" / "track_a",
+            )
+
+        summary = payload["summary"]
+        overall = summary["overall"]
+        self.assertTrue(summary["aggregation_policy"]["multi_run_aggregate"])
+        self.assertEqual(summary["aggregation_policy"]["source_run_ids"], ["track_a__postgres", "track_a__mysql", "track_a__spark"])
+        self.assertEqual(overall["counts"]["selected"], 3)
+        self.assertEqual(overall["counts"]["candidate_generated"], 3)
+        self.assertEqual(overall["counts"]["candidate_executable"], 3)
+        self.assertEqual(overall["counts"]["exact"], 2)
+        self.assertEqual(overall["rates"]["result_consistency_rate"], 2 / 3)
+        self.assertEqual(overall["performance"]["speedup_denominator"], 2)
+        self.assertEqual(overall["performance"]["gm_speedup_ratio"], 4.0)
+        self.assertEqual(len(summary["by_engine"]), 3)
+        self.assertEqual({row["local_run_id"] for row in summary["by_engine"]}, {"track_a"})
+        self.assertEqual(
+            {row["engine"] for row in summary["by_engine"]},
+            {"postgres", "mysql", "spark"},
+        )
+        included = [row for row in payload["speedup_rows"] if row["included_in_performance"] == "true"]
+        self.assertEqual(len(included), 2)
+        self.assertEqual(summary["deferred_metrics"]["semantic_equivalence_rate"]["status"], "not_applicable")
+        self.assertNotIn("regression_at_20_rate", json.dumps(summary))
+
+    def test_compute_and_write_aggregate_local_metrics_creates_exportable_run(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = _base_row("PERF_A")
+            pg_dir = _write_engine_run(root, run_id="track_a__postgres", engine="postgres", rows=[row])
+            aggregate_dir = root / "runs" / "user" / "track_a"
+
+            outputs = compute_and_write_aggregate_local_metrics(
+                [pg_dir],
+                aggregate_dir,
+                aggregate_run_id="track_a",
+            )
+
+            summary = json.loads(outputs.summary_path.read_text(encoding="utf-8"))
+            aggregate_summary = json.loads((aggregate_dir / "summary.json").read_text(encoding="utf-8"))
+            ledger_rows = list(csv.DictReader((aggregate_dir / "ledger.csv").open(newline="", encoding="utf-8")))
+            boundary_exists = outputs.boundary_path.exists()
+
+        self.assertTrue(boundary_exists)
+        self.assertEqual(summary["local_run_id"], "track_a")
+        self.assertEqual(aggregate_summary["source_run_ids"], ["track_a__postgres"])
+        self.assertEqual(len(ledger_rows), 1)
+        self.assertEqual(ledger_rows[0]["run_id"], "track_a")
+
+    def test_aggregate_run_dir_must_not_be_source_run_dir(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = _base_row("PERF_A")
+            pg_dir = _write_engine_run(root, run_id="track_a__postgres", engine="postgres", rows=[row])
+            with self.assertRaisesRegex(ValueError, "distinct from source run directories"):
+                compute_and_write_aggregate_local_metrics(
+                    [pg_dir],
+                    pg_dir,
+                    aggregate_run_id="track_a__postgres",
+                )
 
 
 if __name__ == "__main__":

@@ -15,7 +15,10 @@ from pathlib import Path
 
 from sql_rewrite_bench import user_run
 from sql_rewrite_bench.case_selection import ALLOWED_ENGINES, ALLOWED_POOLS, repo_root_from_module
-from sql_rewrite_bench.local_metrics import compute_and_write_local_metrics
+from sql_rewrite_bench.local_metrics import (
+    compute_and_write_aggregate_local_metrics,
+    compute_and_write_local_metrics,
+)
 from sql_rewrite_bench.user_output import build_output_paths, export_run_to_output
 from sql_rewrite_bench.user_output_schema import output_schema_text
 from sql_rewrite_bench.verifier_support.pairs import boundary_flags_as_csv, validate_pair_record
@@ -183,7 +186,16 @@ def _add_compute_local_metrics_parser(subparsers: argparse._SubParsersAction[arg
         ),
         epilog=LOCAL_ONLY_EPILOG,
     )
-    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--run-id", help="Single source run id under --source-run-root.")
+    parser.add_argument(
+        "--run-id-prefix",
+        help=(
+            "Prefix for per-engine source run ids produced by multi-engine evaluate; "
+            "source run ids are <prefix>__<engine>."
+        ),
+    )
+    parser.add_argument("--engines", help="Comma-separated engines for --run-id-prefix aggregation.")
+    parser.add_argument("--aggregate-run-id", help="Run id for the canonical aggregate metrics output.")
     parser.add_argument("--output-root", type=Path, default=Path("output"))
     parser.add_argument("--source-run-root", type=Path, default=Path("runs/user"))
 
@@ -357,17 +369,44 @@ def _show_boundary(args: argparse.Namespace) -> int:
 
 def _compute_local_metrics(args: argparse.Namespace) -> int:
     repo_root = repo_root_from_module()
-    source_run_dir = _resolve_source_run_root(args.source_run_root, repo_root) / args.run_id
+    source_run_root = _resolve_source_run_root(args.source_run_root, repo_root)
     output_root = _resolve_output_root(args.output_root, repo_root)
-    build_output_paths(output_root, args.run_id, repo_root=repo_root)
-    outputs = compute_and_write_local_metrics(source_run_dir)
-    exported = export_run_to_output(
-        source_run_dir,
-        output_root,
-        run_id=args.run_id,
-        repo_root=repo_root,
-    )
-    print(f"local metrics written: {outputs.metrics_dir}")
+    aggregate_mode = any([args.run_id_prefix, args.engines, args.aggregate_run_id])
+    if aggregate_mode:
+        if args.run_id:
+            raise ValueError("--run-id cannot be combined with aggregate metrics options")
+        if not args.run_id_prefix or not args.engines or not args.aggregate_run_id:
+            raise ValueError("--run-id-prefix, --engines, and --aggregate-run-id are required for aggregate metrics")
+        engines = _parse_engines(args.engines)
+        source_run_dirs = [source_run_root / f"{args.run_id_prefix}__{engine}" for engine in engines]
+        aggregate_run_dir = source_run_root / args.aggregate_run_id
+        build_output_paths(output_root, args.aggregate_run_id, repo_root=repo_root)
+        outputs = compute_and_write_aggregate_local_metrics(
+            source_run_dirs,
+            aggregate_run_dir,
+            aggregate_run_id=args.aggregate_run_id,
+        )
+        exported = export_run_to_output(
+            aggregate_run_dir,
+            output_root,
+            run_id=args.aggregate_run_id,
+            repo_root=repo_root,
+        )
+        print(f"local aggregate metrics written: {outputs.metrics_dir}")
+        print(f"source runs aggregated: {', '.join(path.name for path in source_run_dirs)}")
+    else:
+        if not args.run_id:
+            raise ValueError("--run-id is required unless aggregate metrics options are supplied")
+        source_run_dir = source_run_root / args.run_id
+        build_output_paths(output_root, args.run_id, repo_root=repo_root)
+        outputs = compute_and_write_local_metrics(source_run_dir)
+        exported = export_run_to_output(
+            source_run_dir,
+            output_root,
+            run_id=args.run_id,
+            repo_root=repo_root,
+        )
+        print(f"local metrics written: {outputs.metrics_dir}")
     print(f"user-facing metrics output: {exported.paths.result_root / 'metrics'}")
     print(f"user-facing metrics report: {exported.paths.report_root / 'metrics_summary.md'}")
     print("deferred metrics: Semantic Equivalence Rate=N.A. without verifier evidence; POCR=deferred")
