@@ -20720,3 +20720,54 @@ Boundary:
 
 Next safe action:
 - Run a bounded canonical user-facade Direct LLM original smoke only after provider credentials are available and `SQLRB_LLM_ALLOW_LIVE=1` is explicitly set.
+
+## direct_llm_original_bounded_live_api_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Scope:
+- Route: `direct_llm_original`.
+- Method: `direct_llm_original`.
+- Cases: `CONS_0036`, `PERF_0006`.
+- Engines: PostgreSQL, MySQL, Spark.
+- Planned rows: 6.
+- User facade: `python -m cli.main user evaluate`.
+
+Live environment:
+- `SQLRB_LLM_ALLOW_LIVE`: missing.
+- `SQLRB_LLM_API_KEY`: missing.
+- `GPTSAPI_API_KEY`: missing.
+- Live provider fully enabled: no.
+- Live provider calls attempted: 0.
+
+Command:
+- Ran a no-secret D035 user-facade gate smoke with `SQLRB_LLM_PROVIDER=openai_compatible`, `SQLRB_LLM_BASE_URL=https://api.gptsapi.net/v1`, and `SQLRB_LLM_MODEL=gpt-5.4`, while explicitly unsetting API key variables and `SQLRB_LLM_ALLOW_LIVE`.
+
+Results:
+- Selected rows: 6.
+- Prompt/status metadata rendered: 6.
+- Schema context available: 6.
+- Candidate generated rows: 0.
+- Extraction attempted rows: 0.
+- Adapter fail-closed bucket: `missing_api_key` for all 6 rows.
+- User ledger failure bucket: `no_candidate_sql` for all 6 rows.
+- DB execution/checker rows: 0, because no candidates existed.
+- Timing rows: 0.
+- Local metrics: not computed.
+
+Interpretation:
+- The task did not validate a live GPTSAPI response because credentials were absent.
+- It did validate the canonical D035 route invocation and the fail-closed live credential gate without printing or committing secrets.
+
+Validation:
+- `per_row_status.csv` header and 6-row count validation: passed.
+- `pytest tests/user_entry/test_direct_llm_adapter.py -q`: passed.
+- `python -m py_compile baselines/direct_llm_original/adapter.py`: passed.
+- `git diff --check`: passed.
+- Secret-pattern scan over changed files: passed.
+
+Boundary:
+- No Track A 120 run, Repair-1, SQLSolver, VeriEQL, timing, local metrics computation, official metric, official SER, formal Regression@20, paper reports/results update, retained-evidence promotion, leaderboard, denominator change, case membership change, source/adapter/test/case/schema/inventory change, committed `runs/user`, repository-level output, top-level reports/results artifact, env file, API key, or external artifact changed.
+
+Next safe action:
+- Re-run the same bounded canonical live smoke after setting `SQLRB_LLM_ALLOW_LIVE=1` and providing `SQLRB_LLM_API_KEY` or `GPTSAPI_API_KEY` out of band.
