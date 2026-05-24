@@ -1,0 +1,47 @@
+Command log for `sqlsolver_wrapper_schema_canonicalization_design_v0`.
+
+Read-only commands:
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n '1,140p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 90 project_control/MIGRATION_STATUS.md`
+- `git -C [external_sqlsolver_checkout] remote -v`
+- `git -C [external_sqlsolver_checkout] rev-parse HEAD`
+- `find [external_sqlsolver_checkout] -maxdepth 3 -type f \( -iname 'README*' -o -iname '*doc*' -o -iname '*.md' \) | sort | sed -n '1,120p'`
+- `rg -n 'one SQL|one.*line|line by line|Calcite|UNKNOWN|TIMEOUT|NEQ|unsupported|syntax|parser|sql1|sql2|schema|output' [external_sqlsolver_checkout]/README.md [external_sqlsolver_checkout] -g '*.md'`
+- `sed -n '90,185p' [external_sqlsolver_checkout]/README.md`
+- `sed -n '222,235p' [external_sqlsolver_checkout]/README.md`
+- `sed -n '1,220p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '1,220p' audits/sqlsolver_identity_guard_modeling_gap_triage_v0/README.md`
+- `sed -n '1,120p' audits/sqlsolver_identity_guard_modeling_gap_triage_v0/modeling_gap_classification.csv`
+
+Web/source references inspected:
+- Official SQLSolver repository: `https://github.com/SJTU-IPADS/SQLSolver`
+- Official raw README: `https://raw.githubusercontent.com/SJTU-IPADS/SQLSolver/master/README.md`
+- Local external SQLSolver checkout remote: `https://github.com/SJTU-IPADS/SQLSolver`
+- Local external SQLSolver checkout commit: `dcc2a91d8971a4c4d30b055f99d7d8428a1b754b`
+
+Audit generation commands:
+- Python script generated `external_sqlsolver_contract_notes.md`, `observed_gap_matrix.csv`, `canonicalization_policy_design.md`, `canary_plan.csv`, `implementation_plan.md`, `pass_readiness_policy.md`, `ser_boundary_after_design.md`, `README.md`, and this command log from existing artifacts and upstream README notes.
+
+No SQLSolver command was run.
+No VeriEQL command was run.
+No adapter command was run.
+No DB execution command was run.
+No checker execution command was run.
+No timing collection command was run.
+No LLM command was run.
+No `compute-local-metrics` or `local_metrics.py` command was run.
+No official metric command was run.
+No paper table rendering command was run.
+No Repair-1 command was run.
+No larger verifier pass was run or authorized.
+
+Validation commands:
+- `python - <<'PY' ... csv.DictReader(...) ... PY` for CSV parse and row-count checks.
+- `for f in audits/sqlsolver_wrapper_schema_canonicalization_design_v0/*.md audits/sqlsolver_wrapper_schema_canonicalization_design_v0/command_log.txt; do test -s "$f" ...; done`
+- `for f in audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/sqlsolver_verdicts.jsonl ...; do test -e "$f" ...; done`
+- `rg -n "one SQL statement in one line|Calcite|EQ|NEQ|UNKNOWN|TIMEOUT|unsupported SQL features|syntax errors|undecidable|No SQLSolver|No VeriEQL|No official SER|No implementation code" audits/sqlsolver_wrapper_schema_canonicalization_design_v0`
+- `git diff --check`
+- changed-file secret scan over explicit changed files
+- protected-path review over explicit changed files

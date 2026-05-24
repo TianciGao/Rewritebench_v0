@@ -21573,3 +21573,70 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Create a narrow SQLSolver wrapper/schema canonicalization design packet before any broader verifier pass or Repair-1 execution.
+
+## sqlsolver_wrapper_schema_canonicalization_design_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_wrapper_schema_canonicalization_design_v0`
+
+Mode: design/audit-only SQLSolver wrapper and schema canonicalization planning from prior bounded-pass triage; no implementation, no verifier run, no official SER, no larger pass, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_wrapper_schema_canonicalization_design_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Design summary:
+- Reviewed upstream SQLSolver README/source notes from `https://github.com/SJTU-IPADS/SQLSolver` and local external checkout commit `dcc2a91d8971a4c4d30b055f99d7d8428a1b754b`.
+- Recorded SQLSolver input contract: one SQL statement per physical line, paired files matched line by line, Calcite parser syntax requirements, and verdict semantics `EQ`, `NEQ`, `UNKNOWN`, and `TIMEOUT`.
+- Preserved policy that `UNKNOWN`, `TIMEOUT`, unsupported features, syntax errors, and identity-guard failures are verifier-support limitations, not rewrite-method failures.
+- Represented all five identity-guard unknown rows: `LONGTAIL_0011`, `PERF_0006`, `PERF_0007`, `PORT_0003`, and `PORT_0005`.
+- Covered gap categories: `unsupported_sql_feature`, `wrapper_input_format_gap`, `unsupported_postgres_dialect`, and `schema_canonicalization_gap`.
+- Proposed canonicalization/support families: SQL line/comment shaping, DATE/INTERVAL normalization, schema DDL canonicalization, identifier/null-ordering handling, and feature-support canaries for DENSE_RANK/CTE and related families.
+- Defined five non-benchmark identity canaries and readiness gates for a later narrow implementation task.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Source audit file existence checks: passed.
+- Five identity-unknown cases represented: passed.
+- Upstream SQLSolver contract notes included: passed.
+- No-prohibited-command check: passed.
+- No implementation code changed: passed.
+- No SQLSolver run: passed.
+- No VeriEQL run: passed.
+- No larger verifier pass authorized or run: passed.
+- No official SER computed or promoted: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+
+Boundary:
+- No code was changed.
+- No SQLSolver, VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, Repair-1, or larger verifier pass command was run.
+- The prior bounded `3/3` equivalent result remains local diagnostic verifier-support only; `official_SER=false` and `SER_status=coverage_limited` remain in force.
+- No `repository_spec/metrics_contract_v1.md`, `verifier_support/*.py`, `local_metrics.py`, `tag_slices.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a narrow SQLSolver wrapper/schema canonicalization implementation task with fixture tests and non-benchmark identity canaries. Do not broaden SQLSolver coverage and do not start Repair-1 until the same 8-pair bounded verifier pass is stable after canonicalization.
