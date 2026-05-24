@@ -20667,3 +20667,56 @@ Boundary:
 
 Next safe action:
 - Produce a canonical local-only route comparison packet using only canonical metrics outputs for SQLGlot noop, SQLGlot optimize schema-aware, and Calcite HEP.
+
+## direct_llm_provider_adapter_contract_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Scope:
+- D035 Direct LLM original provider/adapter scaffold.
+- Route: `direct_llm_original`.
+- Method: `direct_llm_original`.
+- Provider contract: OpenAI-compatible chat/completions endpoint with GPTSAPI-compatible defaults and environment-only secret configuration.
+- Repair-1: design note only; no implementation.
+
+Implementation:
+- Added `baselines/direct_llm_original/adapter.py`.
+- Added `baselines/direct_llm_original/README.md`.
+- Added `baselines/direct_llm_repair_1/README.md`.
+- Added focused tests in `tests/user_entry/test_direct_llm_adapter.py`.
+- Added audit packet under `audits/direct_llm_provider_adapter_contract_v0/`.
+
+Provider contract:
+- `SQLRB_LLM_PROVIDER=openai_compatible`.
+- `SQLRB_LLM_BASE_URL=https://api.gptsapi.net/v1`.
+- `SQLRB_LLM_MODEL=gpt-5.4`.
+- `SQLRB_LLM_API_KEY` or `GPTSAPI_API_KEY`.
+- `SQLRB_LLM_ALLOW_LIVE=1` required for live provider calls.
+- Fake-provider mode is available through `SQLRB_LLM_PROVIDER=fake`.
+
+Prompt and extraction:
+- Prompt template id: `direct_llm_original_sql_only_v0`.
+- Extraction policy id: `single_sql_candidate_v0`.
+- The adapter requests one SQL-only same-engine rewrite and fails closed on missing key, disabled live mode, provider failure, empty response, non-SQL response, multiple SQL blocks, or multiple SQL statements.
+- Direct LLM original does not repair or mutate candidates after extraction.
+
+Fake smoke:
+- Run id: `direct_llm_original_fake_smoke_v2`.
+- Scope: `CONS_0036/postgres` and `PERF_0006/postgres`.
+- Selected rows: 2.
+- Candidate generated rows: 2.
+- Candidate preflight passed rows: 2.
+- Schema context status: available for both rows.
+- Live API calls: none.
+- DB execution/checker/timing: not enabled.
+
+Validation:
+- `pytest tests/user_entry/test_direct_llm_adapter.py -q`: passed.
+- `python -m py_compile baselines/direct_llm_original/adapter.py tests/user_entry/test_direct_llm_adapter.py`: passed.
+- Fake-provider `python -m cli.main user evaluate` smoke: passed.
+
+Boundary:
+- No full Track A 120 run, local metrics computation, verifier pass, official metric, Semantic Equivalence Rate, formal Regression@20, POCR, paper reports/results update, retained-evidence promotion, leaderboard, denominator change, case membership change, `src/` route-specific LLM code, committed `runs/user`, repository-level output, top-level reports/results artifact, or external artifact changed.
+
+Next safe action:
+- Run a bounded canonical user-facade Direct LLM original smoke only after provider credentials are available and `SQLRB_LLM_ALLOW_LIVE=1` is explicitly set.
