@@ -22334,3 +22334,66 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a Repair-1 Track A 120 route assembly policy before running the full Repair-1 120 canonical local diagnostic.
+
+## direct_llm_repair_1_track_a_120_route_assembly_policy_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_track_a_120_route_assembly_policy_v0`
+
+Mode: policy/audit-only Repair-1 Track A 120 route assembly planning; no live LLM, no DB/checker/timing, no local metrics, no verifier, no Track A 120, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Policy summary:
+- `direct_llm_repair_1` remains a separate route from `direct_llm_original`.
+- Track A same-engine denominator remains 120 selected/planned rows.
+- Original exact rows use the original Direct LLM candidate as the final Repair-1 route candidate.
+- Original `mismatch` and `candidate_execution_failed` rows are eligible for exactly one Repair-1 attempt.
+- Original `unsupported_engine` rows are not attempted and remain visible unsupported boundary rows.
+- Final route metrics must be calculated from future Repair-1 route outputs with `local_metrics.py`, not copied from Direct LLM original or the 13-row diagnostic.
+- SER remains `N.A.` or `coverage_limited` unless formal verifier evidence exists; SQLSolver remains coverage-limited support.
+- POCR remains deferred.
+
+Validation result:
+- CSV parse checks: passed; `repair_attempt_eligibility_matrix.csv` parsed with 8 rows.
+- Markdown/text non-empty checks: passed.
+- 13-row diagnostic count copy check: passed against prior live 13-row summary.
+- Unsupported row policy count check: passed; five unsupported Spark rows are listed.
+- Future command shape review: passed by inspection; commands are drafted but not executed.
+- No prohibited command review: passed; no live LLM, DB/checker/timing, local metrics, verifier, Track A 120, official metric, paper rendering, full Repair-1 route, or leaderboard command was run.
+- Runtime output check: passed; no `runs/user/direct_llm_repair_1_track_a_120_canonical_v0*` runtime directory exists.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed; no secret values in changed files or added project-control lines.
+- Protected-path review: passed; only allowed audit and project-control paths changed, with unrelated untracked historical live-smoke audit dirs left untouched.
+- Staged-file secret scan: passed after explicit staging.
+
+Boundary:
+- No live LLM call, DB execution, checker execution, timing collection, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, official SER, paper rendering, Track A 120, full 120-row Repair-1 route, or leaderboard was run.
+- No Direct LLM original adapter, Repair-1 adapter source, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, retained evidence, paper result file, env file, API key value, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize the Direct LLM + Repair-1 Track A 120 canonical local diagnostic run with user evaluate and compute-local-metrics. Do not promote results to paper or retained evidence without a separate promotion task.
