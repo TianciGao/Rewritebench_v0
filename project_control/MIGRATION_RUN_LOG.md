@@ -21281,3 +21281,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Proceed to Track A 120 tag-aware failure slice analysis if desired; otherwise first run only a reprocess-free/ledger-based tag-slice join design. Do not proceed to Repair-1 until metric/tag/verifier evidence layers remain inventoried and reviewed.
+
+## track_a_120_tag_failure_slices_v0
+
+Date: 2026-05-24
+
+Task title: `track_a_120_tag_failure_slices_v0`
+
+Mode: diagnostic/support-only tag-aware failure slice analysis over existing canonical Track A 120 artifacts; no reruns or metric computation
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Routes analyzed:
+- `direct_llm_original` / `direct_llm_original_track_a_120_canonical_v0`
+- `sqlglot_noop` / `sqlglot_noop_track_a_120_canonical_v0`
+- `sqlglot_optimize_schema_aware` / `sqlglot_optimize_schema_aware_track_a_120_canonical_v0`
+- `calcite_hep_fail_closed` / `calcite_hep_track_a_120_canonical_v0`
+
+Files created:
+- `audits/track_a_120_tag_failure_slices_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Analysis summary:
+- `route_tag_slice_summary.csv` copies 684 rows from existing per-engine `tag_slices.csv` files.
+- `route_failure_by_tag.csv` records 2,220 diagnostic row/tag joins from existing ledgers and retained taxonomy metadata referenced by source-run `selected_cases.csv`.
+- `route_failure_by_axis.csv` records 229 diagnostic axis/failure-bucket groups.
+- `non_exact_frontier_by_tag.csv` records 710 tag-expanded non-exact frontier rows.
+- Plan-operator and workload-realism axes are absent in existing tag evidence for these routes.
+- Direct LLM mismatch rows concentrate around portability, correlated-subquery, expression-complexity, and dialect-adaptation related tags.
+- SQLGlot optimize execution/unsupported frontier rows concentrate around dialect-adaptation, correlated-subquery, date/time, type-coercion, and expression-complexity tags.
+- Calcite HEP fail-closed frontier rows concentrate around dialect-adaptation, identifier-quoting, date/time, type semantics, and expression-complexity tags.
+- MySQL mismatch frontier and Spark unsupported/execution frontier have different tag profiles in the existing evidence.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Source artifact existence checks: passed.
+- All four route IDs represented: passed.
+- Route/run IDs match inventory packet: passed.
+- Diagnostic row counts explainable from existing ledger/failure/tag_slices artifacts: passed.
+- No primary local metrics recomputed or changed: passed.
+- No official metrics computed: passed.
+- No prohibited adapter/DB/checker/timing/LLM/verifier command run: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- Staged-file secret scan and staged protected-path review: passed.
+
+Boundary:
+- Tag-aware failure slices are diagnostic/support only.
+- `tag_slices` are not primary metrics, POCR, SER, or leaderboard inputs.
+- Failure buckets are method behavior diagnostics, not package hard-negative controls.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+- No adapter, DB execution, checker execution, timing collection, LLM call, SQLSolver, VeriEQL, `compute-local-metrics`, official metric, paper table rendering, retained-evidence promotion, leaderboard output, or runtime artifact commit occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Proceed to verifier-phase exact-candidate pair inventory/materialization design or bounded verifier pass planning, without running Repair-1 yet.
