@@ -1,0 +1,59 @@
+Command log for `sqlsolver_wrapper_schema_canonicalization_impl_v0`.
+
+Preflight/read-only commands:
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n '1,180p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 80 project_control/MIGRATION_STATUS.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `rg -n 'D032|D033|D034|D035|SER|SQLSolver|coverage_limited|local checker' project_control/DECISION_LOG.md repository_spec/metrics_contract_v1.md`
+- `rg --files src/sql_rewrite_bench/verifier_support tests | rg 'verifier|sqlsolver|verieql|user_entry'`
+- `sed -n '1,260p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '260,620p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '620,980p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '980,1200p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '1,620p' tests/user_entry/test_sqlsolver_support.py`
+- `sed -n '1,240p' audits/sqlsolver_wrapper_schema_canonicalization_design_v0/canonicalization_policy_design.md`
+- `sed -n '1,120p' audits/sqlsolver_wrapper_schema_canonicalization_design_v0/canary_plan.csv`
+- `sed -n '1,140p' audits/sqlsolver_wrapper_schema_canonicalization_design_v0/external_sqlsolver_contract_notes.md`
+- `sed -n '1,120p' audits/sqlsolver_wrapper_schema_canonicalization_design_v0/observed_gap_matrix.csv`
+
+Implementation commands:
+- `apply_patch` updates to `src/sql_rewrite_bench/verifier_support/sqlsolver.py`.
+- `apply_patch` add `tests/verifier_support/test_sqlsolver_canonicalization.py`.
+
+Test commands:
+- `pytest tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+
+Non-benchmark SQLSolver canary commands:
+- Python script generated synthetic canary SQL/schema under `audits/sqlsolver_wrapper_schema_canonicalization_impl_v0/canary_inputs/` and ran SQLSolver identity checks only for those synthetic canaries.
+- SQLSolver command shape executed with redacted paths: `java -jar <sqlsolver.jar> -sql1=<canary_sql1> -sql2=<canary_sql2> -schema=<canary_schema> -output=<canary_output>`.
+- No benchmark pair paths from the Track A 120 manifests were used.
+
+Prohibited commands not run:
+- No broader SQLSolver pass.
+- No SQLSolver benchmark-pair run.
+- No SQLSolver run on the same 8 bounded SQLGlot no-op PostgreSQL benchmark pairs.
+- No SQLSolver run on the SQLGlot no-op PostgreSQL 35 exact subset.
+- No SQLSolver run on the 346-pair manifest.
+- No VeriEQL command.
+- No adapter command.
+- No DB execution command.
+- No checker execution command.
+- No timing collection command.
+- No LLM command.
+- No `compute-local-metrics` or `local_metrics.py` command.
+- No official metrics command.
+- No paper table rendering command.
+- No Repair-1 command.
+
+Validation commands:
+- CSV/JSONL/JSON parse checks over `fixture_test_matrix.csv`, `canary_inputs_manifest.csv`, `canary_sqlsolver_results.jsonl`, and `canary_summary.json`.
+- Markdown non-empty checks over audit Markdown/text files.
+- Canary input path existence checks from `canary_inputs_manifest.csv`.
+- Prohibited-path scan for `runs/user`, top-level `reports`, top-level `results`, Track A manifest paths, and Common-core case SQL paths in canary execution artifacts.
+- `git diff --check`.
+- changed-file secret scan.
+- protected-path review.

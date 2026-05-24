@@ -39,6 +39,24 @@ SQLSOLVER_COMMAND_SHAPE = (
     "java -jar <sqlsolver.jar> -sql1=<sql1_file> -sql2=<sql2_file> "
     "-schema=<schema_file> -output=<output_file>"
 )
+SQLSOLVER_GUARD_CATEGORIES = {
+    "unsupported_sql_feature",
+    "unsupported_postgres_dialect",
+    "schema_canonicalization_gap",
+    "wrapper_input_format_gap",
+    "type_or_function_modeling_gap",
+    "query_normalization_gap",
+    "unknown_tool_behavior",
+}
+
+
+@dataclass(frozen=True)
+class SQLSolverCanonicalizationResult:
+    canonical_text: str
+    safe_for_sqlsolver: bool
+    guard_categories: tuple[str, ...]
+    fail_closed_reason: str | None = None
+    notes: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -70,6 +88,111 @@ class SQLSolverSmokeOutput:
     log_path: Path
     report_path: Path
     summary: dict[str, Any]
+
+
+def canonicalize_sqlsolver_query(sql_text: str) -> SQLSolverCanonicalizationResult:
+    """Prepare one SQL query for SQLSolver's line-oriented input contract.
+
+    This is a syntax-shaping layer only. It removes comments, checks statement
+    boundaries, normalizes whitespace outside literals, and leaves SQL
+    semantics intact. Unsafe cases fail closed so callers do not fabricate
+    verifier evidence from malformed SQLSolver input.
+    """
+
+    stripped = _strip_sql_comments(sql_text)
+    if not stripped.safe_for_sqlsolver:
+        return stripped
+    statement = _single_statement_without_terminal_semicolon(stripped.canonical_text)
+    if not statement.safe_for_sqlsolver:
+        return statement
+    line = _collapse_sql_whitespace(statement.canonical_text)
+    categories = list(dict.fromkeys([*stripped.guard_categories, *statement.guard_categories, *_classify_query_guards(line)]))
+    notes = [*stripped.notes, *statement.notes]
+    if line != sql_text.strip():
+        notes.append("query_line_shaped_for_sqlsolver")
+    if any(category in {"unsupported_sql_feature", "unsupported_postgres_dialect"} for category in categories):
+        notes.append("guard_category_reported_not_silent")
+    if not line:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=tuple(categories or ["wrapper_input_format_gap"]),
+            fail_closed_reason="empty_sql_after_canonicalization",
+            notes=tuple(notes),
+        )
+    return SQLSolverCanonicalizationResult(
+        canonical_text=line,
+        safe_for_sqlsolver=True,
+        guard_categories=tuple(categories),
+        notes=tuple(notes),
+    )
+
+
+def canonicalize_sqlsolver_schema(schema_text: str) -> SQLSolverCanonicalizationResult:
+    """Prepare schema DDL for SQLSolver without modifying source artifacts."""
+
+    stripped = _strip_sql_comments(schema_text)
+    if not stripped.safe_for_sqlsolver:
+        return stripped
+    statements = _schema_statements(stripped.canonical_text)
+    if statements is None:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=("schema_canonicalization_gap",),
+            fail_closed_reason="schema_statement_boundary_ambiguous",
+            notes=("unsafe_schema_statement_boundary",),
+        )
+    canonical: list[str] = []
+    notes = list(stripped.notes)
+    categories = list(stripped.guard_categories)
+    for statement in statements:
+        upper = statement.strip().upper()
+        if not upper:
+            continue
+        if upper.startswith("DROP TABLE"):
+            notes.append("drop_table_preamble_removed")
+            categories.append("schema_canonicalization_gap")
+            continue
+        if not upper.startswith("CREATE TABLE"):
+            return SQLSolverCanonicalizationResult(
+                canonical_text="",
+                safe_for_sqlsolver=False,
+                guard_categories=tuple(dict.fromkeys([*categories, "schema_canonicalization_gap"])),
+                fail_closed_reason="unsupported_schema_statement",
+                notes=tuple([*notes, f"unsupported_schema_statement:{upper.split()[0]}"]),
+            )
+        normalized = _normalize_schema_types(_collapse_sql_whitespace(statement))
+        if normalized != _collapse_sql_whitespace(statement):
+            notes.append("schema_type_normalized")
+            categories.append("schema_canonicalization_gap")
+        canonical.append(normalized)
+    if not canonical:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=tuple(dict.fromkeys([*categories, "schema_canonicalization_gap"])),
+            fail_closed_reason="no_create_table_schema_statement",
+            notes=tuple(notes),
+        )
+    return SQLSolverCanonicalizationResult(
+        canonical_text="\n".join(canonical) + "\n",
+        safe_for_sqlsolver=True,
+        guard_categories=tuple(dict.fromkeys(categories)),
+        notes=tuple(dict.fromkeys(notes)),
+    )
+
+
+def classify_sqlsolver_guard(sql_text: str, schema_text: str | None = None) -> tuple[str, ...]:
+    """Classify SQLSolver support risks without claiming verifier evidence."""
+
+    categories = list(_classify_query_guards(sql_text))
+    if schema_text is not None:
+        schema = canonicalize_sqlsolver_schema(schema_text)
+        categories.extend(schema.guard_categories)
+        if not schema.safe_for_sqlsolver:
+            categories.append("schema_canonicalization_gap")
+    return tuple(dict.fromkeys(category for category in categories if category in SQLSOLVER_GUARD_CATEGORIES))
 
 
 def detect_sqlsolver(
@@ -437,9 +560,9 @@ def _run_available_jar_pair(
 
     comparison_path = _comparison_sql_path(pair)
     try:
-        source_sql = _read_sql_line(Path(pair["source_sql_path"]))
-        comparison_sql = _read_sql_line(Path(comparison_path))
-        schema_sql = Path(schema_context).read_text(encoding="utf-8")
+        source_raw = Path(pair["source_sql_path"]).read_text(encoding="utf-8")
+        comparison_raw = Path(comparison_path).read_text(encoding="utf-8")
+        schema_raw = Path(schema_context).read_text(encoding="utf-8")
     except OSError as exc:
         return _tool_error_pair(
             pair=pair,
@@ -450,6 +573,30 @@ def _run_available_jar_pair(
             timeout_seconds=timeout_seconds,
             reason=f"sqlsolver_input_read_failed:{type(exc).__name__}",
             availability=availability,
+        )
+    source_prepared = canonicalize_sqlsolver_query(source_raw)
+    comparison_prepared = canonicalize_sqlsolver_query(comparison_raw)
+    schema_prepared = canonicalize_sqlsolver_schema(schema_raw)
+    unsafe = [
+        ("source", source_prepared),
+        ("comparison", comparison_prepared),
+        ("schema", schema_prepared),
+    ]
+    unsafe = [(name, result) for name, result in unsafe if not result.safe_for_sqlsolver]
+    if unsafe:
+        reason = ";".join(f"{name}:{result.fail_closed_reason}" for name, result in unsafe)
+        return _canonicalization_failed_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            reason=reason,
+            availability=availability,
+            source_prepared=source_prepared,
+            comparison_prepared=comparison_prepared,
+            schema_prepared=schema_prepared,
         )
 
     started = time.monotonic()
@@ -464,9 +611,9 @@ def _run_available_jar_pair(
         sql2_path = tmp_path / "sql2.sql"
         schema_path = tmp_path / "schema.sql"
         output_path = tmp_path / "sqlsolver_result.txt"
-        sql1_path.write_text(source_sql + "\n", encoding="utf-8")
-        sql2_path.write_text(comparison_sql + "\n", encoding="utf-8")
-        schema_path.write_text(schema_sql, encoding="utf-8")
+        sql1_path.write_text(source_prepared.canonical_text + "\n", encoding="utf-8")
+        sql2_path.write_text(comparison_prepared.canonical_text + "\n", encoding="utf-8")
+        schema_path.write_text(schema_prepared.canonical_text, encoding="utf-8")
         command = build_sqlsolver_jar_command(
             java_command=availability.java_command,
             jar_path=availability.jar_path,
@@ -526,6 +673,14 @@ def _run_available_jar_pair(
             "verifier_mode": SQLSOLVER_JAR_MODE,
             "jar_path": availability.jar_path,
             "ld_library_path": availability.ld_library_path,
+            "canonicalization_applied": True,
+            "canonicalization_mode": "temp_verifier_input_only",
+            "source_guard_categories": list(source_prepared.guard_categories),
+            "comparison_guard_categories": list(comparison_prepared.guard_categories),
+            "schema_guard_categories": list(schema_prepared.guard_categories),
+            "source_canonicalization_notes": list(source_prepared.notes),
+            "comparison_canonicalization_notes": list(comparison_prepared.notes),
+            "schema_canonicalization_notes": list(schema_prepared.notes),
             "tool_available": True,
             "result_checker_exactness_used": False,
             "local_only": True,
@@ -565,6 +720,56 @@ def _tool_error_pair(
             "command_shape": availability.command_shape,
             "verifier_mode": availability.invocation_mode,
             "tool_available": availability.tool_available,
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
+        },
+    )
+
+
+def _canonicalization_failed_pair(
+    *,
+    pair: dict[str, str],
+    tool_dir: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+    raw_output_path: Path,
+    timeout_seconds: float,
+    reason: str,
+    availability: SQLSolverAvailability,
+    source_prepared: SQLSolverCanonicalizationResult,
+    comparison_prepared: SQLSolverCanonicalizationResult,
+    schema_prepared: SQLSolverCanonicalizationResult,
+) -> dict[str, Any]:
+    stdout_path.write_text("", encoding="utf-8")
+    stderr_path.write_text(f"SQLSolver canonicalization failed closed: {reason}\n", encoding="utf-8")
+    raw_output_path.write_text("", encoding="utf-8")
+    return build_verdict_record(
+        pair_id=pair["pair_id"],
+        tool=SQLSOLVER_TOOL,
+        raw_verdict="unsupported",
+        invocation_status="unsupported",
+        tool_version=availability.tool_version or "unknown",
+        raw_stdout_path=stdout_path.as_posix(),
+        raw_stderr_path=stderr_path.as_posix(),
+        runtime_ms=None,
+        timeout_seconds=timeout_seconds,
+        artifact_paths={
+            "tool_dir": tool_dir.as_posix(),
+            "raw_output_path": raw_output_path.as_posix(),
+            "detection_reason": reason,
+            "command_shape": availability.command_shape,
+            "verifier_mode": availability.invocation_mode,
+            "tool_available": availability.tool_available,
+            "canonicalization_applied": True,
+            "canonicalization_failed_closed": True,
+            "canonicalization_mode": "temp_verifier_input_only",
+            "source_guard_categories": list(source_prepared.guard_categories),
+            "comparison_guard_categories": list(comparison_prepared.guard_categories),
+            "schema_guard_categories": list(schema_prepared.guard_categories),
+            "source_canonicalization_notes": list(source_prepared.notes),
+            "comparison_canonicalization_notes": list(comparison_prepared.notes),
+            "schema_canonicalization_notes": list(schema_prepared.notes),
             "result_checker_exactness_used": False,
             "local_only": True,
             "official_metric_input": False,
@@ -937,6 +1142,262 @@ def _sqlsolver_process_env(env: Mapping[str, str] | None, availability: SQLSolve
             else availability.ld_library_path + os.pathsep + existing
         )
     return process_env
+
+
+def _strip_sql_comments(sql_text: str) -> SQLSolverCanonicalizationResult:
+    output: list[str] = []
+    notes: list[str] = []
+    categories: list[str] = []
+    i = 0
+    in_single = False
+    in_double = False
+    while i < len(sql_text):
+        ch = sql_text[i]
+        nxt = sql_text[i + 1] if i + 1 < len(sql_text) else ""
+        if in_single:
+            output.append(ch)
+            if ch == "'" and nxt == "'":
+                output.append(nxt)
+                i += 2
+                continue
+            if ch == "'":
+                in_single = False
+            i += 1
+            continue
+        if in_double:
+            output.append(ch)
+            if ch == '"' and nxt == '"':
+                output.append(nxt)
+                i += 2
+                continue
+            if ch == '"':
+                in_double = False
+            i += 1
+            continue
+        if ch == "'":
+            in_single = True
+            output.append(ch)
+            i += 1
+            continue
+        if ch == '"':
+            in_double = True
+            output.append(ch)
+            i += 1
+            continue
+        if ch == "-" and nxt == "-":
+            categories.append("wrapper_input_format_gap")
+            notes.append("line_comment_stripped")
+            i += 2
+            while i < len(sql_text) and sql_text[i] not in "\r\n":
+                i += 1
+            output.append("\n")
+            continue
+        if ch == "/" and nxt == "*":
+            categories.append("wrapper_input_format_gap")
+            notes.append("block_comment_stripped")
+            i += 2
+            closed = False
+            while i < len(sql_text):
+                if sql_text[i] == "*" and i + 1 < len(sql_text) and sql_text[i + 1] == "/":
+                    i += 2
+                    closed = True
+                    break
+                i += 1
+            if not closed:
+                return SQLSolverCanonicalizationResult(
+                    canonical_text="",
+                    safe_for_sqlsolver=False,
+                    guard_categories=("wrapper_input_format_gap",),
+                    fail_closed_reason="unterminated_block_comment",
+                    notes=("block_comment_unterminated",),
+                )
+            output.append(" ")
+            continue
+        output.append(ch)
+        i += 1
+    if in_single or in_double:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=("wrapper_input_format_gap",),
+            fail_closed_reason="unterminated_quoted_literal_or_identifier",
+            notes=("quote_unterminated",),
+        )
+    return SQLSolverCanonicalizationResult(
+        canonical_text="".join(output),
+        safe_for_sqlsolver=True,
+        guard_categories=tuple(dict.fromkeys(categories)),
+        notes=tuple(dict.fromkeys(notes)),
+    )
+
+
+def _single_statement_without_terminal_semicolon(sql_text: str) -> SQLSolverCanonicalizationResult:
+    parts = _split_semicolon_outside_literals(sql_text)
+    if parts is None:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=("wrapper_input_format_gap",),
+            fail_closed_reason="statement_boundary_ambiguous",
+            notes=("statement_boundary_ambiguous",),
+        )
+    nonempty = [part.strip() for part in parts if part.strip()]
+    if len(nonempty) != 1:
+        return SQLSolverCanonicalizationResult(
+            canonical_text="",
+            safe_for_sqlsolver=False,
+            guard_categories=("wrapper_input_format_gap",),
+            fail_closed_reason="expected_exactly_one_sql_statement",
+            notes=(f"statement_count:{len(nonempty)}",),
+        )
+    return SQLSolverCanonicalizationResult(
+        canonical_text=nonempty[0],
+        safe_for_sqlsolver=True,
+        guard_categories=(),
+        notes=("terminal_semicolon_normalized",) if sql_text.strip().endswith(";") else (),
+    )
+
+
+def _schema_statements(schema_text: str) -> list[str] | None:
+    parts = _split_semicolon_outside_literals(schema_text)
+    if parts is None:
+        return None
+    return [part.strip() for part in parts if part.strip()]
+
+
+def _split_semicolon_outside_literals(sql_text: str) -> list[str] | None:
+    parts: list[str] = []
+    current: list[str] = []
+    in_single = False
+    in_double = False
+    i = 0
+    while i < len(sql_text):
+        ch = sql_text[i]
+        nxt = sql_text[i + 1] if i + 1 < len(sql_text) else ""
+        if in_single:
+            current.append(ch)
+            if ch == "'" and nxt == "'":
+                current.append(nxt)
+                i += 2
+                continue
+            if ch == "'":
+                in_single = False
+            i += 1
+            continue
+        if in_double:
+            current.append(ch)
+            if ch == '"' and nxt == '"':
+                current.append(nxt)
+                i += 2
+                continue
+            if ch == '"':
+                in_double = False
+            i += 1
+            continue
+        if ch == "'":
+            in_single = True
+            current.append(ch)
+            i += 1
+            continue
+        if ch == '"':
+            in_double = True
+            current.append(ch)
+            i += 1
+            continue
+        if ch == ";":
+            parts.append("".join(current))
+            current = []
+            i += 1
+            continue
+        current.append(ch)
+        i += 1
+    if in_single or in_double:
+        return None
+    parts.append("".join(current))
+    return parts
+
+
+def _collapse_sql_whitespace(sql_text: str) -> str:
+    output: list[str] = []
+    in_single = False
+    in_double = False
+    pending_space = False
+    i = 0
+    while i < len(sql_text):
+        ch = sql_text[i]
+        nxt = sql_text[i + 1] if i + 1 < len(sql_text) else ""
+        if in_single:
+            if pending_space and output:
+                output.append(" ")
+                pending_space = False
+            output.append(ch)
+            if ch == "'" and nxt == "'":
+                output.append(nxt)
+                i += 2
+                continue
+            if ch == "'":
+                in_single = False
+            i += 1
+            continue
+        if in_double:
+            if pending_space and output:
+                output.append(" ")
+                pending_space = False
+            output.append(ch)
+            if ch == '"' and nxt == '"':
+                output.append(nxt)
+                i += 2
+                continue
+            if ch == '"':
+                in_double = False
+            i += 1
+            continue
+        if ch.isspace():
+            pending_space = True
+            i += 1
+            continue
+        if pending_space and output:
+            output.append(" ")
+        pending_space = False
+        if ch == "'":
+            in_single = True
+        elif ch == '"':
+            in_double = True
+        output.append(ch)
+        i += 1
+    return "".join(output).strip()
+
+
+def _normalize_schema_types(statement: str) -> str:
+    import re
+
+    normalized = re.sub(r"\bDOUBLE\s+PRECISION\b", "DOUBLE", statement, flags=re.IGNORECASE)
+    normalized = re.sub(r"\bTEXT\b", "VARCHAR", normalized, flags=re.IGNORECASE)
+    normalized = re.sub(r"\bTIMESTAMP\s+WITHOUT\s+TIME\s+ZONE\b", "TIMESTAMP", normalized, flags=re.IGNORECASE)
+    normalized = re.sub(r"\bNUMERIC\s*\(", "DECIMAL(", normalized, flags=re.IGNORECASE)
+    normalized = re.sub(r"\bNUMERIC\b", "DECIMAL", normalized, flags=re.IGNORECASE)
+    return normalized
+
+
+def _classify_query_guards(sql_text: str) -> tuple[str, ...]:
+    import re
+
+    categories: list[str] = []
+    if re.search(r"\bDENSE_RANK\s*\(", sql_text, flags=re.IGNORECASE):
+        categories.append("unsupported_sql_feature")
+    if re.search(r"\bINTERVAL\s*'", sql_text, flags=re.IGNORECASE):
+        categories.append("unsupported_postgres_dialect")
+    if re.search(r"\bNULLS\s+(FIRST|LAST)\b", sql_text, flags=re.IGNORECASE):
+        categories.append("unsupported_postgres_dialect")
+    if re.search(r"\bDATE\s*'", sql_text, flags=re.IGNORECASE):
+        categories.append("query_normalization_gap")
+    if re.search(r"\b(EXTRACT|DATE_TRUNC|AGE)\s*\(", sql_text, flags=re.IGNORECASE):
+        categories.append("type_or_function_modeling_gap")
+    if '"' in sql_text:
+        categories.append("unsupported_postgres_dialect")
+    if re.search(r"\bWITH\b", sql_text, flags=re.IGNORECASE) and re.search(r"\bOVER\s*\(", sql_text, flags=re.IGNORECASE):
+        categories.append("unsupported_sql_feature")
+    return tuple(dict.fromkeys(categories))
 
 
 def _read_sql_line(path: Path) -> str:

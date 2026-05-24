@@ -1,0 +1,25 @@
+{
+  "attempted_canaries": 10,
+  "blockers": [
+    "quoted_identifier_null_ordering:source_identity:unknown",
+    "quoted_identifier_null_ordering:candidate_identity:unknown",
+    "dense_rank_cte_ranking:source_identity:unknown",
+    "dense_rank_cte_ranking:candidate_identity:unknown"
+  ],
+  "boundary_notes": [
+    "non-benchmark SQLSolver identity canaries only",
+    "no benchmark pair verified in this task",
+    "no official SER produced",
+    "no bounded SER promoted"
+  ],
+  "identity_passed": 6,
+  "identity_timeout": 0,
+  "identity_tool_error": 0,
+  "identity_unknown": 4,
+  "identity_unsupported": 0,
+  "ready_to_rerun_same_8_pairs": false,
+  "selected_canaries": 5,
+  "tool_available": true,
+  "tool_detection_reason": "sqlsolver_jar_available",
+  "tool_version_present": true
+}

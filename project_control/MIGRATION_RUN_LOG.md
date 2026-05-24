@@ -21640,3 +21640,82 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a narrow SQLSolver wrapper/schema canonicalization implementation task with fixture tests and non-benchmark identity canaries. Do not broaden SQLSolver coverage and do not start Repair-1 until the same 8-pair bounded verifier pass is stable after canonicalization.
+
+## sqlsolver_wrapper_schema_canonicalization_impl_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_wrapper_schema_canonicalization_impl_v0`
+
+Mode: narrow SQLSolver wrapper/schema canonicalization implementation with fixture tests and non-benchmark identity canaries; no benchmark verifier rerun, no official SER, no broader pass, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_wrapper_schema_canonicalization_impl_v0/`
+- `tests/verifier_support/test_sqlsolver_canonicalization.py`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation summary:
+- Added explicit SQLSolver query canonicalization for comment stripping, one-statement-per-line shaping, terminal semicolon normalization, whitespace normalization outside literals, and unsafe multi-statement fail-closed behavior.
+- Added schema canonicalization for inline DDL comment stripping, `DROP TABLE` preamble removal, and conservative PostgreSQL type normalization for `DOUBLE PRECISION`, `TIMESTAMP WITHOUT TIME ZONE`, `TEXT`, and `NUMERIC`.
+- Added explicit guard categories: `unsupported_sql_feature`, `unsupported_postgres_dialect`, `schema_canonicalization_gap`, `wrapper_input_format_gap`, `type_or_function_modeling_gap`, `query_normalization_gap`, and `unknown_tool_behavior`.
+- Updated the SQLSolver JAR invocation path to use canonicalized temporary verifier inputs and to record canonicalization metadata in verdict artifacts.
+
+Validation result:
+- `pytest tests/verifier_support/test_sqlsolver_canonicalization.py -q`: passed, `10 passed`.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`: passed.
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/verifier_support/test_sqlsolver_canonicalization.py -q`: passed, `21 passed`.
+- CSV parse checks: passed.
+- JSONL parse checks: passed.
+- JSON parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Canary input path checks: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Non-benchmark SQLSolver canary summary:
+- Selected canaries: 5.
+- Identity checks attempted: 10.
+- Identity equivalent: 6.
+- Identity unknown: 4.
+- Identity timeout: 0.
+- Identity unsupported: 0.
+- Identity tool error: 0.
+- `ready_to_rerun_same_8_pairs=false`.
+- Blockers: `quoted_identifier_null_ordering` source/candidate identity unknown, and `dense_rank_cte_ranking` source/candidate identity unknown.
+
+Boundary:
+- SQLSolver was run only on synthetic non-benchmark canary identity checks.
+- No SQLSolver benchmark pair was run.
+- No same-8 bounded SQLGlot no-op PostgreSQL benchmark rerun occurred.
+- No SQLSolver run on the SQLGlot no-op PostgreSQL 35 exact subset or 346-pair manifest occurred.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, or Repair-1 command was run.
+- No official SER was produced; no bounded SER was promoted.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- SQLSolver `UNKNOWN` canary outcomes remain verifier-support limitations, not rewrite-method failures.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Triage or scope out the quoted identifier / NULL ordering and DENSE_RANK / CTE canary blockers before rerunning the same 8 bounded SQLSolver benchmark pairs. Do not broaden SQLSolver coverage or start Repair-1.
