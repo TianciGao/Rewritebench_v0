@@ -141,6 +141,7 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
                         "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
                         "assert pathlib.Path(args['--source-sql']).exists()",
                         "assert pathlib.Path(args['--ddl']).exists()",
+                        "assert args['--engine'] == 'postgres'",
                         "pathlib.Path(args['--output-sql']).write_text('SELECT 1;\\n', encoding='utf-8')",
                         "print('runtime_ok=true')",
                     ]
@@ -170,6 +171,9 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertEqual(payload["preflight_status"], "calcite_invocation_succeeded")
         self.assertTrue(payload["candidate_generated"])
         self.assertEqual(payload["failure_bucket"], "none")
+        self.assertEqual(payload["runtime"]["target_engine"], "postgres")
+        self.assertIn("--engine", payload["runtime"]["command_shape"])
+        self.assertIn("postgres", payload["runtime"]["command_shape"])
         self.assertTrue(payload["schema_ddl_exists"])
         self.assertFalse(payload["official_metric_input"])
 
@@ -222,6 +226,57 @@ class CalciteHepFailClosedRouteTests(unittest.TestCase):
         self.assertTrue(postprocess["changed"])
         self.assertEqual(postprocess["policy"], "postgres_only_unquoted_ddl_identifier_fold_v0")
         self.assertEqual(postprocess["replacement_identifiers"], {"DEPT": "dept", "NAME": "name"})
+
+    def test_adapter_passes_mysql_target_engine_and_allows_target_dialect_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):
+            case_list = Path(temp_dir) / "cases.txt"
+            case_list.write_text("CONS_0036\n", encoding="utf-8")
+            row = resolve_common_core_selection(
+                repo_root=REPO_ROOT,
+                case_set="common_core_v0",
+                engine="mysql",
+                case_list=case_list,
+            )[0]
+            resolved = resolve_case_package(repo_root=REPO_ROOT, row=row)
+            runtime_script = Path(temp_dir) / "fake_calcite_runtime.py"
+            runtime_script.write_text(
+                "\n".join(
+                    [
+                        "import pathlib",
+                        "import sys",
+                        "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))",
+                        "assert args['--engine'] == 'mysql'",
+                        "pathlib.Path(args['--output-sql']).write_text(",
+                        "    'SELECT `NAME` FROM `DEPT`\\n',",
+                        "    encoding='utf-8',",
+                        ")",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _clear_calcite_env()
+            os.environ["SQLRB_CALCITE_HEP_CMD"] = f"{sys.executable} {runtime_script}"
+            os.environ["SQLRB_CALCITE_HEP_ROOT"] = temp_dir
+            result = run_adapter_for_case(
+                run_id="calcite_mysql_target_engine_unit",
+                row=row,
+                resolved_package=resolved,
+                adapter_command=f"{sys.executable} {ADAPTER}",
+                repo_root=REPO_ROOT,
+                out_dir=Path(temp_dir) / "out",
+                timeout=10,
+            )
+            status_path = result.workspace_dir / "calcite_hep_status.json"
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+
+        self.assertTrue(result.candidate_generated)
+        self.assertEqual(payload["preflight_status"], "calcite_invocation_succeeded")
+        self.assertEqual(payload["runtime"]["target_engine"], "mysql")
+        guard = payload["target_dialect_guard"]
+        self.assertTrue(guard["enabled"])
+        self.assertFalse(guard["blocked"])
+        self.assertEqual(guard["policy"], "non_postgres_postgresql_dialect_fail_closed_v0")
 
     def test_adapter_fails_closed_for_mysql_postgres_dialect_output(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {}, clear=False):

@@ -20451,3 +20451,77 @@ Validation:
 
 Next safe action:
 - Authorize a narrow Calcite runtime/adapter engine-mode task to produce target-dialect MySQL/Spark candidates, then rerun a bounded tri-engine smoke before any canonical Track A 120 user-facade metrics run.
+## 2026-05-24 - calcite_hep_target_dialect_runtime_mode_v0
+
+Mode: bounded local-only Calcite HEP target-dialect runtime/adapter mode.
+
+Branch: `feature/case-package-v2-external-schema`
+
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_target_dialect_runtime_mode_v0/` only.
+
+Files created:
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/README.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/runtime_capability_review.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/adapter_mode_contract.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/external_runtime_changes.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/bounded_tri_engine_validation.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/per_row_status.csv`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/fail_closed_policy.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/canonical_120_readiness.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/command_log.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/protected_surface_check.md`
+- `audits/calcite_hep_target_dialect_runtime_mode_v0/boundary_checklist.md`
+
+Files modified:
+- `baselines/calcite_hep_fail_closed/adapter.py`
+- `baselines/calcite_hep_fail_closed/README.md`
+- `tests/user_entry/test_calcite_hep_fail_closed_route.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+External runtime staging:
+- Modified `/home/tianci_gao/.local/share/sqlrb/calcite_hep/src/CalciteHepRewriteSmoke.java` outside the release repo.
+- Recompiled external classes under `/home/tianci_gao/.local/share/sqlrb/calcite_hep/classes/`.
+- No external runtime source, class, JAR, build, or dependency artifact was staged or committed in this repository.
+
+Preflight:
+- Working tree was clean before edits.
+- Branch confirmed as `feature/case-package-v2-external-schema`.
+- Origin fetched.
+- Branch contains `7a85148e0c799682cefb0296a281044fd0d0de56`.
+- Current project-control files read from `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- D033, D034, and D035 confirmed.
+- Prior audit `audits/calcite_hep_tri_engine_readiness_and_adapter_gap_v0/` confirmed.
+- Adapter and external runtime paths confirmed.
+- PostgreSQL, MySQL, and Spark local execution environments were available.
+
+Runtime/adapter change:
+- External runtime now parses `--engine`, with aliases `--dialect` and `--target`.
+- Runtime uses PostgreSQL, MySQL, or Spark Calcite `SqlDialect` for SQL emission.
+- Adapter now passes the user-run target engine as `--engine postgres|mysql|spark`.
+- Adapter records `runtime.target_engine` and keeps the MySQL/Spark PostgreSQL-dialect fail-closed guard.
+
+Bounded validation:
+- Scope: `PERF_0006`, `CONS_0005`, `CONS_0036`, `CONS_0037`, `PORT_0004`, and `PORT_0024` across PostgreSQL, MySQL, and Spark.
+- Planned rows: 18.
+- PostgreSQL: selected 6, generated 5, fail-closed/no-candidate 1, source executable 5, candidate executable 5, checker attempted 5, exact 4, mismatch 1.
+- MySQL: selected 6, generated 5, fail-closed/no-candidate 1, source executable 5, candidate executable 5, checker attempted 5, exact 3, mismatch 2.
+- Spark: selected 6, generated 5, fail-closed/no-candidate 1, source executable 4, candidate executable 4, checker attempted 4, exact 4, unsupported 1.
+- MySQL/Spark generated candidate files contained no PostgreSQL double-quoted identifier or `DOUBLE PRECISION` guard matches.
+
+Remaining blockers:
+- `PORT_0004` remains no-candidate.
+- Spark `PORT_0024` remains blocked by target-reference/source-role policy.
+- Spark DDL ingestion still falls back to parse-only for some `STRING` DDL shapes.
+- Broader schema-fallback, mismatch, and execution-failure frontiers need a denominator-visible full diagnostic before canonical metrics.
+
+Validation:
+- `per_row_status.csv` header and row count validation: passed with 18 rows, 6 per engine.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 10 passed.
+- `pytest tests/user_entry -q`: 247 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/calcite_hep_fail_closed/adapter.py`: passed.
+- `git diff --check`: passed before commit.
+- No full Track A 120 run, `compute-local-metrics`, timing, verifier pass, official metric, official Semantic Equivalence Rate, paper result, retained evidence promotion, leaderboard, denominator change, case membership change, or top-level reports/results update occurred.
+
+Next safe action:
+- Run a Calcite HEP Track A 120 local execution/checker diagnostic through the user facade without timing or `compute-local-metrics`, then decide whether exact-gated timing and canonical metrics are ready.

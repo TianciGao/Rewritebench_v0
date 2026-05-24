@@ -17,7 +17,7 @@ python -m cli.main user evaluate \
 Runtime discovery is environment-variable based:
 
 - `SQLRB_CALCITE_HEP_CMD`: external command that accepts `--case-id`,
-  `--source-sql`, `--ddl`, `--output-sql`, and `--mode`.
+  `--source-sql`, `--ddl`, `--output-sql`, `--mode`, and `--engine`.
 - `SQLRB_CALCITE_HEP_JAR`: optional runnable JAR using the same argument shape.
 - `SQLRB_CALCITE_HEP_ROOT`: optional external runtime working directory.
 - `SQLRB_CALCITE_HEP_JAVA`: optional Java command, defaulting to `java`.
@@ -25,6 +25,11 @@ Runtime discovery is environment-variable based:
   `real_route_canary`.
 - `SQLRB_CALCITE_HEP_TIMEOUT`: optional invocation timeout in seconds,
   defaulting to `30`.
+
+The adapter passes the current user-run engine to the runtime as `--engine`
+with values normalized to `postgres`, `mysql`, or `spark`. Older runtimes that
+ignore this argument remain fail-closed behind the non-PostgreSQL dialect guard.
+Runtimes that support it should emit target-dialect SQL for that engine.
 
 The adapter writes a per-row `calcite_hep_status.json` file in the user-run
 workspace. It emits candidate SQL only when the external runtime exits

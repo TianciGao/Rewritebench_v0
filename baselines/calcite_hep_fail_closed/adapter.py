@@ -315,6 +315,13 @@ def _runtime_mode() -> str:
     return os.environ.get("SQLRB_CALCITE_HEP_MODE", "real_route_canary").strip() or "real_route_canary"
 
 
+def _runtime_target_engine(env: dict[str, str]) -> str:
+    engine = env["SQLRB_ENGINE"].strip().lower()
+    if engine == "pg":
+        return "postgres"
+    return engine
+
+
 def _identifier_token_parts(token: str) -> tuple[str, bool]:
     stripped = token.strip()
     if stripped.startswith('"') and stripped.endswith('"') and len(stripped) >= 2:
@@ -495,6 +502,7 @@ def invoke_calcite_runtime(
 
     command = _runtime_command(discovery)
     timeout_seconds = _runtime_timeout_seconds()
+    target_engine = _runtime_target_engine(env)
     args = command + [
         "--case-id",
         env["SQLRB_CASE_ID"],
@@ -506,6 +514,8 @@ def invoke_calcite_runtime(
         str(candidate_path),
         "--mode",
         _runtime_mode(),
+        "--engine",
+        target_engine,
     ]
     command_shape = []
     for piece in args:
@@ -539,6 +549,7 @@ def invoke_calcite_runtime(
                 "command_shape": command_shape,
                 "timeout_seconds": timeout_seconds,
                 "exit_code": None,
+                "target_engine": target_engine,
                 "stdout_path": str(stdout_path),
                 "stderr_path": str(stderr_path),
             },
@@ -550,6 +561,7 @@ def invoke_calcite_runtime(
         "command_shape": command_shape,
         "timeout_seconds": timeout_seconds,
         "exit_code": completed.returncode,
+        "target_engine": target_engine,
         "stdout_path": str(stdout_path),
         "stderr_path": str(stderr_path),
     }
@@ -615,6 +627,7 @@ def build_status_payload(env: dict[str, str]) -> dict[str, object]:
         "case_id": env["SQLRB_CASE_ID"],
         "pool": env["SQLRB_POOL"],
         "engine": env["SQLRB_ENGINE"],
+        "runtime_target_engine": _runtime_target_engine(env),
         "source_sql_path": env["SQLRB_SOURCE_SQL_PATH"],
         "source_sql_exists": source_path.exists(),
         "schema_ddl_path": str(schema_ddl_path) if schema_ddl_path else "",
