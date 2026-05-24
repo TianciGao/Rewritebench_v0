@@ -19392,3 +19392,84 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Authorize bounded tri-engine execution/checker diagnostics for `sqlglot_optimize_schema_aware` before any larger local Track A diagnostic rerun.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0
+
+Mode: bounded local diagnostic execution/checker smoke.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/` only.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/run_scope.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/source_generation_input_review.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/execution_checker_summary.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/per_row_execution_checker_status.csv`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/cons0005_execution_review.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/failure_bucket_review.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/output_shape_review.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/track_a_120_readiness.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/diagnostic_summary.json`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/run_bounded_execution_checker.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Execution/checker result:
+- Planned rows: 9.
+- Generated candidate rows: 9.
+- Preflight passed rows: 9.
+- Source executable rows: 9.
+- Candidate executable rows: 8.
+- Checker attempted rows: 8.
+- Exact/result-consistent rows: 6.
+- Mismatch rows: 2.
+- Source execution failed rows: 0.
+- Candidate execution failed rows: 1.
+
+By engine:
+- PostgreSQL: planned/generated/source/candidate/checker/exact = 3/3/3/3/3/3.
+- MySQL: planned/generated/source/candidate/checker/exact = 3/3/3/2/2/2, with one candidate execution failure.
+- Spark: planned/generated/source/candidate/checker/exact = 3/3/3/3/3/1, with two mismatches.
+
+`CONS_0005` result:
+- PostgreSQL: exact.
+- MySQL: candidate execution failed; candidate used `ARRAY_ANY` lambda syntax and adapter stderr recorded `ARRAY_ANY is unsupported`.
+- Spark: candidate executed but checker mismatch; source row count 0, candidate row count 1.
+- Prior invalid `table1.table2.i` qualification rows: 0.
+
+Validation result:
+- `per_row_execution_checker_status.csv` has required headers and 9 rows.
+- `diagnostic_summary.json` parses and records planned/generated/preflight/source/candidate/checker/exact/mismatch/failure counts of 9/9/9/9/8/8/6/2/1.
+- Audit Markdown files are non-empty.
+- `pytest tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py -q` passed: 18 passed, 1 skipped.
+- `python -m py_compile audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/run_bounded_execution_checker.py` passed.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results src tests baselines cases case_sets schemas inventory` produced no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Run exact-gated timing smoke over the 6 exact rows, or first triage MySQL `ARRAY_ANY` and Spark mismatch behavior if broader exact coverage is the priority.
