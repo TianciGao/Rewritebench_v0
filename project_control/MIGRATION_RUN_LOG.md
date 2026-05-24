@@ -20143,3 +20143,75 @@ Boundary:
 
 Next safe action:
 - Run a canonical SQLGlot optimize schema-aware user-facade Track A local diagnostic with timing, then compute aggregate local metrics through the new multi-engine command.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0
+
+Task: `sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Run id:
+- `sqlglot_optimize_schema_aware_track_a_120_canonical_v0`
+
+Commands:
+- `python -m cli.main user evaluate --case-set common_core_v0 --engines postgres,mysql,spark --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware" --output-root /tmp/sqlrb_sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/output --run-id sqlglot_optimize_schema_aware_track_a_120_canonical_v0 --enable-db-execution --enable-checker --collect-timing`
+- `python -m cli.main user compute-local-metrics --run-id-prefix sqlglot_optimize_schema_aware_track_a_120_canonical_v0 --engines postgres,mysql,spark --aggregate-run-id sqlglot_optimize_schema_aware_track_a_120_canonical_v0 --source-run-root runs/user --output-root /tmp/sqlrb_sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/output`
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/user_commands.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/source_run_layout.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/canonical_metrics_outputs.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/local_metrics_summary_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/engine_metrics_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/frontier_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/d035_output_shape_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/provisional_audit_replacement_note.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/paper_boundary.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/next_steps.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/canonical_metrics_snapshot.json`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0/canonical_engine_metrics_snapshot.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Canonical metrics summary:
+- selected rows: 120.
+- candidate generated rows: 105.
+- source executable rows: 100.
+- candidate executable rows: 91.
+- exact/result-consistent rows: 66.
+- timed exact rows: 66.
+- generation rate: 0.875.
+- execution coverage rate: 0.7583333333333333.
+- result consistency rate: 0.55.
+- GM speedup over strict exact-timed rows: 1.020315612310745.
+- speedup P10/P25/P50/P75/P90: 0.9706250147027313 / 0.9929843677046468 / 1.0030570718919793 / 1.0116739305181726 / 1.0739447492006393.
+
+Per-engine canonical metrics:
+- PostgreSQL: selected 40, generated 34, candidate executable 32, exact 29, timed 29, GM speedup 1.0485753363343828.
+- MySQL: selected 40, generated 32, candidate executable 29, exact 20, timed 20, GM speedup 0.9986065408169843.
+- Spark: selected 40, generated 39, candidate executable 30, exact 17, timed 17, GM speedup 0.9988089830968593.
+
+Boundary:
+- User facade used: yes.
+- Metrics computed through `src/sql_rewrite_bench/local_metrics.py`: yes.
+- Official metrics computed: no.
+- Official SER computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- SQLSolver/VeriEQL run: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- Runtime `runs/user` and `/tmp/.../output` artifacts committed: no.
+
+Next safe action:
+- Build any SQLGlot optimize route-card review strictly from canonical metrics outputs, then rerun/reprocess SQLGlot noop and Calcite through the canonical path before route comparison.
