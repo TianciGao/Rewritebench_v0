@@ -19473,3 +19473,74 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Run exact-gated timing smoke over the 6 exact rows, or first triage MySQL `ARRAY_ANY` and Spark mismatch behavior if broader exact coverage is the priority.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0
+
+Mode: audit-only blocker triage.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/source_audit_inputs.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/problem_row_inventory.csv`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/mysql_cons0005_triage.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/spark_cons0005_triage.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/spark_cons0036_triage.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/root_cause_summary.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/fix_candidate_plan.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/track_a_120_readiness_impact.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0/diagnostic_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Rows inspected:
+- `CONS_0005` / MySQL / candidate execution failed.
+- `CONS_0005` / Spark / checker mismatch.
+- `CONS_0036` / Spark / checker mismatch.
+
+Root-cause classifications:
+- `CONS_0005` / MySQL: `mysql_array_any_dialect_emission_blocker`, with secondary `sqlglot_schema_aware_optimizer_limit` and `adapter_fail_closed_policy_needed`.
+- `CONS_0005` / Spark: `spark_semantic_mismatch_candidate`, with source row count 0 and candidate row count 1.
+- `CONS_0036` / Spark: `spark_label_only_mismatch_candidate`, with `value_exact=true` and `label_only_mismatch=true`.
+
+Readiness result:
+- Exact-gated timing over the existing six exact rows is technically safe if needed.
+- Larger 40 x 3 local diagnostic trial readiness: blocked.
+- Track A 120 readiness: blocked.
+
+Validation result:
+- `problem_row_inventory.csv` has required headers and 3 rows.
+- `diagnostic_summary.json` parses and records 3 problem rows.
+- Audit Markdown files are non-empty.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results src tests baselines cases case_sets schemas inventory` produced no output.
+- Only allowed audit and project-control paths changed.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize a narrow MySQL `ARRAY_ANY` fail-closed/dialect-emission fix task and Spark `CONS_0005` semantic triage before larger schema-aware optimize reruns; or run exact-gated timing only over the six current exact rows if a narrow timing smoke is explicitly desired.

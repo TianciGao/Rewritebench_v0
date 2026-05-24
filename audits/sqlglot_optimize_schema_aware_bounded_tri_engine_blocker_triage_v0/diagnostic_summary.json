@@ -1,0 +1,67 @@
+{
+  "task": "sqlglot_optimize_schema_aware_bounded_tri_engine_blocker_triage_v0",
+  "route_id": "sqlglot_optimize_schema_aware",
+  "method_id": "sqlglot",
+  "source_audit": "audits/sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0/",
+  "problem_rows_inspected": 3,
+  "rows": [
+    {
+      "case_id": "CONS_0005",
+      "pool": "CONS",
+      "engine": "mysql",
+      "prior_stage_status": "candidate_execution_failed",
+      "primary_classification": "mysql_array_any_dialect_emission_blocker",
+      "secondary_classifications": [
+        "sqlglot_schema_aware_optimizer_limit",
+        "adapter_fail_closed_policy_needed"
+      ],
+      "safe_normalization_candidate": false,
+      "true_semantic_risk_candidate": false,
+      "recommended_next_action": "fail_closed_or_authorize_mysql_array_any_dialect_fix"
+    },
+    {
+      "case_id": "CONS_0005",
+      "pool": "CONS",
+      "engine": "spark",
+      "prior_stage_status": "checker_mismatch",
+      "primary_classification": "spark_semantic_mismatch_candidate",
+      "secondary_classifications": [
+        "sqlglot_schema_aware_optimizer_limit",
+        "true_candidate_semantic_drift",
+        "manual_review_required"
+      ],
+      "safe_normalization_candidate": false,
+      "true_semantic_risk_candidate": true,
+      "recommended_next_action": "manual_semantic_triage_before_spark_expansion"
+    },
+    {
+      "case_id": "CONS_0036",
+      "pool": "CONS",
+      "engine": "spark",
+      "prior_stage_status": "checker_mismatch",
+      "primary_classification": "spark_label_only_mismatch_candidate",
+      "secondary_classifications": [
+        "checker_normalization_policy_candidate"
+      ],
+      "safe_normalization_candidate": true,
+      "true_semantic_risk_candidate": false,
+      "recommended_next_action": "keep_strict_mismatch_unless_label_policy_authorized"
+    }
+  ],
+  "classification_counts": {
+    "mysql_array_any_dialect_emission_blocker": 1,
+    "spark_semantic_mismatch_candidate": 1,
+    "spark_label_only_mismatch_candidate": 1
+  },
+  "safe_normalization_candidate_rows": 1,
+  "true_semantic_risk_candidate_rows": 1,
+  "candidate_execution_failure_rows": 1,
+  "checker_mismatch_rows": 2,
+  "exact_gated_timing_smoke_ready_over_current_exact_rows": true,
+  "larger_40x3_local_diagnostic_trial_ready": false,
+  "track_a_120_ready": false,
+  "official_metric_input": false,
+  "paper_result": false,
+  "leaderboard_output_created": false
+}
+
