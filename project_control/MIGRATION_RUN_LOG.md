@@ -22705,3 +22705,62 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a LearnedRewrite external-runtime availability/preflight audit. Do not run the real Java runtime on Common-core cases until external runtime path, request/response schema, extraction guards, and source-hygiene boundaries are verified.
+
+## 2026-05-25 - learnedrewrite_external_runtime_preflight_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Availability and preflight audit for a real external LearnedRewrite runtime.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_external_runtime_preflight_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Java availability check passed with `openjdk version "17.0.18" 2026-01-20`.
+- `SQLRB_LEARNEDREWRITE_CMD` is not configured.
+- `SQLRB_LEARNEDREWRITE_URL` is not configured.
+- `SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME=1` is not set.
+- No external LearnedRewrite runtime was reachable because no command or URL was configured.
+- No synthetic request was attempted.
+- No Common-core SQL was sent to any real runtime.
+- Official source/API review confirms a Java/Calcite runtime with a documented `/rewriter` POST shape using SQL plus schema, but the current adapter still has fail-closed real `cmd`/`http` placeholders and needs a real schema JSON/response-contract implementation before runtime use.
+
+Validation result:
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`: passed, `12 passed, 8 subtests passed`.
+- `python -m py_compile baselines/learnedrewrite/adapter.py`: passed.
+- CSV parse checks: passed for `learnedrewrite_runtime_readiness_matrix.csv`.
+- Markdown/text non-empty checks: passed for all generated Markdown/text audit files.
+- No Common-core SQL sent check: passed by command log review.
+- No prohibited runtime/DB/checker/timing/local_metrics/verifier command review: passed by command log review.
+- Upstream artifact-copy review: passed; no upstream source, JAR, dependency JAR, checkpoint, dataset, generated output, or request log was copied into changed files.
+- Runtime output staging check: passed before explicit staging; no `runs/user`, `/tmp`, `output`, top-level `reports`, or top-level `results` artifact is in the changed-file set.
+- Changed-file secret scan: passed for secret-shaped values in audit and project-control changed files.
+- Protected-path review: passed; only allowed audit and project-control paths are intended for staging, and unrelated pre-existing Direct LLM audit directories remain untouched.
+- `git diff --check`: passed.
+
+Boundary:
+- No LearnedRewrite run on Common-core cases, real benchmark run, R-Bot, LLM-R2, live LLM, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, upstream source/JAR copy, env file, API key value, or secret was included.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Keep LearnedRewrite blocked until a configured external runtime passes synthetic non-benchmark preflight. If no runtime is available, move to R-Bot / LLM-R2 wrapper planning under the GPTSAPI `gpt-5.4` adapted-local-diagnostic policy.

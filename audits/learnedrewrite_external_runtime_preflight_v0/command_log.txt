@@ -1,0 +1,65 @@
+Commands and references used for this task.
+
+Read-only preflight:
+
+```bash
+git status -sb
+git rev-parse --abbrev-ref HEAD
+git log -1 --oneline
+rg --files project_control repository_spec baselines/learnedrewrite tests/user_entry audits/learnedrewrite_external_wrapper_design_v0 audits/learnedrewrite_adapter_scaffold_v0 audits/learnedrewrite_fake_runtime_user_facade_smoke_v0 | sort
+sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md
+tail -n 180 project_control/MIGRATION_STATUS.md
+tail -n 220 project_control/DECISION_LOG.md
+tail -n 220 project_control/MIGRATION_RUN_LOG.md
+sed -n '1,220p' repository_spec/metrics_contract_v1.md
+sed -n '1,760p' baselines/learnedrewrite/adapter.py
+sed -n '1,220p' baselines/learnedrewrite/README.md
+sed -n '1,320p' tests/user_entry/test_learnedrewrite_adapter.py
+sed -n '1,220p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_wrapper_contract.md
+sed -n '1,220p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_source_hygiene_review.md
+sed -n '1,220p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_next_implementation_plan.md
+sed -n '1,220p' audits/learnedrewrite_adapter_scaffold_v0/adapter_contract.md
+sed -n '1,220p' audits/learnedrewrite_fake_runtime_user_facade_smoke_v0/README.md
+```
+
+Official source reference reviewed:
+
+- <https://github.com/XuanheZhou/LearnedRewrite>
+
+Environment probe:
+
+```bash
+python - <<'PY'
+# Checked presence only for SQLRB_LEARNEDREWRITE_CMD, SQLRB_LEARNEDREWRITE_URL,
+# SQLRB_LEARNEDREWRITE_MODE, SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME.
+# Ran java -version.
+# Did not print command or URL values.
+PY
+```
+
+Validation:
+
+```bash
+pytest tests/user_entry/test_learnedrewrite_adapter.py -q
+python -m py_compile baselines/learnedrewrite/adapter.py
+```
+
+Commands not run:
+
+- real LearnedRewrite Java runtime;
+- Java server/JAR startup;
+- LearnedRewrite on Common-core SQL;
+- R-Bot;
+- LLM-R2;
+- live LLM calls;
+- DB execution;
+- checker execution;
+- timing collection;
+- `compute-local-metrics`;
+- SQLSolver;
+- VeriEQL;
+- official metrics;
+- paper rendering;
+- retained evidence promotion;
+- leaderboard generation;
+- Track A 120.
