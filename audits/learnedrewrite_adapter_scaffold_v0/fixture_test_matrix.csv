@@ -1,0 +1,13 @@
+test_name,fixture_type,expected_behavior,actual_result,passed,notes
+test_adapter_help_works,cli_help,"adapter prints help and exits 0","passed",true,"Covers CLI surface."
+test_fake_runtime_json_returns_one_sql_candidate,fake_json_success,"writes one candidate SQL and metadata","passed",true,"Covers route/method/runtime/extraction/local flags."
+test_fake_runtime_inline_sql_returns_candidate,fake_inline_sql_success,"accepts fenced inline SQL","passed",true,"Covers SQLRB_LEARNEDREWRITE_FAKE_SQL."
+test_fake_runtime_multiple_statements_fail_closed,fake_json_multiple_sql,"does not write candidate SQL","passed",true,"failure_bucket=multiple_sql_statements."
+test_fake_runtime_prose_and_empty_fail_closed,fake_text_invalid,"prose and empty responses fail closed","passed",true,"Subtests cover response_not_sql and response_empty."
+test_missing_runtime_config_fails_closed,missing_config,"no candidate and runtime_unconfigured","passed",true,"No hidden default candidate."
+test_malformed_json_fails_closed,fake_malformed_json,"no candidate and runtime_invalid_json","passed",true,"Covers JSON parser boundary."
+test_unsupported_status_fails_closed,fake_unsupported_status,"no candidate and unsupported bucket","passed",true,"Covers explicit unsupported status."
+test_command_and_http_modes_fail_closed_without_invocation,future_hook_boundary,"command/http modes do not invoke Java or network","passed",true,"Subtests cover missing and configured command/http hooks."
+test_metadata_secret_hygiene_and_no_runtime_flags,metadata_hygiene,"secret env values absent and runtime flags false","passed",true,"Covers no Java/network/DB/checker/timing/local_metrics/verifier flags."
+test_mysql_and_spark_fail_closed_as_unsupported,unsupported_engine_boundary,"MySQL and Spark fail closed","passed",true,"Initial scaffold is PostgreSQL-first."
+test_extract_sql_candidate_rejects_prose,unit_extraction,"prose-prefixed SQL rejected","passed",true,"Covers extractor unit behavior."

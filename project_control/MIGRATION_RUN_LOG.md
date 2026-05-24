@@ -22595,3 +22595,55 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a fixture-only LearnedRewrite adapter scaffold with fake external runtime tests. Do not run the real Java runtime until wrapper contract tests, schema JSON fixtures, source-hygiene boundaries, and output extraction guards are stable.
+
+## 2026-05-25 - learnedrewrite_adapter_scaffold_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Fixture-only LearnedRewrite adapter scaffold with fake external runtime tests.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `baselines/learnedrewrite/adapter.py`
+- `tests/user_entry/test_learnedrewrite_adapter.py`
+- `audits/learnedrewrite_adapter_scaffold_v0/`
+
+Files modified:
+- `baselines/learnedrewrite/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added `route_id=learnedrewrite` and `method_id=learnedrewrite` adapter scaffold.
+- Implemented fake runtime mode with JSON or inline SQL fixtures.
+- Added fail-closed command/http future hooks that do not invoke Java, shell commands, or network.
+- Added schema-context discovery, PostgreSQL-first support policy, MySQL/Spark unsupported boundary, single-SQL extraction, status metadata, secret hygiene, and local-only/non-official boundary flags.
+- Added fixture tests covering success, multiple statements, prose/empty responses, missing runtime config, malformed JSON, unsupported status, command/http no-invocation boundaries, metadata hygiene, unsupported engines, and extractor prose rejection.
+
+Validation result:
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`: passed, `12 passed, 8 subtests passed`.
+- `python -m py_compile baselines/learnedrewrite/adapter.py`: passed.
+- CSV parse checks, Markdown non-empty checks, upstream artifact-copy checks, no-prohibited-command checks, `git diff --check`, changed-file secret scan, staged-file secret scan, runtime-output staging check, and protected-path review are recorded in `audits/learnedrewrite_adapter_scaffold_v0/validation_notes.md`.
+
+Boundary:
+- No real LearnedRewrite Java runtime, Java server/JAR, R-Bot, LLM-R2, live LLM, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, retained-evidence promotion, leaderboard generation, or Track A 120 was run.
+- No upstream source, JAR, dependency JAR, checkpoint, dataset, generated output, request log, old legacy output, env file, API key value, or secret was copied or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a no-runtime D035 user-facade smoke for LearnedRewrite fake runtime. Do not run the real Java runtime until fake user-facade integration and extraction guards are stable.
