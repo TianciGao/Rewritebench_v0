@@ -21087,3 +21087,68 @@ Boundary:
 
 Next safe action:
 - Authorize a bounded Repair-1 implementation plan and fixture/fake-provider tests before any live Repair-1 run.
+
+## metric_contract_alignment_to_paper_table_v0
+
+Date: 2026-05-24
+
+Branch: `feature/case-package-v2-external-schema`
+
+Mode: audit/design-only metric contract, local metrics, tag-slice, and verifier-phase SER alignment
+
+Commit: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push: pending at entry creation
+
+Scope reviewed:
+- `project_control/MIGRATION_MASTER_PLAN.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+- `repository_spec/metrics_contract_v1.md`
+- `src/sql_rewrite_bench/local_metrics.py`
+- `src/sql_rewrite_bench/tag_slices.py`
+- `src/sql_rewrite_bench/verifier_support/`
+- `audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/`
+- `audits/direct_llm_original_non_exact_frontier_review_v0/`
+
+Files created:
+- `audits/metric_contract_alignment_to_paper_table_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Metric mismatches found:
+- Result Consistency denominator mismatch: D032/D033/local metrics use `exact / selected`; `metrics_contract_v1.md` defines executed-candidate denominator.
+- POCR versus Attribution Coverage mismatch: latest paper uses POCR while `metrics_contract_v1.md` uses Attribution Coverage and local metrics defer POCR.
+- Cross-Engine GM Speedup Ratio versus Speedup Retention mismatch.
+- SER status vocabulary gap: required paper-facing statuses should be `computed`, `coverage_limited`, or `N.A.`.
+- SER pair construction eligibility must be enforced for exact/result-consistent rows before verifier-pair output, not inferred from pair schema alone.
+
+SER/verifier policy:
+- SER is a primary correctness metric computed only from formal verifier evidence.
+- Local result-checker exactness is not verifier evidence.
+- Unknown, timeout, unsupported, not-implemented, tool-error, and no-verifier-support outcomes are excluded from the decidable SER denominator and reported separately.
+
+Validation:
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- Staged-file secret scan: passed.
+- Staged protected-path review: passed.
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+- official reports/results changed: no
+
+Boundary:
+- No source or metric implementation change, adapter run, DB execution, checker run, timing run, LLM call, SQLSolver run, VeriEQL run, `compute-local-metrics`, official metric, paper table rendering, reports/results update, retained-evidence promotion, leaderboard output, runtime artifact commit, env file, or secret was included.
+
+Next safe action:
+- Update or supersede the repository metric contract for D032/D033 paper alignment before any Repair-1 rerun is promoted beyond local diagnostics.

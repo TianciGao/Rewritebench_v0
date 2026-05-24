@@ -1,0 +1,11 @@
+metric,paper_table_denominator,repository_spec_metrics_contract_v1_denominator,local_metrics_py_denominator,tag_slices_py_denominator_or_output,verifier_support_denominator_or_output,alignment_status,decision_needed
+Generation Rate,N_S planned selected same-engine cases,planned_candidate_cases,selected rows,candidate_generated_rows over selected tag rows,not_applicable,aligned_for_local_diagnostic,no
+Execution Coverage Rate,N_S planned selected same-engine cases,planned_candidate_cases,selected rows,candidate_executed_rows over selected tag rows,not_applicable,aligned_for_local_diagnostic,no
+Result Consistency Rate,N_S planned selected same-engine cases,executed_candidate_cases,selected rows,exact_rows and mismatch_rows over selected tag rows,not_applicable,mismatch_between_paper_and_contract,yes
+Semantic Equivalence Rate,V_equiv union V_non decidable verifier outcomes,verifier_decidable_result_consistent_cases,not_computed; N.A. until formal verifier evidence,not_applicable,decidable_count = equivalent_count + non_equivalent_count; non-decidable outcomes reported separately,policy_aligned_with_status_gap,yes
+GM Speedup,result_consistent_timed M_r,result_consistent_timed_cases,strict exact + timed rows,timed_rows diagnostic count only,not_applicable,aligned_for_local_diagnostic,no
+Speedup Ratio Percentiles,result_consistent_timed M_r,result_consistent_timed_cases,strict exact + timed rows,timed_rows diagnostic count only,not_applicable,aligned_for_local_diagnostic,no
+POCR / Attribution Coverage,C_r operation-atom eligible rows with expected operation atoms,attribution_eligible_cases,not_computed; deferred pending external skill adapter,tag axes are not operation atoms,not_applicable,mismatch_and_deferred,yes
+Cross-Engine Execution,N_PORT approved portability denominator,approved_cross_engine_candidate_cases,not_computed,not_applicable,not_applicable,unimplemented_scope,yes
+Cross-Engine Consistency,N_PORT approved portability denominator,target_engine_executed_cases,not_computed,not_applicable,not_applicable,mismatch_between_paper_and_contract,yes
+Cross-Engine GM Speedup / Speedup Retention,M_tgt target-engine result-consistent timed rows,paired source-engine and target-engine result-consistent timed cases,not_computed; N.A. target_engine_paired_timing_missing,not_applicable,not_applicable,mismatch_and_deferred,yes
