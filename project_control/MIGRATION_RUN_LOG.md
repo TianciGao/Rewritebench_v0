@@ -21800,3 +21800,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize rerunning the same 8-pair bounded SQLSolver benchmark pass after support-scope guards. Do not broaden to SQLGlot no-op PostgreSQL 35 exact rows until the same-8 bounded pass is stable.
+
+## sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_after_guards_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_after_guards_v0`
+
+Mode: bounded SQLSolver verifier-support rerun over exactly the same 8 SQLGlot no-op PostgreSQL benchmark pairs after support-scope guards; no broader pass, no official SER, no VeriEQL, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_after_guards_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Verifier-support rerun summary:
+- Prior selected pair manifest: `audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/selected_pairs.csv`.
+- Selected pairs: 8, unchanged and in the same order.
+- Hash check against prior source/candidate SHA256 values: passed.
+- SQLSolver ran only on same-8 identity checks and actual source-candidate checks whose identity guards passed.
+- Identity guard passed pairs: 2/8.
+- Identity guard `no_verifier_support` pairs: 3/8.
+- Unclassified identity blocker pairs: 3/8.
+- Actual source-candidate attempted pairs: 2.
+- Actual source-candidate verdicts: `equivalent=2`, `non_equivalent=0`.
+- `bounded_verifier_support_ratio_if_decidable=1.0`, local diagnostic support only.
+- `official_SER=false`, `SER_status=coverage_limited`.
+- `ready_for_sqlglot_noop_pg_35=false`.
+
+Boundary:
+- No SQLSolver row outside the same 8 selected pairs was run.
+- No SQLSolver run over the SQLGlot no-op PostgreSQL 35 exact subset or 346-pair manifest occurred.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, or Repair-1 command was run.
+- No official SER was produced; no bounded support ratio was promoted.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- SQLSolver unknown/no_verifier_support outcomes remain verifier-support limitations, not rewrite-method failures.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, verifier support source, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Validation result:
+- Generated CSV parse checks: passed.
+- Generated JSONL/JSON parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Selected-pair count and same-selection check: passed during generation.
+- Source/candidate hash checks: passed during generation.
+- Identity guard count check: passed.
+- No-prohibited-command review: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed, with no secret values found in the diff.
+- Protected-path review: passed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a coverage-limited verifier boundary or schema-modeling triage packet before any broader SQLSolver coverage. Do not broaden to SQLGlot no-op PostgreSQL 35 exact rows, the 346-pair manifest, other routes, or Repair-1 until the same-8 blocker status is resolved.

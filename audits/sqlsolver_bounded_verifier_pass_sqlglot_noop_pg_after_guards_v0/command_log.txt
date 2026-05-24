@@ -1,0 +1,39 @@
+# Command Log
+
+The following command shapes were used. SQLSolver commands are redacted and runtime SQLSolver outputs are summarized under this audit packet.
+
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n ... project_control/MIGRATION_MASTER_PLAN.md`
+- `sed -n ... project_control/MIGRATION_STATUS.md`
+- `tail -n ... project_control/DECISION_LOG.md`
+- `tail -n ... project_control/MIGRATION_RUN_LOG.md`
+- `sed -n ... repository_spec/metrics_contract_v1.md`
+- `rg -n "sqlsolver_support_scope_decision|support_scope_verdict|quoted_identifier_null_ordering|dense_rank_cte_ranking" src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n ... audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/selected_pairs.csv`
+- `sed -n ... audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/identity_guard_results.csv`
+- `sed -n ... audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/sqlsolver_verdicts.jsonl`
+- `sed -n ... audits/sqlsolver_identity_guard_modeling_gap_triage_v0/modeling_gap_classification.csv`
+- `sed -n ... audits/sqlsolver_support_scope_guard_impl_v0/guard_decision_matrix.csv`
+- `python - <<PY  # verify prior selected-pair hashes and schema paths`
+- `python - <<PY  # run same 8 bounded SQLSolver pass after guards`
+
+SQLSolver invocation shape for allowed same-8 checks:
+
+- `java -jar [external_sqlsolver_jar] -sql1=[sql1_input] -sql2=[sql2_input] -schema=[schema_input] -output=[sqlsolver_output]`
+
+Validation command shapes:
+
+- `python - <<PY  # parse generated CSV/JSONL/JSON, check markdown non-empty, verify same-8 selection and hashes`
+- `git diff --check`
+- `git diff -- audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_after_guards_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md | python - <<PY  # value-oriented secret scan`
+- `git status -sb`
+- `git diff --name-only`
+
+Prohibited commands not run:
+
+- No SQLSolver benchmark pair outside the same 8 selected pairs.
+- No SQLSolver run over the SQLGlot no-op PostgreSQL 35 exact subset.
+- No SQLSolver run over the 346-pair manifest.
+- No VeriEQL command.
+- No adapter, DB execution, checker execution, timing collection, LLM call, compute-local-metrics, official metrics, paper rendering, or Repair-1 command.
