@@ -21152,3 +21152,66 @@ Boundary:
 
 Next safe action:
 - Update or supersede the repository metric contract for D032/D033 paper alignment before any Repair-1 rerun is promoted beyond local diagnostics.
+
+## metrics_contract_d032_d033_patch_v0
+
+Date: 2026-05-24
+
+Task title: `metrics_contract_d032_d033_patch_v0`
+
+Mode: repository metric-contract documentation patch; no code, experiments, reruns, or official metrics
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/metrics_contract_d032_d033_patch_v0/`
+
+Files modified:
+- `repository_spec/metrics_contract_v1.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Contract changes:
+- Result Consistency Rate now uses `exact / selected` with paper notation `|X_r| / N_S`; executed-candidate denominator is diagnostic-only if separately named.
+- Generation Rate remains `candidate_generated / selected`.
+- Execution Coverage Rate remains `candidate_executable / selected`.
+- SER is verifier-evidence-only: local result-checker exactness is not SER evidence; verifier pairs are exact/result-consistent source-vs-candidate pairs; route statuses are `computed`, `coverage_limited`, or `N.A.`.
+- POCR is paper-facing but deferred to a future external collaborator operation-atom/skill-adapter task.
+- Attribution Coverage is historical/superseded or support-context only.
+- Cross-Engine GM Speedup Ratio supersedes old Speedup Retention wording.
+- Failure buckets and tag_slices remain diagnostic/support only.
+- Local metrics remain non-official and must not update top-level reports/results, retained evidence, paper tables, or leaderboards.
+
+Validation result:
+- Markdown non-empty checks: passed.
+- CSV parse checks: passed.
+- Internal path/link sanity checks: passed.
+- Required grep checks: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- Staged-file secret scan: passed.
+- Staged protected-path review: passed.
+
+Boundary:
+- No `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+- No adapter, DB execution, checker, timing, LLM, SQLSolver, VeriEQL, `compute-local-metrics`, official metrics, paper table rendering, retained-evidence promotion, leaderboard output, or runtime artifact commit occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Proceed to existing Track A 120 baseline evidence inventory, including local metrics, failure buckets, tag_slices presence, and verifier eligibility, without rerunning adapters, DB execution, LLM calls, or official metrics.
