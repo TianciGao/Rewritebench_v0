@@ -23021,3 +23021,70 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a 5-10 row PostgreSQL-only LearnedRewrite bounded diagnostic with DB/checker/timing. Do not run Track A 120 until that bounded diagnostic passes.
+
+## 2026-05-25 - learnedrewrite_pg40_bounded_local_diagnostic_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- PostgreSQL-only Common-core 40 bounded local diagnostic for LearnedRewrite using the real external HTTP runtime, DB execution, checker execution, timing, and non-official `local_metrics.py` metrics.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Started the external LearnedRewrite JAR only from temp staging under `/tmp/sqlrb_learnedrewrite_pg40_bounded_local_diagnostic_v0/runtime_staging/`.
+- Selected PostgreSQL only over Common-core v0: 40 rows.
+- Candidate generated rows: 29.
+- Candidate executable rows: 23.
+- Exact rows: 17.
+- Mismatch rows: 6.
+- Candidate execution failed rows: 6.
+- Fail-closed/no-candidate rows: 11.
+- Timed exact rows: 17.
+- Source-like generated candidates: 2.
+- `PERF_0006/postgres` generated, executed, checked exact, and timed successfully.
+- Non-official local metrics were computed only through `python -m cli.main user compute-local-metrics` / `src/sql_rewrite_bench/local_metrics.py`.
+
+Validation result:
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`: passed, `14 passed, 8 subtests passed`.
+- `python -m py_compile baselines/learnedrewrite/adapter.py`: passed.
+- PostgreSQL-only selection check: passed, selected rows = 40.
+- Evaluate run completed with DB/checker/timing for PostgreSQL only.
+- compute-local-metrics completed through the user CLI; no hand-computed route metrics were used.
+- CSV parse checks: planned/passed before closeout for generated audit CSVs.
+- JSON parse checks: planned/passed before closeout for generated audit JSON.
+- Markdown/text non-empty checks: planned/passed before closeout.
+- No MySQL, Spark, Track A 120, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, leaderboard, or top-level reports/results update occurred.
+- No JAR/source/rules asset copied into the release repo.
+- Runtime shutdown check: passed.
+- Runtime output staging check: planned/passed before closeout.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is a bounded PostgreSQL-only local diagnostic. It is not Track A 120, not official metrics, not a paper result, not retained-evidence promotion, not verifier evidence, not official SER, not POCR, and not a leaderboard.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a LearnedRewrite PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG appendix evidence or authorize a separate Track A support assessment. Do not run full Track A 120 without a route policy.

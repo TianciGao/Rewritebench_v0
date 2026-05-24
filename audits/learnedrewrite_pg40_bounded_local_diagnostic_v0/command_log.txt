@@ -1,0 +1,56 @@
+Read-only/preflight commands included:
+
+```bash
+git status -sb
+sed -n '...' project_control/MIGRATION_MASTER_PLAN.md
+sed -n '...' project_control/MIGRATION_STATUS.md
+sed -n '...' project_control/DECISION_LOG.md
+tail -n '...' project_control/MIGRATION_RUN_LOG.md
+sed -n '...' repository_spec/metrics_contract_v1.md
+sed -n '...' baselines/learnedrewrite/adapter.py
+sed -n '...' baselines/learnedrewrite/README.md
+sed -n '...' tests/user_entry/test_learnedrewrite_adapter.py
+sed -n '...' audits/learnedrewrite_temp_runtime_staging_preflight_v0/...
+sed -n '...' audits/learnedrewrite_http_runtime_e2e_smoke_v0/...
+python -m cli.main user explain-selection --case-set common_core_v0 --engines postgres
+pytest tests/user_entry/test_learnedrewrite_adapter.py -q
+python -m py_compile baselines/learnedrewrite/adapter.py
+java -version
+```
+
+Runtime staging and startup:
+
+```bash
+BASE=/tmp/sqlrb_learnedrewrite_pg40_bounded_local_diagnostic_v0
+STAGE="$BASE/runtime_staging"
+SRC=/tmp/sqlrb_prior_methods_sources/LearnedRewrite
+JAR="$SRC/rewriter_java.jar"
+rm -rf "$BASE"
+mkdir -p "$STAGE"
+cp -a "$SRC/rules_for_selected" "$STAGE/rules_for_selected"
+rm -rf runs/user/learnedrewrite_pg40_bounded_diagnostic_v0
+cd "$STAGE"
+java -jar "$JAR"
+```
+
+Evaluate command:
+
+```bash
+SQLRB_LEARNEDREWRITE_MODE=http SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME=1 SQLRB_LEARNEDREWRITE_URL=http://127.0.0.1:6336/rewriter SQLRB_LEARNEDREWRITE_TIMEOUT=30 python -m cli.main user evaluate   --case-set common_core_v0   --engines postgres   --adapter-command "python baselines/learnedrewrite/adapter.py"   --output-root /tmp/sqlrb_learnedrewrite_pg40_bounded_local_diagnostic_v0/output   --run-id learnedrewrite_pg40_bounded_diagnostic_v0   --adapter-timeout 60   --enable-db-execution   --enable-checker   --collect-timing   --timing-repetitions 2   --timing-timeout 30
+```
+
+local_metrics.py command:
+
+```bash
+python -m cli.main user compute-local-metrics   --run-id learnedrewrite_pg40_bounded_diagnostic_v0   --source-run-root runs/user   --output-root /tmp/sqlrb_learnedrewrite_pg40_bounded_local_diagnostic_v0/output
+```
+
+The single-run `--run-id` metrics path was used because this was a one-engine run. The CLI aggregate mode expects suffixed multi-engine source run directories.
+
+Shutdown:
+
+```bash
+kill <temporary LearnedRewrite server pid>
+```
+
+No MySQL, Spark, Track A 120, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained evidence promotion, or leaderboard command was run.
