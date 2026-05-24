@@ -19828,3 +19828,101 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Push the fix and monitor/rerun `user-entry-smoke`; do not resume SQLGlot optimize, SQLGlot noop 120, Calcite, verifier, or LLM tasks until CI is green.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0
+
+Mode: Local-only Track A 120-row execution/checker diagnostic.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/` only.
+
+Route:
+- `method_id=sqlglot`
+- `route_id=sqlglot_optimize_schema_aware`
+- adapter option: `--route optimize_schema_aware`
+
+Scope:
+- Common-core v0.
+- 40 cases x PostgreSQL/MySQL/Spark.
+- Planned rows: 120.
+- Selected rows: 120.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/run_scope.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/user_command.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/output_shape_review.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/per_row_execution_checker_status.csv`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/engine_summaries.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/pool_summaries.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/non_exact_frontier.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/known_policy_rows.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/timing_readiness.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/paper_boundary.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/next_steps.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/diagnostic_summary.json`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/route_card.csv`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/route_card.json`
+- `audits/sqlglot_optimize_schema_aware_track_a_120_execution_checker_diagnostic_v0/run_track_a_120_checker.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Diagnostic result:
+- Selected rows: 120.
+- Candidate-generated rows: 105.
+- Fail-closed rows: 20.
+- Source-executable rows: 108.
+- Candidate-executable rows: 91.
+- Checker-attempted rows: 91.
+- Exact/result-consistent rows: 66.
+- Mismatch rows: 25.
+- Source execution failures: 0.
+- Candidate execution failures: 9.
+- No-candidate rows: 15.
+- Unsupported rows: 5.
+
+Per-engine exact/result-consistent rows:
+- PostgreSQL: 29/40.
+- MySQL: 20/40.
+- Spark: 17/40.
+
+Known policy rows:
+- `CONS_0005/mysql` remained fail-closed with `mysql_unsupported_array_any` before candidate DB execution.
+- `CONS_0005/spark` remained semantic mismatch.
+- `CONS_0036/spark` remained label-only mismatch under current strict-label policy.
+
+Validation result:
+- Audit CSV/JSON validation passed: 120 per-row records, one route-card row, parseable summary JSON, parseable route-card JSON.
+- Focused tests passed: `pytest tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py -q` reported 21 passed and 1 skipped.
+- Helper py_compile passed.
+- `git diff --check` passed.
+- Protected-path status check for `runs/user`, repository-level `output`, top-level `reports`, top-level `results`, `src`, `tests`, `baselines`, `cases`, `case_sets`, `schemas`, and `inventory` produced no output.
+
+Boundary:
+- Timing collected: no.
+- Verifier pass performed: no.
+- SQLGlot noop run: no.
+- Calcite run: no.
+- Direct LLM / Repair-1 run: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize exact-gated timing over the 66 exact/result-consistent rows, keeping the 54-row non-exact frontier visible and local-only.

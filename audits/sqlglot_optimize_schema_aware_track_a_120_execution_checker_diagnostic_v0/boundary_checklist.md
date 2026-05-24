@@ -1,0 +1,24 @@
+# Boundary Checklist
+
+- Track A 120 diagnostic selected: yes, 120/120 rows.
+- Candidate generation run: yes.
+- Preflight/fail-closed handling run: yes.
+- Source/candidate execution and local checker run: yes, using local diagnostic paths.
+- Timing collected: no.
+- SQLSolver run: no.
+- VeriEQL run: no.
+- Official metrics computed: no.
+- Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- Paper reports/results updated: no.
+- Top-level `reports/` changed: no.
+- Top-level `results/` changed: no.
+- Repository-level `output/` artifacts committed: no.
+- `runs/user/` artifacts committed: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper result changed: no.
+- External artifacts staged: no.

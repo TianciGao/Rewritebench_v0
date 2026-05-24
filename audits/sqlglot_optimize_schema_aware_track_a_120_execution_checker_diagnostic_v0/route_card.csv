@@ -1,0 +1,2 @@
+method_id,route_id,engine_scope,planned_rows,selected_rows,candidate_generated_rows,fail_closed_rows,source_executable_rows,candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,source_execution_failed_rows,candidate_execution_failed_rows,no_candidate_rows,unsupported_rows,label_only_mismatch_count,semantic_mismatch_count,official_metric_input,paper_result,leaderboard_output_created
+sqlglot,sqlglot_optimize_schema_aware,"postgres,mysql,spark",120,120,105,20,108,91,91,66,25,0,9,15,5,16,9,false,false,false
