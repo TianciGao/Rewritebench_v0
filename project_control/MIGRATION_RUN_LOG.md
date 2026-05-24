@@ -19046,3 +19046,80 @@ Push result:
 
 Next safe action:
 - Produce a bounded local PostgreSQL route-card comparison between refreshed SQLGlot noop and refreshed Calcite HEP; keep both non-exact frontiers visible and local-only.
+
+## 2026-05-24 - user_surface_d035_layout_inventory_v0
+
+Mode: audit-only D035 user-surface layout inventory.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/user_surface_d035_layout_inventory_v0/README.md`
+- `audits/user_surface_d035_layout_inventory_v0/current_user_surface_inventory.md`
+- `audits/user_surface_d035_layout_inventory_v0/d035_mapping_matrix.csv`
+- `audits/user_surface_d035_layout_inventory_v0/misplaced_file_review.md`
+- `audits/user_surface_d035_layout_inventory_v0/output_contract_review.md`
+- `audits/user_surface_d035_layout_inventory_v0/cli_facade_review.md`
+- `audits/user_surface_d035_layout_inventory_v0/baseline_adapter_location_review.md`
+- `audits/user_surface_d035_layout_inventory_v0/docs_examples_gap_review.md`
+- `audits/user_surface_d035_layout_inventory_v0/deferred_physical_migration_list.md`
+- `audits/user_surface_d035_layout_inventory_v0/recommendation.md`
+- `audits/user_surface_d035_layout_inventory_v0/command_log.md`
+- `audits/user_surface_d035_layout_inventory_v0/protected_surface_check.md`
+- `audits/user_surface_d035_layout_inventory_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Result:
+- Confirmed clean working tree before work.
+- Confirmed branch `feature/case-package-v2-external-schema`.
+- Fetched `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- Read project-control files from both remote branch tips.
+- Confirmed D034 and D035 exist.
+- Confirmed no `reports`, `results`, `output`, or `runs/user` artifacts were staged.
+- Inventoried `src/cli/`, `src/sql_rewrite_bench/`, `baselines/`, `tests/user_entry/`, `scripts/dev/`, `docs/`, and `examples/`.
+- Confirmed `src/cli/` is the current user-facing facade.
+- Confirmed `src/sql_rewrite_bench/` is the internal implementation package.
+- Confirmed SQLGlot and Calcite HEP baseline adapters are under `baselines/`.
+- Confirmed verifier wrappers are under `src/sql_rewrite_bench/verifier_support/`.
+- Confirmed no tracked baseline-specific adapter file is misplaced under `src/sql_rewrite_bench/`.
+- Confirmed `src/sql_rewrite_bench/user_output.py` writes D035 output roots: `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- Recorded transitional internal source-run staging under `runs/user/<run_id>/`.
+- Recorded docs/examples gaps: `docs/guide`, `docs/spec`, and `docs/templates` are absent; several docs/READMEs still describe `runs/user/<run_id>/` as the user-facing output root.
+- No broad physical migration, source move, code change, test change, experiment, Common-core run, verifier run, official metrics, Semantic Equivalence Rate, paper update, retained-evidence promotion, or leaderboard output occurred.
+
+Validation:
+- Audit Markdown non-empty.
+- `d035_mapping_matrix.csv` parsed with 13 rows.
+- `git diff --check`: passed.
+- `git status --porcelain -- reports results output runs/user`: no output before final staging.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Next safe action:
+- Authorize a narrow D035 docs/output wording cleanup and docs skeleton task; keep benchmark data and `scripts/dev` physical migration deferred.
