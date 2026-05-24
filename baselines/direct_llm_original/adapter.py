@@ -37,6 +37,7 @@ DEFAULT_BASE_URL = "https://api.gptsapi.net/v1"
 DEFAULT_MODEL = "gpt-5.4"
 DEFAULT_MAX_TOKENS = 2048
 DEFAULT_TIMEOUT_SECONDS = 60.0
+DEFAULT_USER_AGENT = "SQL-RewriteBench/0.1"
 
 REQUIRED_ENV_VARS = [
     "SQLRB_RUN_ID",
@@ -410,6 +411,7 @@ def _call_openai_compatible(prompt: dict[str, Any], config: ProviderConfig) -> d
         "max_tokens": config.max_tokens,
     }
     headers = {"Content-Type": "application/json"}
+    headers["User-Agent"] = DEFAULT_USER_AGENT
     if config.auth_header == "x-api-key":
         headers["x-api-key"] = config.api_key
     else:

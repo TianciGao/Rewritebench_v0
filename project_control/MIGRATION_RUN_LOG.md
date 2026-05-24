@@ -20771,3 +20771,65 @@ Boundary:
 
 Next safe action:
 - Re-run the same bounded canonical live smoke after setting `SQLRB_LLM_ALLOW_LIVE=1` and providing `SQLRB_LLM_API_KEY` or `GPTSAPI_API_KEY` out of band.
+
+## direct_llm_gptsapi_user_agent_fix_closeout_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Mode: provider access probe closeout plus tiny adapter header fix; release repo only
+Legacy repo modified: no
+Release repo modified: yes
+Commit: closeout commit recorded in final task report
+Push: pending at entry creation
+Scope:
+- Diagnose GPTSAPI/OpenAI-compatible `HTTP 403` / `code 1010` for Direct LLM original.
+- Keep probing provider access only, with at most one facade adapter row.
+- Apply adapter fix only because the probe proved an adapter request-header mismatch.
+
+Summary:
+- Confirmed required live env presence without printing values: `SQLRB_LLM_ALLOW_LIVE=1`, API key present, base URL present, and model present.
+- Ran minimal `POST /v1/chat/completions` probes with prompt `Return SELECT 1;`, small max tokens, and `User-Agent: SQL-RewriteBench/0.1`.
+- Confirmed both supported auth styles succeeded: `Authorization: Bearer` and `x-api-key`.
+- Confirmed `GET /v1/models` succeeded and listed `gpt-5.4`.
+- Reproduced `HTTP 403` / `code 1010` with an adapter-like request lacking a custom User-Agent.
+- Ran exactly one facade adapter row before the fix: `PERF_0006 / postgres`, which reproduced the same adapter-level `request_failed` status.
+- Added `User-Agent: SQL-RewriteBench/0.1` to OpenAI-compatible requests in the Direct LLM original adapter.
+- Added focused test coverage for the User-Agent header.
+- Completed audit packet under `audits/direct_llm_gptsapi_403_access_probe_v0/`.
+
+Validation:
+- `pytest tests/user_entry/test_direct_llm_adapter.py -q`: passed.
+- `python -m py_compile baselines/direct_llm_original/adapter.py`: passed.
+- `git diff --check`: passed.
+- `git status -sb`: reviewed.
+- Changed-file secret scan: passed.
+
+Files created:
+- `audits/direct_llm_gptsapi_403_access_probe_v0/README.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/env_presence_review.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/minimal_provider_probe.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/auth_header_comparison.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/user_agent_probe.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/model_access_review.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/adapter_implication.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/secret_safety_review.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/command_log.md`
+- `audits/direct_llm_gptsapi_403_access_probe_v0/boundary_checklist.md`
+
+Files modified:
+- `baselines/direct_llm_original/adapter.py`
+- `tests/user_entry/test_direct_llm_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Paper/denominator impact:
+- denominator changed: no
+- paper results changed: no
+- case membership changed: no
+- raw legacy evidence changed: no
+
+Boundary:
+- No Track A 120 run, Repair-1, official metrics, local metrics computation, verifier pass, reports/results update, retained-evidence promotion, leaderboard, denominator change, case membership change, raw legacy evidence change, committed runtime artifact, env file, or secret was included.
+
+Next safe action:
+- Rerun the bounded Direct LLM original live smoke with the fixed adapter only if explicitly authorized.

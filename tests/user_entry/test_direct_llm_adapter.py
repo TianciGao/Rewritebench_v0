@@ -116,6 +116,52 @@ class DirectLlmAdapterTests(unittest.TestCase):
         self.assertEqual(config.temperature, 0.0)
         self.assertEqual(config.top_p, 1.0)
 
+    def test_openai_compatible_request_sets_user_agent(self) -> None:
+        module = _load_adapter_module()
+        config = module.ProviderConfig(
+            provider="openai_compatible",
+            base_url="https://api.gptsapi.net/v1",
+            base_url_host="api.gptsapi.net",
+            base_url_env_used="SQLRB_LLM_BASE_URL",
+            api_key="secret-test-key",
+            api_key_env_used="SQLRB_LLM_API_KEY",
+            model_id="gpt-5.4",
+            model_env_used="SQLRB_LLM_MODEL",
+            temperature=0.0,
+            top_p=1.0,
+            max_tokens=32,
+            timeout_seconds=7.0,
+            allow_live=True,
+            auth_header="authorization_bearer",
+            save_raw_response=False,
+        )
+        prompt = {"messages": [{"role": "user", "content": "Return SELECT 1;"}]}
+        captured = {}
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, _exc_type, _exc, _traceback):
+                return False
+
+            def read(self):
+                return b'{"choices":[{"message":{"content":"SELECT 1;"}}]}'
+
+        def fake_urlopen(request, timeout):
+            captured["request"] = request
+            captured["timeout"] = timeout
+            return FakeResponse()
+
+        with patch.object(module.urllib.request, "urlopen", side_effect=fake_urlopen):
+            response = module._call_openai_compatible(prompt, config)
+
+        request = captured["request"]
+        self.assertEqual(request.get_header("User-agent"), module.DEFAULT_USER_AGENT)
+        self.assertEqual(request.get_header("Authorization"), "Bearer secret-test-key")
+        self.assertEqual(captured["timeout"], 7.0)
+        self.assertIn("choices", response)
+
     def test_prompt_rendering_includes_sql_schema_and_target_dialect(self) -> None:
         module = _load_adapter_module()
         with patch.dict(os.environ, {"SQLRB_LLM_PROVIDER": "fake"}, clear=True):
