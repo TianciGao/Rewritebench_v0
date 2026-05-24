@@ -81,15 +81,18 @@ class UserRunOutputTests(unittest.TestCase):
         for option in [
             "--case-set",
             "--pool",
-            "--engine",
+            "--engines",
             "--case-list",
             "--adapter-command",
-            "--out",
+            "--output-root",
+            "--run-id",
             "--dry-run",
         ]:
             self.assertIn(option, guide)
-        self.assertIn("python -m sql_rewrite_bench.user_run", guide)
-        self.assertIn("python scripts/user/run_user_benchmark.py", guide)
+        self.assertIn("python -m cli.main user evaluate", guide)
+        self.assertIn("sqlrb user evaluate", guide)
+        self.assertIn("output/results/<run_id>/", guide)
+        self.assertIn("runs/user/<run_id>/", guide)
 
         parsed = parse_args(
             [

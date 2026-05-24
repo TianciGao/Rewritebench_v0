@@ -19760,3 +19760,71 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Authorize a narrow Spark label-normalization policy task for value-exact case-only labels, keep route partial and run exact-gated timing over the current six exact rows, or move to the SQLGlot noop Track A 120 rerun candidate.
+
+## 2026-05-24 - ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0
+
+Mode: CI failure diagnosis and narrow test fix.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Failing CI run:
+- GitHub Actions workflow: `user-entry-smoke`.
+- Run/job: `#528`, `B-line user-entry smoke`.
+- Public page commit: `81ec6b3`.
+- Full remote logs: unavailable in this workspace because `gh` is not installed.
+
+Files created:
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/README.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/failure_log_excerpt.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/root_cause.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/fix_summary.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/validation.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/protected_surface_check.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/command_log.md`
+- `audits/ci_user_entry_smoke_post_sqlglot_optimize_failure_fix_v0/boundary_checklist.md`
+
+Files modified:
+- `tests/user_entry/test_user_run_outputs.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Root cause:
+- `python scripts/dev/run_user_entry_ci_smoke.py` reproduced the failure locally.
+- The smoke failed during `pytest tests/user_entry -q`, before dry-run and dummy adapter smoke.
+- `test_documented_examples_match_current_cli_options` still required old internal user-runner documentation options: `--engine`, `--out`, `python -m sql_rewrite_bench.user_run`, and `python scripts/user/run_user_benchmark.py`.
+- `docs/USER_BENCHMARK_GUIDE.md` now intentionally documents the D035 public facade: `python -m cli.main user evaluate`, `sqlrb user evaluate`, `--engines`, `--output-root`, `--run-id`, and exported `output/results|logs|reports/<run_id>/`.
+
+Fix summary:
+- Updated only the stale test expectation in `tests/user_entry/test_user_run_outputs.py`.
+- The test now validates the current D035 user-facing guide wording.
+- Internal `parse_args` coverage for the internal user-runner remains in the same test.
+
+Validation result:
+- `python scripts/dev/run_user_entry_ci_smoke.py` passed.
+- `pytest tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py -q` passed: 21 passed, 1 skipped.
+- `pytest tests/user_entry -q` passed: 239 passed, 1 skipped, 15 subtests passed.
+- `python -m py_compile baselines/sqlglot/sqlglot_user_adapter.py` passed.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results` produced no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Push the fix and monitor/rerun `user-entry-smoke`; do not resume SQLGlot optimize, SQLGlot noop 120, Calcite, verifier, or LLM tasks until CI is green.
