@@ -1,0 +1,10 @@
+# Canonical Metrics Outputs
+
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/metrics/local_metrics_summary.json`
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/metrics/local_metrics_by_engine.csv`
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/metrics/local_metrics_by_pool.csv`
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/metrics/local_timing_speedup_rows.csv`
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/metrics/local_metrics_boundary.md`
+- `/tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output/results/direct_llm_repair_1_track_a_120_canonical_v0/verifier/verifier_status.json`
+
+All metric values reviewed in this packet are copied from `local_metrics.py` outputs produced by `python -m cli.main user compute-local-metrics`.

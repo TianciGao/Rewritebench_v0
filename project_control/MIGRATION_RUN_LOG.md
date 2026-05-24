@@ -22397,3 +22397,95 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize the Direct LLM + Repair-1 Track A 120 canonical local diagnostic run with user evaluate and compute-local-metrics. Do not promote results to paper or retained evidence without a separate promotion task.
+
+## direct_llm_repair_1_track_a_120_canonical_user_rerun_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_track_a_120_canonical_user_rerun_v0`
+
+Mode: canonical local diagnostic Direct LLM + Repair-1 Track A 120 run; DB/checker/timing enabled; local_metrics through user facade; no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Route assembly summary:
+- Selected planned rows: 120.
+- Original exact rows replayed as final candidates: 102.
+- Repair attempted rows: 13.
+- Live Repair-1 call rows: 13.
+- Unsupported-engine rows preserved: 5.
+- Final candidate source counts: original 102, repaired 13, unsupported_or_none 5, fail_closed 0.
+
+Canonical local metrics summary:
+- selected: 120
+- generated: 120
+- candidate_executable: 115
+- exact: 111
+- mismatch: 4
+- unsupported_fail_closed: 5
+- timed exact rows: 98
+- generation_rate: 1.0
+- execution_coverage_rate: 0.9583333333333334
+- result_consistency_rate: 0.925
+- gm_speedup_ratio: 0.9978498743494606
+- speedup_p10: 0.9350245899377606
+- speedup_p25: 0.9941671005127753
+- speedup_p50: 1.0037084775530145
+- speedup_p75: 1.0119714589375732
+- speedup_p90: 1.0704591883635644
+- semantic_equivalence_rate_status: not_applicable; formal verifier evidence missing
+- POCR status: not_applicable/deferred; external skill adapter pending
+
+Per-engine canonical local metrics:
+- PostgreSQL: selected 40, generated 40, candidate_executable 40, exact 40, mismatch 0, unsupported 0, timed 35, generation 1.0, execution coverage 1.0, result consistency 1.0, GM speedup 0.9932632014461932.
+- MySQL: selected 40, generated 40, candidate_executable 40, exact 36, mismatch 4, unsupported 0, timed 32, generation 1.0, execution coverage 1.0, result consistency 0.9, GM speedup 1.0031908116792292.
+- Spark: selected 40, generated 40, candidate_executable 35, exact 35, mismatch 0, unsupported 5, timed 31, generation 1.0, execution coverage 0.875, result consistency 0.875, GM speedup 0.9975418383548386.
+
+Validation result:
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- Route assembly wrapper py_compile: passed.
+- Evaluate run completed for PostgreSQL/MySQL/Spark.
+- `compute-local-metrics` completed through the user facade.
+- CSV parse checks: passed for audit CSVs and canonical metrics CSV outputs.
+- JSON parse checks: passed for canonical metrics summary and verifier status placeholder JSON.
+- Markdown/text non-empty checks: passed.
+- Local metrics output existence checks: passed for source-run metrics and user-facing `/tmp` metrics copies.
+- No SQLSolver/VeriEQL command review: passed by command log review.
+- No official metrics or paper rendering review: passed by command log review.
+- Top-level reports/results update check: passed; no tracked top-level `reports/`, `results/`, or `output/` path changed.
+- Runtime output staging check: passed before explicit staging; runtime `runs/user` and `/tmp` outputs are not in the changed-file set.
+- Changed-file secret scan: passed; no secret values in changed files or added project-control lines.
+- Protected-path review: passed; only allowed audit and project-control paths changed, with unrelated untracked historical live-smoke audit dirs left untouched.
+- `git diff --check`: passed.
+- Staged-file secret scan: passed after explicit staging.
+
+Boundary:
+- No SQLSolver, VeriEQL, official metric, official SER, paper rendering, retained-evidence promotion, global leaderboard, top-level reports/results update, denominator change, case membership change, paper result change, raw evidence change, env file, API key value, or secret was included.
+- Runtime `runs/user` and `/tmp` outputs are not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Review the Repair-1 Track A 120 canonical local diagnostic results and compare them against Direct LLM original using role-aware, denominator-aware local diagnostic evidence only. Do not promote to paper or retained evidence without a separate promotion task.

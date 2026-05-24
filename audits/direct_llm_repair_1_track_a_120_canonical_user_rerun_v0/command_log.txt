@@ -1,0 +1,43 @@
+# Command Log
+
+Preflight/read-only commands:
+
+```bash
+git status -sb
+git branch --show-current
+rg -n "def .*evaluate|adapter_command|candidate_sql|preflight|ledger|failure_bucket|compute-local-metrics|collect-timing" src/cli/main.py src/sql_rewrite_bench -g '*.py'
+find runs/user -maxdepth 2 -name ledger.csv | rg 'direct_llm_original_track_a_120_canonical_v0'
+python -m py_compile audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/route_assembly_wrapper.py
+pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q
+python -m py_compile baselines/direct_llm_repair_1/adapter.py
+```
+
+Provider preflight command used presence-only env checks and a redacted `GET /v1/models` health check. No secret values were printed.
+
+Evaluate command:
+
+```bash
+PYTHONPATH=src python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --engines postgres,mysql,spark \
+  --adapter-command "python audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/route_assembly_wrapper.py" \
+  --output-root /tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output \
+  --run-id direct_llm_repair_1_track_a_120_canonical_v0 \
+  --enable-db-execution \
+  --enable-checker \
+  --collect-timing \
+  --adapter-timeout 180
+```
+
+Canonical local metrics command:
+
+```bash
+PYTHONPATH=src python -m cli.main user compute-local-metrics \
+  --run-id-prefix direct_llm_repair_1_track_a_120_canonical_v0 \
+  --engines postgres,mysql,spark \
+  --aggregate-run-id direct_llm_repair_1_track_a_120_canonical_v0 \
+  --source-run-root runs/user \
+  --output-root /tmp/sqlrb_direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/output
+```
+
+No SQLSolver, VeriEQL, official metric, paper rendering, retained evidence promotion, or leaderboard command was run.
