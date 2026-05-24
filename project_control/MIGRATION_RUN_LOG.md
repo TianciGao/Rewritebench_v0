@@ -23201,3 +23201,62 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a tiny bounded live GPT-5.4 R-Bot-adapted generation smoke over 1-2 PostgreSQL rows. Do not run DB/checker/timing or Track A 120 until live generation is stable.
+
+## 2026-05-25 - rbot_gpt54_bounded_live_e2e_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Adapted GPT-5.4 R-Bot local diagnostic live end-to-end smoke over a bounded PostgreSQL-only subset, with DB execution, checker, and timing enabled only for selected rows.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/rbot_gpt54_bounded_live_e2e_smoke_v0/`
+
+Files modified:
+- `baselines/rbot/adapter.py`
+- `baselines/rbot/README.md`
+- `tests/user_entry/test_rbot_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented the minimal OpenAI-compatible GPT-5.4 live path for `baselines/rbot/adapter.py` under `SQLRB_RBOT_MODE=live` and `SQLRB_LLM_ALLOW_LIVE=1`, preserving fake mode and fail-closed extraction guards.
+- Recorded route metadata for adapted local diagnostics: `adapted_gpt54_local_diagnostic=true`, `original_paper_reproduction=false`, `official_rbot_stack=false`, `live_call=true`, `fake_runtime=false`, `retrieval_used=false`, `rag_index_used=false`, and `calcite_rewrite_used=false`.
+- Ran one bounded D035 user-facade smoke over six PostgreSQL rows only: `PERF_0006`, `CONS_0036`, `PERF_0007`, `CONS_0005`, `CONS_0007`, and `LONGTAIL_0011`.
+- Live calls attempted: 6. Candidates generated: 6. Candidate executable rows: 5. Checker exact rows: 5. Timed rows: 5. Fail-closed rows: 0. `LONGTAIL_0011` failed candidate execution with a PostgreSQL nested window-function error.
+
+Validation result:
+- `pytest tests/user_entry/test_rbot_adapter.py -q`: passed, `13 passed, 5 subtests passed`.
+- `python -m py_compile baselines/rbot/adapter.py`: passed.
+- CSV parse checks: planned/passed before closeout.
+- Markdown non-empty checks: planned/passed before closeout.
+- Selected row count check: planned/passed before closeout, 6 PostgreSQL rows.
+- Live-call count check: planned/passed before closeout, exactly 6 selected-row calls.
+- DB/checker/timing PostgreSQL-only bounded-scope check: planned/passed before closeout.
+- No `compute-local-metrics`, SQLSolver, VeriEQL, official R-Bot runtime, RAG/Chroma/index, CalciteRewrite, MySQL, Spark, official metrics, paper rendering, retained evidence promotion, leaderboard, or Track A 120 occurred.
+- Runtime output staging check: planned/passed before closeout; `/tmp` and `runs/user` smoke outputs removed before commit.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is adapted GPT-5.4 local diagnostic evidence only, not original R-Bot paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a PostgreSQL-only R-Bot adapted bounded diagnostic over 20-40 rows with DB/checker/timing and local metrics. Do not run Track A 120 until a PG bounded diagnostic and route boundary policy are complete.

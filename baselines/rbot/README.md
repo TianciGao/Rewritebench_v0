@@ -9,7 +9,9 @@ R-Bot route:
 - model policy for future live calls: `gpt-5.4`
 
 This is not an original R-Bot paper reproduction and does not use the official
-LLM4Rewrite stack. The current adapter implements fake fixture mode only.
+LLM4Rewrite stack. The adapter supports fake fixture mode for tests and a
+minimal adapted GPT-5.4 OpenAI-compatible live mode. Live mode does not use
+RAG retrieval, Chroma, CalciteRewrite, or official R-Bot runtime assets.
 
 ## Fake Mode
 
@@ -32,9 +34,9 @@ The adapter writes exactly one candidate SQL statement to
 `rbot_status.json` in `SQLRB_WORKSPACE_DIR` for both success and fail-closed
 paths.
 
-## Future Live Mode Boundary
+## Live Mode Boundary
 
-Future live R-Bot-adapted work must use the same provider policy as Direct LLM:
+Live R-Bot-adapted work must use the same provider policy as Direct LLM:
 
 - `SQLRB_LLM_PROVIDER=openai_compatible`
 - `SQLRB_LLM_BASE_URL` or `GPTSAPI_BASE_URL`
@@ -42,9 +44,14 @@ Future live R-Bot-adapted work must use the same provider policy as Direct LLM:
 - `SQLRB_LLM_ALLOW_LIVE=1`
 - API keys through environment variables only
 
-Live API calls, RAG retrieval, Chroma index use, CalciteRewrite invocation, DB
-execution, checker execution, timing, local metrics, official metrics, paper
-rendering, and retained-evidence promotion are not part of this scaffold.
+Set `SQLRB_RBOT_MODE=live` to request one OpenAI-compatible chat/completions
+call per user-facade row. The prompt asks for exactly one PostgreSQL `SELECT`
+or `WITH` statement. The adapter rejects empty, prose-only, markdown-ambiguous,
+or multi-statement responses and writes no candidate SQL on fail-closed paths.
+
+RAG retrieval, Chroma index use, CalciteRewrite invocation, local metrics,
+official metrics, paper rendering, and retained-evidence promotion are outside
+this adapter boundary.
 
 ## Metadata Boundary
 

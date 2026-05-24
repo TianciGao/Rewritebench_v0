@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""R-Bot adapted GPT-5.4 wrapper scaffold.
+"""R-Bot adapted GPT-5.4 wrapper.
 
 This adapter follows the public ``sql_rewrite_bench.user_run`` row
 environment contract. It is an adapted local diagnostic scaffold for an
 R-Bot-like GPT-5.4 route, not an official R-Bot/LLM4Rewrite reproduction.
-Only fake fixture mode is implemented. Future live/provider and retrieval
-paths intentionally fail closed in this task.
+Fake fixture mode is used for tests. Live mode uses only the shared
+OpenAI-compatible GPT-5.4 provider policy; it does not invoke the official
+R-Bot runtime, retrieval/RAG, Chroma, or CalciteRewrite.
 """
 
 from __future__ import annotations
@@ -16,7 +17,9 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,13 +29,15 @@ from typing import Any
 ROUTE_ID = "rbot_gpt54_adapted"
 METHOD_ID = "rbot"
 BASELINE_FAMILY = "prior_method_adapted_llm_wrapper"
-ADAPTER_VERSION = "rbot_gpt54_adapter_scaffold_v0"
-PROMPT_TEMPLATE_ID = "rbot_gpt54_adapted_prompt_placeholder_v0"
+ADAPTER_VERSION = "rbot_gpt54_adapter_live_v0"
+PROMPT_TEMPLATE_ID = "rbot_gpt54_adapted_sql_only_v0"
 EXTRACTION_POLICY_ID = "single_select_or_with_sql_rbot_gpt54_v0"
 PROVIDER_POLICY = "openai_compatible"
 MODEL_POLICY = "gpt-5.4"
 DEFAULT_BASE_URL = "https://api.gptsapi.net/v1"
 DEFAULT_TIMEOUT_SECONDS = 60.0
+DEFAULT_MAX_TOKENS = 2048
+DEFAULT_USER_AGENT = "SQL-RewriteBench/0.1"
 
 REQUIRED_ENV = [
     "SQLRB_RUN_ID",
@@ -68,13 +73,20 @@ class AdapterError(RuntimeError):
 @dataclass(frozen=True)
 class ProviderConfig:
     provider: str
+    base_url: str
     base_url_host: str
     base_url_env_used: str
+    api_key: str
     api_key_present: bool
     api_key_env_used: str
     model_id: str
     model_env_used: str
+    temperature: float
+    top_p: float
+    max_tokens: int
     allow_live: bool
+    auth_header: str
+    save_raw_response: bool
     timeout_seconds: float
 
 
@@ -98,6 +110,10 @@ class RuntimeResult:
     retrieval_used: bool
     rag_index_used: bool
     calcite_rewrite_used: bool
+    token_usage: dict[str, Any] | None = None
+    prompt_sha256: str = ""
+    raw_response_saved: bool = False
+    raw_response_path: str = ""
 
 
 @dataclass(frozen=True)
@@ -110,7 +126,7 @@ class ExtractionResult:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate one fake/no-live R-Bot adapted GPT-5.4 candidate SQL."
+        description="Generate one R-Bot adapted GPT-5.4 candidate SQL."
     )
     parser.add_argument(
         "--dry-run-status",
@@ -162,6 +178,29 @@ def _env_timeout() -> float:
     return value
 
 
+def _env_float(name: str, default: float) -> float:
+    raw = os.environ.get(name)
+    if raw is None or raw == "":
+        return default
+    try:
+        return float(raw)
+    except ValueError as exc:
+        raise AdapterError(f"{name} must be numeric") from exc
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if raw is None or raw == "":
+        return default
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise AdapterError(f"{name} must be an integer") from exc
+    if value <= 0:
+        raise AdapterError(f"{name} must be positive")
+    return value
+
+
 def load_env() -> dict[str, str]:
     missing = [name for name in REQUIRED_ENV if not os.environ.get(name)]
     if missing:
@@ -174,16 +213,26 @@ def resolve_provider_config() -> ProviderConfig:
     base_url, base_url_env = _env_first(["SQLRB_LLM_BASE_URL", "GPTSAPI_BASE_URL"], DEFAULT_BASE_URL)
     api_key, api_key_env = _env_first(["SQLRB_LLM_API_KEY", "GPTSAPI_API_KEY"])
     model_id, model_env = _env_first(["SQLRB_LLM_MODEL", "GPTSAPI_MODEL"], MODEL_POLICY)
+    auth_header = os.environ.get("SQLRB_LLM_AUTH_HEADER", "authorization_bearer").strip().lower()
+    if auth_header not in {"authorization_bearer", "x-api-key"}:
+        raise AdapterError("SQLRB_LLM_AUTH_HEADER must be authorization_bearer or x-api-key")
     parsed = urllib.parse.urlparse(base_url)
     return ProviderConfig(
         provider=provider,
+        base_url=base_url.rstrip("/"),
         base_url_host=parsed.netloc,
         base_url_env_used=base_url_env,
+        api_key=api_key,
         api_key_present=bool(api_key),
         api_key_env_used=api_key_env,
         model_id=model_id,
         model_env_used=model_env,
+        temperature=_env_float("SQLRB_LLM_TEMPERATURE", 0.0),
+        top_p=_env_float("SQLRB_LLM_TOP_P", 1.0),
+        max_tokens=_env_int("SQLRB_LLM_MAX_TOKENS", DEFAULT_MAX_TOKENS),
         allow_live=os.environ.get("SQLRB_LLM_ALLOW_LIVE") == "1",
+        auth_header=auth_header,
+        save_raw_response=os.environ.get("SQLRB_LLM_SAVE_RAW_RESPONSE") == "1",
         timeout_seconds=_env_timeout(),
     )
 
@@ -270,6 +319,65 @@ def resolve_schema_context(env: dict[str, str]) -> tuple[str, str, str]:
         if candidate.is_file():
             return "schema_context_available", explicit_ref or str(candidate), str(candidate)
     return "schema_context_unavailable", explicit_ref, ""
+
+
+def load_schema_text(schema_artifact: str) -> str:
+    inline = os.environ.get("SQLRB_RBOT_SCHEMA_CONTEXT", "").strip()
+    if inline:
+        return inline
+    if not schema_artifact:
+        return ""
+    path = Path(schema_artifact)
+    if path.is_file():
+        return path.read_text(encoding="utf-8")
+    return ""
+
+
+def build_prompt(
+    *,
+    env: dict[str, str],
+    provider: ProviderConfig,
+    source_sql: str,
+    schema_text: str,
+    schema_ref: str,
+) -> dict[str, Any]:
+    system = (
+        "You are an adapted R-Bot-style SQL rewrite generator for a local "
+        "diagnostic benchmark route. This is not the official R-Bot stack and "
+        "does not use retrieval, RAG, Chroma, CalciteRewrite, or paper artifacts. "
+        "Return exactly one PostgreSQL SELECT or WITH query and no prose, no "
+        "markdown, no comments, no DDL, no DML, no temporary tables, no UDFs, "
+        "and no multiple statements. Preserve SQL semantics, output columns, "
+        "column aliases, duplicate behavior, and NULL behavior. If no safe "
+        "rewrite is apparent, return the original query unchanged."
+    )
+    user = (
+        f"route_id: {ROUTE_ID}\n"
+        f"method_id: {METHOD_ID}\n"
+        f"provider_policy: {PROVIDER_POLICY}\n"
+        f"model_policy: {provider.model_id}\n"
+        f"case_id: {env['SQLRB_CASE_ID']}\n"
+        f"pool: {env['SQLRB_POOL']}\n"
+        f"target_engine: {env['SQLRB_ENGINE']}\n"
+        f"schema_ref: {schema_ref or 'unknown'}\n\n"
+        "Schema context:\n"
+        f"{schema_text.strip()}\n\n"
+        "Source SQL:\n"
+        f"{source_sql.strip()}\n\n"
+        "Task: produce exactly one semantically equivalent rewritten PostgreSQL SQL query."
+    )
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": user},
+    ]
+    prompt_payload = {
+        "prompt_template_id": PROMPT_TEMPLATE_ID,
+        "messages": messages,
+    }
+    prompt_payload["prompt_sha256"] = _sha256_text(
+        json.dumps(prompt_payload, sort_keys=True, separators=(",", ":"))
+    )
+    return prompt_payload
 
 
 def _strip_one_trailing_semicolon(sql: str) -> str:
@@ -497,7 +605,150 @@ def _fake_response_text() -> RuntimeResult:
     )
 
 
-def run_runtime(config: RuntimeConfig, provider: ProviderConfig) -> RuntimeResult:
+def _call_openai_compatible(prompt: dict[str, Any], provider: ProviderConfig) -> dict[str, Any]:
+    url = provider.base_url.rstrip("/") + "/chat/completions"
+    body = {
+        "model": provider.model_id,
+        "messages": prompt["messages"],
+        "temperature": provider.temperature,
+        "top_p": provider.top_p,
+        "max_tokens": provider.max_tokens,
+    }
+    headers = {"Content-Type": "application/json", "User-Agent": DEFAULT_USER_AGENT}
+    if provider.auth_header == "x-api-key":
+        headers["x-api-key"] = provider.api_key
+    else:
+        headers["Authorization"] = f"Bearer {provider.api_key}"
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(body).encode("utf-8"),
+        headers=headers,
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=provider.timeout_seconds) as response:
+            payload = response.read().decode("utf-8")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise AdapterError(f"request_failed: HTTP {exc.code}: {detail[:500]}") from exc
+    except urllib.error.URLError as exc:
+        raise AdapterError(f"request_failed: {exc.reason}") from exc
+    return json.loads(payload)
+
+
+def _response_content(response: dict[str, Any]) -> str:
+    choices = response.get("choices")
+    if not isinstance(choices, list) or not choices:
+        return ""
+    first = choices[0]
+    if not isinstance(first, dict):
+        return ""
+    message = first.get("message")
+    if isinstance(message, dict) and isinstance(message.get("content"), str):
+        return message["content"]
+    text = first.get("text")
+    if isinstance(text, str):
+        return text
+    return ""
+
+
+def _live_provider_response(
+    *,
+    provider: ProviderConfig,
+    prompt: dict[str, Any] | None,
+    workspace: Path,
+) -> RuntimeResult:
+    if prompt is None:
+        return RuntimeResult(
+            status="missing_prompt",
+            raw_output="",
+            failure_bucket="missing_prompt",
+            reason="live mode requires a prompt payload",
+            fake_runtime=False,
+            live_call=False,
+            retrieval_used=False,
+            rag_index_used=False,
+            calcite_rewrite_used=False,
+        )
+    try:
+        response = _call_openai_compatible(prompt, provider)
+    except json.JSONDecodeError as exc:
+        return RuntimeResult(
+            status="malformed_response",
+            raw_output="",
+            failure_bucket="malformed_response",
+            reason=f"provider response was not valid JSON: {exc}",
+            fake_runtime=False,
+            live_call=True,
+            retrieval_used=False,
+            rag_index_used=False,
+            calcite_rewrite_used=False,
+            prompt_sha256=str(prompt.get("prompt_sha256", "")),
+        )
+    except AdapterError as exc:
+        message = str(exc)
+        bucket = "timeout" if "timed out" in message.lower() else "provider_error"
+        return RuntimeResult(
+            status="provider_error",
+            raw_output="",
+            failure_bucket=bucket,
+            reason=message,
+            fake_runtime=False,
+            live_call=True,
+            retrieval_used=False,
+            rag_index_used=False,
+            calcite_rewrite_used=False,
+            prompt_sha256=str(prompt.get("prompt_sha256", "")),
+        )
+
+    if not isinstance(response, dict):
+        return RuntimeResult(
+            status="malformed_response",
+            raw_output="",
+            failure_bucket="malformed_response",
+            reason="provider response JSON was not an object",
+            fake_runtime=False,
+            live_call=True,
+            retrieval_used=False,
+            rag_index_used=False,
+            calcite_rewrite_used=False,
+            prompt_sha256=str(prompt.get("prompt_sha256", "")),
+        )
+
+    raw_response_path = ""
+    raw_response_saved = False
+    if provider.save_raw_response:
+        workspace.mkdir(parents=True, exist_ok=True)
+        raw_path = workspace / "rbot_raw_response.json"
+        raw_path.write_text(json.dumps(response, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        raw_response_path = str(raw_path)
+        raw_response_saved = True
+
+    usage = response.get("usage") if isinstance(response.get("usage"), dict) else None
+    return RuntimeResult(
+        status="live_provider_success",
+        raw_output=_response_content(response),
+        failure_bucket="none",
+        reason="provider returned a chat completion response",
+        fake_runtime=False,
+        live_call=True,
+        retrieval_used=False,
+        rag_index_used=False,
+        calcite_rewrite_used=False,
+        token_usage=usage,
+        prompt_sha256=str(prompt.get("prompt_sha256", "")),
+        raw_response_saved=raw_response_saved,
+        raw_response_path=raw_response_path,
+    )
+
+
+def run_runtime(
+    config: RuntimeConfig,
+    provider: ProviderConfig,
+    *,
+    prompt: dict[str, Any] | None = None,
+    workspace: Path | None = None,
+) -> RuntimeResult:
     if config.retrieval_required and not config.retrieval_configured:
         return RuntimeResult(
             status="retrieval_unconfigured",
@@ -561,16 +812,10 @@ def run_runtime(config: RuntimeConfig, provider: ProviderConfig) -> RuntimeResul
                 rag_index_used=False,
                 calcite_rewrite_used=False,
             )
-        return RuntimeResult(
-            status="live_mode_not_implemented",
-            raw_output="",
-            failure_bucket="live_mode_not_implemented",
-            reason="live API calls are intentionally not implemented in this scaffold task",
-            fake_runtime=False,
-            live_call=False,
-            retrieval_used=False,
-            rag_index_used=False,
-            calcite_rewrite_used=False,
+        return _live_provider_response(
+            provider=provider,
+            prompt=prompt,
+            workspace=workspace or Path.cwd(),
         )
     return RuntimeResult(
         status="runtime_unconfigured",
@@ -615,6 +860,9 @@ def _safe_metadata(
         "target_engine": env["SQLRB_ENGINE"],
         "provider_policy": PROVIDER_POLICY,
         "model_policy": MODEL_POLICY,
+        "provider": provider.provider,
+        "model": provider.model_id,
+        "model_id": provider.model_id,
         "provider_config": {
             "provider": provider.provider,
             "base_url_host": provider.base_url_host,
@@ -623,7 +871,12 @@ def _safe_metadata(
             "api_key_env_used": provider.api_key_env_used,
             "model_id": provider.model_id,
             "model_env_used": provider.model_env_used,
+            "temperature": provider.temperature,
+            "top_p": provider.top_p,
+            "max_tokens": provider.max_tokens,
             "allow_live": provider.allow_live,
+            "auth_header": provider.auth_header,
+            "save_raw_response": provider.save_raw_response,
             "timeout_seconds": provider.timeout_seconds,
         },
         "adapted_gpt54_local_diagnostic": True,
@@ -646,6 +899,12 @@ def _safe_metadata(
         "schema_context_required": True,
         "extraction_policy": EXTRACTION_POLICY_ID,
         "runtime_status": runtime.status,
+        "provider_status": runtime.status,
+        "call_status": runtime.status,
+        "prompt_sha256": runtime.prompt_sha256,
+        "token_usage": runtime.token_usage,
+        "raw_response_saved": runtime.raw_response_saved,
+        "raw_response_path": runtime.raw_response_path,
         "extraction_status": extraction.status if extraction else "not_attempted",
         "candidate_generated": candidate_generated,
         "fail_closed_reason": fail_closed_reason,
@@ -705,7 +964,17 @@ def main(argv: list[str] | None = None) -> int:
         elif schema_status == "schema_context_unavailable":
             fail_closed_reason = "missing_schema_context"
         else:
-            runtime = run_runtime(runtime_config, provider)
+            prompt = None
+            if runtime_config.mode in {"live", "gpt54", "openai_compatible"}:
+                schema_text = load_schema_text(schema_artifact)
+                prompt = build_prompt(
+                    env=env,
+                    provider=provider,
+                    source_sql=source_sql,
+                    schema_text=schema_text,
+                    schema_ref=schema_ref,
+                )
+            runtime = run_runtime(runtime_config, provider, prompt=prompt, workspace=workspace)
             if runtime.failure_bucket != "none":
                 fail_closed_reason = runtime.failure_bucket
             else:

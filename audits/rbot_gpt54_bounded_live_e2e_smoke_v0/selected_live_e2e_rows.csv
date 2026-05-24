@@ -1,0 +1,7 @@
+case_id,engine,pool,source_sql_path,schema_ref,selection_reason,expected_risk,notes
+PERF_0006,postgres,PERF,cases/PERF/PERF_0006/sql/source.sql,schemas/tpch_common_core_v0/schema_profile.yaml,required PERF smoke row,TPC-H/date/comment-heavy shape,Included by task requirement.
+CONS_0036,postgres,CONS,cases/CONS/CONS_0036/sql/source.sql,schemas/verieql_cons0036_v0/schema_profile.yaml,required CONS smoke row,low-risk PostgreSQL consistency row,Included by task requirement.
+PERF_0007,postgres,PERF,cases/PERF/PERF_0007/sql/source.sql,schemas/tpch_perf0007_v0/schema_profile.yaml,additional PERF row,TPC-H-style performance query,Adds second PERF row.
+CONS_0005,postgres,CONS,cases/CONS/CONS_0005/sql/source.sql,schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml,additional CONS row,subquery/correlation risk,Adds conservative semantic coverage.
+CONS_0007,postgres,CONS,cases/CONS/CONS_0007/sql/source.sql,schemas/calcite_core_sql_tests_cons0007_v0/schema_profile.yaml,additional CONS row,EXISTS/subquery risk,Adds conservative semantic coverage.
+LONGTAIL_0011,postgres,LONGTAIL,cases/LONGTAIL/LONGTAIL_0011/sql/source.sql,schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml,optional LONGTAIL row,window/ranking/schema-shape risk,Included because schema context was available.
