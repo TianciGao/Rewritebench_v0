@@ -21215,3 +21215,69 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Proceed to existing Track A 120 baseline evidence inventory, including local metrics, failure buckets, tag_slices presence, and verifier eligibility, without rerunning adapters, DB execution, LLM calls, or official metrics.
+
+## track_a_120_existing_baseline_evidence_inventory_v0
+
+Date: 2026-05-24
+
+Task title: `track_a_120_existing_baseline_evidence_inventory_v0`
+
+Mode: audit-only inventory of existing canonical Track A 120 baseline evidence; no reruns or metric computation
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Routes inventoried:
+- `direct_llm_original` / `direct_llm_original_track_a_120_canonical_v0`
+- `sqlglot_noop` / `sqlglot_noop_track_a_120_canonical_v0`
+- `sqlglot_optimize_schema_aware` / `sqlglot_optimize_schema_aware_track_a_120_canonical_v0`
+- `calcite_hep_fail_closed` / `calcite_hep_track_a_120_canonical_v0`
+
+Files created:
+- `audits/track_a_120_existing_baseline_evidence_inventory_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Inventory summary:
+- All four routes have canonical aggregate `local_metrics_summary.json`, `local_metrics_by_engine.csv`, `local_metrics_by_pool.csv`, `local_timing_speedup_rows.csv`, and `local_metrics_boundary.md`.
+- All four routes have aggregate ledgers and per-engine source-run ledgers.
+- All four routes have per-engine `failures.csv`.
+- All four routes have per-engine `tag_slices.csv`.
+- All four routes have generated candidate SQL files in source-run `candidate_sql/`.
+- No formal verifier outputs are present.
+- Exact-row verifier-pair inventory is possible from existing source SQL paths, candidate SQL paths, case manifests/schema external profiles, and engine fields.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- Copied metric values checked against canonical local metrics/audit snapshots: passed.
+- No new metrics manually computed beyond copying existing local_metrics.py outputs: passed.
+- No prohibited commands run: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- Staged-file secret scan and staged protected-path review: passed.
+
+Boundary:
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+- No adapter, DB execution, checker execution, timing collection, LLM call, SQLSolver, VeriEQL, `compute-local-metrics`, official metric, paper table rendering, retained-evidence promotion, leaderboard output, or runtime artifact commit occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Proceed to Track A 120 tag-aware failure slice analysis if desired; otherwise first run only a reprocess-free/ledger-based tag-slice join design. Do not proceed to Repair-1 until metric/tag/verifier evidence layers remain inventoried and reviewed.
