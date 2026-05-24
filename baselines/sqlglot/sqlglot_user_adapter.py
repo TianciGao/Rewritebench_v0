@@ -84,6 +84,8 @@ DDL_TYPE_STOP_KEYWORDS = {
 MISSING_SQLGLOT_MESSAGE = (
     "SQLGlot is not installed. Install optional SQLGlot support before using this adapter."
 )
+MYSQL_UNSUPPORTED_ARRAY_ANY_BUCKET = "mysql_unsupported_array_any"
+MYSQL_UNSUPPORTED_LAMBDA_BUCKET = "sqlglot_unsupported_mysql_lambda"
 
 
 class AdapterError(Exception):
@@ -132,6 +134,29 @@ def ensure_candidate_sql(sql: str) -> str:
     if not cleaned.endswith(";"):
         cleaned += ";"
     return cleaned + "\n"
+
+
+def unsupported_mysql_schema_aware_output_bucket(
+    *, route: str, dialect: str, candidate_sql: str
+) -> str | None:
+    """Return the fail-closed bucket for known MySQL-unsupported optimize output."""
+
+    if route != "optimize_schema_aware" or dialect != "mysql":
+        return None
+    if re.search(r"\bARRAY_ANY\s*\(", candidate_sql, re.IGNORECASE):
+        return MYSQL_UNSUPPORTED_ARRAY_ANY_BUCKET
+    if re.search(r"(?:`_[A-Za-z][A-Za-z0-9_]*`|_[A-Za-z][A-Za-z0-9_]*)\s*->", candidate_sql):
+        return MYSQL_UNSUPPORTED_LAMBDA_BUCKET
+    return None
+
+
+def _unsupported_mysql_output_reason(bucket: str) -> str:
+    if bucket == MYSQL_UNSUPPORTED_ARRAY_ANY_BUCKET:
+        return (
+            "SQLGlot emitted ARRAY_ANY / lambda-style SQL that is unsupported "
+            "by the MySQL route."
+        )
+    return "SQLGlot emitted lambda-style SQL that is unsupported by the MySQL route."
 
 
 def _utc_now_iso() -> str:
@@ -533,6 +558,29 @@ def run(route: str) -> int:
         payload["unsupported_reason"] = message
         _write_status(workspace, payload)
         raise
+
+    unsupported_bucket = unsupported_mysql_schema_aware_output_bucket(
+        route=route,
+        dialect=dialect,
+        candidate_sql=candidate_sql,
+    )
+    if unsupported_bucket is not None:
+        workspace.mkdir(parents=True, exist_ok=True)
+        unsupported_candidate_path = workspace / "unsupported_candidate.sql"
+        unsupported_candidate_path.write_text(candidate_sql, encoding="utf-8")
+        payload["candidate_generated"] = False
+        payload["preflight_status"] = unsupported_bucket
+        payload["failure_bucket"] = unsupported_bucket
+        payload["unsupported_reason"] = _unsupported_mysql_output_reason(unsupported_bucket)
+        payload["unsupported_candidate_sql_path"] = str(unsupported_candidate_path)
+        payload["sqlglot_warning"] = (
+            "ARRAY_ANY is unsupported"
+            if unsupported_bucket == MYSQL_UNSUPPORTED_ARRAY_ANY_BUCKET
+            else ""
+        )
+        _write_status(workspace, payload)
+        print(f"warning: {payload['unsupported_reason']}", file=sys.stderr)
+        return 0
 
     candidate_path = Path(env["SQLRB_CANDIDATE_SQL_PATH"])
     candidate_path.parent.mkdir(parents=True, exist_ok=True)

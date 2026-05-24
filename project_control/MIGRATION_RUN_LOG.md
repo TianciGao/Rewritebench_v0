@@ -19544,3 +19544,75 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Authorize a narrow MySQL `ARRAY_ANY` fail-closed/dialect-emission fix task and Spark `CONS_0005` semantic triage before larger schema-aware optimize reruns; or run exact-gated timing only over the six current exact rows if a narrow timing smoke is explicitly desired.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0
+
+Mode: narrow route-hardening implementation plus bounded local diagnostic smoke.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/` only.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/source_blocker_review.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/fail_closed_policy.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/implementation_summary.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/bounded_smoke_results.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/before_after_status.csv`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/remaining_spark_blockers.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/track_a_120_readiness_impact.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/diagnostic_summary.json`
+- `audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/run_bounded_smoke.py`
+
+Files modified:
+- `baselines/sqlglot/sqlglot_user_adapter.py`
+- `baselines/sqlglot/README.md`
+- `tests/user_entry/test_sqlglot_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Fix summary:
+- Added MySQL-only schema-aware optimize detection for SQLGlot `ARRAY_ANY` and lambda-style output.
+- Added explicit adapter status buckets `mysql_unsupported_array_any` and `sqlglot_unsupported_mysql_lambda`.
+- The adapter now writes unsupported generated SQL to `unsupported_candidate.sql` in the local workspace but does not expose it as `SQLRB_CANDIDATE_SQL_PATH`.
+- Context-free `sqlglot_optimize` and separately named `sqlglot_optimize_schema_aware` remain available.
+
+Bounded smoke result:
+- `CONS_0005` / MySQL: before `candidate_execution_failed`; after fail-closed before DB execution with `sqlglot_status_failure_bucket=mysql_unsupported_array_any`, no executable candidate, and no DB execution reached.
+- `CONS_0005` / PostgreSQL: exact.
+- `CONS_0005` / Spark: remains mismatch, preserving the separate semantic-risk blocker.
+- `PERF_0006` / MySQL: exact.
+
+Validation result:
+- `pytest tests/user_entry/test_sqlglot_adapter.py -q` passed: 14 passed, 1 skipped.
+- `python -m py_compile baselines/sqlglot/sqlglot_user_adapter.py tests/user_entry/test_sqlglot_adapter.py audits/sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0/run_bounded_smoke.py` passed.
+- `before_after_status.csv` has required headers and 4 rows.
+- `diagnostic_summary.json` parses and records 4 smoke rows with `target_mysql_array_any_fail_closed=true`.
+- Audit Markdown files are non-empty.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results cases case_sets schemas inventory src` produced no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Run another bounded tri-engine execution/checker smoke for `sqlglot_optimize_schema_aware` to confirm aggregate movement after the MySQL fail-closed guard, while keeping Spark `CONS_0005` semantic mismatch and Spark `CONS_0036` label policy as separate blockers.

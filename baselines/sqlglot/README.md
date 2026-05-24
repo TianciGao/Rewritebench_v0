@@ -62,6 +62,14 @@ resolved or parsed, it fails closed with one of:
 - `sqlglot_schema_parse_failed`
 - `sqlglot_optimize_failed`
 - `candidate_generation_failed`
+- `mysql_unsupported_array_any`
+- `sqlglot_unsupported_mysql_lambda`
+
+For MySQL only, schema-aware optimize also fails closed before DB execution if
+SQLGlot emits known MySQL-unsupported `ARRAY_ANY` or lambda-style output. The
+adapter retains the unsupported generated SQL in the local workspace as
+`unsupported_candidate.sql` for traceability, but it does not write it to
+`SQLRB_CANDIDATE_SQL_PATH`.
 
 Users should not interpret bounded local diagnostic SQLGlot route results as
 official retained baseline evidence. Schema-aware optimize changes route

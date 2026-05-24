@@ -129,6 +129,52 @@ class SqlglotAdapterTests(unittest.TestCase):
             "optimize_schema_aware",
         )
 
+    def test_mysql_array_any_detection_is_mysql_schema_aware_scoped(self) -> None:
+        module = _load_adapter_module()
+        candidate = "SELECT * FROM t WHERE ARRAY_ANY(x, `_x` -> y = `_x`);\n"
+
+        self.assertEqual(
+            module.unsupported_mysql_schema_aware_output_bucket(
+                route="optimize_schema_aware",
+                dialect="mysql",
+                candidate_sql=candidate,
+            ),
+            "mysql_unsupported_array_any",
+        )
+        self.assertIsNone(
+            module.unsupported_mysql_schema_aware_output_bucket(
+                route="optimize_schema_aware",
+                dialect="postgres",
+                candidate_sql=candidate,
+            )
+        )
+        self.assertIsNone(
+            module.unsupported_mysql_schema_aware_output_bucket(
+                route="optimize_schema_aware",
+                dialect="spark",
+                candidate_sql=candidate,
+            )
+        )
+        self.assertIsNone(
+            module.unsupported_mysql_schema_aware_output_bucket(
+                route="optimize",
+                dialect="mysql",
+                candidate_sql=candidate,
+            )
+        )
+
+    def test_mysql_lambda_detection_without_array_any_has_explicit_bucket(self) -> None:
+        module = _load_adapter_module()
+
+        self.assertEqual(
+            module.unsupported_mysql_schema_aware_output_bucket(
+                route="optimize_schema_aware",
+                dialect="mysql",
+                candidate_sql="SELECT FILTER(xs, `_x` -> `_x` > 0) FROM t;\n",
+            ),
+            "sqlglot_unsupported_mysql_lambda",
+        )
+
     def test_schema_context_parses_simple_engine_ddl(self) -> None:
         module = _load_adapter_module()
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -241,6 +287,57 @@ class SqlglotAdapterTests(unittest.TestCase):
             )
             self.assertNotIn('"table1"."table2"."i"', candidate)
             self.assertNotIn("`table1`.`table2`.`i`", candidate)
+
+    @unittest.skipUnless(SQLGLOT_AVAILABLE, "SQLGlot is not installed")
+    def test_mysql_array_any_schema_aware_route_fails_closed_without_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            source_path = temp_path / "source.sql"
+            source_path.write_text(
+                (
+                    REPO_ROOT / "cases" / "CONS" / "CONS_0005" / "sql" / "source.sql"
+                ).read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            schema_dir = temp_path / "schema"
+            schema_dir.mkdir()
+            (schema_dir / "ddl_mysql.sql").write_text(
+                "CREATE TABLE table1 (i INT, j INT);\n"
+                "CREATE TABLE table2 (i INT, j INT);\n",
+                encoding="utf-8",
+            )
+            workspace = temp_path / "workspace"
+            env = {
+                **_pythonpath_env(),
+                "SQLRB_RUN_ID": "test_run",
+                "SQLRB_CASE_ID": "CONS_0005",
+                "SQLRB_POOL": "CONS",
+                "SQLRB_ENGINE": "mysql",
+                "SQLRB_SOURCE_SQL_PATH": str(source_path),
+                "SQLRB_CASE_DIR": str(temp_path),
+                "SQLRB_WORKSPACE_DIR": str(workspace),
+                "SQLRB_CANDIDATE_SQL_PATH": str(workspace / "candidate.sql"),
+            }
+            completed = subprocess.run(
+                [sys.executable, str(ADAPTER), "--route", "optimize_schema_aware"],
+                cwd=REPO_ROOT,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            status = json.loads((workspace / "sqlglot_status.json").read_text(encoding="utf-8"))
+
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertIn("ARRAY_ANY", completed.stderr)
+            self.assertFalse((workspace / "candidate.sql").exists())
+            self.assertEqual(status["route_id"], "sqlglot_optimize_schema_aware")
+            self.assertFalse(status["candidate_generated"])
+            self.assertEqual(status["failure_bucket"], "mysql_unsupported_array_any")
+            self.assertEqual(status["preflight_status"], "mysql_unsupported_array_any")
+            unsupported_candidate = Path(status["unsupported_candidate_sql_path"])
+            self.assertTrue(unsupported_candidate.exists())
+            self.assertIn("ARRAY_ANY", unsupported_candidate.read_text(encoding="utf-8"))
 
     @unittest.skipUnless(SQLGLOT_AVAILABLE, "SQLGlot is not installed")
     def test_user_run_sqlglot_schema_aware_smoke_when_available(self) -> None:
