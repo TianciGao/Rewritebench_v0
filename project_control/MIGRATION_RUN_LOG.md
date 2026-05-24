@@ -20215,3 +20215,79 @@ Boundary:
 
 Next safe action:
 - Build any SQLGlot optimize route-card review strictly from canonical metrics outputs, then rerun/reprocess SQLGlot noop and Calcite through the canonical path before route comparison.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_canonical_metrics_review_v0
+
+Task: `sqlglot_optimize_schema_aware_canonical_metrics_review_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Run id reviewed:
+- `sqlglot_optimize_schema_aware_track_a_120_canonical_v0`
+
+Source canonical metrics files:
+- `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0/metrics/local_metrics_summary.json`
+- `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0/metrics/local_metrics_by_engine.csv`
+- `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0/metrics/local_metrics_by_pool.csv`
+- `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0/metrics/local_timing_speedup_rows.csv`
+- `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0/metrics/local_metrics_boundary.md`
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/source_metrics_files.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/overall_summary.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/per_engine_summary.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/frontier_summary.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/boundary.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/next_rerun_plan.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_canonical_metrics_review_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Canonical overall summary copied from `local_metrics.py` outputs:
+- selected rows: 120.
+- candidate generated rows: 105.
+- candidate executable rows: 91.
+- exact/result-consistent rows: 66.
+- timed exact rows: 66.
+- generation rate: 0.875.
+- execution coverage rate: 0.7583333333333333.
+- result consistency rate: 0.55.
+- GM speedup over strict exact-timed rows: 1.020315612310745.
+- speedup P10/P25/P50/P75/P90: 0.9706250147027313 / 0.9929843677046468 / 1.0030570718919793 / 1.0116739305181726 / 1.0739447492006393.
+
+Per-engine canonical metrics copied from `local_metrics_by_engine.csv`:
+- PostgreSQL: selected 40, generated 34, candidate executable 32, exact 29, timed 29, GM speedup 1.0485753363343828.
+- MySQL: selected 40, generated 32, candidate executable 29, exact 20, timed 20, GM speedup 0.9986065408169843.
+- Spark: selected 40, generated 39, candidate executable 30, exact 17, timed 17, GM speedup 0.9988089830968593.
+
+Boundary:
+- Metrics recomputed by audit helper: no.
+- Separate route card created: no.
+- Evaluate rerun: no.
+- Timing rerun: no.
+- SQLSolver/VeriEQL run: no.
+- Official metrics computed: no.
+- Official SER computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Source/test/baseline/case/schema/inventory changed: no.
+- Runtime `runs/user`, repository-level output, top-level reports/results, or external artifacts committed: no.
+
+Validation:
+- Canonical source JSON/CSV parse: passed.
+- `git diff --check`: passed.
+- `git status -sb`: clean after commit except branch tracking status.
+- Protected runtime/output path staged check: passed.
+
+Next safe action:
+- Produce canonical SQLGlot noop and Calcite metrics through the same `user evaluate` plus `compute-local-metrics` path before any route comparison.
