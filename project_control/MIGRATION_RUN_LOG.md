@@ -22065,3 +22065,70 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a tiny Repair-1 fixture/facade dry-run integration or a bounded fake-provider user-facade smoke before any live Repair-1 attempt.
+
+## direct_llm_repair_1_fake_provider_user_facade_smoke_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_fake_provider_user_facade_smoke_v0`
+
+Mode: tiny fake-provider user-facade smoke; no live LLM, no DB/checker/timing, no metrics, no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_fake_provider_user_facade_smoke_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Smoke summary:
+- Used a temporary `/tmp` fixture wrapper to provide explicit original-candidate context and feedback paths to `baselines/direct_llm_repair_1/adapter.py` through `python -m cli.main user evaluate`.
+- Selected 2 fixture rows: `CONS_0005/spark` with `checker_mismatch_feedback` and `LONGTAIL_0012/spark` with `candidate_execution_error_feedback`.
+- Unsupported-engine frontier rows were not selected or attempted.
+- Facade selected rows: 2.
+- Adapter invoked rows: 2.
+- Candidate generated rows: 2.
+- Candidate preflight passed rows: 2.
+- Failure bucket: `none=2`.
+- Adapter metadata recorded `route_id=direct_llm_repair_1`, `method_id=direct_llm_repair_1`, original candidate ids, feedback types, repair prompt template id, repaired candidate ids, extraction policy, provider `fake`, model `gpt-5.4`, `live_call=false`, and `api_key_present=false`.
+
+Validation result:
+- User-facade smoke command: passed, exit 0.
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- No-live review: passed during smoke review.
+- No DB/checker/timing/local_metrics/verifier command review: passed during smoke review.
+- Runtime output staging review: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed; only allowed paths plus two known unrelated untracked Direct LLM original audit directories were present.
+
+Boundary:
+- No live LLM call was run.
+- No DB execution, checker execution, timing collection, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, Track A 120, or Repair-1 live route was run.
+- No Direct LLM original adapter, Repair-1 adapter source, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, retained evidence, paper result file, env file, API key, or secret was modified.
+- Temporary `/tmp` outputs were not committed.
+- Temporary `runs/user/direct_llm_repair_1_fake_provider_user_facade_smoke_v0` runtime output was removed before commit.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a bounded no-live Repair-1 dry run over the 13 actionable Direct LLM original frontier rows. Keep live Repair-1 blocked until the no-live path is stable.

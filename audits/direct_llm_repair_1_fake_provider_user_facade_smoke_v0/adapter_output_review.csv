@@ -1,0 +1,3 @@
+case_id,pool,engine,feedback_type,candidate_generated,facade_extraction_status,candidate_preflight_status,execution_status,checker_status,timing_status,failure_bucket,provider,model_id,live_call,api_key_present,metadata_ok,notes
+CONS_0005,CONS,spark,checker_mismatch_feedback,true,captured_from_candidate_file,passed,not_run_non_db_mvp,not_run_non_db_mvp,not_requested,none,fake,gpt-5.4,false,false,true,"Candidate captured from workspace candidate.sql; no DB/checker/timing enabled"
+LONGTAIL_0012,LONGTAIL,spark,candidate_execution_error_feedback,true,captured_from_candidate_file,passed,not_run_non_db_mvp,not_run_non_db_mvp,not_requested,none,fake,gpt-5.4,false,false,true,"Candidate captured from workspace candidate.sql; no DB/checker/timing enabled"
