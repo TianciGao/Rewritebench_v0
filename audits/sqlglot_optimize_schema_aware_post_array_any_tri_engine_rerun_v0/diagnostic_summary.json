@@ -1,0 +1,122 @@
+{
+  "all_rows_generated_or_fail_closed": true,
+  "by_case": {
+    "CONS_0005": {
+      "candidate_executable_rows": 2,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 2,
+      "exact_rows": 1,
+      "fail_closed_rows": 1,
+      "generated_candidate_rows": 2,
+      "mismatch_rows": 1,
+      "planned_rows": 3,
+      "preflight_passed_rows": 2,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "CONS_0036": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 2,
+      "fail_closed_rows": 0,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 1,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "PERF_0006": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 3,
+      "fail_closed_rows": 0,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    }
+  },
+  "by_engine": {
+    "mysql": {
+      "candidate_executable_rows": 2,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 2,
+      "exact_rows": 2,
+      "fail_closed_rows": 1,
+      "generated_candidate_rows": 2,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 2,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "postgres": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 3,
+      "fail_closed_rows": 0,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "spark": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 1,
+      "fail_closed_rows": 0,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 2,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    }
+  },
+  "candidate_executable_rows": 8,
+  "candidate_execution_failed_rows": 0,
+  "checker_attempted_rows": 8,
+  "cons0005_mysql_fail_closed": true,
+  "exact_rows": 6,
+  "fail_closed_rows": 1,
+  "failure_buckets": {
+    "mismatch": 2,
+    "mysql_unsupported_array_any": 1,
+    "none": 6
+  },
+  "generated_candidate_rows": 8,
+  "method_id": "sqlglot",
+  "mismatch_rows": 2,
+  "mysql_stable_except_cons0005_fail_closed": true,
+  "official_metric_input": false,
+  "paper_result": false,
+  "planned_rows": 9,
+  "postgres_remained_3_of_3_exact": true,
+  "pre_guard_comparison": {
+    "candidate_execution_failed_after": 0,
+    "candidate_execution_failed_before": 1,
+    "exact_after": 6,
+    "exact_before": 6,
+    "fail_closed_after": 1,
+    "fail_closed_before": 0,
+    "mismatch_after": 2,
+    "mismatch_before": 2
+  },
+  "preflight_passed_rows": 8,
+  "route_id": "sqlglot_optimize_schema_aware",
+  "source_executable_rows": 9,
+  "source_execution_failed_rows": 0,
+  "spark_blockers_remain": true,
+  "task": "sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0",
+  "timing_collected": false,
+  "verifier_run": false
+}

@@ -19616,3 +19616,86 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Run another bounded tri-engine execution/checker smoke for `sqlglot_optimize_schema_aware` to confirm aggregate movement after the MySQL fail-closed guard, while keeping Spark `CONS_0005` semantic mismatch and Spark `CONS_0036` label policy as separate blockers.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0
+
+Mode: bounded local-only tri-engine execution/checker rerun after the MySQL ARRAY_ANY fail-closed guard.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/` only.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/run_scope.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/execution_checker_summary.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/per_row_execution_checker_status.csv`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/cons0005_mysql_fail_closed_review.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/pre_post_guard_comparison.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/remaining_spark_blockers.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/track_a_120_readiness.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/boundary_checklist.md`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/diagnostic_summary.json`
+- `audits/sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/run_post_guard_execution_checker.py`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Rerun scope:
+- route_id: `sqlglot_optimize_schema_aware`
+- adapter option: `--route optimize_schema_aware`
+- cases: `CONS_0005`, `PERF_0006`, `CONS_0036`
+- engines: PostgreSQL, MySQL, Spark
+- planned rows: 9
+
+Result:
+- generated executable candidates: 8.
+- fail-closed rows: 1.
+- source executable rows: 9.
+- candidate executable rows: 8.
+- checker attempted rows: 8.
+- exact/result-consistent rows: 6.
+- mismatch rows: 2.
+- source execution failures: 0.
+- candidate execution failures: 0.
+
+Pre/post guard comparison:
+- candidate execution failures moved from 1 before the guard to 0 after the guard.
+- fail-closed rows moved from 0 before the guard to 1 after the guard.
+- exact rows remained 6.
+- mismatch rows remained 2.
+- `CONS_0005` / MySQL is now fail-closed before candidate DB execution with bucket `mysql_unsupported_array_any`.
+- PostgreSQL remained 3/3 exact.
+- MySQL remained exact on `PERF_0006` and `CONS_0036`.
+- Spark retained the separate `CONS_0005` semantic mismatch and `CONS_0036` label-only mismatch blockers.
+
+Validation result:
+- CSV header and row-count validation passed.
+- `diagnostic_summary.json` parsed and records 9 planned rows, 1 fail-closed row, 6 exact rows, and 0 candidate execution failures.
+- Focused SQLGlot tests passed: `pytest tests/user_entry/test_sqlglot_adapter.py tests/user_entry/test_local_timing.py -q`.
+- `git diff --check` passed.
+- Protected path status checks found no staged `runs/user`, repository-level `output`, top-level `reports`, or top-level `results` artifacts.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize exact-gated timing over the six current exact rows, or first authorize Spark `CONS_0005` semantic mismatch and Spark `CONS_0036` label-policy follow-up before any larger 40 x 3 schema-aware optimize trial.
