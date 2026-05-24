@@ -1,0 +1,26 @@
+{
+  "branch_expected": "feature/case-package-v2-external-schema",
+  "java_command": "java",
+  "known_external_sqlsolver_jar_present": true,
+  "known_external_sqlsolver_lib_present": true,
+  "known_external_sqlsolver_root_present": true,
+  "manifest_present": true,
+  "pool_counts_selected": {
+    "CONS": 2,
+    "LONGTAIL": 2,
+    "PERF": 2,
+    "PORT": 2
+  },
+  "selected_pairs": 8,
+  "sqlsolver_env_vars_present": {
+    "SQLRB_SQLSOLVER_CMD": false,
+    "SQLRB_SQLSOLVER_JAR": false,
+    "SQLRB_SQLSOLVER_JAVA": false,
+    "SQLRB_SQLSOLVER_LD_LIBRARY_PATH": false,
+    "SQLRB_SQLSOLVER_ROOT": false,
+    "SQLSOLVER_BIN": false,
+    "SQLSOLVER_COMMAND": false
+  },
+  "target_manifest_pairs": 35,
+  "timeout_seconds": 30
+}

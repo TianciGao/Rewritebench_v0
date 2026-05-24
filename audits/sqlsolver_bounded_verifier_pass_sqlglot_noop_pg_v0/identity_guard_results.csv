@@ -1,0 +1,9 @@
+pair_id,route_id,engine,case_id,source_identity_verdict,candidate_identity_verdict,identity_guard_passed,identity_guard_failure_reason,actual_pair_attempted,notes
+sqlglot_noop__postgres__CONS_0005,sqlglot_noop,postgres,CONS_0005,equivalent,equivalent,true,,true,actual source-candidate check attempted after identity guards passed
+sqlglot_noop__postgres__CONS_0007,sqlglot_noop,postgres,CONS_0007,equivalent,equivalent,true,,true,actual source-candidate check attempted after identity guards passed
+sqlglot_noop__postgres__LONGTAIL_0011,sqlglot_noop,postgres,LONGTAIL_0011,unknown,unknown,false,source_identity=unknown; candidate_identity=unknown,false,"identity guard failures are verifier/modeling limitations, not rewrite-method failures"
+sqlglot_noop__postgres__LONGTAIL_0012,sqlglot_noop,postgres,LONGTAIL_0012,equivalent,equivalent,true,,true,actual source-candidate check attempted after identity guards passed
+sqlglot_noop__postgres__PERF_0006,sqlglot_noop,postgres,PERF_0006,unknown,equivalent,false,source_identity=unknown; candidate_identity=equivalent,false,"identity guard failures are verifier/modeling limitations, not rewrite-method failures"
+sqlglot_noop__postgres__PERF_0007,sqlglot_noop,postgres,PERF_0007,unknown,unknown,false,source_identity=unknown; candidate_identity=unknown,false,"identity guard failures are verifier/modeling limitations, not rewrite-method failures"
+sqlglot_noop__postgres__PORT_0003,sqlglot_noop,postgres,PORT_0003,unknown,unknown,false,source_identity=unknown; candidate_identity=unknown,false,"identity guard failures are verifier/modeling limitations, not rewrite-method failures"
+sqlglot_noop__postgres__PORT_0005,sqlglot_noop,postgres,PORT_0005,unknown,unknown,false,source_identity=unknown; candidate_identity=unknown,false,"identity guard failures are verifier/modeling limitations, not rewrite-method failures"

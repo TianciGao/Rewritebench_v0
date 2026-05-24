@@ -1,0 +1,61 @@
+Command log for `sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0`.
+
+Read-only/preflight commands run:
+- `git status -sb`
+- `git branch --show-current`
+- `rg -n 'D032|D033|D034|D035|Semantic Equivalence Rate|SER|SQLSolver|VeriEQL|local checker exactness' project_control repository_spec src/sql_rewrite_bench/verifier_support audits/track_a_120_verifier_pair_materialization_plan_v0`
+- `sed -n '124,180p' repository_spec/metrics_contract_v1.md`
+- `find src/sql_rewrite_bench/verifier_support -maxdepth 1 -type f -print`
+- `sed -n '1,180p' audits/track_a_120_verifier_pair_materialization_plan_v0/bounded_verifier_pass_plan.md`
+- `sed -n '1,120p' audits/track_a_120_verifier_pair_materialization_plan_v0/README.md`
+- `sed -n '1,260p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '260,560p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '920,1045p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '1,220p' src/sql_rewrite_bench/verifier_support/verdicts.py`
+- `find audits -maxdepth 2 -type f \( -name '*sqlsolver*' -o -name 'per_pair_verdicts.csv' -o -name 'sqlsolver_environment.md' -o -name 'command_log*' \) | sort`
+- `sed -n '1,180p' audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/command_log.md`
+- `sed -n '1,120p' audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/per_pair_verdicts.csv`
+- `sed -n '1,160p' audits/sqlsolver_pg_noop_tiny_exact_candidate_pass_v0/sqlsolver_environment.md`
+- `sed -n '1,120p' audits/sqlsolver_pg_noop_all_exact_identity_guard_pass_v0/per_pair_verdicts.csv`
+- Python preflight scripts to report SQLSolver env-var presence only, Java availability, known external SQLSolver path presence only, manifest presence, target pair counts, pool counts, selected source/candidate/schema path existence, and hash checks.
+- `java -version`
+- `git -C [external_sqlsolver_root] status -sb`
+
+Audit generation commands run:
+- Python script to select pairs, run SQLSolver checks, write `selected_pairs.csv`, `sqlsolver_verdicts.jsonl`, `identity_guard_results.csv`, `bounded_semantic_equivalence_summary.json`, `preflight_summary.json`, and redacted `runtime_artifacts/`.
+- Python script to write Markdown audit reports from the bounded run outputs.
+
+SQLSolver command shape executed with redacted paths:
+- `java -jar [external_sqlsolver_jar] -sql1=[sql1_input] -sql2=[sql2_input] -schema=[schema_input] -output=[sqlsolver_output]`
+
+SQLSolver checks executed:
+- `CONS_0005`: `source_identity`, `candidate_identity`, `source_candidate`
+- `CONS_0007`: `source_identity`, `candidate_identity`, `source_candidate`
+- `LONGTAIL_0011`: `source_identity`, `candidate_identity`
+- `LONGTAIL_0012`: `source_identity`, `candidate_identity`, `source_candidate`
+- `PERF_0006`: `source_identity`, `candidate_identity`
+- `PERF_0007`: `source_identity`, `candidate_identity`
+- `PORT_0003`: `source_identity`, `candidate_identity`
+- `PORT_0005`: `source_identity`, `candidate_identity`
+
+Actual source-candidate checks blocked by identity guard:
+- `LONGTAIL_0011`: source_identity=unknown; candidate_identity=unknown
+- `PERF_0006`: source_identity=unknown; candidate_identity=equivalent
+- `PERF_0007`: source_identity=unknown; candidate_identity=unknown
+- `PORT_0003`: source_identity=unknown; candidate_identity=unknown
+- `PORT_0005`: source_identity=unknown; candidate_identity=unknown
+
+No adapter command was run.
+No DB execution command was run.
+No checker execution command was run.
+No timing collection command was run.
+No LLM command or network provider call was run.
+No VeriEQL command was run.
+No `compute-local-metrics` or `local_metrics.py` command was run.
+No official metric command was run.
+No paper rendering command was run.
+No Repair-1 command was run.
+Validation commands run:
+- Python validation script for CSV parse, JSONL parse, JSON parse, Markdown/text non-empty checks, selected-pair count, source/candidate/schema path existence, manifest hash checks, identity guard gating, no-prohibited-command boundary checks, protected-path review, changed-file secret scan, and `git diff --check`.
+- `git diff --check` repeated after validation note and command-log updates.
+- Staged-file protected-path and secret scans run after explicit staging.

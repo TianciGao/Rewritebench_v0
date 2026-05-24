@@ -21433,3 +21433,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a bounded SQLSolver-first verifier pass on a small deterministic exact-pair subset, with identity guards and fail-closed boundary reporting, before broader verifier coverage or any Repair-1 execution.
+## sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0`
+
+Mode: bounded local diagnostic SQLSolver verifier-support pass over selected exact/result-consistent SQLGlot no-op PostgreSQL pairs; no official SER or paper metrics
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Verifier summary:
+- Tool: SQLSolver only
+- Route/run/engine: `sqlglot_noop` / `sqlglot_noop_track_a_120_canonical_v0` / `postgres`
+- Selected pairs: 8 deterministic manifest pairs, two from each available pool (`CONS`, `LONGTAIL`, `PERF`, `PORT`)
+- Identity guard checks: 16 executed
+- Identity guard passed pairs: 3
+- Identity guard failed pairs: 5 (`unknown` guard verdicts)
+- Actual source-candidate SQLSolver checks executed: 3
+- Actual source-candidate verdicts: `equivalent=3`, `non_equivalent=0`, `unknown=0`, `timeout=0`, `unsupported=0`, `tool_error=0`
+- `bounded_SER_if_decidable=1.0` over 3 decidable actual checks; local diagnostic support only
+- `SER_status=coverage_limited`; `official_SER=false`
+
+Validation result:
+- CSV parse checks: passed.
+- JSONL parse checks: passed.
+- JSON parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Selected pair count check: passed (8 rows).
+- Source/candidate path existence and manifest hash checks: passed.
+- Identity guard count check: passed.
+- Actual-check gating check: passed.
+- No-prohibited-command check: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No official Semantic Equivalence Rate was produced.
+- No VeriEQL run occurred.
+- No adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, or Repair-1 command was run.
+- SQLSolver is verifier/support evidence only, not a rewrite baseline.
+- SQLSolver `unknown` identity guards are verifier/modeling limitations, not rewrite-method failures.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- External SQLSolver installation was not copied or vendored into the release repo.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a verifier modeling-gap triage packet for identity-guard `unknown` rows before authorizing a larger SQLSolver pass or any Repair-1 execution.
