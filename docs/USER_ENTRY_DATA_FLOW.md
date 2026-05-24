@@ -4,14 +4,16 @@
 
 ## 一句话流程
 
-CLI 参数 -> `case_sets/common_core_v0/` -> `cases/{POOL}/{CASE_ID}/sql/source.sql` -> adapter -> `runs/user/{run_name}/candidate_sql/` -> `ledger.csv` / `summary.json` / `report.md`
+`sqlrb user evaluate` 参数 -> `case_sets/common_core_v0/` -> `cases/{POOL}/{CASE_ID}/sql/source.sql` -> adapter -> internal staging under `runs/user/{run_name}/` -> D035 export under `output/results|logs|reports/{run_name}/`
 
 ## 入口文件
 
 | 阶段 | 文件或目录 | 说明 |
 |---|---|---|
-| 主 CLI 入口 | `src/sql_rewrite_bench/user_run.py` | `python -m sql_rewrite_bench.user_run` 的实现入口。 |
-| 薄 wrapper | `scripts/user/run_user_benchmark.py` | 从仓库根目录补充 `src/` import path 后调用同一个 CLI。 |
+| public CLI facade | `src/cli/main.py` | `sqlrb user ...` and `python -m cli.main user ...` 的公开入口。 |
+| internal runner | `src/sql_rewrite_bench/user_run.py` | 当前实现的 source-run staging pipeline；由 `src/cli/` facade 调用。 |
+| output exporter | `src/sql_rewrite_bench/user_output.py` | 将 internal staging 映射到 D035 `output/results|logs|reports/<run_id>/`。 |
+| legacy thin wrapper | `scripts/user/run_user_benchmark.py` | 兼容的低层 wrapper；不定义 D035 public output contract。 |
 | 示例 adapter | `examples/user/noop_adapter.py` | 公开 smoke 示例 adapter。 |
 
 ## case 选择
@@ -47,22 +49,27 @@ Runner 会为每次 adapter 调用提供这些环境变量：
 
 Adapter 从 `SQLRB_SOURCE_SQL_PATH` 读取 source SQL，并把 candidate SQL 写到 `SQLRB_CANDIDATE_SQL_PATH`。Candidate 捕获优先级是 workspace `candidate.sql` 优先，stdout 次之。
 
-## 输出目录
+## User-facing Exported Output
 
 | 输出 | 位置 | 说明 |
 |---|---|---|
-| output root | `runs/user/{run_name}/` | 本地用户运行输出根目录。 |
-| selected rows | `runs/user/{run_name}/selected_cases.csv` | 本次选择出的 case-engine rows。 |
-| run config | `runs/user/{run_name}/config.yaml` | CLI 参数、scope 和边界标记。 |
-| candidate SQL capture | `runs/user/{run_name}/candidate_sql/` | adapter 捕获到的 candidate SQL。 |
-| adapter workspaces | `runs/user/{run_name}/workspaces/` | per-row adapter stdout/stderr 和 workspace 文件。 |
-| local diagnostic ledger | `runs/user/{run_name}/ledger.csv` | 本地诊断 ledger，不是官方 metrics 输入。 |
-| local summary | `runs/user/{run_name}/summary.json` | 本地诊断计数和边界标记。 |
-| local failures | `runs/user/{run_name}/failures.csv` | 非 `none` failure bucket rows。 |
-| local report | `runs/user/{run_name}/report.md` | 本地运行摘要，不是 paper table。 |
+| result root | `output/results/{run_name}/` | selected rows, ledger, copied candidate SQL, run manifest, local metrics files, and machine-readable diagnostics. |
+| log root | `output/logs/{run_name}/` | run config, adapter workspaces, failure-bucket diagnostics, and copied local logs. |
+| report root | `output/reports/{run_name}/` | human-readable local summaries and boundary reports. |
 | optional PostgreSQL diagnostic helper | `src/sql_rewrite_bench/postgres_execution.py` | opt-in DB diagnostic helper；默认 smoke 不使用。 |
 | optional checker helper | `src/sql_rewrite_bench/local_result_checker.py` | opt-in local checker diagnostic helper；默认 smoke 不使用。 |
 | output schema / typed row model | `src/sql_rewrite_bench/user_run_schema.py` | 定义 local ledger/status 字段和值域。 |
+
+## Internal Transitional Staging
+
+`runs/user/{run_name}/` is still used by the current implementation as an
+internal source-run staging workspace before D035 export. It commonly contains
+`selected_cases.csv`, `config.yaml`, `candidate_sql/`, `workspaces/`,
+`ledger.csv`, `summary.json`, `failures.csv`, and `report.md`.
+
+This staging path is not the public-facing output contract and must not be
+committed. User documentation should point readers to `output/results/<run_id>/`,
+`output/logs/<run_id>/`, and `output/reports/<run_id>/` for exported output.
 
 ## 可选 PostgreSQL / checker 诊断
 
@@ -71,14 +78,14 @@ Adapter 从 `SQLRB_SOURCE_SQL_PATH` 读取 source SQL，并把 candidate SQL 写
 - `--enable-checker` 是 opt-in。
 - PostgreSQL DDL/load 通过 manifest `schema.external_profile` 和 external schema metadata 解析。
 - 缺 metadata 时 fail closed。
-- 这些输出仍是本地 diagnostics，不是官方 metrics、paper tables、reports/results 或 leaderboard。
+- 这些输出仍是本地 diagnostics，不是官方 metrics、paper tables、top-level reports/results 或 leaderboard。
 
 ## 边界
 
 - user-entry outputs are local diagnostics only。
 - no official metrics。
 - no paper table rendering。
-- no reports/results updates。
+- no top-level reports/results updates。
 - no retained evidence creation。
 - no global leaderboard。
 - no full paper reproduction claim。

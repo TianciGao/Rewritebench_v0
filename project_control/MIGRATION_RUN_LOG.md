@@ -19123,3 +19123,72 @@ Push result:
 
 Next safe action:
 - Authorize a narrow D035 docs/output wording cleanup and docs skeleton task; keep benchmark data and `scripts/dev` physical migration deferred.
+
+## 2026-05-24 - d035_user_docs_output_wording_cleanup_v0
+
+Mode: documentation/layout hygiene only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/d035_user_docs_output_wording_cleanup_v0/README.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/source_docs_review.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/wording_changes.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/docs_skeleton_summary.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/output_contract_mentions.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/deferred_physical_migration_boundary.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/command_log.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/protected_surface_check.md`
+- `audits/d035_user_docs_output_wording_cleanup_v0/boundary_checklist.md`
+- `docs/guide/user_quickstart.md`
+- `docs/spec/output_contract.md`
+- `docs/spec/cli_contract.md`
+- `docs/templates/adapter_template.md`
+- `examples/README.md`
+
+Files modified:
+- `README.md`
+- `baselines/sqlglot/README.md`
+- `docs/LOCAL_ENGINE_SETUP.md`
+- `docs/README.md`
+- `docs/RUN_ARTIFACT_POLICY.md`
+- `docs/USER_BENCHMARK_GUIDE.md`
+- `docs/USER_ENTRY_DATA_FLOW.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- Audit Markdown files are non-empty.
+- Grep confirmed D035 output roots appear in reviewed docs.
+- Grep confirmed `runs/user` mentions in reviewed user-facing docs are internal transitional staging or runner-managed staging.
+- Grep found no reviewed user-facing `output/<run_id>` legacy shape.
+- `git status --porcelain -- runs/user output reports results cases case_sets schemas inventory scripts/dev src tests` produced no output.
+- `git diff --check` passed.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Review the D035 docs skeleton, then authorize a narrow docs/examples follow-up or a separate physical migration/export plan if needed.

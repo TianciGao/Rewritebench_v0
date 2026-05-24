@@ -6,7 +6,11 @@ This page describes local environment setup for optional SQL-RewriteBench diagno
 
 The user-entry runner can run non-DB adapter capture without any database environment. Database execution remains opt-in through local diagnostic flags such as `--enable-db-execution` and, when desired, `--enable-checker`.
 
-Local outputs belong under `runs/user/<run_id>/`. Do not write local outputs into case packages, `case_sets/`, `reports/`, `results/`, or retained evidence surfaces.
+User-facing local diagnostic outputs are exported under `output/results/<run_id>/`,
+`output/logs/<run_id>/`, and `output/reports/<run_id>/`. The current
+implementation may use `runs/user/<run_id>/` as internal transitional staging
+before export. Do not write local outputs into case packages, `case_sets/`,
+top-level `reports/`, top-level `results/`, or retained evidence surfaces.
 
 ## PostgreSQL
 
@@ -50,7 +54,7 @@ python scripts/dev/check_local_engine_env.py
 
 ## Spark
 
-Spark local diagnostics use PySpark when a local PySpark client is available. The backend resolves explicit Spark DDL/load assets from the case manifest external schema profile, runs source and candidate SQL in an isolated local diagnostic Spark database, writes JSONL source/candidate artifacts under `runs/user/<run_id>/`, and hands those artifacts to the local checker when both executions succeed.
+Spark local diagnostics use PySpark when a local PySpark client is available. The backend resolves explicit Spark DDL/load assets from the case manifest external schema profile, runs source and candidate SQL in an isolated local diagnostic Spark database, writes JSONL source/candidate artifacts into the internal source-run staging workspace, and hands those artifacts to the local checker when both executions succeed. User-facing exports remain under `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
 
 The current backend is local-diagnostic only. It does not compute official metrics, timing, speedup, report/result updates, retained evidence, or leaderboard rows.
 
@@ -95,7 +99,7 @@ Local engine setup is not a benchmark-result surface.
 - No official metrics are computed by these environment files or the checker helper.
 - No timing or speedup is computed.
 - No paper tables are rendered.
-- No `reports/` or `results/` files are updated.
+- No top-level `reports/` or `results/` files are updated.
 - No retained evidence is created or promoted.
 - No case files, manifests, SQL, schemas, checkers, validation scripts, or case-set membership are changed.
 - No global leaderboard is created.

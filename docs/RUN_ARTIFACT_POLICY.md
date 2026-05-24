@@ -6,26 +6,40 @@ This policy separates legacy retained evidence, local user-run outputs, curated 
 
 Case-local `runs/` directories are legacy retained evidence surfaces. They must not be deleted, rewritten, bulk-moved, or used as the default destination for new public runner outputs.
 
-## User-run Outputs
+## User-facing Exported Outputs
 
-User-run outputs belong only under:
+User-facing local diagnostic outputs are exported under the D035 output shape:
+
+```text
+output/results/<run_id>/
+output/logs/<run_id>/
+output/reports/<run_id>/
+```
+
+These files are local experiment outputs. They are not retained paper evidence,
+not official results, not paper tables, and not leaderboard entries.
+
+## Internal Transitional Staging
+
+The current implementation may create source-run staging under:
 
 ```text
 runs/user/<run_id>/
 ```
 
-These files are local experiment outputs. They are not retained paper evidence, not official results, not paper tables, and not leaderboard entries.
+That directory is an internal/local workspace used before D035 export. It is
+not the public-facing output contract. Staging files under `runs/user/` must
+not be committed. The `runs/.gitignore` file keeps local run outputs ignored by
+default.
 
-The user runner must not write into:
+User-facing exported output must not be written into:
 
 - `cases/`
 - case-local `runs/`
 - `case_sets/`
 - `inventory/`
-- `reports/`
-- `results/`
-
-Smoke outputs under `runs/user/` must not be committed. The `runs/.gitignore` file keeps local run outputs ignored by default.
+- top-level `reports/`
+- top-level `results/`
 
 ## Curated Results And Reports
 

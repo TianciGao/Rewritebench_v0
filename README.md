@@ -11,44 +11,59 @@ SQL-RewriteBench 是一个面向 statement-level SQL rewrite 的 benchmark / wor
 - `case package` 是 benchmark unit。
 - 结果解释必须 role-aware 和 denominator-aware。
 
-## 快速 smoke run
+## Quick Smoke Run
 
-这是安全的用户入口 smoke。默认是 non-DB 路径，使用 `--smoke` 选择一个很小的确定性子集，调用 `examples/user/noop_adapter.py`，并把输出写入 `runs/user/...`。该 smoke 不执行 DB query，不运行 checker，不计算官方指标，不更新 paper results，也不生成 leaderboard。
+This is the safe user-facing smoke path. It uses the `src/cli/` facade,
+selects a tiny deterministic subset with `--smoke`, calls
+`examples/user/noop_adapter.py`, and exports local diagnostic output to the
+D035 user-output shape:
+
+- `output/results/<run_id>/`
+- `output/logs/<run_id>/`
+- `output/reports/<run_id>/`
+
+The current implementation also creates internal transitional staging under
+`runs/user/<run_id>/` before export. Treat that staging directory as an
+implementation detail, not the public output contract. The smoke does not
+execute DB queries, run checkers, compute official metrics, update paper
+results, or create leaderboard output.
 
 Dry-run smoke:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
-  --engine postgres \
+  --engines postgres \
   --smoke \
   --adapter-command "python examples/user/noop_adapter.py" \
-  --out runs/user/smoke_dry_run \
+  --output-root output \
+  --run-id smoke_dry_run \
   --dry-run
 ```
 
 Adapter-capture smoke:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
-  --engine postgres \
+  --engines postgres \
   --smoke \
   --adapter-command "python examples/user/noop_adapter.py" \
-  --out runs/user/smoke_dummy_adapter
+  --output-root output \
+  --run-id smoke_dummy_adapter
 ```
 
-## 查看 case 和输出 schema
+## View Cases And Output Schema
 
 在运行 adapter 之前，可以先查看受控 case-set、解释本次选择，或查看本地输出 schema：
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --list-cases
-PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --explain-selection
-PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
+PYTHONPATH=src python -m cli.main user list-cases --case-set common_core_v0 --engines postgres
+PYTHONPATH=src python -m cli.main user explain-selection --case-set common_core_v0 --engines postgres --smoke
+PYTHONPATH=src python -m cli.main user show-output-schema
 ```
 
-这些命令只读取 case-set metadata 或打印本地输出说明，不调用 adapter，不创建 `runs/user/...` 输出，不执行 DB/checker，也不计算官方指标。
+这些命令只读取 case-set metadata 或打印本地输出说明，不调用 adapter，不创建 user-run staging 或 exported output，不执行 DB/checker，也不计算官方指标。
 
 ## 用户算法适配器
 
@@ -57,24 +72,25 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
 - 示例 adapter 位于 `examples/user/noop_adapter.py`。
 - adapter capture 只记录候选输出，不代表语义正确、性能提升或官方结果。
 
-## 运行后看哪里
+## After A Run
 
-默认 smoke 会把本地诊断输出写到 `runs/user/{run_name}/`。常用文件包括：
+The user-facing output is exported under:
 
-- `selected_cases.csv`：本次选择的 case-engine rows。
-- `candidate_sql/`：adapter 捕获到的 candidate SQL。
-- `ledger.csv`：本地诊断 ledger，不是官方 metrics。
-- `summary.json`：本地运行摘要。
-- `report.md`：本地报告，不是 paper table。
+- `output/results/<run_id>/`: selected rows, ledgers, manifests, candidate SQL, and machine-readable local diagnostics.
+- `output/logs/<run_id>/`: run configuration, adapter logs, failure-bucket diagnostics, and copied local logs.
+- `output/reports/<run_id>/`: human-readable local summaries and boundary reports.
 
-更完整的数据流和文件位置见 [`docs/USER_ENTRY_DATA_FLOW.md`](docs/USER_ENTRY_DATA_FLOW.md)。
+`runs/user/<run_id>/` may still exist as internal transitional staging created by
+the current implementation before export. Do not treat it as the public output
+root and do not commit it. More complete data-flow details are in
+[`docs/USER_ENTRY_DATA_FLOW.md`](docs/USER_ENTRY_DATA_FLOW.md).
 
 ## 可选本地 PostgreSQL 诊断
 
 - 可选 DB/checker diagnostics 是 opt-in。
 - 使用 `--enable-db-execution` 和可选 `--enable-checker`。
 - 当前路径是 external-schema aware：PostgreSQL DDL/load 通过 `manifest.yaml` 中的 `schema.external_profile` 解析。
-- 这是本地诊断，不是完整论文复现，不是官方 metrics，不写 `reports/` 或 `results/`。
+- 这是本地诊断，不是完整论文复现，不是官方 metrics，不写 top-level `reports/` 或 `results/`。
 
 ## 如何阅读一个 case package
 
@@ -102,9 +118,15 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
 - `docs/`: user-facing and maintainer-facing documentation。
 - `audits/`: release-construction audit packets and planning records。
 - `project_control/`: release construction status and decision control files。
-- `runs/`: local/user output or retained legacy evidence depending on location and policy。
+- `runs/`: internal transitional user-run staging or retained legacy evidence depending on location and policy。
 
-新的用户运行输出应写入顶层 `runs/user/...`。除非有明确文档说明，不要提交本地 run outputs。
+User-facing exported output should use `output/results/<run_id>/`,
+`output/logs/<run_id>/`, and `output/reports/<run_id>/`. Ordinary user-run
+tasks must not write to top-level `reports/` or `results/`; those remain
+official/paper surfaces that require separate authorization. Current
+`cases/`, `case_sets/`, `schemas/`, and `inventory/` paths remain valid working
+paths until a separately authorized physical migration moves them toward the
+final public `benchmarks/` target.
 
 ## 重要边界
 
@@ -121,5 +143,8 @@ PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema
 ## 更多文档
 
 - [User benchmark guide](docs/USER_BENCHMARK_GUIDE.md)
+- [User quickstart](docs/guide/user_quickstart.md)
+- [Output contract](docs/spec/output_contract.md)
+- [CLI contract](docs/spec/cli_contract.md)
 - [Common-core v0 case set](case_sets/common_core_v0/)
 - [Project control](project_control/)

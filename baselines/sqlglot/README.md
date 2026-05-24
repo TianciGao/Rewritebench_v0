@@ -23,7 +23,10 @@ or:
 python baselines/sqlglot/sqlglot_user_adapter.py --route optimize
 ```
 
-These commands are intended to be passed through `--adapter-command` on `python -m sql_rewrite_bench.user_run`.
+These commands are intended to be passed through `--adapter-command` on the
+public facade, `sqlrb user evaluate` or `python -m cli.main user evaluate`.
+The lower-level `python -m sql_rewrite_bench.user_run` path remains an internal
+implementation path.
 
 ## Known Context-free Optimize Limitation
 
@@ -52,7 +55,8 @@ Users should not interpret bounded local diagnostic SQLGlot route results as off
 - It does not update reports or results.
 - It does not change denominators or case membership.
 - It does not create global leaderboard output.
-- Outputs belong under local `runs/user/<run_id>/` directories created by the user-entry runner.
+- User-facing exported output belongs under `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- The current implementation may create `runs/user/<run_id>/` as internal transitional staging before export; that path is not the public output contract.
 
 ## Dependency
 
