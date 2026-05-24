@@ -1,0 +1,27 @@
+{
+  "runtime_mode": "http",
+  "server_started": true,
+  "server_port": 6336,
+  "server_shutdown": true,
+  "synthetic_preflight_attempted": true,
+  "synthetic_post_count": 1,
+  "curl_exit_code": 0,
+  "http_status": 200,
+  "elapsed_seconds": 0.354,
+  "response_parseable_json": true,
+  "response": {
+    "message": "Get Error",
+    "status": false
+  },
+  "rewritten_sql_path": null,
+  "candidate_sql": null,
+  "single_sql_extractable": false,
+  "synthetic_preflight_succeeded": false,
+  "failure_bucket": "runtime_missing_workdir_asset",
+  "safe_stdout_excerpt": "request SQL echoed for synthetic SELECT only",
+  "safe_stderr_excerpt": "SLF4J no-operation logger warning",
+  "safe_runtime_request_log_excerpt": "java.io.FileNotFoundException: rules_for_selected/standard.txt (No such file or directory)",
+  "common_core_sql_sent": false,
+  "benchmark_sql_sent": false,
+  "notes": "The runtime accepted one HTTP POST and returned parseable JSON, but no rewritten SQL. The temporary working directory lacked a relative rules_for_selected/standard.txt asset."
+}

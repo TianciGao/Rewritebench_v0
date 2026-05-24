@@ -1,0 +1,21 @@
+{
+  "sql": "SELECT COUNT(*) FROM tiny_orders WHERE amount > 10",
+  "schema": [
+    {
+      "table": "tiny_orders",
+      "rows": 3,
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "integer"
+        },
+        {
+          "name": "amount",
+          "type": "numeric"
+        }
+      ]
+    }
+  ],
+  "benchmark_sql": false,
+  "common_core_sql": false
+}

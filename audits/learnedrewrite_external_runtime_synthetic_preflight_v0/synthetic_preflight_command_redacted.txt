@@ -1,0 +1,25 @@
+Runtime startup command:
+
+```bash
+cd /tmp/sqlrb_learnedrewrite_external_runtime_synthetic_preflight_v0/runtime_preflight
+java -jar <external_learnedrewrite_runtime_candidate>/rewriter_java.jar
+```
+
+Synthetic request command:
+
+```bash
+curl -sS --max-time 30 -X POST http://127.0.0.1:6336/rewriter \
+  -H 'Content-Type: application/json' \
+  --data-binary @/tmp/sqlrb_learnedrewrite_external_runtime_synthetic_preflight_v0/synthetic_request.json
+```
+
+Shutdown:
+
+```bash
+kill <temporary_learnedrewrite_server_pid>
+```
+
+Notes:
+- The absolute external JAR path is redacted in command text and was not copied.
+- The request was synthetic non-benchmark SQL/schema only.
+- Exactly one POST request was sent to `/rewriter`.
