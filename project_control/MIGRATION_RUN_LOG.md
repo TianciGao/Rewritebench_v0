@@ -20525,3 +20525,82 @@ Validation:
 
 Next safe action:
 - Run a Calcite HEP Track A 120 local execution/checker diagnostic through the user facade without timing or `compute-local-metrics`, then decide whether exact-gated timing and canonical metrics are ready.
+
+## 2026-05-24 - calcite_hep_track_a_120_execution_checker_diagnostic_v0
+
+Mode: local-only Track A 120-row execution/checker diagnostic.
+
+Branch: `feature/case-package-v2-external-schema`
+
+Runtime artifacts written: yes, under `/tmp/sqlrb_calcite_hep_track_a_120_execution_checker_diagnostic_v0/` only.
+
+Files created:
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/README.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/run_scope.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/user_command.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/output_shape_review.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/per_row_execution_checker_status.csv`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/engine_summaries.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/pool_summaries.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/non_exact_frontier.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/known_policy_rows.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/timing_readiness.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/canonical_metrics_readiness.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/paper_boundary.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/next_steps.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/command_log.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/protected_surface_check.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/boundary_checklist.md`
+- `audits/calcite_hep_track_a_120_execution_checker_diagnostic_v0/diagnostic_summary.json`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Preflight:
+- Working tree was clean before edits.
+- Branch confirmed as `feature/case-package-v2-external-schema`.
+- Origin fetched.
+- Branch contains `04d50c9b91dfa57778ba8812022fc84edc6acdc9`.
+- Current project-control files read from `origin/main` and `origin/feature/case-package-v2-external-schema`.
+- D033, D034, and D035 confirmed.
+- Prior audit `audits/calcite_hep_target_dialect_runtime_mode_v0/` confirmed.
+- Adapter and external runtime paths confirmed.
+- PostgreSQL, MySQL, and Spark local execution environments were available.
+
+Run command:
+- `python -m cli.main user evaluate --case-set common_core_v0 --engines postgres,mysql,spark --adapter-command "python baselines/calcite_hep_fail_closed/adapter.py" --output-root /tmp/sqlrb_calcite_hep_track_a_120_execution_checker_diagnostic_v0/output --run-id calcite_hep_track_a_120_execution_checker_v0 --enable-db-execution --enable-checker`
+
+Overall results:
+- Planned/selected rows: 120/120.
+- Candidate generated rows: 99.
+- Fail-closed/no-candidate rows: 21.
+- Source executable rows: 98.
+- Candidate executable rows: 95.
+- Checker attempted rows: 95.
+- Exact/result-consistent rows: 81.
+- Mismatch rows: 14.
+- Source execution failed rows: 0.
+- Candidate execution failed rows: 3.
+- Unsupported rows: 1.
+
+Per-engine results:
+- PostgreSQL: selected 40, generated 33, source executable 33, candidate executable 32, checker attempted 32, exact 25, mismatch 7, no-candidate 7, candidate execution failed 1.
+- MySQL: selected 40, generated 33, source executable 33, candidate executable 33, checker attempted 33, exact 26, mismatch 7, no-candidate 7, candidate execution failed 0.
+- Spark: selected 40, generated 33, source executable 32, candidate executable 30, checker attempted 30, exact 30, mismatch 0, no-candidate 7, candidate execution failed 2, unsupported 1.
+
+Frontier:
+- Failure buckets: `none=81`, `mismatch=14`, `no_candidate_sql=21`, `candidate_execution_failed=3`, `unsupported_engine=1`.
+- Candidate origins: `calcite_rel_to_sql=58`, `calcite_parse_only=41`, `no_candidate=21`.
+- MySQL/Spark target-dialect mode behaved as expected: no MySQL/Spark candidate was blocked by the PostgreSQL-dialect guard.
+
+Validation:
+- `per_row_execution_checker_status.csv` header and 120-row count validation: passed.
+- `diagnostic_summary.json` validation: passed.
+- `pytest tests/user_entry/test_calcite_hep_fail_closed_route.py -q`: 10 passed.
+- Audit file non-empty check: passed.
+- `git diff --check`: passed.
+- No timing, `compute-local-metrics`, verifier pass, official metric, official Semantic Equivalence Rate, paper result, retained evidence promotion, leaderboard, denominator change, case membership change, source/baseline/test/case/schema/inventory change, top-level reports/results update, or repository-level output artifact occurred.
+
+Next safe action:
+- Run exact-gated timing over the 81 exact/result-consistent rows, still local-only and without `compute-local-metrics`; canonical metrics should wait until after exact timing.
