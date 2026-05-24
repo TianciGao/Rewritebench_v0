@@ -19253,3 +19253,65 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Track A 120 rerun readiness plan.
+
+## 2026-05-24 - track_a_120_rerun_readiness_plan_v0
+
+Mode: readiness/planning audit only.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+
+Files created:
+- `audits/track_a_120_rerun_readiness_plan_v0/README.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/current_evidence_inputs.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/route_engine_readiness_matrix.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/track_a_route_engine_readiness_matrix.csv`
+- `audits/track_a_120_rerun_readiness_plan_v0/track_a_route_summary.csv`
+- `audits/track_a_120_rerun_readiness_plan_v0/user_cli_output_readiness.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/verifier_rerun_readiness.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/timing_metrics_readiness.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/blocker_backlog.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/track_a_rerun_sequence_recommendation.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/non_promotion_boundary.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/command_log.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/protected_surface_check.md`
+- `audits/track_a_120_rerun_readiness_plan_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Validation result:
+- `track_a_route_engine_readiness_matrix.csv` has required headers and 21 rows.
+- `track_a_route_summary.csv` has required headers and 7 rows.
+- Audit Markdown files are non-empty.
+- `git status --porcelain -- runs/user output reports results src tests baselines cases case_sets schemas inventory` produced no output.
+- `git diff --check` passed.
+
+Commit hash:
+- Pending final commit.
+
+Push result:
+- Pending final push.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize SQLGlot noop Track A 120 local diagnostic rerun through the D035 user-facing facade, or implement `sqlrb user verify --pair-scope run-candidates` first if verifier support is required before rerun.
