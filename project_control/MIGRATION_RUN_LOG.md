@@ -19699,3 +19699,64 @@ Repository-level `output` runtime artifacts committed: no.
 
 Next safe action:
 - Authorize exact-gated timing over the six current exact rows, or first authorize Spark `CONS_0005` semantic mismatch and Spark `CONS_0036` label-policy follow-up before any larger 40 x 3 schema-aware optimize trial.
+
+## 2026-05-24 - sqlglot_optimize_schema_aware_spark_blocker_policy_v0
+
+Mode: audit-only Spark blocker policy review for `sqlglot_optimize_schema_aware`.
+
+Legacy repo modified: no.
+Release repo modified: yes.
+Runtime artifacts written: no.
+Existing runtime traces read: yes, under `/tmp/sqlrb_sqlglot_optimize_schema_aware_post_array_any_tri_engine_rerun_v0/`.
+
+Files created:
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/README.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/source_audit_inputs.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/spark_cons0005_semantic_review.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/spark_cons0036_label_review.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/policy_recommendation.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/track_a_120_readiness_impact.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/command_log.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/protected_surface_check.md`
+- `audits/sqlglot_optimize_schema_aware_spark_blocker_policy_v0/boundary_checklist.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Policy verdict:
+- `CONS_0005` / Spark is a true semantic-risk mismatch, not checker normalization: source row count 0, candidate row count 1, candidate preview `{"i": 1, "j": 3}`, `value_exact=false`, and `value_mismatch_reason=row_count_mismatch`.
+- `CONS_0036` / Spark is label-only under strict label policy: source result `{"NAME": "Charlie", "C": 2}`, candidate result `{"name": "Charlie", "c": 2}`, `value_exact=true`, and `label_only_mismatch=true`.
+- `CONS_0036` is a future checker-normalization policy candidate if guarded by value equality, row-count equality, and explicit label-case policy tests.
+- No normalization was implemented in this task.
+
+Readiness impact:
+- Exact-gated timing is safe over the current six exact rows only.
+- If label normalization is later authorized and confirmed, bounded exact rows could move from 6 to 7, but `CONS_0005` / Spark would still block broader readiness.
+- `sqlglot_optimize_schema_aware` remains partial and is not ready for full Track A 120.
+
+Validation result:
+- Audit Markdown files are non-empty.
+- `git diff --check` passed.
+- `git status --porcelain -- runs/user output reports results` produced no output.
+
+Denominator changed: no.
+Paper results changed: no.
+Case membership changed: no.
+Raw legacy evidence changed: no.
+Reports/results changed: no.
+Raw retained evidence changed: no.
+Runtime artifacts committed: no.
+Verifier pass performed: no.
+Full experiment run performed: no.
+Official metrics computed: no.
+Official Semantic Equivalence Rate computed: no.
+Formal Regression@20 computed: no.
+Top-level reports/results updated: no.
+Retained evidence promoted: no.
+Leaderboard created: no.
+`runs/user` outputs committed: no.
+Repository-level `output` runtime artifacts committed: no.
+
+Next safe action:
+- Authorize a narrow Spark label-normalization policy task for value-exact case-only labels, keep route partial and run exact-gated timing over the current six exact rows, or move to the SQLGlot noop Track A 120 rerun candidate.
