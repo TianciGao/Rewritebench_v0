@@ -21504,3 +21504,72 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a verifier modeling-gap triage packet for identity-guard `unknown` rows before authorizing a larger SQLSolver pass or any Repair-1 execution.
+## sqlsolver_identity_guard_modeling_gap_triage_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_identity_guard_modeling_gap_triage_v0`
+
+Mode: audit-only verifier modeling-gap triage from existing bounded SQLSolver artifacts; no verifier execution, no official SER, no larger pass, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_identity_guard_modeling_gap_triage_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Triage summary:
+- Reviewed bounded pass packet: `audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/`
+- Identity-guard unknown rows represented: 5/5 (`LONGTAIL_0011`, `PERF_0006`, `PERF_0007`, `PORT_0003`, `PORT_0005`)
+- Identity-guard passed comparison rows represented: 3/3 (`CONS_0005`, `CONS_0007`, `LONGTAIL_0012`)
+- Suspected gap categories: `unsupported_sql_feature=1`, `wrapper_input_format_gap=1`, `unsupported_postgres_dialect=2`, `schema_canonicalization_gap=1`
+- Broader pass readiness: `ready_for_larger_sqlsolver_pass: no`
+- Full SQLGlot no-op PostgreSQL 35 exact subset: not safe yet
+- Broader 346-pair manifest: blocked
+- `bounded_SER_if_decidable=1.0` remains local diagnostic support only over the prior 3 decidable actual checks; `official_SER=false` and `SER_status=coverage_limited` remain in force
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Source artifact existence checks: passed.
+- Bounded-pass artifact consistency checks: passed.
+- 5 identity-guard unknown pairs represented: passed.
+- 3 identity-guard passed pairs represented in comparison: passed.
+- No-prohibited-command check: passed.
+- No official SER computed or promoted: passed.
+- No broader SQLSolver pass: passed.
+- No VeriEQL run: passed.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+
+Boundary:
+- No SQLSolver command was run in this triage task.
+- No larger SQLSolver pass was run.
+- No official Semantic Equivalence Rate was produced.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, or Repair-1 command was run.
+- SQLSolver identity-guard unknowns are verifier/modeling limitations, not rewrite-method failures.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, `verifier_support/*.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Create a narrow SQLSolver wrapper/schema canonicalization design packet before any broader verifier pass or Repair-1 execution.

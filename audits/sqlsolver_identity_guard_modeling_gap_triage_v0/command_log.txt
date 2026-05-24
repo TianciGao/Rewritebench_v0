@@ -1,0 +1,36 @@
+Command log for `sqlsolver_identity_guard_modeling_gap_triage_v0`.
+
+Preflight and read-only commands:
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n '1,120p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 80 project_control/MIGRATION_STATUS.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `rg -n 'D032|D033|D034|D035|Semantic Equivalence Rate|SQLSolver|VeriEQL|local checker exactness|coverage_limited|N.A.' project_control/DECISION_LOG.md repository_spec/metrics_contract_v1.md src/sql_rewrite_bench/verifier_support audits/track_a_120_verifier_pair_materialization_plan_v0 audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0`
+- `find src/sql_rewrite_bench/verifier_support -maxdepth 1 -type f -print | sort`
+- `find audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0 -maxdepth 3 -type f | sort | sed -n '1,160p'`
+- `sed -n '1,80p' audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/identity_guard_results.csv`
+- `sed -n '1,80p' audits/sqlsolver_bounded_verifier_pass_sqlglot_noop_pg_v0/selected_pairs.csv`
+- Python read-only inspection of `selected_cases.csv`, `ledger.csv`, and `tag_slices.csv` headers for `sqlglot_noop_track_a_120_canonical_v0__postgres`.
+- Python read-only extraction of bounded-pass verdict JSONL rows for the five identity-guard unknown cases.
+- Python read-only inspection of selected source SQL, candidate SQL, manifests, schema DDL, and bounded-pass runtime excerpts.
+
+Audit generation commands:
+- Python audit generator wrote `identity_unknown_cases.csv`, `modeling_gap_classification.csv`, comparison/triage/readiness/boundary Markdown, this command log, and README from existing artifacts only.
+
+No SQLSolver command was run in this triage task.
+No larger SQLSolver pass was run.
+No VeriEQL command was run.
+No adapter command was run.
+No DB execution command was run.
+No checker execution command was run.
+No timing collection command was run.
+No LLM command was run.
+No `compute-local-metrics` or `local_metrics.py` command was run.
+No official metric command was run.
+No paper rendering command was run.
+No Repair-1 command was run.
+Validation commands:
+- Python validation script for generated CSV parse checks, Markdown non-empty checks, source artifact existence checks, bounded-pass artifact consistency checks, no-prohibited-command boundary checks, no-SER boundary checks, protected-path review, changed-file secret scan, and `git diff --check`.
+- `git diff --check` repeated after validation note and command-log updates.
+- Staged protected-path and secret scans run after explicit staging.
