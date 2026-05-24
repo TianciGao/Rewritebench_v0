@@ -22196,3 +22196,70 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a tiny bounded live Repair-1 smoke over 3-6 actionable rows. Do not run Repair-1 Track A 120 until bounded live smoke passes.
+
+## direct_llm_repair_1_bounded_live_end_to_end_smoke_v0
+
+Date: 2026-05-24
+
+Task title: `direct_llm_repair_1_bounded_live_end_to_end_smoke_v0`
+
+Mode: bounded live Repair-1 D035 user-facade end-to-end smoke over selected rows only; DB/checker/timing enabled; no aggregate metrics, no verifier, no official outputs
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Smoke summary:
+- Selected rows: 3 (`CONS_0005/postgres`, `PERF_0062/mysql`, `LONGTAIL_0012/spark`).
+- Unsupported Spark `unsupported_engine` rows attempted: 0.
+- Provider preflight: env presence check passed and `/v1/models` returned HTTP 200 with configured model listed.
+- Live call rows: 3.
+- Repaired candidate generated rows: 3.
+- Candidate preflight passed rows: 3.
+- Source executable rows: 3.
+- Candidate executable rows: 3.
+- Checker exact rows: 3.
+- Timed rows: 3.
+- Fail-closed rows: 0.
+
+Validation result:
+- User-facade live smoke commands: passed, exit 0 for PostgreSQL/MySQL/Spark commands.
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`: passed, `8 passed`.
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Runtime output staging review: passed; temporary `runs/user` live-smoke directories were removed before staging.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed; no secret values in changed files.
+- Protected-path review: passed; only allowed audit and project-control paths changed, with unrelated untracked live-smoke audit dirs left untouched.
+
+Boundary:
+- No `compute-local-metrics` command was run.
+- No SQLSolver, VeriEQL, official metric, official SER, paper rendering, Track A 120, or full Repair-1 route was run.
+- No Direct LLM original adapter, Repair-1 adapter source, `local_metrics.py`, `tag_slices.py`, verifier support, case, schema, case-set, inventory, top-level reports/results, retained evidence, paper result file, env file, API key value, or secret was modified or committed.
+- Temporary `/tmp` outputs are not committed.
+- Temporary `runs/user/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__*` runtime output is excluded from commit and removed before staging.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a 13-actionable-row live Repair-1 diagnostic run with DB/checker/timing. Do not run Repair-1 Track A 120 until the 13-row actionable diagnostic passes and a 120-route assembly policy is written.
