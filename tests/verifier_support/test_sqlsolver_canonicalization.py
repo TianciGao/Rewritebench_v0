@@ -9,6 +9,7 @@ from sql_rewrite_bench.verifier_support.sqlsolver import (
     canonicalize_sqlsolver_query,
     canonicalize_sqlsolver_schema,
     classify_sqlsolver_guard,
+    sqlsolver_support_scope_decision,
     write_sqlsolver_smoke,
 )
 
@@ -68,6 +69,10 @@ class SQLSolverCanonicalizationTests(unittest.TestCase):
         self.assertIn("unsupported_postgres_dialect", result.guard_categories)
         self.assertIn('"nationality"', result.canonical_text)
         self.assertIn("NULLS FIRST", result.canonical_text)
+        decision = sqlsolver_support_scope_decision(result.canonical_text)
+        self.assertFalse(decision.sqlsolver_invocation_allowed)
+        self.assertEqual(decision.family, "quoted_identifier_null_ordering")
+        self.assertEqual(decision.support_scope_verdict, "no_verifier_support")
 
     def test_dense_rank_cte_ranking_is_guarded(self) -> None:
         result = canonicalize_sqlsolver_query(
@@ -78,6 +83,10 @@ class SQLSolverCanonicalizationTests(unittest.TestCase):
 
         self.assertTrue(result.safe_for_sqlsolver)
         self.assertIn("unsupported_sql_feature", result.guard_categories)
+        decision = sqlsolver_support_scope_decision(result.canonical_text)
+        self.assertFalse(decision.sqlsolver_invocation_allowed)
+        self.assertEqual(decision.family, "dense_rank_cte_ranking")
+        self.assertEqual(decision.support_scope_verdict, "no_verifier_support")
 
     def test_terminal_semicolon_and_whitespace_policy(self) -> None:
         result = canonicalize_sqlsolver_query("  SELECT   a,\n b   FROM t ;\n")
@@ -163,6 +172,115 @@ class SQLSolverCanonicalizationTests(unittest.TestCase):
             self.assertIn("wrapper_input_format_gap", artifacts["source_guard_categories"])
             self.assertIn("schema_canonicalization_gap", artifacts["schema_guard_categories"])
 
+    def test_jar_runner_blocks_quoted_null_ordering_before_invocation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            root = tmp_path / "external" / "SQLSolver"
+            jar = root / "build" / "libs" / "sqlsolver.jar"
+            lib = root / "lib"
+            marker = tmp_path / "actual_invocation_marker.txt"
+            jar.parent.mkdir(parents=True)
+            lib.mkdir(parents=True)
+            jar.write_text("fake jar\n", encoding="utf-8")
+            fake_java = _write_failing_if_actual_java(tmp_path, marker)
+            source = tmp_path / "source.sql"
+            candidate = tmp_path / "candidate.sql"
+            schema = tmp_path / "schema.sql"
+            query = (
+                'SELECT "nationality" FROM "drivers" '
+                'WHERE NOT "dob" IS NULL ORDER BY "dob" ASC NULLS FIRST LIMIT 1;\n'
+            )
+            source.write_text(query, encoding="utf-8")
+            candidate.write_text(query, encoding="utf-8")
+            schema.write_text("CREATE TABLE drivers (nationality TEXT, dob TIMESTAMP);\n", encoding="utf-8")
+            pair = synthetic_pair_record(
+                pair_id="quoted_null_ordering",
+                run_id="sqlsolver_support_scope_guard",
+                tool="sqlsolver",
+                pair_type="support_pair_smoke",
+                source_sql_path=source.as_posix(),
+                candidate_sql_path=candidate.as_posix(),
+                schema_context_path=schema.as_posix(),
+            )
+
+            output = write_sqlsolver_smoke(
+                output_root=tmp_path / "output",
+                run_id="sqlsolver_support_scope_guard",
+                pair_records=[pair],
+                env={
+                    "SQLRB_SQLSOLVER_JAR": jar.as_posix(),
+                    "SQLRB_SQLSOLVER_JAVA": fake_java.as_posix(),
+                    "SQLRB_SQLSOLVER_LD_LIBRARY_PATH": lib.as_posix(),
+                },
+                search_path="",
+                result_consistent_pairs=1,
+            )
+
+            verdicts = _read_jsonl(output.verdicts_path)
+            self.assertFalse(marker.exists())
+            self.assertEqual(verdicts[0]["normalized_verdict"], "unsupported")
+            self.assertEqual(output.summary["semantic_equivalence_rate"], None)
+            artifacts = verdicts[0]["artifact_paths"]
+            self.assertTrue(artifacts["support_scope_guarded"])
+            self.assertEqual(artifacts["support_scope_family"], "quoted_identifier_null_ordering")
+            self.assertEqual(artifacts["support_scope_verdict"], "no_verifier_support")
+            self.assertFalse(artifacts["result_checker_exactness_used"])
+            self.assertFalse(verdicts[0]["official_metric_input"])
+
+    def test_jar_runner_blocks_dense_rank_cte_before_invocation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            root = tmp_path / "external" / "SQLSolver"
+            jar = root / "build" / "libs" / "sqlsolver.jar"
+            lib = root / "lib"
+            marker = tmp_path / "actual_invocation_marker.txt"
+            jar.parent.mkdir(parents=True)
+            lib.mkdir(parents=True)
+            jar.write_text("fake jar\n", encoding="utf-8")
+            fake_java = _write_failing_if_actual_java(tmp_path, marker)
+            source = tmp_path / "source.sql"
+            candidate = tmp_path / "candidate.sql"
+            schema = tmp_path / "schema.sql"
+            query = (
+                "WITH ranked AS ("
+                "SELECT id, DENSE_RANK() OVER (PARTITION BY owner_id ORDER BY score DESC) AS r "
+                "FROM posts) SELECT id FROM ranked WHERE r = 1;\n"
+            )
+            source.write_text(query, encoding="utf-8")
+            candidate.write_text(query, encoding="utf-8")
+            schema.write_text("CREATE TABLE posts (id INT, owner_id INT, score INT);\n", encoding="utf-8")
+            pair = synthetic_pair_record(
+                pair_id="dense_rank_cte",
+                run_id="sqlsolver_support_scope_guard_dense",
+                tool="sqlsolver",
+                pair_type="support_pair_smoke",
+                source_sql_path=source.as_posix(),
+                candidate_sql_path=candidate.as_posix(),
+                schema_context_path=schema.as_posix(),
+            )
+
+            output = write_sqlsolver_smoke(
+                output_root=tmp_path / "output",
+                run_id="sqlsolver_support_scope_guard_dense",
+                pair_records=[pair],
+                env={
+                    "SQLRB_SQLSOLVER_JAR": jar.as_posix(),
+                    "SQLRB_SQLSOLVER_JAVA": fake_java.as_posix(),
+                    "SQLRB_SQLSOLVER_LD_LIBRARY_PATH": lib.as_posix(),
+                },
+                search_path="",
+                result_consistent_pairs=1,
+            )
+
+            verdicts = _read_jsonl(output.verdicts_path)
+            self.assertFalse(marker.exists())
+            self.assertEqual(verdicts[0]["normalized_verdict"], "unsupported")
+            artifacts = verdicts[0]["artifact_paths"]
+            self.assertTrue(artifacts["support_scope_guarded"])
+            self.assertEqual(artifacts["support_scope_family"], "dense_rank_cte_ranking")
+            self.assertEqual(artifacts["support_scope_verdict"], "no_verifier_support")
+            self.assertFalse(artifacts["result_checker_exactness_used"])
+
 
 def _read_jsonl(path: Path) -> list[dict[str, object]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -191,6 +309,27 @@ def _write_canonicalization_asserting_java(tmp_path: Path) -> Path:
                 "assert '--' not in schema",
                 "Path(args['-output']).write_text('EQ\\n', encoding='utf-8')",
                 "print('fake SQLSolver completed')",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    fake_java.chmod(0o755)
+    return fake_java
+
+
+def _write_failing_if_actual_java(tmp_path: Path, marker: Path) -> Path:
+    fake_java = tmp_path / "fake_java_fail_actual.py"
+    fake_java.write_text(
+        "\n".join(
+            [
+                "#!/usr/bin/env python3",
+                "import sys",
+                "from pathlib import Path",
+                "if '-help' in sys.argv:",
+                "    print('java -jar sqlsolver.jar [-help] -sql1=<path> -sql2=<path> -schema=<path> [-output=<path>]')",
+                "    raise SystemExit(0)",
+                f"Path({marker.as_posix()!r}).write_text('actual invocation happened\\n', encoding='utf-8')",
+                "raise SystemExit(99)",
             ]
         ),
         encoding="utf-8",

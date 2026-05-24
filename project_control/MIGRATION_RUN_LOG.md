@@ -21719,3 +21719,84 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Triage or scope out the quoted identifier / NULL ordering and DENSE_RANK / CTE canary blockers before rerunning the same 8 bounded SQLSolver benchmark pairs. Do not broaden SQLSolver coverage or start Repair-1.
+
+## sqlsolver_support_scope_guard_impl_v0
+
+Date: 2026-05-24
+
+Task title: `sqlsolver_support_scope_guard_impl_v0`
+
+Mode: narrow SQLSolver support-scope guard implementation for known blocker canary families; no benchmark verifier rerun, no official SER, no broader pass, no Repair-1
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Files created:
+- `audits/sqlsolver_support_scope_guard_impl_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `tests/verifier_support/test_sqlsolver_canonicalization.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Implementation summary:
+- Added `SQLSolverSupportScopeDecision` and `sqlsolver_support_scope_decision(sql_text)`.
+- Added pre-invocation support-scope checks for quoted identifier plus `NULLS FIRST` / `NULLS LAST` ordering and DENSE_RANK / CTE ranking families.
+- Guarded families return normalized verdict `unsupported` and artifact metadata `support_scope_verdict=no_verifier_support`, `support_scope_guarded=true`, `sqlsolver_invocation_allowed=false`.
+- Existing canonicalization behavior for line/comment shaping, one-statement-per-line preparation, semicolon normalization, comment stripping, schema DDL canonicalization, type normalization, and unsafe fail-closed behavior was preserved.
+
+Validation result:
+- `pytest tests/verifier_support/test_sqlsolver_canonicalization.py -q`: passed, `12 passed`.
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`: passed.
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/verifier_support/test_sqlsolver_canonicalization.py -q`: passed, `23 passed`.
+- CSV parse checks: passed.
+- JSONL parse checks: passed.
+- JSON parse checks: passed.
+- Markdown/text non-empty checks: passed.
+- Benchmark-path checks over canary outputs: passed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Non-benchmark canary rerun summary:
+- Selected canary families: 5.
+- Attempted identity checks: 10.
+- SQLSolver-invoked checks: 6.
+- Guard-blocked checks: 4.
+- Identity equivalent: 6.
+- Unclassified identity unknown: 0.
+- Timeout: 0.
+- Tool error: 0.
+- `no_verifier_support`: 4.
+- `ready_to_rerun_same_8_pairs=true`.
+
+Boundary:
+- SQLSolver was run only on synthetic non-benchmark canary identity checks from `audits/sqlsolver_wrapper_schema_canonicalization_impl_v0/`.
+- Guarded canaries did not invoke SQLSolver.
+- No SQLSolver benchmark pair was run.
+- No original 8-pair bounded SQLGlot no-op PostgreSQL benchmark rerun occurred.
+- No SQLSolver run on the SQLGlot no-op PostgreSQL 35 exact subset or 346-pair manifest occurred.
+- No VeriEQL, adapter, DB execution, checker execution, timing collection, LLM call, `compute-local-metrics`, official metric, paper rendering, or Repair-1 command was run.
+- No official SER was produced; no bounded SER was promoted.
+- Local checker exactness remains Result Consistency evidence only, not SER evidence.
+- Guarded SQLSolver support-scope exclusions are verifier-support limitations, not rewrite-method failures.
+- No `repository_spec/metrics_contract_v1.md`, `local_metrics.py`, `tag_slices.py`, baseline, case, schema, case_set, inventory, top-level reports/results, `runs/user`, retained evidence, paper result file, env file, API key, or secret was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize rerunning the same 8-pair bounded SQLSolver benchmark pass after support-scope guards. Do not broaden to SQLGlot no-op PostgreSQL 35 exact rows until the same-8 bounded pass is stable.

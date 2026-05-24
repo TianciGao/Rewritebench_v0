@@ -60,6 +60,17 @@ class SQLSolverCanonicalizationResult:
 
 
 @dataclass(frozen=True)
+class SQLSolverSupportScopeDecision:
+    sqlsolver_invocation_allowed: bool
+    family: str | None
+    normalized_guard_category: str | None
+    normalized_verdict: str | None
+    support_scope_verdict: str | None
+    reason: str | None
+    notes: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class SQLSolverAvailability:
     tool_available: bool
     command: tuple[str, ...] | None
@@ -193,6 +204,32 @@ def classify_sqlsolver_guard(sql_text: str, schema_text: str | None = None) -> t
         if not schema.safe_for_sqlsolver:
             categories.append("schema_canonicalization_gap")
     return tuple(dict.fromkeys(category for category in categories if category in SQLSOLVER_GUARD_CATEGORIES))
+
+
+def sqlsolver_support_scope_decision(sql_text: str) -> SQLSolverSupportScopeDecision:
+    """Return whether a canonical SQL query is in current SQLSolver support scope."""
+
+    family = _known_no_support_family(sql_text)
+    if family is None:
+        return SQLSolverSupportScopeDecision(
+            sqlsolver_invocation_allowed=True,
+            family=None,
+            normalized_guard_category=None,
+            normalized_verdict=None,
+            support_scope_verdict=None,
+            reason=None,
+            notes=(),
+        )
+    category = "unsupported_sql_feature" if family == "dense_rank_cte_ranking" else "unsupported_postgres_dialect"
+    return SQLSolverSupportScopeDecision(
+        sqlsolver_invocation_allowed=False,
+        family=family,
+        normalized_guard_category=category,
+        normalized_verdict="unsupported",
+        support_scope_verdict="no_verifier_support",
+        reason=f"{family}_outside_current_sqlsolver_support_scope",
+        notes=("blocked_before_sqlsolver_invocation", "verifier_support_boundary_not_method_failure"),
+    )
 
 
 def detect_sqlsolver(
@@ -468,6 +505,34 @@ def _run_available_command_pair(
     stdout_path = tool_dir / "raw_stdout.txt"
     stderr_path = tool_dir / "raw_stderr.txt"
     comparison_path = _comparison_sql_path(pair)
+    try:
+        source_prepared = canonicalize_sqlsolver_query(Path(pair["source_sql_path"]).read_text(encoding="utf-8"))
+        comparison_prepared = canonicalize_sqlsolver_query(Path(comparison_path).read_text(encoding="utf-8"))
+        schema_prepared = (
+            canonicalize_sqlsolver_schema(Path(pair["schema_context_path"]).read_text(encoding="utf-8"))
+            if pair.get("schema_context_path")
+            else SQLSolverCanonicalizationResult("", True, ())
+        )
+    except OSError:
+        source_prepared = SQLSolverCanonicalizationResult("", True, ())
+        comparison_prepared = SQLSolverCanonicalizationResult("", True, ())
+        schema_prepared = SQLSolverCanonicalizationResult("", True, ())
+    support_decision = _pair_support_scope_decision(source_prepared, comparison_prepared)
+    if not support_decision.sqlsolver_invocation_allowed:
+        raw_output_path = tool_dir / "sqlsolver_output.txt"
+        return _support_scope_guarded_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            availability=availability,
+            support_decision=support_decision,
+            source_prepared=source_prepared,
+            comparison_prepared=comparison_prepared,
+            schema_prepared=schema_prepared,
+        )
     command = [*(availability.command or ()), pair["source_sql_path"], comparison_path]
     if pair.get("schema_context_path"):
         command.extend(["--schema", pair["schema_context_path"]])
@@ -594,6 +659,21 @@ def _run_available_jar_pair(
             timeout_seconds=timeout_seconds,
             reason=reason,
             availability=availability,
+            source_prepared=source_prepared,
+            comparison_prepared=comparison_prepared,
+            schema_prepared=schema_prepared,
+        )
+    support_decision = _pair_support_scope_decision(source_prepared, comparison_prepared)
+    if not support_decision.sqlsolver_invocation_allowed:
+        return _support_scope_guarded_pair(
+            pair=pair,
+            tool_dir=tool_dir,
+            stdout_path=stdout_path,
+            stderr_path=stderr_path,
+            raw_output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            availability=availability,
+            support_decision=support_decision,
             source_prepared=source_prepared,
             comparison_prepared=comparison_prepared,
             schema_prepared=schema_prepared,
@@ -770,6 +850,62 @@ def _canonicalization_failed_pair(
             "source_canonicalization_notes": list(source_prepared.notes),
             "comparison_canonicalization_notes": list(comparison_prepared.notes),
             "schema_canonicalization_notes": list(schema_prepared.notes),
+            "result_checker_exactness_used": False,
+            "local_only": True,
+            "official_metric_input": False,
+        },
+    )
+
+
+def _support_scope_guarded_pair(
+    *,
+    pair: dict[str, str],
+    tool_dir: Path,
+    stdout_path: Path,
+    stderr_path: Path,
+    raw_output_path: Path,
+    timeout_seconds: float,
+    availability: SQLSolverAvailability,
+    support_decision: SQLSolverSupportScopeDecision,
+    source_prepared: SQLSolverCanonicalizationResult,
+    comparison_prepared: SQLSolverCanonicalizationResult,
+    schema_prepared: SQLSolverCanonicalizationResult,
+) -> dict[str, Any]:
+    reason = support_decision.reason or "outside_current_sqlsolver_support_scope"
+    stdout_path.write_text("", encoding="utf-8")
+    stderr_path.write_text(f"SQLSolver support-scope guard blocked invocation: {reason}\n", encoding="utf-8")
+    raw_output_path.write_text("", encoding="utf-8")
+    return build_verdict_record(
+        pair_id=pair["pair_id"],
+        tool=SQLSOLVER_TOOL,
+        raw_verdict=support_decision.normalized_verdict or "unsupported",
+        invocation_status=support_decision.normalized_verdict or "unsupported",
+        tool_version=availability.tool_version or "unknown",
+        raw_stdout_path=stdout_path.as_posix(),
+        raw_stderr_path=stderr_path.as_posix(),
+        runtime_ms=None,
+        timeout_seconds=timeout_seconds,
+        artifact_paths={
+            "tool_dir": tool_dir.as_posix(),
+            "raw_output_path": raw_output_path.as_posix(),
+            "detection_reason": reason,
+            "command_shape": availability.command_shape,
+            "verifier_mode": availability.invocation_mode,
+            "tool_available": availability.tool_available,
+            "canonicalization_applied": True,
+            "canonicalization_mode": "temp_verifier_input_only",
+            "support_scope_guarded": True,
+            "support_scope_family": support_decision.family,
+            "support_scope_guard_category": support_decision.normalized_guard_category,
+            "support_scope_verdict": support_decision.support_scope_verdict,
+            "sqlsolver_invocation_allowed": False,
+            "source_guard_categories": list(source_prepared.guard_categories),
+            "comparison_guard_categories": list(comparison_prepared.guard_categories),
+            "schema_guard_categories": list(schema_prepared.guard_categories),
+            "source_canonicalization_notes": list(source_prepared.notes),
+            "comparison_canonicalization_notes": list(comparison_prepared.notes),
+            "schema_canonicalization_notes": list(schema_prepared.notes),
+            "support_scope_notes": list(support_decision.notes),
             "result_checker_exactness_used": False,
             "local_only": True,
             "official_metric_input": False,
@@ -1398,6 +1534,38 @@ def _classify_query_guards(sql_text: str) -> tuple[str, ...]:
     if re.search(r"\bWITH\b", sql_text, flags=re.IGNORECASE) and re.search(r"\bOVER\s*\(", sql_text, flags=re.IGNORECASE):
         categories.append("unsupported_sql_feature")
     return tuple(dict.fromkeys(categories))
+
+
+def _pair_support_scope_decision(
+    source_prepared: SQLSolverCanonicalizationResult,
+    comparison_prepared: SQLSolverCanonicalizationResult,
+) -> SQLSolverSupportScopeDecision:
+    for prepared in (source_prepared, comparison_prepared):
+        decision = sqlsolver_support_scope_decision(prepared.canonical_text)
+        if not decision.sqlsolver_invocation_allowed:
+            return decision
+    return SQLSolverSupportScopeDecision(
+        sqlsolver_invocation_allowed=True,
+        family=None,
+        normalized_guard_category=None,
+        normalized_verdict=None,
+        support_scope_verdict=None,
+        reason=None,
+        notes=(),
+    )
+
+
+def _known_no_support_family(sql_text: str) -> str | None:
+    import re
+
+    if '"' in sql_text and re.search(r"\bNULLS\s+(FIRST|LAST)\b", sql_text, flags=re.IGNORECASE):
+        return "quoted_identifier_null_ordering"
+    dense_rank = re.search(r"\bDENSE_RANK\s*\(", sql_text, flags=re.IGNORECASE)
+    window_over = re.search(r"\bOVER\s*\(", sql_text, flags=re.IGNORECASE)
+    cte = re.search(r"\bWITH\b", sql_text, flags=re.IGNORECASE)
+    if dense_rank or (cte and window_over):
+        return "dense_rank_cte_ranking"
+    return None
 
 
 def _read_sql_line(path: Path) -> str:

@@ -1,0 +1,55 @@
+Command log for `sqlsolver_support_scope_guard_impl_v0`.
+
+Preflight/read-only commands:
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n '1,180p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 100 project_control/MIGRATION_STATUS.md`
+- `tail -n 110 project_control/MIGRATION_RUN_LOG.md`
+- `rg -n 'SER|no_verifier_support|SQLSolver|local checker|coverage_limited|D032|D033|D034|D035' project_control/DECISION_LOG.md repository_spec/metrics_contract_v1.md`
+- `sed -n '1,280p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '360,900p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '900,1480p' src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `sed -n '1,320p' tests/verifier_support/test_sqlsolver_canonicalization.py`
+
+Implementation commands:
+- `apply_patch` updates to `src/sql_rewrite_bench/verifier_support/sqlsolver.py`.
+- `apply_patch` updates to `tests/verifier_support/test_sqlsolver_canonicalization.py`.
+
+Test commands:
+- `pytest tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+
+Non-benchmark canary rerun:
+- Python script loaded only synthetic canary inputs from `audits/sqlsolver_wrapper_schema_canonicalization_impl_v0/canary_inputs/`.
+- SQLSolver command shape for allowed canaries, with redacted paths: `java -jar <sqlsolver.jar> -sql1=<canary_sql1> -sql2=<canary_sql2> -schema=<canary_schema> -output=<canary_output>`.
+- Guarded canaries did not invoke SQLSolver.
+- Temporary runtime files were removed after safe excerpts and normalized results were written to `canary_rerun_results.jsonl`.
+
+Prohibited commands not run:
+- No SQLSolver benchmark-pair run.
+- No SQLSolver run on the original 8 bounded SQLGlot no-op PostgreSQL benchmark pairs.
+- No SQLSolver run on the SQLGlot no-op PostgreSQL 35 exact subset.
+- No SQLSolver run on the 346-pair manifest.
+- No VeriEQL command.
+- No adapter command.
+- No DB execution command.
+- No checker execution command.
+- No timing collection command.
+- No LLM command.
+- No `compute-local-metrics` or `local_metrics.py` command.
+- No official metrics command.
+- No paper table rendering command.
+- No Repair-1 command.
+
+Validation commands:
+- `pytest tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+- `python -m py_compile src/sql_rewrite_bench/verifier_support/sqlsolver.py`
+- `pytest tests/user_entry/test_sqlsolver_support.py tests/verifier_support/test_sqlsolver_canonicalization.py -q`
+- CSV/JSONL/JSON parse checks over `guard_decision_matrix.csv`, `fixture_test_matrix.csv`, `canary_rerun_results.jsonl`, and `canary_guard_summary.json`.
+- Markdown/text non-empty checks over audit Markdown/text files.
+- Prohibited benchmark-path grep over `canary_rerun_results.jsonl` and `canary_guard_summary.json`.
+- `git diff --check`.
+- changed-file secret scan.
+- protected-path review.
