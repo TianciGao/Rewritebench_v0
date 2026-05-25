@@ -1,0 +1,44 @@
+Commands used, with secrets redacted:
+
+Read/review commands:
+- `git rev-parse --abbrev-ref HEAD && git status --short`
+- `sed -n '1,120p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 80 project_control/MIGRATION_STATUS.md`
+- `tail -n 100 project_control/MIGRATION_RUN_LOG.md`
+- `tail -n 80 project_control/DECISION_LOG.md`
+- `sed -n '1,220p' repository_spec/metrics_contract_v1.md`
+- `sed -n '1,260p' baselines/rbot/adapter.py`
+- `sed -n '1,180p' baselines/rbot/README.md`
+- `sed -n '1,340p' tests/user_entry/test_rbot_adapter.py`
+- read-only inspection of `audits/rbot_gpt54_adapter_scaffold_v0/` and `audits/rbot_gpt54_bounded_live_e2e_smoke_v0/`
+
+Validation before runtime:
+- `pytest tests/user_entry/test_rbot_adapter.py -q`
+- `python -m py_compile baselines/rbot/adapter.py`
+- safe provider env probe for live gate, provider, base URL host, model, and API-key presence without printing secret values
+
+Evaluate command:
+- `SQLRB_RBOT_MODE=live SQLRB_RBOT_REQUIRE_RETRIEVAL=0 SQLRB_LLM_SAVE_RAW_RESPONSE=0 python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --adapter-command "python baselines/rbot/adapter.py" --output-root /tmp/sqlrb_rbot_gpt54_pg40_bounded_local_diagnostic_v0/output --run-id rbot_gpt54_pg40_bounded_diagnostic_v0 --adapter-timeout 180 --enable-db-execution --enable-checker --collect-timing --timing-repetitions 2 --timing-timeout 30`
+
+Local metrics command attempted:
+- `python -m cli.main user compute-local-metrics --run-id-prefix rbot_gpt54_pg40_bounded_diagnostic_v0 --engines postgres --aggregate-run-id rbot_gpt54_pg40_bounded_diagnostic_v0 --source-run-root runs/user --output-root /tmp/sqlrb_rbot_gpt54_pg40_bounded_local_diagnostic_v0/output`
+
+Local metrics command result:
+- failed before outputs with aggregate-run-dir stale-output guard because the aggregate run id matched the existing evaluate run directory.
+
+Not run:
+- MySQL
+- Spark
+- Track A 120
+- SQLSolver
+- VeriEQL
+- official R-Bot runtime
+- RAG index build
+- Chroma
+- CalciteRewrite runtime
+- LearnedRewrite
+- LLM-R2
+- official metrics
+- paper rendering
+- retained evidence promotion
+- leaderboard generation
