@@ -1,0 +1,6 @@
+example_name,case_id,atom_id,atom_type,evidence_refs,evidence_status,stage_b_status,static_validated_operation_atoms_count,static_rejected_operation_atoms_count,official_pocr_computed,diagnostic_only,notes
+valid_candidate_sql_span,CONS_0005,A1,operation_atom,"candidate_sql_span:SELECT i, j",validated_static_span,static_evidence_partial,1,0,false,true,fixture-only static evidence example; no route-level POCR aggregation
+missing_candidate_sql_span,CONS_0005,A1,operation_atom,candidate_sql_span:THIS_SPAN_DOES_NOT_EXIST,rejected_missing_span,static_evidence_rejected,0,1,false,true,fixture-only static evidence example; no route-level POCR aggregation
+invalid_ref_format,CONS_0005,A1,operation_atom,candidate_sql: SELECT 1,rejected_invalid_ref,static_evidence_rejected,0,1,false,true,fixture-only static evidence example; no route-level POCR aggregation
+no_evidence_refs,CONS_0005,A1,operation_atom,,insufficient_evidence,insufficient_evidence,0,0,false,true,fixture-only static evidence example; no route-level POCR aggregation
+semantic_guard_not_operation_numerator,CONS_0005,A4,semantic_guard_atom,"candidate_sql_span:SELECT i, j",validated_static_span,static_evidence_partial,0,0,false,true,fixture-only static evidence example; no route-level POCR aggregation

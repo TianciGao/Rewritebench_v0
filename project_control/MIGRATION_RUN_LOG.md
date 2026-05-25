@@ -24242,3 +24242,76 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Review the diagnostic draft runner, then decide whether to add a bounded Stage B static evidence validator or a controlled user-output facade.
+
+## 2026-05-25 - pocr_stage_b_static_evidence_validator_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Bounded Stage B static evidence-validation scaffold plus diagnostic dry-run. No live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/annotation_resolver.py`
+- `src/sql_rewrite_bench/pocr/static_evidence.py`
+- `src/sql_rewrite_bench/pocr/stage_b_static_runner.py`
+- `tests/pocr/test_annotation_resolver.py`
+- `tests/pocr/test_static_evidence.py`
+- `tests/pocr/test_stage_b_static_runner.py`
+- `audits/pocr_stage_b_static_evidence_validator_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a read-only Stage A annotation artifact resolver for existing audit JSONL outputs.
+- Added a conservative static Stage B evidence validator that supports only explicit static refs: `candidate_sql_span`, `source_sql_span`, `positive_sql_span`, `candidate_token_span`, and `source_candidate_diff:changed`.
+- Added a diagnostic static Stage B runner combining candidate resolver output, `skills.md` contracts, optional Stage A annotation artifacts, and static evidence validation.
+- Ran a bounded dry-run against `runs/user/common_core_pg_noop_db_checker/candidate_sql/` and `audits/pocr_live_api_annotation_smoke_v0/safe_annotation_outputs.jsonl`.
+- Candidate rows resolved: 40/40.
+- Annotation artifact statuses: `present=3`, `schema_invalid=1`, `missing=36`.
+- Diagnostic static Stage B rows emitted: 40.
+- Static validated operation atoms in dry-run: 0.
+- Static rejected operation atoms in dry-run: 3, from unsupported prior-smoke evidence-ref syntax.
+- Official POCR computed: no.
+- Route-level POCR aggregated: no.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed (48 tests).
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Candidate resolver dry-run on bounded candidate root: resolved 40/40.
+- Annotation resolver handled missing, schema-invalid, and present artifacts; malformed JSON behavior is covered by tests.
+- Static evidence validator fixture tests passed, including valid span, missing span, invalid ref, invalid atom ID, duplicate/missing atom judgments, semantic guard non-numerator behavior, and no-ref insufficient evidence.
+- Static Stage B dry-run emitted no `official_pocr_computed=true` rows and no route-level POCR aggregation output.
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No live LLM/API call, API key read, DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official POCR computation, route-level POCR aggregation, user-output integration, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing candidate SQL files under `runs/user/common_core_pg_noop_db_checker/candidate_sql/` and prior annotation audit artifacts were read-only inputs and were not staged.
+- `cases.zip`, Zone.Identifier sidecars, and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Review whether static span validation is sufficient for diagnostic POCR, then decide between a controlled full 40 annotation pass or a user-output facade that reports POCR as N.A./diagnostic-only.
