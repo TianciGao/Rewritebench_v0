@@ -25321,3 +25321,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement Step 2 candidate SQL output/storage contract under D035-style `output/results`, using this inventory as the source map.
+
+## 2026-05-25 - pocr_paper_table_route_candidate_reconciliation_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Targeted paper-table route candidate-root reconciliation. Candidate roots were reviewed read-only from prior inventory outputs plus targeted mapping checks. No live API call, API key read, annotation JSONL generation, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, global leaderboard, or candidate SQL movement/copy/deletion was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/README.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/table_route_candidate_readiness.csv`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/route_candidate_root_selection.csv`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/pg40_vs_tracka120_scope_review.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/sqlglot_candidate_root_review.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/calcite_candidate_root_review.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/prior_method_candidate_root_review.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/missing_or_ambiguous_roots.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/pocr_table_na_fill_plan.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/recommended_next_route.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/protected_path_review.md`
+- `audits/pocr_paper_table_route_candidate_reconciliation_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reconciled eight paper-facing Table 1 route rows against existing candidate SQL roots from `audits/pocr_candidate_sql_inventory_v0/`.
+- Direct LLM original and Direct LLM Repair-1 have complete PostgreSQL PG40 roots and complete tri-engine Track A 120 candidate-root families, but POCR remains N.A. until route-bound annotation JSONL and separate diagnostic/promotion authorization exist.
+- SQLGlot no-op has a complete PostgreSQL PG40 control root, but canonical Track A 120 roots are incomplete.
+- SQLGlot optimize schema-aware and Calcite HEP fail-closed have incomplete candidate roots for PG40 and Track A 120.
+- R-Bot adapted GPT-5.4 and LLM-R2 adapted GPT-5.4 have complete PG40 prior-method roots.
+- LearnedRewrite has 29 generated PG40 candidates only and is not full-denominator PG40 POCR-ready.
+- Recommended next route: Direct LLM Repair-1 PostgreSQL PG40 diagnostic annotation-generation plus user-facing replay if separately authorized.
+
+Validation result:
+- CSV parse checks for all audit CSV files: passed.
+- Markdown non-empty checks: passed.
+- Target Table 1 route representation check: passed; all eight routes are represented.
+- `pocr_fill_allowed_now=no` check: passed for all eight rows.
+- Candidate inventory read-only check: passed; no `runs/user` or `runs/user/**/candidate_sql` diff/status changes were present.
+- Repository `output/` absent: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, case-local `runs/`, or `runs/user` candidate files were modified.
+- `git diff --check`: passed.
+
+Boundary:
+- No candidate SQL file was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `runs/user` file was modified.
+- No repository `output/` directory was created or committed.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No DB execution, checker execution, timing collection, baseline rerun, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement Step 2 candidate SQL output/storage contract under D035-style `output/results`, or authorize Direct LLM Repair-1 PostgreSQL PG40 diagnostic annotation-generation plus user-facing replay if the reconciliation confirms readiness.
