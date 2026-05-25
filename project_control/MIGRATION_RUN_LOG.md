@@ -23674,3 +23674,56 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write an LLM-R2 adapted PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG evidence or authorize a separately scoped support assessment. Do not run Track A 120 without route policy.
+
+## 2026-05-25 - llm_r2_gpt54_pg40_route_boundary_policy_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Policy-only LLM-R2 adapted GPT-5.4 PostgreSQL PG40 route boundary packet. No experiment or metric recomputation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Created the LLM-R2 adapted GPT-5.4 PostgreSQL route boundary packet from the existing PG40 bounded local diagnostic and canonical `local_metrics.py` outputs.
+- Recorded the route placement verdict: PostgreSQL-only adapted GPT-5.4 bounded prior-method appendix diagnostic evidence for public v0.
+- Recorded Track A 120 readiness verdict: not ready.
+- Preserved the PG40 metric boundary: selected 40, generated 40, candidate executable 39, exact 39, mismatch 0, timed 34, generation rate 1.0, execution coverage 0.975, result consistency 0.975, GM speedup 1.009691483166132, P10/P25/P50/P75/P90 0.5650932995267253/0.91306615287767/0.9929224218407445/1.6245036973766611/1.7340646690442811.
+- Recorded frontier boundary: `LONGTAIL_0011` candidate execution failed, fail-closed rows 0, source-like diagnostic row `CONS_0037`.
+
+Validation result:
+- Markdown non-empty checks: passed.
+- Source audit existence checks: passed.
+- Copied metric value checks against `audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/`: passed.
+- CSV/JSON checks: no CSV or JSON files are created in this policy packet; source PG40 summary JSON parsed successfully during value checks.
+- No-prohibited-command review: passed for exact commands recorded in `command_log.txt`.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No new experiment, LLM-R2 run, live LLM call, official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, demonstration selector, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LearnedRewrite, MySQL/Spark, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a unified local diagnostic evidence index / result-location summary covering Track A 120 canonical routes and PostgreSQL-only prior-method bounded evidence. Do not expand LLM-R2 beyond PG40 without separate engine-support or Track A support-assessment authorization.
