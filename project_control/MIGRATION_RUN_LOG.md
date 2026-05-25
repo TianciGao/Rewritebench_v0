@@ -24898,3 +24898,71 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Run one optional user-run smoke using an existing candidate root and annotation-missing mode, then decide whether to add annotation JSONL replay support for the Direct LLM PG40 diagnostic artifact.
+
+## 2026-05-25 - pocr_optional_user_run_smoke_annotation_missing_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Optional user-run smoke for diagnostic POCR in annotation-missing mode. No live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_optional_user_run_smoke_annotation_missing_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Ran the actual user-facing POCR diagnostic CLI path with `--enable-pocr-diagnostic`.
+- Candidate root used read-only: `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql`.
+- Run ID: `pocr_user_smoke_annotation_missing_v0`.
+- Method/route/engine: `direct_llm_original` / `direct_llm_original_pg40_user_smoke` / `postgres`.
+- Temp output root: `/tmp/sqlrb_pocr_user_smoke_annotation_missing_v0/output`.
+- No `--annotation-jsonl` was supplied.
+- Rows emitted: 40.
+- Annotation-missing rows: 40.
+- All rows preserved diagnostic constants: `diagnostic_only=true`, `official_pocr_computed=false`, `route_level_pocr_aggregated=false`, and `paper_metric_promoted=false`.
+- Report boundary wording was present.
+
+Validation result:
+- Candidate root existence and PostgreSQL candidate count: passed, 40 files.
+- `python -m py_compile` for POCR/CLI modules: passed.
+- `pytest tests/pocr -q`: passed, 87 tests.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`: passed, 26 tests.
+- Optional user-run smoke: passed.
+- `diagnostic_rows.csv` parse and row checks: passed.
+- `diagnostic_summary_by_pool.csv` parse and pool-row checks: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- D036 and D037 remain the governing POCR boundaries. Operation atoms come only from `skills.md`; Stage A annotation alone is not a POCR numerator; transformation-aware Stage B support is diagnostic only; semantic guard atoms are not operation coverage numerator.
+- No live API call was made and no API key was read.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- The smoke output stayed under `/tmp/sqlrb_pocr_user_smoke_annotation_missing_v0/output`; repository `output/` was not created, staged, or committed.
+- Existing Direct LLM candidate SQL under `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/` was read-only input and was not staged.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Add annotation JSONL replay support for the Direct LLM PG40 diagnostic artifact, still default-off and diagnostic-only.
