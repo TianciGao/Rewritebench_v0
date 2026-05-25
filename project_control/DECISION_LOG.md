@@ -1153,3 +1153,60 @@ Impact:
 - Positive-control SQL may be used only as candidate/comparison evidence for declared `skills.md` atoms, not as a source of atoms.
 - Taxonomy tags, SQL-shape inference, retained evidence, LLM rationale, speedup/runtime, checker exactness, and candidate SQL text alone remain insufficient as operation evidence.
 - Official POCR, user-facing facade output, paper metric promotion, and route-level aggregation remain separately gated.
+
+## D038: POCR short-term maturity roadmap and candidate/annotation asset governance
+
+Decision:
+
+The near-term goal is to mature POCR into a robust, paper-aligned diagnostic pipeline before any official metric promotion.
+
+The accepted short-term POCR maturity roadmap is:
+
+1. Inventory and preserve existing baseline candidate SQL assets.
+2. Define the candidate SQL output/storage contract under D035 output/results.
+3. Define the annotation JSONL artifact contract.
+4. Plan unified LLM API configuration shared by baseline generation and POCR annotation.
+5. Run one selected baseline through annotation generation plus user-facing replay as diagnostic-only validation.
+
+Existing `runs/user` candidate SQL roots are valuable local/user-run assets and must not be deleted, moved, or overwritten without inventory and retention mapping.
+
+Future new candidate SQL outputs should align with D035:
+
+```text
+output/results/<run_id>/candidate_sql/
+output/logs/<run_id>/
+output/reports/<run_id>/
+```
+
+Annotation JSONL artifacts must be route-aware and bound to:
+
+- `case_id`;
+- `engine`;
+- `method_id`;
+- `route_id`;
+- candidate identity;
+- prompt/schema version;
+- provider/model metadata;
+- call timestamp.
+
+POCR should reuse the project's user-facing LLM API configuration in the future, but live annotation must remain explicit and default-off.
+
+API-generated annotation JSONL is diagnostic evidence only unless separately promoted. It is not automatically official POCR.
+
+Official POCR, route-level aggregation, paper metric promotion, retained-evidence promotion, reports/results updates, denominator changes, case membership changes, and leaderboard output remain separately gated.
+
+This decision does not authorize live API calls, annotation generation, new baseline runs, official POCR computation, or paper-facing metric promotion.
+
+Reason:
+
+The POCR diagnostic user path is implemented and documented, but the next release-safe step is asset governance: existing candidate SQL files must be inventoried before any new annotation-generation or output-contract work depends on them.
+
+The roadmap separates preservation, storage contracts, annotation contracts, API configuration, and one-baseline validation so that POCR can mature without accidentally becoming an official paper metric or route-level score.
+
+Impact:
+
+- `runs/user/**/candidate_sql` roots should be treated as read-only local/user-run assets until mapped.
+- Future candidate SQL outputs should converge on D035 `output/results/<run_id>/candidate_sql/` rather than ad hoc or case-local output paths.
+- Future annotation artifacts must remain route-bound and fail closed on case, engine, method, route, candidate identity, or schema mismatches.
+- Live annotation and API use remain explicit, default-off, and separately authorized.
+- Official Positive Operation Coverage Rate, route-level aggregation, paper-facing metric promotion, retained-evidence promotion, top-level reports/results update, denominator changes, case membership changes, raw legacy evidence changes, and leaderboard output remain separately gated.

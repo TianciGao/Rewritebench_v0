@@ -25245,3 +25245,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Keep POCR as documented diagnostic support for release v0, or separately authorize a larger `src/dev` / `pocr/audit` refactor after release-critical paths are stable.
+
+## 2026-05-25 - pocr_short_term_roadmap_and_candidate_inventory_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Decision-record plus read-only candidate SQL inventory. No file movement, candidate SQL copy, candidate SQL deletion, live API call, API key read, DB/checker/timing run, baseline rerun, annotation generation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_candidate_sql_inventory_v0/README.md`
+- `audits/pocr_candidate_sql_inventory_v0/candidate_root_inventory.csv`
+- `audits/pocr_candidate_sql_inventory_v0/candidate_file_inventory.csv`
+- `audits/pocr_candidate_sql_inventory_v0/candidate_sha256_manifest.csv`
+- `audits/pocr_candidate_sql_inventory_v0/route_mapping_review.md`
+- `audits/pocr_candidate_sql_inventory_v0/preservation_risk_review.md`
+- `audits/pocr_candidate_sql_inventory_v0/recommended_next_routes.md`
+- `audits/pocr_candidate_sql_inventory_v0/protected_path_review.md`
+- `audits/pocr_candidate_sql_inventory_v0/command_log.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Recorded D038: POCR short-term maturity roadmap and candidate/annotation asset governance.
+- Accepted the five-step short-term POCR roadmap: inventory/preserve candidate SQL assets; define D035 candidate SQL output/storage contract; define annotation JSONL artifact contract; plan unified LLM API configuration; run one selected baseline through diagnostic annotation generation plus user-facing replay.
+- Scanned existing `runs/user/**/candidate_sql` roots read-only.
+- Candidate roots inventoried: 1,660.
+- Candidate files inventoried: 2,377.
+- PG40-complete PostgreSQL roots: 5.
+- Track-A-120-complete route-family component roots: 6.
+- Ambiguous roots: 1,579, mostly unit-test and small-smoke artifacts.
+- PG40-complete roots include `runs/user/common_core_pg_noop_db_checker/candidate_sql/`, `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/`, `runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql/`, `runs/user/llm_r2_gpt54_pg40_manual_inspection_rerun_v0/candidate_sql/`, and `runs/user/rbot_gpt54_pg40_bounded_diagnostic_rerun_v0/candidate_sql/`.
+- Complete tri-engine candidate families were found for Direct LLM original and Direct LLM Repair-1.
+- Recommended next route: Direct LLM Repair-1 PostgreSQL PG40 diagnostic annotation-generation plus user-facing replay, because its candidate root is PG40 complete and its tri-engine family is complete.
+
+Validation result:
+- CSV parse checks for all audit CSV files: passed.
+- Inventory count checks: passed; 1,660 candidate roots, 2,377 candidate files, 5 PG40-complete PostgreSQL roots, and 6 Track-A-120-complete route-family component roots.
+- Markdown non-empty checks: passed.
+- Candidate inventory read-only check: passed; no `runs/user` or `runs/user/**/candidate_sql` diff/status changes were present.
+- Repository `output/` absent: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, case-local `runs/`, or `runs/user` candidate files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed after explicit staging.
+- Staged protected-path review: passed after explicit staging.
+- `git diff --check`: passed after CSV LF normalization and Markdown trailing-space cleanup.
+
+Boundary:
+- No candidate SQL file was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `runs/user` file was modified.
+- No repository `output/` directory was created or committed.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, route-alias policy, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement Step 2 candidate SQL output/storage contract under D035-style `output/results`, using this inventory as the source map.
