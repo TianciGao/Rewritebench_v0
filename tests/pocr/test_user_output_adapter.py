@@ -69,3 +69,4 @@ def test_user_output_adapter_writes_only_under_supplied_output_root(tmp_path: Pa
     assert "This is not official POCR." in report
     assert "No route-level POCR score is emitted." in report
     assert "Semantic guard atoms are not part of operation coverage numerator." in report
+    assert "No paper-facing metric is promoted." in report

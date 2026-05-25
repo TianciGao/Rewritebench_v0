@@ -96,4 +96,4 @@ def test_markdown_report_includes_required_boundary_wording() -> None:
     assert "Stage B transformation-aware validation is diagnostic only." in report
     assert "Semantic guard atoms are not part of operation coverage numerator." in report
     assert "No route-level POCR score is emitted." in report
-    assert "No paper metric is promoted" in report
+    assert "No paper-facing metric is promoted." in report

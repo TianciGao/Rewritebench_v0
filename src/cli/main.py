@@ -13,6 +13,7 @@ import sys
 from argparse import Namespace
 from pathlib import Path
 
+from cli.pocr_diagnostic import add_pocr_diagnostic_parser, run_pocr_diagnostic_command
 from sql_rewrite_bench import user_run
 from sql_rewrite_bench.case_selection import ALLOWED_ENGINES, ALLOWED_POOLS, repo_root_from_module
 from sql_rewrite_bench.local_metrics import (
@@ -79,6 +80,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_compute_local_metrics_parser(user_subparsers)
     _add_summarize_parser(user_subparsers)
     _add_verify_parser(user_subparsers)
+    add_pocr_diagnostic_parser(user_subparsers, epilog=LOCAL_ONLY_EPILOG)
     return parser
 
 
@@ -264,6 +266,8 @@ def _handle_user_command(args: argparse.Namespace) -> int:
         return _summarize(args)
     if command == "verify":
         return _verify(args)
+    if command == "pocr-diagnostic":
+        return run_pocr_diagnostic_command(args, repo_root=repo_root_from_module())
     raise ValueError(f"unknown user command: {command}")
 
 

@@ -68,6 +68,7 @@ class CliFacadeTests(unittest.TestCase):
             "compute-local-metrics",
             "summarize",
             "verify",
+            "pocr-diagnostic",
         ]:
             stdout = io.StringIO()
             with self.assertRaises(SystemExit):
