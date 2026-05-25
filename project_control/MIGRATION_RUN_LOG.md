@@ -24554,3 +24554,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If the transformation-aware diagnostic boundary is accepted, consider a controlled full-40 diagnostic annotation pass; otherwise keep POCR deferred/N.A. and document the remaining overacceptance/support boundary.
+
+## 2026-05-25 - prior_methods_pg40_manual_inspection_reruns_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Manual-inspection reruns for PostgreSQL-only PG40 prior-method outputs. LearnedRewrite and LLM-R2 adapted GPT-5.4 were rerun to preserve per-case candidate SQL, DB execution artifacts, checker status, timing artifacts, and `local_metrics.py` outputs. R-Bot was not rerun because its PG40 candidate SQL was already available locally. These reruns are not paper-result replacement, not Track A 120, not retained-evidence promotion, not official metrics, and not leaderboard output.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/prior_methods_pg40_manual_inspection_reruns_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Local availability before rerun: R-Bot PG40 candidate SQL exists at `runs/user/rbot_gpt54_pg40_bounded_diagnostic_rerun_v0/candidate_sql/`; LearnedRewrite real PG40 candidate SQL was missing locally; LLM-R2 adapted GPT-5.4 PG40 candidate SQL was missing locally.
+- LearnedRewrite manual-inspection rerun completed with external Java HTTP runtime from temp-only staging, PostgreSQL-only Common-core PG40, DB execution, checker, timing, and single-run `compute-local-metrics`.
+- LearnedRewrite local run root preserved: `runs/user/learnedrewrite_pg40_manual_inspection_rerun_v0/`.
+- LearnedRewrite `local_metrics.py` summary: selected 40, generated 29, candidate executable 23, exact 17, timed 17, mismatch 6, candidate execution failed 6, no candidate SQL 11, source-like rows 2, GM Speedup Ratio 1.0799447051682103.
+- LLM-R2 adapted GPT-5.4 manual-inspection rerun completed with OpenAI-compatible/GPTSAPI live path, PostgreSQL-only Common-core PG40, DB execution, checker, timing, and single-run `compute-local-metrics`.
+- LLM-R2 local run root preserved: `runs/user/llm_r2_gpt54_pg40_manual_inspection_rerun_v0/`.
+- LLM-R2 `local_metrics.py` summary: selected 40, generated 40, candidate executable 38, exact 37, timed 32, mismatch 1, candidate execution failed 2, no candidate SQL 0, source-like rows 0, GM Speedup Ratio 0.9799978475134843.
+- Audit packet records candidate SQL availability, all rerun candidate SQL rows, timing-tail/frontier/source-like row selections, SQL excerpts for selected rows, local manual-inspection paths, speedup percentile interpretation, and no-promotion boundaries.
+
+Validation result:
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- LearnedRewrite selected rows: 40; generated candidates: 29; generated candidate paths existing locally: 29.
+- LLM-R2 selected rows: 40; generated candidates: 40; generated candidate paths existing locally: 40.
+- local_metrics output existence: passed for both reruns.
+- LearnedRewrite runtime stopped: passed; port 6336 had no listener after shutdown.
+- R-Bot rerun check: passed; no R-Bot evaluate command was run.
+- MySQL/Spark/Track A 120/verifier checks: passed; no prohibited command was run.
+- Top-level reports/results update check: passed.
+- `runs/user` staging check: passed; rerun outputs are preserved locally but not staged or committed.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+- Protected-path review: passed; no tracked protected code/case/schema/report/result/retained-evidence/paper/env/secret paths were modified.
+
+Boundary:
+- LearnedRewrite external JAR/source/assets were not copied into the release repo.
+- LLM-R2 live provider secret values were not printed, written, staged, or committed.
+- No R-Bot rerun, MySQL, Spark, Track A 120, SQLSolver, VeriEQL, official metrics, paper rendering, retained-evidence promotion, or leaderboard generation occurred.
+- The new local `runs/user/learnedrewrite_pg40_manual_inspection_rerun_v0/` and `runs/user/llm_r2_gpt54_pg40_manual_inspection_rerun_v0/` directories are intentionally preserved for manual inspection and are not staged or committed.
+- Existing unrelated untracked files/directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Use preserved local candidate SQL paths to manually inspect P10/P50/P90 and frontier examples. Update paper wording about timing variance and nontrivial rewrites without changing canonical paper-facing result tables unless a separate promotion task is authorized.
