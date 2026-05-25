@@ -1,0 +1,26 @@
+module,category,public_or_internal,short_purpose,safe_for_user_entry,audit_only,notes
+src/cli/pocr_diagnostic.py,public_entry,public,Default-off CLI wrapper for diagnostic POCR user-output files,yes,no,Normal user entry through sqlrb user pocr-diagnostic
+src/sql_rewrite_bench/pocr/user_facade.py,public_entry,stable_internal,Facade that combines candidate resolution optional annotation replay Stage B diagnostics and output writing,yes,no,Used by CLI; live remains disabled for documented replay and annotation-missing modes
+src/sql_rewrite_bench/pocr/user_output_adapter.py,public_entry,stable_internal,D035-style diagnostic output writer,yes,no,Writes only under caller-provided output root
+src/sql_rewrite_bench/pocr/diagnostic_output_schema.py,public_entry,stable_internal,Diagnostic row summary CSV and Markdown schema,yes,no,Preserves diagnostic-only constants
+src/sql_rewrite_bench/pocr/models.py,stable_core,internal,Skill atom and contract dataclasses,yes,no,Core parser model
+src/sql_rewrite_bench/pocr/skills_parser.py,stable_core,internal,Parse case-local root-level skills.md contracts,yes,no,Reads skills.md as contract source only
+src/sql_rewrite_bench/pocr/validation.py,stable_core,internal,Validate parsed skill contracts and required sections,yes,no,No POCR metric computation
+src/sql_rewrite_bench/pocr/inventory.py,stable_core,internal,Common-core skills inventory and parse-only reports,yes,no,Scans Common-core membership
+src/sql_rewrite_bench/pocr/candidate_resolver.py,stable_core,internal,Resolve existing candidate SQL artifacts read-only,yes,no,Does not run or rerun methods
+src/sql_rewrite_bench/pocr/annotation_schema.py,stage_a_annotation,internal,Strict candidate annotation schema and validation,yes,no,Stage A alone is not counted
+src/sql_rewrite_bench/pocr/prompt_builder.py,stage_a_annotation,internal,Build deterministic POCR annotation prompts,yes,no,Prompts preserve D036/D037 boundaries
+src/sql_rewrite_bench/pocr/annotation_client.py,stage_a_annotation,internal,Fake and fail-closed live annotation client interfaces,no,no,Not used by default user replay or annotation-missing path
+src/sql_rewrite_bench/pocr/json_output_guard.py,stage_a_annotation,internal,Fail-closed JSON parse guard,no,no,Supports provider-response parsing without silent repair
+src/sql_rewrite_bench/pocr/annotation_resolver.py,stage_a_annotation,internal,Read-only annotation JSONL replay resolver,yes,no,Used by annotation-jsonl replay path
+src/sql_rewrite_bench/pocr/evidence_validation.py,stage_b_evidence,internal,Early Stage B schema and synthetic-evidence validation,no,no,Kept for compatibility with earlier interface tests
+src/sql_rewrite_bench/pocr/static_evidence.py,stage_b_evidence,internal,Validate explicit static evidence references,no,no,Diagnostic support only
+src/sql_rewrite_bench/pocr/transformation_evidence.py,stage_b_evidence,internal,Conservative SQL normalization and source-candidate comparison helpers,yes,no,Does not claim semantic equivalence
+src/sql_rewrite_bench/pocr/operation_evidence_policy.py,stage_b_evidence,internal,Transformation-aware operation evidence policy,yes,no,Operation support is diagnostic only and relative to source
+src/sql_rewrite_bench/pocr/draft_runner.py,audit_helper,internal,Build dry-run diagnostic draft rows from existing candidates,no,yes,Internal audit helper not public API
+src/sql_rewrite_bench/pocr/pocr_row.py,audit_helper,internal,Row-level draft model retained for earlier interface scaffolds,no,yes,Exported for compatibility but not public user entry
+src/sql_rewrite_bench/pocr/stage_b_static_runner.py,audit_helper,internal,Combine candidates annotations and static Stage B validation for audit packets,no,yes,Internal audit helper not public API
+src/sql_rewrite_bench/pocr/live_smoke.py,audit_helper,internal,Bounded live Stage A annotation smoke runner,no,yes,Internal audit helper; not default user command
+src/sql_rewrite_bench/pocr/calibration_runner.py,audit_helper,internal,Positive-vs-noop calibration runner,no,yes,Internal audit helper; not route metric computation
+src/sql_rewrite_bench/pocr/real_route_diagnostic_runner.py,audit_helper,internal,Direct LLM PG40 real-route diagnostic runner,no,yes,Internal audit helper superseded for users by replay facade
+src/sql_rewrite_bench/pocr/__init__.py,package_exports,internal,Convenience exports for POCR models helpers and compatibility symbols,no,no,Broad exports include some audit-helper symbols for compatibility; future cleanup can narrow safely

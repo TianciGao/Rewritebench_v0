@@ -25187,3 +25187,61 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Decide whether to run another real route through the documented replay path, or keep POCR as diagnostic support for release v0.
+
+## 2026-05-25 - pocr_package_boundary_cleanup_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Lightweight package-boundary cleanup and documentation only. No file moves, module relocation, import-breaking refactor, live API call, API key read, DB/checker/timing run, baseline rerun, new POCR diagnostic run, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/README.md`
+- `audits/pocr_package_boundary_cleanup_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a POCR package README documenting public entry points, stable internal core, Stage A annotation layer, Stage B evidence layer, user diagnostic output layer, and internal audit/calibration helpers.
+- Created a package map and audit packet documenting public/internal boundaries, audit-only helpers, current `__init__.py` exports, and protected-path review.
+- Reviewed `src/sql_rewrite_bench/pocr/__init__.py`; broad compatibility exports remain unchanged and no import behavior changed.
+- Marked `draft_runner.py`, `pocr_row.py`, `stage_b_static_runner.py`, `live_smoke.py`, `calibration_runner.py`, and `real_route_diagnostic_runner.py` as internal audit/calibration helpers, not stable public API.
+
+Validation result:
+- Markdown non-empty checks: passed.
+- `package_map.csv` parse check: passed, 25 rows.
+- Required boundary phrase grep over `src/sql_rewrite_bench/pocr/README.md`: passed.
+- Python compile for touched Python files: not applicable; no Python files were touched.
+- `pytest tests/pocr -q`: passed, 92 tests.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`: passed, 28 tests.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed after explicit staging.
+- `git diff --check`: passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No DB execution, checker execution, timing collection, baseline rerun, new POCR diagnostic run, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, route-alias policy, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- No generated `output/` artifacts were committed.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Keep POCR as documented diagnostic support for release v0, or separately authorize a larger `src/dev` / `pocr/audit` refactor after release-critical paths are stable.
