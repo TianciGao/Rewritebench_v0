@@ -25122,3 +25122,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Add user documentation/example for `pocr-diagnostic` replay, including both matching-route replay and fail-closed route-mismatch behavior.
+
+## 2026-05-25 - pocr_diagnostic_user_docs_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Documentation and examples only. No live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/pocr_diagnostic.md`
+- `examples/pocr_diagnostic/README.md`
+- `audits/pocr_diagnostic_user_docs_v0/`
+
+Files modified:
+- `docs/README.md`
+- `examples/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added concise user documentation for `sqlrb user pocr-diagnostic`.
+- Documented that the command is optional, default-off, and diagnostic-only.
+- Documented required inputs: `--enable-pocr-diagnostic`, `--candidate-root`, `--method-id`, `--route-id`, `--engine`, `--run-id`, and `--output-root`.
+- Documented optional `--annotation-jsonl`.
+- Added annotation-missing, matching-route replay, and route-mismatch fail-closed examples.
+- Documented D035 output paths under `output/results/<run_id>/pocr/`, `output/logs/<run_id>/pocr/`, and `output/reports/<run_id>/`, with examples using `/tmp/.../output` roots.
+- Documented D036/D037 POCR boundaries: operation atoms come only from root-level `skills.md`; Stage A annotation alone is not counted; transformation-aware Stage B validation is diagnostic only; semantic guard atoms are not part of operation coverage numerator.
+
+Validation result:
+- Markdown non-empty checks: passed.
+- Required boundary phrase checks over docs/examples: passed.
+- Command examples use `/tmp` output roots: passed.
+- Docs state not to commit generated `output/` artifacts: passed.
+- Docs do not describe POCR as official or paper-facing: passed.
+- `pytest tests/pocr -q`: passed.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, route-alias policy, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- No generated `output/` artifacts were committed.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Decide whether to run another real route through the documented replay path, or keep POCR as diagnostic support for release v0.

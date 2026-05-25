@@ -6,6 +6,8 @@ This directory contains public examples for local SQL-RewriteBench user runs.
   the candidate path.
 - `examples/user/port_*_target_reference_adapter.py`: local diagnostic
   target-reference examples for PORT workflows.
+- `examples/pocr_diagnostic/README.md`: optional default-off POCR diagnostic
+  command examples for annotation-missing and annotation JSONL replay modes.
 
 Run examples through the D035 user-facing facade:
 
