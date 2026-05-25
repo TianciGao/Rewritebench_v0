@@ -23236,16 +23236,16 @@ Summary:
 Validation result:
 - `pytest tests/user_entry/test_rbot_adapter.py -q`: passed, `13 passed, 5 subtests passed`.
 - `python -m py_compile baselines/rbot/adapter.py`: passed.
-- CSV parse checks: planned/passed before closeout.
-- Markdown non-empty checks: planned/passed before closeout.
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
 - Selected row count check: planned/passed before closeout, 6 PostgreSQL rows.
 - Live-call count check: planned/passed before closeout, exactly 6 selected-row calls.
 - DB/checker/timing PostgreSQL-only bounded-scope check: planned/passed before closeout.
 - No `compute-local-metrics`, SQLSolver, VeriEQL, official R-Bot runtime, RAG/Chroma/index, CalciteRewrite, MySQL, Spark, official metrics, paper rendering, retained evidence promotion, leaderboard, or Track A 120 occurred.
 - Runtime output staging check: planned/passed before closeout; `/tmp` and `runs/user` smoke outputs removed before commit.
-- Changed-file secret scan: planned/passed before closeout.
-- Protected-path review: planned/passed before closeout.
-- `git diff --check`: planned/passed before closeout.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
 
 Boundary:
 - This is adapted GPT-5.4 local diagnostic evidence only, not original R-Bot paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
@@ -23547,3 +23547,64 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a 3-6 row PostgreSQL-only GPT-5.4 adapted live generation/e2e smoke depending on scaffold readiness. Do not run Track A 120 until fake and bounded live smoke pass.
+
+## 2026-05-25 - llm_r2_gpt54_bounded_live_e2e_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- PostgreSQL-only adapted LLM-R2 GPT-5.4 bounded live end-to-end user-facade smoke with DB execution, checker execution, and timing for selected rows only.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/llm_r2_gpt54_bounded_live_e2e_smoke_v0/`
+
+Files modified:
+- `baselines/llm_r2/adapter.py`
+- `baselines/llm_r2/README.md`
+- `tests/user_entry/test_llm_r2_adapter.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented the minimal OpenAI-compatible GPT-5.4 live path for `route_id=llm_r2_gpt54_adapted` / `method_id=llm_r2`.
+- Preserved fake runtime behavior and fail-closed guards for missing live gate/key, provider errors, malformed responses, empty/prose/multiple-SQL output, unsupported engines, and unavailable rule-system/checkpoint/demo-selector placeholders.
+- Ran a bounded PostgreSQL-only user-facade smoke over `PERF_0006`, `CONS_0036`, `PERF_0007`, `CONS_0005`, `CONS_0007`, and `LONGTAIL_0011`.
+- Selected rows: 6; live calls: 6; generated candidates: 6; candidate executable rows: 5; exact rows: 5; timed rows: 5.
+- Failure frontier: `LONGTAIL_0011` generated and passed preflight but failed candidate execution.
+- Runtime outputs under `runs/user/` and `/tmp` were removed and not staged.
+
+Validation result:
+- `pytest tests/user_entry/test_llm_r2_adapter.py -q`: passed, `16 passed, 7 subtests passed`.
+- `python -m py_compile baselines/llm_r2/adapter.py`: passed.
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- Selected live rows were 6 PostgreSQL rows.
+- Live calls occurred only for selected rows.
+- DB/checker/timing occurred only for selected rows.
+- No `compute-local-metrics`, SQLSolver, VeriEQL, official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, demonstration selector, MySQL/Spark, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+- No API key values were printed, written, staged, or committed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- This is adapted GPT-5.4 local diagnostic smoke evidence only. It is not original LLM-R2 paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a PostgreSQL-only LLM-R2 adapted PG40 bounded diagnostic with DB/checker/timing and `local_metrics.py`. Do not run Track A 120 until PG40 and route boundary policy are complete.

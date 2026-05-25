@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -65,6 +66,20 @@ def _run_adapter(env: dict[str, str]) -> subprocess.CompletedProcess[str]:
 
 def _status(temp_dir: Path) -> dict[str, object]:
     return json.loads((temp_dir / "workspace" / "llm_r2_status.json").read_text(encoding="utf-8"))
+
+
+class _FakeHTTPResponse:
+    def __init__(self, payload: dict[str, object]) -> None:
+        self._payload = payload
+
+    def __enter__(self) -> "_FakeHTTPResponse":
+        return self
+
+    def __exit__(self, *_args: object) -> None:
+        return None
+
+    def read(self) -> bytes:
+        return json.dumps(self._payload).encode("utf-8")
 
 
 class LLMR2AdapterTests(unittest.TestCase):
@@ -295,7 +310,8 @@ class LLMR2AdapterTests(unittest.TestCase):
                 self.assertEqual(status["fail_closed_reason"], expected)
                 self.assertFalse(status["live_call"])
 
-    def test_live_mode_with_gate_still_fails_closed_without_call(self) -> None:
+    def test_live_mode_success_uses_openai_compatible_without_secret_metadata(self) -> None:
+        module = _load_adapter_module()
         with tempfile.TemporaryDirectory() as temp_name:
             temp_dir = Path(temp_name)
             env = _adapter_env(temp_dir)
@@ -309,14 +325,64 @@ class LLMR2AdapterTests(unittest.TestCase):
                     "SQLRB_LLM_ALLOW_LIVE": "1",
                 }
             )
-            completed = _run_adapter(env)
+            response = {
+                "choices": [{"message": {"content": "SELECT a FROM table1 WHERE a > 3"}}],
+                "usage": {"prompt_tokens": 9, "completion_tokens": 6, "total_tokens": 15},
+            }
+            with mock.patch.dict(os.environ, env, clear=True):
+                with mock.patch.object(module.urllib.request, "urlopen", return_value=_FakeHTTPResponse(response)) as patched:
+                    exit_code = module.main([])
+            status = _status(temp_dir)
+            status_text = json.dumps(status)
+            candidate = (temp_dir / "workspace" / "candidate.sql").read_text(encoding="utf-8")
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(candidate, "SELECT a FROM table1 WHERE a > 3;\n")
+        self.assertEqual(patched.call_count, 1)
+        self.assertTrue(status["candidate_generated"])
+        self.assertFalse(status["fake_runtime"])
+        self.assertTrue(status["live_call"])
+        self.assertEqual(status["provider"], "openai_compatible")
+        self.assertEqual(status["model"], "gpt-5.4")
+        self.assertEqual(status["runtime_status"], "live_provider_success")
+        self.assertEqual(status["token_usage"]["total_tokens"], 15)
+        self.assertTrue(status["prompt_sha256"])
+        self.assertFalse(status["rule_system_runtime_used"])
+        self.assertFalse(status["checkpoint_used"])
+        self.assertFalse(status["demonstration_selector_used"])
+        self.assertFalse(status["official_llm_r2_stack"])
+        self.assertTrue(status["adapted_gpt54_local_diagnostic"])
+        self.assertNotIn("secret-live-test-key", status_text)
+
+    def test_live_mode_provider_error_fails_closed_after_attempt(self) -> None:
+        module = _load_adapter_module()
+        with tempfile.TemporaryDirectory() as temp_name:
+            temp_dir = Path(temp_name)
+            env = _adapter_env(temp_dir)
+            env.update(
+                {
+                    "SQLRB_LLM_R2_MODE": "live",
+                    "SQLRB_LLM_PROVIDER": "openai_compatible",
+                    "SQLRB_LLM_BASE_URL": "https://api.gptsapi.net/v1",
+                    "SQLRB_LLM_MODEL": "gpt-5.4",
+                    "SQLRB_LLM_API_KEY": "secret-live-test-key",
+                    "SQLRB_LLM_ALLOW_LIVE": "1",
+                }
+            )
+            with mock.patch.dict(os.environ, env, clear=True):
+                with mock.patch.object(
+                    module.urllib.request,
+                    "urlopen",
+                    side_effect=module.urllib.error.URLError("connection refused"),
+                ):
+                    exit_code = module.main([])
             status = _status(temp_dir)
             status_text = json.dumps(status)
 
-        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(exit_code, 0)
         self.assertFalse(status["candidate_generated"])
-        self.assertFalse(status["live_call"])
-        self.assertEqual(status["fail_closed_reason"], "live_not_implemented")
+        self.assertTrue(status["live_call"])
+        self.assertEqual(status["fail_closed_reason"], "provider_error")
         self.assertNotIn("secret-live-test-key", status_text)
 
     def test_rule_system_required_but_unavailable_fails_closed(self) -> None:

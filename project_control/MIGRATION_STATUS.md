@@ -1,6 +1,6 @@
 # SQL-RewriteBench Migration Status Snapshot
 
-Date: 2026-05-23
+Date: 2026-05-25
 
 ## Repository Roles
 
@@ -10,6 +10,8 @@ Date: 2026-05-23
 - This file is the concise current-state snapshot.
 
 ## Current Status Summary
+
+`llm_r2_gpt54_bounded_live_e2e_smoke_v0` is complete under `audits/llm_r2_gpt54_bounded_live_e2e_smoke_v0/`. The LLM-R2 adapted GPT-5.4 wrapper now has a minimal OpenAI-compatible live path in `baselines/llm_r2/adapter.py` while still excluding the official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, and demonstration selector. The bounded PostgreSQL-only live user-facade smoke selected 6 rows (`PERF_0006`, `CONS_0036`, `PERF_0007`, `CONS_0005`, `CONS_0007`, `LONGTAIL_0011`), made live calls only for those rows, generated 6 candidates, executed DB/checker/timing only for those rows, reached 5 candidate executable rows, 5 exact rows, and 5 timed rows, with `LONGTAIL_0011` remaining `candidate_execution_failed`. No MySQL/Spark, Track A 120, `compute-local-metrics`, verifier, official metrics, paper rendering, retained-evidence promotion, leaderboard, denominator change, case membership change, paper result change, or raw legacy evidence change occurred. Runtime outputs under `runs/user/` and `/tmp` were removed before commit. Next safe action: authorize a PostgreSQL-only LLM-R2 adapted PG40 bounded diagnostic with DB/checker/timing and `local_metrics.py`; do not run Track A 120 until PG40 and a route boundary policy are complete.
 
 `llm_r2_gpt54_adapter_scaffold_v0` is complete under `audits/llm_r2_gpt54_adapter_scaffold_v0/`. The release repo now has a fixture-only adapted LLM-R2 GPT-5.4 wrapper scaffold at `baselines/llm_r2/adapter.py`, documentation at `baselines/llm_r2/README.md`, and focused tests at `tests/user_entry/test_llm_r2_adapter.py`. This is `route_id=llm_r2_gpt54_adapted` / `method_id=llm_r2`, labeled `adapted_gpt54_local_diagnostic=true`, `original_paper_reproduction=false`, and `official_llm_r2_stack=false`. Fake runtime mode supports one-SQL fixture output plus optional rule-sequence metadata and fails closed for missing source/schema, unsupported engines, malformed/empty/prose/multiple-SQL outputs, rule-only responses, live mode without gate/key, and unavailable rule-system/checkpoint/demo-selector placeholders. Targeted tests passed (`15 passed, 7 subtests passed`), `py_compile` passed, and a tiny fake user-facade smoke over `PERF_0006/postgres` and `CONS_0036/postgres` selected 2 rows and generated 2 candidates with no DB/checker/timing/local_metrics/verifier. Legacy LLM-R2 PG9/PG6/PG3 evidence was reviewed read-only as design context only; no old outputs/logs/candidates/metrics were copied. No live LLM/API, official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint/demo selector, DB/checker/timing, `compute-local-metrics`, verifier, official metrics, paper rendering, retained-evidence promotion, leaderboard, Track A 120, denominator change, case membership change, paper result change, or raw legacy evidence change occurred. Next safe action: authorize a 3-6 row PostgreSQL-only GPT-5.4 adapted live generation/e2e smoke depending on scaffold readiness; do not run Track A 120 until fake and bounded live smokes pass.
 

@@ -5,13 +5,14 @@ LLM-R2 route:
 
 - `route_id`: `llm_r2_gpt54_adapted`
 - `method_id`: `llm_r2`
-- future provider policy: OpenAI-compatible / GPTSAPI-compatible
-- future model policy: `gpt-5.4`
+- provider policy: OpenAI-compatible / GPTSAPI-compatible
+- model policy: `gpt-5.4`
 
 This is not an original LLM-R2 paper reproduction and does not use the
 official LLM-R2 runtime, Java rule system, SimCSE checkpoint, demonstration
-selector, or retained legacy outputs. The current scaffold supports fake
-fixture mode only.
+selector, or retained legacy outputs. The adapter supports fake fixture mode
+and a minimal adapted live GPT-5.4 mode through the shared OpenAI-compatible
+provider policy.
 
 ## Fake Mode
 
@@ -34,10 +35,9 @@ The adapter writes exactly one candidate SQL statement to
 `llm_r2_status.json` in `SQLRB_WORKSPACE_DIR` for both success and fail-closed
 paths.
 
-## Future Live Boundary
+## Adapted Live Mode
 
-Future live LLM-R2-adapted work must use the same provider policy as Direct
-LLM:
+Live LLM-R2-adapted work must use the same provider policy as Direct LLM:
 
 - `SQLRB_LLM_PROVIDER=openai_compatible`
 - `SQLRB_LLM_BASE_URL` or `GPTSAPI_BASE_URL`
@@ -45,8 +45,11 @@ LLM:
 - `SQLRB_LLM_ALLOW_LIVE=1`
 - API keys through environment variables only
 
-`SQLRB_LLM_R2_MODE=live` is intentionally fail-closed in this scaffold. It
-checks the live gate and provider configuration but does not call a provider.
+`SQLRB_LLM_R2_MODE=live` sends the source SQL and schema context to the
+configured OpenAI-compatible chat-completions endpoint and requires extraction
+of exactly one `SELECT` or `WITH` statement. It fails closed on missing live
+gate, missing API key, provider error, malformed response, empty/prose output,
+ambiguous markdown, or multiple SQL statements.
 
 Future official-stack work would also need separately authorized rule-system,
 checkpoint, and demonstration-selector configuration:
