@@ -11,6 +11,8 @@ Date: 2026-05-23
 
 ## Current Status Summary
 
+`rbot_gpt54_pg40_local_metrics_recovery_v0` is complete under `audits/rbot_gpt54_pg40_local_metrics_recovery_v0/` as a fail-closed recovery audit for the R-Bot adapted GPT-5.4 PostgreSQL-only PG40 local metrics outputs. The required source run directory `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` was missing, so the correct single-run `python -m cli.main user compute-local-metrics --run-id rbot_gpt54_pg40_bounded_diagnostic_v0 --source-run-root runs/user --output-root /tmp/sqlrb_rbot_gpt54_pg40_bounded_local_diagnostic_v0/output` command was not executed. No metrics were reconstructed from audit CSVs, no route metrics were hand-computed, and no live LLM, evaluate, DB/checker/timing, verifier, official metrics, paper rendering, leaderboard, denominator, case membership, paper result, or raw legacy evidence changes occurred. Next safe action: restore or recreate the missing source run under a separately authorized plan, then run single-run `compute-local-metrics` with `--run-id` only; after recovery, write the R-Bot adapted PostgreSQL route boundary/policy packet. Do not run Track A 120.
+
 Common-core 40 canonical case-package migration is complete: 40/40 fixed Common-core cases now have canonical public-release case packages.
 
 This status is verified by the final closeout audit under `audits/common_core40_final_closeout/` and fresh validator v0.3 outputs over the fixed Common-core 40 case list.

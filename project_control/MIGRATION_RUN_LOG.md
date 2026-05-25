@@ -23319,3 +23319,56 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Resolve the `compute-local-metrics` aggregate-output guard with a separately authorized command-shape/policy fix or rerun plan, then write an R-Bot adapted PostgreSQL route boundary/policy packet. Do not run Track A 120.
+
+## 2026-05-25 - rbot_gpt54_pg40_local_metrics_recovery_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Fail-closed local metrics recovery audit for the existing R-Bot adapted GPT-5.4 PostgreSQL-only PG40 bounded diagnostic.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/rbot_gpt54_pg40_local_metrics_recovery_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Checked for `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` before running the correct single-run `compute-local-metrics` command.
+- The source run directory was missing, so recovery stopped before invoking `python -m cli.main user compute-local-metrics`.
+- Recorded the correct single-run command shape using `--run-id` only, and explicitly avoided aggregate mode flags `--run-id-prefix`, `--engines`, and `--aggregate-run-id`.
+- No metrics were reconstructed from prior audit CSVs or hand-computed.
+
+Validation result:
+- Source artifact existence check: failed closed as expected; `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` was missing.
+- Single-run `compute-local-metrics`: not executed because required source artifacts were absent.
+- CSV parse checks: passed for `source_artifact_check.csv`.
+- Markdown non-empty checks: passed for the recovery audit Markdown/text files.
+- No live LLM, R-Bot adapter/evaluate, DB execution, checker execution, timing, SQLSolver, VeriEQL, official metrics, paper rendering, leaderboard, or Track A 120 command was run.
+- No top-level reports/results update, runtime output staging, or manual metric reconstruction occurred.
+- Changed-file secret value scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- This is a recovery-blocker audit only. It does not produce canonical local metrics, official metrics, official SER, paper results, retained-evidence promotion, or leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Restore or recreate `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` under separate authorization, then run single-run `compute-local-metrics` with `--run-id` only. After metrics recovery succeeds, write the R-Bot adapted PostgreSQL route boundary/policy packet; do not run Track A 120.
