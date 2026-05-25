@@ -24100,3 +24100,69 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a 2-4 case offline-to-live API annotation smoke only after reviewing the interface packet.
+
+## 2026-05-25 - pocr_live_api_annotation_smoke_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Bounded live API smoke for POCR Stage A annotation only, plus fail-closed Stage B validation review. No full-route POCR computation, user-output integration, DB/checker/timing run, baseline rerun, official metric promotion, paper-facing reports/results update, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/live_smoke.py`
+- `audits/pocr_live_api_annotation_smoke_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `src/sql_rewrite_bench/pocr/annotation_client.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a narrow internal audit helper for bounded live POCR Stage A annotation smoke runs.
+- Extended the POCR annotation client with an OpenAI-compatible live call path guarded by explicit live enablement and environment gate.
+- Selected four authorized fixture cases: `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Used existing route-labeled local candidate SQL artifacts from `runs/user/common_core_pg_noop_db_checker/candidate_sql/` as read-only candidate inputs.
+- Live calls attempted: 4.
+- Provider label: `openai_compatible`.
+- Model label: `gpt-5.4`.
+- Schema-valid Stage A annotations: 3 (`CONS_0005`, `PORT_0003`, `LONGTAIL_0011`).
+- Malformed provider JSON: 1 (`PERF_0006`), recorded as `schema_invalid` without repair or promotion.
+- Stage B status: schema-valid rows remained `insufficient_evidence`; malformed row remained `schema_invalid`; no independent evidence was supplied.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- CSV parse checks for audit CSV files: passed.
+- JSONL parse checks for `safe_annotation_outputs.jsonl`: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, `skills.md`, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed; no API key value was written or staged.
+- `git diff --check`: passed.
+
+Boundary:
+- API key values were read from environment only and were not printed, written, staged, or committed.
+- Raw prompts and raw provider responses were not stored; safe prompt/source/candidate hashes and structured annotation outputs were retained under the audit packet only.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official POCR computation, route-level POCR aggregation, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- `cases.zip`, Zone.Identifier sidecars, and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- After reviewing the live smoke, design a bounded candidate-source resolver and diagnostic POCR draft runner, still separate from user-output integration.

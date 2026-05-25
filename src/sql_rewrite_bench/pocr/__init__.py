@@ -1,6 +1,7 @@
 """Parse-only POCR skills.md contract helpers."""
 
 from sql_rewrite_bench.pocr.annotation_client import (
+    AnnotationCallResult,
     AnnotationClientConfig,
     FakeAnnotationClient,
     build_annotation_client,
@@ -37,6 +38,7 @@ from sql_rewrite_bench.pocr.validation import validate_skill_contract
 
 __all__ = [
     "ANNOTATION_SCHEMA_VERSION",
+    "AnnotationCallResult",
     "AnnotationClientConfig",
     "AnnotationPromptInputs",
     "AtomEvidenceValidation",

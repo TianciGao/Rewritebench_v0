@@ -1,0 +1,5 @@
+case_id,pool,engine,schema_valid,stage_b_status,evidence_status_counts,validated_operation_atoms_count,expected_operation_atoms_count,semantic_guard_validated_count,semantic_guard_count,official_pocr_computed,route_level_pocr_aggregated,notes
+PERF_0006,PERF,postgres,false,schema_invalid,{},0,3,0,2,false,false,Stage B not promoted because Stage A annotation failed.
+CONS_0005,CONS,postgres,true,insufficient_evidence,"{""insufficient_evidence"": 5}",0,3,0,2,false,false,No independent evidence supplied; Stage B must remain fail-closed.
+PORT_0003,PORT,postgres,true,insufficient_evidence,"{""insufficient_evidence"": 5}",0,3,0,2,false,false,No independent evidence supplied; Stage B must remain fail-closed.
+LONGTAIL_0011,LONGTAIL,postgres,true,insufficient_evidence,"{""insufficient_evidence"": 4}",0,2,0,2,false,false,No independent evidence supplied; Stage B must remain fail-closed.
