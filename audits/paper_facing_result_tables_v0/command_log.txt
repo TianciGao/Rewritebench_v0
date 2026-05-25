@@ -1,0 +1,174 @@
+# Command Log
+
+Read-only/context commands used:
+
+```bash
+git branch --show-current
+git status --short
+sed -n '1,220p' repository_spec/metrics_contract_v1.md
+sed -n '1,180p' audits/unified_local_diagnostic_evidence_summary_v0/unified_route_evidence_ledger.csv
+sed -n '1,180p' audits/unified_local_diagnostic_evidence_summary_v0/failure_frontier_summary.csv
+sed -n '1,220p' audits/unified_local_diagnostic_evidence_summary_v0/tag_failure_summary.csv
+sed -n '1,220p' audits/unified_local_diagnostic_evidence_summary_v0/timing_slice_summary.csv
+sed -n '1,260p' audits/unified_local_diagnostic_evidence_summary_v0/evidence_location_index.csv
+find audits/track_a_120_tag_failure_slices_v0 audits/prior_methods_pg40_tag_failure_slices_v0 -maxdepth 1 -type f
+sed -n '1,220p' project_control/MIGRATION_STATUS.md
+tail -n 120 project_control/MIGRATION_RUN_LOG.md
+sed -n '1,120p' project_control/MIGRATION_MASTER_PLAN.md
+sed -n '1,160p' project_control/DECISION_LOG.md
+sed -n '1,220p' audits/unified_local_diagnostic_evidence_summary_v0/README.md
+sed -n '1,220p' audits/unified_local_diagnostic_evidence_summary_v0/paper_table_plan.md
+find audits -maxdepth 1 -type d | rg -i 'verieql|sqlsolver|verifier'
+sed -n '1,200p' audits/verieql_support_layout_config_contract_v0/README.md
+sed -n '1,200p' audits/sqlsolver_coverage_limited_boundary_v0/README.md
+sed -n '1,200p' audits/user_output_verifier_status_integration_v0/README.md
+```
+
+File creation/update commands:
+
+```bash
+mkdir -p audits/paper_facing_result_tables_v0
+```
+
+Validation commands are recorded in `validation_notes.md` after execution.
+
+Validation commands run:
+
+```bash
+python - <<'PY'
+import csv
+from pathlib import Path
+base=Path('audits/paper_facing_result_tables_v0')
+for path in sorted(base.glob('*.csv')):
+    with path.open(newline='') as f:
+        rows=list(csv.DictReader(f))
+    if not rows:
+        raise SystemExit(f'empty csv: {path}')
+    print(f'csv_ok {path} rows={len(rows)} cols={len(rows[0])}')
+PY
+python - <<'PY'
+from pathlib import Path
+base=Path('audits/paper_facing_result_tables_v0')
+for path in sorted(base.glob('*.md')):
+    text=path.read_text().strip()
+    if not text:
+        raise SystemExit(f'empty markdown: {path}')
+    print(f'md_ok {path} bytes={len(text)}')
+PY
+python - <<'PY'
+from pathlib import Path
+required = [
+'Generation Rate',
+'Execution Coverage Rate',
+'Result Consistency Rate',
+'Semantic Equivalence Rate',
+'GM Speedup Ratio',
+'Speedup Ratio Percentiles',
+'Positive Operation Coverage Rate',
+'Cross-Engine Execution Coverage Rate',
+'Cross-Engine Result Consistency Rate',
+'Cross-Engine GM Speedup Ratio',
+]
+text='\n'.join(p.read_text() for p in Path('audits/paper_facing_result_tables_v0').glob('*'))
+missing=[name for name in required if name not in text]
+if missing:
+    raise SystemExit('missing metric names: '+', '.join(missing))
+print('exact_metric_names_ok', len(required))
+import csv
+bad=[]
+abbr_result=''.join(chr(x) for x in [82,67,82])
+abbr_speed=''.join(chr(x) for x in [71,77])
+for path in Path('audits/paper_facing_result_tables_v0').glob('*.csv'):
+    with path.open(newline='') as f:
+        header=next(csv.reader(f))
+    for col in header:
+        if col.strip() in {abbr_result, abbr_speed, f'{abbr_speed}_speedup', f'{abbr_speed}_Speedup', f'{abbr_result}_rate'}:
+            bad.append((str(path),col))
+if bad:
+    raise SystemExit('forbidden abbreviation-only columns: '+repr(bad))
+print('forbidden_abbrev_columns_absent')
+PY
+python - <<'PY'
+import csv
+from pathlib import Path
+base=Path('audits/paper_facing_result_tables_v0')
+text='\n'.join(p.read_text() for p in base.glob('*'))
+track=['direct_llm_original','direct_llm_repair_1','sqlglot_noop','sqlglot_optimize_schema_aware','calcite_hep_fail_closed']
+pg=['learnedrewrite','rbot_gpt54_adapted','llm_r2_gpt54_adapted']
+missing=[x for x in track+pg if x not in text]
+if missing:
+    raise SystemExit('missing routes: '+', '.join(missing))
+print('routes_ok', len(track), 'track_a', len(pg), 'pg40')
+sources=[
+'audits/unified_local_diagnostic_evidence_summary_v0',
+'audits/track_a_120_tag_failure_slices_v0',
+'audits/prior_methods_pg40_tag_failure_slices_v0',
+'audits/direct_llm_original_track_a_120_canonical_user_rerun_v0',
+'audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0',
+'audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0',
+'audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0',
+'audits/calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0',
+'audits/learnedrewrite_pg40_bounded_local_diagnostic_v0',
+'audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0',
+'audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0',
+'audits/sqlsolver_coverage_limited_boundary_v0',
+'audits/user_output_verifier_status_integration_v0',
+'audits/metrics_contract_d032_d033_patch_v0',
+'audits/verieql_support_layout_config_contract_v0',
+]
+missing_paths=[p for p in sources if not Path(p).exists()]
+if missing_paths:
+    raise SystemExit('missing source paths: '+', '.join(missing_paths))
+print('source_paths_ok', len(sources))
+ledger=(base/'table1_paper_metric_route_evidence_ledger.csv').read_text()
+for token in ['0.9333333333333333','0.9583333333333334','0.8083333333333333','0.7583333333333333','0.7916666666666666','0.725','0.95','0.975','1.009691483166132','0.9777997901126648']:
+    if token not in ledger:
+        raise SystemExit('missing copied metric token: '+token)
+print('copied_metric_tokens_ok')
+PY
+python - <<'PY'
+from pathlib import Path
+log=Path('audits/paper_facing_result_tables_v0/command_log.txt').read_text()
+for line in log.splitlines():
+    stripped=line.strip()
+    if stripped.startswith('python -m cli.main user evaluate') or stripped.startswith('python -m cli.main user compute-local-metrics'):
+        raise SystemExit('prohibited exact command recorded: '+stripped)
+print('no_prohibited_executable_commands_in_log')
+PY
+git diff --check
+python - <<'PY'
+from pathlib import Path
+base=Path('audits/paper_facing_result_tables_v0')
+text='\n'.join(p.read_text() for p in base.glob('*'))
+for route in ['direct_llm_original','direct_llm_repair_1','sqlglot_noop','sqlglot_optimize_schema_aware','calcite_hep_fail_closed','learnedrewrite','rbot_gpt54_adapted','llm_r2_gpt54_adapted']:
+    if route not in text:
+        raise SystemExit('missing route: '+route)
+print('route_representation_checks_passed')
+PY
+python - <<'PY'
+from pathlib import Path
+sources=['audits/unified_local_diagnostic_evidence_summary_v0','audits/track_a_120_tag_failure_slices_v0','audits/prior_methods_pg40_tag_failure_slices_v0','audits/direct_llm_original_track_a_120_canonical_user_rerun_v0','audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0','audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0','audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0','audits/calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0','audits/learnedrewrite_pg40_bounded_local_diagnostic_v0','audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0','audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0','audits/sqlsolver_coverage_limited_boundary_v0','audits/user_output_verifier_status_integration_v0','audits/metrics_contract_d032_d033_patch_v0','audits/verieql_support_layout_config_contract_v0']
+missing=[p for p in sources if not Path(p).exists()]
+if missing:
+    raise SystemExit('missing source paths: '+', '.join(missing))
+print('source_audit_existence_checks_passed', len(sources))
+PY
+rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\s*[:=]\s*['\"]?[A-Za-z0-9_./+=-]{20,}|bearer\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\s*[:=])" audits/paper_facing_result_tables_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md || true
+python - <<'PY'
+from pathlib import Path
+allowed_prefixes=('audits/paper_facing_result_tables_v0/', 'project_control/MIGRATION_STATUS.md', 'project_control/MIGRATION_RUN_LOG.md')
+changed=[]
+import subprocess
+for line in subprocess.check_output(['git','diff','--name-only'], text=True).splitlines():
+    changed.append(line)
+for path in Path('audits/paper_facing_result_tables_v0').glob('*'):
+    if path.is_file():
+        changed.append(str(path))
+bad=[p for p in changed if not any(p == a or p.startswith(a) for a in allowed_prefixes)]
+if bad:
+    raise SystemExit('protected path violation: '+', '.join(bad))
+print('protected_path_review_passed', len(changed))
+PY
+```
+
+No experiment, baseline, live LLM call, DB execution, checker execution, timing collection, local metric computation, verifier command, official metric generation, paper rendering, retained-evidence promotion, leaderboard generation, or Track A 120 command was run.

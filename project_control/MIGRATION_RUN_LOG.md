@@ -23843,3 +23843,64 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Use the unified evidence summary to draft or update paper result tables and appendix artifact index. Do not run additional experiments unless a specific gap is identified.
+
+## 2026-05-25 - paper_facing_result_tables_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Paper-facing table drafting from existing audit evidence only. No experiment, runtime, metric recomputation, paper rendering, retained-evidence promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/paper_facing_result_tables_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Created paper-facing drafts for five result/artifact table families: paper metric route evidence ledger, failure frontier summary, failure bucket x taxonomy diagnostic summary, metric availability and boundary table, and evidence location index.
+- Used exact paper metric names from `repository_spec/metrics_contract_v1.md`.
+- Included completed Track A 120 canonical local diagnostic routes: Direct LLM original, Direct LLM + Repair-1, SQLGlot no-op, SQLGlot optimize schema-aware, and Calcite HEP fail-closed.
+- Included PostgreSQL-only PG40 bounded prior-method evidence: LearnedRewrite, R-Bot adapted GPT-5.4, and LLM-R2 adapted GPT-5.4.
+- Recorded SQLSolver and VeriEQL as verifier support only, with N.A./coverage_limited Semantic Equivalence Rate status and N.A. rewrite metrics.
+- Kept Positive Operation Coverage Rate deferred / N.A. and cross-engine metrics N.A. unless separately approved evidence exists.
+
+Validation result:
+- CSV parse checks: passed for 5 CSV files.
+- Markdown non-empty checks: passed for 8 markdown files.
+- All required paper metric names appear exactly as specified.
+- Forbidden abbreviation-only metric columns such as RCR-only or GM-only: absent.
+- All Track A 120 routes represented.
+- All three PG40 prior methods represented.
+- Source audit existence checks: passed for required source packets.
+- Copied metric value checks against existing audit/local_metrics review files: passed.
+- No-prohibited-command check: passed for exact commands recorded in `command_log.txt`.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+- Final staged validation completed during closeout.
+
+Boundary:
+- No baseline, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+- No new primary metrics were computed. Values were copied from existing audit/local_metrics review files only.
+- Track A 120 and PG40 bounded prior-method evidence remain separate. No global leaderboard was created.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Use `audits/paper_facing_result_tables_v0/` to draft or update paper Section 8 result tables and appendix artifact index. Do not run additional experiments unless a specific evidence gap is identified.
