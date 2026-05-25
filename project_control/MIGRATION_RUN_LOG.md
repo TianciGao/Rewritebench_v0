@@ -25392,3 +25392,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement Step 2 candidate SQL output/storage contract under D035-style `output/results`, or authorize Direct LLM Repair-1 PostgreSQL PG40 diagnostic annotation-generation plus user-facing replay if the reconciliation confirms readiness.
+
+## 2026-05-26 - pocr_candidate_sql_output_storage_contract_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Documentation / contract / storage policy only. No file movement, candidate SQL copy, candidate SQL deletion, candidate SQL normalization, annotation JSONL generation, live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/candidate_sql_outputs.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/README.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/storage_contract.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/candidate_sql_path_contract.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/manifest_schema_contract.csv`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/legacy_runs_user_mapping_policy.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/pg40_vs_tracka120_storage_examples.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/table_route_storage_readiness_review.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/protected_path_review.md`
+- `audits/pocr_candidate_sql_output_storage_contract_v0/command_log.md`
+
+Files modified:
+- `docs/README.md`
+- `docs/pocr_diagnostic.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Defined the future D035-aligned candidate SQL output tree: `output/results/<run_id>/candidate_sql/<method_id>/<route_id>/<engine>/<CASE_ID>__<engine>.sql`.
+- Documented candidate SQL, candidate root, and candidate SHA-256 manifest schemas.
+- Defined artifact-only candidate status vocabulary: `candidate_present`, `candidate_missing`, `generation_failed`, `extraction_failed`, `unsupported_engine`, `preflight_blocked`, `schema_invalid_candidate_file`, `ambiguous_candidate`, and `legacy_source_only`.
+- Documented that existing `runs/user/**/candidate_sql` roots are read-only local/user-run assets, not official retained evidence by default, and should be referenced by manifests rather than silently copied.
+- Documented PG40 vs Track A 120 storage examples and the boundary that PG40 candidate roots cannot fill Track A 120 POCR cells.
+- Recorded Step 1b route readiness: Direct LLM original and Repair-1 are Track A 120 candidate-ready; SQLGlot no-op is PG40-ready only; SQLGlot optimize and Calcite HEP are incomplete; LearnedRewrite has 29 generated PG40 candidates only; R-Bot and LLM-R2 are PG40-ready.
+
+Validation result:
+- Markdown non-empty checks: passed.
+- `manifest_schema_contract.csv` parse check: passed, 39 rows.
+- Required phrase grep over `docs/candidate_sql_outputs.md` and audit docs: passed for `output/results/<run_id>/candidate_sql/`, `runs/user`, `PG40 candidate roots cannot fill Track A 120`, `No official POCR is computed`, `No paper-facing metric is promoted`, and `No route-level POCR score is emitted`.
+- Candidate SQL read-only check: passed; no `runs/user` or `runs/user/**/candidate_sql` diff/status changes were present.
+- Repository `output/` absent check: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, case-local `runs/`, or `runs/user` candidate files were modified.
+- `pytest tests/pocr -q`: passed, 92 tests.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`: passed, 28 tests.
+- `git diff --check`: passed.
+
+Boundary:
+- No candidate SQL file was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `runs/user` file was modified.
+- No repository `output/` directory was created or committed.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No DB execution, checker execution, timing collection, baseline rerun, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement Step 3 POCR annotation JSONL artifact contract, using this candidate SQL storage contract as the candidate identity layer.

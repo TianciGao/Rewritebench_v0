@@ -7,6 +7,7 @@ User-facing documentation:
 - `guide/user_quickstart.md`: short D035-shaped user quickstart.
 - `USER_BENCHMARK_GUIDE.md`: user-entry smoke runs, adapter capture, and optional local diagnostics.
 - `USER_ENTRY_DATA_FLOW.md`: user-entry data flow, internal staging, and exported output locations.
+- `candidate_sql_outputs.md`: D035-aligned candidate SQL output tree and manifest contract.
 - `pocr_diagnostic.md`: optional default-off POCR diagnostic command and replay examples.
 - `spec/output_contract.md`: D035 local user-output contract.
 - `spec/cli_contract.md`: user-facing CLI and implementation boundary.

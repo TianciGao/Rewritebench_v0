@@ -4,6 +4,8 @@
 
 It writes local user-output files for inspecting POCR Stage A annotation status and transformation-aware Stage B diagnostics over existing candidate SQL. It does not create an official benchmark result.
 
+Future candidate SQL roots should follow the D035-aligned storage contract in `candidate_sql_outputs.md`. Existing `runs/user` candidate roots may be referenced read-only for diagnostics, but should not be copied, moved, deleted, or normalized without inventory and retention mapping.
+
 ## What It Is Not
 
 - This is not official POCR.
