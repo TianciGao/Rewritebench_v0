@@ -1,0 +1,9 @@
+case_id,pool,candidate_class,method_id,route_id,expected_operation_atoms_count,stage_a_implemented_operation_atoms_count,static_validated_operation_atoms_count,static_rejected_operation_atoms_count,insufficient_evidence_operation_atoms_count,semantic_guard_atoms_count,semantic_guard_static_status_summary,diagnostic_only,official_pocr_computed,route_level_pocr_aggregated,calibration_risk
+PERF_0006,PERF,positive_control,human_positive_control,pocr_positive_control_calibration,3,3,3,0,0,2,"{""validated_static_span"": 2}",true,false,false,presence_not_rewrite_risk
+PERF_0006,PERF,noop_control,sqlglot_noop,common_core_pg_noop_db_checker,3,0,3,0,0,2,"{""validated_static_span"": 2}",true,false,false,presence_not_rewrite_risk
+CONS_0005,CONS,positive_control,human_positive_control,pocr_positive_control_calibration,3,3,3,0,0,2,"{""validated_static_span"": 2}",true,false,false,low
+CONS_0005,CONS,noop_control,sqlglot_noop,common_core_pg_noop_db_checker,3,0,0,0,0,2,{},true,false,false,low
+PORT_0003,PORT,positive_control,human_positive_control,pocr_positive_control_calibration,3,0,0,0,0,2,{},true,false,false,positive_control_no_validated_atoms
+PORT_0003,PORT,noop_control,sqlglot_noop,common_core_pg_noop_db_checker,3,1,3,0,0,2,"{""validated_static_span"": 2}",true,false,false,positive_control_no_validated_atoms
+LONGTAIL_0011,LONGTAIL,positive_control,human_positive_control,pocr_positive_control_calibration,2,0,2,0,0,2,"{""validated_static_span"": 2}",true,false,false,presence_not_rewrite_risk
+LONGTAIL_0011,LONGTAIL,noop_control,sqlglot_noop,common_core_pg_noop_db_checker,2,2,2,0,0,2,"{""validated_static_span"": 2}",true,false,false,presence_not_rewrite_risk

@@ -1,0 +1,9 @@
+case_id,pool,candidate_class,engine,schema_valid,stage_b_status,evidence_status_counts,static_validated_operation_atoms_count,static_rejected_operation_atoms_count,insufficient_evidence_atoms_count,expected_operation_atoms_count,semantic_guard_validated_static_span_count,semantic_guard_count,official_pocr_computed,route_level_pocr_aggregated,notes
+PERF_0006,PERF,positive_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+PERF_0006,PERF,noop_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+CONS_0005,CONS,positive_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+CONS_0005,CONS,noop_control,postgres,false,schema_invalid,{},0,0,0,3,0,2,false,false,Stage B not promoted because Stage A annotation failed.
+PORT_0003,PORT,positive_control,postgres,false,schema_invalid,{},0,0,0,3,0,2,false,false,Stage B not promoted because Stage A annotation failed.
+PORT_0003,PORT,noop_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+LONGTAIL_0011,LONGTAIL,positive_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 4}",2,0,0,2,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+LONGTAIL_0011,LONGTAIL,noop_control,postgres,true,static_evidence_partial,"{""validated_static_span"": 4}",2,0,0,2,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.

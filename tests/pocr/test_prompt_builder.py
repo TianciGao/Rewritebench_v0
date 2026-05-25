@@ -105,3 +105,7 @@ def test_prompt_aligns_evidence_refs_with_static_stage_b_contract() -> None:
     assert "Do not invent atoms" in prompt
     assert "infer atoms from taxonomy" in prompt
     assert "Return strict JSON only" in prompt
+    assert "Do not mark an operation_atom as implemented merely because the candidate preserves a source-side SQL fragment" in prompt
+    assert "actually implements that transformation relative to the source" in prompt
+    assert "positive-aligned static refs" in prompt
+    assert "source-like/no-op" in prompt
