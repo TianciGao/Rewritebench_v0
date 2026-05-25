@@ -25463,3 +25463,85 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement Step 3 POCR annotation JSONL artifact contract, using this candidate SQL storage contract as the candidate identity layer.
+
+## 2026-05-26 - nightly_track_a_120_candidate_capture_sqlglot_calcite_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Nightly candidate-SQL capture / reproduction only. This is not D038 Step 3, not POCR annotation generation, not official POCR, and not paper metric promotion. No live API call, API key read, DB/checker/timing run, POCR annotation JSONL generation, POCR Stage B validation, official metric computation, route-level POCR aggregation, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/README.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/capture_plan.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/route_attempt_summary.csv`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/output_location_manifest.csv`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/route_candidate_counts.csv`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/failure_bucket_summary.csv`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/dependency_environment_review.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/sqlglot_capture_review.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/calcite_capture_review.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/learnedrewrite_skip_note.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/protected_path_review.md`
+- `audits/nightly_track_a_120_candidate_capture_sqlglot_calcite_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Local output roots created but not committed:
+- `output/results/sqlglot_noop_track_a_120_candidate_capture_v0/`
+- `output/results/sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0/`
+- `output/results/calcite_hep_fail_closed_track_a_120_candidate_capture_v0/`
+- matching `output/logs/<run_id>/`
+- matching `output/reports/<run_id>/`
+
+Summary:
+- Used existing adapters directly with their public adapter environment and D035-style candidate paths, avoiding `runs/user` and avoiding DB/checker/timing.
+- SQLGlot no-op planned 120 rows and captured 115 candidate SQL files. Missing rows: 5 PostgreSQL generation failures on `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- SQLGlot optimize schema-aware planned 120 rows and captured 105 candidate SQL files. Frontier: 10 generation failures and 5 preflight-blocked MySQL rows.
+- Calcite HEP fail-closed planned 120 rows and captured 0 candidate SQL files because no external Calcite runtime env was configured; all 120 rows are preflight-blocked with `calcite_runtime_unavailable`.
+- LearnedRewrite was intentionally skipped; no attempt was made to fabricate missing LearnedRewrite candidates.
+
+Validation result:
+- Each route `candidate_sql_manifest.csv` has 120 planned rows: passed.
+- Candidate files listed as `candidate_present=true` exist under D035 `output/results` paths: passed.
+- SHA-256 exists for every candidate-present row: passed.
+- Output manifest CSV parse checks: passed.
+- Audit CSV parse checks: passed.
+- Audit Markdown non-empty checks: passed.
+- Candidate SQL under `runs/user` modified: no.
+- `cases/` and `skills.md` modified: no.
+- Top-level `reports/` and `results/` modified: no.
+- Repository `output/` exists only as untracked local user output and is not staged.
+- Protected-path review: passed.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed during closeout after explicit staging.
+- `git diff --check`: passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No POCR annotation or POCR Stage B validation was run.
+- No DB execution, checker execution, timing collection, baseline rerun outside the deterministic candidate adapters, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- No existing candidate SQL was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `runs/user` file was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect the captured Track A 120 candidate manifests, then continue D038 Step 3 annotation JSONL artifact contract or authorize route-specific POCR annotation generation only after candidate capture quality is reviewed.

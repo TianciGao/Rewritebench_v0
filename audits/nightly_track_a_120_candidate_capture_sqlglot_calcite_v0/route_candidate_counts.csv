@@ -1,0 +1,10 @@
+method_id,route_id,engine,planned_rows,candidate_present_rows,missing_or_failed_rows,notes
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,postgres,40,35,5,candidate SQL capture only; no DB/checker/timing
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,mysql,40,40,0,candidate SQL capture only; no DB/checker/timing
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,spark,40,40,0,candidate SQL capture only; no DB/checker/timing
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,postgres,40,34,6,candidate SQL capture only; no DB/checker/timing
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,mysql,40,32,8,candidate SQL capture only; no DB/checker/timing
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,spark,40,39,1,candidate SQL capture only; no DB/checker/timing
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,postgres,40,0,40,candidate SQL capture only; no DB/checker/timing
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,mysql,40,0,40,candidate SQL capture only; no DB/checker/timing
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,spark,40,0,40,candidate SQL capture only; no DB/checker/timing

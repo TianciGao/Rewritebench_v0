@@ -1,0 +1,15 @@
+method_id,route_id,engine,candidate_status,count,notes
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,postgres,candidate_present,35,Candidate file exists under D035 output/results path.
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,postgres,generation_failed,5,Adapter returned generation failure; see output/logs workspace status JSON/stderr.
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,mysql,candidate_present,40,Candidate file exists under D035 output/results path.
+sqlglot_noop,sqlglot_noop_track_a_120_candidate_capture_v0,spark,candidate_present,40,Candidate file exists under D035 output/results path.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,postgres,candidate_present,34,Candidate file exists under D035 output/results path.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,postgres,generation_failed,6,Adapter returned generation failure; see output/logs workspace status JSON/stderr.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,mysql,candidate_present,32,Candidate file exists under D035 output/results path.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,mysql,generation_failed,3,Adapter returned generation failure; see output/logs workspace status JSON/stderr.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,mysql,preflight_blocked,5,SQLGlot schema-aware route fail-closed known unsupported MySQL ARRAY_ANY/lambda output.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,spark,candidate_present,39,Candidate file exists under D035 output/results path.
+sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_track_a_120_candidate_capture_v0,spark,generation_failed,1,Adapter returned generation failure; see output/logs workspace status JSON/stderr.
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,postgres,preflight_blocked,40,Calcite runtime env not configured in this shell; adapter failed closed.
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,mysql,preflight_blocked,40,Calcite runtime env not configured in this shell; adapter failed closed.
+calcite_hep_fail_closed,calcite_hep_fail_closed_track_a_120_candidate_capture_v0,spark,preflight_blocked,40,Calcite runtime env not configured in this shell; adapter failed closed.
