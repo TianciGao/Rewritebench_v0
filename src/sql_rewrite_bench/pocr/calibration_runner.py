@@ -33,8 +33,12 @@ from sql_rewrite_bench.pocr.operation_evidence_policy import (
 from sql_rewrite_bench.pocr.prompt_builder import AnnotationPromptInputs, build_annotation_prompt
 
 DEFAULT_CASES = ("PERF_0006", "CONS_0005", "PORT_0003", "LONGTAIL_0011")
+FULL40_CASE_LIST_ALIASES = {"common_core_v0", "full40", "all"}
 DEFAULT_NOOP_CANDIDATE_ROOT = Path("runs/user/common_core_pg_noop_db_checker/candidate_sql")
 DEFAULT_OUTPUT_DIR = Path("audits/pocr_transformation_aware_stage_b_calibration_v0")
+FULL40_OUTPUT_DIR = Path("audits/pocr_full40_positive_vs_noop_control_calibration_v0")
+DEFAULT_POSITIVE_ROUTE_ID = "pocr_positive_control_calibration"
+FULL40_POSITIVE_ROUTE_ID = "pocr_positive_control_full40_calibration"
 PROMPT_TEMPLATE_ID = "pocr_stage_a_annotation_prompt_v2_transformation_aware"
 
 
@@ -81,6 +85,7 @@ def load_calibration_candidates(
     case_ids: tuple[str, ...] = DEFAULT_CASES,
     noop_candidate_root: Path = DEFAULT_NOOP_CANDIDATE_ROOT,
     engine: str = "postgres",
+    positive_route_id: str = DEFAULT_POSITIVE_ROUTE_ID,
 ) -> tuple[CalibrationCandidate, ...]:
     """Load positive-control and no-op candidate paths without running methods."""
 
@@ -104,7 +109,7 @@ def load_calibration_candidates(
                 engine=engine,
                 candidate_class="positive_control",
                 method_id="human_positive_control",
-                route_id="pocr_positive_control_calibration",
+                route_id=positive_route_id,
                 source_sql_path=source_path,
                 candidate_sql_path=positive_path,
                 positive_sql_path=positive_path,
@@ -203,13 +208,15 @@ def apply_calibration_risks(rows: tuple[CalibrationResultRow, ...]) -> tuple[Cal
         noop = case_rows.get("noop_control")
         if positive is None or noop is None:
             risk = "incomplete_pair"
+        elif noop.transformation_supported_operation_atoms_count > 0:
+            risk = "noop_transformation_overaccept_risk"
+        elif (
+            positive.transformation_supported_operation_atoms_count == 0
+            and noop.transformation_supported_operation_atoms_count == 0
+        ):
+            risk = "atom_or_positive_alignment_gap"
         elif positive.transformation_supported_operation_atoms_count == 0:
             risk = "positive_control_no_transformation_support"
-        elif noop.transformation_supported_operation_atoms_count > 0 and noop.transformation_supported_operation_atoms_count >= max(
-            1,
-            positive.transformation_supported_operation_atoms_count - 1,
-        ):
-            risk = "transformation_overaccept_risk"
         else:
             risk = "low"
         for candidate_class in case_rows:
@@ -274,25 +281,43 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--live-enabled", action="store_true")
     parser.add_argument("--case-list", default=",".join(DEFAULT_CASES))
     parser.add_argument("--noop-candidate-root", type=Path, default=DEFAULT_NOOP_CANDIDATE_ROOT)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--engine", default="postgres")
+    parser.add_argument("--positive-route-id", default="")
     args = parser.parse_args(argv)
 
     repo_root = Path.cwd()
-    output_dir = args.output_dir
+    case_ids, case_scope = _resolve_case_ids(repo_root, args.case_list)
+    full40_mode = case_scope == "common_core_v0"
+    output_dir = args.output_dir or (FULL40_OUTPUT_DIR if full40_mode else DEFAULT_OUTPUT_DIR)
     output_dir.mkdir(parents=True, exist_ok=True)
-    case_ids = tuple(case_id.strip() for case_id in args.case_list.split(",") if case_id.strip())
-    if tuple(case_ids) != DEFAULT_CASES:
-        raise SystemExit("calibration case-list must exactly match the authorized four fixture cases")
+    if len(case_ids) * 2 > 80:
+        raise SystemExit("calibration is bounded to at most 80 live calls")
+    positive_route_id = args.positive_route_id or (FULL40_POSITIVE_ROUTE_ID if full40_mode else DEFAULT_POSITIVE_ROUTE_ID)
 
     candidates = load_calibration_candidates(
         repo_root,
         case_ids=case_ids,
         noop_candidate_root=args.noop_candidate_root,
         engine=args.engine,
+        positive_route_id=positive_route_id,
     )
-    _write_selected_cases(output_dir / "selected_cases.csv", candidates)
+    _write_selected_cases(
+        output_dir / "selected_cases.csv",
+        candidates,
+        noop_candidate_root=args.noop_candidate_root,
+        selection_notes=(
+            "Common-core v0 full-40 POCR control calibration"
+            if full40_mode
+            else "bounded four-case POCR calibration fixture"
+        ),
+    )
     _write_csv(output_dir / "candidate_class_inventory.csv", candidate_inventory_fields(), candidate_inventory_rows(candidates))
+    comparison_filename = (
+        "positive_vs_noop_full40_comparison.csv"
+        if full40_mode
+        else "positive_vs_noop_transformation_comparison.csv"
+    )
 
     provider_env = _load_provider_env()
     blockers = [candidate for candidate in candidates if candidate.candidate_source_status != "ready"]
@@ -304,8 +329,8 @@ def main(argv: list[str] | None = None) -> int:
         and bool(provider_env.model)
     )
     if blockers or not env_ready:
-        _write_not_run(output_dir, args.live_enabled, provider_env, blockers)
-        _write_empty_outputs(output_dir)
+        _write_not_run(output_dir, args.live_enabled, provider_env, blockers, full40_mode=full40_mode)
+        _write_empty_outputs(output_dir, comparison_filename=comparison_filename)
         return 0
 
     config_kwargs = {
@@ -447,11 +472,22 @@ def main(argv: list[str] | None = None) -> int:
     _write_csv(output_dir / "live_call_manifest.csv", live_manifest_fields(), manifest_rows)
     _write_csv(output_dir / "annotation_schema_validation.csv", schema_fields(), schema_rows)
     _write_csv(output_dir / "transformation_stage_b_validation_by_class.csv", stage_b_fields(), stage_b_rows)
-    write_calibration_csv(output_dir / "positive_vs_noop_transformation_comparison.csv", tuple(result_rows))
+    write_calibration_csv(output_dir / comparison_filename, tuple(result_rows))
     _write_jsonl(output_dir / "safe_annotation_outputs.jsonl", safe_rows)
-    _write_readme(output_dir, candidates, provider_env, manifest_rows, schema_rows, result_rows)
-    _write_plan_docs(output_dir)
+    _write_readme(output_dir, candidates, provider_env, manifest_rows, schema_rows, result_rows, full40_mode=full40_mode)
+    _write_plan_docs(output_dir, full40_mode=full40_mode)
     return 0
+
+
+def _resolve_case_ids(repo_root: Path, case_list: str) -> tuple[tuple[str, ...], str]:
+    requested = case_list.strip()
+    if requested in FULL40_CASE_LIST_ALIASES:
+        inventory = build_common_core_inventory(repo_root)
+        return tuple(member.case_id for member in inventory.members), "common_core_v0"
+    case_ids = tuple(case_id.strip() for case_id in requested.split(",") if case_id.strip())
+    if tuple(case_ids) == DEFAULT_CASES:
+        return case_ids, "four_case_fixture"
+    raise SystemExit("calibration case-list must be the authorized four fixture cases or common_core_v0")
 
 
 def candidate_inventory_rows(candidates: tuple[CalibrationCandidate, ...]) -> list[dict[str, object]]:
@@ -580,7 +616,13 @@ def _replace_risk(row: CalibrationResultRow, risk: str) -> CalibrationResultRow:
     return CalibrationResultRow(**{**row.__dict__, "calibration_risk": risk})
 
 
-def _write_selected_cases(path: Path, candidates: tuple[CalibrationCandidate, ...]) -> None:
+def _write_selected_cases(
+    path: Path,
+    candidates: tuple[CalibrationCandidate, ...],
+    *,
+    noop_candidate_root: Path,
+    selection_notes: str,
+) -> None:
     seen: dict[str, CalibrationCandidate] = {}
     for candidate in candidates:
         seen.setdefault(candidate.case_id, candidate)
@@ -592,10 +634,10 @@ def _write_selected_cases(path: Path, candidates: tuple[CalibrationCandidate, ..
             "source_sql_path": candidate.source_sql_path.as_posix(),
             "positive_sql_path": candidate.positive_sql_path.as_posix(),
             "noop_candidate_sql_path": (
-                DEFAULT_NOOP_CANDIDATE_ROOT / f"{candidate.case_id}__{candidate.engine}.sql"
+                noop_candidate_root / f"{candidate.case_id}__{candidate.engine}.sql"
             ).as_posix(),
             "selected": "true",
-            "notes": "bounded four-case POCR calibration fixture",
+            "notes": selection_notes,
         }
         for candidate in seen.values()
     ]
@@ -733,7 +775,14 @@ def _stage_b_invalid_row(candidate: CalibrationCandidate, contract: SkillContrac
     }
 
 
-def _write_not_run(output_dir: Path, live_enabled: bool, provider_env: object, blockers: list[CalibrationCandidate]) -> None:
+def _write_not_run(
+    output_dir: Path,
+    live_enabled: bool,
+    provider_env: object,
+    blockers: list[CalibrationCandidate],
+    *,
+    full40_mode: bool,
+) -> None:
     reasons: list[str] = []
     if not live_enabled:
         reasons.append("`--live-enabled` was not provided.")
@@ -747,19 +796,20 @@ def _write_not_run(output_dir: Path, live_enabled: bool, provider_env: object, b
         reasons.append("No model label is configured.")
     if blockers:
         reasons.append("One or more selected calibration candidate files is missing.")
-    (output_dir / "live_calibration_not_run.md").write_text(
-        "# Live Calibration Not Run\n\n"
+    not_run_path = output_dir / ("live_full40_calibration_not_run.md" if full40_mode else "live_calibration_not_run.md")
+    not_run_path.write_text(
+        "# Live Full-40 Calibration Not Run\n\n"
         + "\n".join(f"- {reason}" for reason in reasons)
         + "\n\nNo API call, DB/checker/timing run, baseline rerun, official POCR computation, or route-level aggregation occurred.\n",
         encoding="utf-8",
     )
 
 
-def _write_empty_outputs(output_dir: Path) -> None:
+def _write_empty_outputs(output_dir: Path, *, comparison_filename: str) -> None:
     _write_csv(output_dir / "live_call_manifest.csv", live_manifest_fields(), [])
     _write_csv(output_dir / "annotation_schema_validation.csv", schema_fields(), [])
     _write_csv(output_dir / "transformation_stage_b_validation_by_class.csv", stage_b_fields(), [])
-    _write_csv(output_dir / "positive_vs_noop_transformation_comparison.csv", calibration_result_fields(), [])
+    _write_csv(output_dir / comparison_filename, calibration_result_fields(), [])
     _write_jsonl(output_dir / "safe_annotation_outputs.jsonl", [])
 
 
@@ -770,6 +820,8 @@ def _write_readme(
     manifest_rows: list[dict[str, object]],
     schema_rows: list[dict[str, object]],
     result_rows: list[CalibrationResultRow],
+    *,
+    full40_mode: bool,
 ) -> None:
     positive = sum(row.transformation_supported_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
     noop = sum(row.transformation_supported_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
@@ -778,10 +830,21 @@ def _write_readme(
     positive_rejected_noop = sum(row.rejected_noop_equivalent_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
     noop_rejected_noop = sum(row.rejected_noop_equivalent_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
     risks = Counter(row.calibration_risk for row in result_rows)
+    selected_case_count = len({candidate.case_id for candidate in candidates})
+    title = (
+        "POCR Full-40 Positive-vs-Noop Control Calibration v0"
+        if full40_mode
+        else "POCR Transformation-Aware Stage B Calibration v0"
+    )
+    scope_line = (
+        "This packet compares human positive-control SQL against existing no-op/source-like candidates for all 40 Common-core v0 cases using transformation-aware Stage B operation evidence."
+        if full40_mode
+        else "This packet compares human positive-control SQL against existing no-op/source-like candidates for four POCR fixture cases using transformation-aware Stage B operation evidence."
+    )
     (output_dir / "README.md").write_text(
-        "# POCR Transformation-Aware Stage B Calibration v0\n\n"
-        "This packet compares human positive-control SQL against existing no-op/source-like candidates for four POCR fixture cases using transformation-aware Stage B operation evidence.\n\n"
-        f"- Fixture cases: {', '.join(DEFAULT_CASES)}\n"
+        f"# {title}\n\n"
+        f"{scope_line}\n\n"
+        f"- Common-core cases evaluated: {selected_case_count}\n"
         f"- Candidate classes evaluated: positive_control, noop_control\n"
         f"- Live calls attempted: {len(manifest_rows)}\n"
         f"- Provider/model: `{provider_env.provider}` / `{provider_env.model}`\n"
@@ -799,20 +862,36 @@ def _write_readme(
     )
 
 
-def _write_plan_docs(output_dir: Path) -> None:
+def _write_plan_docs(output_dir: Path, *, full40_mode: bool) -> None:
     (output_dir / "calibration_plan.md").write_text(
         "# Calibration Plan\n\n"
-        "The calibration compares two candidate classes on the same four cases: `positive_control` uses case-local `sql/pos_01.sql`, while `noop_control` uses existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/`. Both classes are annotated with the same transformation-aware Stage A prompt and checked by the same transformation-aware Stage B operation evidence policy. No official POCR or route-level aggregation is produced.\n",
+        "The calibration compares two candidate classes on the same cases: `positive_control` uses case-local `sql/pos_01.sql`, while `noop_control` uses existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/`. Both classes are annotated with the same transformation-aware Stage A prompt and checked by the same transformation-aware Stage B operation evidence policy. No official POCR or route-level aggregation is produced.\n"
+        + (
+            "\nScope: all 40 Common-core v0 cases, producing at most 80 live calls.\n"
+            if full40_mode
+            else "\nScope: the four-case bounded calibration fixture.\n"
+        ),
         encoding="utf-8",
     )
-    (output_dir / "transformation_evidence_contract.md").write_text(
-        "# Transformation Evidence Contract\n\n"
-        "For `operation_atom` rows, Stage B requires transformation-aware evidence rather than span presence alone. `candidate_sql_span`, `source_sql_span`, or `positive_sql_span` alone is `presence_only` and cannot count as transformation support. A row may become `transformation_supported` only when a candidate-specific or positive-aligned span is paired with `source_candidate_diff:changed`. Source-like/no-op candidates are classified as `presence_only` or `rejected_noop_equivalent`. This is diagnostic support only and is not official POCR proof.\n",
+    if not full40_mode:
+        (output_dir / "transformation_evidence_contract.md").write_text(
+            "# Transformation Evidence Contract\n\n"
+            "For `operation_atom` rows, Stage B requires transformation-aware evidence rather than span presence alone. `candidate_sql_span`, `source_sql_span`, or `positive_sql_span` alone is `presence_only` and cannot count as transformation support. A row may become `transformation_supported` only when a candidate-specific or positive-aligned span is paired with `source_candidate_diff:changed`. Source-like/no-op candidates are classified as `presence_only` or `rejected_noop_equivalent`. This is diagnostic support only and is not official POCR proof.\n",
+            encoding="utf-8",
+        )
+        (output_dir / "overacceptance_risk_review.md").write_text(
+            "# Overacceptance Risk Review\n\n"
+            "`noop_transformation_overaccept_risk` means the no-op control has one or more transformation-supported operation atoms. `presence_only` means cited SQL text exists but does not establish transformation. `rejected_noop_equivalent` means the candidate normalizes as source-like/no-op. These diagnostic flags are not official metrics, thresholds, or policy.\n",
+            encoding="utf-8",
+        )
+    (output_dir / "noop_overacceptance_review.md").write_text(
+        "# Noop Overacceptance Review\n\n"
+        "`noop_control` should not receive transformation support merely for preserving source-like SQL. Any row with `noop_transformation_overaccept_risk` needs prompt or Stage B policy review before real route diagnostics. This file is a boundary note; row-level evidence is in the comparison CSV.\n",
         encoding="utf-8",
     )
-    (output_dir / "overacceptance_risk_review.md").write_text(
-        "# Overacceptance Risk Review\n\n"
-        "`transformation_overaccept_risk` means the no-op control has transformation-supported operation atoms close to the positive control for the same case. `presence_only` means cited SQL text exists but does not establish transformation. `rejected_noop_equivalent` means the candidate normalizes as source-like/no-op. These diagnostic flags are not official metrics, thresholds, or policy.\n",
+    (output_dir / "positive_control_gap_review.md").write_text(
+        "# Positive Control Gap Review\n\n"
+        "`positive_control_no_transformation_support` and `atom_or_positive_alignment_gap` rows are diagnostic gaps, not dropped rows. They may indicate skills.md atom wording, positive SQL alignment, prompt compliance, provider output quality, or Stage B evidence limitations. No official POCR numerator is computed from these rows.\n",
         encoding="utf-8",
     )
     (output_dir / "protected_path_review.md").write_text(

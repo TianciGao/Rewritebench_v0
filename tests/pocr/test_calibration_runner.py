@@ -3,6 +3,7 @@ from pathlib import Path
 from sql_rewrite_bench.pocr.annotation_schema import ANNOTATION_SCHEMA_VERSION, annotation_from_mapping
 from sql_rewrite_bench.pocr.calibration_runner import (
     CalibrationResultRow,
+    FULL40_POSITIVE_ROUTE_ID,
     apply_calibration_risks,
     calibration_result_from_stage_b,
     load_calibration_candidates,
@@ -67,6 +68,30 @@ def test_calibration_candidate_loader_maps_positive_and_noop_controls() -> None:
     assert noop.candidate_source_status == "ready"
 
 
+def test_calibration_candidate_loader_maps_all_40_cases() -> None:
+    inventory = build_common_core_inventory(REPO_ROOT)
+    case_ids = tuple(member.case_id for member in inventory.members)
+
+    candidates = load_calibration_candidates(
+        REPO_ROOT,
+        case_ids=case_ids,
+        noop_candidate_root=Path("runs/user/common_core_pg_noop_db_checker/candidate_sql"),
+        positive_route_id=FULL40_POSITIVE_ROUTE_ID,
+    )
+
+    assert len(case_ids) == 40
+    assert len(candidates) == 80
+    assert {candidate.case_id for candidate in candidates} == set(case_ids)
+    assert all(candidate.candidate_source_status == "ready" for candidate in candidates)
+    positives = [candidate for candidate in candidates if candidate.candidate_class == "positive_control"]
+    noops = [candidate for candidate in candidates if candidate.candidate_class == "noop_control"]
+    assert len(positives) == 40
+    assert len(noops) == 40
+    assert {candidate.route_id for candidate in positives} == {FULL40_POSITIVE_ROUTE_ID}
+    assert all(candidate.candidate_sql_path.as_posix().endswith("sql/pos_01.sql") for candidate in positives)
+    assert all("common_core_pg_noop_db_checker" in candidate.candidate_sql_path.as_posix() for candidate in noops)
+
+
 def test_calibration_rows_are_diagnostic_only_and_semantic_guards_not_operation_numerator() -> None:
     candidates = load_calibration_candidates(REPO_ROOT, case_ids=("CONS_0005",))
     candidate = next(row for row in candidates if row.candidate_class == "positive_control")
@@ -92,7 +117,7 @@ def test_calibration_rows_are_diagnostic_only_and_semantic_guards_not_operation_
     assert row.semantic_guard_atoms_count == len(contract.semantic_guard_atoms)
 
 
-def test_noop_over_acceptance_is_flagged_as_transformation_overaccept_risk() -> None:
+def test_noop_over_acceptance_is_flagged_as_noop_transformation_overaccept_risk() -> None:
     rows = (
         _row("CASE_A", "positive_control", validated=3),
         _row("CASE_A", "noop_control", validated=2),
@@ -100,18 +125,29 @@ def test_noop_over_acceptance_is_flagged_as_transformation_overaccept_risk() -> 
 
     marked = apply_calibration_risks(rows)
 
-    assert {row.calibration_risk for row in marked} == {"transformation_overaccept_risk"}
+    assert {row.calibration_risk for row in marked} == {"noop_transformation_overaccept_risk"}
 
 
 def test_positive_clearly_above_noop_is_low_risk() -> None:
     rows = (
         _row("CASE_A", "positive_control", validated=3),
-        _row("CASE_A", "noop_control", validated=1),
+        _row("CASE_A", "noop_control", validated=0),
     )
 
     marked = apply_calibration_risks(rows)
 
     assert {row.calibration_risk for row in marked} == {"low"}
+
+
+def test_positive_control_no_support_is_reported_as_gap() -> None:
+    rows = (
+        _row("CASE_A", "positive_control", validated=0),
+        _row("CASE_A", "noop_control", validated=0),
+    )
+
+    marked = apply_calibration_risks(rows)
+
+    assert {row.calibration_risk for row in marked} == {"atom_or_positive_alignment_gap"}
 
 
 def test_schema_invalid_calibration_result_is_fail_closed() -> None:

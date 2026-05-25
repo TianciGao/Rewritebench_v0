@@ -24619,3 +24619,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Use preserved local candidate SQL paths to manually inspect P10/P50/P90 and frontier examples. Update paper wording about timing variance and nontrivial rewrites without changing canonical paper-facing result tables unless a separate promotion task is authorized.
+
+## 2026-05-25 - pocr_full40_positive_vs_noop_control_calibration_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Controlled full-40 diagnostic calibration for POCR transformation-aware Stage B, comparing human positive-control SQL against existing no-op/source-like candidate SQL across all 40 Common-core v0 cases. Live API calls were allowed only for these bounded calibration rows. This was not official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, DB/checker/timing execution, or baseline rerun.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_full40_positive_vs_noop_control_calibration_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/calibration_runner.py`
+- `tests/pocr/test_calibration_runner.py`
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- D037 recorded the durable transformation-aware diagnostic POCR Stage B boundary: `candidate_sql_span`, `source_sql_span`, and `positive_sql_span` alone are not operation coverage evidence; operation-atom validation requires transformation-aware evidence relative to the source; semantic guard atoms are not operation coverage numerator; official POCR, route-level aggregation, user-facing facade output, and paper metric promotion remain separately gated.
+- Calibration cases: all 40 Common-core v0 cases.
+- Candidate classes: `positive_control` using case-local `sql/pos_01.sql`, and `noop_control` using existing `runs/user/common_core_pg_noop_db_checker/candidate_sql/`.
+- Live calls attempted: 80.
+- Provider/model labels: `openai_compatible` / `gpt-5.4`.
+- Schema-valid annotations: 72.
+- Malformed/schema-invalid annotations: 8.
+- Positive-control transformation-supported operation atoms: 80.
+- No-op-control transformation-supported operation atoms: 0.
+- Positive-control presence-only operation atoms: 10.
+- No-op-control presence-only operation atoms: 12.
+- Positive-control rejected-noop-equivalent operation atoms: 0.
+- No-op-control rejected-noop-equivalent operation atoms: 0.
+- Calibration risk cases: `low=36`, `atom_or_positive_alignment_gap=4`; no `noop_transformation_overaccept_risk` was observed.
+
+Validation result:
+- `python -m py_compile` for modified POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Positive-control paths exist for all 40 Common-core cases.
+- PG no-op candidate resolver check: resolved 40/40 from `runs/user/common_core_pg_noop_db_checker/candidate_sql/`.
+- Live call bound: passed, exactly 80 attempted.
+- Annotation schema validation summary: 72 pass, 8 malformed/schema-invalid provider/parse/schema rows.
+- Transformation-aware Stage B summary reported by candidate class: passed.
+- CSV parse checks: passed.
+- JSONL parse check for `safe_annotation_outputs.jsonl`: passed with 80 records.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- API keys were read from environment only and were not printed, written, staged, or committed.
+- Raw prompts and raw provider responses were not stored.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, user-output integration, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/` and case-local source/positive SQL files were read-only inputs and were not staged.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If the full-40 controls show acceptable positive-control support and no-op remains zero/near-zero, authorize one real-route diagnostic pass; otherwise keep POCR deferred/N.A. and document case-level atom/positive alignment gaps.

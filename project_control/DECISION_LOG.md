@@ -1124,3 +1124,32 @@ Impact:
 - Taxonomy tags and SQL/positive-control comparisons remain diagnostic/support context, not POCR atom sources.
 - Importing `skills.md` does not change denominators, case membership, paper results, retained evidence, official metrics, or leaderboard policy.
 - POCR computation, parser implementation, adapter implementation, user-facing facade integration, and paper-metric promotion remain separately gated.
+
+## D037: Transformation-aware diagnostic POCR Stage B boundary
+
+Decision:
+
+For future POCR diagnostic Stage B validation, operation-atom support must be transformation-aware and relative to the source query.
+
+`candidate_sql_span` alone is presence evidence only, not operation coverage evidence.
+
+`source_sql_span` alone is not operation coverage evidence.
+
+`positive_sql_span` alone is not operation coverage evidence.
+
+An `operation_atom` may receive diagnostic Stage B transformation support only when explicit evidence shows that the candidate implements a source-to-candidate transformation for a declared `skills.md` atom. Supported diagnostic evidence may include `source_candidate_diff:changed` paired with candidate-specific or positive-aligned spans, such as `candidate_sql_span:<literal substring>` or `positive_sql_span:<literal substring>`, when those spans can be checked conservatively against source/candidate/positive SQL.
+
+`semantic_guard_atom` rows are not part of the operation coverage numerator.
+
+This remains diagnostic support only. It does not compute official Positive Operation Coverage Rate, does not authorize route-level POCR aggregation, does not authorize user-facing POCR facade integration, and does not promote paper-facing metrics.
+
+Reason:
+
+The positive-vs-noop calibration showed that static span presence can over-accept source-like/no-op candidates. Transformation-aware Stage B is required before any real-route diagnostic POCR pass can be trusted as diagnostic support.
+
+Impact:
+
+- Future POCR Stage B validators must not count span presence alone as operation support.
+- Positive-control SQL may be used only as candidate/comparison evidence for declared `skills.md` atoms, not as a source of atoms.
+- Taxonomy tags, SQL-shape inference, retained evidence, LLM rationale, speedup/runtime, checker exactness, and candidate SQL text alone remain insufficient as operation evidence.
+- Official POCR, user-facing facade output, paper metric promotion, and route-level aggregation remain separately gated.
