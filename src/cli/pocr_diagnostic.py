@@ -49,6 +49,8 @@ def run_pocr_diagnostic_command(args: argparse.Namespace, *, repo_root: Path) ->
     """Run the default-off diagnostic POCR facade from the public CLI."""
 
     if not args.enable_pocr_diagnostic:
+        if args.annotation_jsonl is not None:
+            raise ValueError("--annotation-jsonl is accepted only with --enable-pocr-diagnostic")
         print("POCR diagnostic disabled: --enable-pocr-diagnostic was not supplied; no POCR code ran.")
         print(
             "boundary: pocr diagnostic support only; official_pocr_computed=false; "

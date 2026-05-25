@@ -8,16 +8,14 @@ promote paper metrics.
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 from sql_rewrite_bench.pocr.annotation_schema import (
     CandidateAnnotation,
-    annotation_from_mapping,
     validate_candidate_annotation,
 )
+from sql_rewrite_bench.pocr.annotation_resolver import ResolvedAnnotationArtifact, resolve_annotation_artifacts
 from sql_rewrite_bench.pocr.candidate_resolver import CandidateSource, resolve_candidate_sources
 from sql_rewrite_bench.pocr.diagnostic_output_schema import (
     POCRDiagnosticPoolSummary,
@@ -64,7 +62,6 @@ def run_pocr_diagnostic_user_facade(
         raise ValueError("run_id is required")
 
     repo_root = repo_root.resolve()
-    annotations = _load_annotation_jsonl(annotation_jsonl) if annotation_jsonl else {}
     sources = resolve_candidate_sources(
         repo_root,
         candidate_root=candidate_root,
@@ -72,6 +69,14 @@ def run_pocr_diagnostic_user_facade(
         route_id=route_id,
         engine=engine,
         case_ids=case_ids,
+    )
+    annotations = _resolve_annotations_by_case(
+        repo_root,
+        annotation_jsonl=annotation_jsonl,
+        method_id=method_id,
+        route_id=route_id,
+        engine=engine,
+        case_ids=tuple(source.case_id for source in sources),
     )
     rows = tuple(_row_from_source(repo_root, run_id, source, annotations.get(source.case_id)) for source in sources)
     summaries = summarize_by_pool(rows)
@@ -90,7 +95,7 @@ def _row_from_source(
     repo_root: Path,
     run_id: str,
     source: CandidateSource,
-    annotation_payload: dict[str, Any] | str | None,
+    annotation_artifact: ResolvedAnnotationArtifact | None,
 ) -> POCRDiagnosticRow:
     parse_result = parse_skills_file(
         repo_root / source.skills_md_path,
@@ -122,7 +127,7 @@ def _row_from_source(
             boundary_notes="candidate SQL missing; diagnostic row only; no POCR numerator",
         )
 
-    if annotation_payload is None:
+    if annotation_artifact is None or annotation_artifact.annotation_status == "missing":
         return _empty_row(
             run_id,
             source,
@@ -133,18 +138,21 @@ def _row_from_source(
             semantic_guard_atoms_count=len(contract.semantic_guard_atoms),
             boundary_notes="no Stage A annotation supplied; diagnostic-only POCR facade row",
         )
-    if isinstance(annotation_payload, str):
+
+    if annotation_artifact.annotation_status != "present" or annotation_artifact.annotation is None:
         return _schema_invalid_row(
             run_id,
             source,
             contract,
-            boundary_notes=f"annotation JSONL entry is malformed or schema-invalid: {annotation_payload}",
+            boundary_notes=(
+                "annotation JSONL replay failed closed: "
+                f"status={annotation_artifact.annotation_status}; "
+                f"issues={';'.join(annotation_artifact.issue_codes) or 'none'}; "
+                f"{annotation_artifact.boundary_notes}"
+            ),
         )
 
-    try:
-        annotation = annotation_from_mapping(annotation_payload)
-    except ValueError as exc:
-        return _schema_invalid_row(run_id, source, contract, boundary_notes=f"annotation schema parse failed: {exc}")
+    annotation = annotation_artifact.annotation
 
     schema_issues = validate_candidate_annotation(
         annotation,
@@ -162,6 +170,28 @@ def _row_from_source(
         )
 
     return _stage_b_row(repo_root, run_id, source, contract, annotation)
+
+
+def _resolve_annotations_by_case(
+    repo_root: Path,
+    *,
+    annotation_jsonl: Path | None,
+    method_id: str,
+    route_id: str,
+    engine: str,
+    case_ids: tuple[str, ...],
+) -> dict[str, ResolvedAnnotationArtifact]:
+    if annotation_jsonl is None:
+        return {}
+    rows = resolve_annotation_artifacts(
+        repo_root,
+        annotation_jsonl=annotation_jsonl,
+        method_id=method_id,
+        route_id=route_id,
+        engine=engine,
+        case_ids=case_ids,
+    )
+    return {row.case_id: row for row in rows}
 
 
 def _stage_b_row(
@@ -290,27 +320,3 @@ def _schema_invalid_row(
         paper_metric_promoted=False,
         boundary_notes=boundary_notes,
     )
-
-
-def _load_annotation_jsonl(path: Path) -> dict[str, dict[str, Any] | str]:
-    annotations: dict[str, dict[str, Any] | str] = {}
-    with path.open(encoding="utf-8") as handle:
-        for index, line in enumerate(handle, start=1):
-            stripped = line.strip()
-            if not stripped:
-                continue
-            try:
-                payload = json.loads(stripped)
-            except json.JSONDecodeError as exc:
-                annotations[f"line_{index}"] = f"malformed_json: {exc}"
-                continue
-            if not isinstance(payload, dict):
-                annotations[f"line_{index}"] = "schema_invalid: JSONL line is not an object"
-                continue
-            case_id = str(payload.get("case_id") or f"line_{index}")
-            annotation = payload.get("annotation", payload)
-            if isinstance(annotation, dict) and "atoms" in annotation:
-                annotations[case_id] = annotation
-            else:
-                annotations[case_id] = str(payload.get("error") or "schema_invalid: missing annotation atoms")
-    return annotations

@@ -63,7 +63,7 @@ def resolve_annotation_artifacts(
     if unknown:
         raise ValueError(f"case filter includes non-Common-core case IDs: {sorted(unknown)}")
 
-    resolved_by_case: dict[str, ResolvedAnnotationArtifact] = {}
+    rows_by_case: dict[str, list[ResolvedAnnotationArtifact]] = {}
     artifact_path = _normalize_annotation_path(repo_root, annotation_jsonl)
     if artifact_path and artifact_path.is_file():
         for row in _read_annotation_jsonl(
@@ -75,15 +75,36 @@ def resolve_annotation_artifacts(
             engine=engine,
         ):
             if row.case_id in wanted:
-                resolved_by_case[row.case_id] = row
+                rows_by_case.setdefault(row.case_id, []).append(row)
 
     rows: list[ResolvedAnnotationArtifact] = []
     for member in inventory.members:
         if member.case_id not in wanted:
             continue
-        row = resolved_by_case.get(member.case_id)
-        if row is not None:
-            rows.append(row)
+        case_rows = rows_by_case.get(member.case_id, [])
+        if len(case_rows) == 1:
+            rows.append(case_rows[0])
+            continue
+        if len(case_rows) > 1:
+            rows.append(
+                ResolvedAnnotationArtifact(
+                    case_id=member.case_id,
+                    pool=member.pool,
+                    engine=engine,
+                    method_id=method_id,
+                    route_id=route_id,
+                    candidate_ref="",
+                    annotation_schema_version="",
+                    annotation_status="schema_invalid",
+                    artifact_path=_relative_to_repo(repo_root, artifact_path) if artifact_path else None,
+                    annotation=None,
+                    issue_codes=("duplicate_annotation_rows",),
+                    boundary_notes=(
+                        "multiple annotation JSONL rows matched this case; fail-closed deterministic "
+                        "schema_invalid replay row"
+                    ),
+                )
+            )
             continue
         rows.append(
             ResolvedAnnotationArtifact(

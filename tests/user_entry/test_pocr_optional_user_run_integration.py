@@ -22,6 +22,16 @@ class OptionalPOCRUserRunIntegrationTests(unittest.TestCase):
         self.assertIn("official_pocr_computed=false", text)
         self.assertIn("route_level_pocr_aggregated=false", text)
 
+    def test_annotation_jsonl_requires_enable_flag(self) -> None:
+        with patch("cli.pocr_diagnostic.run_pocr_diagnostic_user_facade") as facade_mock:
+            stderr = io.StringIO()
+            with redirect_stderr(stderr):
+                code = main(["user", "pocr-diagnostic", "--annotation-jsonl", "annotations.jsonl"])
+
+        self.assertEqual(code, 2)
+        facade_mock.assert_not_called()
+        self.assertIn("--annotation-jsonl is accepted only with --enable-pocr-diagnostic", stderr.getvalue())
+
     def test_enabled_missing_required_args_fails_before_facade(self) -> None:
         with patch("cli.pocr_diagnostic.run_pocr_diagnostic_user_facade") as facade_mock:
             stderr = io.StringIO()
@@ -96,6 +106,48 @@ class OptionalPOCRUserRunIntegrationTests(unittest.TestCase):
             self.assertIn("No route-level POCR score is emitted.", report)
             self.assertIn("No paper-facing metric is promoted.", report)
             self.assertIn("official_pocr_computed=false", stdout.getvalue())
+
+    def test_enabled_annotation_jsonl_is_passed_to_facade(self) -> None:
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            candidate_root = root / "candidate_sql"
+            output_root = root / "output"
+            annotation_path = root / "annotations.jsonl"
+            candidate_root.mkdir()
+            annotation_path.write_text("", encoding="utf-8")
+
+            with patch("cli.pocr_diagnostic.run_pocr_diagnostic_user_facade") as facade_mock:
+                fake_output_paths = type("FakePaths", (), {})()
+                facade_mock.return_value = type("FakeResult", (), {"rows": (), "output_paths": fake_output_paths})()
+                stdout = io.StringIO()
+                with redirect_stdout(stdout):
+                    code = main(
+                        [
+                            "user",
+                            "pocr-diagnostic",
+                            "--enable-pocr-diagnostic",
+                            "--candidate-root",
+                            candidate_root.as_posix(),
+                            "--method-id",
+                            "direct_llm_original",
+                            "--route-id",
+                            "direct_llm_original_pg40_pocr_diagnostic",
+                            "--engine",
+                            "postgres",
+                            "--run-id",
+                            "pocr_optional_cli_replay_test",
+                            "--output-root",
+                            output_root.as_posix(),
+                            "--annotation-jsonl",
+                            annotation_path.as_posix(),
+                        ]
+                    )
+
+            self.assertEqual(code, 0)
+            facade_mock.assert_called_once()
+            self.assertEqual(facade_mock.call_args.kwargs["annotation_jsonl"], annotation_path)
 
     def test_top_level_reports_output_root_is_rejected(self) -> None:
         with patch("cli.pocr_diagnostic.run_pocr_diagnostic_user_facade") as facade_mock:

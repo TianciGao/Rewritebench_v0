@@ -24966,3 +24966,86 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Add annotation JSONL replay support for the Direct LLM PG40 diagnostic artifact, still default-off and diagnostic-only.
+
+## 2026-05-25 - pocr_user_annotation_jsonl_replay_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Default-off user-run annotation JSONL replay support for diagnostic POCR. No live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_user_annotation_jsonl_replay_v0/`
+
+Files modified:
+- `src/cli/pocr_diagnostic.py`
+- `src/sql_rewrite_bench/pocr/annotation_resolver.py`
+- `src/sql_rewrite_bench/pocr/user_facade.py`
+- `tests/pocr/test_user_facade.py`
+- `tests/user_entry/test_pocr_optional_user_run_integration.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added strict annotation JSONL replay support to the optional POCR diagnostic user path.
+- `--annotation-jsonl` is now rejected unless `--enable-pocr-diagnostic` is supplied.
+- The user facade now uses the read-only annotation resolver for replay mapping, preserving fail-closed handling for malformed JSON, missing rows, duplicate rows, and method/route/case mismatches.
+- Replay smoke used annotation artifact `audits/pocr_real_route_direct_llm_pg40_diagnostic_v0/safe_annotation_outputs.jsonl`.
+- Candidate root used read-only: `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql`.
+- Run ID: `pocr_user_replay_direct_llm_pg40_v0`.
+- Method/replay-route/engine: `direct_llm_original` / `direct_llm_original_pg40_user_replay` / `postgres`.
+- Temp output root: `/tmp/sqlrb_pocr_user_replay_direct_llm_pg40_v0/output`.
+- Rows emitted: 40.
+- Annotation artifact rows available: 40.
+- Artifact source schema-valid rows: 33; artifact source schema-invalid/fail rows: 7.
+- Replay output schema-valid rows: 0.
+- Replay output schema-invalid rows: 40.
+- Annotation-missing rows: 0.
+- Transformation-supported operation atoms: 0.
+- Presence-only operation atoms: 0.
+- Insufficient-transformation-evidence operation atoms: 0.
+- The 40 replay rows failed closed because the requested replay route ID differs from the source annotation artifact route ID `direct_llm_original_pg40_pocr_diagnostic`.
+- All rows preserved diagnostic constants: `diagnostic_only=true`, `official_pocr_computed=false`, `route_level_pocr_aggregated=false`, and `paper_metric_promoted=false`.
+- Report boundary wording was present.
+
+Validation result:
+- `python -m py_compile` for touched POCR/CLI modules: passed.
+- `pytest tests/pocr -q`: passed, 92 tests.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`: passed, 28 tests.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files with split PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Optional user-run replay smoke: passed with fail-closed route-mismatch diagnostics.
+- `diagnostic_rows.csv` parse and row checks: passed.
+- `diagnostic_summary_by_pool.csv` parse and pool-row checks: passed.
+- Markdown non-empty checks: passed.
+- Report boundary wording checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, repository `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- D036 and D037 remain the governing POCR boundaries. Operation atoms come only from `skills.md`; Stage A annotation alone is not a POCR numerator; transformation-aware Stage B support is diagnostic only; semantic guard atoms are not operation coverage numerator.
+- No live API call was made and no API key was read.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- The smoke output stayed under `/tmp/sqlrb_pocr_user_replay_direct_llm_pg40_v0/output`; repository `output/` was not created, staged, or committed.
+- Existing Direct LLM candidate SQL under `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/` was read-only input and was not staged.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Add optional user documentation/example for `pocr-diagnostic` replay, including the fail-closed route-mismatch behavior; if a nonzero Stage B replay is desired, authorize a route-alias or source-route replay policy explicitly before another user-facing replay smoke.
