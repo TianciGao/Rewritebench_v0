@@ -1,0 +1,35 @@
+Commands used for this evidence-summary packet:
+
+- `git branch --show-current && git status --short`
+- `find audits/direct_llm_original_track_a_120_canonical_user_rerun_v0 audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0 audits/sqlglot_noop_track_a_120_canonical_user_rerun_v0 audits/sqlglot_optimize_schema_aware_track_a_120_canonical_user_rerun_v0 audits/calcite_hep_track_a_120_canonical_user_rerun_with_metrics_v0 -maxdepth 1 -type f -printf '%p\n' | sort`
+- `find audits/learnedrewrite_pg40_bounded_local_diagnostic_v0 audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0 audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0 -maxdepth 1 -type f -printf '%p\n' | sort`
+- `find audits/track_a_120_tag_failure_slices_v0 audits/prior_methods_pg40_tag_failure_slices_v0 audits/direct_llm_original_non_exact_frontier_review_v0 audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0 audits/sqlsolver_coverage_limited_boundary_v0 audits/user_output_verifier_status_integration_v0 audits/metrics_contract_d032_d033_patch_v0 -maxdepth 1 -type f -printf '%p\n' | sort`
+- `for d in ...; do sed -n '1,220p' "$d/local_metrics_summary_review.md"; done`
+- `for d in ...; do sed -n '1,240p' "$d/frontier_review.md"; done`
+- `for d in ...; do sed -n '1,220p' "$d/bounded_diagnostic_summary.json"; done`
+- `python - <<'PY' ... inspect canonical_metrics_snapshot.json structure ... PY`
+- `python - <<'PY' ... inspect route_failure_by_axis.csv source packets ... PY`
+- `sed -n '1,220p' audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/route_assembly_execution_review.md && sed -n '1,160p' audits/direct_llm_repair_1_track_a_120_canonical_user_rerun_v0/final_candidate_source_summary.csv`
+- `for f in audits/track_a_120_tag_failure_slices_v0/*_tag_failure_review.md audits/track_a_120_tag_failure_slices_v0/cross_route_failure_hotspots.md; do sed -n '1,220p' "$f"; done`
+- `sed -n '1,220p' audits/prior_methods_pg40_tag_failure_slices_v0/cross_method_tag_failure_hotspots.md`
+- `sed -n '1,220p' audits/sqlsolver_coverage_limited_boundary_v0/README.md && sed -n '1,180p' audits/user_output_verifier_status_integration_v0/README.md && sed -n '1,160p' audits/metrics_contract_d032_d033_patch_v0/README.md`
+- `python - <<'PY' ... create unified_local_diagnostic_evidence_summary_v0 tables and notes from existing audit values ... PY`
+- `sed -n '1,12p' audits/unified_local_diagnostic_evidence_summary_v0/tag_failure_summary.csv`
+- `python - <<'PY' ... CSV parse checks ... PY`
+- `python - <<'PY' ... Markdown non-empty checks ... PY`
+- `python - <<'PY' ... route representation checks ... PY`
+- `python - <<'PY' ... source audit existence checks ... PY`
+- `python - <<'PY' ... copied metric value checks ... PY`
+- `python - <<'PY' ... no prohibited exact command check ... PY`
+- `git diff --check`
+- `rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" audits/unified_local_diagnostic_evidence_summary_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md || true`
+- `git diff --name-only`
+- `python - <<'PY' ... protected_path_review_ok ... PY`
+- `git status --short`
+- `git add audits/unified_local_diagnostic_evidence_summary_v0/README.md audits/unified_local_diagnostic_evidence_summary_v0/unified_route_evidence_ledger.csv audits/unified_local_diagnostic_evidence_summary_v0/failure_frontier_summary.csv audits/unified_local_diagnostic_evidence_summary_v0/tag_failure_summary.csv audits/unified_local_diagnostic_evidence_summary_v0/timing_slice_summary.csv audits/unified_local_diagnostic_evidence_summary_v0/evidence_location_index.csv audits/unified_local_diagnostic_evidence_summary_v0/paper_table_plan.md audits/unified_local_diagnostic_evidence_summary_v0/claim_extraction_notes.md audits/unified_local_diagnostic_evidence_summary_v0/no_leaderboard_boundary.md audits/unified_local_diagnostic_evidence_summary_v0/command_log.txt audits/unified_local_diagnostic_evidence_summary_v0/validation_notes.md project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md`
+- `git diff --cached --name-only`
+- `git diff --cached --check`
+- `git diff --cached --name-only | rg -n '^(reports/|results/|runs/user/|baselines/|src/|cases/|schemas/|case_sets/|inventory/|retained|paper|env)' || true`
+- `git diff --cached --name-only | xargs -r rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" || true`
+
+No baseline, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command was run.

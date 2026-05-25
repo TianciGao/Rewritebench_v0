@@ -23784,3 +23784,62 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a unified local diagnostic evidence index / result-location summary covering Track A 120 canonical routes, verifier/support packets, and PostgreSQL-only prior-method bounded evidence. Do not expand prior methods beyond PG40 without separate engine-support or Track A support-assessment authorization.
+
+## 2026-05-25 - unified_local_diagnostic_evidence_summary_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Evidence summarization only. No experiment, runtime, metric recomputation, paper rendering, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/unified_local_diagnostic_evidence_summary_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Created a unified local diagnostic evidence summary for paper writing.
+- Produced `unified_route_evidence_ledger.csv`, `failure_frontier_summary.csv`, `tag_failure_summary.csv`, `timing_slice_summary.csv`, and `evidence_location_index.csv`.
+- Included completed Track A 120 canonical local diagnostics: Direct LLM original, Direct LLM + Repair-1, SQLGlot no-op, SQLGlot optimize schema-aware, and Calcite HEP fail-closed.
+- Included PostgreSQL-only PG40 prior-method bounded evidence: LearnedRewrite, R-Bot adapted GPT-5.4, and LLM-R2 adapted GPT-5.4.
+- Added paper table planning notes, safe claim extraction notes, and no-leaderboard boundaries.
+- Recorded verifier/support packets as coverage-limited/N.A. support evidence only, not rewrite-generation baselines or official SER.
+
+Validation result:
+- CSV parse checks: passed for 5 CSV files.
+- Markdown non-empty checks: passed for 5 markdown files.
+- All Track A 120 routes represented.
+- All three PG40 prior methods represented.
+- Source audit existence checks: passed for all required source packets.
+- Copied metric value checks against existing audit/local_metrics review files: passed.
+- No-prohibited-command check: passed for exact commands recorded in `command_log.txt`.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+- Final staged validation completed during closeout.
+
+Boundary:
+- No baseline, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+- No new primary metrics were computed. Values were copied from existing audit/local_metrics review files only.
+- Track A 120 and PG40 bounded evidence remain separate. No global leaderboard was created.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Use the unified evidence summary to draft or update paper result tables and appendix artifact index. Do not run additional experiments unless a specific gap is identified.
