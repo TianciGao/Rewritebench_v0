@@ -23904,3 +23904,64 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Use `audits/paper_facing_result_tables_v0/` to draft or update paper Section 8 result tables and appendix artifact index. Do not run additional experiments unless a specific evidence gap is identified.
+
+## 2026-05-25 - common_core_skills_md_import_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Controlled case-local artifact import only. No POCR computation, live API call, DB/checker/timing run, baseline rerun, official metric promotion, paper rendering, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- 40 root-level Common-core `skills.md` files under `cases/<POOL>/<CASE_ID>/skills.md`
+- `audits/common_core_skills_md_import_v0/`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Inspected `/home/tianci_gao/code/Rewritebench_v0/cases.zip` with path normalization and path traversal checks.
+- Verified the zip contains exactly 40 root-level Common-core `skills.md` files, split PERF 16, CONS 9, PORT 9, and LONGTAIL 6.
+- Verified the zip `skills.md` membership exactly matches `case_sets/common_core_v0/cases.csv`.
+- Copied only `cases/<POOL>/<CASE_ID>/skills.md` into existing matching case package directories.
+- Did not copy or overwrite `manifest.yaml`, `README.md`, `sql/`, `schema/`, `checker/`, `validation/`, `witness/`, `evidence/`, `runs/`, `reports/`, `results/`, or `output/`.
+- Created audit inventories for zip members, imported files, and skills contract validation.
+- Recorded D036: Common-core root-level `skills.md` is the future operation-atom / semantic-guard contract for POCR work.
+
+Validation result:
+- Zip path traversal safety check: passed.
+- Normalized path separator check: passed.
+- Common-core membership exact-match check: passed.
+- Imported `skills.md` count: 40.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Destination conflict check: no existing `skills.md` conflicts.
+- Skills contract validation: passed for all 40 files.
+- Protected-path review: passed; no non-`skills.md` case files copied.
+- `git diff --check`: passed.
+- Changed-file secret scan: passed.
+- Final staged validation completed during closeout.
+
+Boundary:
+- No live LLM/API call, DB execution, checker execution, timing collection, baseline rerun, Positive Operation Coverage Rate computation, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- `cases.zip` and the Zone.Identifier sidecar remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Design a no-API POCR parser/adapter under `src/sql_rewrite_bench`, then connect the user-facing facade later.

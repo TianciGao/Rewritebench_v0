@@ -1094,3 +1094,33 @@ Impact:
 - Later physical layout migration or export restructuring must be separately planned and validated.
 - Existing local evaluation workbench v0 remains closed and unchanged.
 - No physical directory migration, output writer, CLI implementation, verifier implementation, timing, metrics, reports/results update, retained-evidence promotion, paper rendering, leaderboard, denominator change, case membership change, or paper result change is authorized.
+
+## D036: Common-core root-level skills.md is the future POCR atom contract
+
+Decision:
+
+The collaborator-provided Common-core POCR skill contract has arrived and is adopted as case-local root-level `skills.md` files for Common-core v0 cases:
+
+```text
+cases/<POOL>/<CASE_ID>/skills.md
+```
+
+Common-core v0 uses these root-level `skills.md` files as the official operation-atom and semantic-guard contract for future Positive Operation Coverage Rate work.
+
+No `skill/` directory is created.
+
+Future POCR operation atoms must come from `skills.md`, not from taxonomy labels, SQL-shape inference, positive-control inference, or ad hoc candidate analysis.
+
+This decision records the contract and import boundary only. It does not compute Positive Operation Coverage Rate and does not promote paper-facing metrics.
+
+Reason:
+
+The benchmark needs an explicit, collaborator-reviewed operation-atom and semantic-guard source before any POCR parser, adapter, or user-facing facade can be implemented. Root-level `skills.md` keeps the contract case-local and easy to audit without introducing a nested `skill/` artifact surface.
+
+Impact:
+
+- Future no-API POCR parsing work should read `cases/<POOL>/<CASE_ID>/skills.md`.
+- Operation atoms and semantic guard atoms are authoritative only when sourced from `skills.md`.
+- Taxonomy tags and SQL/positive-control comparisons remain diagnostic/support context, not POCR atom sources.
+- Importing `skills.md` does not change denominators, case membership, paper results, retained evidence, official metrics, or leaderboard policy.
+- POCR computation, parser implementation, adapter implementation, user-facing facade integration, and paper-metric promotion remain separately gated.
