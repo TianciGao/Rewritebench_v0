@@ -60,7 +60,9 @@ def test_prompt_is_deterministic_and_contains_required_boundaries() -> None:
     assert "semantic_guard_atom" in prompt_a
     assert "strict JSON" in prompt_a
     assert "unclear rather than guessing" in prompt_a
-    assert "Do not use speedup, timing, or runtime performance" in prompt_a
+    assert "Do not use speedup, timing, runtime performance, taxonomy tags, or checker exactness" in prompt_a
+    assert "LLM rationale is not evidence" in prompt_a
+    assert "semantic_guard_atom is not an operation coverage numerator" in prompt_a
     assert "O1" in prompt_a
     assert "S1" in prompt_a
     assert "Optional positive SQL context" in prompt_a
@@ -84,3 +86,22 @@ def test_prompt_requires_candidate_reference() -> None:
         assert "candidate_id or candidate_path" in str(exc)
     else:  # pragma: no cover
         raise AssertionError("expected ValueError")
+
+
+def test_prompt_aligns_evidence_refs_with_static_stage_b_contract() -> None:
+    prompt = build_annotation_prompt(_inputs())
+
+    for prefix in (
+        "candidate_sql_span:<literal substring>",
+        "source_sql_span:<literal substring>",
+        "positive_sql_span:<literal substring>",
+        "candidate_token_span:<normalized tokens>",
+        "source_candidate_diff:changed",
+    ):
+        assert prefix in prompt
+    assert "Unsupported refs" in prompt
+    assert "will be rejected by Stage B" in prompt
+    assert "Do not cite vague phrases" in prompt
+    assert "Do not invent atoms" in prompt
+    assert "infer atoms from taxonomy" in prompt
+    assert "Return strict JSON only" in prompt

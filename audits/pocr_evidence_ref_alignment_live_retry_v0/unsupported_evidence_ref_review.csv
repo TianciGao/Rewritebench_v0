@@ -1,0 +1,2 @@
+case_id,pool,atom_id,atom_type,evidence_ref,classification,stage_b_status,notes
+PERF_0006,PERF,A5,semantic_guard_atom,source_candidate_diff:changed,supported_ref_missing_span,static_evidence_partial,no supported static ref validated; cited span or diff was absent

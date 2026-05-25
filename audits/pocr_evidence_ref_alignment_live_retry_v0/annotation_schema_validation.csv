@@ -1,0 +1,5 @@
+case_id,pool,engine,live_call_attempted,json_parse_status,schema_validation_status,issue_codes,atom_count,expected_atom_count,operation_atom_count,semantic_guard_atom_count,missing_atom_count,duplicate_atom_count,invalid_atom_count,notes
+PERF_0006,PERF,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0005,CONS,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0003,PORT,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0011,LONGTAIL,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator

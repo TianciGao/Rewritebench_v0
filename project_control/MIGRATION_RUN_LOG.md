@@ -24315,3 +24315,78 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Review whether static span validation is sufficient for diagnostic POCR, then decide between a controlled full 40 annotation pass or a user-output facade that reports POCR as N.A./diagnostic-only.
+
+## 2026-05-25 - pocr_evidence_ref_alignment_live_retry_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Bounded prompt/evidence-ref alignment plus four-case live retry. No DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, retained-evidence promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_evidence_ref_alignment_live_retry_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/prompt_builder.py`
+- `tests/pocr/test_prompt_builder.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Aligned the Stage A prompt with the Stage B static evidence-ref contract.
+- The prompt now requires `evidence_refs` to use only supported forms: `candidate_sql_span`, `source_sql_span`, `positive_sql_span`, `candidate_token_span`, and `source_candidate_diff:changed`.
+- The prompt warns that unsupported refs are rejected and reiterates that LLM rationale, speedup/runtime, taxonomy tags, and checker exactness are not evidence.
+- Ran the bounded live retry on exactly four fixture cases: `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Candidate root: `runs/user/common_core_pg_noop_db_checker/candidate_sql/`.
+- Live calls attempted: 4.
+- Provider label: `openai_compatible`.
+- Model label: `gpt-5.4`.
+- Schema-valid annotations: 4.
+- Malformed/schema-invalid annotations: 0.
+- Static validated operation atoms: 11.
+- Static rejected operation atoms: 0.
+- Insufficient-evidence atoms: 0.
+- One semantic-guard `source_candidate_diff:changed` ref was rejected because no-op source and candidate SQL normalize to the same text; this did not affect operation numerator diagnostics.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed (49 tests).
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Candidate resolver dry-run on bounded candidate root: resolved 40/40.
+- Offline static evidence fixtures passed for supported refs, missing spans, unsupported ref syntax, no-ref insufficient evidence, and semantic guard non-numerator behavior.
+- Live calls <= 4: passed.
+- Annotation schema validation reported: passed.
+- Stage B static validation summary reported: passed.
+- CSV parse checks: passed.
+- JSONL parse check for `safe_annotation_outputs.jsonl`: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- API keys were read from environment only and were not printed, written, staged, or committed.
+- Raw prompts and raw provider responses were not stored.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official POCR computation, route-level POCR aggregation, user-output integration, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing candidate SQL files under `runs/user/common_core_pg_noop_db_checker/candidate_sql/` were read-only inputs and were not staged.
+- `cases.zip`, Zone.Identifier sidecars, and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If aligned live retry outputs are accepted, consider a controlled full-40 diagnostic annotation pass; otherwise revise prompt/schema again before any full pass.
