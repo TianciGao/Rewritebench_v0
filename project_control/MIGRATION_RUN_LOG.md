@@ -23487,3 +23487,63 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Move to LLM-R2 GPT-5.4 adapted fake/no-live adapter scaffold. Do not expand R-Bot beyond PG40 without separate engine-support or Track A support-assessment authorization.
+
+## 2026-05-25 - llm_r2_gpt54_adapter_scaffold_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Fixture-only adapted LLM-R2 GPT-5.4 wrapper scaffold with fake/no-live runtime and tiny fake user-facade smoke.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `baselines/llm_r2/adapter.py`
+- `baselines/llm_r2/README.md`
+- `tests/user_entry/test_llm_r2_adapter.py`
+- `audits/llm_r2_gpt54_adapter_scaffold_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented `route_id=llm_r2_gpt54_adapted` / `method_id=llm_r2` as an adapted GPT-5.4 local diagnostic scaffold, not original LLM-R2 paper reproduction.
+- Fake runtime mode accepts inline SQL or fixture JSON, optionally records fake rule-sequence metadata, and emits exactly one `SELECT` / `WITH` candidate SQL only when extraction succeeds.
+- Future live GPTSAPI/OpenAI-compatible, Java/rule-system, checkpoint, and demonstration-selector paths are placeholders and fail closed unless separately authorized.
+- The adapter records `adapted_gpt54_local_diagnostic=true`, `original_paper_reproduction=false`, `official_llm_r2_stack=false`, `fake_runtime=true` in fake mode, `live_call=false` in fake mode, `rule_system_runtime_used=false`, `checkpoint_used=false`, and `demonstration_selector_used=false`.
+- Reviewed official LLM-R2 source/paper references and read-only legacy LLM-R2 PG9/PG6/PG3/recovery artifacts as output-contract clues only.
+- Ran a tiny fake user-facade smoke over `PERF_0006/postgres` and `CONS_0036/postgres`: selected rows 2, generated candidates 2, no DB/checker/timing/local_metrics/verifier.
+
+Validation result:
+- `pytest tests/user_entry/test_llm_r2_adapter.py -q`: passed, `15 passed, 7 subtests passed`.
+- `python -m py_compile baselines/llm_r2/adapter.py`: passed.
+- CSV parse checks: planned/passed before closeout.
+- Markdown non-empty checks: planned/passed before closeout.
+- Fake user-facade smoke: passed, selected rows 2 and candidate generated rows 2.
+- No live LLM/API, official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, demonstration selector, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LearnedRewrite, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+- No legacy outputs/logs/candidates were copied as metrics.
+- Runtime outputs under `runs/user/` and `/tmp` were removed and not staged or committed.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is adapted GPT-5.4 local diagnostic scaffold evidence only. It is not original LLM-R2 paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a 3-6 row PostgreSQL-only GPT-5.4 adapted live generation/e2e smoke depending on scaffold readiness. Do not run Track A 120 until fake and bounded live smoke pass.
