@@ -24695,3 +24695,73 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If the full-40 controls show acceptable positive-control support and no-op remains zero/near-zero, authorize one real-route diagnostic pass; otherwise keep POCR deferred/N.A. and document case-level atom/positive alignment gaps.
+
+## 2026-05-25 - pocr_real_route_direct_llm_pg40_diagnostic_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- One real-route diagnostic POCR pass over existing Direct LLM original PostgreSQL Common-core 40 candidate SQL. Live API calls were allowed only for the 40 bounded annotation rows. No DB/checker/timing, baseline rerun, official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/real_route_diagnostic_runner.py`
+- `tests/pocr/test_real_route_diagnostic_runner.py`
+- `audits/pocr_real_route_direct_llm_pg40_diagnostic_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Candidate-root inventory found exactly one unambiguous Direct LLM original PostgreSQL Common-core 40 candidate root: `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/`.
+- The candidate root was used read-only; Direct LLM was not rerun and no candidate SQL was created or modified.
+- Common-core PostgreSQL rows resolved: 40.
+- Live calls attempted: 40.
+- Provider/model labels: `openai_compatible` / `gpt-5.4`.
+- Schema-valid annotations: 33.
+- Malformed/schema-invalid annotations: 7.
+- Diagnostic transformation-aware Stage B operation atom counts: transformation-supported 41, presence-only 13, insufficient-transformation-evidence 33, rejected-noop-equivalent 0.
+- Pool-level diagnostic summaries were written as count-only support rows. They are not official Positive Operation Coverage Rate and not route-level POCR aggregation.
+
+Validation result:
+- `python -m py_compile` for new/modified POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Selected Direct LLM original PG candidate root resolved 40/40 Common-core rows.
+- Live call bound: passed, exactly 40 attempted.
+- Annotation schema validation summary: 33 pass, 7 malformed/schema-invalid provider/parse/schema rows.
+- Transformation-aware Stage B rows emitted: 40.
+- CSV parse checks: passed.
+- JSONL parse check for `safe_annotation_outputs.jsonl`: passed with 40 records.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- D036 and D037 remain the governing POCR boundaries. Operation atoms come only from `skills.md`; positive SQL is comparison evidence only; Stage A annotation alone is not a POCR numerator; transformation-aware Stage B support is diagnostic only.
+- API keys were read from environment only and were not printed, written, staged, or committed.
+- Raw prompts and raw provider responses were not stored.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, user-output integration, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing Direct LLM candidate SQL under `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/` and case-local source/positive SQL files were read-only inputs and were not staged.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If the real-route diagnostic output is stable and schema-valid enough, decide whether to run the same diagnostic pass for another selected route or keep POCR as diagnostic appendix/N.A. in paper-facing tables.
