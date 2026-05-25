@@ -1,0 +1,58 @@
+# Command Log
+
+Read-only commands used:
+
+- `git rev-parse --abbrev-ref HEAD && git status --short`
+- `sed -n '1,120p' project_control/MIGRATION_MASTER_PLAN.md`
+- `sed -n '1,80p' project_control/MIGRATION_STATUS.md`
+- `tail -n 80 project_control/DECISION_LOG.md`
+- `tail -n 140 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,220p' baselines/rbot/adapter.py`
+- `sed -n '1,220p' baselines/rbot/README.md`
+- `find audits/rbot_gpt54_adapter_scaffold_v0 audits/rbot_gpt54_bounded_live_e2e_smoke_v0 audits/rbot_gpt54_pg40_bounded_local_diagnostic_v0 audits/rbot_gpt54_pg40_local_metrics_recovery_v0 audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0 audits/prior_methods_onboarding_feasibility_v0 -maxdepth 1 -type f | sort`
+- `cat audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/local_metrics_summary_review.md`
+- `cat audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/bounded_diagnostic_summary.json`
+- `cat audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/rerun_vs_prior_pg40_review.md`
+- `sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/README.md`
+- `sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/proposed_sequence.md`
+- `sed -n '1,120p' audits/prior_methods_onboarding_feasibility_v0/benchmark_role_mapping.md`
+- `sed -n '1,180p' audits/rbot_gpt54_adapter_scaffold_v0/README.md`
+- `sed -n '1,160p' audits/rbot_gpt54_adapter_scaffold_v0/provider_policy_gpt54.md`
+- `sed -n '1,180p' audits/rbot_gpt54_bounded_live_e2e_smoke_v0/README.md`
+- `sed -n '1,200p' audits/rbot_gpt54_bounded_live_e2e_smoke_v0/live_e2e_report.md`
+- `sed -n '1,180p' audits/rbot_gpt54_pg40_bounded_local_diagnostic_v0/README.md`
+- `sed -n '1,180p' audits/rbot_gpt54_pg40_bounded_local_diagnostic_v0/bounded_diagnostic_report.md`
+- `sed -n '1,180p' audits/rbot_gpt54_pg40_local_metrics_recovery_v0/README.md`
+- `sed -n '1,180p' audits/rbot_gpt54_pg40_local_metrics_recovery_v0/rerun_required_report.md`
+- `sed -n '1,220p' audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/bounded_diagnostic_report.md`
+- `sed -n '1,160p' audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/source_like_review.md`
+
+Not run:
+
+- R-Bot
+- live LLM calls
+- DB execution
+- checker execution
+- timing
+- `compute-local-metrics`
+- SQLSolver
+- VeriEQL
+- LearnedRewrite
+- LLM-R2
+- MySQL
+- Spark
+- Track A 120
+- official metrics
+- paper rendering
+- retained evidence promotion
+- leaderboard generation
+
+Validation commands:
+
+- Markdown non-empty check for `audits/rbot_gpt54_pg40_route_boundary_policy_v0/`.
+- Source audit existence check for the R-Bot scaffold, live smoke, prior PG40, recovery, canonical PG40 rerun, and prior-method onboarding packets.
+- Copied metric value check against `audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/local_metrics_summary_review.md`.
+- `git diff --check`.
+- Changed-file secret value scan.
+- Protected-path review.
+- Top-level `reports/`, `results/`, and `runs/user/` change check.

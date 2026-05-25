@@ -21169,7 +21169,7 @@ Branch: `feature/case-package-v2-external-schema`
 
 Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
 
-Push result: pending at entry creation
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
 
 Files created:
 - `audits/metrics_contract_d032_d033_patch_v0/`
@@ -22872,8 +22872,8 @@ Validation result:
 - JAR/source/dependency copy check: planned/passed before closeout; no upstream runtime artifact was copied into the release repo.
 - No old result copied as canonical metrics: passed by changed-file review.
 - No top-level reports/results update and no runtime outputs staged: planned/passed before closeout.
-- Changed-file secret scan: planned/passed before closeout.
-- Protected-path review: planned/passed before closeout.
+- Changed-file secret value scan: passed.
+- Protected-path review: passed.
 - `git diff --check`: planned/passed before closeout.
 
 Boundary:
@@ -23434,3 +23434,56 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write an R-Bot adapted PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG evidence or authorize a separately scoped support assessment. Do not run Track A 120 without route policy.
+
+## 2026-05-25 - rbot_gpt54_pg40_route_boundary_policy_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- Policy-only route boundary packet for R-Bot adapted GPT-5.4 PostgreSQL PG40 evidence.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/rbot_gpt54_pg40_route_boundary_policy_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Wrote the R-Bot adapted GPT-5.4 PostgreSQL route boundary/policy packet based on `audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/`.
+- Verdict: stop R-Bot at PostgreSQL-only adapted GPT-5.4 bounded prior-method evidence / appendix diagnostic for public v0.
+- Track A 120 readiness verdict: no. MySQL/Spark remain unassessed, official R-Bot runtime/RAG/Chroma/CalciteRewrite was not used, and a tri-engine 120 support assessment would need a separate engine-support and denominator policy.
+- Copied PG40 metric boundary from `local_metrics.py` outputs only: selected 40, generated 40, candidate executable 38, exact 37, timed 33, mismatch 1, candidate execution failed 2, generation rate 1.0, execution coverage 0.95, result consistency 0.925, GM speedup 0.9777997901126648, P10/P25/P50/P75/P90 0.5865455274023522/0.9845480112740764/0.9998615395796396/1.0142327268706417/1.5983027547333224.
+- Failure frontier recorded: `PORT_0013` mismatch; `PERF_0008` and `LONGTAIL_0011` candidate execution failures; no fail-closed rows.
+
+Validation result:
+- Markdown non-empty checks: passed for the route boundary policy packet.
+- Source audit existence checks: passed for required R-Bot and prior-method onboarding packets.
+- Copied metric value checks against `audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/`: passed.
+- No new R-Bot experiment, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, LearnedRewrite, LLM-R2, MySQL, Spark, Track A 120, official metrics, paper rendering, retained evidence promotion, or leaderboard generation occurred.
+- No top-level reports/results update occurred.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: passed.
+
+Boundary:
+- This is policy-only local diagnostic boundary evidence. It is not original R-Bot paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Move to LLM-R2 GPT-5.4 adapted fake/no-live adapter scaffold. Do not expand R-Bot beyond PG40 without separate engine-support or Track A support-assessment authorization.
