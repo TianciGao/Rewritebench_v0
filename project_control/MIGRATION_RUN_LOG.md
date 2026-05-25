@@ -24030,3 +24030,73 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Design API annotation plus Stage B evidence-validation interfaces, still without full-route POCR computation.
+
+## 2026-05-25 - pocr_annotation_and_stage_b_interface_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Implementation scaffold plus fixture/offline validation only. No live API call, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/annotation_schema.py`
+- `src/sql_rewrite_bench/pocr/prompt_builder.py`
+- `src/sql_rewrite_bench/pocr/annotation_client.py`
+- `src/sql_rewrite_bench/pocr/evidence_validation.py`
+- `src/sql_rewrite_bench/pocr/pocr_row.py`
+- `tests/pocr/test_annotation_schema.py`
+- `tests/pocr/test_prompt_builder.py`
+- `tests/pocr/test_evidence_validation.py`
+- `audits/pocr_annotation_stage_b_interface_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added strict Stage A annotation schema objects for one candidate row.
+- Added deterministic prompt construction from `SkillContract`, source SQL, candidate SQL, optional positive/negative SQL context, engine, method ID, route ID, and candidate reference.
+- Added a fake/offline annotation client and a future live OpenAI-compatible client placeholder that fails closed and does not read API keys or call any API.
+- Added Stage B evidence-validation interface that validates annotation schema and atom membership, fails closed without independent evidence, rejects invalid atom IDs, duplicates, missing judgments, LLM-rationale evidence, speedup/timing evidence, and taxonomy evidence.
+- Added `POCRRowDraft` as a row-level diagnostic holder without route-level aggregation.
+- Created fixture/offline audit examples for `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Fixture prompt construction: passed for `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Fake/offline annotation validation: passed for all fixture examples.
+- Stage B fail-closed without independent evidence: passed.
+- Invalid atom IDs, missing atom judgments, and duplicate atom judgments: rejected/reported by tests.
+- Semantic guard atoms are not counted as operation coverage numerator: passed.
+- CSV parse checks: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, `skills.md`, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No live LLM/API call, API key read, DB execution, checker execution, timing collection, baseline rerun, Stage A live annotation, Stage B production evidence validation, Positive Operation Coverage Rate computation, route-level POCR aggregation, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- `cases.zip` and Zone.Identifier sidecars remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a 2-4 case offline-to-live API annotation smoke only after reviewing the interface packet.
