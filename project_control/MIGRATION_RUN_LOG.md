@@ -22808,9 +22808,9 @@ Validation result:
 - No upstream or legacy source/JAR/dependency artifact copied: planned/passed before closeout.
 - No old results copied as canonical metrics: passed by changed-file review.
 - No top-level reports/results update and no runtime outputs staged: planned/passed before closeout.
-- Changed-file secret scan: planned/passed before closeout.
-- Protected-path review: planned/passed before closeout.
-- `git diff --check`: planned/passed before closeout.
+- Changed-file secret value scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
 
 Boundary:
 - No LearnedRewrite benchmark run, Common-core SQL runtime request, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM call, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, upstream/legacy artifact copy, env file, API key value, or secret was included.
@@ -23372,3 +23372,65 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Restore or recreate `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` under separate authorization, then run single-run `compute-local-metrics` with `--run-id` only. After metrics recovery succeeds, write the R-Bot adapted PostgreSQL route boundary/policy packet; do not run Track A 120.
+
+## 2026-05-25 - rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pending at entry creation
+
+Mode:
+- PostgreSQL-only Common-core 40 adapted R-Bot GPT-5.4 bounded local diagnostic rerun with live generation, DB execution, checker, timing, and single-run non-official local metrics.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reran `python -m cli.main user evaluate` for PostgreSQL Common-core 40 only with `SQLRB_RBOT_MODE=live`, adapted GPT-5.4 provider policy, DB execution, checker execution, and timing enabled.
+- Ran the correct single-run local metrics command with `--run-id rbot_gpt54_pg40_bounded_diagnostic_rerun_v0` only; aggregate flags `--run-id-prefix`, `--engines`, and `--aggregate-run-id` were not used.
+- Canonical local_metrics.py outputs were produced under `runs/user/rbot_gpt54_pg40_bounded_diagnostic_rerun_v0/metrics/` and exported under `/tmp/sqlrb_rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0/output/results/rbot_gpt54_pg40_bounded_diagnostic_rerun_v0/metrics/`.
+- Canonical local diagnostic metrics from `local_metrics.py`: selected 40, generated 40, candidate executable 38, exact 37, mismatch 1, timed 33, generation rate 1.0, execution coverage 0.95, result consistency 0.925, GM speedup 0.9777997901126648, P10/P25/P50/P75/P90 0.5865455274023522/0.9845480112740764/0.9998615395796396/1.0142327268706417/1.5983027547333224.
+- Current frontier: `PORT_0013` mismatch, `LONGTAIL_0011` candidate execution failed, and `PERF_0008` candidate execution failed. Prior `PERF_0013` recovered to exact/timed in this live rerun.
+
+Validation result:
+- `pytest tests/user_entry/test_rbot_adapter.py -q`: passed, `13 passed, 5 subtests passed`.
+- `python -m py_compile baselines/rbot/adapter.py`: passed.
+- Evaluate completed: selected rows 40, candidate generated rows 40.
+- Single-run `compute-local-metrics`: completed with `--run-id` only.
+- CSV parse checks: passed for audit CSVs and local metrics CSVs.
+- JSON parse checks: passed for audit summary JSON and local run/metrics JSON outputs.
+- Markdown non-empty checks: passed for the recovery audit Markdown/text files.
+- Selected row count check: passed, 40 PostgreSQL rows.
+- Live-call count check: passed, 40 selected PostgreSQL rows.
+- DB/checker/timing PostgreSQL-only bounded-scope check: passed.
+- Local metrics output existence check: passed.
+- No MySQL/Spark, SQLSolver, VeriEQL, official R-Bot runtime, RAG/Chroma/index, CalciteRewrite, LearnedRewrite, LLM-R2, official metrics, paper rendering, retained evidence promotion, leaderboard, or Track A 120 occurred.
+- No top-level reports/results update occurred.
+- Runtime outputs under `runs/user/` and `/tmp` were not staged or committed.
+- Changed-file secret scan: planned/passed before closeout.
+- Protected-path review: planned/passed before closeout.
+- `git diff --check`: planned/passed before closeout.
+
+Boundary:
+- This is adapted GPT-5.4 local diagnostic evidence only, not original R-Bot paper reproduction, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write an R-Bot adapted PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG evidence or authorize a separately scoped support assessment. Do not run Track A 120 without route policy.
