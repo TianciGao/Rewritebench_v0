@@ -24166,3 +24166,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - After reviewing the live smoke, design a bounded candidate-source resolver and diagnostic POCR draft runner, still separate from user-output integration.
+
+## 2026-05-25 - pocr_candidate_resolver_and_draft_runner_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Implementation scaffold plus diagnostic dry-run only. No live API call by default, DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/candidate_resolver.py`
+- `src/sql_rewrite_bench/pocr/draft_runner.py`
+- `src/sql_rewrite_bench/pocr/json_output_guard.py`
+- `tests/pocr/test_candidate_resolver.py`
+- `tests/pocr/test_draft_runner.py`
+- `tests/pocr/test_json_output_guard.py`
+- `audits/pocr_candidate_resolver_draft_runner_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a read-only candidate-source resolver for existing route-labeled candidate SQL roots.
+- Added a diagnostic row draft runner that emits row-level draft fields without official POCR computation or route-level aggregation.
+- Added fail-closed malformed JSON handling for Stage A provider output; malformed JSON becomes `schema_invalid`, repair mode is not implemented or authorized, and malformed rows contribute zero validated operation atoms.
+- Ran a diagnostic dry-run against `runs/user/common_core_pg_noop_db_checker/candidate_sql/` for `method_id=noop_adapter`, `route_id=common_core_pg_noop_db_checker`, and `engine=postgres`.
+- Candidate rows resolved: 40/40.
+- Diagnostic POCR draft rows emitted: 40.
+- Stage A annotations supplied: 0.
+- Stage B status: `annotation_missing` for all 40 rows.
+- Validated operation atoms: 0.
+- Official POCR computed: no.
+- Route-level POCR aggregated: no.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Resolver dry-run on bounded candidate root: passed.
+- Candidate inventory CSV parse check: passed.
+- Diagnostic row draft CSV parse check: passed.
+- No `official_pocr_computed=true` rows: passed.
+- No route-level POCR aggregation output: passed.
+- Malformed JSON handling fail-closed tests: passed.
+- Stage B insufficient-evidence behavior without independent evidence: passed.
+- Semantic guard atoms are not counted as operation coverage numerator: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, `skills.md`, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No live LLM/API call, API key read, DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official POCR computation, route-level POCR aggregation, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing candidate SQL files under `runs/user/common_core_pg_noop_db_checker/candidate_sql/` were read-only inputs and were not staged.
+- `cases.zip`, Zone.Identifier sidecars, and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Review the diagnostic draft runner, then decide whether to add a bounded Stage B static evidence validator or a controlled user-output facade.
