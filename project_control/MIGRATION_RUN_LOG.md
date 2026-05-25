@@ -23965,3 +23965,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Design a no-API POCR parser/adapter under `src/sql_rewrite_bench`, then connect the user-facing facade later.
+
+## 2026-05-25 - pocr_no_api_parser_adapter_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Implementation scaffold plus parse-only validation. No live API call, DB/checker/timing run, baseline rerun, official POCR computation, paper-facing metric promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `src/sql_rewrite_bench/pocr/models.py`
+- `src/sql_rewrite_bench/pocr/skills_parser.py`
+- `src/sql_rewrite_bench/pocr/validation.py`
+- `src/sql_rewrite_bench/pocr/inventory.py`
+- `tests/pocr/test_skills_parser.py`
+- `tests/pocr/test_skills_inventory.py`
+- `audits/pocr_no_api_parser_adapter_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented a no-API parser for the D036 root-level `skills.md` contract.
+- Added dataclasses for `SkillAtom`, `SkillContract`, `SkillParseResult`, and `SkillValidationIssue`.
+- Added validation for case ID, pool, Atom Protocol table presence, at least one `operation_atom`, at least one `semantic_guard_atom`, Required Candidate Annotation Shape, and Review Boundaries.
+- Added Common-core inventory helper that scans `case_sets/common_core_v0/cases.csv` and parses exactly the 40 Common-core `skills.md` files.
+- Wrote audit-only parse report CSVs: `parsed_skills_inventory.csv`, `atom_inventory.csv`, and `validation_issues.csv`.
+- Parsed inventory result: 40 skills parsed, pool split PERF 16 / CONS 9 / PORT 9 / LONGTAIL 6, 187 total atoms, 107 operation atoms, 80 semantic guard atoms, and 0 validation issues.
+
+Validation result:
+- `python -m py_compile` for new POCR modules: passed.
+- `pytest tests/pocr/test_skills_parser.py tests/pocr/test_skills_inventory.py -q`: passed, 4 tests.
+- Parse-only Common-core inventory: passed for all 40 skills files.
+- Imported Common-core count: 40.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Every parsed contract has `operation_atom` and `semantic_guard_atom` entries.
+- CSV parse checks for audit CSVs: passed.
+- Markdown non-empty checks for audit Markdown files: passed.
+- Protected-path review: passed; no case package files, `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or case-local `runs/` were modified.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- No live LLM/API call, API key access, DB execution, checker execution, timing collection, baseline rerun, Stage A annotation, Stage B evidence validation, Positive Operation Coverage Rate computation, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- No case packages, `skills.md`, `skill/` folders, user-run `output/`, top-level `reports/`, top-level `results/`, or case-local `runs/` were modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Design API annotation plus Stage B evidence-validation interfaces, still without full-route POCR computation.
