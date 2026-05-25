@@ -34,6 +34,18 @@ from sql_rewrite_bench.pocr.draft_runner import (
     diagnostic_draft_to_csv_rows,
     write_diagnostic_draft_csv,
 )
+from sql_rewrite_bench.pocr.diagnostic_output_schema import (
+    POCRDiagnosticPoolSummary,
+    POCRDiagnosticRow,
+    diagnostic_row_fields,
+    diagnostic_rows_to_csv_rows,
+    diagnostic_summaries_to_csv_rows,
+    diagnostic_summary_fields,
+    render_diagnostic_markdown_report,
+    summarize_by_pool,
+    write_diagnostic_rows_csv,
+    write_diagnostic_summary_csv,
+)
 from sql_rewrite_bench.pocr.evidence_validation import (
     AtomEvidenceValidation,
     StageBValidationResult,
@@ -67,6 +79,14 @@ from sql_rewrite_bench.pocr.static_evidence import (
     StaticStageBValidationResult,
     validate_static_stage_b,
 )
+from sql_rewrite_bench.pocr.user_facade import (
+    POCRDiagnosticFacadeResult,
+    run_pocr_diagnostic_user_facade,
+)
+from sql_rewrite_bench.pocr.user_output_adapter import (
+    POCRDiagnosticOutputPaths,
+    write_pocr_diagnostic_user_outputs,
+)
 from sql_rewrite_bench.pocr.validation import validate_skill_contract
 
 __all__ = [
@@ -82,6 +102,10 @@ __all__ = [
     "DiagnosticPOCRDraftRow",
     "FakeAnnotationClient",
     "GuardedJsonResult",
+    "POCRDiagnosticFacadeResult",
+    "POCRDiagnosticOutputPaths",
+    "POCRDiagnosticPoolSummary",
+    "POCRDiagnosticRow",
     "POCRRowDraft",
     "ResolvedAnnotationArtifact",
     "SkillAtom",
@@ -106,11 +130,18 @@ __all__ = [
     "candidate_sources_to_csv_rows",
     "diagnostic_draft_fields",
     "diagnostic_draft_to_csv_rows",
+    "diagnostic_row_fields",
+    "diagnostic_rows_to_csv_rows",
+    "diagnostic_summaries_to_csv_rows",
+    "diagnostic_summary_fields",
     "guarded_json_loads",
     "parse_skills_file",
     "parse_skills_text",
+    "render_diagnostic_markdown_report",
     "resolve_annotation_artifacts",
     "resolve_candidate_sources",
+    "run_pocr_diagnostic_user_facade",
+    "summarize_by_pool",
     "static_stage_b_diagnostic_fields",
     "static_stage_b_diagnostic_to_csv_rows",
     "validate_candidate_annotation",
@@ -119,6 +150,9 @@ __all__ = [
     "validate_skill_contract",
     "write_annotation_artifact_inventory",
     "write_diagnostic_draft_csv",
+    "write_diagnostic_rows_csv",
+    "write_diagnostic_summary_csv",
+    "write_pocr_diagnostic_user_outputs",
     "write_static_stage_b_diagnostic_csv",
     "write_parse_only_report",
 ]

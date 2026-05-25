@@ -24765,3 +24765,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If the real-route diagnostic output is stable and schema-valid enough, decide whether to run the same diagnostic pass for another selected route or keep POCR as diagnostic appendix/N.A. in paper-facing tables.
+
+## 2026-05-25 - pocr_user_diagnostic_output_contract_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- User-output contract scaffold for diagnostic POCR. No live API call, API key read, DB/checker/timing run, baseline rerun, official POCR computation, paper-facing metric promotion, route-level POCR aggregation, or global leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/diagnostic_output_schema.py`
+- `src/sql_rewrite_bench/pocr/user_output_adapter.py`
+- `src/sql_rewrite_bench/pocr/user_facade.py`
+- `tests/pocr/test_diagnostic_output_schema.py`
+- `tests/pocr/test_user_output_adapter.py`
+- `tests/pocr/test_user_facade.py`
+- `audits/pocr_user_diagnostic_output_contract_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added row-level diagnostic POCR output schema fields with enforced constants: `diagnostic_only=true`, `official_pocr_computed=false`, `route_level_pocr_aggregated=false`, and `paper_metric_promoted=false`.
+- Added a D035-style writer for caller-provided output roots: `output/results/<run_id>/pocr/diagnostic_rows.csv`, `output/results/<run_id>/pocr/diagnostic_summary_by_pool.csv`, `output/logs/<run_id>/pocr/pocr_diagnostic.log`, and `output/reports/<run_id>/pocr_diagnostic.md`.
+- Added a thin offline facade `run_pocr_diagnostic_user_facade()` that emits `annotation_missing` rows when no annotation JSONL is provided and fails closed for `live_enabled=true` in this scaffold.
+- Generated sample audit-only diagnostic rows for four existing Direct LLM original PostgreSQL candidates. These samples demonstrate contract shape only and are not official POCR.
+
+Validation result:
+- `python -m py_compile` for new/modified POCR modules: passed.
+- `pytest tests/pocr -q`: passed.
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Facade temp output-root tests: passed.
+- CSV parse checks for audit sample CSVs: passed.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- D036 and D037 remain the governing POCR boundaries. Operation atoms come only from `skills.md`; Stage A annotation alone is not a POCR numerator; transformation-aware Stage B support is diagnostic only; semantic guard atoms are not operation coverage numerator.
+- No live API call was made and no API key was read.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, default user-output integration, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing Direct LLM candidate SQL under `runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/candidate_sql/` was used read-only for sample contract rows and was not staged.
+- Existing unrelated untracked zip/Zone.Identifier files and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Wire the POCR diagnostic facade into the optional user-run flow, or run one more selected route through the same diagnostic contract.
