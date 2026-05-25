@@ -1,0 +1,7 @@
+method_id,route_id,case_id,pool,axis,tag,source_like_status,exact,timed,notes
+learnedrewrite,learnedrewrite,CONS_0036,CONS,rewrite_opportunity,aggregation_rewrite,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric
+learnedrewrite,learnedrewrite,CONS_0036,CONS,rewrite_opportunity,predicate_pushdown,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric
+learnedrewrite,learnedrewrite,CONS_0037,CONS,sql_feature,outer_join,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric
+learnedrewrite,learnedrewrite,CONS_0037,CONS,rewrite_opportunity,aggregation_rewrite,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric
+llm_r2_gpt54_adapted,llm_r2_gpt54_adapted,CONS_0037,CONS,sql_feature,outer_join,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric
+llm_r2_gpt54_adapted,llm_r2_gpt54_adapted,CONS_0037,CONS,rewrite_opportunity,aggregation_rewrite,source_like,true,true,source-like/no-op diagnostic only; not POCR and not a ranking metric

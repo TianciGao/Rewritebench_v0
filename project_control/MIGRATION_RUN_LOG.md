@@ -23727,3 +23727,60 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Write a unified local diagnostic evidence index / result-location summary covering Track A 120 canonical routes and PostgreSQL-only prior-method bounded evidence. Do not expand LLM-R2 beyond PG40 without separate engine-support or Track A support-assessment authorization.
+
+## 2026-05-25 - prior_methods_pg40_tag_failure_slices_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Diagnostic/support-only PostgreSQL PG40 failure bucket × retained taxonomy tag analysis. No experiment, method rerun, runtime, or metric recomputation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/prior_methods_pg40_tag_failure_slices_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Built a unified PostgreSQL-only PG40 diagnostic join for `learnedrewrite`, `rbot_gpt54_adapted`, and `llm_r2_gpt54_adapted`.
+- Used existing PG40 prior-method audit packets and retained Common-core manifest taxonomy only.
+- Created source artifact inventory, PG40 case tag matrix, method failure rows, failure-by-tag joins, failure-by-axis aggregates, non-exact frontier joins, source-like joins, cross-method narrative, and a `LONGTAIL_0011` cross-method note.
+- Preserved existing PG40 boundaries: LearnedRewrite selected 40/generated 29/executable 23/exact 17; R-Bot selected 40/generated 40/executable 38/exact 37; LLM-R2 selected 40/generated 40/executable 39/exact 39.
+- Recorded repeated cross-method boundary: `LONGTAIL_0011` candidate execution failed for all three methods with CTE/window/join/aggregate/sort tags.
+- Recorded source-like/no-op diagnostics: LearnedRewrite `CONS_0036` and `CONS_0037`; LLM-R2 `CONS_0037`; R-Bot none.
+
+Validation result:
+- CSV parse checks: passed for 7 CSV files.
+- Markdown non-empty checks: passed for 5 markdown files.
+- All three methods represented.
+- Source audit packet paths exist.
+- Case tag source checks: passed for all 40 Common-core cases and 185 retained taxonomy tag rows.
+- Row-count sanity checks against PG40 boundary packets: passed.
+- Non-exact frontier row counts reconcile with boundary packets.
+- No-prohibited-command check: passed for exact commands recorded in `command_log.txt`.
+- `git diff --check`: passed.
+- Final staged validation completed during closeout.
+
+Boundary:
+- No LearnedRewrite, R-Bot, LLM-R2, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, Track A 120, MySQL, or Spark command occurred.
+- Failure bucket × tag slices are diagnostic/support only. They are not primary metrics, not POCR, not SER, not paper results, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write a unified local diagnostic evidence index / result-location summary covering Track A 120 canonical routes, verifier/support packets, and PostgreSQL-only prior-method bounded evidence. Do not expand prior methods beyond PG40 without separate engine-support or Track A support-assessment authorization.
