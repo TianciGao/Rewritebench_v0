@@ -26,13 +26,16 @@ from sql_rewrite_bench.pocr.annotation_schema import (
 from sql_rewrite_bench.pocr.inventory import build_common_core_inventory
 from sql_rewrite_bench.pocr.live_smoke import _load_provider_env
 from sql_rewrite_bench.pocr.models import SkillContract
+from sql_rewrite_bench.pocr.operation_evidence_policy import (
+    TransformationStageBValidationResult,
+    validate_transformation_stage_b,
+)
 from sql_rewrite_bench.pocr.prompt_builder import AnnotationPromptInputs, build_annotation_prompt
-from sql_rewrite_bench.pocr.static_evidence import StaticStageBValidationResult, validate_static_stage_b
 
 DEFAULT_CASES = ("PERF_0006", "CONS_0005", "PORT_0003", "LONGTAIL_0011")
 DEFAULT_NOOP_CANDIDATE_ROOT = Path("runs/user/common_core_pg_noop_db_checker/candidate_sql")
-DEFAULT_OUTPUT_DIR = Path("audits/pocr_positive_vs_noop_calibration_v0")
-PROMPT_TEMPLATE_ID = "pocr_stage_a_annotation_prompt_v1_positive_noop_calibration"
+DEFAULT_OUTPUT_DIR = Path("audits/pocr_transformation_aware_stage_b_calibration_v0")
+PROMPT_TEMPLATE_ID = "pocr_stage_a_annotation_prompt_v2_transformation_aware"
 
 
 @dataclass(frozen=True)
@@ -60,11 +63,12 @@ class CalibrationResultRow:
     route_id: str
     expected_operation_atoms_count: int
     stage_a_implemented_operation_atoms_count: int
-    static_validated_operation_atoms_count: int
-    static_rejected_operation_atoms_count: int
-    insufficient_evidence_operation_atoms_count: int
+    presence_only_operation_atoms_count: int
+    transformation_supported_operation_atoms_count: int
+    insufficient_transformation_evidence_operation_atoms_count: int
+    rejected_noop_equivalent_operation_atoms_count: int
+    schema_invalid_atoms_count: int
     semantic_guard_atoms_count: int
-    semantic_guard_static_status_summary: str
     diagnostic_only: bool
     official_pocr_computed: bool
     route_level_pocr_aggregated: bool
@@ -132,19 +136,11 @@ def calibration_result_from_stage_b(
     candidate: CalibrationCandidate,
     contract: SkillContract,
     annotation: CandidateAnnotation,
-    stage_b: StaticStageBValidationResult,
+    stage_b: TransformationStageBValidationResult,
 ) -> CalibrationResultRow:
-    """Build one diagnostic calibration row from Stage A and static Stage B."""
+    """Build one diagnostic calibration row from Stage A and transformation-aware Stage B."""
 
     operation_atoms = [atom for atom in annotation.atoms if atom.atom_type == "operation_atom"]
-    status_counts = Counter(
-        atom.evidence_status for atom in stage_b.atom_results if atom.atom_type == "semantic_guard_atom"
-    )
-    operation_insufficient = sum(
-        1
-        for atom in stage_b.atom_results
-        if atom.atom_type == "operation_atom" and atom.evidence_status == "insufficient_evidence"
-    )
     return CalibrationResultRow(
         case_id=candidate.case_id,
         pool=candidate.pool,
@@ -153,11 +149,12 @@ def calibration_result_from_stage_b(
         route_id=candidate.route_id,
         expected_operation_atoms_count=len(contract.operation_atoms),
         stage_a_implemented_operation_atoms_count=sum(1 for atom in operation_atoms if atom.observed_status == "implemented"),
-        static_validated_operation_atoms_count=stage_b.static_validated_operation_atoms_count,
-        static_rejected_operation_atoms_count=stage_b.static_rejected_operation_atoms_count,
-        insufficient_evidence_operation_atoms_count=operation_insufficient,
+        presence_only_operation_atoms_count=stage_b.presence_only_operation_atoms_count,
+        transformation_supported_operation_atoms_count=stage_b.transformation_supported_operation_atoms_count,
+        insufficient_transformation_evidence_operation_atoms_count=stage_b.insufficient_transformation_evidence_operation_atoms_count,
+        rejected_noop_equivalent_operation_atoms_count=stage_b.rejected_noop_equivalent_operation_atoms_count,
+        schema_invalid_atoms_count=stage_b.schema_invalid_atoms_count,
         semantic_guard_atoms_count=len(contract.semantic_guard_atoms),
-        semantic_guard_static_status_summary=json.dumps(dict(sorted(status_counts.items())), sort_keys=True),
         diagnostic_only=True,
         official_pocr_computed=False,
         route_level_pocr_aggregated=False,
@@ -180,11 +177,12 @@ def schema_invalid_calibration_result(
         route_id=candidate.route_id,
         expected_operation_atoms_count=len(contract.operation_atoms),
         stage_a_implemented_operation_atoms_count=0,
-        static_validated_operation_atoms_count=0,
-        static_rejected_operation_atoms_count=0,
-        insufficient_evidence_operation_atoms_count=0,
+        presence_only_operation_atoms_count=0,
+        transformation_supported_operation_atoms_count=0,
+        insufficient_transformation_evidence_operation_atoms_count=0,
+        rejected_noop_equivalent_operation_atoms_count=0,
+        schema_invalid_atoms_count=len(contract.operation_atoms),
         semantic_guard_atoms_count=len(contract.semantic_guard_atoms),
-        semantic_guard_static_status_summary="{}",
         diagnostic_only=True,
         official_pocr_computed=False,
         route_level_pocr_aggregated=False,
@@ -205,10 +203,13 @@ def apply_calibration_risks(rows: tuple[CalibrationResultRow, ...]) -> tuple[Cal
         noop = case_rows.get("noop_control")
         if positive is None or noop is None:
             risk = "incomplete_pair"
-        elif positive.static_validated_operation_atoms_count == 0:
-            risk = "positive_control_no_validated_atoms"
-        elif noop.static_validated_operation_atoms_count >= max(0, positive.static_validated_operation_atoms_count - 1):
-            risk = "presence_not_rewrite_risk"
+        elif positive.transformation_supported_operation_atoms_count == 0:
+            risk = "positive_control_no_transformation_support"
+        elif noop.transformation_supported_operation_atoms_count > 0 and noop.transformation_supported_operation_atoms_count >= max(
+            1,
+            positive.transformation_supported_operation_atoms_count - 1,
+        ):
+            risk = "transformation_overaccept_risk"
         else:
             risk = "low"
         for candidate_class in case_rows:
@@ -231,11 +232,12 @@ def calibration_results_to_csv_rows(rows: tuple[CalibrationResultRow, ...]) -> l
             "route_id": row.route_id,
             "expected_operation_atoms_count": row.expected_operation_atoms_count,
             "stage_a_implemented_operation_atoms_count": row.stage_a_implemented_operation_atoms_count,
-            "static_validated_operation_atoms_count": row.static_validated_operation_atoms_count,
-            "static_rejected_operation_atoms_count": row.static_rejected_operation_atoms_count,
-            "insufficient_evidence_operation_atoms_count": row.insufficient_evidence_operation_atoms_count,
+            "presence_only_operation_atoms_count": row.presence_only_operation_atoms_count,
+            "transformation_supported_operation_atoms_count": row.transformation_supported_operation_atoms_count,
+            "insufficient_transformation_evidence_operation_atoms_count": row.insufficient_transformation_evidence_operation_atoms_count,
+            "rejected_noop_equivalent_operation_atoms_count": row.rejected_noop_equivalent_operation_atoms_count,
+            "schema_invalid_atoms_count": row.schema_invalid_atoms_count,
             "semantic_guard_atoms_count": row.semantic_guard_atoms_count,
-            "semantic_guard_static_status_summary": row.semantic_guard_static_status_summary,
             "diagnostic_only": str(row.diagnostic_only).lower(),
             "official_pocr_computed": str(row.official_pocr_computed).lower(),
             "route_level_pocr_aggregated": str(row.route_level_pocr_aggregated).lower(),
@@ -254,11 +256,12 @@ def calibration_result_fields() -> list[str]:
         "route_id",
         "expected_operation_atoms_count",
         "stage_a_implemented_operation_atoms_count",
-        "static_validated_operation_atoms_count",
-        "static_rejected_operation_atoms_count",
-        "insufficient_evidence_operation_atoms_count",
+        "presence_only_operation_atoms_count",
+        "transformation_supported_operation_atoms_count",
+        "insufficient_transformation_evidence_operation_atoms_count",
+        "rejected_noop_equivalent_operation_atoms_count",
+        "schema_invalid_atoms_count",
         "semantic_guard_atoms_count",
-        "semantic_guard_static_status_summary",
         "diagnostic_only",
         "official_pocr_computed",
         "route_level_pocr_aggregated",
@@ -361,7 +364,7 @@ def main(argv: list[str] | None = None) -> int:
                 expected_method_id=candidate.method_id,
                 expected_route_id=candidate.route_id,
             )
-            stage_b = validate_static_stage_b(
+            stage_b = validate_transformation_stage_b(
                 contract,
                 annotation,
                 source_sql=source_sql,
@@ -443,8 +446,8 @@ def main(argv: list[str] | None = None) -> int:
     result_rows = list(apply_calibration_risks(tuple(result_rows)))
     _write_csv(output_dir / "live_call_manifest.csv", live_manifest_fields(), manifest_rows)
     _write_csv(output_dir / "annotation_schema_validation.csv", schema_fields(), schema_rows)
-    _write_csv(output_dir / "stage_b_static_validation_by_class.csv", stage_b_fields(), stage_b_rows)
-    write_calibration_csv(output_dir / "positive_vs_noop_comparison.csv", tuple(result_rows))
+    _write_csv(output_dir / "transformation_stage_b_validation_by_class.csv", stage_b_fields(), stage_b_rows)
+    write_calibration_csv(output_dir / "positive_vs_noop_transformation_comparison.csv", tuple(result_rows))
     _write_jsonl(output_dir / "safe_annotation_outputs.jsonl", safe_rows)
     _write_readme(output_dir, candidates, provider_env, manifest_rows, schema_rows, result_rows)
     _write_plan_docs(output_dir)
@@ -547,10 +550,13 @@ def stage_b_fields() -> list[str]:
         "engine",
         "schema_valid",
         "stage_b_status",
+        "source_like_noop",
         "evidence_status_counts",
-        "static_validated_operation_atoms_count",
-        "static_rejected_operation_atoms_count",
-        "insufficient_evidence_atoms_count",
+        "presence_only_operation_atoms_count",
+        "transformation_supported_operation_atoms_count",
+        "insufficient_transformation_evidence_operation_atoms_count",
+        "rejected_noop_equivalent_operation_atoms_count",
+        "schema_invalid_atoms_count",
         "expected_operation_atoms_count",
         "semantic_guard_validated_static_span_count",
         "semantic_guard_count",
@@ -674,7 +680,7 @@ def _schema_invalid_row(candidate: CalibrationCandidate, contract: SkillContract
     }
 
 
-def _stage_b_row(candidate: CalibrationCandidate, contract: SkillContract, stage_b: StaticStageBValidationResult) -> dict[str, object]:
+def _stage_b_row(candidate: CalibrationCandidate, contract: SkillContract, stage_b: TransformationStageBValidationResult) -> dict[str, object]:
     counts = Counter(atom.evidence_status for atom in stage_b.atom_results)
     return {
         "case_id": candidate.case_id,
@@ -683,10 +689,13 @@ def _stage_b_row(candidate: CalibrationCandidate, contract: SkillContract, stage
         "engine": candidate.engine,
         "schema_valid": str(stage_b.schema_valid).lower(),
         "stage_b_status": stage_b.stage_b_status,
+        "source_like_noop": str(stage_b.source_like_noop).lower(),
         "evidence_status_counts": json.dumps(dict(sorted(counts.items())), sort_keys=True),
-        "static_validated_operation_atoms_count": stage_b.static_validated_operation_atoms_count,
-        "static_rejected_operation_atoms_count": stage_b.static_rejected_operation_atoms_count,
-        "insufficient_evidence_atoms_count": counts.get("insufficient_evidence", 0),
+        "presence_only_operation_atoms_count": stage_b.presence_only_operation_atoms_count,
+        "transformation_supported_operation_atoms_count": stage_b.transformation_supported_operation_atoms_count,
+        "insufficient_transformation_evidence_operation_atoms_count": stage_b.insufficient_transformation_evidence_operation_atoms_count,
+        "rejected_noop_equivalent_operation_atoms_count": stage_b.rejected_noop_equivalent_operation_atoms_count,
+        "schema_invalid_atoms_count": stage_b.schema_invalid_atoms_count,
         "expected_operation_atoms_count": len(contract.operation_atoms),
         "semantic_guard_validated_static_span_count": sum(
             1
@@ -696,7 +705,7 @@ def _stage_b_row(candidate: CalibrationCandidate, contract: SkillContract, stage
         "semantic_guard_count": len(contract.semantic_guard_atoms),
         "official_pocr_computed": "false",
         "route_level_pocr_aggregated": "false",
-        "notes": "Static Stage B diagnostics only; no official POCR or route aggregation.",
+        "notes": "Transformation-aware Stage B diagnostics only; no official POCR or route aggregation.",
     }
 
 
@@ -708,10 +717,13 @@ def _stage_b_invalid_row(candidate: CalibrationCandidate, contract: SkillContrac
         "engine": candidate.engine,
         "schema_valid": "false",
         "stage_b_status": "schema_invalid",
+        "source_like_noop": "",
         "evidence_status_counts": "{}",
-        "static_validated_operation_atoms_count": 0,
-        "static_rejected_operation_atoms_count": 0,
-        "insufficient_evidence_atoms_count": 0,
+        "presence_only_operation_atoms_count": 0,
+        "transformation_supported_operation_atoms_count": 0,
+        "insufficient_transformation_evidence_operation_atoms_count": 0,
+        "rejected_noop_equivalent_operation_atoms_count": 0,
+        "schema_invalid_atoms_count": len(contract.operation_atoms),
         "expected_operation_atoms_count": len(contract.operation_atoms),
         "semantic_guard_validated_static_span_count": 0,
         "semantic_guard_count": len(contract.semantic_guard_atoms),
@@ -746,8 +758,8 @@ def _write_not_run(output_dir: Path, live_enabled: bool, provider_env: object, b
 def _write_empty_outputs(output_dir: Path) -> None:
     _write_csv(output_dir / "live_call_manifest.csv", live_manifest_fields(), [])
     _write_csv(output_dir / "annotation_schema_validation.csv", schema_fields(), [])
-    _write_csv(output_dir / "stage_b_static_validation_by_class.csv", stage_b_fields(), [])
-    _write_csv(output_dir / "positive_vs_noop_comparison.csv", calibration_result_fields(), [])
+    _write_csv(output_dir / "transformation_stage_b_validation_by_class.csv", stage_b_fields(), [])
+    _write_csv(output_dir / "positive_vs_noop_transformation_comparison.csv", calibration_result_fields(), [])
     _write_jsonl(output_dir / "safe_annotation_outputs.jsonl", [])
 
 
@@ -759,20 +771,28 @@ def _write_readme(
     schema_rows: list[dict[str, object]],
     result_rows: list[CalibrationResultRow],
 ) -> None:
-    positive = sum(row.static_validated_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
-    noop = sum(row.static_validated_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
+    positive = sum(row.transformation_supported_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
+    noop = sum(row.transformation_supported_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
+    positive_presence = sum(row.presence_only_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
+    noop_presence = sum(row.presence_only_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
+    positive_rejected_noop = sum(row.rejected_noop_equivalent_operation_atoms_count for row in result_rows if row.candidate_class == "positive_control")
+    noop_rejected_noop = sum(row.rejected_noop_equivalent_operation_atoms_count for row in result_rows if row.candidate_class == "noop_control")
     risks = Counter(row.calibration_risk for row in result_rows)
     (output_dir / "README.md").write_text(
-        "# POCR Positive vs No-op Calibration v0\n\n"
-        "This packet compares human positive-control SQL against existing no-op/source-like candidates for four POCR fixture cases.\n\n"
+        "# POCR Transformation-Aware Stage B Calibration v0\n\n"
+        "This packet compares human positive-control SQL against existing no-op/source-like candidates for four POCR fixture cases using transformation-aware Stage B operation evidence.\n\n"
         f"- Fixture cases: {', '.join(DEFAULT_CASES)}\n"
         f"- Candidate classes evaluated: positive_control, noop_control\n"
         f"- Live calls attempted: {len(manifest_rows)}\n"
         f"- Provider/model: `{provider_env.provider}` / `{provider_env.model}`\n"
         f"- Schema-valid annotations: {sum(1 for row in schema_rows if row['schema_validation_status'] == 'pass')}\n"
         f"- Malformed/schema-invalid annotations: {sum(1 for row in schema_rows if row['schema_validation_status'] != 'pass')}\n"
-        f"- positive_control static validated operation atoms: {positive}\n"
-        f"- noop_control static validated operation atoms: {noop}\n"
+        f"- positive_control transformation_supported operation atoms: {positive}\n"
+        f"- noop_control transformation_supported operation atoms: {noop}\n"
+        f"- positive_control presence_only operation atoms: {positive_presence}\n"
+        f"- noop_control presence_only operation atoms: {noop_presence}\n"
+        f"- positive_control rejected_noop_equivalent operation atoms: {positive_rejected_noop}\n"
+        f"- noop_control rejected_noop_equivalent operation atoms: {noop_rejected_noop}\n"
         f"- Calibration risks: {dict(sorted(risks.items()))}\n\n"
         "This is calibration only. It does not compute official POCR, aggregate route-level POCR, run DB/checker/timing, rerun baselines, or promote paper-facing metrics.\n",
         encoding="utf-8",
@@ -782,12 +802,17 @@ def _write_readme(
 def _write_plan_docs(output_dir: Path) -> None:
     (output_dir / "calibration_plan.md").write_text(
         "# Calibration Plan\n\n"
-        "The calibration compares two candidate classes on the same four cases: `positive_control` uses case-local `sql/pos_01.sql`, while `noop_control` uses existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/`. Both classes are annotated with the same aligned Stage A prompt and checked by the same conservative static Stage B validator. No official POCR or route-level aggregation is produced.\n",
+        "The calibration compares two candidate classes on the same four cases: `positive_control` uses case-local `sql/pos_01.sql`, while `noop_control` uses existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/`. Both classes are annotated with the same transformation-aware Stage A prompt and checked by the same transformation-aware Stage B operation evidence policy. No official POCR or route-level aggregation is produced.\n",
         encoding="utf-8",
     )
-    (output_dir / "calibration_risk_review.md").write_text(
-        "# Calibration Risk Review\n\n"
-        "`presence_not_rewrite_risk` means the no-op control has static-validated operation atoms close to the positive control for the same case. This diagnostic flag indicates possible over-acceptance of source-like candidates by the current Stage A/Stage B combination. It is not an official metric, threshold, or policy.\n",
+    (output_dir / "transformation_evidence_contract.md").write_text(
+        "# Transformation Evidence Contract\n\n"
+        "For `operation_atom` rows, Stage B requires transformation-aware evidence rather than span presence alone. `candidate_sql_span`, `source_sql_span`, or `positive_sql_span` alone is `presence_only` and cannot count as transformation support. A row may become `transformation_supported` only when a candidate-specific or positive-aligned span is paired with `source_candidate_diff:changed`. Source-like/no-op candidates are classified as `presence_only` or `rejected_noop_equivalent`. This is diagnostic support only and is not official POCR proof.\n",
+        encoding="utf-8",
+    )
+    (output_dir / "overacceptance_risk_review.md").write_text(
+        "# Overacceptance Risk Review\n\n"
+        "`transformation_overaccept_risk` means the no-op control has transformation-supported operation atoms close to the positive control for the same case. `presence_only` means cited SQL text exists but does not establish transformation. `rejected_noop_equivalent` means the candidate normalizes as source-like/no-op. These diagnostic flags are not official metrics, thresholds, or policy.\n",
         encoding="utf-8",
     )
     (output_dir / "protected_path_review.md").write_text(

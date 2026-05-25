@@ -24467,3 +24467,90 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Revise prompt/Stage B semantics before any full-40 diagnostic POCR pass, or design a stronger transformation-aware Stage B validator.
+
+## 2026-05-25 - pocr_transformation_aware_stage_b_calibration_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Bounded transformation-aware Stage B revision plus calibration audit. Live API calls were allowed only for the authorized four cases × two candidate classes. No DB/checker/timing run, baseline rerun, official POCR computation, route-level POCR aggregation, user-output integration, paper-facing metric promotion, retained-evidence promotion, or leaderboard generation.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/transformation_evidence.py`
+- `src/sql_rewrite_bench/pocr/operation_evidence_policy.py`
+- `tests/pocr/test_transformation_evidence.py`
+- `tests/pocr/test_operation_evidence_policy.py`
+- `audits/pocr_transformation_aware_stage_b_calibration_v0/`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/calibration_runner.py`
+- `src/sql_rewrite_bench/pocr/prompt_builder.py`
+- `tests/pocr/test_calibration_runner.py`
+- `tests/pocr/test_prompt_builder.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added conservative SQL normalization/diff helpers for POCR transformation diagnostics.
+- Added a transformation-aware operation evidence policy that classifies operation atoms as `presence_only`, `transformation_supported`, `insufficient_transformation_evidence`, `rejected_noop_equivalent`, `schema_invalid`, `atom_not_in_contract`, or `invalid_ref`.
+- Updated the Stage A prompt guard to instruct the model not to cite `candidate_sql_span` merely because a fragment exists and to prefer paired `candidate_sql_span`, `positive_sql_span`, and `source_candidate_diff:changed` refs for transformation atoms.
+- Updated the calibration runner to emit transformation-aware Stage B rows and comparison rows.
+- Fixture cases: `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Candidate classes: `positive_control` and `noop_control`.
+- Live calls attempted: 8.
+- Provider label: `openai_compatible`.
+- Model label: `gpt-5.4`.
+- Schema-valid annotations: 6.
+- Provider/parse failures captured as schema-invalid: 2.
+- Positive-control transformation-supported operation atoms: 7.
+- No-op-control transformation-supported operation atoms: 0.
+- Positive-control presence-only operation atoms: 1.
+- No-op-control presence-only operation atoms: 2.
+- Positive-control rejected-noop-equivalent operation atoms: 0.
+- No-op-control rejected-noop-equivalent operation atoms: 0.
+- Calibration risk rows: `low=6`, `positive_control_no_transformation_support=2`, `transformation_overaccept_risk=0`.
+- The revised transformation-aware Stage B policy separated no-op/source-like candidates from positive controls on the schema-valid bounded calibration rows; `LONGTAIL_0011` remains a positive-control support gap.
+
+Validation result:
+- `python -m py_compile` for POCR modules: passed.
+- `pytest tests/pocr -q`: passed (70 tests).
+- Common-core parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Candidate resolver check on `runs/user/common_core_pg_noop_db_checker/candidate_sql/`: resolved 40/40 PG no-op candidates.
+- Positive-control path check: passed for all four fixture cases.
+- Live call bound: passed, exactly 8 attempted.
+- Annotation schema validation summary: 6 pass, 2 schema-invalid provider/parse failures.
+- Transformation-aware Stage B validation summary reported by candidate class: passed.
+- CSV parse checks: passed.
+- JSONL parse check for `safe_annotation_outputs.jsonl`: passed with 8 records.
+- Markdown non-empty checks: passed.
+- Protected-path review: passed; no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- API keys were read from environment only and were not printed, written, staged, or committed.
+- Raw prompts and raw provider responses were not stored.
+- No DB execution, checker execution, timing collection, baseline rerun, `compute-local-metrics`, verifier, official Positive Operation Coverage Rate computation, route-level POCR aggregation, user-output integration, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Existing no-op candidate SQL under `runs/user/common_core_pg_noop_db_checker/candidate_sql/` and case-local source/positive SQL files were read-only inputs and were not staged.
+- `cases.zip`, Zone.Identifier sidecars, and unrelated untracked audit directories remain untracked and were not staged.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If the transformation-aware diagnostic boundary is accepted, consider a controlled full-40 diagnostic annotation pass; otherwise keep POCR deferred/N.A. and document the remaining overacceptance/support boundary.

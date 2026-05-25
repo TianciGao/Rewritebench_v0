@@ -9,7 +9,7 @@ from sql_rewrite_bench.pocr.calibration_runner import (
     schema_invalid_calibration_result,
 )
 from sql_rewrite_bench.pocr.inventory import build_common_core_inventory
-from sql_rewrite_bench.pocr.static_evidence import validate_static_stage_b
+from sql_rewrite_bench.pocr.operation_evidence_policy import validate_transformation_stage_b
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -81,18 +81,18 @@ def test_calibration_rows_are_diagnostic_only_and_semantic_guards_not_operation_
     payload["candidate_path"] = candidate.candidate_sql_path.as_posix()
     payload.pop("candidate_id")
     annotation = annotation_from_mapping(payload)
-    stage_b = validate_static_stage_b(contract, annotation, source_sql=source_sql, candidate_sql=candidate_sql, positive_sql=positive_sql)
+    stage_b = validate_transformation_stage_b(contract, annotation, source_sql=source_sql, candidate_sql=candidate_sql, positive_sql=positive_sql)
 
     row = calibration_result_from_stage_b(candidate, contract, annotation, stage_b)
 
     assert row.diagnostic_only is True
     assert row.official_pocr_computed is False
     assert row.route_level_pocr_aggregated is False
-    assert row.static_validated_operation_atoms_count == 0
-    assert "validated_static_span" in row.semantic_guard_static_status_summary
+    assert row.transformation_supported_operation_atoms_count == 0
+    assert row.semantic_guard_atoms_count == len(contract.semantic_guard_atoms)
 
 
-def test_noop_over_acceptance_is_flagged_as_presence_not_rewrite_risk() -> None:
+def test_noop_over_acceptance_is_flagged_as_transformation_overaccept_risk() -> None:
     rows = (
         _row("CASE_A", "positive_control", validated=3),
         _row("CASE_A", "noop_control", validated=2),
@@ -100,7 +100,7 @@ def test_noop_over_acceptance_is_flagged_as_presence_not_rewrite_risk() -> None:
 
     marked = apply_calibration_risks(rows)
 
-    assert {row.calibration_risk for row in marked} == {"presence_not_rewrite_risk"}
+    assert {row.calibration_risk for row in marked} == {"transformation_overaccept_risk"}
 
 
 def test_positive_clearly_above_noop_is_low_risk() -> None:
@@ -120,7 +120,8 @@ def test_schema_invalid_calibration_result_is_fail_closed() -> None:
 
     row = schema_invalid_calibration_result(candidate, contract, reason="malformed JSON")
 
-    assert row.static_validated_operation_atoms_count == 0
+    assert row.transformation_supported_operation_atoms_count == 0
+    assert row.schema_invalid_atoms_count == len(contract.operation_atoms)
     assert row.official_pocr_computed is False
     assert row.route_level_pocr_aggregated is False
     assert row.calibration_risk == "schema_invalid"
@@ -138,7 +139,7 @@ def test_unsupported_evidence_ref_is_rejected_in_calibration_fixture() -> None:
     payload["candidate_path"] = candidate.candidate_sql_path.as_posix()
     payload.pop("candidate_id")
 
-    stage_b = validate_static_stage_b(
+    stage_b = validate_transformation_stage_b(
         contract,
         annotation_from_mapping(payload),
         source_sql=source_sql,
@@ -146,8 +147,10 @@ def test_unsupported_evidence_ref_is_rejected_in_calibration_fixture() -> None:
         positive_sql=positive_sql,
     )
 
-    assert stage_b.static_rejected_operation_atoms_count == len(contract.operation_atoms)
-    assert stage_b.static_validated_operation_atoms_count == 0
+    assert {
+        atom.evidence_status for atom in stage_b.atom_results if atom.atom_type == "operation_atom"
+    } == {"invalid_ref"}
+    assert stage_b.transformation_supported_operation_atoms_count == 0
 
 
 def _row(case_id: str, candidate_class: str, *, validated: int) -> CalibrationResultRow:
@@ -159,11 +162,12 @@ def _row(case_id: str, candidate_class: str, *, validated: int) -> CalibrationRe
         route_id="fixture",
         expected_operation_atoms_count=3,
         stage_a_implemented_operation_atoms_count=validated,
-        static_validated_operation_atoms_count=validated,
-        static_rejected_operation_atoms_count=0,
-        insufficient_evidence_operation_atoms_count=0,
+        presence_only_operation_atoms_count=0,
+        transformation_supported_operation_atoms_count=validated,
+        insufficient_transformation_evidence_operation_atoms_count=0,
+        rejected_noop_equivalent_operation_atoms_count=0,
+        schema_invalid_atoms_count=0,
         semantic_guard_atoms_count=1,
-        semantic_guard_static_status_summary="{}",
         diagnostic_only=True,
         official_pocr_computed=False,
         route_level_pocr_aggregated=False,
