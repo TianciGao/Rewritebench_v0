@@ -22934,9 +22934,9 @@ Validation result:
 - No old result copied as canonical metrics: passed by changed-file review.
 - Runtime shutdown check: passed; no `rewriter_java.jar` process or port `6336` listener remained.
 - Targeted LearnedRewrite adapter tests and py_compile: planned/passed before closeout.
-- Changed-file secret scan: planned/passed before closeout.
-- Protected-path review: planned/passed before closeout.
-- `git diff --check`: planned/passed before closeout.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
 
 Boundary:
 - No LearnedRewrite Common-core run, user-facade external runtime smoke, benchmark evidence, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM call, official metric, paper rendering, retained-evidence promotion, leaderboard, Track A 120, top-level reports/results update, runtime asset copy into the release repo, old result import, env file, API key value, or secret was included.
@@ -23608,3 +23608,69 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a PostgreSQL-only LLM-R2 adapted PG40 bounded diagnostic with DB/checker/timing and `local_metrics.py`. Do not run Track A 120 until PG40 and route boundary policy are complete.
+
+## 2026-05-25 - llm_r2_gpt54_pg40_bounded_local_diagnostic_v0
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: pushed to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- PostgreSQL-only adapted LLM-R2 GPT-5.4 Common-core 40 bounded local diagnostic with live generation, DB execution, checker execution, timing, and single-run `local_metrics.py`.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Ran `python -m cli.main user evaluate` for `run_id=llm_r2_gpt54_pg40_bounded_diagnostic_v0` over PostgreSQL Common-core v0 only.
+- Live GPT-5.4 calls occurred only for the 40 PostgreSQL rows.
+- DB/checker/timing occurred only for the 40 PostgreSQL rows.
+- Ran single-run `python -m cli.main user compute-local-metrics --run-id llm_r2_gpt54_pg40_bounded_diagnostic_v0 --source-run-root runs/user --output-root /tmp/sqlrb_llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/output`.
+- Did not use `--run-id-prefix`, `--engines`, or `--aggregate-run-id` for metrics.
+- Canonical local_metrics values: selected 40, generated 40, candidate executable 39, exact 39, mismatch 0, timed 34, generation rate 1.0, execution coverage 0.975, result consistency 0.975, GM speedup 1.009691483166132, P10/P25/P50/P75/P90 0.5650932995267253/0.91306615287767/0.9929224218407445/1.6245036973766611/1.7340646690442811.
+- Failure frontier: `LONGTAIL_0011` remained `candidate_execution_failed`.
+- Source-like diagnostic rows: 1 (`CONS_0037`).
+- Runtime outputs under `runs/user/` and `/tmp` were removed and not staged.
+
+Validation result:
+- `pytest tests/user_entry/test_llm_r2_adapter.py -q`: passed, `16 passed, 7 subtests passed`.
+- `python -m py_compile baselines/llm_r2/adapter.py`: passed.
+- CSV parse checks: passed.
+- JSON parse checks: passed.
+- Markdown non-empty checks: passed.
+- Selected row count: 40 PostgreSQL rows.
+- Live-call count: 40, all PostgreSQL rows.
+- DB/checker/timing bounded-scope check: PostgreSQL-only.
+- local_metrics output existence check: passed.
+- No SQLSolver/VeriEQL command occurred.
+- No official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, or demonstration selector command occurred.
+- No MySQL/Spark, R-Bot, LearnedRewrite, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command occurred.
+- No top-level reports/results update occurred.
+- No API key values were printed, written, staged, or committed.
+- Changed-file secret scan: passed.
+- Protected-path review: passed.
+- `git diff --check`: passed.
+
+Boundary:
+- This is adapted GPT-5.4 local diagnostic evidence only. It is not original LLM-R2 paper reproduction, not Track A 120, not official metrics, not official SER, not a paper result, not retained-evidence promotion, and not leaderboard input.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Write an LLM-R2 adapted PostgreSQL route boundary/policy packet and decide whether to stop at bounded PG evidence or authorize a separately scoped support assessment. Do not run Track A 120 without route policy.

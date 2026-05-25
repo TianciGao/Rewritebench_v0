@@ -1,0 +1,19 @@
+Commands run (secrets redacted; no secret values printed):
+
+- `pytest tests/user_entry/test_llm_r2_adapter.py -q`
+- `python -m py_compile baselines/llm_r2/adapter.py`
+- `python - <<'PY' ... provider preflight with boolean/env-presence output only ... PY`
+- `SQLRB_LLM_R2_MODE=live PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --adapter-command "python baselines/llm_r2/adapter.py" --output-root /tmp/sqlrb_llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/output --run-id llm_r2_gpt54_pg40_bounded_diagnostic_v0 --adapter-timeout 180 --enable-db-execution --enable-checker --collect-timing --timing-repetitions 2 --timing-timeout 30`
+- `PYTHONPATH=src python -m cli.main user compute-local-metrics --run-id llm_r2_gpt54_pg40_bounded_diagnostic_v0 --source-run-root runs/user --output-root /tmp/sqlrb_llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/output`
+- `find runs/user/llm_r2_gpt54_pg40_bounded_diagnostic_v0 -maxdepth 3 -type f | sort`
+- `python - <<'PY' ... parse run ledger/status/local_metrics outputs into audit summaries ... PY`
+
+Commands intentionally not run:
+
+- `compute-local-metrics` aggregate mode with `--run-id-prefix`, `--engines`, or `--aggregate-run-id`
+- SQLSolver or VeriEQL
+- official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, demonstration selector
+- MySQL/Spark runs
+- R-Bot or LearnedRewrite
+- Track A 120
+- official metrics, paper rendering, retained evidence promotion, leaderboard generation
