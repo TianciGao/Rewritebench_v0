@@ -25545,3 +25545,89 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect the captured Track A 120 candidate manifests, then continue D038 Step 3 annotation JSONL artifact contract or authorize route-specific POCR annotation generation only after candidate capture quality is reviewed.
+
+---
+
+Date: 2026-05-26
+
+Task: `nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Nightly user-side reproduction and local diagnostic metrics for selected deterministic routes. This is not POCR annotation generation, not official paper metric promotion, and not a global leaderboard. No live API call, API key read, POCR annotation JSONL generation, or POCR Stage B validation was authorized. DB/checker/timing was allowed only through the existing user-side evaluation pipeline for SQLGlot no-op, SQLGlot optimize schema-aware, and Calcite HEP fail-closed over Common-core v0 Track A 120.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/README.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/reproduction_plan.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/commands_run.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/route_preflight_summary.csv`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/route_metrics_summary.csv`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/route_engine_pool_summary.csv`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/failure_bucket_summary.csv`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/output_location_manifest.csv`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/calcite_runtime_review.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/sqlglot_runtime_review.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/metric_boundary_review.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/protected_path_review.md`
+- `audits/nightly_user_reproduction_sqlglot_calcite_track_a_120_metrics_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Local output roots created but not committed:
+- `output/results/sqlglot_noop_track_a_120_user_reproduction_v0/`
+- `output/results/sqlglot_optimize_schema_aware_track_a_120_user_reproduction_v0/`
+- `output/results/calcite_hep_fail_closed_track_a_120_user_reproduction_v0/`
+- matching `output/logs/<run_id>/`
+- matching `output/reports/<run_id>/`
+
+Summary:
+- The existing user-side `sqlrb user evaluate` and `compute-local-metrics` commands were run from a detached temporary worktree under `/tmp/sqlrb_nightly_user_repro_sqlglot_calcite_worktree`, with D035-style outputs exported to the release repository `output/` tree. This avoided modifying current-repo `runs/user/`.
+- SQLGlot no-op: planned 120, generated 115, executable 107, exact 97, timed 97, Result Consistency Rate 0.8083333333333333, GM Speedup Ratio 1.0580321436582178.
+- SQLGlot optimize schema-aware: planned 120, generated 105, executable 91, exact 66, timed 66, Result Consistency Rate 0.55, GM Speedup Ratio 0.9893206632563172.
+- Calcite HEP fail-closed: planned 120, generated 0, executable 0, exact 0, timed 0 because no `SQLRB_CALCITE_HEP_CMD`, `SQLRB_CALCITE_HEP_JAR`, or `SQLRB_CALCITE_HEP_ROOT` runtime was configured; all rows remain visible as local diagnostic planned rows.
+
+Validation result:
+- Each route `candidate_sql_manifest.csv` has 120 planned rows: passed.
+- Each route denominator manifest has 120 rows: passed.
+- Metrics JSON/CSV parse checks: passed.
+- Failure bucket CSV parse checks: passed.
+- Audit CSV parse checks: passed.
+- Audit Markdown non-empty checks: passed.
+- Current-repo `runs/user` modified: no.
+- `cases/` and root-level `skills.md` modified: no.
+- Top-level `reports/` and `results/` modified: no.
+- Repository `output/` exists as untracked local user output and is not staged.
+- Protected-path review: passed.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed during closeout after explicit staging.
+- `git diff --check`: passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No POCR annotation JSONL was generated.
+- No POCR Stage B validation was run.
+- No official Positive Operation Coverage Rate computation, route-level POCR aggregation, paper-facing metric promotion, official metrics, paper rendering, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- No existing candidate SQL was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No current-repo `runs/user` file was modified.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect local metrics, then decide whether to keep these as local diagnostic reproduction outputs, rerun blocked Calcite after configuring runtime, or continue D038 Step 3 annotation JSONL artifact contract.
