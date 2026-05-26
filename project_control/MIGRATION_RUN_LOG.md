@@ -26778,3 +26778,75 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement POCR@planned / POCR@candidate aggregator design or run a no-API formula dry-run over existing diagnostic artifacts, only after this promotion design is reviewed.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_formula_dry_run_existing_diagnostics_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- No-API POCR formula dry-run over existing diagnostic artifacts. No live API call, API key read, annotation JSONL generation, user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/README.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/dry_run_scope.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/input_artifact_inventory.csv`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/row_level_artifact_availability.csv`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/denominator_policy_application.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/repair1_pg40_formula_dry_run.csv`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/sqlglot_noop_pg40_formula_dry_run.csv`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/route_level_dry_run_summary.csv`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/macro_vs_micro_warning.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/pocr_curated_deferred_review.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/computability_gaps.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/next_implementation_requirements.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/protected_path_review.md`
+- `audits/pocr_formula_dry_run_existing_diagnostics_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Inspected existing Repair-1 PG40 and SQLGlot no-op PG40 diagnostic artifacts.
+- Local `/tmp` replay row artifacts were present for both included routes and contain per-row expected operation atom counts plus per-row Stage-B-supported operation atom counts.
+- POCR@planned and POCR@candidate were tested as D039 promotion views using diagnostic macro dry-run values only.
+- Repair-1 PostgreSQL PG40: planned rows 40, candidate-bound rows 40, schema-valid rows 40, fail-closed rows 0, expected operation atoms 107, Stage-B-supported operation atoms 41, `POCR@planned` macro dry-run `0.395833333333`, `POCR@candidate` macro dry-run `0.395833333333`, diagnostic micro-average `0.383177570093`.
+- SQLGlot no-op PostgreSQL PG40: planned rows 40, candidate-bound rows 40, schema-valid rows 34, fail-closed rows 6, expected operation atoms 107, Stage-B-supported operation atoms 0, `POCR@planned` macro dry-run `0.000000000000`, `POCR@candidate` macro dry-run `0.000000000000`, diagnostic micro-average `0.000000000000`.
+- POCR@curated was not computed and remains `NA` / `curated_manifest_missing`.
+- Committed audit packets alone are not equally sufficient for both routes; the local `/tmp` Repair-1 replay CSV is the decisive row-level Repair-1 macro source.
+
+Validation result:
+- CSV parse checks, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No user replay, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If row-level artifacts are sufficient, implement a reusable POCR@planned / POCR@candidate aggregator with tests; if insufficient, first standardize and export row-level Stage B diagnostic artifacts.
