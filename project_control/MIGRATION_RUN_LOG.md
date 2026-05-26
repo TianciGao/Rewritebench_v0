@@ -26467,3 +26467,82 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect targeted retry quality; if remaining fail-closed rows are acceptable, keep Repair-1 PG40 as the release v0 diagnostic exemplar or decide whether to run another selected baseline diagnostic annotation+replay.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Two-phase diagnostic task. Phase A closed out Direct LLM Repair-1 PostgreSQL PG40 as a release-v0 diagnostic exemplar with boundary. Phase B started SQLGlot optimize schema-aware PostgreSQL PG40 readiness review and stopped before live annotation because candidate-root readiness failed. No DB/checker/timing run, baseline rerun, candidate SQL generation/modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/README.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/task_plan.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/repair1_exemplar_closeout.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/repair1_final_evidence_index.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/repair1_before_after_retry_summary.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/repair1_diagnostic_boundary.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_candidate_root_readiness.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_selected_candidate_root.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_optimize_pg40_not_ready.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_live_annotation_not_run.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_annotation_generation_manifest.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_annotation_schema_validation_summary.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_provider_call_manifest_safe.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_checkpoint_state_review.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_replay_command.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_replay_mapping_validation.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_replay_diagnostic_rows_summary.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_transformation_stage_b_summary.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/sqlglot_diagnostic_boundary.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/output_location_manifest.csv`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/temp_output_tree.txt`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/secret_scan_notes.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/protected_path_review.md`
+- `audits/pocr_repair1_exemplar_closeout_and_sqlglot_optimize_pg40_start_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Closed Direct LLM Repair-1 PostgreSQL PG40 as `accepted_release_v0_diagnostic_exemplar_with_boundary`.
+- Repair-1 final diagnostic state: merged annotation rows 40, schema-valid rows 40, remaining fail-closed rows 0, replay rows 40, route mismatch rows 0, candidate mismatch rows 0, transformation-supported operation atoms 41, presence-only atoms 11, insufficient-transformation-evidence atoms 55.
+- Reviewed SQLGlot optimize schema-aware PostgreSQL candidate roots read-only.
+- Preferred D035 user reproduction root: `output/results/sqlglot_optimize_schema_aware_track_a_120_user_reproduction_v0/candidate_sql/sqlglot_optimize_schema_aware/sqlglot_optimize_schema_aware_track_a_120_user_reproduction_v0/postgres`, 34/40 PostgreSQL Common-core candidate files.
+- Other reviewed 34/40 roots: D035 candidate-capture root, D035 PostgreSQL export component, and `runs/user/sqlglot_optimize_schema_aware_track_a_120_canonical_v0__postgres/candidate_sql`.
+- Missing SQLGlot optimize PostgreSQL cases: `CONS_0009`, `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- SQLGlot optimize Phase B stopped before annotation generation. No SQLGlot live API call was made, no API key was read, no SQLGlot annotation JSONL was generated, and no SQLGlot replay was run.
+
+Validation result:
+- CSV parse checks, Markdown non-empty checks, required boundary phrase checks, `pytest tests/pocr -q`, `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- No DB/checker/timing run occurred.
+- No baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- Candidate SQL under `output/` and `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- Local `output/` and `/tmp` artifacts were not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect SQLGlot diagnostic quality if a complete PG40 root is later produced, or resolve SQLGlot candidate-root readiness before authorizing SQLGlot optimize POCR annotation.
