@@ -1,0 +1,40 @@
+column_group,column_name,required,notes
+identity_binding,run_id,true,Stage B export run id
+identity_binding,case_set_id,true,Case set identity
+identity_binding,denominator_scope,true,PG40 Track A 120 curated or custom scope
+identity_binding,case_id,true,Case identity
+identity_binding,pool,true,Case pool
+identity_binding,engine,true,Target engine
+identity_binding,method_id,true,Method identity
+identity_binding,route_id,true,Route identity
+identity_binding,candidate_id,true,Candidate identity when bound
+identity_binding,candidate_rel_path,true,Candidate relative path when bound
+identity_binding,candidate_sha256,true,Candidate SHA when bound
+identity_binding,skills_md_sha256,true,Skills contract hash
+denominator_membership,planned_pocr_eligible,true,Planned denominator input
+denominator_membership,candidate_bound,true,Candidate denominator input
+denominator_membership,pocr_planned_denominator_member,true,POCR@planned membership
+denominator_membership,pocr_candidate_denominator_member,true,POCR@candidate membership
+denominator_membership,pocr_curated_denominator_member,true,POCR@curated membership
+denominator_membership,curated_manifest_id,true,Null until curated manifest exists
+atom_counts,expected_operation_atoms,true,Denominator atom count
+atom_counts,stage_b_supported_operation_atoms,true,Numerator atom count before row ratio
+atom_counts,presence_only_operation_atoms,true,Diagnostic rejected count
+atom_counts,insufficient_transformation_evidence_atoms,true,Diagnostic rejected count
+atom_counts,rejected_noop_equivalent_atoms,true,No-op/source-like rejected count
+atom_counts,semantic_guard_atoms,true,Excluded semantic guard count
+stage_b_status,annotation_attempted,true,Annotation attempt flag
+stage_b_status,annotation_status,true,Annotation status
+stage_b_status,replay_row_present,true,Stage B row presence
+stage_b_status,route_mismatch,true,Route mismatch flag
+stage_b_status,candidate_mismatch,true,Candidate mismatch flag
+stage_b_status,oc_i,true,Raw per-row value when valid
+stage_b_status,oc_i_fail_closed,true,Fail-closed denominator value
+fail_closed_status,fail_closed_status,true,Fail-closed status
+fail_closed_status,not_applicable_reason,true,N.A. reason
+output_boundary_constants,diagnostic_only,true,Must remain true by default
+output_boundary_constants,official_pocr_computed,true,Must remain false unless separately authorized
+output_boundary_constants,route_level_pocr_aggregated,true,Must remain false in row export by default
+output_boundary_constants,paper_metric_promoted,true,Must remain false unless separately authorized
+provenance,source_artifact_path,true,Source artifact for row derivation
+provenance,notes,false,Optional notes

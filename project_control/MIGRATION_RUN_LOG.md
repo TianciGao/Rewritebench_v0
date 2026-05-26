@@ -26850,3 +26850,80 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If row-level artifacts are sufficient, implement a reusable POCR@planned / POCR@candidate aggregator with tests; if insufficient, first standardize and export row-level Stage B diagnostic artifacts.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_row_level_stage_b_artifact_contract_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- POCR row-level Stage B artifact contract and aggregator-input design. No experiment run, live API call, API key read, annotation JSONL generation, user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/README.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/contract_scope.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/row_level_stage_b_schema.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/row_level_stage_b_schema.csv`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/aggregator_input_contract.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/required_columns.csv`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/status_vocabulary.csv`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/denominator_mapping_policy.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/artifact_location_policy.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/existing_artifact_gap_review.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/repair1_noop_dry_run_lessons.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/future_exporter_requirements.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/future_aggregator_requirements.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/test_fixture_plan.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/protected_path_review.md`
+- `audits/pocr_row_level_stage_b_artifact_contract_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Defined the durable row-level Stage B artifact `pocr_stage_b_row_metrics.csv`.
+- Defined one-row-per-route x case_id x engine planned/candidate-bound granularity.
+- Defined required identity binding, denominator membership, atom counts, Stage B status, fail-closed status, output boundary constants, and provenance fields.
+- Defined the future D035 local output location: `output/results/<run_id>/pocr/stage_b/pocr_stage_b_row_metrics.csv`.
+- Recorded that aggregate counts are insufficient for D039 macro-average.
+- Recorded that `/tmp` replay artifacts are not durable enough for official metric promotion.
+- Recorded that the aggregator must not rely on `/tmp` replay artifacts.
+- Preserved POCR@planned and POCR@candidate as D039 promotion views.
+- Preserved POCR@curated as deferred / `curated_manifest_missing`.
+
+Validation result:
+- CSV parse checks for schema/status/required-column CSVs, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No experiment was run.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No user replay, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement exporter or aggregator using this durable row-level contract, after final metric definitions are confirmed.

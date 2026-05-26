@@ -1,0 +1,40 @@
+column_name,required,type,allowed_values,nullable,description,used_by_pocr_planned,used_by_pocr_candidate,used_by_pocr_curated,validation_rule
+run_id,true,string,,false,Stage B export run id,true,true,true,nonempty
+case_set_id,true,string,,false,Case set identifier such as common_core_v0,true,true,true,nonempty
+denominator_scope,true,string,"pg40_postgres_only|track_a_120|curated|custom",false,Declared denominator scope,true,true,true,nonempty and matches manifest
+case_id,true,string,,false,Case id,true,true,true,nonempty and in case set when planned
+pool,true,string,"PERF|CONS|PORT|LONGTAIL",false,Case pool,true,true,true,matches case set
+engine,true,string,"postgres|mysql|spark",false,Target engine,true,true,true,allowed engine
+method_id,true,string,,false,Method identity,true,true,true,nonempty
+route_id,true,string,,false,Route identity,true,true,true,nonempty
+candidate_id,true,string,,true,Candidate identity from candidate manifest,false,true,true,required when candidate_bound=true
+candidate_rel_path,true,string,,true,Relative candidate SQL path,false,true,true,required when candidate_bound=true
+candidate_sha256,true,string,,true,Candidate SQL SHA-256,false,true,true,64 hex chars when candidate_bound=true
+skills_md_sha256,true,string,,false,Case-local skills.md SHA-256,true,true,true,64 hex chars
+planned_pocr_eligible,true,boolean,"true|false",false,Whether row belongs to planned POCR denominator,true,false,true,boolean
+candidate_bound,true,boolean,"true|false",false,Whether row has deterministic candidate binding,false,true,true,boolean
+annotation_attempted,true,boolean,"true|false",false,Whether Stage A annotation was attempted,false,false,false,boolean
+annotation_status,true,string,"schema_valid|malformed_json|provider_call_failed|timeout|annotation_missing|skipped_no_candidate|generation_failed|extraction_failed|unsupported_engine|route_mismatch|candidate_mismatch|not_applicable_no_expected_operation_atoms",false,Stage A or row annotation status,true,true,true,allowed status
+replay_row_present,true,boolean,"true|false",false,Whether Stage B replay/export produced this row,true,true,true,must be true for exported metrics row
+route_mismatch,true,boolean,"true|false",false,Route binding mismatch flag,true,true,true,boolean
+candidate_mismatch,true,boolean,"true|false",false,Candidate SHA or identity mismatch flag,true,true,true,boolean
+expected_operation_atoms,true,integer,,false,Operation atom count from skills.md,true,true,true,integer >= 0
+stage_b_supported_operation_atoms,true,integer,,false,Stage-B transformation-supported operation atom count,true,true,true,integer >= 0 and <= expected_operation_atoms
+presence_only_operation_atoms,true,integer,,false,Operation atoms with presence-only evidence,true,true,true,integer >= 0
+insufficient_transformation_evidence_atoms,true,integer,,false,Operation atoms rejected for insufficient transformation evidence,true,true,true,integer >= 0
+rejected_noop_equivalent_atoms,true,integer,,false,Operation atoms rejected as no-op/source-like,true,true,true,integer >= 0
+semantic_guard_atoms,true,integer,,false,Semantic guard atom count excluded from numerator and denominator,false,false,false,integer >= 0
+oc_i,true,decimal,,true,Raw row operation coverage when valid,true,true,true,null when not_applicable or fail-closed-only
+oc_i_fail_closed,true,decimal,,true,Row operation coverage after fail-closed policy,true,true,true,0 to 1 when denominator member and applicable
+pocr_planned_denominator_member,true,boolean,"true|false",false,POCR@planned denominator flag,true,false,false,boolean
+pocr_candidate_denominator_member,true,boolean,"true|false",false,POCR@candidate denominator flag,false,true,false,boolean
+pocr_curated_denominator_member,true,boolean,"true|false",false,POCR@curated denominator flag,false,false,true,false unless curated manifest present
+curated_manifest_id,true,string,,true,Curated denominator manifest id,false,false,true,null until curated manifest exists
+fail_closed_status,true,string,"none|no_candidate|generation_failed|extraction_failed|unsupported_engine|route_mismatch|candidate_mismatch|annotation_missing|malformed_json|provider_call_failed|timeout|schema_invalid|not_applicable_no_expected_operation_atoms",false,Fail-closed status used for denominator policy,true,true,true,allowed status
+not_applicable_reason,true,string,"none|not_applicable_no_expected_operation_atoms|unsupported_denominator_scope|curated_manifest_missing",false,N.A. reason,true,true,true,allowed reason
+source_artifact_path,true,string,,false,Source row artifact or replay/export path,true,true,true,nonempty
+diagnostic_only,true,boolean,"true|false",false,Diagnostic boundary flag,true,true,true,must be true by default
+official_pocr_computed,true,boolean,"true|false",false,Official computation boundary flag,true,true,true,must be false unless separately authorized
+route_level_pocr_aggregated,true,boolean,"true|false",false,Route-level aggregation boundary flag,true,true,true,must be false in row export by default
+paper_metric_promoted,true,boolean,"true|false",false,Paper metric promotion boundary flag,true,true,true,must be false unless separately authorized
+notes,false,string,,true,Human-readable notes,false,false,false,optional

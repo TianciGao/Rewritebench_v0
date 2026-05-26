@@ -1,0 +1,16 @@
+status,description,contributes_to_pocr_planned_denominator,contributes_to_pocr_candidate_denominator,oc_i_fail_closed_value,manual_review_required
+schema_valid,Annotation row is schema-valid and can be Stage-B validated,true,true,computed_from_stage_b,false
+malformed_json,Provider output could not be parsed as valid annotation JSON,true,true,0,true
+provider_call_failed,Provider call failed or returned no usable response,true,true,0,true
+timeout,Provider call or annotation attempt timed out,true,true,0,true
+annotation_missing,No annotation row exists for a planned or candidate-bound row,true,true,0,true
+skipped_no_candidate,Annotation skipped because no candidate exists,true,false,0,false
+generation_failed,Candidate generation failed,true,false,0,false
+extraction_failed,Candidate extraction failed,true,false,0,false
+unsupported_engine,Route or engine unsupported for planned row,true,false,0,false
+route_mismatch,Annotation or candidate route does not match row route,true,true,0,true
+candidate_mismatch,Candidate identity or SHA does not match annotation row,true,true,0,true
+stage_b_validated,Stage B validated row evidence,true,true,computed_from_stage_b,false
+insufficient_transformation_evidence,Stage B rejected operation evidence as insufficient,true,true,0_for_rejected_atoms,false
+presence_only,Stage B found span presence but no transformation evidence,true,true,0_for_rejected_atoms,false
+not_applicable_no_expected_operation_atoms,No expected operation atoms exist for this row,counted_separately,counted_separately,NA,true
