@@ -26546,3 +26546,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect SQLGlot diagnostic quality if a complete PG40 root is later produced, or resolve SQLGlot candidate-root readiness before authorizing SQLGlot optimize POCR annotation.
+
+---
+
+Date: 2026-05-26
+
+Task: `sqlglot_optimize_pg40_missing_candidate_diagnostic_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Targeted SQLGlot optimize PG40 missing-candidate diagnostic. No live API call, API key read, POCR annotation JSONL generation, POCR Stage B run, DB/checker/timing run, baseline rerun, candidate SQL generation/modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/README.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/diagnostic_plan.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/missing_case_diagnostic.csv`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/candidate_root_search_results.csv`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/manifest_status_review.csv`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/file_path_pattern_review.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/sqlglot_optimize_failure_review.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/no_op_substitution_guard.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/resolution_recommendation.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/protected_path_review.md`
+- `audits/sqlglot_optimize_pg40_missing_candidate_diagnostic_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Inspected the six SQLGlot optimize schema-aware PostgreSQL PG40 missing cases: `CONS_0009`, `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025`.
+- Preferred D035 user reproduction root reviewed read-only: `output/results/sqlglot_optimize_schema_aware_track_a_120_user_reproduction_v0/candidate_sql/sqlglot_optimize_schema_aware/sqlglot_optimize_schema_aware_track_a_120_user_reproduction_v0/postgres`.
+- The selected manifest contains rows for all six cases and marks each `candidate_status=generation_failed`, `generated_status=not_generated`, and `extraction_status=adapter_failed`.
+- Prior candidate-capture evidence records `CONS_0009` as a SQLGlot optimize internal generation failure and the five PORT rows as SQLGlot parse failures.
+- No usable SQLGlot optimize PostgreSQL candidate was found elsewhere in the reviewed D035 output roots, legacy `runs/user` optimize roots, smoke roots, or unit-root aggregate.
+- Unrelated no-op/control/reference candidates exist for some or all target case IDs and were explicitly rejected as substitutes.
+- Path/filename/manifest mapping issue count: 0.
+- True SQLGlot optimize method/generation failure count: 6.
+- Unsupported/preflight-blocked count for PostgreSQL target rows: 0.
+- Manual-review-required count: 0.
+- SQLGlot optimize PG40 readiness after diagnostic: `needs_candidate_capture_rerun` for full PG40; current usable state remains `partial34_only` unless a later task explicitly authorizes a partial diagnostic with missing rows fail-closed.
+
+Validation result:
+- CSV parse checks, Markdown non-empty checks, target-case coverage check, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- No live API call or API key read occurred.
+- No POCR annotation JSONL was generated and no POCR Stage B replay was run.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No SQLGlot no-op candidate was used as an optimize candidate.
+- Candidate SQL under `output/` and `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Rerun/fix SQLGlot optimize candidate capture for the six generation-failed PostgreSQL rows, or switch to SQLGlot no-op sanity/control as a separate route without substituting no-op files into SQLGlot optimize.
