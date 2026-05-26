@@ -1,0 +1,12 @@
+requirement,required_for,mandatory_or_optional,setup_hint,validation_command,notes
+python_3_10_or_newer,all_cli_paths,mandatory,create_virtualenv_and_editable_install,python --version,manual_does_not_pin_os_packages
+editable_install,installed_sqlrb_command,optional_but_recommended,python -m pip install -e .,sqlrb user show-output-schema,checkout_mode_can_use_PYTHONPATH
+checkout_mode,all_cli_paths,optional,PYTHONPATH=src,PYTHONPATH=src python -m cli.main user show-output-schema,no_install_fallback
+sqlglot_optional_dependency,sqlglot_routes,mandatory_for_sqlglot,python -m pip install -e .[sqlglot],python -c 'import sqlglot; print(sqlglot.__version__)',required_for_noop_and_optimize_schema_aware
+postgres_server_client,postgres_execution_checker_timing,mandatory_for_postgres_diagnostics,configure_SQLRB_POSTGRES_DSN_or_libpq_env,psql "$SQLRB_POSTGRES_DSN" -c "SELECT 1;",not_needed_for_adapter_capture
+mysql_server_client,mysql_execution_checker_timing,mandatory_for_mysql_diagnostics,configure_local_mysql_client,mysql -e "SELECT 1;",not_needed_for_adapter_capture
+spark_pyspark,spark_execution_checker_timing,mandatory_for_spark_diagnostics,configure_pyspark_local_or_cluster,python -c 'from pyspark.sql import SparkSession',not_needed_for_adapter_capture
+java,spark_and_calcite,mandatory_for_spark_calcite_paths,install_java_runtime,java -version,java_itself_does_not_configure_calcite
+calcite_runtime_env,calcite_hep,mandatory_for_calcite_candidate_generation,set_SQLRB_CALCITE_HEP_CMD_or_JAR_or_ROOT,python -c 'import os; print(any(os.getenv(x) for x in ("SQLRB_CALCITE_HEP_CMD","SQLRB_CALCITE_HEP_JAR","SQLRB_CALCITE_HEP_ROOT")))',missing_env_means_preflight_blocked
+llm_api_env,direct_llm_repair_rbot_llm_r2_live_generation,optional_and_explicit,env_only_keys_plus_live_gate,do_not_print_keys,not_needed_for_deterministic_baselines
+output_root,user_outputs,mandatory_for_runs,use_output_or_tmp_output_root,test -d output || true,do_not_commit_output

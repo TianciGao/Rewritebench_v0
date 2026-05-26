@@ -144,6 +144,7 @@ final public `benchmarks/` target.
 
 - [User benchmark guide](docs/USER_BENCHMARK_GUIDE.md)
 - [User quickstart](docs/guide/user_quickstart.md)
+- [Baseline reproduction manual](docs/baseline_reproduction.md)
 - [Output contract](docs/spec/output_contract.md)
 - [CLI contract](docs/spec/cli_contract.md)
 - [Common-core v0 case set](case_sets/common_core_v0/)

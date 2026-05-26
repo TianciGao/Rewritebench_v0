@@ -1,0 +1,13 @@
+route_label,role,scope,command_documented,requires_db,requires_timing,requires_sqlglot,requires_calcite,requires_llm_api,candidate_output_possible,pocr_diagnostic_possible,boundary_notes
+source_native_controls,reference_source,case_local_source_sql,not_method_adapter,yes,yes,no,no,no,no,no,reference_input_only
+human_positive_controls,checker_calibration_control,case_local_positive_sql,not_method_adapter,optional,optional,no,no,no,yes,yes,not_automatic_rewrite_baseline
+hard_negative_guard,checker_control,case_local_negative_sql,not_method_adapter,optional,no,no,no,no,no,no,not_method_generated_candidate
+sqlglot_noop,deterministic_baseline,track_a_120,python baselines/sqlglot/sqlglot_user_adapter.py --route noop,yes,yes,yes,no,no,yes,yes,missing_parse_emit_rows_visible
+sqlglot_optimize_schema_aware,deterministic_baseline,track_a_120,python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware,yes,yes,yes,no,no,yes,yes,must_not_downgrade_to_noop
+calcite_hep_fail_closed,deterministic_external_baseline,track_a_120_if_runtime_configured,python baselines/calcite_hep_fail_closed/adapter.py,yes,yes,no,yes,no,yes,yes,preflight_blocked_if_runtime_missing
+direct_llm_original,llm_baseline,route_specific_track_a_possible,python baselines/direct_llm_original/adapter.py,yes,yes,no,no,yes,yes,yes,reruns_may_drift_without_frozen_metadata
+direct_llm_repair_1,feedback_llm_route,route_specific,python baselines/direct_llm_repair_1/adapter.py,yes,yes,no,no,yes,yes,yes,separate_route_identity_required
+rbot_gpt54_adapted,adapted_prior_method,postgres_pg40,python baselines/rbot/adapter.py,yes,yes,no,no,yes,yes,yes,not_original_paper_reproduction
+llm_r2_gpt54_adapted,adapted_prior_method,postgres_pg40,python baselines/llm_r2/adapter.py,yes,yes,no,no,yes,yes,yes,not_original_paper_runtime
+learnedrewrite,external_prior_method,postgres_pg40_incomplete,python baselines/learnedrewrite/adapter.py,yes,yes,no,external_java_runtime,no,partial,yes,do_not_fabricate_missing_candidates
+sqlsolver_verieql,verifier_support,exact_candidate_subsets,sqlrb user verify,no,no,no,tool_specific,no,no,no,not_rewrite_generation_baseline

@@ -25770,3 +25770,72 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Refresh `LONGTAIL_0011` positive-control validation / POCR calibration only if needed, after reviewing this correction.
+
+---
+
+Date: 2026-05-26
+
+Task: `baseline_reproduction_manual_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Documentation/manual only. No baseline rerun, DB/checker/timing run, live LLM/API call, API key read, POCR annotation JSONL generation, POCR Stage B validation, official metric computation, paper-facing table update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/baseline_reproduction.md`
+- `examples/baseline_reproduction/README.md`
+- `audits/baseline_reproduction_manual_v0/README.md`
+- `audits/baseline_reproduction_manual_v0/docs_plan.md`
+- `audits/baseline_reproduction_manual_v0/baseline_command_index.csv`
+- `audits/baseline_reproduction_manual_v0/environment_requirement_index.csv`
+- `audits/baseline_reproduction_manual_v0/boundary_wording_review.md`
+- `audits/baseline_reproduction_manual_v0/protected_path_review.md`
+- `audits/baseline_reproduction_manual_v0/command_log.md`
+
+Files modified:
+- `README.md`
+- `docs/README.md`
+- `examples/README.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a user-facing baseline reproduction manual documenting fresh-checkout setup, D035 output roots, safe no-DB smoke commands, preflight checks, deterministic baseline command patterns, canonical timing policy, route-specific boundaries, POCR relationship, and troubleshooting.
+- Covered source/native controls, human positive controls, hard negatives, SQLGlot no-op, SQLGlot optimize schema-aware, Calcite HEP fail-closed, Direct LLM original, Direct LLM Repair-1, R-Bot adapted GPT-5.4 PG40, LLM-R2 adapted GPT-5.4 PG40, LearnedRewrite PG40, and SQLSolver/VeriEQL verifier support.
+- Added an example pointer under `examples/baseline_reproduction/README.md` and indexed the manual from `README.md`, `docs/README.md`, and `examples/README.md`.
+- The manual records that local diagnostics are not official metrics, top-level `reports/` and `results/` are protected paper/release surfaces, performance is exact+timed only, PG40 cannot fill Track A 120, missing candidates must not be fabricated, and `output/` must not be committed.
+
+Validation result:
+- Markdown non-empty checks passed.
+- CSV parse checks for audit CSV files passed.
+- Required boundary phrase checks in `docs/baseline_reproduction.md` passed.
+- README link checks passed.
+- `pytest tests/pocr -q` passed.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q` passed.
+- `git diff --check` passed.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+
+Boundary:
+- No baseline rerun, DB/checker/timing run, live LLM/API call, API key read, POCR annotation JSONL generation, POCR Stage B validation, official metric computation, paper-facing table update, top-level reports/results update, `output/` commit, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, candidate SQL movement/copy/deletion, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Continue D038 Step 3 annotation JSONL artifact contract, or separately authorize Calcite runtime setup/rerun after reviewing the reproduction manual.
