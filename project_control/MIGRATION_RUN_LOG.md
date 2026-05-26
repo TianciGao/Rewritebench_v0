@@ -26998,3 +26998,75 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement POCR@planned / POCR@candidate aggregator reading `pocr_stage_b_row_metrics.csv`, after final metric definitions are confirmed.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_planned_candidate_aggregator_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Reusable POCR@planned / POCR@candidate aggregator over durable row-level Stage B CSVs. No live API call, API key read, annotation JSONL generation, production user replay, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/pocr_aggregator.py`
+- `tests/pocr/test_pocr_aggregator.py`
+- `audits/pocr_planned_candidate_aggregator_v0/README.md`
+- `audits/pocr_planned_candidate_aggregator_v0/implementation_summary.md`
+- `audits/pocr_planned_candidate_aggregator_v0/aggregation_formula_review.md`
+- `audits/pocr_planned_candidate_aggregator_v0/validation_summary.md`
+- `audits/pocr_planned_candidate_aggregator_v0/protected_path_review.md`
+- `audits/pocr_planned_candidate_aggregator_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Added a library-only POCR aggregator under `src/sql_rewrite_bench/pocr/`.
+- Reads one or more `pocr_stage_b_row_metrics.csv` files.
+- Validates required input columns and diagnostic boundary constants.
+- Groups by `run_id`, `case_set_id`, `denominator_scope`, `method_id`, `route_id`, and `engine`.
+- Computes promotion-diagnostic `pocr_planned_macro` and `pocr_candidate_macro` from row-level `oc_i_fail_closed`.
+- Keeps diagnostic micro-average separate as `diagnostic_micro_average_supported_over_expected`.
+- Emits `pocr_curated=NA` and `pocr_curated_status=curated_manifest_missing`.
+- Writes route summaries to `<output_root>/results/<run_id>/pocr/aggregates/pocr_route_summary.csv`.
+- Does not add a CLI command and does not modify `local_metrics.py`.
+
+Validation result:
+- `python -m py_compile` for changed POCR modules passed.
+- Focused aggregator tests passed.
+- Full POCR tests and user-entry POCR facade / CLI facade tests are run during closeout.
+- CSV parse checks for route summary fixture output, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No production user replay, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Run a no-API aggregator smoke over existing Repair-1 and SQLGlot no-op row metrics exports, or produce row metrics exports from existing diagnostic replay artifacts, without promoting paper metrics.
