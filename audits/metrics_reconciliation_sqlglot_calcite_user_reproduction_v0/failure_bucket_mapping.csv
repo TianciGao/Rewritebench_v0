@@ -1,0 +1,7 @@
+prior_bucket,new_bucket,equivalent,mapping_confidence,notes
+adapter_failed,adapter_failed,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.
+candidate_execution_failed,candidate_execution_failed,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.
+mismatch,mismatch,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.
+no_candidate_sql,no_candidate_sql,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.
+none,none,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.
+unsupported_engine,unsupported_engine,yes,high,Same bucket string and same local_metrics/user-ledger meaning in compared artifacts.

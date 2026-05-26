@@ -25631,3 +25631,78 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect local metrics, then decide whether to keep these as local diagnostic reproduction outputs, rerun blocked Calcite after configuring runtime, or continue D038 Step 3 annotation JSONL artifact contract.
+
+---
+
+Date: 2026-05-26
+
+Task: `metrics_reconciliation_sqlglot_calcite_user_reproduction_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Metrics reconciliation audit only. No rerun, DB/checker/timing rerun, baseline rerun, live API call, API key read, POCR annotation JSONL generation, POCR Stage B validation, official metric promotion, paper-facing table update, or leaderboard was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/README.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/reconciliation_plan.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/source_artifact_inventory.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/metric_summary_comparison.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/timing_denominator_comparison.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/gm_speedup_formula_review.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/per_row_timing_traceability.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/failure_bucket_mapping.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/failure_bucket_comparison.csv`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/source_candidate_runtime_provenance.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/discrepancy_findings.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/acceptance_boundary.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/protected_path_review.md`
+- `audits/metrics_reconciliation_sqlglot_calcite_user_reproduction_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- SQLGlot no-op counts reconcile exactly with prior canonical evidence: planned 120, generated 115, executable 107, exact 97, timed 97. Failure bucket counts match. GM differs: prior canonical 0.9798350077258852 vs new user reproduction 1.0580321436582178.
+- SQLGlot optimize schema-aware counts reconcile exactly with prior canonical evidence: planned 120, generated 105, executable 91, exact 66, timed 66. Failure bucket counts match. GM differs: prior canonical 1.020315612310745 vs new user reproduction 0.9893206632563172.
+- For both SQLGlot routes, the exact+timed row sets match exactly, speedup direction remains source median runtime divided by candidate median runtime, and the GM discrepancy is caused by fresh timing measurement provenance rather than formula direction or row eligibility. Prior canonical timing recorded 5 measured repetitions; the new nightly user reproduction recorded 2 measured repetitions.
+- Calcite HEP fail-closed does not reconcile as replacement evidence. Prior canonical Calcite had generated 99, exact 81, timed 80, and GM 0.9852158585899714. The new reproduction lacked configured Calcite runtime env and generated 0 candidates, so it remains blocked-runtime smoke/local diagnostic only.
+- Failure bucket vocabulary is compatible. Timing rows are traceable in the new outputs.
+
+Validation result:
+- CSV parse checks for all audit CSV files: passed.
+- Markdown non-empty checks for all audit Markdown files: passed.
+- `output/` files modified: no.
+- Candidate SQL files modified: no.
+- `runs/user` files modified: no.
+- Top-level `reports/` and `results/` modified: no.
+- Case-local runs changed: no.
+- Protected-path review: passed.
+- Changed-file secret scan: passed.
+- Staged secret scan: passed during closeout after explicit staging.
+- `git diff --check`: passed.
+
+Boundary:
+- The new SQLGlot user-side reproductions may be treated as local diagnostic reproduction evidence with boundary, not paper-facing replacement evidence.
+- The new Calcite output should be treated as blocked-runtime smoke/local diagnostic only until Calcite runtime is configured and a separately authorized rerun occurs.
+- No official metric promotion, paper table update, official Positive Operation Coverage Rate computation, route-level POCR aggregation, top-level reports/results update, denominator change, case membership change, paper result change, raw legacy evidence change, retained-evidence promotion, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If reconciled, keep the SQLGlot outputs as user-side local diagnostic reproduction evidence and continue D038 Step 3 annotation JSONL artifact contract; keep Calcite as blocked-runtime smoke until runtime provenance is fixed.
