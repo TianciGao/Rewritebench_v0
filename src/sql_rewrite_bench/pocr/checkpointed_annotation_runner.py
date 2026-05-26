@@ -46,7 +46,7 @@ DEFAULT_PROMPT_TEMPLATE_ID = "pocr_stage_a_annotation_prompt_v1"
 DEFAULT_PROMPT_TEMPLATE_VERSION = "checkpointed_transformation_aware_v1"
 DEFAULT_CASES = ("PERF_0006", "CONS_0005")
 
-RETRYABLE_STATUSES = {"provider_call_failed", "timeout", "schema_invalid", "malformed_json"}
+RETRYABLE_STATUSES = {"provider_call_failed", "timeout", "malformed_json"}
 
 
 class AnnotationProvider(Protocol):
@@ -262,6 +262,9 @@ def run_checkpointed_annotation(
                 _write_all(paths, config, manifest, jsonl_rows)
                 continue
             if existing_status in RETRYABLE_STATUSES and not config.retry_failed:
+                _write_all(paths, config, manifest, jsonl_rows)
+                continue
+            if existing_status and existing_status not in RETRYABLE_STATUSES and existing_status != "pending":
                 _write_all(paths, config, manifest, jsonl_rows)
                 continue
 

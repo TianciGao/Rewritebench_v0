@@ -26302,3 +26302,89 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement targeted POCR robustness improvements or, if this quality boundary is accepted, keep Direct LLM Repair-1 PostgreSQL PG40 as the release v0 diagnostic exemplar.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_diagnostic_robustness_improvements_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- POCR robustness implementation plus tests only. No live API call, API key read, annotation JSONL generation, user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/retry_planner.py`
+- `src/sql_rewrite_bench/pocr/evidence_ref_linter.py`
+- `src/sql_rewrite_bench/pocr/manual_review.py`
+- `tests/pocr/test_retry_planner.py`
+- `tests/pocr/test_evidence_ref_linter.py`
+- `tests/pocr/test_manual_review.py`
+- `audits/pocr_diagnostic_robustness_improvements_v0/README.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/robustness_plan.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/retry_policy.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/retry_candidate_rows.csv`
+- `audits/pocr_diagnostic_robustness_improvements_v0/json_output_guard_review.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/evidence_ref_lint_summary.csv`
+- `audits/pocr_diagnostic_robustness_improvements_v0/evidence_ref_lint_rows.csv`
+- `audits/pocr_diagnostic_robustness_improvements_v0/manual_review_queue.csv`
+- `audits/pocr_diagnostic_robustness_improvements_v0/manual_review_policy.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/local_artifact_readonly_review.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/protected_path_review.md`
+- `audits/pocr_diagnostic_robustness_improvements_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `src/sql_rewrite_bench/pocr/checkpointed_annotation_runner.py`
+- `src/sql_rewrite_bench/pocr/json_output_guard.py`
+- `tests/pocr/test_checkpointed_annotation_runner.py`
+- `tests/pocr/test_json_output_guard.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Implemented a deterministic retry planner for checkpointed annotation manifests and checkpoint state files. Default retry-eligible statuses are `malformed_json`, `timeout`, and `provider_call_failed`; retries remain explicit and planned only.
+- Strengthened JSON output guard classification for valid objects, fenced JSON, surrounding whitespace, provider text around JSON, truncated JSON, empty responses, non-object JSON, multi-object responses, and timeout/no-response conditions. Ambiguous provider text fails closed by default.
+- Added a Stage A evidence-ref linter that reports unsupported prefixes, missing evidence refs, span-only operation evidence, missing `source_candidate_diff:changed`, vague refs, duplicate refs, overlong refs, and semantic-guard numerator boundaries without changing Stage B.
+- Added manual-review CSV builders for transformation-supported atoms, possible under-accept rows, retry-eligible fail-closed rows, and linter warning/error rows.
+- Updated the checkpointed runner so `--retry-failed` does not retry `schema_invalid` checkpoints; only explicit retry-eligible statuses proceed.
+- Existing local Step 5 artifacts were inspected read-only. The retry planner found 5 retry-eligible rows: `LONGTAIL_0012`, `PERF_0013`, `PERF_0017`, `PERF_0033`, and `PERF_0052`. The linter produced 83 quality-feedback rows, and the manual-review queue contains 60 rows.
+
+Validation result:
+- `python -m py_compile` passed for new/modified POCR modules.
+- `pytest tests/pocr -q` passed.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q` passed.
+- CSV parse checks passed for audit CSVs.
+- Markdown non-empty checks passed for audit Markdown files.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+- `git diff --check` passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated or modified.
+- No user replay rerun occurred.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, candidate SQL modification, or candidate SQL movement/copy/deletion occurred.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- Local `output/` and `/tmp` artifacts were read-only and were not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Authorize a targeted retry only for the 5 fail-closed Direct LLM Repair-1 PG40 rows, or keep the accepted-with-boundary exemplar for release v0.

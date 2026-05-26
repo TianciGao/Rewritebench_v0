@@ -52,6 +52,14 @@ from sql_rewrite_bench.pocr.evidence_validation import (
     SyntheticEvidenceRef,
     validate_stage_b,
 )
+from sql_rewrite_bench.pocr.evidence_ref_linter import (
+    EvidenceRefLintRow,
+    evidence_ref_lint_fields,
+    lint_annotation,
+    lint_jsonl_annotation_rows,
+    lint_rows_to_csv_rows,
+    summarize_lint_rows,
+)
 from sql_rewrite_bench.pocr.inventory import (
     CommonCoreSkillInventory,
     build_common_core_inventory,
@@ -64,8 +72,26 @@ from sql_rewrite_bench.pocr.models import (
     SkillValidationIssue,
 )
 from sql_rewrite_bench.pocr.json_output_guard import GuardedJsonResult, guarded_json_loads
+from sql_rewrite_bench.pocr.manual_review import (
+    ManualReviewRow,
+    dedupe_manual_review_rows,
+    manual_review_fields,
+    manual_review_rows_to_csv_rows,
+    review_rows_for_lint,
+    review_rows_for_retry_plan,
+    review_rows_for_stage_b,
+)
 from sql_rewrite_bench.pocr.pocr_row import POCRRowDraft
 from sql_rewrite_bench.pocr.prompt_builder import AnnotationPromptInputs, build_annotation_prompt
+from sql_rewrite_bench.pocr.retry_planner import (
+    RetryPlanRow,
+    plan_retries_from_checkpoint_state,
+    plan_retries_from_manifest_csv,
+    plan_retries_from_manifest_rows,
+    retry_plan_fields,
+    retry_plan_rows_to_csv_rows,
+    summarize_retry_plan,
+)
 from sql_rewrite_bench.pocr.skills_parser import parse_skills_file, parse_skills_text
 from sql_rewrite_bench.pocr.stage_b_static_runner import (
     StaticStageBDiagnosticRow,
@@ -101,13 +127,16 @@ __all__ = [
     "CommonCoreSkillInventory",
     "DiagnosticPOCRDraftRow",
     "FakeAnnotationClient",
+    "EvidenceRefLintRow",
     "GuardedJsonResult",
+    "ManualReviewRow",
     "POCRDiagnosticFacadeResult",
     "POCRDiagnosticOutputPaths",
     "POCRDiagnosticPoolSummary",
     "POCRDiagnosticRow",
     "POCRRowDraft",
     "ResolvedAnnotationArtifact",
+    "RetryPlanRow",
     "SkillAtom",
     "SkillContract",
     "SkillParseResult",
@@ -134,13 +163,30 @@ __all__ = [
     "diagnostic_rows_to_csv_rows",
     "diagnostic_summaries_to_csv_rows",
     "diagnostic_summary_fields",
+    "dedupe_manual_review_rows",
+    "evidence_ref_lint_fields",
     "guarded_json_loads",
+    "lint_annotation",
+    "lint_jsonl_annotation_rows",
+    "lint_rows_to_csv_rows",
+    "manual_review_fields",
+    "manual_review_rows_to_csv_rows",
     "parse_skills_file",
     "parse_skills_text",
+    "plan_retries_from_checkpoint_state",
+    "plan_retries_from_manifest_csv",
+    "plan_retries_from_manifest_rows",
     "render_diagnostic_markdown_report",
     "resolve_annotation_artifacts",
     "resolve_candidate_sources",
+    "retry_plan_fields",
+    "retry_plan_rows_to_csv_rows",
+    "review_rows_for_lint",
+    "review_rows_for_retry_plan",
+    "review_rows_for_stage_b",
     "run_pocr_diagnostic_user_facade",
+    "summarize_lint_rows",
+    "summarize_retry_plan",
     "summarize_by_pool",
     "static_stage_b_diagnostic_fields",
     "static_stage_b_diagnostic_to_csv_rows",

@@ -260,6 +260,19 @@ def test_retry_failed_requires_explicit_flag(tmp_path: Path) -> None:
     assert len(_read_jsonl(retry_result.paths.safe_annotation_outputs_jsonl)) == 1
 
 
+def test_schema_invalid_checkpoint_is_not_retried_by_retry_failed(tmp_path: Path) -> None:
+    config = _config(tmp_path)
+    run_checkpointed_annotation(config, client=SequenceProvider(_invalid_annotation("PERF_0006")))
+
+    retry_config = CheckpointedAnnotationConfig(**{**config.__dict__, "retry_failed": True})
+    provider = ExplodingProvider()
+    result = run_checkpointed_annotation(retry_config, client=provider)
+
+    rows = _read_csv(result.paths.annotation_manifest_csv)
+    assert provider.calls == 0
+    assert rows[0]["annotation_status"] == "schema_invalid"
+
+
 def test_no_live_flag_means_no_provider_call_and_no_fake_jsonl(tmp_path: Path) -> None:
     config = _config(tmp_path, live_enabled=False)
     provider = ExplodingProvider()

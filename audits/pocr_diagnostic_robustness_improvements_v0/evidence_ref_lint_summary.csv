@@ -1,0 +1,5 @@
+issue_type,severity,count,notes
+candidate_sql_span_only,warning,1,span-only evidence is quality feedback and remains Stage B limited
+evidence_ref_too_long,warning,2,quality feedback only; diagnostics are not modified
+missing_source_candidate_diff,warning,10,operation atoms need transformation-aware evidence relative to source
+semantic_guard_not_operation_numerator,info,70,informational boundary reminder; not an operation numerator issue
