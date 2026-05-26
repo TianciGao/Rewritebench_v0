@@ -25990,3 +25990,84 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement D038 Step 5 for one selected baseline: explicit live annotation generation plus user-facing replay, using the shared API config plan and keeping output diagnostic-only.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- D038 Step 5 selected-baseline diagnostic validation. Explicit live POCR Stage A annotation generation was allowed only for Direct LLM Repair-1 PostgreSQL PG40. Diagnostic-only. No DB/checker/timing run, baseline rerun, candidate SQL generation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/README.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/step5_plan.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/selected_candidate_root.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/selected_cases.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/annotation_generation_manifest.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_command.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_mapping_validation.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_diagnostic_rows_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_diagnostic_summary_by_pool_copy.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/malformed_or_schema_invalid_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/transformation_stage_b_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/diagnostic_boundary_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/temp_output_tree.txt`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/protected_path_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/secret_scan_notes.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/command_log.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/live_annotation_not_run.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Selected `runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql` as the Direct LLM Repair-1 PostgreSQL PG40 candidate root from prior reconciliation.
+- Verified the root resolves 40/40 Common-core PostgreSQL candidate files read-only.
+- Started a bounded live annotation subprocess with the explicit live environment gate present, but it produced no auditable row-level manifest or annotation JSONL before termination.
+- Made no further live calls after the interrupted attempt to preserve the 40-call cap conservatively.
+- Generated no fake annotation JSONL and did not run user-facing replay because no `safe_annotation_outputs.jsonl` existed.
+
+Validation result:
+- CSV parse checks passed.
+- Markdown non-empty checks passed.
+- Required diagnostic boundary wording checks passed.
+- Confirmed no `safe_annotation_outputs.jsonl` was produced.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+- `git diff --check` passed.
+
+Boundary:
+- No DB/checker/timing run occurred.
+- No baseline rerun or candidate SQL generation occurred.
+- No candidate SQL was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No annotation JSONL was produced.
+- No POCR Stage B replay was run.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect the interrupted live-provider behavior and decide whether to retry Step 5 with an auditable per-row checkpointed live annotation runner, or keep POCR as diagnostic support for release v0.

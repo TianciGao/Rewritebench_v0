@@ -1,0 +1,2 @@
+provider_label,model_label,call_timestamp_utc,call_status,error_type,token_counts_if_available,api_key_value_recorded,notes
+openai_compatible,gpt-5.4,2026-05-26T12:13:40.706534+00:00,interrupted_before_auditable_row_manifest,process_terminated_no_row_output,,false,base_url_host=api.gptsapi.net; API key value not printed or written; no further live calls made

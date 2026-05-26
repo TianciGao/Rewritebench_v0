@@ -1,0 +1,4 @@
+status,count,notes
+schema_valid,0,no annotation JSONL produced
+schema_invalid_or_malformed,0,no annotation JSONL produced
+not_generated_interrupted,40,candidate rows remain unannotated after interrupted live attempt
