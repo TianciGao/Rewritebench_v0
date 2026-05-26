@@ -1,8 +1,10 @@
-# Baseline Reproduction Manual
+# Baseline 复现手册
 
-This manual explains local diagnostic reproduction paths for SQL-RewriteBench baseline routes. It is for fresh users, reviewers, and maintainers who want to reproduce candidate SQL capture, optional execution/checker status, optional timing, and local diagnostic summaries in a D035-aligned way.
+本手册说明 SQL-RewriteBench 各类 baseline route 的本地诊断复现路径。它面向第一次下载仓库的用户、审稿人和维护者，帮助他们在 D035 输出结构下复现 candidate SQL 捕获、可选执行/检查状态、可选计时结果，以及本地诊断汇总。
 
-This manual does not create official metrics. It does not update paper-facing reports/results. It does not promote retained evidence. No global leaderboard is produced. Outputs should use D035-style output roots:
+本手册只用于 **local diagnostic reproduction**。它不会创建官方指标，不会更新 paper-facing `reports/` 或 `results/`，不会提升 retained evidence，也不会生成全局排行榜。**No paper-facing metric is promoted. No global leaderboard is produced.**
+
+用户运行输出应使用 D035 风格的输出根目录：
 
 ```text
 output/results/<run_id>/
@@ -10,9 +12,9 @@ output/logs/<run_id>/
 output/reports/<run_id>/
 ```
 
-## First-Time Setup
+## 第一次下载与环境准备
 
-Clone and enter the repository:
+克隆并进入仓库：
 
 ```bash
 git clone https://github.com/TianciGao/Rewritebench_v0.git
@@ -20,7 +22,7 @@ cd Rewritebench_v0
 git checkout feature/case-package-v2-external-schema
 ```
 
-Use Python 3.10 or newer, then create and activate a virtual environment:
+使用 Python 3.10 或更高版本，创建并激活虚拟环境：
 
 ```bash
 python -m venv .venv
@@ -29,20 +31,20 @@ python -m pip install -U pip
 python -m pip install -e .
 ```
 
-Install optional SQLGlot support only if you will run SQLGlot routes:
+如果要运行 SQLGlot 路线，再安装 SQLGlot 可选依赖：
 
 ```bash
 python -m pip install -e ".[sqlglot]"
 ```
 
-Commands are available through either installed or checkout mode:
+命令既可以通过安装后的 `sqlrb` 使用，也可以在源码 checkout 模式下使用：
 
 ```bash
 sqlrb user show-output-schema
 PYTHONPATH=src python -m cli.main user show-output-schema
 ```
 
-Safe smoke commands that do not require DB engines:
+不需要数据库引擎的安全 smoke 命令：
 
 ```bash
 PYTHONPATH=src python -m cli.main user list-cases \
@@ -74,24 +76,24 @@ PYTHONPATH=src python -m cli.main user evaluate \
   --run-id smoke_adapter_capture
 ```
 
-External tools for full local diagnostics:
+完整本地诊断需要额外准备：
 
-- PostgreSQL server/client and `psql` availability.
-- MySQL server/client availability.
-- Spark / PySpark availability.
-- Java availability for Spark and Calcite.
-- Calcite HEP runtime configuration if using Calcite:
+- PostgreSQL server/client 和 `psql`。
+- MySQL server/client。
+- Spark / PySpark。
+- Spark 和 Calcite 所需的 Java。
+- 如需运行 Calcite HEP，需要配置 Calcite 运行环境：
   - `SQLRB_CALCITE_HEP_CMD`
   - `SQLRB_CALCITE_HEP_JAR`
   - `SQLRB_CALCITE_HEP_ROOT`
-- SQLGlot optional dependency for SQLGlot routes.
-- LLM/API configuration is not needed for deterministic baselines and should not be used by default.
+- 如需运行 SQLGlot 路线，需要安装 SQLGlot 可选依赖。
+- 确定性 baseline 不需要 LLM/API 配置，也不应默认使用 LLM/API。
 
-If you document OS package installation commands locally, treat them as example Ubuntu/WSL setup notes, not benchmark commands.
+如果你在本地记录 OS 安装命令，请把它们标为 Ubuntu/WSL 示例环境配置，而不是 benchmark 必需命令。
 
-## Preflight Checklist
+## 预检清单
 
-Repository and CLI:
+仓库与 CLI：
 
 ```bash
 pwd
@@ -104,7 +106,7 @@ print("sql_rewrite_bench import ok")
 PY
 ```
 
-SQLGlot availability, if needed:
+如果需要 SQLGlot，检查 SQLGlot 是否可用：
 
 ```bash
 python - <<'PY'
@@ -113,19 +115,19 @@ print(sqlglot.__version__)
 PY
 ```
 
-PostgreSQL availability:
+PostgreSQL 可用性：
 
 ```bash
 psql "$SQLRB_POSTGRES_DSN" -c "SELECT 1;"
 ```
 
-MySQL availability:
+MySQL 可用性：
 
 ```bash
 mysql -e "SELECT 1;"
 ```
 
-Spark availability:
+Spark 可用性：
 
 ```bash
 python - <<'PY'
@@ -137,13 +139,13 @@ print("spark ok")
 PY
 ```
 
-Java availability:
+Java 可用性：
 
 ```bash
 java -version
 ```
 
-Calcite runtime environment, if needed:
+如需 Calcite，检查 Calcite 运行环境：
 
 ```bash
 python - <<'PY'
@@ -153,11 +155,11 @@ for name in ("SQLRB_CALCITE_HEP_CMD", "SQLRB_CALCITE_HEP_JAR", "SQLRB_CALCITE_HE
 PY
 ```
 
-If DB engines are unavailable, you can still run adapter-capture smoke, but you cannot reproduce execution/checker/timing diagnostics. If Calcite runtime environment is missing, Calcite HEP must be reported as preflight-blocked, not fabricated.
+如果数据库引擎不可用，仍可运行 adapter-capture smoke，但不能复现 execution/checker/timing 诊断。如果 Calcite runtime environment 缺失，Calcite HEP 必须报告为 `preflight_blocked`，不能伪造 candidate。
 
-## User Output Contract
+## 用户输出约定
 
-User-facing outputs belong under:
+用户侧输出应放在：
 
 ```text
 output/results/<run_id>/
@@ -165,15 +167,19 @@ output/logs/<run_id>/
 output/reports/<run_id>/
 ```
 
-Do not commit output/. Do not write local user outputs to top-level `reports/` or top-level `results/`. Do not write new outputs into case-local `runs/`.
+**Do not commit output/.** 不要把本地用户运行输出写入顶层 `reports/` 或顶层 `results/`。不要把新的运行输出写入 case-local `runs/`。
 
-The current implementation may use internal transitional `runs/user/<run_id>/` staging before export. Treat `output/` as the public user-facing output surface.
+当前实现可能会在内部过渡性使用 `runs/user/<run_id>/` staging，再导出到 D035 风格的 `output/`。对用户而言，`output/` 是公开的用户侧输出表面。
 
-## Common Command Pattern
+## 通用命令模式
 
-Track A same-engine reproduction over Common-core v0 uses 40 cases x PostgreSQL/MySQL/Spark = 120 planned rows.
+Track A same-engine 复现基于 Common-core v0：
 
-Generic deterministic baseline run:
+```text
+40 cases × PostgreSQL/MySQL/Spark = 120 planned rows
+```
+
+确定性 baseline 的通用运行命令：
 
 ```bash
 PYTHONPATH=src python -m cli.main user evaluate \
@@ -189,7 +195,15 @@ PYTHONPATH=src python -m cli.main user evaluate \
   --timing-timeout 30
 ```
 
-With multiple engines, `user evaluate` creates per-engine source run ids named `<run_id>__postgres`, `<run_id>__mysql`, and `<run_id>__spark`. To compute aggregate non-official local diagnostics from those existing source runs:
+多引擎运行时，`user evaluate` 会创建按引擎拆分的 source run ids：
+
+```text
+<run_id>__postgres
+<run_id>__mysql
+<run_id>__spark
+```
+
+从这些已有 source runs 聚合非官方本地诊断指标：
 
 ```bash
 PYTHONPATH=src python -m cli.main user compute-local-metrics \
@@ -200,7 +214,7 @@ PYTHONPATH=src python -m cli.main user compute-local-metrics \
   --output-root output
 ```
 
-For a single-engine run:
+单引擎运行时：
 
 ```bash
 PYTHONPATH=src python -m cli.main user compute-local-metrics \
@@ -209,49 +223,55 @@ PYTHONPATH=src python -m cli.main user compute-local-metrics \
   --output-root output
 ```
 
-These are local diagnostic metrics only. No paper-facing metric is promoted.
+这些都是本地诊断指标。**No paper-facing metric is promoted.**
 
-## Canonical Timing Policy
+## Canonical 计时策略
 
-Performance is interpreted only over exact+timed rows.
+**Performance is interpreted only over exact+timed rows.**
 
-Speedup direction is:
+Speedup 方向为：
 
 ```text
 source median runtime / candidate median runtime
 ```
 
-Canonical SQLGlot deterministic runs used 5 measured repetitions. Use `--timing-repetitions 5` when reproducing canonical-compatible local diagnostics. Two-repetition runs can be useful pipeline smokes, but they should not replace canonical performance values because timing provenance differs.
+canonical SQLGlot 确定性路线使用 5 次 measured repetitions。为了复现 canonical-compatible 本地诊断，请使用：
 
-## Baseline Routes
+```bash
+--timing-repetitions 5
+```
+
+2 次 repetitions 的运行可以用于 pipeline smoke，但不应替代 canonical performance values，因为 timing provenance 不一致。
+
+## Baseline 路线
 
 ### Source / Native Controls
 
-Source SQL controls are the case-local `sql/source.sql` queries. They are reference inputs for execution/checker comparisons and timing baselines. They are not method-generated rewrite candidates.
+Source SQL controls 是 case-local `sql/source.sql` 查询。它们是执行、checker 比较和 source timing 的参考输入，不是 method-generated rewrite candidates。
 
 ### Human Positive Controls
 
-Human positive controls are case-local positive rewrites, usually `sql/pos_01.sql`. They are calibration/checker references and POCR control inputs. They are not automatic rewrite baselines and should not be merged into method route outputs.
+Human positive controls 是 case-local positive rewrites，通常为 `sql/pos_01.sql`。它们用于 checker 校准和 POCR control，不是自动重写 baseline，也不应与方法 route 输出合并。
 
 ### Hard-Negative Guard
 
-Hard negatives, usually `sql/neg_01.sql`, are checker controls. They are not method-generated candidates and not POCR baselines.
+Hard negatives 通常为 `sql/neg_01.sql`，它们是 checker controls。它们不是 method-generated candidates，也不是 POCR baseline。
 
 ### SQLGlot No-Op
 
-Install SQLGlot support:
+安装 SQLGlot 支持：
 
 ```bash
 python -m pip install -e ".[sqlglot]"
 ```
 
-Adapter command:
+Adapter command：
 
 ```bash
 python baselines/sqlglot/sqlglot_user_adapter.py --route noop
 ```
 
-Track A 120 local diagnostic pattern:
+Track A 120 本地诊断命令示例：
 
 ```bash
 PYTHONPATH=src python -m cli.main user evaluate \
@@ -267,23 +287,23 @@ PYTHONPATH=src python -m cli.main user evaluate \
   --timing-timeout 30
 ```
 
-Generated rows may be fewer than 120 if parse/emit fails. Missing rows must remain visible. Candidate outputs and metrics are local diagnostic unless separately promoted.
+如果 parse/emit 失败，generated rows 可能少于 120。缺失行必须保留在 manifest 和 failure buckets 中。candidate outputs 和 metrics 只是 local diagnostic，除非后续单独授权提升。
 
 ### SQLGlot Optimize Schema-Aware
 
-Install SQLGlot support:
+安装 SQLGlot 支持：
 
 ```bash
 python -m pip install -e ".[sqlglot]"
 ```
 
-Adapter command:
+Adapter command：
 
 ```bash
 python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware
 ```
 
-Track A 120 local diagnostic pattern:
+Track A 120 本地诊断命令示例：
 
 ```bash
 PYTHONPATH=src python -m cli.main user evaluate \
@@ -299,11 +319,11 @@ PYTHONPATH=src python -m cli.main user evaluate \
   --timing-timeout 30
 ```
 
-This route must not silently downgrade to SQLGlot no-op or schema-unaware optimize. Missing and unsupported rows remain visible in manifests and local diagnostics.
+这条路线不能静默降级成 SQLGlot no-op 或 schema-unaware optimize。missing 和 unsupported rows 必须继续在 manifests 和本地诊断中可见。
 
 ### Calcite HEP Fail-Closed
 
-Calcite HEP requires Java plus an external Calcite runtime. The repository adapter discovers runtime configuration through:
+Calcite HEP 需要 Java 和外部 Calcite runtime。仓库 adapter 通过以下环境变量发现 runtime 配置：
 
 - `SQLRB_CALCITE_HEP_CMD`
 - `SQLRB_CALCITE_HEP_JAR`
@@ -312,53 +332,61 @@ Calcite HEP requires Java plus an external Calcite runtime. The repository adapt
 - `SQLRB_CALCITE_HEP_MODE`
 - `SQLRB_CALCITE_HEP_TIMEOUT`
 
-Adapter command:
+Adapter command：
 
 ```bash
 python baselines/calcite_hep_fail_closed/adapter.py
 ```
 
-If runtime environment is missing, Calcite HEP is preflight-blocked. Do not fabricate candidates.
+如果 runtime environment 缺失，Calcite HEP 应报告为 `preflight_blocked`。**Do not fabricate missing candidates.**
 
 ### Direct LLM Original
 
-Direct LLM original is an LLM SQL-in/SQL-out baseline route:
+Direct LLM original 是 LLM SQL-in/SQL-out baseline route：
 
 ```bash
 python baselines/direct_llm_original/adapter.py
 ```
 
-Live generation requires explicit user-facing LLM/API configuration and an explicit live gate such as `SQLRB_LLM_ALLOW_LIVE=1`. Do not expose API keys. Rerunning LLM routes may change outputs unless model, prompt, decoding, provider, and call metadata are frozen. Existing candidate SQL artifacts may already exist in local `runs/user` or D035 `output/` roots. Any rerun is local diagnostic unless separately authorized.
+Live generation 需要显式用户侧 LLM/API 配置，以及类似下面这样的显式 live gate：
+
+```text
+SQLRB_LLM_ALLOW_LIVE=1
+```
+
+不要暴露 API keys。重新运行 LLM route 可能会改变输出，除非 model、prompt、decoding、provider 和 call metadata 都被冻结。已有 candidate SQL artifacts 可能已经存在于本地 `runs/user` 或 D035 `output/` roots。任何 rerun 都只是 local diagnostic，除非单独授权。
 
 ### Direct LLM + Repair-1
 
-Direct LLM Repair-1 is a feedback-enhanced LLM route:
+Direct LLM Repair-1 是 feedback-enhanced LLM route：
 
 ```bash
 python baselines/direct_llm_repair_1/adapter.py
 ```
 
-It consumes explicit original-candidate and feedback context. It is a separate route and should not be merged with Direct LLM original. Exact/timed metrics must retain route identity.
+它消耗 explicit original-candidate 和 feedback context。它是独立 route，不应与 Direct LLM original 合并。exact/timed metrics 必须保留 route identity。
 
 ### R-Bot Adapted GPT-5.4 PG40
 
-R-Bot adapted GPT-5.4 is a PostgreSQL-only PG40 local diagnostic route in this repository. It is not original R-Bot paper reproduction unless the official runtime, RAG, Chroma, and CalciteRewrite stack are used under a separate authorization.
+R-Bot adapted GPT-5.4 是本仓库里的 PostgreSQL-only PG40 local diagnostic route。除非使用官方 runtime、RAG、Chroma 和 CalciteRewrite 栈并单独授权，否则它不是 original R-Bot paper reproduction。
 
-PG40 cannot fill Track A 120. Candidate roots from the inventory can support PostgreSQL-only diagnostic review, not tri-engine Track A replacement.
+**PG40 cannot fill Track A 120.** inventory 中的 candidate roots 可以支持 PostgreSQL-only diagnostic review，但不能替代 tri-engine Track A evidence。
 
 ### LLM-R2 Adapted GPT-5.4 PG40
 
-LLM-R2 adapted GPT-5.4 is a PostgreSQL-only PG40 local diagnostic route. It is not original LLM-R2 paper runtime unless the official runtime, checkpoints, rule system, and demonstration selector are used under a separate authorization.
+LLM-R2 adapted GPT-5.4 是 PostgreSQL-only PG40 local diagnostic route。除非使用官方 runtime、checkpoint、rule system 和 demonstration selector 并单独授权，否则它不是 original LLM-R2 paper runtime。
 
-PG40 cannot fill Track A 120.
+**PG40 cannot fill Track A 120.**
 
 ### LearnedRewrite PG40
 
-LearnedRewrite is currently a PostgreSQL-only external wrapper route in this repository. Current inventory found incomplete PG40 candidate coverage, with only 29 generated candidate files in the relevant manual-inspection rerun. Do not fabricate missing candidates. Incomplete routes must keep missing rows visible.
+LearnedRewrite 当前是本仓库里的 PostgreSQL-only external wrapper route。当前 inventory 显示相关 manual-inspection rerun 的 PG40 candidate coverage 不完整，只有 29 个 generated candidate files。
+
+**Do not fabricate missing candidates.** 不完整 route 必须保留 missing rows。
 
 ### SQLSolver / VeriEQL
 
-SQLSolver and VeriEQL are verifier support paths, not rewrite-generation baselines. They do not produce candidate SQL for POCR and should not enter same-engine speedup or POCR baseline tables.
+SQLSolver 和 VeriEQL 是 verifier support paths，不是 rewrite-generation baselines。它们不会为 POCR 生成 candidate SQL，也不应进入 same-engine speedup 或 POCR baseline tables。
 
 ## Baseline Summary Table
 
@@ -377,57 +405,60 @@ SQLSolver and VeriEQL are verifier support paths, not rewrite-generation baselin
 | LearnedRewrite PG40 | external prior method | PostgreSQL PG40, incomplete | yes for full diagnostics | yes for speedup | no | Java external runtime | no LLM/API in wrapper | partial currently | yes, if complete | incomplete coverage |
 | SQLSolver / VeriEQL | verifier support | exact candidate subsets | no DB rerun for existing artifacts | no | no | Java/Python verifier env | no | no | no | support evidence only |
 
-## POCR Relationship
+## POCR 关系
 
-Candidate SQL is input to POCR. Candidate SQL alone is not annotation JSONL. Annotation JSONL requires Stage A annotation. Stage B transformation-aware validation is required for diagnostic operation support. POCR remains diagnostic unless separately promoted.
+Candidate SQL 是 POCR 的输入。Candidate SQL 本身不是 annotation JSONL。annotation JSONL 需要 Stage A annotation。Stage B transformation-aware validation 是 diagnostic operation support 的必要步骤。POCR 仍然是 diagnostic，除非之后单独授权提升。
 
-## Troubleshooting
+## 常见问题
 
-`sqlrb` command not found:
+`sqlrb` command not found：
 
-- Use checkout mode: `PYTHONPATH=src python -m cli.main user ...`.
-- Or reinstall editable package: `python -m pip install -e .`.
+- 使用 checkout 模式：`PYTHONPATH=src python -m cli.main user ...`。
+- 或重新安装 editable package：`python -m pip install -e .`。
 
-Missing `PYTHONPATH`:
+缺少 `PYTHONPATH`：
 
-- Prefix checkout commands with `PYTHONPATH=src`.
+- 在 checkout 命令前加 `PYTHONPATH=src`。
 
-SQLGlot not installed:
+SQLGlot 未安装：
 
-- Install optional dependency with `python -m pip install -e ".[sqlglot]"`.
+- 安装可选依赖：`python -m pip install -e ".[sqlglot]"`。
 
-PostgreSQL/MySQL/Spark unavailable:
+PostgreSQL/MySQL/Spark 不可用：
 
-- Adapter-capture smoke can still run.
-- Full execution/checker/timing reproduction cannot run until engines are configured.
+- adapter-capture smoke 仍可运行。
+- full execution/checker/timing reproduction 需要先配置好数据库/引擎。
 
-Calcite runtime missing:
+Calcite runtime 缺失：
 
-- Report Calcite HEP as preflight-blocked.
-- Do not fabricate missing candidates.
+- 将 Calcite HEP 报告为 `preflight_blocked`。
+- 不要伪造 missing candidates。
 
-Zero generated candidates:
+Zero generated candidates：
 
-- Inspect adapter status files under the run workspace and D035 logs.
-- Keep all missing rows visible in manifests and failure buckets.
+- 检查 run workspace 和 D035 logs 中的 adapter status。
+- 所有 missing rows 必须保留在 manifests 和 failure buckets 中。
 
-Timed rows missing:
+Timed rows missing：
 
-- Timing is exact-gated and requires `--collect-timing`, `--enable-db-execution`, and `--enable-checker`.
+- timing 是 exact-gated，并且需要同时开启：
+  - `--collect-timing`
+  - `--enable-db-execution`
+  - `--enable-checker`
 
-GM differs from canonical:
+GM differs from canonical：
 
-- Check timing repetitions, timeout, runtime provenance, exact+timed row eligibility, and engine environment. Canonical deterministic SQLGlot timing used 5 measured repetitions.
+- 检查 timing repetitions、timeout、runtime provenance、exact+timed row eligibility 和 engine environment。canonical deterministic SQLGlot timing 使用 5 次 measured repetitions。
 
-`output/` appears untracked:
+`output/` appears untracked：
 
-- This is expected for local runs. Do not commit output/.
+- 这是本地运行的预期结果。**Do not commit output/.**
 
-POCR replay route mismatch:
+POCR replay route mismatch：
 
-- Annotation JSONL artifacts are route-bound. A route mismatch must fail closed rather than silently reuse annotation evidence.
+- annotation JSONL artifacts 是 route-bound evidence。route mismatch 必须 fail closed，不能静默复用 annotation evidence。
 
-## Boundaries
+## 边界
 
 - local diagnostic reproduction only.
 - No paper-facing metric is promoted.
