@@ -26144,3 +26144,82 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If the two-row checkpointed smoke is accepted as auditable and stable, separately authorize resumable Direct LLM Repair-1 PG40 full annotation generation plus user-facing replay; otherwise keep POCR as diagnostic support for release v0.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- D038 Step 5 full selected-baseline diagnostic validation. Explicit live POCR Stage A annotation generation was allowed only for Direct LLM Repair-1 PostgreSQL PG40. User-facing annotation JSONL replay was required after generation. Diagnostic-only. No DB/checker/timing run, baseline rerun, candidate SQL generation or modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/README.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/step5_full_plan.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/selected_candidate_root.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/selected_cases.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/annotation_generation_manifest.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/checkpoint_state_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/resume_behavior_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/replay_command.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/replay_mapping_validation.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/replay_diagnostic_rows_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/replay_diagnostic_summary_by_pool_copy.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/malformed_or_schema_invalid_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/transformation_stage_b_summary.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/diagnostic_boundary_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/output_location_manifest.csv`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/temp_output_tree.txt`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/secret_scan_notes.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/protected_path_review.md`
+- `audits/pocr_step5_direct_llm_repair1_pg40_full_checkpointed_annotation_replay_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/diagnostic_output_schema.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Confirmed the latest branch gate by local CI-equivalent checks before starting the full run.
+- Resolved `runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql` 40/40 against Common-core PostgreSQL candidates read-only.
+- Ran the checkpointed POCR annotation runner with `--live-enabled`, `--max-live-calls 40`, and run id `pocr_annotation_direct_llm_repair1_pg40_checkpointed_full_v0`.
+- Did not reuse the prior two-row smoke output; the full run generated a fresh 40-row safe annotation JSONL under local D035-style `output/`.
+- Annotation result: live calls 40, safe JSONL rows 40, schema-valid rows 35, malformed JSON rows 3, timeout rows 2, provider-call-failed rows 0.
+- Ran `sqlrb user pocr-diagnostic` replay using the generated annotation JSONL into `/tmp/sqlrb_pocr_user_replay_direct_llm_repair1_pg40_checkpointed_full_v0/output`.
+- Replay result: diagnostic rows 40, route mismatch rows 0, candidate mismatch rows 0, transformation-supported operation atoms 32, presence-only atoms 10, insufficient-transformation-evidence atoms 50, rejected-noop-equivalent atoms 0.
+- Patched the POCR diagnostic report renderer to emit the exact required boundary phrase `No global leaderboard is produced.` and reran only the no-API replay to refresh the `/tmp` report wording.
+
+Validation result:
+- Full validation was run during closeout: CSV parse checks, JSONL parse check, Markdown non-empty checks, report boundary wording checks, `python -m py_compile`, `pytest tests/pocr -q`, `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check`.
+
+Boundary:
+- No DB/checker/timing run occurred.
+- No baseline rerun or candidate SQL generation occurred.
+- Candidate SQL under `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+- Local `output/` and `/tmp` replay artifacts were not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect full Step 5 diagnostic quality; if stable, decide whether to run another selected baseline diagnostic annotation+replay or keep POCR as diagnostic support for release v0.

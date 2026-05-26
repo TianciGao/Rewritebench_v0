@@ -1,0 +1,4 @@
+status,count,notes
+malformed_json,3,checkpointed full PG40 annotation status
+schema_valid,35,checkpointed full PG40 annotation status
+timeout,2,checkpointed full PG40 annotation status

@@ -232,7 +232,7 @@ def render_diagnostic_markdown_report(
         "",
         "No paper-facing metric is promoted.",
         "",
-        "No leaderboard row is created.",
+        "No global leaderboard is produced.",
         "",
         "## Summary By Pool",
         "",
