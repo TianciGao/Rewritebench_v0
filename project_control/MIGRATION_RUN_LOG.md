@@ -27070,3 +27070,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Run a no-API aggregator smoke over existing Repair-1 and SQLGlot no-op row metrics exports, or produce row metrics exports from existing diagnostic replay artifacts, without promoting paper metrics.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_aggregator_smoke_existing_pg40_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- No-API aggregator smoke over existing PostgreSQL PG40 POCR diagnostic artifacts. No live API call, API key read, annotation JSONL generation, production user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/README.md`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/smoke_summary.csv`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/value_comparison.md`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/artifact_source_review.md`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/validation_summary.md`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/protected_path_review.md`
+- `audits/pocr_aggregator_smoke_existing_pg40_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Used existing replay `diagnostic_rows.csv` artifacts for Direct LLM Repair-1 PostgreSQL PG40 and SQLGlot no-op PostgreSQL PG40.
+- Generated local `/tmp` smoke-only `pocr_stage_b_row_metrics.csv` files from those existing replay rows.
+- Ran the implemented aggregator over the two row-metrics files.
+- Reproduced prior dry-run diagnostic values exactly:
+  - Direct LLM Repair-1 PG40: `POCR@planned=0.395833333333`, `POCR@candidate=0.395833333333`, diagnostic micro-average `0.383177570093`.
+  - SQLGlot no-op PG40: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`, diagnostic micro-average `0.000000000000`.
+- `POCR@curated` remained `NA` / `curated_manifest_missing`.
+
+Validation result:
+- CSV parse checks, route-summary required-column checks, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, `git diff --check`, and pytest suites are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No production user replay, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If the smoke matches, proceed to a small tri-engine POCR pilot design; if the smoke does not match, fix exporter/aggregator before any wider experiment.
