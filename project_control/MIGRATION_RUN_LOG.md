@@ -26388,3 +26388,82 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Authorize a targeted retry only for the 5 fail-closed Direct LLM Repair-1 PG40 rows, or keep the accepted-with-boundary exemplar for release v0.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_step5_repair1_pg40_targeted_retry_failclosed_rows_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Targeted retry for 5 fail-closed Direct LLM Repair-1 PostgreSQL PG40 annotation rows. Live API use was authorized only for those five retry rows. No full-40 reannotation, DB/checker/timing run, baseline rerun, candidate SQL generation/modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/README.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/targeted_retry_plan.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/retry_case_selection.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/source_artifact_inventory.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/retry_annotation_manifest.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/retry_schema_validation_summary.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/retry_provider_call_manifest_safe.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/merge_decision_log.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/merged_annotation_summary.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/replay_command.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/replay_mapping_validation.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/replay_diagnostic_rows_summary.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/replay_diagnostic_summary_by_pool_copy.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/retry_quality_comparison.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/remaining_failclosed_review.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/diagnostic_boundary_review.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/output_location_manifest.csv`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/temp_output_tree.txt`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/secret_scan_notes.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/protected_path_review.md`
+- `audits/pocr_step5_repair1_pg40_targeted_retry_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Read the source full-run annotation output under local uncommitted `output/results/pocr_annotation_direct_llm_repair1_pg40_checkpointed_full_v0/` without modifying it.
+- Used the retry planner to select exactly the five fail-closed rows: `LONGTAIL_0012`, `PERF_0013`, `PERF_0017`, `PERF_0033`, and `PERF_0052`.
+- Confirmed the explicit live gate and API key environment name without printing key values.
+- Ran the checkpointed annotation runner with `--live-enabled`, `--retry-failed`, `--case-list LONGTAIL_0012,PERF_0013,PERF_0017,PERF_0033,PERF_0052`, and `--max-live-calls 5`.
+- Live provider calls: 5. Retry JSONL rows generated: 5. Retry schema-valid rows: 5. Retry malformed/schema-invalid/timeout/provider-failed rows: 0.
+- Wrote local retry and merged annotation artifacts under uncommitted `output/results/pocr_annotation_direct_llm_repair1_pg40_targeted_retry_v0/`.
+- Merged artifact rows: 40, preserving 35 original full-run schema-valid rows and replacing only the 5 retry-success rows after candidate and skills binding checks.
+- Ran user-facing replay with `python -m cli.main user pocr-diagnostic` into `/tmp/sqlrb_pocr_user_replay_direct_llm_repair1_pg40_targeted_retry_v0/output`.
+- Replay emitted 40 diagnostic rows: schema-valid 40, route mismatch 0, candidate mismatch 0, transformation-supported operation atoms 41, presence-only atoms 11, insufficient-transformation-evidence atoms 55, rejected-noop-equivalent atoms 0.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, Markdown non-empty checks, report boundary wording checks, `python -m py_compile`, `pytest tests/pocr -q`, `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- No DB/checker/timing run occurred.
+- No baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- Candidate SQL under `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+- Local `output/` and `/tmp` replay artifacts were not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect targeted retry quality; if remaining fail-closed rows are acceptable, keep Repair-1 PG40 as the release v0 diagnostic exemplar or decide whether to run another selected baseline diagnostic annotation+replay.
