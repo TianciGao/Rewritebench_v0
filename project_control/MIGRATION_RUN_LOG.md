@@ -26071,3 +26071,76 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect the interrupted live-provider behavior and decide whether to retry Step 5 with an auditable per-row checkpointed live annotation runner, or keep POCR as diagnostic support for release v0.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_step5_repair1_pg40_live_annotation_checkpointing_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Live-provider interruption postmortem plus checkpointed POCR Stage A annotation runner. Bounded 2-row live smoke allowed only after checkpointing implementation. Diagnostic-only. No full-40 annotation run, DB/checker/timing run, baseline rerun, candidate SQL generation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/checkpointed_annotation_runner.py`
+- `tests/pocr/test_checkpointed_annotation_runner.py`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/README.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/previous_attempt_postmortem.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/previous_attempt_artifact_inventory.csv`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/provider_interruption_hypotheses.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/checkpoint_runner_contract.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/smoke_case_selection.csv`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/live_smoke_manifest.csv`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/checkpoint_state_review.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/safe_annotation_outputs_sample.jsonl`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/secret_scan_notes.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/protected_path_review.md`
+- `audits/pocr_step5_repair1_pg40_live_annotation_checkpointing_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Audited the prior interrupted Direct LLM Repair-1 PG40 Step 5 attempt and recorded why the previous monolithic live subprocess left no auditable row manifest or safe partial JSONL.
+- Implemented `checkpointed_annotation_runner.py` with per-row `pending` manifest writes before provider calls, safe JSONL writes after parsed schema-valid/fail-closed rows, checkpoint state, provider call manifest, schema validation manifest, prompt manifest, resume skip, explicit retry-failed gating, candidate SHA mismatch fail-closed behavior, and duplicate JSONL fail-closed replacement.
+- Added focused tests for checkpointing, resume, retry, provider failure, malformed provider output, duplicate handling, candidate SHA mismatch, default-off no-live behavior, and API key value serialization safety.
+- With the explicit live gate and provider environment present, ran only the authorized two-row Direct LLM Repair-1 PostgreSQL PG40 smoke for `PERF_0006` and `CONS_0005`.
+- Smoke result: live calls 2/2, safe annotation JSONL rows 2, schema-valid annotations 2, schema-invalid/malformed rows 0, provider-call-failed rows 0.
+- Local output was written under `output/results|logs|reports/pocr_annotation_direct_llm_repair1_pg40_checkpointed_v0/` and was not staged or committed.
+
+Validation result:
+- `python -m py_compile src/sql_rewrite_bench/pocr/checkpointed_annotation_runner.py` passed.
+- `pytest tests/pocr/test_checkpointed_annotation_runner.py -q` passed before the live smoke.
+- Full POCR and user-entry validation were run during closeout.
+- CSV parse checks, JSONL parse check, Markdown non-empty checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` were run during closeout.
+
+Boundary:
+- No full PG40 annotation run occurred.
+- No user replay, POCR Stage B validation, DB/checker/timing run, baseline rerun, or candidate SQL generation occurred.
+- Candidate SQL under `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No official POCR, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If the two-row checkpointed smoke is accepted as auditable and stable, separately authorize resumable Direct LLM Repair-1 PG40 full annotation generation plus user-facing replay; otherwise keep POCR as diagnostic support for release v0.
