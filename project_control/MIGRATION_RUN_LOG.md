@@ -25706,3 +25706,67 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If reconciled, keep the SQLGlot outputs as user-side local diagnostic reproduction evidence and continue D038 Step 3 annotation JSONL artifact contract; keep Calcite as blocked-runtime smoke until runtime provenance is fixed.
+
+---
+
+Date: 2026-05-26
+
+Task: `fix_longtail_0011_positive_sql_contract_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Case-local positive SQL correction and validation audit only. No baseline rerun, user-run metrics rerun, POCR annotation generation, live API call, broad DB/checker/timing run, paper-facing metric update, denominator change, or case membership change was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/longtail_0011_positive_sql_correction_v0/README.md`
+- `audits/longtail_0011_positive_sql_correction_v0/before_after_pos_sql_diff.md`
+- `audits/longtail_0011_positive_sql_correction_v0/source_positive_contract_review.md`
+- `audits/longtail_0011_positive_sql_correction_v0/skills_alignment_review.md`
+- `audits/longtail_0011_positive_sql_correction_v0/validation_scope_review.md`
+- `audits/longtail_0011_positive_sql_correction_v0/impacted_artifacts_review.md`
+- `audits/longtail_0011_positive_sql_correction_v0/protected_path_review.md`
+- `audits/longtail_0011_positive_sql_correction_v0/command_log.md`
+
+Files modified:
+- `cases/LONGTAIL/LONGTAIL_0011/sql/pos_01.sql`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Corrected `cases/LONGTAIL/LONGTAIL_0011/sql/pos_01.sql` from the erroneous ascending `WorstRank` shortcut to the collaborator-provided descending `DENSE_RANK()` / `PostRank` / `MaxRank` query shape.
+- The corrected positive SQL now matches the source query surface and the `skills.md` A1-A4 operation/semantic-guard contract.
+- `source.sql`, `neg_01.sql`, `skills.md`, `manifest.yaml`, checker configuration, Common-core membership, denominator files, paper-facing reports/results, retained evidence, raw legacy evidence, and candidate SQL artifacts were not modified.
+- Previous POCR calibration involving `LONGTAIL_0011` should be treated as stale for positive-control calibration if it depended on the old `pos_01.sql`; source-as-oracle baseline metrics are not automatically invalidated.
+
+Validation result:
+- Static content checks for required corrected fragments passed.
+- Static absence checks for the old ascending `WorstRank` shortcut passed.
+- Markdown non-empty checks passed.
+- Protected-path review passed.
+- `git diff --check` passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+- DB/checker validation was deferred because this task did not authorize broad DB/checker/timing execution.
+
+Boundary:
+- No baseline rerun, user-run metrics rerun, POCR annotation generation, live API call, broad DB/checker/timing run, official metric computation, paper-facing metric update, top-level reports/results update, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, retained-evidence promotion, candidate SQL movement/copy/deletion, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Refresh `LONGTAIL_0011` positive-control validation / POCR calibration only if needed, after reviewing this correction.
