@@ -10,6 +10,7 @@ User-facing documentation:
 - `baseline_reproduction.md`: local diagnostic baseline reproduction manual for deterministic, LLM, prior-method, and verifier-support routes.
 - `candidate_sql_outputs.md`: D035-aligned candidate SQL output tree and manifest contract.
 - `pocr_annotation_artifacts.md`: route-bound POCR annotation JSONL artifact contract.
+- `llm_api_configuration.md`: unified default-off LLM API configuration plan for baseline generation and POCR annotation.
 - `pocr_diagnostic.md`: optional default-off POCR diagnostic command and replay examples.
 - `spec/output_contract.md`: D035 local user-output contract.
 - `spec/cli_contract.md`: user-facing CLI and implementation boundary.

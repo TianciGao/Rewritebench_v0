@@ -25914,3 +25914,79 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement D038 Step 4 unified LLM API configuration plan so baseline generation and POCR annotation can share one explicit, default-off API configuration.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_unified_llm_api_config_plan_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Documentation / configuration-contract / interface-planning only. No live API call, API key read, annotation JSONL generation, baseline generation, candidate SQL movement/copy/deletion, DB/checker/timing run, POCR Stage B run, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/llm_api_configuration.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/README.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/llm_config_contract.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/environment_variable_contract.csv`
+- `audits/pocr_unified_llm_api_config_plan_v0/cli_flag_contract.csv`
+- `audits/pocr_unified_llm_api_config_plan_v0/provider_client_boundary.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/secret_handling_policy.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/baseline_pocr_shared_config_plan.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/migration_plan_for_existing_clients.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/default_off_live_annotation_policy.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/protected_path_review.md`
+- `audits/pocr_unified_llm_api_config_plan_v0/command_log.md`
+
+Files modified:
+- `docs/README.md`
+- `docs/pocr_annotation_artifacts.md`
+- `docs/pocr_diagnostic.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added a unified LLM API configuration plan for Direct LLM baseline generation, Direct LLM Repair-1 / feedback routes, adapted LLM diagnostic routes, POCR Stage A annotation generation, and future LLM-backed diagnostic tools.
+- Documented the future shared `LLMClientConfig` concept, preferred `SQLRB_LLM_*` environment variables, compatibility aliases, future common CLI flags, shared transport vs route-specific prompt/schema boundaries, secret-handling policy, default-off POCR live annotation policy, and migration plan for current live-capable clients.
+- Existing live-capable clients were inventoried by source inspection only: Direct LLM original, Direct LLM Repair-1, adapted R-Bot, adapted LLM-R2, POCR annotation client, POCR live smoke/calibration/real-route diagnostic audit helpers, and the default-off POCR user replay facade.
+- Updated `docs/README.md`, `docs/pocr_annotation_artifacts.md`, and `docs/pocr_diagnostic.md` to link to the unified configuration plan and clarify that live annotation remains explicit/default-off.
+
+Validation result:
+- Markdown non-empty checks passed.
+- CSV parse checks for environment and CLI flag contracts passed.
+- Required boundary phrase checks passed.
+- `pytest tests/pocr -q` passed.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q` passed.
+- `git diff --check` passed.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No baseline generation, DB/checker/timing run, or POCR Stage B validation occurred.
+- No candidate SQL was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `output/` files were created or committed by this task.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement D038 Step 5 for one selected baseline: explicit live annotation generation plus user-facing replay, using the shared API config plan and keeping output diagnostic-only.

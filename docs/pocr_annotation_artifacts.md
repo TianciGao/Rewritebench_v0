@@ -6,6 +6,8 @@ This document defines the route-bound Stage A annotation artifact contract for P
 
 Candidate SQL is not converted into JSONL. Candidate SQL is referenced by annotation JSONL through route-bound candidate identity fields.
 
+Future live annotation configuration should follow `llm_api_configuration.md`. Live annotation must remain explicit and default-off.
+
 ## Standard Annotation Output Tree
 
 Future POCR annotation artifacts should be written under the D035 user-output layout:
@@ -265,7 +267,7 @@ Annotation scope must match denominator scope.
 
 ## Relationship To Live API
 
-This Step 3 contract does not call API. Future live annotation generation requires explicit authorization and an explicit live flag. API keys must come from environment only.
+This Step 3 contract does not call API. Future live annotation generation requires explicit authorization and an explicit live flag. API keys must come from environment only. The shared LLM configuration plan is documented in `llm_api_configuration.md`; replay and annotation-missing modes must not read API keys.
 
 Do not store API keys or secrets in annotation JSONL, manifests, logs, or audit packets. Provider/model labels, prompt/template identifiers, call timestamps, decoding parameters, token counts if available, and safe call status metadata should be recorded.
 

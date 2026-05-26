@@ -8,6 +8,8 @@ Future candidate SQL roots should follow the D035-aligned storage contract in `c
 
 Annotation JSONL artifacts should follow the route-bound contract in `pocr_annotation_artifacts.md`. Annotation JSONL is required for replay with non-missing annotation rows. Annotation JSONL is diagnostic evidence, not official POCR.
 
+Future live annotation configuration should follow `llm_api_configuration.md`. Live annotation must remain explicit and default-off. The current replay and annotation-missing modes do not read API keys and do not call APIs.
+
 ## What It Is Not
 
 - This is not official POCR.

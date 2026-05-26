@@ -1,0 +1,13 @@
+flag_name,applies_to,default,required_for_live,description,notes
+--llm-provider,LLM-capable user commands,openai_compatible,no,Provider label for shared config,Does not enable live calls by itself.
+--llm-base-url,LLM-capable user commands,provider_default,yes_for_live,OpenAI-compatible base URL,Record safe host/domain only if included in manifests.
+--llm-api-key-env,LLM-capable user commands,SQLRB_LLM_API_KEY,yes_for_live,Name of environment variable holding API key value,Replay and annotation-missing modes must not read the value.
+--llm-model,LLM-capable user commands,route_default,yes_for_live,Model label such as gpt-5.4,Route prompts remain separate.
+--llm-timeout-seconds,LLM-capable user commands,60,no,Provider request timeout,Future flag name should map from legacy SQLRB_LLM_TIMEOUT.
+--llm-max-tokens,LLM-capable user commands,route_default,no,Maximum completion tokens,May differ by route/schema.
+--llm-temperature,LLM-capable user commands,0,no,Sampling temperature,Canonical live diagnostics should record value.
+--llm-response-format,LLM-capable user commands,route_default,no,Provider response format,POCR annotation may require strict JSON; candidate generation may not.
+--enable-live-llm,baseline generation commands,false,yes,Opt-in gate for live LLM baseline generation,Must be explicit and route-specific.
+--enable-pocr-live-annotation,pocr diagnostic or annotation generation commands,false,yes,Opt-in gate for future live POCR Stage A annotation,Must require POCR diagnostic mode too.
+--enable-pocr-diagnostic,pocr-diagnostic,false,no,Opt-in gate for POCR diagnostic output,Existing flag; replay/annotation-missing remains no-key/no-API.
+--annotation-jsonl,pocr-diagnostic,absent,no,Replay existing annotation JSONL,Accepted only with --enable-pocr-diagnostic.
