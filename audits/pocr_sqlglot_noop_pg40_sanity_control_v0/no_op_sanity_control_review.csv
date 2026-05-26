@@ -1,0 +1,41 @@
+case_id,pool,expected_operation_atoms,transformation_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,rejected_noop_equivalent_atoms,possible_overaccept,review_notes,recommendation
+PERF_0006,PERF,3,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+PERF_0007,PERF,3,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+PERF_0008,PERF,3,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+PERF_0013,PERF,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0017,PERF,3,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+PERF_0019,PERF,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0024,PERF,3,0,1,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0033,PERF,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0034,PERF,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0035,PERF,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0052,PERF,3,0,3,0,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0054,PERF,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0056,PERF,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0062,PERF,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0077,PERF,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PERF_0082,PERF,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0005,CONS,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0007,CONS,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0009,CONS,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0010,CONS,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0011,CONS,2,0,2,0,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0012,CONS,2,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+CONS_0024,CONS,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0036,CONS,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+CONS_0037,CONS,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0003,PORT,3,0,1,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0004,PORT,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0005,PORT,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0008,PORT,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0012,PORT,3,0,1,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0013,PORT,3,0,1,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0022,PORT,3,0,3,0,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0024,PORT,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+PORT_0025,PORT,3,0,3,0,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+LONGTAIL_0011,LONGTAIL,2,0,0,2,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+LONGTAIL_0012,LONGTAIL,3,0,0,0,0,no,Schema-invalid or provider-failed Stage A row; replay failed closed.,keep_fail_closed_or_targeted_retry_if_clean_control_needed
+LONGTAIL_0013,LONGTAIL,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+LONGTAIL_0022,LONGTAIL,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+LONGTAIL_0023,LONGTAIL,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative
+LONGTAIL_0024,LONGTAIL,3,0,0,3,0,no,Stage B did not count transformation support for this no-op/source-like row.,control_pass_stage_b_conservative

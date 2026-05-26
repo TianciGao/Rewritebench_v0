@@ -26617,3 +26617,87 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Rerun/fix SQLGlot optimize candidate capture for the six generation-failed PostgreSQL rows, or switch to SQLGlot no-op sanity/control as a separate route without substituting no-op files into SQLGlot optimize.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_sqlglot_noop_pg40_sanity_control_annotation_replay_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- SQLGlot no-op PostgreSQL PG40 POCR sanity/control diagnostic. Live API was allowed only for SQLGlot no-op PG40 annotation. No DB/checker/timing run, baseline rerun, candidate SQL generation/modification, SQLGlot optimize annotation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/README.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/sanity_control_plan.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/selected_candidate_root.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/selected_cases.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/annotation_generation_manifest.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/checkpoint_state_review.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/replay_command.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/replay_mapping_validation.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/replay_diagnostic_rows_summary.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/replay_diagnostic_summary_by_pool_copy.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/no_op_sanity_control_review.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/no_op_overaccept_risk_review.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/malformed_or_schema_invalid_review.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/transformation_stage_b_summary.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/diagnostic_boundary_review.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/output_location_manifest.csv`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/temp_output_tree.txt`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/secret_scan_notes.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/protected_path_review.md`
+- `audits/pocr_sqlglot_noop_pg40_sanity_control_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Selected candidate root: `runs/user/common_core_pg_noop_db_checker/candidate_sql`.
+- Candidate root readiness: ready, 40/40 Common-core PostgreSQL candidate files resolved read-only.
+- Selected baseline: SQLGlot no-op PostgreSQL PG40 sanity/control with `method_id=sqlglot_noop` and `route_id=sqlglot_noop_pg40_pocr_sanity_control`.
+- Checkpointed annotation run id: `pocr_annotation_sqlglot_noop_pg40_sanity_control_v0`.
+- Live provider calls: 40, all within the authorized SQLGlot no-op PG40 scope.
+- Local annotation JSONL was generated under uncommitted D035 `output/results/`: 40 rows written, 34 schema-valid annotations, 5 malformed JSON fail-closed rows, and 1 provider-call-failed fail-closed row.
+- User-facing replay run id: `pocr_user_replay_sqlglot_noop_pg40_sanity_control_v0`.
+- Replay emitted 40 diagnostic rows under `/tmp/sqlrb_pocr_user_replay_sqlglot_noop_pg40_sanity_control_v0/output`.
+- Replay mapping: route mismatch rows 0, candidate mismatch rows 0.
+- Stage B diagnostic counts: transformation-supported operation atoms 0, presence-only operation atoms 15, insufficient-transformation-evidence operation atoms 75, rejected-noop-equivalent operation atoms 0.
+- Possible over-accept cases: 0.
+- Interpretation: Stage B remained conservative for the no-op/source-like control route; span presence was not counted as transformation support.
+
+Validation result:
+- CSV parse checks, JSONL parse check, Markdown non-empty checks, required boundary phrase checks, `pytest tests/pocr -q`, `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q`, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- No DB/checker/timing run occurred.
+- No SQLGlot no-op baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- SQLGlot optimize candidates and annotation were not used.
+- Candidate SQL under `runs/user/` was read-only and not moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- Local annotation artifacts under `output/` and replay artifacts under `/tmp` were not staged or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Inspect SQLGlot no-op sanity/control quality; if Stage B conservatism and the 6 fail-closed annotation rows are acceptable, keep it as POCR control evidence, or separately authorize targeted retry for those rows; otherwise resolve SQLGlot optimize candidate readiness before SQLGlot optimize POCR annotation.
