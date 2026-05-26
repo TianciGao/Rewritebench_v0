@@ -27293,3 +27293,91 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If pilot quality gates pass, decide whether to move to PG40 official-pilot design or expand to a larger Track A 120 POCR diagnostic plan; if gates fail, perform targeted retry or Stage B quality review first.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Targeted retry for the nine fail-closed tri-engine pilot annotation rows, followed by replay, row-metrics export, promotion-diagnostic aggregation, Stage B/no-op quality review, and PG40 official-pilot readiness design only. Live API was allowed only for the nine retry rows. No PG40 live annotation, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/README.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/selected_pilot_rows_copy.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_plan.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_annotation_manifest.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_merge_review.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_replay_manifest.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_row_metrics_summary.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/retry_aggregator_summary_copy.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/before_after_value_comparison.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/no_op_overaccept_review.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/spark_zero_review.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/quality_gate_review.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/pg40_official_pilot_readiness.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/pg40_route_readiness.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/output_location_manifest.csv`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/validation_summary.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/protected_path_review.md`
+- `audits/pocr_tri_engine_pilot_retry_quality_pg40_readiness_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Selected exactly the nine fail-closed pilot annotation rows: eight malformed JSON rows and one provider-call-failed row.
+- Live retry calls attempted: 9.
+- Retry schema-valid rows: 1.
+- Remaining fail-closed rows after merge/replay: 8.
+- User-facing replay reruns completed: 6/6.
+- Replay rows emitted: 30.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- Row metrics CSVs generated locally: 6.
+- Aggregation rerun completed: yes.
+- Before/after Direct LLM Repair-1 promotion-diagnostic values remained:
+  - PostgreSQL: `POCR@planned=0.066666666667`, `POCR@candidate=0.066666666667`
+  - MySQL: `POCR@planned=0.200000000000`, `POCR@candidate=0.200000000000`
+  - Spark: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`
+- Before/after SQLGlot no-op promotion-diagnostic values remained `0.000000000000` for POCR@planned and POCR@candidate on PostgreSQL, MySQL, and Spark.
+- SQLGlot no-op possible over-accept cases: 0.
+- Repair-1 Spark zero review: three schema-valid rows had zero Stage-B-supported operation atoms, three presence-only atoms, and five insufficient-transformation-evidence atoms; two rows remain fail-closed.
+- Quality gate decision: `pass_with_boundary`.
+- PG40 readiness was reviewed design-only. Recommended PG40 pilot routes are Direct LLM original PG40, Direct LLM Repair-1 PG40, SQLGlot no-op PG40, and SQLGlot optimize PG40 with six missing optimize candidates retained fail-closed for POCR@planned. R-Bot adapted GPT-5.4 and LLM-R2 adapted GPT-5.4 are appendix/diagnostic-ready; LearnedRewrite remains partial 29/40.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, py_compile, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No PG40 live annotation was run.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If retry and quality gates pass, authorize PG40 official-pilot annotation/replay/aggregation; otherwise perform targeted manual review or retry before expanding.
