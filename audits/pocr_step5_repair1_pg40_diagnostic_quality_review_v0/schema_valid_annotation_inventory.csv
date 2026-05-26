@@ -1,0 +1,36 @@
+case_id,pool,engine,expected_operation_atoms,expected_semantic_guard_atoms,annotation_atoms_total,operation_atom_judgments,semantic_guard_judgments,missing_atom_judgments,duplicate_atom_judgments,invalid_atom_ids,evidence_ref_count,annotation_quality_status,notes
+CONS_0005,CONS,postgres,3,2,5,"{""not_implemented"": 3}","{""implemented"": 2}",,,,13,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0007,CONS,postgres,3,2,5,"{""not_implemented"": 3}","{""implemented"": 2}",,,,12,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0009,CONS,postgres,3,2,5,"{""implemented"": 2, ""not_implemented"": 1}","{""implemented"": 2}",,,,17,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0010,CONS,postgres,2,2,4,"{""not_implemented"": 2}","{""implemented"": 2}",,,,9,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0011,CONS,postgres,2,2,4,"{""implemented"": 1, ""not_implemented"": 1}","{""implemented"": 2}",,,,12,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0012,CONS,postgres,2,2,4,"{""not_implemented"": 2}","{""implemented"": 2}",,,,8,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0024,CONS,postgres,2,2,4,"{""not_implemented"": 2}","{""implemented"": 2}",,,,10,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0036,CONS,postgres,2,2,4,"{""implemented"": 2}","{""implemented"": 2}",,,,14,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+CONS_0037,CONS,postgres,2,2,4,"{""not_implemented"": 2}","{""implemented"": 2}",,,,9,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+LONGTAIL_0011,LONGTAIL,postgres,2,2,4,"{""implemented"": 1, ""not_implemented"": 1}","{""implemented"": 2}",,,,14,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+LONGTAIL_0013,LONGTAIL,postgres,3,2,5,"{""implemented"": 2, ""not_implemented"": 1}","{""implemented"": 2}",,,,29,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+LONGTAIL_0022,LONGTAIL,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,12,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+LONGTAIL_0023,LONGTAIL,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,19,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+LONGTAIL_0024,LONGTAIL,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,14,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0006,PERF,postgres,3,2,5,"{""not_implemented"": 3}","{""implemented"": 2}",,,,16,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0007,PERF,postgres,3,2,5,"{""not_implemented"": 3}","{""implemented"": 2}",,,,16,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0008,PERF,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,24,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0019,PERF,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,17,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0024,PERF,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,18,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0034,PERF,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,17,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0035,PERF,postgres,3,2,5,"{""implemented"": 2, ""not_implemented"": 1}","{""implemented"": 2}",,,,19,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0054,PERF,postgres,2,2,4,"{""implemented"": 2}","{""implemented"": 1, ""not_implemented"": 1}",,,,13,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0056,PERF,postgres,2,2,4,"{""implemented"": 2}","{""contradicted"": 1, ""implemented"": 1}",,,,20,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0062,PERF,postgres,2,2,4,"{""implemented"": 2}","{""implemented"": 2}",,,,10,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0077,PERF,postgres,2,2,4,"{""implemented"": 2}","{""implemented"": 2}",,,,13,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PERF_0082,PERF,postgres,2,2,4,"{""implemented"": 2}","{""implemented"": 2}",,,,23,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0003,PORT,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,16,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0004,PORT,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,15,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0005,PORT,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,13,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0008,PORT,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,15,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0012,PORT,postgres,3,2,5,"{""implemented"": 2, ""not_implemented"": 1}","{""implemented"": 2}",,,,11,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0013,PORT,postgres,3,2,5,"{""implemented"": 2, ""not_implemented"": 1}","{""implemented"": 2}",,,,13,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0022,PORT,postgres,3,2,5,"{""implemented"": 1, ""not_implemented"": 2}","{""implemented"": 2}",,,,11,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0024,PORT,postgres,2,2,4,"{""implemented"": 1, ""not_implemented"": 1}","{""implemented"": 2}",,,,11,complete_schema_valid,schema_valid row reviewed against case-local skills.md
+PORT_0025,PORT,postgres,3,2,5,"{""implemented"": 3}","{""implemented"": 2}",,,,11,complete_schema_valid,schema_valid row reviewed against case-local skills.md

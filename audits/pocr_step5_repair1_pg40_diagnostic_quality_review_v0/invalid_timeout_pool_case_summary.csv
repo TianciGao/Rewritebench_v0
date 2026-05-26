@@ -1,0 +1,3 @@
+pool,invalid_or_timeout_rows,malformed_json_rows,timeout_rows,affected_cases,concentration_notes
+LONGTAIL,1,1,0,LONGTAIL_0012,1 of 6 LONGTAIL rows failed closed in annotation/replay
+PERF,4,2,2,PERF_0013;PERF_0017;PERF_0033;PERF_0052,4 of 16 PERF rows failed closed in annotation/replay

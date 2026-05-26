@@ -26223,3 +26223,82 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect full Step 5 diagnostic quality; if stable, decide whether to run another selected baseline diagnostic annotation+replay or keep POCR as diagnostic support for release v0.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_step5_repair1_pg40_diagnostic_quality_review_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Quality review / diagnostic audit only. No live API call, API key read, new annotation generation, user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/modification, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/README.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/review_plan.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/artifact_inventory.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/invalid_timeout_rows.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/invalid_timeout_pool_case_summary.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/schema_valid_annotation_inventory.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/evidence_ref_compliance_review.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/evidence_ref_prefix_summary.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/transformation_supported_atom_review.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/presence_only_and_insufficient_review.csv`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/over_under_accept_risk_review.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/exemplar_acceptance_review.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/recommended_pocr_function_improvements.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/protected_path_review.md`
+- `audits/pocr_step5_repair1_pg40_diagnostic_quality_review_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reviewed the existing Direct LLM Repair-1 PostgreSQL PG40 checkpointed annotation and user-facing replay artifacts from the full Step 5 run.
+- Local annotation artifacts were present under `output/results/pocr_annotation_direct_llm_repair1_pg40_checkpointed_full_v0/`; local replay artifacts were present under `/tmp/sqlrb_pocr_user_replay_direct_llm_repair1_pg40_checkpointed_full_v0/output/`.
+- Identified 5 fail-closed invalid/timeout rows: `LONGTAIL_0012`, `PERF_0013`, `PERF_0017`, `PERF_0033`, and `PERF_0052`.
+- Invalid/timeout breakdown: 3 malformed JSON rows and 2 timeout rows; pool concentration: PERF 4/16, LONGTAIL 1/6.
+- Reviewed 35 schema-valid annotation rows, 32 transformation-supported operation atoms, 60 presence-only/insufficient operation-atom outcomes, and 514 evidence refs.
+- Found no unsupported evidence-ref prefixes and no possible over-accept where Stage B accepted an operation atom without `source_candidate_diff:changed` paired with atom-specific span evidence.
+- Flagged 10 possible under-accept / strict-span-rejection cases where Stage A marked an operation implemented with diff plus span evidence but Stage B rejected the evidence conservatively.
+- Classified the full Step 5 run as `accepted_with_boundary` for release v0 diagnostic exemplar use only.
+
+Validation result:
+- CSV parse checks passed for all audit CSVs.
+- JSONL parse check passed for the existing local `safe_annotation_outputs.jsonl`.
+- Markdown non-empty checks passed.
+- Required boundary phrase checks passed.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+- `git diff --check` passed.
+
+Boundary:
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated or modified.
+- No user replay rerun occurred.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, candidate SQL modification, or candidate SQL movement/copy/deletion occurred.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- Local `output/` and `/tmp` replay artifacts were read-only and were not staged or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement targeted POCR robustness improvements or, if this quality boundary is accepted, keep Direct LLM Repair-1 PostgreSQL PG40 as the release v0 diagnostic exemplar.
