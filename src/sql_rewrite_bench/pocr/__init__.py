@@ -100,6 +100,12 @@ from sql_rewrite_bench.pocr.stage_b_static_runner import (
     static_stage_b_diagnostic_to_csv_rows,
     write_static_stage_b_diagnostic_csv,
 )
+from sql_rewrite_bench.pocr.stage_b_row_metrics import (
+    STAGE_B_ROW_METRICS_FILENAME,
+    export_stage_b_row_metrics,
+    stage_b_row_metric_csv_rows,
+    stage_b_row_metric_fields,
+)
 from sql_rewrite_bench.pocr.static_evidence import (
     StaticAtomEvidenceValidation,
     StaticStageBValidationResult,
@@ -146,6 +152,7 @@ __all__ = [
     "StaticStageBDiagnosticRow",
     "StaticStageBValidationResult",
     "SyntheticEvidenceRef",
+    "STAGE_B_ROW_METRICS_FILENAME",
     "annotation_artifact_inventory_fields",
     "annotation_artifacts_to_csv_rows",
     "annotation_from_mapping",
@@ -165,6 +172,7 @@ __all__ = [
     "diagnostic_summary_fields",
     "dedupe_manual_review_rows",
     "evidence_ref_lint_fields",
+    "export_stage_b_row_metrics",
     "guarded_json_loads",
     "lint_annotation",
     "lint_jsonl_annotation_rows",
@@ -190,6 +198,8 @@ __all__ = [
     "summarize_by_pool",
     "static_stage_b_diagnostic_fields",
     "static_stage_b_diagnostic_to_csv_rows",
+    "stage_b_row_metric_csv_rows",
+    "stage_b_row_metric_fields",
     "validate_candidate_annotation",
     "validate_static_stage_b",
     "validate_stage_b",

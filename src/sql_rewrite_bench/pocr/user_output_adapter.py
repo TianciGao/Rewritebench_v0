@@ -14,12 +14,14 @@ from sql_rewrite_bench.pocr.diagnostic_output_schema import (
     write_diagnostic_rows_csv,
     write_diagnostic_summary_csv,
 )
+from sql_rewrite_bench.pocr.stage_b_row_metrics import export_stage_b_row_metrics
 
 
 @dataclass(frozen=True)
 class POCRDiagnosticOutputPaths:
     diagnostic_rows_csv: Path
     diagnostic_summary_by_pool_csv: Path
+    stage_b_row_metrics_csv: Path
     diagnostic_log: Path
     diagnostic_report_md: Path
 
@@ -30,6 +32,7 @@ def write_pocr_diagnostic_user_outputs(
     run_id: str,
     rows: tuple[POCRDiagnosticRow, ...],
     summaries: tuple[POCRDiagnosticPoolSummary, ...] | None = None,
+    repo_root: Path | None = None,
 ) -> POCRDiagnosticOutputPaths:
     """Write diagnostic POCR files under a caller-provided D035 output root."""
 
@@ -42,11 +45,13 @@ def write_pocr_diagnostic_user_outputs(
     paths = POCRDiagnosticOutputPaths(
         diagnostic_rows_csv=results_dir / "diagnostic_rows.csv",
         diagnostic_summary_by_pool_csv=results_dir / "diagnostic_summary_by_pool.csv",
+        stage_b_row_metrics_csv=results_dir / "stage_b" / "pocr_stage_b_row_metrics.csv",
         diagnostic_log=logs_dir / "pocr_diagnostic.log",
         diagnostic_report_md=reports_dir / "pocr_diagnostic.md",
     )
     write_diagnostic_rows_csv(paths.diagnostic_rows_csv, rows)
     write_diagnostic_summary_csv(paths.diagnostic_summary_by_pool_csv, summaries)
+    export_stage_b_row_metrics(paths.stage_b_row_metrics_csv, rows, repo_root=repo_root)
     paths.diagnostic_log.parent.mkdir(parents=True, exist_ok=True)
     paths.diagnostic_log.write_text(_log_text(run_id=run_id, rows=rows), encoding="utf-8")
     paths.diagnostic_report_md.parent.mkdir(parents=True, exist_ok=True)

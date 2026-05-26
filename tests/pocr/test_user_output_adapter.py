@@ -44,6 +44,7 @@ def test_user_output_adapter_writes_only_under_supplied_output_root(tmp_path: Pa
     for path in (
         paths.diagnostic_rows_csv,
         paths.diagnostic_summary_by_pool_csv,
+        paths.stage_b_row_metrics_csv,
         paths.diagnostic_log,
         paths.diagnostic_report_md,
     ):
@@ -56,6 +57,9 @@ def test_user_output_adapter_writes_only_under_supplied_output_root(tmp_path: Pa
     assert paths.diagnostic_summary_by_pool_csv.as_posix().endswith(
         "results/pocr_output_test/pocr/diagnostic_summary_by_pool.csv"
     )
+    assert paths.stage_b_row_metrics_csv.as_posix().endswith(
+        "results/pocr_output_test/pocr/stage_b/pocr_stage_b_row_metrics.csv"
+    )
     assert paths.diagnostic_log.as_posix().endswith("logs/pocr_output_test/pocr/pocr_diagnostic.log")
     assert paths.diagnostic_report_md.as_posix().endswith("reports/pocr_output_test/pocr_diagnostic.md")
 
@@ -64,6 +68,13 @@ def test_user_output_adapter_writes_only_under_supplied_output_root(tmp_path: Pa
     assert row["official_pocr_computed"] == "false"
     assert row["route_level_pocr_aggregated"] == "false"
     assert row["paper_metric_promoted"] == "false"
+
+    with paths.stage_b_row_metrics_csv.open(newline="", encoding="utf-8") as handle:
+        stage_b_row = next(csv.DictReader(handle))
+    assert stage_b_row["official_pocr_computed"] == "false"
+    assert stage_b_row["route_level_pocr_aggregated"] == "false"
+    assert stage_b_row["paper_metric_promoted"] == "false"
+    assert stage_b_row["pocr_curated_denominator_member"] == "false"
 
     report = paths.diagnostic_report_md.read_text(encoding="utf-8")
     assert "This is not official POCR." in report

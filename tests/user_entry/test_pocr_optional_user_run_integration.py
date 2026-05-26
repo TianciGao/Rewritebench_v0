@@ -82,9 +82,17 @@ class OptionalPOCRUserRunIntegrationTests(unittest.TestCase):
             self.assertEqual(code, 0)
             rows_path = output_root / "results" / "pocr_optional_cli_test" / "pocr" / "diagnostic_rows.csv"
             summary_path = output_root / "results" / "pocr_optional_cli_test" / "pocr" / "diagnostic_summary_by_pool.csv"
+            stage_b_path = (
+                output_root
+                / "results"
+                / "pocr_optional_cli_test"
+                / "pocr"
+                / "stage_b"
+                / "pocr_stage_b_row_metrics.csv"
+            )
             log_path = output_root / "logs" / "pocr_optional_cli_test" / "pocr" / "pocr_diagnostic.log"
             report_path = output_root / "reports" / "pocr_optional_cli_test" / "pocr_diagnostic.md"
-            for path in [rows_path, summary_path, log_path, report_path]:
+            for path in [rows_path, summary_path, stage_b_path, log_path, report_path]:
                 self.assertTrue(path.is_file(), path)
                 self.assertTrue(path.resolve().is_relative_to(output_root.resolve()))
 
@@ -96,6 +104,15 @@ class OptionalPOCRUserRunIntegrationTests(unittest.TestCase):
             self.assertEqual(row["route_level_pocr_aggregated"], "false")
             self.assertEqual(row["paper_metric_promoted"], "false")
             self.assertGreater(int(row["semantic_guard_atoms_count"]), 0)
+
+            with stage_b_path.open(newline="", encoding="utf-8") as handle:
+                stage_b_row = next(csv.DictReader(handle))
+            self.assertEqual(stage_b_row["annotation_status"], "annotation_missing")
+            self.assertEqual(stage_b_row["diagnostic_only"], "true")
+            self.assertEqual(stage_b_row["official_pocr_computed"], "false")
+            self.assertEqual(stage_b_row["route_level_pocr_aggregated"], "false")
+            self.assertEqual(stage_b_row["paper_metric_promoted"], "false")
+            self.assertEqual(stage_b_row["pocr_curated_denominator_member"], "false")
 
             report = report_path.read_text(encoding="utf-8")
             self.assertIn("Positive Operation Coverage diagnostic support", report)

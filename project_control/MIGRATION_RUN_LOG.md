@@ -26927,3 +26927,74 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Implement exporter or aggregator using this durable row-level contract, after final metric definitions are confirmed.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_minimal_stage_b_row_metrics_exporter_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Minimal durable row-level POCR Stage B exporter implementation. No live API call, API key read, annotation JSONL generation, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `src/sql_rewrite_bench/pocr/stage_b_row_metrics.py`
+- `tests/pocr/test_stage_b_row_metrics.py`
+- `audits/pocr_minimal_stage_b_row_metrics_exporter_v0/README.md`
+- `audits/pocr_minimal_stage_b_row_metrics_exporter_v0/implementation_summary.md`
+- `audits/pocr_minimal_stage_b_row_metrics_exporter_v0/validation_summary.md`
+- `audits/pocr_minimal_stage_b_row_metrics_exporter_v0/protected_path_review.md`
+- `audits/pocr_minimal_stage_b_row_metrics_exporter_v0/command_log.md`
+
+Files modified:
+- `src/sql_rewrite_bench/pocr/__init__.py`
+- `src/sql_rewrite_bench/pocr/user_facade.py`
+- `src/sql_rewrite_bench/pocr/user_output_adapter.py`
+- `tests/pocr/test_user_output_adapter.py`
+- `tests/user_entry/test_pocr_optional_user_run_integration.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Added a minimal exporter for `pocr_stage_b_row_metrics.csv`.
+- Wired the exporter into the existing user-facing `pocr-diagnostic` D035 output flow.
+- Runtime CSV path: `<output_root>/results/<run_id>/pocr/stage_b/pocr_stage_b_row_metrics.csv`.
+- The exporter records per-row identity, denominator membership, annotation/binding status, Stage B operation atom counts, semantic guard counts, per-row `oc_i` / `oc_i_fail_closed`, fail-closed status, curated-denominator placeholder, and diagnostic boundary constants.
+- The exporter does not compute official POCR, route-level POCR@planned, route-level POCR@candidate, POCR@curated, paper-facing metrics, retained evidence, or leaderboard output.
+
+Validation result:
+- `python -m py_compile` for changed POCR modules passed.
+- Focused exporter/user-output tests passed.
+- Full POCR tests and user-entry POCR facade / CLI facade tests are run during closeout.
+- CSV parse checks for exported test output, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement POCR@planned / POCR@candidate aggregator reading `pocr_stage_b_row_metrics.csv`, after final metric definitions are confirmed.

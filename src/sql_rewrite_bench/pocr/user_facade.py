@@ -87,6 +87,7 @@ def run_pocr_diagnostic_user_facade(
             run_id=run_id,
             rows=rows,
             summaries=summaries,
+            repo_root=repo_root,
         )
     return POCRDiagnosticFacadeResult(rows=rows, summaries=summaries, output_paths=output_paths)
 
