@@ -1210,3 +1210,76 @@ Impact:
 - Future annotation artifacts must remain route-bound and fail closed on case, engine, method, route, candidate identity, or schema mismatches.
 - Live annotation and API use remain explicit, default-off, and separately authorized.
 - Official Positive Operation Coverage Rate, route-level aggregation, paper-facing metric promotion, retained-evidence promotion, top-level reports/results update, denominator changes, case membership changes, raw legacy evidence changes, and leaderboard output remain separately gated.
+
+## D039: POCR official metric promotion process and denominator views
+
+Decision:
+
+POCR enters an official metric promotion process.
+
+This does not mean POCR is already an official paper metric.
+
+This decision does not authorize paper-facing metric promotion, reports/results updates, retained-evidence promotion, leaderboard output, denominator changes, case membership changes, paper result changes, or raw legacy evidence changes.
+
+The promotion proposal will define and evaluate two denominator-aware route-level views first:
+
+1. POCR@planned
+2. POCR@candidate
+
+POCR@curated is deferred and must be reported as `NA` / `curated_manifest_missing` until a predeclared curated denominator manifest exists.
+
+The current paper formula is preserved as the curated-subset formula. The promotion process proposes POCR@planned as the denominator-aware route-level headline candidate and POCR@candidate as a diagnostic candidate-quality view.
+
+All POCR variants use per-row macro averaging:
+
+```text
+OC_i = |Ahat_i| / |Aexp_i|
+```
+
+The route-level value is the average of `OC_i` across the selected denominator rows.
+
+Do not compute POCR by total supported atoms divided by total expected atoms unless that value is separately labeled as a micro-average diagnostic. The micro-average is not the current paper formula.
+
+Expected atoms:
+
+- come only from `operation_atom` entries in case-local root-level `skills.md`;
+- exclude `semantic_guard_atom` from numerator and denominator;
+- do not come from taxonomy, SQL shape, positive SQL, source SQL, candidate SQL, retained evidence, or ad hoc analysis.
+
+Implemented atoms:
+
+- come only from Stage-B transformation-supported operation atoms;
+- are not counted from Stage A annotation alone;
+- are not counted from `candidate_sql_span`, `source_sql_span`, or `positive_sql_span` alone;
+- require source-to-candidate transformation evidence.
+
+Fail-closed denominator policy:
+
+- For POCR@planned, no candidate, generation failure, extraction failure, route mismatch, candidate mismatch, annotation missing, and schema-invalid after retry produce `OC_i = 0` with an explicit fail-closed status.
+- The candidate-bound denominator excludes no-candidate rows but retains candidate mismatch, route mismatch, and annotation fail-closed rows as explicit rows when applicable.
+- Unsupported or non-eligible rows must be retained as status rows and not silently removed.
+
+No-op control policy:
+
+- SQLGlot no-op remains a sanity/control route.
+- If a no-op route produces transformation-supported operation atoms, it must enter manual review for possible over-accept before any promotion.
+
+Reason:
+
+D036 established case-local root-level `skills.md` as the POCR atom contract. D037 established the transformation-aware Stage B boundary. D038 established that annotation JSONL is diagnostic evidence only unless separately promoted.
+
+The Direct LLM Repair-1 PostgreSQL PG40 diagnostic exemplar and SQLGlot no-op PostgreSQL PG40 sanity/control now provide enough evidence to start designing an official metric promotion process without computing or promoting official values.
+
+The denominator split prevents successful-subset bias while preserving the current curated-subset paper formula for a future frozen curated manifest.
+
+Impact:
+
+- POCR promotion design work may proceed.
+- POCR@planned and POCR@candidate are the first two promotion views.
+- POCR@curated remains deferred until a predeclared curated manifest exists.
+- Stage A annotation alone is not counted.
+- Stage B transformation-aware validation is required.
+- Semantic guard atoms are excluded from the operation coverage numerator and denominator.
+- No route-level POCR score is emitted by this decision.
+- No paper-facing metric is promoted by this decision.
+- No global leaderboard is produced.

@@ -26701,3 +26701,80 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Inspect SQLGlot no-op sanity/control quality; if Stage B conservatism and the 6 fail-closed annotation rows are acceptable, keep it as POCR control evidence, or separately authorize targeted retry for those rows; otherwise resolve SQLGlot optimize candidate readiness before SQLGlot optimize POCR annotation.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_official_metric_promotion_design_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- POCR official metric promotion design audit. No experiment run, live API call, API key read, annotation JSONL generation, user replay rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_official_metric_promotion_design_v0/README.md`
+- `audits/pocr_official_metric_promotion_design_v0/official_metric_scope.md`
+- `audits/pocr_official_metric_promotion_design_v0/pocr_formula_and_denominator_policy.md`
+- `audits/pocr_official_metric_promotion_design_v0/row_status_and_fail_closed_policy.md`
+- `audits/pocr_official_metric_promotion_design_v0/route_level_aggregation_policy.md`
+- `audits/pocr_official_metric_promotion_design_v0/paper_naming_alignment.md`
+- `audits/pocr_official_metric_promotion_design_v0/table_renderer_requirements.md`
+- `audits/pocr_official_metric_promotion_design_v0/quality_gate_requirements.md`
+- `audits/pocr_official_metric_promotion_design_v0/large_scale_experiment_plan.md`
+- `audits/pocr_official_metric_promotion_design_v0/risk_register.md`
+- `audits/pocr_official_metric_promotion_design_v0/protected_path_review.md`
+- `audits/pocr_official_metric_promotion_design_v0/command_log.md`
+
+Files modified:
+- `project_control/DECISION_LOG.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added D039: POCR official metric promotion process and denominator views.
+- POCR enters an official metric promotion process.
+- This does not mean POCR is already an official paper metric.
+- POCR@planned and POCR@candidate are the first two promotion views.
+- POCR@curated is deferred until a predeclared curated manifest exists and must be reported as `NA` / `curated_manifest_missing` until then.
+- The design preserves the current paper formula as the curated-subset formula while proposing POCR@planned as the denominator-aware route-level headline candidate and POCR@candidate as a diagnostic candidate-quality view.
+- All POCR variants use per-row macro averaging unless a micro-average is separately labeled diagnostic.
+- Expected atoms are only `operation_atom` entries from case-local root-level `skills.md`.
+- Implemented atoms are only Stage-B transformation-supported operation atoms.
+- Stage A annotation alone is not counted.
+- Stage B transformation-aware validation is required.
+- Semantic guard atoms are excluded from the operation coverage numerator and denominator.
+- SQLGlot no-op remains a sanity/control route, and any no-op transformation-supported atoms require manual review before promotion.
+
+Validation result:
+- Markdown non-empty checks, required phrase checks, project-control text parse checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- No experiment was run.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No user replay, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No official POCR was computed.
+- No route-level POCR score was emitted in this task.
+- No paper-facing metric was promoted in this task.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement POCR@planned / POCR@candidate aggregator design or run a no-API formula dry-run over existing diagnostic artifacts, only after this promotion design is reviewed.
