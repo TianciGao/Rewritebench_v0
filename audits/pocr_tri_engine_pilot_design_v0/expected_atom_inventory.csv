@@ -1,0 +1,6 @@
+case_id,pool,operation_atom_count,semantic_guard_atom_count,source,notes
+PERF_0006,PERF,3,2,cases/PERF/PERF_0006/skills.md,operation atoms enter POCR numerator/denominator; semantic guards are excluded from operation coverage numerator and denominator
+CONS_0005,CONS,3,2,cases/CONS/CONS_0005/skills.md,operation atoms enter POCR numerator/denominator; semantic guards are excluded from operation coverage numerator and denominator
+PORT_0003,PORT,3,2,cases/PORT/PORT_0003/skills.md,operation atoms enter POCR numerator/denominator; semantic guards are excluded from operation coverage numerator and denominator
+LONGTAIL_0011,LONGTAIL,2,2,cases/LONGTAIL/LONGTAIL_0011/skills.md,operation atoms enter POCR numerator/denominator; semantic guards are excluded from operation coverage numerator and denominator
+LONGTAIL_0022,LONGTAIL,3,2,cases/LONGTAIL/LONGTAIL_0022/skills.md,operation atoms enter POCR numerator/denominator; semantic guards are excluded from operation coverage numerator and denominator

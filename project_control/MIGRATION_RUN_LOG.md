@@ -27135,3 +27135,76 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If the smoke matches, proceed to a small tri-engine POCR pilot design; if the smoke does not match, fix exporter/aggregator before any wider experiment.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_tri_engine_pilot_design_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Small tri-engine POCR pilot design and readiness audit. No experiment run, live API call, API key read, annotation JSONL generation, pocr-diagnostic production replay, POCR aggregation run, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_tri_engine_pilot_design_v0/README.md`
+- `audits/pocr_tri_engine_pilot_design_v0/pilot_scope.md`
+- `audits/pocr_tri_engine_pilot_design_v0/pilot_case_selection.md`
+- `audits/pocr_tri_engine_pilot_design_v0/pilot_row_manifest.csv`
+- `audits/pocr_tri_engine_pilot_design_v0/candidate_root_readiness.csv`
+- `audits/pocr_tri_engine_pilot_design_v0/skills_readiness.csv`
+- `audits/pocr_tri_engine_pilot_design_v0/expected_atom_inventory.csv`
+- `audits/pocr_tri_engine_pilot_design_v0/future_run_plan.md`
+- `audits/pocr_tri_engine_pilot_design_v0/quality_gate_plan.md`
+- `audits/pocr_tri_engine_pilot_design_v0/blocker_and_fallback_review.md`
+- `audits/pocr_tri_engine_pilot_design_v0/protected_path_review.md`
+- `audits/pocr_tri_engine_pilot_design_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Designed the first tri-engine pilot as 5 cases x 3 engines x 2 routes = 30 planned route-engine rows.
+- Selected cases: `PERF_0006`, `CONS_0005`, `PORT_0003`, `LONGTAIL_0011`, and `LONGTAIL_0022`.
+- Routes: Direct LLM Repair-1 and SQLGlot no-op sanity/control.
+- Engines: PostgreSQL, MySQL, Spark.
+- Skills readiness: all five cases have root-level `skills.md`; expected operation atom counts are 3, 3, 3, 2, and 3 respectively.
+- Candidate root readiness: Direct LLM Repair-1 uses complete Track A 120 companion roots for all three engines; SQLGlot no-op uses complete engine-specific no-op roots for all three engines.
+- Candidate-bound ready rows: 30/30.
+- Blocked rows: 0/30.
+- Fallback candidates proposed: no.
+- Future annotation/replay/aggregation run IDs and quality gates were defined but not executed.
+
+Validation result:
+- CSV parse checks, pilot row-count check, Markdown non-empty checks, required phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call was made and no API key was read.
+- No annotation JSONL was generated.
+- No pocr-diagnostic production replay, POCR aggregation run, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If pilot readiness passes, authorize a checkpointed tri-engine pilot annotation/replay/aggregation run; otherwise resolve candidate-root or case-selection blockers first.

@@ -1,0 +1,6 @@
+case_id,pool,skills_md_path,skills_md_exists,operation_atom_count,semantic_guard_atom_count,parse_status,ready_for_pocr,notes
+PERF_0006,PERF,cases/PERF/PERF_0006/skills.md,true,3,2,parsed,true,root-level skills.md defines POCR atom contract
+CONS_0005,CONS,cases/CONS/CONS_0005/skills.md,true,3,2,parsed,true,root-level skills.md defines POCR atom contract
+PORT_0003,PORT,cases/PORT/PORT_0003/skills.md,true,3,2,parsed,true,root-level skills.md defines POCR atom contract
+LONGTAIL_0011,LONGTAIL,cases/LONGTAIL/LONGTAIL_0011/skills.md,true,2,2,parsed,true,root-level skills.md defines POCR atom contract
+LONGTAIL_0022,LONGTAIL,cases/LONGTAIL/LONGTAIL_0022/skills.md,true,3,2,parsed,true,root-level skills.md defines POCR atom contract
