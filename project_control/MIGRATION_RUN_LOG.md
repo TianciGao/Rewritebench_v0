@@ -27208,3 +27208,88 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If pilot readiness passes, authorize a checkpointed tri-engine pilot annotation/replay/aggregation run; otherwise resolve candidate-root or case-selection blockers first.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_tri_engine_pilot_annotation_replay_aggregation_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Checkpointed small tri-engine POCR pilot annotation + replay + promotion-diagnostic aggregation. Live API was allowed only for the selected 30 pilot route-engine rows. No DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/README.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/pilot_run_plan.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/selected_pilot_rows_copy.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/annotation_run_manifest.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/replay_run_manifest.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/row_metrics_export_summary.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/aggregator_summary_diagnostic_copy.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/value_summary_by_route_engine.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/no_op_overaccept_review.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/quality_gate_review.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/output_location_manifest.csv`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/validation_summary.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/protected_path_review.md`
+- `audits/pocr_tri_engine_pilot_annotation_replay_aggregation_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Ran the approved 30-row pilot over five selected cases, three engines, and two routes.
+- Candidate-bound rows: 30/30.
+- Live API calls attempted: 30.
+- Annotation JSONL rows generated locally: 30.
+- Schema-valid annotation rows: 21.
+- Fail-closed annotation rows: 9 (8 malformed JSON, 1 provider call failure).
+- User-facing replay runs completed: 6/6.
+- Replay rows emitted: 30.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- Row metrics CSVs generated locally: 6.
+- Aggregator summary generated locally: yes.
+- Direct LLM Repair-1 promotion-diagnostic values by engine:
+  - PostgreSQL: `POCR@planned=0.066666666667`, `POCR@candidate=0.066666666667`
+  - MySQL: `POCR@planned=0.200000000000`, `POCR@candidate=0.200000000000`
+  - Spark: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`
+- SQLGlot no-op promotion-diagnostic values were `0.000000000000` for both POCR@planned and POCR@candidate on PostgreSQL, MySQL, and Spark.
+- SQLGlot no-op possible over-accept cases: 0.
+- `POCR@curated` remained `NA` / `curated_manifest_missing`.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, py_compile, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If pilot quality gates pass, decide whether to move to PG40 official-pilot design or expand to a larger Track A 120 POCR diagnostic plan; if gates fail, perform targeted retry or Stage B quality review first.

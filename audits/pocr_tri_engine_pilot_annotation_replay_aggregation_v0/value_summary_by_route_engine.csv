@@ -1,0 +1,7 @@
+route_label,engine,planned_rows,candidate_rows,schema_valid_rows,fail_closed_rows,pocr_planned_macro,pocr_candidate_macro,micro_average_diagnostic,no_op_possible_overaccept,review_status,notes
+Direct LLM Repair-1,postgres,5,5,2,3,0.066666666667,0.066666666667,0.071428571429,false,diagnostic_review,promotion-diagnostic macro value; not official POCR
+Direct LLM Repair-1,mysql,5,5,5,0,0.200000000000,0.200000000000,0.214285714286,false,diagnostic_review,promotion-diagnostic macro value; not official POCR
+Direct LLM Repair-1,spark,5,5,3,2,0.000000000000,0.000000000000,0.000000000000,false,diagnostic_review,promotion-diagnostic macro value; not official POCR
+SQLGlot no-op sanity/control,postgres,5,5,3,2,0.000000000000,0.000000000000,0.000000000000,false,control_passed,promotion-diagnostic macro value; not official POCR
+SQLGlot no-op sanity/control,mysql,5,5,3,2,0.000000000000,0.000000000000,0.000000000000,false,control_passed,promotion-diagnostic macro value; not official POCR
+SQLGlot no-op sanity/control,spark,5,5,5,0,0.000000000000,0.000000000000,0.000000000000,false,control_passed,promotion-diagnostic macro value; not official POCR
