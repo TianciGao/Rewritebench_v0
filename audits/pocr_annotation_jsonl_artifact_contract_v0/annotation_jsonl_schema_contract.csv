@@ -1,0 +1,29 @@
+object_level,field_name,required,description,example_value,notes
+top_level,annotation_schema_version,yes,Schema version for this annotation row,pocr_candidate_annotation_v1,Required for replay validation
+top_level,run_id,yes,D035 run identifier,direct_llm_original_track_a_120_canonical_v0,Must match candidate run identity
+top_level,case_set_id,yes,Case set identifier,common_core_v0,Must match denominator scope
+top_level,case_id,yes,Case identifier,PERF_0006,Exact match required
+top_level,pool,yes,Case pool,PERF,Must match case metadata
+top_level,engine,yes,Target engine,postgres,Exact match required
+top_level,method_id,yes,Method identifier,direct_llm_original,Exact match required
+top_level,route_id,yes,Route identifier,direct_llm_original_pg40_pocr_diagnostic,Exact match required
+top_level,candidate_id,yes,Stable candidate identity,direct_llm_original:PERF_0006:postgres,May include route and row identity
+top_level,candidate_rel_path,yes,D035-relative candidate SQL path,candidate_sql/direct_llm_original/direct_llm_original_pg40_pocr_diagnostic/postgres/PERF_0006__postgres.sql,Must bind to candidate manifest
+top_level,candidate_sha256,yes,SHA-256 of candidate SQL,012345abcdef,Must fail closed on mismatch
+top_level,skills_md_sha256,conditional,SHA-256 of skills.md,abcdef012345,Use this or skills_contract_hash
+top_level,skills_contract_hash,conditional,Hash of parsed skills contract,skills:LONGTAIL_0011:v1,Use this or skills_md_sha256
+top_level,prompt_template_id,yes,Prompt template identifier,pocr_stage_a_annotation_prompt,Required for audit traceability
+top_level,prompt_template_version,yes,Prompt template version,v1,Required for audit traceability
+top_level,provider_label,yes,Safe provider label,openai_compatible,Do not store secrets
+top_level,model_label,yes,Safe model label,gpt-5.4,Do not store secrets
+top_level,call_timestamp_utc,yes,UTC provider call timestamp,2026-05-26T12:00:00Z,Use ISO-like UTC form
+top_level,decoding_parameters,yes,Safe decoding metadata,"{""temperature"":0,""max_tokens"":2048}",No API keys
+top_level,annotation_status,yes,Annotation status,schema_valid,Use contract vocabulary
+top_level,atoms,yes,List of atom judgments,"[{...}]",One item per contract atom when schema-valid
+atom,atom_id,yes,Atom identifier,A1,Must exist in skills.md
+atom,atom_type,yes,Atom type,operation_atom,operation_atom or semantic_guard_atom
+atom,expected,yes,Whether atom is expected,true,Expected true for skills.md atoms
+atom,observed_status,yes,Observed implementation status,implemented,Allowed status vocabulary only
+atom,rationale_short,yes,Short rationale,Matched transformed rank boundary,LLM rationale is not evidence
+atom,evidence_refs,yes,List of evidence refs,"[""source_candidate_diff:changed""]",Stage B validates supported refs
+atom,confidence,yes,Confidence label,medium,high medium or low

@@ -6,6 +6,8 @@ It writes local user-output files for inspecting POCR Stage A annotation status 
 
 Future candidate SQL roots should follow the D035-aligned storage contract in `candidate_sql_outputs.md`. Existing `runs/user` candidate roots may be referenced read-only for diagnostics, but should not be copied, moved, deleted, or normalized without inventory and retention mapping.
 
+Annotation JSONL artifacts should follow the route-bound contract in `pocr_annotation_artifacts.md`. Annotation JSONL is required for replay with non-missing annotation rows. Annotation JSONL is diagnostic evidence, not official POCR.
+
 ## What It Is Not
 
 - This is not official POCR.

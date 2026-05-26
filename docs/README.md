@@ -9,6 +9,7 @@ User-facing documentation:
 - `USER_ENTRY_DATA_FLOW.md`: user-entry data flow, internal staging, and exported output locations.
 - `baseline_reproduction.md`: local diagnostic baseline reproduction manual for deterministic, LLM, prior-method, and verifier-support routes.
 - `candidate_sql_outputs.md`: D035-aligned candidate SQL output tree and manifest contract.
+- `pocr_annotation_artifacts.md`: route-bound POCR annotation JSONL artifact contract.
 - `pocr_diagnostic.md`: optional default-off POCR diagnostic command and replay examples.
 - `spec/output_contract.md`: D035 local user-output contract.
 - `spec/cli_contract.md`: user-facing CLI and implementation boundary.

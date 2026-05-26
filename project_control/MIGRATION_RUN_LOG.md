@@ -25839,3 +25839,78 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Continue D038 Step 3 annotation JSONL artifact contract, or separately authorize Calcite runtime setup/rerun after reviewing the reproduction manual.
+
+---
+
+Date: 2026-05-26
+
+Task: `pocr_annotation_jsonl_artifact_contract_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Documentation / contract / annotation artifact policy only. No annotation JSONL generation, live API call, API key read, candidate SQL movement/copy/deletion, DB/checker/timing run, baseline rerun, POCR Stage B run, official POCR computation, route-level POCR aggregation, paper-facing metric promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/pocr_annotation_artifacts.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/README.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/annotation_artifact_contract.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/annotation_jsonl_schema_contract.csv`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/annotation_manifest_schema_contract.csv`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/route_binding_and_replay_policy.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/fail_closed_mapping_policy.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/prompt_and_model_metadata_contract.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/diagnostic_vs_official_boundary.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/protected_path_review.md`
+- `audits/pocr_annotation_jsonl_artifact_contract_v0/command_log.md`
+
+Files modified:
+- `docs/README.md`
+- `docs/pocr_diagnostic.md`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Defined the POCR annotation JSONL artifact contract as route-bound diagnostic Stage A evidence under D035 user-output roots.
+- Documented the future annotation artifact tree under `output/results/<run_id>/pocr/annotations/<method_id>/<route_id>/<engine>/`.
+- Documented the annotation JSONL row schema, atom judgment schema, status vocabulary, annotation/prompt/provider manifests, route-binding and replay policy, fail-closed mismatch handling, prompt/model metadata requirements, supported evidence refs, PG40 vs Track A 120 annotation scope, live API boundary, and diagnostic-vs-official boundary.
+- Updated `docs/README.md` to index the contract and `docs/pocr_diagnostic.md` to link annotation replay to the contract.
+
+Validation result:
+- Markdown non-empty checks passed.
+- CSV parse checks for annotation schema CSVs passed.
+- Required phrase checks in `docs/pocr_annotation_artifacts.md` and audit docs passed.
+- `pytest tests/pocr -q` passed.
+- `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q` passed.
+- `git diff --check` passed.
+- Protected-path review passed.
+- Changed-file secret scan passed.
+- Staged secret scan passed during closeout after explicit staging.
+
+Boundary:
+- No annotation JSONL was generated.
+- No live API call was made and no API key was read.
+- No POCR Stage B validation was run.
+- No DB/checker/timing run or baseline rerun occurred.
+- No candidate SQL was moved, copied, deleted, normalized, regenerated, rewritten, staged, or committed.
+- No `output/` files were created or committed.
+- No official POCR computation, route-level POCR aggregation, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Implement D038 Step 4 unified LLM API configuration plan so baseline generation and POCR annotation can share one explicit, default-off API configuration.
