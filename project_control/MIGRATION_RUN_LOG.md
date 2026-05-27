@@ -27538,3 +27538,91 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If reference boundaries pass, proceed to PG40 quality review / targeted retry decision or Track A 120 POCR diagnostic expansion design; if issues are found, fix prompt/Stage B/exporter boundaries before any expansion.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_track_a_120_diagnostic_expansion_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Track A 120 POCR promotion-diagnostic expansion over Common-core v0 x PostgreSQL/MySQL/Spark for Direct LLM original, Direct LLM Repair-1, SQLGlot no-op, and SQLGlot optimize schema-aware. Live API was allowed only for candidate-present rows without reusable annotation evidence and capped at 300 calls. No DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/README.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/track_a_scope.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/route_candidate_readiness.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/annotation_reuse_plan.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/live_annotation_plan.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/annotation_run_manifest.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/replay_run_manifest.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/row_metrics_export_summary.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/track_a_aggregator_summary_copy.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/track_a_value_summary_by_route_engine.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/no_op_overaccept_review.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/sqlglot_optimize_missing_rows_review.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/quality_gate_review.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/calcite_hep_readiness_note.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/output_location_manifest.csv`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/validation_summary.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/protected_path_review.md`
+- `audits/pocr_track_a_120_diagnostic_expansion_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Candidate roots were resolved read-only for all 12 route-engine combinations.
+- Direct LLM original, Direct LLM Repair-1, and SQLGlot no-op have 120/120 candidate-bound rows by route.
+- SQLGlot optimize has 105/120 candidate-bound rows; missing optimize candidates remain fail-closed for POCR@planned and no SQLGlot no-op substitute candidates were used.
+- Existing PG40 annotation evidence and five-row tri-engine pilot evidence were reused only where identity bindings matched.
+- New live annotation calls attempted: 291, below the 300-call cap.
+- User-facing `pocr-diagnostic` replay completed for all 12 route-engine combinations.
+- Replay rows emitted: 480.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- Row metrics CSVs generated locally: 12.
+- Promotion-diagnostic aggregation completed locally.
+- Direct LLM original overall diagnostic: `POCR@planned=0.394444444444`, `POCR@candidate=0.394444444444`.
+- Direct LLM Repair-1 overall diagnostic: `POCR@planned=0.204166666667`, `POCR@candidate=0.204166666667`.
+- SQLGlot no-op overall diagnostic: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`; possible over-accept cases 0.
+- SQLGlot optimize overall diagnostic: `POCR@planned=0.108333333333`, `POCR@candidate=0.123809523810`, with 15 missing candidates across engines retained fail-closed for POCR@planned.
+- Calcite HEP was readiness-only and was not annotated.
+- Quality gate decision: `quality_review_needed` due high provider-failure rates in later MySQL/Spark live annotation batches.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If quality gates pass after retry/review, decide whether to authorize paper-facing POCR metric promotion review; otherwise perform targeted retry and manual Stage B quality review first.
