@@ -27465,3 +27465,76 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Perform PG40 quality review and optionally targeted retry for fail-closed annotation rows before deciding whether to design Track A 120 POCR diagnostic expansion.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_pg40_reference_boundary_quality_review_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Read-only POCR reference-boundary and Stage B evidence-source quality review for the PG40 pilot. No live API call, API key read, annotation JSONL generation, pocr-diagnostic replay, POCR aggregation run, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/README.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/reference_boundary_summary.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/source_positive_skills_role_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/prompt_input_role_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/stage_b_evidence_source_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/row_metrics_exporter_boundary_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/aggregator_boundary_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/no_op_control_role_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/pg40_value_interpretation_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/risk_and_fix_recommendations.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/protected_path_review.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/command_log.md`
+- `audits/pocr_pg40_reference_boundary_quality_review_v0/reference_boundary_checklist.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Reference-boundary review verdict: `pass_with_boundary`.
+- Verified `source.sql` is used as transformation origin and source-side semantic oracle input.
+- Verified positive SQL is reference evidence, not an atom source.
+- Verified `skills.md` is the only operation-atom source.
+- Verified candidate SQL is method output under evaluation.
+- Verified SQLGlot no-op is a candidate/control route, not a reference.
+- Verified Stage B requires source-to-candidate transformation evidence and treats candidate/source/positive span presence alone as presence-only or insufficient evidence.
+- Verified row-metrics exporter keeps expected operation atoms, Stage-B-supported operation atoms, presence-only atoms, insufficient-evidence atoms, rejected-noop-equivalent atoms, and semantic guards separate.
+- Verified aggregator reads row metrics only, does not inspect SQL to infer atoms, uses macro-average over `oc_i_fail_closed`, keeps diagnostic micro-average separate, and leaves `POCR@curated=NA` / `curated_manifest_missing`.
+- Issues found: no behavior issue requiring a source fix. Minor recommendation: make future prompt wording explicitly call positive SQL "reference evidence, not atom source" instead of only "context".
+- Blockers before Track A 120: no implementation blocker found, but prompt wording and no-op over-accept checks should be retained as expansion gates.
+
+Validation result:
+- Markdown non-empty checks, optional checklist CSV parse check, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No live API call, annotation JSONL generation, replay rerun, POCR aggregation run, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- If reference boundaries pass, proceed to PG40 quality review / targeted retry decision or Track A 120 POCR diagnostic expansion design; if issues are found, fix prompt/Stage B/exporter boundaries before any expansion.
