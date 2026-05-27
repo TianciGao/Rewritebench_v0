@@ -27791,3 +27791,92 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Apply the minimal provider/prompt/parser fix or run a capped provider health probe, then retry a small batch before any paper-facing POCR promotion review.
+## 2026-05-27 - pocr_provider_health_probe_and_large_retry_v0
+
+Task: `pocr_provider_health_probe_and_large_retry_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Capped provider health probe followed by gated Track A 120 POCR retry batches. Live API was allowed only for the 3-call probe, retry batch 1 up to 100 calls, and retry batch 2 up to 100 more calls after the batch gate passed. No DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_provider_health_probe_and_large_retry_v0/README.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/probe_selection.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/provider_probe_manifest.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/probe_schema_validation.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/provider_health_assessment.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_batch_plan.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_batch_gate_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_annotation_manifest.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_merge_review.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_replay_manifest.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_row_metrics_summary.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/retry_aggregator_summary_copy.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/before_after_value_comparison.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/no_op_overaccept_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/repair1_spark_quality_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/sqlglot_optimize_mysql_spark_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/original_vs_repair1_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/quality_gate_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/output_location_manifest.csv`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/validation_summary.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/protected_path_review.md`
+- `audits/pocr_provider_health_probe_and_large_retry_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Provider health probe ran 3 live calls and produced 2 schema-valid rows plus 1 malformed JSON row.
+- HTTP 401 / insufficient-balance / unauthorized did not recur; provider health verdict is `provider_healthy`.
+- Retry batch 1 ran 100 live calls and produced 87 schema-valid rows.
+- Retry batch 2 gate passed; retry batch 2 ran 100 live calls and produced 78 schema-valid rows.
+- Total live calls were capped at 203/203.
+- Merged schema-valid probe/retry rows replaced 167 original fail-closed rows with identity checks.
+- Offline replay reran for 8 affected route-engine combinations and regenerated row metrics.
+- Aggregation reran over all 12 route-engine row metrics CSVs.
+- Total diagnostic rows accounted: 480/480.
+- Schema-valid rows after retry: 397.
+- Remaining fail-closed rows after retry: 83, including 15 no-candidate rows.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- SQLGlot no-op possible over-accept cases remained 0.
+- Direct LLM original overall diagnostic after retry: `POCR@planned=0.422222222222`, `POCR@candidate=0.422222222222`.
+- Direct LLM Repair-1 overall diagnostic after retry: `POCR@planned=0.344444444444`, `POCR@candidate=0.344444444444`.
+- SQLGlot no-op overall diagnostic after retry: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`.
+- SQLGlot optimize overall diagnostic after retry: `POCR@planned=0.291666666667`, `POCR@candidate=0.333333333333`.
+- Quality gate decision: `another_retry_batch_needed` before paper-facing POCR promotion review.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No blind full retry was run.
+- `POCR@planned` and `POCR@candidate` remain D039 promotion views.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Run one more bounded retry batch for remaining retry-eligible rows or perform manual Stage B/fail-closed review before any paper-facing POCR promotion review.

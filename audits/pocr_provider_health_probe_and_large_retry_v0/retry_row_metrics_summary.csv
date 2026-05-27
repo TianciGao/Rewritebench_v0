@@ -1,0 +1,13 @@
+replay_run_id,method_id,route_id,engine,row_metrics_rows,planned_pocr_eligible_rows,candidate_bound_rows,schema_valid_rows,fail_closed_rows,no_candidate_rows,expected_operation_atoms,stage_b_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,rejected_noop_equivalent_atoms,semantic_guard_atoms,diagnostic_only,official_pocr_computed,paper_metric_promoted
+pocr_user_replay_track_a120_retry_large_direct_llm_original_postgres_v0,direct_llm_original,direct_llm_original_pg40_pocr_diagnostic,postgres,40,40,40,38,2,0,107,43,13,45,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_direct_llm_original_mysql_v0,direct_llm_original,direct_llm_original_pg40_pocr_diagnostic,mysql,40,40,40,35,5,0,107,42,11,39,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_direct_llm_original_spark_v0,direct_llm_original,direct_llm_original_pg40_pocr_diagnostic,spark,40,40,40,38,2,0,107,45,15,41,0,80,true,false,false
+pocr_user_replay_track_a120_direct_llm_repair1_postgres_v0,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,postgres,40,40,40,40,0,0,107,41,11,55,0,80,true,false,false
+pocr_user_replay_track_a120_direct_llm_repair1_mysql_v0,direct_llm_repair_1,direct_llm_repair_1_tri_engine_pocr_pilot_v0,mysql,40,40,40,18,22,0,107,23,3,22,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_direct_llm_repair1_spark_v0,direct_llm_repair_1,direct_llm_repair_1_tri_engine_pocr_pilot_v0,spark,40,40,40,37,3,0,107,44,15,39,0,80,true,false,false
+pocr_user_replay_track_a120_sqlglot_noop_postgres_v0,sqlglot_noop,sqlglot_noop_pg40_pocr_sanity_control,postgres,40,40,40,34,6,0,107,0,15,75,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_sqlglot_noop_mysql_v0,sqlglot_noop,sqlglot_noop_tri_engine_pocr_sanity_control_v0,mysql,40,40,40,31,9,0,107,0,18,67,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_sqlglot_noop_spark_v0,sqlglot_noop,sqlglot_noop_tri_engine_pocr_sanity_control_v0,spark,40,40,40,37,3,0,107,0,19,80,0,80,true,false,false
+pocr_user_replay_track_a120_sqlglot_optimize_postgres_v0,sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_pg40_pocr_diagnostic,postgres,40,40,34,29,11,6,107,34,9,34,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_sqlglot_optimize_mysql_v0,sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_pg40_pocr_diagnostic,mysql,40,40,32,30,10,8,107,26,8,46,0,80,true,false,false
+pocr_user_replay_track_a120_retry_large_sqlglot_optimize_spark_v0,sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_pg40_pocr_diagnostic,spark,40,40,39,30,10,1,107,29,11,40,0,80,true,false,false
