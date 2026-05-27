@@ -1,0 +1,5 @@
+route_label,method_id,route_id,engine,planned_rows,candidate_rows,schema_valid_rows,fail_closed_rows,no_candidate_rows,pocr_planned_macro,pocr_candidate_macro,micro_average_diagnostic,no_op_possible_overaccept,review_status,notes
+Direct LLM original PG40,direct_llm_original,direct_llm_original_pg40_pocr_diagnostic,postgres,40,40,33,7,0,0.395833333333,0.395833333333,0.383177570093,not_applicable,pass_with_boundary,promotion-diagnostic only; not official POCR
+Direct LLM Repair-1 PG40,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,postgres,40,40,40,0,0,0.395833333333,0.395833333333,0.383177570093,not_applicable,pass_with_boundary,promotion-diagnostic only; not official POCR
+SQLGlot no-op PG40,sqlglot_noop,sqlglot_noop_pg40_pocr_sanity_control,postgres,40,40,34,6,0,0.000000000000,0.000000000000,0.000000000000,0,pass_no_op_control,promotion-diagnostic only; not official POCR
+SQLGlot optimize PG40,sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_pg40_pocr_diagnostic,postgres,40,34,29,11,6,0.325000000000,0.382352941176,0.317757009346,not_applicable,pass_with_fail_closed_missing_rows,promotion-diagnostic only; not official POCR

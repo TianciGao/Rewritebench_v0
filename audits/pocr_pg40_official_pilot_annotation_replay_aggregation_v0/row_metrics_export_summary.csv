@@ -1,0 +1,5 @@
+replay_run_id,method_id,route_id,engine,row_metrics_rows,planned_pocr_eligible_rows,candidate_bound_rows,schema_valid_rows,fail_closed_rows,no_candidate_rows,expected_operation_atoms,stage_b_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,rejected_noop_equivalent_atoms,semantic_guard_atoms,diagnostic_only,official_pocr_computed,paper_metric_promoted
+pocr_user_replay_pg40_direct_llm_original_pilot_v0,direct_llm_original,direct_llm_original_pg40_pocr_diagnostic,postgres,40,40,40,33,7,0,107,41,13,33,0,80,true,false,false
+pocr_user_replay_pg40_direct_llm_repair1_pilot_v0,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,postgres,40,40,40,40,0,0,107,41,11,55,0,80,true,false,false
+pocr_user_replay_pg40_sqlglot_noop_pilot_v0,sqlglot_noop,sqlglot_noop_pg40_pocr_sanity_control,postgres,40,40,40,34,6,0,107,0,15,75,0,80,true,false,false
+pocr_user_replay_pg40_sqlglot_optimize_pilot_v0,sqlglot_optimize_schema_aware,sqlglot_optimize_schema_aware_pg40_pocr_diagnostic,postgres,40,40,34,29,11,6,107,34,9,34,0,80,true,false,false

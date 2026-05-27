@@ -27381,3 +27381,87 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If retry and quality gates pass, authorize PG40 official-pilot annotation/replay/aggregation; otherwise perform targeted manual review or retry before expanding.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_pg40_official_pilot_annotation_replay_aggregation_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- PG40 POCR official-metric promotion pilot covering annotation/replay/row-metrics export/aggregation for four PostgreSQL PG40 routes. Live API was allowed only for SQLGlot optimize candidate-present annotation rows. No DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/README.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/pg40_scope.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/route_evidence_reuse_review.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/sqlglot_optimize_missing_rows_failclosed.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/annotation_run_manifest.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/provider_call_manifest_safe.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/annotation_schema_validation_summary.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/replay_run_manifest.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/row_metrics_export_summary.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/pg40_aggregator_summary_copy.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/pg40_value_summary_by_route.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/no_op_overaccept_review.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/sqlglot_optimize_boundary_review.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/repair1_original_reuse_review.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/quality_gate_review.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/output_location_manifest.csv`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/validation_summary.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/protected_path_review.md`
+- `audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- PG40 scope was PostgreSQL Common-core v0, 40 planned rows per route, four routes, and 160 planned route rows total.
+- Reused existing annotation evidence for Direct LLM original, Direct LLM Repair-1, and SQLGlot no-op; replayed each offline to generate durable local row metrics.
+- Ran SQLGlot optimize live annotation only for the 34 candidate-present PG40 rows. Live calls attempted: 34.
+- SQLGlot optimize annotation rows written: 34; schema-valid rows 29; fail-closed annotation rows 5.
+- SQLGlot optimize missing cases `CONS_0009`, `PORT_0004`, `PORT_0013`, `PORT_0022`, `PORT_0024`, and `PORT_0025` remained no-candidate fail-closed for POCR@planned. No SQLGlot no-op substitute candidates were used.
+- Replays emitted 40 rows per route, 160 rows total.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- Row metrics CSVs generated locally: 4.
+- Promotion-diagnostic aggregation completed locally.
+- Direct LLM original: `POCR@planned=0.395833333333`, `POCR@candidate=0.395833333333`.
+- Direct LLM Repair-1: `POCR@planned=0.395833333333`, `POCR@candidate=0.395833333333`.
+- SQLGlot no-op: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`; possible over-accept cases 0.
+- SQLGlot optimize: `POCR@planned=0.325000000000`, `POCR@candidate=0.382352941176`, with six missing rows fail-closed in planned denominator.
+- `POCR@curated` remained `NA` / `curated_manifest_missing`.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, py_compile, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Perform PG40 quality review and optionally targeted retry for fail-closed annotation rows before deciding whether to design Track A 120 POCR diagnostic expansion.
