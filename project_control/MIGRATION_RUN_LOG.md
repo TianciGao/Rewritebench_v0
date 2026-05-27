@@ -27626,3 +27626,94 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - If quality gates pass after retry/review, decide whether to authorize paper-facing POCR metric promotion review; otherwise perform targeted retry and manual Stage B quality review first.
+
+---
+
+Date: 2026-05-27
+
+Task: `pocr_track_a_120_targeted_retry_quality_review_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Commit hash: final commit hash is reported in the task closeout; this entry cannot self-record the final hash before commit creation
+
+Push result: push to `origin/feature/case-package-v2-external-schema` during closeout
+
+Mode:
+- Targeted retry and Stage B quality review for Track A 120 POCR diagnostics. Live API was allowed only for retry-eligible fail-closed annotation rows from the existing Track A 120 diagnostic expansion and capped at 150 calls. No DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/README.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/fail_closed_decomposition.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_plan.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_annotation_manifest.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_merge_review.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_replay_manifest.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_row_metrics_summary.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_aggregator_summary_copy.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/before_after_value_comparison.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/no_op_overaccept_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/repair1_spark_quality_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/sqlglot_optimize_mysql_spark_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/original_vs_repair1_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/quality_gate_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/paper_promotion_readiness.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/output_location_manifest.csv`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/validation_summary.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/protected_path_review.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/command_log.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/retry_batching_plan.md`
+- `audits/pocr_track_a_120_targeted_retry_quality_review_v0/provider_call_manifest_safe.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Decomposed 250 fail-closed row-metrics rows: 235 retry-eligible candidate-bound annotation failures and 15 no-candidate rows that stayed non-retryable and fail-closed.
+- Because retry-eligible rows exceeded the 150-call cap, created a retry batching plan and selected batch 1 by the requested priority order.
+- Batch 1 selected 150 rows: 37 Direct LLM Repair-1 Spark rows, 71 SQLGlot optimize MySQL/Spark rows, and 42 SQLGlot no-op MySQL/Spark control rows.
+- Deferred retry-eligible rows: 85.
+- Live retry calls attempted: 150.
+- Retry schema-valid rows: 0.
+- Retry rows remained fail-closed as `provider_call_failed`: 150.
+- Merged retry outputs with original annotations; no original fail-closed rows were replaced because no retry row was schema-valid.
+- Reran offline `pocr-diagnostic` replay for five affected route-engine combinations.
+- Reran promotion-diagnostic aggregation over all 12 route-engine row metrics.
+- Route mismatch rows: 0.
+- Candidate mismatch rows: 0.
+- Remaining fail-closed row-metrics rows after retry batch: 250, including 15 no-candidate rows.
+- No-op possible over-accept cases remained 0.
+- Direct LLM original overall diagnostic remained `POCR@planned=0.394444444444`, `POCR@candidate=0.394444444444`.
+- Direct LLM Repair-1 overall diagnostic remained `POCR@planned=0.204166666667`, `POCR@candidate=0.204166666667`.
+- SQLGlot no-op overall diagnostic remained `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`.
+- SQLGlot optimize overall diagnostic remained `POCR@planned=0.108333333333`, `POCR@candidate=0.123809523810`.
+- Quality gate decision: `quality_review_needed`.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Resolve the live provider failure and run the next retry batch, or perform manual Stage B/fail-closed review before any paper-facing POCR promotion review.
