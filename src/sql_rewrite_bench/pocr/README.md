@@ -1,96 +1,108 @@
-# POCR Package Boundary
+# POCR package 边界和模块地图
 
-## Purpose
+本文档用中文优先说明 `src/sql_rewrite_bench/pocr/` package。文件名、Python symbol、CLI command、CSV column name 保持英文。
 
-This package implements optional Positive Operation Coverage diagnostic support for SQL-RewriteBench.
+POCR 不是 official paper metric。POCR@planned 和 POCR@candidate 仍然是 D039 promotion views。POCR@curated 暂缓，直到存在预先声明并冻结的 curated denominator manifest。Track A 120 不是 leaderboard。
 
-It parses case-local root-level `skills.md` contracts, supports Stage A candidate annotation, applies conservative Stage B evidence validation, and writes optional D035-style user diagnostic outputs.
+This is not official POCR. No route-level official POCR score is emitted. No paper-facing metric is promoted.
 
-This is not official POCR.
+## package 目的
 
-No route-level POCR score is emitted.
+本 package 实现 optional Positive Operation Coverage diagnostic support。它负责：
 
-No paper-facing metric is promoted.
+- 解析 case-local root-level `skills.md`；
+- 支持 Stage A 标注（Stage A annotation）；
+- 执行 Stage B 证据验证（Stage B evidence validation）；
+- 导出逐行指标（row metrics export）；
+- 汇总 promotion-diagnostic POCR@planned / POCR@candidate。
 
-## Public Entry Points
+它不负责 official metric promotion、paper-facing reports/results、retained evidence promotion、leaderboard output、DB/checker/timing 或 baseline rerun。
 
-Normal users should enter through:
+## 用户入口
+
+普通用户应通过 `sqlrb user` facade 进入：
 
 ```bash
-sqlrb user pocr-diagnostic
+sqlrb user pocr-diagnostic ...
+sqlrb user pocr-aggregate ...
 ```
 
-The public and user-facing entry points are:
+- `pocr-diagnostic`：POCR 诊断回放，读取已有 Stage A annotation JSONL，执行 Stage B 证据验证，写逐行指标。
+- `pocr-aggregate`：POCR 汇总，读取 `pocr_stage_b_row_metrics.csv`，写 `pocr_route_summary.csv`。
 
-- `src/cli/pocr_diagnostic.py`: default-off CLI wrapper for `sqlrb user pocr-diagnostic`.
-- `src/sql_rewrite_bench/pocr/user_facade.py`: stable internal facade used by the CLI.
-- `src/sql_rewrite_bench/pocr/user_output_adapter.py`: D035-style diagnostic output writer.
-- `src/sql_rewrite_bench/pocr/diagnostic_output_schema.py`: row, summary, CSV, and Markdown diagnostic output schema.
+这两个命令都必须显式使用 `--enable-pocr-diagnostic`，默认关闭。它们不自动调用 API。
 
-The command is optional and default-off. It does not run live API calls in annotation-missing or replay mode, does not run DB/checker/timing, does not rerun baselines, and does not compute official metrics.
+## 模块职责
 
-## Stable Internal Core
+### contract / parsing
 
-The stable internal core is:
+- `models.py`：`skills.md` contract 的 dataclass 和 validation issue 类型。
+- `skills_parser.py`：解析 case-local root-level `skills.md`。
+- `validation.py`：校验 skill contract 与 case directory metadata / required sections。
+- `inventory.py`：Common-core inventory scanning 和 parse-only audit helper。
 
-- `models.py`: dataclasses for parsed skill contracts and validation issues.
-- `skills_parser.py`: root-level `skills.md` parser.
-- `validation.py`: contract validation against case directory metadata and required sections.
-- `inventory.py`: Common-core inventory scanning and parse-only audit report helpers.
-- `candidate_resolver.py`: read-only candidate SQL resolver for existing route-labeled candidate roots.
+expected operation atoms 只能来自 `skills.md` 中的 `operation_atom`。不得从 taxonomy、SQL shape、positive SQL、source SQL、candidate SQL、retained evidence 或 ad hoc analysis 推断 atoms。
 
-These modules are implementation internals, but they are the intended foundation for current POCR diagnostic behavior.
+### candidate / annotation
 
-## Stage A Annotation Layer
+- `candidate_resolver.py`：只读解析 existing route-labeled candidate roots。
+- `annotation_schema.py`：Stage A candidate annotation schema 和 validator。
+- `prompt_builder.py`：基于 `skills.md`、source SQL、candidate SQL、positive SQL 构造 deterministic prompt。
+- `annotation_client.py`：fake/offline 和 fail-closed live client 接口。live API 必须显式授权。
+- `json_output_guard.py`：provider response JSON parse guard。
+- `annotation_resolver.py`：只读 annotation JSONL replay resolver。
+- `checkpointed_annotation_runner.py`：Stage A 标注（Stage A annotation）runner，负责 checkpoint、resume、safe JSONL、fail-closed provider rows。
 
-The Stage A annotation layer is:
+Stage A annotation alone is not counted。Stage A 只是结构化声明，不能直接进入 POCR numerator。
 
-- `annotation_schema.py`: strict candidate-level annotation schema and validators.
-- `prompt_builder.py`: deterministic prompt construction from `skills.md`, source SQL, candidate SQL, and optional control SQL.
-- `annotation_client.py`: fake/offline and fail-closed live-client interfaces.
-- `json_output_guard.py`: deterministic JSON parse guard for provider responses.
-- `annotation_resolver.py`: read-only annotation JSONL replay resolver.
+### Stage B evidence validation
 
-Stage A annotation alone is not counted.
+- `evidence_validation.py`：早期 schema / synthetic evidence validation interface。
+- `static_evidence.py`：explicit static evidence reference checks。
+- `transformation_evidence.py`：SQL normalization 和 source/candidate comparison helper。
+- `operation_evidence_policy.py`：Stage B 证据验证的核心策略。
 
-Stage A output is a structured claim source only. It must be checked by Stage B before any diagnostic operation support count is reported.
+`operation_evidence_policy.py` owns Stage B evidence validation。operation support 必须有 source-to-candidate transformation evidence。`candidate_sql_span` / `source_sql_span` / `positive_sql_span` alone is not operation support。
 
-## Stage B Evidence Layer
+`semantic_guard_atom` 可以单独验证和计数，但排除在 operation coverage numerator 和 denominator 之外。
 
-The Stage B evidence layer is:
+### diagnostic replay / output
 
-- `evidence_validation.py`: early schema and synthetic-evidence validation interface.
-- `static_evidence.py`: explicit static evidence reference checks.
-- `transformation_evidence.py`: conservative SQL normalization and source/candidate comparison helpers.
-- `operation_evidence_policy.py`: transformation-aware operation evidence policy.
+- `diagnostic_output_schema.py`：diagnostic row / pool summary / CSV / Markdown schema。
+- `user_facade.py`：组合 candidate resolver、annotation resolver、Stage B diagnostics 和 output writing 的内部 facade。
+- `user_output_adapter.py`：写 D035-style diagnostic output。
+- `stage_b_row_metrics.py`：owns row-level export，写 `pocr_stage_b_row_metrics.csv`。
 
-Stage B transformation-aware validation is diagnostic only.
+`stage_b_row_metrics.py` 只导出 aggregator input。它不计算 route-level POCR，不 promotion paper metric。
 
-Operation support must be transformation-aware and relative to source. `candidate_sql_span`, `source_sql_span`, and `positive_sql_span` alone are presence or comparison evidence, not operation coverage evidence.
+### aggregation
 
-Semantic guard atoms are not part of operation coverage numerator.
+- `pocr_aggregator.py`：owns promotion-diagnostic POCR aggregation。
 
-## User Diagnostic Output Layer
+`pocr_aggregator.py` 读取一个或多个 `pocr_stage_b_row_metrics.csv`，计算 macro-average POCR@planned / POCR@candidate，并输出 `pocr_route_summary.csv`。它必须保持：
 
-The user diagnostic output layer is:
+- `official_pocr_computed=false`
+- `route_level_official_pocr_score_emitted=false`
+- `paper_metric_promoted=false`
+- `leaderboard_output=false`
+- `pocr_curated=NA`
+- `pocr_curated_status=curated_manifest_missing`
 
-- `diagnostic_output_schema.py`: diagnostic row and pool-summary schema.
-- `user_output_adapter.py`: writes user-output files under a caller-provided output root.
-- `user_facade.py`: thin facade that combines candidates, optional annotation JSONL, Stage B diagnostics, and output writing.
+Diagnostic micro-average 只能作为 separately labeled diagnostic，不是 paper formula。
 
-When invoked, outputs go only to D035-style user output paths:
+## 不应该走的 shortcut
 
-```text
-output/results/<run_id>/
-output/logs/<run_id>/
-output/reports/<run_id>/
-```
+- 不要让 `local_metrics.py` own POCR computation。`local_metrics.py` 负责 generation / execution / exact / timing local metrics，不负责 POCR aggregation。
+- 不要从 candidate SQL、positive SQL、source SQL 或 taxonomy 直接生成 operation atoms。
+- 不要把 SQLGlot no-op 当 reference。SQLGlot no-op 是 candidate/control route，不是 reference。
+- 不要把 positive SQL 当 atom source。positive SQL 是 reference evidence，不是 atom source。
+- 不要把 Stage A annotation alone 计入 implemented atoms。
+- 不要把 span presence alone 计入 operation support。
+- 不要从 `output/` 推广到 top-level `reports/` / `results/`，除非有单独授权。
 
-Generated output is local user-run output and should not be committed unless a separate task explicitly authorizes promotion.
+## internal audit helpers
 
-## Internal Audit / Calibration Helpers
-
-The following modules are internal audit helpers, not stable public API:
+以下模块主要用于历史 audit、calibration 或 release-v0 traceability，不是稳定公共 API：
 
 - `draft_runner.py`
 - `pocr_row.py`
@@ -98,31 +110,23 @@ The following modules are internal audit helpers, not stable public API:
 - `live_smoke.py`
 - `calibration_runner.py`
 - `real_route_diagnostic_runner.py`
+- `manual_review.py`
+- `retry_planner.py`
+- `evidence_ref_linter.py`
 
-These modules reproduce or support prior audit packets. They are not default user commands. They must not be used to promote official metrics. They should not write paper-facing reports/results.
+这些模块不得作为 shortcut 来绕开 `pocr-diagnostic` / `stage_b_row_metrics.py` / `pocr_aggregator.py` 的边界。
 
-They remain in place for release-v0 traceability and to avoid import churn before release-critical paths are stable.
+## official promotion gate
 
-## Boundary and Non-Goals
+official metric promotion remains separately gated。当前 package 可以支持 promotion review，但不能自行完成：
 
-This is not official POCR.
+- official POCR computation；
+- route-level official POCR score emission；
+- paper-facing metric promotion；
+- retained-evidence promotion；
+- top-level reports/results update；
+- denominator change；
+- case membership change；
+- global leaderboard。
 
-No route-level POCR score is emitted.
-
-No paper-facing metric is promoted.
-
-Stage A annotation alone is not counted.
-
-Stage B transformation-aware validation is diagnostic only.
-
-Semantic guard atoms are not part of operation coverage numerator.
-
-No global leaderboard is produced.
-
-This package must not infer operation atoms from taxonomy tags, SQL shape, positive SQL, source SQL, candidate SQL, retained evidence, or ad hoc analysis. Operation atoms come from case-local root-level `skills.md` only.
-
-## Future Cleanup Note
-
-A future larger refactor may move audit helpers under `src/dev` or a `pocr/audit` subpackage.
-
-That refactor is not performed now to avoid import churn before release v0. This task only documents boundaries.
+POCR 不等于 correctness。POCR 不等于 speed。Track A 120 不是 leaderboard。

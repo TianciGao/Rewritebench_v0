@@ -28029,3 +28029,67 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Prepare a paper-facing POCR promotion review packet without updating reports/results; do not promote metrics without separate authorization.
+
+Task: `pocr_pipeline_cleanup_user_entry_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- POCR pipeline cleanup, user-entry integration, and Chinese-first documentation. This improves clarity and usability without changing metric semantics. No live API call, API key read, annotation JSONL generation, retry, production pocr-diagnostic replay, production POCR aggregation, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `docs/pocr_pipeline.md`
+- `src/cli/pocr_aggregate.py`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/README.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/cleanup_summary.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/user_entry_review.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/documentation_review.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/terminology_mapping.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/validation_summary.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/protected_path_review.md`
+- `audits/pocr_pipeline_cleanup_user_entry_v0/command_log.md`
+
+Files modified:
+- `src/cli/main.py`
+- `src/sql_rewrite_bench/pocr/README.md`
+- `src/sql_rewrite_bench/user_output.py`
+- `tests/user_entry/test_cli_facade.py`
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added Chinese-first POCR pipeline documentation explaining Stage A annotation, POCR diagnostic replay, Stage B evidence validation, row metrics export, POCR aggregation, source/positive/skills/candidate roles, denominator views, no-op control boundary, and non-goals.
+- Rewrote the POCR package README as a Chinese-first module map documenting ownership: `checkpointed_annotation_runner.py` for Stage A annotation, `operation_evidence_policy.py` for Stage B validation, `stage_b_row_metrics.py` for row-level export, and `pocr_aggregator.py` for promotion-diagnostic aggregation.
+- Added default-off `sqlrb user pocr-aggregate`, requiring `--enable-pocr-diagnostic`, one or more `--row-metrics`, `--run-id`, and `--output-root`.
+- `pocr-aggregate` reads existing `pocr_stage_b_row_metrics.csv` files and writes `output/results/<run_id>/pocr/aggregates/pocr_route_summary.csv`, with optional `output/reports/<run_id>/pocr_route_summary.md`.
+- Cleaned CLI wording so POCR is described as optional diagnostic support via `pocr-diagnostic` and `pocr-aggregate`; it is not an official paper metric unless separately promoted.
+- Added tests for `pocr-aggregate` enable gating, route summary output path, boundary constants, POCR@curated NA / `curated_manifest_missing`, and help text.
+
+Validation result:
+- `python -m py_compile` for changed Python modules, focused CLI tests, full POCR tests, required user-entry tests, Markdown checks, phrase checks, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- `POCR@planned` and `POCR@candidate` remain D039 promotion views.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No live API call, API key read, retry run, annotation generation, production pocr-diagnostic replay, production POCR aggregation, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Prepare a paper-facing POCR promotion review packet or proceed with a human D040 decision only after documentation/user-entry cleanup is accepted.

@@ -13,6 +13,7 @@ import sys
 from argparse import Namespace
 from pathlib import Path
 
+from cli.pocr_aggregate import add_pocr_aggregate_parser, run_pocr_aggregate_command
 from cli.pocr_diagnostic import add_pocr_diagnostic_parser, run_pocr_diagnostic_command
 from sql_rewrite_bench import user_run
 from sql_rewrite_bench.case_selection import ALLOWED_ENGINES, ALLOWED_POOLS, repo_root_from_module
@@ -41,7 +42,9 @@ SQL-RewriteBench user outputs are local diagnostic artifacts only.
 - leaderboard_input: false
 
 Semantic Equivalence Rate is N.A. until formal VeriEQL or SQLSolver evidence
-exists. POCR remains deferred pending external skill-adapter integration.
+exists. POCR is available as optional diagnostic support via pocr-diagnostic
+and pocr-aggregate; it is not an official paper metric unless separately
+promoted.
 
 Promotion to top-level reports/, results/, or retained evidence requires a
 separate authorized task.
@@ -81,6 +84,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_summarize_parser(user_subparsers)
     _add_verify_parser(user_subparsers)
     add_pocr_diagnostic_parser(user_subparsers, epilog=LOCAL_ONLY_EPILOG)
+    add_pocr_aggregate_parser(user_subparsers, epilog=LOCAL_ONLY_EPILOG)
     return parser
 
 
@@ -268,6 +272,8 @@ def _handle_user_command(args: argparse.Namespace) -> int:
         return _verify(args)
     if command == "pocr-diagnostic":
         return run_pocr_diagnostic_command(args, repo_root=repo_root_from_module())
+    if command == "pocr-aggregate":
+        return run_pocr_aggregate_command(args, repo_root=repo_root_from_module())
     raise ValueError(f"unknown user command: {command}")
 
 
@@ -413,7 +419,10 @@ def _compute_local_metrics(args: argparse.Namespace) -> int:
         print(f"local metrics written: {outputs.metrics_dir}")
     print(f"user-facing metrics output: {exported.paths.result_root / 'metrics'}")
     print(f"user-facing metrics report: {exported.paths.report_root / 'metrics_summary.md'}")
-    print("deferred metrics: Semantic Equivalence Rate=N.A. without verifier evidence; POCR=deferred")
+    print(
+        "diagnostic-only metrics: Semantic Equivalence Rate=N.A. without verifier evidence; "
+        "POCR available via pocr-diagnostic and pocr-aggregate; not an official paper metric unless separately promoted"
+    )
     print(
         "boundary: local diagnostic metrics only; official_metric_input=false; "
         "paper_result_input=false; retained_evidence_promoted=false; leaderboard_input=false"
@@ -461,7 +470,8 @@ def _summarize(args: argparse.Namespace) -> int:
         missing_message=(
             "Local metrics: N.A.; metrics were not computed for this exported output.\n\n"
             "- Semantic Equivalence Rate: `N.A.` without verifier evidence\n"
-            "- POCR: deferred pending external skill adapter"
+            "- POCR: optional diagnostic support via pocr-diagnostic and pocr-aggregate; "
+            "not an official paper metric unless separately promoted"
         ),
     )
     _print_report_file(

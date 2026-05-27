@@ -1,4 +1,5 @@
 import io
+import csv
 import json
 import tempfile
 import tomllib
@@ -10,6 +11,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from cli.main import build_parser, main
+from sql_rewrite_bench.pocr.stage_b_row_metrics import stage_b_row_metric_fields
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -69,6 +71,7 @@ class CliFacadeTests(unittest.TestCase):
             "summarize",
             "verify",
             "pocr-diagnostic",
+            "pocr-aggregate",
         ]:
             stdout = io.StringIO()
             with self.assertRaises(SystemExit):
@@ -166,7 +169,8 @@ class CliFacadeTests(unittest.TestCase):
         self.assertIn("Not retained evidence", text)
         self.assertIn("Not leaderboard input", text)
         self.assertIn("Semantic Equivalence Rate is N.A.", text)
-        self.assertIn("POCR remains deferred", text)
+        self.assertIn("POCR is available as optional diagnostic support", text)
+        self.assertIn("not an official paper metric unless separately promoted", text.replace("\n", " "))
 
     def test_evaluate_rejects_unimplemented_verifier_flags(self) -> None:
         with patch("cli.main.user_run.run_user_benchmark") as run_mock:
@@ -239,7 +243,8 @@ class CliFacadeTests(unittest.TestCase):
         self.assertIn("user-facing metrics output", output)
         self.assertIn("metrics_summary.md", output)
         self.assertIn("Semantic Equivalence Rate=N.A.", output)
-        self.assertIn("POCR=deferred", output)
+        self.assertIn("POCR available via pocr-diagnostic and pocr-aggregate", output)
+        self.assertIn("not an official paper metric unless separately promoted", output)
         self.assertIn("official_metric_input=false", output)
         self.assertIn("paper_result_input=false", output)
         self.assertIn("retained_evidence_promoted=false", output)
@@ -516,6 +521,80 @@ class CliFacadeTests(unittest.TestCase):
         )
         self.assertEqual(code, 2)
 
+    def test_pocr_aggregate_requires_enable_flag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            row_metrics = _write_pocr_row_metrics(Path(tmp) / "pocr_stage_b_row_metrics.csv")
+            stderr = io.StringIO()
+            with redirect_stderr(stderr):
+                code = main(
+                    [
+                        "user",
+                        "pocr-aggregate",
+                        "--row-metrics",
+                        row_metrics.as_posix(),
+                        "--run-id",
+                        "pocr_aggregate_demo",
+                        "--output-root",
+                        (Path(tmp) / "output").as_posix(),
+                    ]
+                )
+        self.assertEqual(code, 2)
+        self.assertIn("--enable-pocr-diagnostic", stderr.getvalue())
+
+    def test_pocr_aggregate_writes_route_summary_under_output_results(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row_metrics = _write_pocr_row_metrics(root / "pocr_stage_b_row_metrics.csv")
+            output_root = root / "output"
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = main(
+                    [
+                        "user",
+                        "pocr-aggregate",
+                        "--enable-pocr-diagnostic",
+                        "--row-metrics",
+                        row_metrics.as_posix(),
+                        "--run-id",
+                        "pocr_aggregate_demo",
+                        "--output-root",
+                        output_root.as_posix(),
+                    ]
+                )
+
+            self.assertEqual(code, 0)
+            summary_path = output_root / "results" / "pocr_aggregate_demo" / "pocr" / "aggregates" / "pocr_route_summary.csv"
+            report_path = output_root / "reports" / "pocr_aggregate_demo" / "pocr_route_summary.md"
+            self.assertTrue(summary_path.exists())
+            self.assertTrue(report_path.exists())
+            with summary_path.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["pocr_planned_macro"], "0.500000000000")
+            self.assertEqual(rows[0]["pocr_candidate_macro"], "0.500000000000")
+            self.assertEqual(rows[0]["pocr_curated"], "NA")
+            self.assertEqual(rows[0]["pocr_curated_status"], "curated_manifest_missing")
+            self.assertEqual(rows[0]["official_pocr_computed"], "false")
+            self.assertEqual(rows[0]["route_level_official_pocr_score_emitted"], "false")
+            self.assertEqual(rows[0]["paper_metric_promoted"], "false")
+            self.assertEqual(rows[0]["leaderboard_output"], "false")
+            output = stdout.getvalue()
+            self.assertIn("pocr-aggregate complete", output)
+            self.assertIn("official_pocr_computed=false", output)
+            self.assertFalse((root / "reports").exists())
+            self.assertFalse((root / "results").exists())
+
+    def test_pocr_aggregate_help_does_not_imply_official_promotion(self) -> None:
+        stdout = io.StringIO()
+        with self.assertRaises(SystemExit):
+            with redirect_stdout(stdout):
+                main(["user", "pocr-aggregate", "--help"])
+        help_text = stdout.getvalue().replace("-\n", "-").replace("\n", " ")
+        self.assertIn("promotion-diagnostic", help_text)
+        self.assertIn("does not call APIs", help_text)
+        self.assertIn("compute official POCR", help_text)
+        self.assertNotIn("paper-facing metric is promoted", help_text.lower())
+
     def test_pyproject_exposes_sqlrb_console_script(self) -> None:
         pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(pyproject["project"]["scripts"]["sqlrb"], "cli.main:main")
@@ -523,6 +602,50 @@ class CliFacadeTests(unittest.TestCase):
 
 def _read_jsonl(path: Path) -> list[dict[str, object]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _write_pocr_row_metrics(path: Path) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    row = {
+        "run_id": "pocr_row_fixture",
+        "case_set_id": "common_core_v0",
+        "denominator_scope": "pg40_postgres_only",
+        "case_id": "PERF_0006",
+        "pool": "PERF",
+        "engine": "postgres",
+        "method_id": "fixture_method",
+        "route_id": "fixture_route",
+        "candidate_sha256": "a" * 64,
+        "planned_pocr_eligible": "true",
+        "candidate_bound": "true",
+        "annotation_status": "schema_valid",
+        "replay_row_present": "true",
+        "route_mismatch": "false",
+        "candidate_mismatch": "false",
+        "expected_operation_atoms": "2",
+        "stage_b_supported_operation_atoms": "1",
+        "presence_only_operation_atoms": "0",
+        "insufficient_transformation_evidence_atoms": "1",
+        "rejected_noop_equivalent_atoms": "0",
+        "semantic_guard_atoms": "1",
+        "oc_i": "0.500000000000",
+        "oc_i_fail_closed": "0.500000000000",
+        "pocr_planned_denominator_member": "true",
+        "pocr_candidate_denominator_member": "true",
+        "pocr_curated_denominator_member": "false",
+        "fail_closed_status": "none",
+        "not_applicable_reason": "none",
+        "diagnostic_only": "true",
+        "official_pocr_computed": "false",
+        "route_level_pocr_aggregated": "false",
+        "paper_metric_promoted": "false",
+        "notes": "fixture diagnostic row",
+    }
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=stage_b_row_metric_fields(), lineterminator="\n")
+        writer.writeheader()
+        writer.writerow(row)
+    return path
 
 
 if __name__ == "__main__":

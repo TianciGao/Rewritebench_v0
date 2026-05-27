@@ -368,7 +368,10 @@ def write_metrics_summary_report(source_metrics_dir: Path, report_root: Path) ->
                 "- Generation/Execution/Result Consistency: `N.A.`",
                 "- Performance: `N.A.`",
                 "- Semantic Equivalence Rate: `N.A.` without verifier evidence",
-                "- POCR: deferred pending external skill adapter",
+                (
+                    "- POCR: optional diagnostic support via `pocr-diagnostic` and "
+                    "`pocr-aggregate`; not an official paper metric unless separately promoted"
+                ),
                 "",
             ]
         )
