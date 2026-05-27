@@ -27964,3 +27964,68 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Perform manual Stage B/fail-closed review and route-mismatch triage before any paper-facing POCR promotion review packet.
+
+Task: `pocr_track_a_120_manual_stage_b_failclosed_review_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Manual Stage B / fail-closed / route-mismatch quality review for Track A 120 POCR diagnostics. No live API call, API key read, annotation JSONL generation, retry batch, pocr-diagnostic replay rerun, POCR aggregation rerun, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/README.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/remaining_fail_closed_review.csv`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/route_mismatch_triage.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/no_op_control_review.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/sqlglot_optimize_boundary_review.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/manual_stage_b_sample_review.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/promotion_readiness_assessment.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/final_values_boundary_note.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/risk_register.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/protected_path_review.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/command_log.md`
+- `audits/pocr_track_a_120_manual_stage_b_failclosed_review_v0/review_summary_by_route_engine.csv`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Reviewed all 36 remaining final Track A 120 fail-closed row-metrics rows.
+- Classified remaining fail-closed rows as 20 `annotation_schema_invalid_remaining`, 15 `sqlglot_optimize_no_candidate_expected_fail_closed`, and 1 `route_mismatch`.
+- Triaged the single route mismatch row: `CONS_0011` / Direct LLM Repair-1 / MySQL. The safe annotation row envelope, method, engine, candidate SHA, and replay configuration were aligned, while the nested provider annotation route id was `direct_llm_repair_1_tri_pocr_pilot_v0` instead of expected `direct_llm_repair_1_tri_engine_pocr_pilot_v0`. The row remains fail-closed with zero operation support.
+- Confirmed candidate mismatch rows remain 0.
+- Confirmed SQLGlot no-op transformation-supported operation atoms remain 0 across PostgreSQL, MySQL, and Spark, with possible over-accept cases 0.
+- Confirmed SQLGlot optimize has 15 no-candidate rows retained fail-closed for POCR@planned and excluded from POCR@candidate; no SQLGlot no-op substitutes were used.
+- Reviewed 10 representative Stage B rows covering Repair-1 Spark support/insufficient evidence, SQLGlot optimize MySQL/Spark support, a no-candidate optimize row, SQLGlot no-op zero/control rows, Direct original support/fail-closed rows, and the route mismatch row.
+- Promotion-readiness verdict: `ready_with_boundary` for preparing a paper-facing POCR promotion review packet, without promoting metrics or updating reports/results.
+
+Validation result:
+- CSV parse checks, Markdown non-empty checks, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- `POCR@planned` and `POCR@candidate` remain D039 promotion views.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No live API call, API key read, retry run, annotation generation, pocr-diagnostic replay rerun, POCR aggregation rerun, DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Prepare a paper-facing POCR promotion review packet without updating reports/results; do not promote metrics without separate authorization.
