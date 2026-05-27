@@ -28093,3 +28093,52 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Prepare a paper-facing POCR promotion review packet or proceed with a human D040 decision only after documentation/user-entry cleanup is accepted.
+
+Task: `dev_environment_bootstrap_scripts_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Add lightweight developer environment bootstrap scripts and Chinese-first setup documentation. No experiment run, live API call, API key read, DB/checker/timing run, baseline rerun, POCR annotation/replay/aggregation, official POCR computation, paper metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `scripts/setup_dev_env_ubuntu.sh`
+- `scripts/check_dev_env.sh`
+- `docs/dev_environment_zh.md`
+- `audits/dev_environment_bootstrap_scripts_v0/README.md`
+- `audits/dev_environment_bootstrap_scripts_v0/implementation_summary.md`
+- `audits/dev_environment_bootstrap_scripts_v0/validation_summary.md`
+- `audits/dev_environment_bootstrap_scripts_v0/protected_path_review.md`
+- `audits/dev_environment_bootstrap_scripts_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added an Ubuntu / WSL Ubuntu setup script that installs the requested apt packages, creates/reuses `.venv`, upgrades pip/setuptools/wheel, installs `.[sqlglot]`, installs `pytest`, and prints next commands.
+- Added a local environment check script that records OS/kernel/tool versions, activates `.venv`, runs CLI help checks for `cli.main`, `pocr-diagnostic`, and `pocr-aggregate`, runs focused POCR/user-entry tests, and writes `output/reports/dev_env_check_<timestamp>/environment_report.txt` when executed by a developer.
+- Added Chinese-first developer environment documentation with recommended versions, one-command setup/check, installed and non-installed components, API-key boundary, optional DB/Spark advanced setup, `output/` local-output policy, `git add .` warning, and collaborator branch workflow.
+
+Validation result:
+- Shell syntax/static checks, focused POCR tests, focused user-entry tests, protected-path review, secret scans, and `git diff --check` are run during closeout.
+
+Boundary:
+- No experiment run occurred.
+- No live API call or API key read occurred.
+- No DB/checker/timing run or baseline rerun occurred.
+- No POCR annotation, replay, or aggregation occurred.
+- No official POCR was computed.
+- No paper metric was promoted.
+- No top-level reports/results were updated.
+- No `output/` artifact was staged or committed.
+- No cases, skills, candidate SQL, denominator, case membership, paper results, raw legacy evidence, credentials, retained evidence, or leaderboard output changed.
+
+Next safe action:
+- Collaborators may run `bash scripts/setup_dev_env_ubuntu.sh` and `bash scripts/check_dev_env.sh` on Ubuntu / WSL Ubuntu, keeping local `output/` reports uncommitted.
