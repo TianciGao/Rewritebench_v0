@@ -27717,3 +27717,77 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Resolve the live provider failure and run the next retry batch, or perform manual Stage B/fail-closed review before any paper-facing POCR promotion review.
+
+## 2026-05-27 - pocr_track_a_120_provider_failure_root_cause_v0
+
+Task: `pocr_track_a_120_provider_failure_root_cause_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Root-cause audit for Track A 120 POCR provider/schema-validation failures. No live API call was made, no API key was read, no bulk retry was run, and no DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/README.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/failure_decomposition.csv`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/provider_error_taxonomy.csv`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/prompt_size_and_shape_review.csv`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/response_schema_review.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/json_extraction_review.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/retry_effectiveness_review.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/representative_failure_samples.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/root_cause_assessment.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/recommended_fix_plan.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/optional_live_probe_plan.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/live_probe_not_run.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/validation_summary.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/protected_path_review.md`
+- `audits/pocr_track_a_120_provider_failure_root_cause_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Decomposed 250 fail-closed rows from the Track A 120 diagnostic/retry artifacts.
+- Reviewed the 150-row targeted retry batch that produced 0 schema-valid rows.
+- The most common failure class is provider configuration/provider-call failure, with representative safe excerpts showing HTTP 401 / insufficient-balance responses.
+- Earlier malformed JSON and timeout rows remain secondary parser/prompt hardening candidates, but the retry blocker is provider health/configuration.
+- Root cause verdict: `provider_config_issue`.
+- Confidence: high.
+- Optional live probe run: no.
+- Bulk retry run: no.
+- Code changes made: no.
+- Recommended fix: fix provider account/configuration or run a capped provider health probe, then retry only a small batch before any broader retry or paper-facing POCR promotion review.
+
+Validation result:
+- CSV parse checks, Markdown non-empty checks, required phrase checks, POCR module `py_compile`, `pytest tests/pocr -q`, and `pytest tests/user_entry/test_pocr_optional_user_run_integration.py tests/user_entry/test_cli_facade.py -q` passed during closeout.
+- Protected-path review, changed-file secret scan, staged secret scan, `git diff --check`, and final status checks are run during commit closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- No bulk retry is run.
+- `POCR@planned` and `POCR@candidate` remain D039 promotion views.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Apply the minimal provider/prompt/parser fix or run a capped provider health probe, then retry a small batch before any paper-facing POCR promotion review.
