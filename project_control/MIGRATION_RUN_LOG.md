@@ -27880,3 +27880,87 @@ Raw legacy evidence changed: no
 
 Next safe action:
 - Run one more bounded retry batch for remaining retry-eligible rows or perform manual Stage B/fail-closed review before any paper-facing POCR promotion review.
+## 2026-05-27 - pocr_track_a_120_final_retry_promotion_readiness_v0
+
+Task: `pocr_track_a_120_final_retry_promotion_readiness_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Final bounded retry and promotion-readiness review for Track A 120 POCR diagnostics. Live API was allowed only for remaining retry-eligible Track A 120 POCR fail-closed rows, capped at 100 calls. No blind full retry, DB/checker/timing run, baseline rerun, candidate SQL generation/mutation, official POCR computation, route-level official POCR score emission, paper-facing metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/README.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/remaining_fail_closed_decomposition.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_plan.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_annotation_manifest.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_merge_review.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_replay_manifest.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_row_metrics_summary.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/final_retry_aggregator_summary_copy.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/before_after_value_comparison.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/no_op_overaccept_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/sqlglot_optimize_boundary_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/repair1_spark_final_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/original_vs_repair1_final_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/promotion_readiness_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/output_location_manifest.csv`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/validation_summary.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/protected_path_review.md`
+- `audits/pocr_track_a_120_final_retry_promotion_readiness_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Reused D039 without modifying `project_control/DECISION_LOG.md`.
+- Decomposed 83 remaining fail-closed rows from the provider-recovery large-retry output: 68 candidate-bound retry-eligible schema-invalid rows and 15 non-retryable SQLGlot optimize no-candidate rows.
+- Final retry selected all 68 retry-eligible rows under the 100-call cap.
+- Final retry live calls attempted: 68.
+- Final retry schema-valid rows: 48.
+- Final retry rows still fail-closed: 20, consisting of 15 malformed JSON rows, 4 timeout rows, and 1 schema-invalid route-id mismatch row.
+- Merged final retry rows with latest Track A 120 annotation state after case/engine/method/route/candidate-SHA checks.
+- Offline replay reran for 11 affected route-engine combinations.
+- Aggregation reran over all 12 route-engine row metrics CSVs.
+- Total diagnostic rows accounted: 480/480.
+- Schema-valid rows after final retry: 444.
+- Remaining fail-closed rows after final retry: 36, including 15 no-candidate rows and 1 fail-closed route-mismatch row.
+- Route mismatch rows: 1, fail-closed on `CONS_0011` / Direct LLM Repair-1 / MySQL.
+- Candidate mismatch rows: 0.
+- SQLGlot no-op possible over-accept cases remained 0.
+- Direct LLM original overall diagnostic after final retry: `POCR@planned=0.425000000000`, `POCR@candidate=0.425000000000`.
+- Direct LLM Repair-1 overall diagnostic after final retry: `POCR@planned=0.388888888889`, `POCR@candidate=0.388888888889`.
+- SQLGlot no-op overall diagnostic after final retry: `POCR@planned=0.000000000000`, `POCR@candidate=0.000000000000`.
+- SQLGlot optimize overall diagnostic after final retry: `POCR@planned=0.330555555555`, `POCR@candidate=0.377777777778`.
+- Promotion-readiness verdict: `manual_stage_b_review_needed`.
+
+Validation result:
+- CSV parse checks, JSONL parse checks, row metrics parse checks, aggregator summary parse check, Markdown non-empty checks, required phrase checks, pytest suites, protected-path review, changed-file secret scan, staged secret scan, and `git diff --check` are run during closeout.
+
+Boundary:
+- This is not official POCR.
+- No route-level official POCR score was emitted.
+- No paper-facing metric was promoted.
+- `POCR@planned` and `POCR@candidate` remain D039 promotion views.
+- `POCR@curated` remains `NA` / `curated_manifest_missing`.
+- No DB/checker/timing run, baseline rerun, candidate SQL generation, or candidate SQL mutation occurred.
+- No top-level reports/results update, retained-evidence promotion, output commit, denominator change, case membership change, paper result change, raw legacy evidence change, or leaderboard output occurred.
+- API key values were not printed, written, staged, or committed.
+
+Denominator changed: no
+
+Paper results changed: no
+
+Case membership changed: no
+
+Raw legacy evidence changed: no
+
+Next safe action:
+- Perform manual Stage B/fail-closed review and route-mismatch triage before any paper-facing POCR promotion review packet.
