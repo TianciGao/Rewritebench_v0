@@ -1,0 +1,40 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "wave_a_post_conversion_parity_review": true,
+  "wave_a_case_ids": [
+    "PERF_0008",
+    "PERF_0013",
+    "PERF_0017",
+    "PERF_0019",
+    "PERF_0024"
+  ],
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "wave_a_clean_template_minimal_passed": true,
+  "manifest_consistency_passed": true,
+  "remaining_wave_a_gaps": "none",
+  "remaining_wave_a_gap_count": 0,
+  "ready_for_wave_b": true,
+  "wave_a_validator_passed": true,
+  "pilot_validator_passed": true,
+  "unit_tests_passed": true,
+  "case_files_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a bounded Common-core v2 Wave B conversion for schema-grouped non-PORT cases only, preserving protected surfaces and excluding Wave C/PORT manual-review cases."
+}

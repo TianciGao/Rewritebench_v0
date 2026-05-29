@@ -1,0 +1,13 @@
+check_name,status,details
+no case files modified,pass,"Review writes are limited to audit outputs and project-control files; no case package edits were made."
+no schemas modified,pass,"Schemas were inspected read-only; no schema files were modified."
+no case_sets changed,pass,"No files under case_sets/ were modified."
+no inventory changed,pass,"No files under inventory/ were modified."
+no reports/results changed,pass,"No files under reports/ or results/ were modified."
+no denominator changed,pass,"No denominator files or denominator values were modified."
+no paper results changed,pass,"No paper-result artifacts were modified or recomputed."
+no official metrics computed,pass,"No official metric computation was run."
+no DB/checker execution,pass,"Only static validators and unit tests were run; no DB/checker execution was performed."
+no global leaderboard,pass,"No leaderboard output was created."
+dialect variants retained,pass,"cases/PORT/PORT_0005/sql/dialect_variants/spark/ remains present."
+no evidence/cases created,pass,"evidence/cases/PORT/PORT_0005 does not exist."

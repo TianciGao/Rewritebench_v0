@@ -1,0 +1,3 @@
+failure_bucket,row_count,source_related,target_related,checker_related,schema_related,normalization_related,interpretation
+mismatch,4,false,false,true,false,true,"Both DB executions succeeded; mismatch is local checker/normalization comparison output, not an execution failure."
+none,1,false,false,false,false,false,"No failure; source, target, and checker exact for the row."

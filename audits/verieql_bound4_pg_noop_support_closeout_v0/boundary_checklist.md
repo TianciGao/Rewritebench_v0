@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+- new VeriEQL pairs run: no
+- SQLSolver run performed: no
+- official Semantic Equivalence Rate computed: no
+- local diagnostic closeout summary produced: yes
+- official metrics computed: no
+- top-level reports/results updated: no
+- retained evidence promoted: no
+- leaderboard created: no
+- denominator changed: no
+- case membership changed: no
+- paper results changed: no
+- raw legacy evidence changed: no
+- reports/results changed: no
+- raw retained evidence changed: no
+- dependencies installed: no
+- VeriEQL patched/copied/vendorized: no
+- VeriEQL source tree modified: no
+- repository case SQL or DDL rewritten: no
+- repository-level `output` runtime artifacts committed: no
+- `runs/user` outputs committed: no

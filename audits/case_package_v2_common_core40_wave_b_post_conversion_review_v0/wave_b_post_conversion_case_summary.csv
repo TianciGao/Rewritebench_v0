@@ -1,0 +1,23 @@
+case_id,pool,validator_status,clean_template_minimal,manifest_consistency,schema_policy_status,evidence_policy_status,forbidden_paths_absent,remaining_gaps,ready_for_wave_c_planning,notes
+PERF_0033,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0034,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0035,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0052,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0054,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0056,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0062,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0077,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+PERF_0082,PERF,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0007,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0009,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0010,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0011,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0012,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0024,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0036,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+CONS_0037,CONS,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+LONGTAIL_0012,LONGTAIL,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+LONGTAIL_0013,LONGTAIL,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+LONGTAIL_0022,LONGTAIL,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+LONGTAIL_0023,LONGTAIL,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking
+LONGTAIL_0024,LONGTAIL,pass,true,pass,pass,pass,true,none,true,Wave B case is clean-template-minimal v2; README section-order warning is non-blocking

@@ -1,0 +1,30 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "pilot_leftover_compat_dirs_cleanup": true,
+  "target_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "candidate_dirs_checked": 15,
+  "dirs_deleted_count": 15,
+  "dirs_skipped_count": 0,
+  "case_files_modified": true,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "evidence_cases_created": false,
+  "dialect_variants_deleted": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Rerun the read-only Common-core 40 v2 final closeout; if clean-template-minimal passes for all 40 cases, perform the separate PERF_0077/PERF_0082 source-path provenance follow-up before public release closeout."
+}

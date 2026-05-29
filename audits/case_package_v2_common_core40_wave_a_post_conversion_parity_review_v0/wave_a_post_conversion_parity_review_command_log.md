@@ -1,0 +1,23 @@
+# Wave A Post-Conversion Parity Review Command Log
+
+- `pwd` -> `/home/tianci_gao/code/Rewritebench_v0`.
+- `git branch --show-current` -> `feature/case-package-v2-external-schema`.
+- `git remote -v` -> origin GitHub remote.
+- `git status -sb` -> clean at task start.
+- `git log --oneline -5` -> reviewed latest branch commits.
+- Read project-control files, Wave A conversion outputs, Common-core 40 conversion plan outputs, and accepted pilot parity outputs.
+- Ran static v2 validator for `PERF_0008`, `PERF_0013`, `PERF_0017`, `PERF_0019`, and `PERF_0024` -> all passed.
+- Ran static v2 validator for `PERF_0006`, `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` -> all passed.
+- Ran `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v` -> 11 tests passed.
+- Inspected Wave A case-local trees -> no clean-template-disallowed directories or old engine validation scripts present.
+- Rechecked Wave A manifests -> canonical v2 core shape and regeneration-first evidence policy passed.
+- Rechecked Wave A schema profiles -> case-local schema profiles and external schema package refs resolve.
+- Generated read-only audit outputs and project-control writeback.
+- Ran summary JSON assertion -> passed.
+- Ran audit CSV header parse -> passed.
+- Ran protected boundary diff check -> no `cases/`, `schemas/`, `case_sets/`, inventory, reports, or results changes.
+- Ran `git diff --stat` -> only project-control tracked changes plus untracked audit outputs before staging.
+- Ran initial staged `git diff --check` -> found CRLF line endings in generated CSVs.
+- Normalized generated CSV line endings to LF.
+- Re-ran `git diff --check` -> passed.
+- Ran final pre-stage `git status -sb` -> only the audit directory and project-control files were changed.

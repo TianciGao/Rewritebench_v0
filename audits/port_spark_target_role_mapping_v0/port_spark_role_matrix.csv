@@ -1,0 +1,10 @@
+case_id,spark_diagnostic_mode,source_reference_engine,target_candidate_engine,target_reference_query,controlled_status,unsupported_reason,notes
+PORT_0003,cross_dialect_reference,postgres,spark,sql/dialect_variants/spark/pos_02_spark.sql,declared_target_reference,,Spark variant path exists under established dialect variant convention.
+PORT_0004,cross_dialect_reference,mysql,spark,sql/dialect_variants/spark/pos_02_spark.sql,declared_target_reference,,Manifest declares Spark dialect variant asset.
+PORT_0005,cross_dialect_reference,postgres,spark,sql/dialect_variants/spark/pos_02_spark.sql,declared_target_reference,,Manifest declares Spark dialect variant asset.
+PORT_0008,unsupported,,spark,,fail_closed,spark_target_reference_not_declared,No safe Spark target reference declared.
+PORT_0012,unsupported,,spark,,fail_closed,spark_target_reference_not_declared,No safe Spark target reference declared.
+PORT_0013,cross_dialect_reference,mysql,spark,sql/dialect_variants/spark/pos_02_spark.sql,declared_target_reference,,Manifest declares Spark dialect variant asset.
+PORT_0022,unsupported,,spark,,fail_closed,spark_target_reference_not_declared,No safe Spark target reference declared.
+PORT_0024,unsupported,,spark,,fail_closed,spark_target_reference_not_declared,No safe Spark target reference declared.
+PORT_0025,unsupported,,spark,,fail_closed,spark_target_reference_not_declared,No safe Spark target reference declared.

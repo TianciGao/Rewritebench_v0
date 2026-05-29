@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Reports/results changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Leaderboard created: no.
+- Release/export/tag created: no.
+- Retained evidence promoted: no.
+- `runs/user/` outputs committed: no.
+- SQLGlot adapter behavior changed: no.
+- Checker normalization changed: no.
+- Case packages changed: no.
+- SQL files changed: no.
+- Manifest files changed: no.
+- Schema/checker/validation files changed: no.
+- Full Common-core rerun performed: no.
+- SQLGlot optimize run: no.

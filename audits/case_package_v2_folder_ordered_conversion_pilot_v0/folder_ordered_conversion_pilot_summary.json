@@ -1,0 +1,51 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "writable_conversion_pilot": true,
+  "converted_layers": [
+    "manifest",
+    "sql",
+    "schema"
+  ],
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_converted": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_deferred": [],
+  "schemas_created_or_reused": [
+    "tpch_common_core_v0",
+    "tpch_perf0007_v0",
+    "calcite_core_sql_tests_cons0005_v0",
+    "parrot_bird_port0003_v0",
+    "sqlstorm_stackoverflow_longtail0011_v0"
+  ],
+  "case_files_modified": true,
+  "checker_modified": false,
+  "validation_modified": false,
+  "witness_modified": false,
+  "evidence_modified": false,
+  "metadata_modified": false,
+  "notes_modified": false,
+  "runs_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_profile_first_validator_compatibility_v0 to update the static resolver/tests for profile-first schema_ref before checker/validation layer conversion."
+}

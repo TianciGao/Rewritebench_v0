@@ -1,0 +1,36 @@
+case_id,manifest_section,current_shape,proposed_v2_shape,compatibility_block_needed,automatic_safe,notes
+PERF_0006,sql,canonical direct source positives negatives,keep canonical direct lists,yes,true,Already normalized.
+PERF_0006,schema_ref,canonical schema_ref.engines with tpch_common_core_v0,keep existing schema_ref,yes,true,External schema exists.
+PERF_0006,checker,canonical checker.config shape,keep existing checker refs,no,true,Already normalized.
+PERF_0006,witness,source_as_oracle with canonical statuses,keep existing witness policy,no,true,Already normalized.
+PERF_0006,evidence_ref,pending externalization with case-local compatibility refs,keep pending externalization,yes,true,External evidence copy remains future task.
+PERF_0006,validation,canonical wrappers present,keep canonical wrapper refs,yes,true,Engine-specific scripts retained in compatibility.
+PERF_0006,compatibility,top-level compatibility present,keep and extend only if needed,yes,true,Used as canonical example.
+PERF_0007,sql,mapping entries pointing to sql/positives and sql/negatives,direct lists sql/pos_01.sql and sql/neg_01.sql,yes,true,Direct files must be copy-first created.
+PERF_0007,schema,top-level case-local schema block,schema_ref schema_id tpch_perf0007_v0 with engines,yes,false,Manual review because existing tpch_common_core_v0 differs.
+PERF_0007,checker,checker.checker compatibility key,checker.config canonical key,no,true,Assets exist.
+PERF_0007,witness,missing witness policy,source_as_oracle with external_or_generated and unavailable_or_materialized statuses,no,true,No static witness required for runtime source-as-oracle.
+PERF_0007,evidence,top-level case-local evidence block,evidence_ref pending_copy_first_externalization,yes,false,Public hygiene and copy-first plan needed.
+PERF_0007,validation,engine-specific entries only,canonical wrappers plus compatibility.validation_legacy,yes,false,Wrappers missing and scripts contain unique engine logic.
+PERF_0007,compatibility,absent,compatibility sql_legacy case_local_schema validation_legacy evidence_legacy,yes,true,Needed to preserve v1 metadata.
+CONS_0005,sql,mapping entries pointing to sql/positives and sql/negatives,direct lists sql/pos_01.sql and sql/neg_01.sql,yes,true,Direct files must be copy-first created.
+CONS_0005,schema,top-level case-local schema block,schema_ref schema_id calcite_core_sql_tests_cons0005_v0 with engines,yes,false,External schema id needs review.
+CONS_0005,checker,checker.checker compatibility key,checker.config canonical key,no,true,Assets exist.
+CONS_0005,witness,missing witness policy,source_as_oracle with external_or_generated and unavailable_or_materialized statuses,no,true,No static witness required for runtime source-as-oracle.
+CONS_0005,evidence,top-level case-local evidence block,evidence_ref pending_copy_first_externalization,yes,false,Public hygiene and copy-first plan needed.
+CONS_0005,validation,engine-specific entries only,canonical wrappers plus compatibility.validation_legacy,yes,false,Wrappers missing and scripts need review.
+CONS_0005,compatibility,absent,compatibility sql_legacy case_local_schema validation_legacy evidence_legacy,yes,true,Needed to preserve v1 metadata.
+PORT_0003,sql,mapping entries plus dialect_variants,direct lists plus compatibility.sql_dialect_variants,yes,false,Dialect variants need policy in compatibility block.
+PORT_0003,schema,top-level case-local schema block,schema_ref schema_id parrot_bird_port0003_v0 with engines,yes,false,External schema id needs review.
+PORT_0003,checker,checker.checker compatibility key,checker.config canonical key,no,true,Assets exist.
+PORT_0003,witness,missing witness policy,source_as_oracle with external_or_generated and unavailable_or_materialized statuses,no,true,Fixture witness rows should be externalized or referenced.
+PORT_0003,evidence,top-level case-local evidence block,evidence_ref pending_copy_first_externalization,yes,false,Variant evidence requires review.
+PORT_0003,validation,engine-specific entries only,canonical wrappers plus compatibility.validation_legacy,yes,false,Portability scripts contain unique logic.
+PORT_0003,compatibility,absent,compatibility sql_legacy sql_dialect_variants case_local_schema validation_legacy evidence_legacy,yes,false,Dialect variant block required.
+LONGTAIL_0011,sql,mapping entries pointing to sql/positives and sql/negatives,direct lists sql/pos_01.sql and sql/neg_01.sql,yes,true,Direct files must be copy-first created.
+LONGTAIL_0011,schema,top-level case-local schema block,schema_ref schema_id sqlstorm_stackoverflow_longtail0011_v0 with engines,yes,false,External schema id needs review.
+LONGTAIL_0011,checker,checker.checker compatibility key,checker.config canonical key,no,true,Assets exist.
+LONGTAIL_0011,witness,missing witness policy,source_as_oracle with external_or_generated and unavailable_or_materialized statuses,no,true,Static witness not required but structural notes must persist.
+LONGTAIL_0011,evidence,top-level case-local evidence block,evidence_ref pending_copy_first_externalization,yes,false,Rich retained evidence needs hygiene review.
+LONGTAIL_0011,validation,engine-specific entries only,canonical wrappers plus compatibility.validation_legacy,yes,false,Structural scripts contain unique logic.
+LONGTAIL_0011,compatibility,absent,compatibility sql_legacy case_local_schema validation_legacy evidence_legacy structural_metadata,yes,false,Structural metadata must be preserved.

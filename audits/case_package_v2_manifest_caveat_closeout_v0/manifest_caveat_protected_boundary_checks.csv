@@ -1,0 +1,11 @@
+check_name,status,details
+no case_sets changed,pass,No edits staged or made under case_sets/.
+no inventory changed,pass,No edits staged or made under inventory/.
+no reports/results changed,pass,No edits made under reports/ or results/.
+no denominator changed,pass,No denominator files changed.
+no paper results changed,pass,No paper result files changed.
+no official metrics computed,pass,Only static validators/tests were run; no metric computation.
+no DB/checker execution,pass,Only static v2 validator and unit tests were run.
+no global leaderboard,pass,No leaderboard output created.
+no deleted compatibility dirs restored,pass,No schema/evidence/runs/metadata/notes/data/legacy validation dirs restored.
+no evidence/cases restored,pass,No top-level evidence/cases surfaces restored.

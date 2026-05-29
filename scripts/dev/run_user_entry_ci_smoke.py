@@ -27,8 +27,15 @@ EXPECTED_RUN_FILES = [
     "summary.json",
     "failures.csv",
     "report.md",
+    "quality_summary.json",
+    "quality_report.md",
+    "tag_slices.csv",
 ]
 PROTECTED_PATHS = ["cases", "case_sets", "inventory", "reports", "results"]
+CI_SMOKE_OUTPUTS = [
+    "runs/user/ci_smoke_dry_run",
+    "runs/user/ci_smoke_adapter",
+]
 
 
 def repo_root() -> Path:
@@ -216,7 +223,7 @@ def main() -> int:
             root=root,
             env=env,
             case_list_path=case_list_path,
-            relative_out="runs/user/ci_smoke_dry_run",
+            relative_out=CI_SMOKE_OUTPUTS[0],
             dry_run=True,
         )
         adapter_summary = run_user_smoke(
@@ -224,11 +231,14 @@ def main() -> int:
             root=root,
             env=env,
             case_list_path=case_list_path,
-            relative_out="runs/user/ci_smoke_adapter",
+            relative_out=CI_SMOKE_OUTPUTS[1],
             dry_run=False,
         )
     finally:
         case_list_path.unlink(missing_ok=True)
+
+    for relative_out in CI_SMOKE_OUTPUTS:
+        reset_smoke_output(root, relative_out)
 
     verify_git_clean_for_paths(root, env, PROTECTED_PATHS, "protected paths unchanged")
     verify_git_clean_for_paths(root, env, ["runs/user"], "runs/user smoke outputs unstaged")

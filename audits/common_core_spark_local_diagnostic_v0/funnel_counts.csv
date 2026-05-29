@@ -1,0 +1,14 @@
+stage,count,denominator,notes
+selected_rows,40,40,All Common-core v0 Spark planned rows were selected.
+candidate_generated_rows,40,40,No-op adapter generated source-like candidate SQL for every selected row.
+candidate_preflight_passed_rows,40,40,All generated candidates passed text preflight.
+db_execution_enabled_rows,40,40,DB execution was enabled for every selected row.
+spark_source_execution_attempted_rows,31,40,Only same-engine Spark rows reached live Spark source SQL execution; explicit unsupported PORT Spark roles did not execute SQL.
+spark_source_executable_rows,31,40,Rows with source_execution_success.
+spark_candidate_execution_attempted_rows,31,31,Candidate execution was attempted only after source execution succeeded.
+spark_candidate_executable_rows,31,40,Rows with candidate_execution_success.
+checker_attempted_rows,31,31,Checker ran when both source and candidate result artifacts existed.
+exact_rows,30,31,Local checker exact rows; not official metrics.
+mismatch_rows,1,31,Local checker mismatch rows; not paper results.
+source_like_rows,40,40,No-op adapter emitted source-like SQL for every selected row.
+timed_rows,0,40,Timing and speedup were disabled.

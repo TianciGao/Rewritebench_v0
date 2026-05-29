@@ -1,0 +1,459 @@
+review_id,case_id,pool,engine,method_id,route_id,atom_id,atom_type,stage_a_status,stage_b_status,evidence_refs,review_reason,suggested_review_action,diagnostic_only,official_pocr_computed
+pocr_review_0253681e5387,PERF_0077,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id | positive_sql_span:FROM movie_info AS mi
+JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_0c2350b668dd,PERF_0034,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:with filtered_items as (
+    select i_item_sk, i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+) | positive_sql_span:with selected_items as (
+    select
+        i_item_sk,
+        i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+) | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_0d47a2f1fa35,PERF_0008,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"candidate_sql_span:FROM orders o
+JOIN customer c
+    ON c.c_custkey = o.o_custkey
+JOIN lineitem l
+    ON l.l_orderkey = o.o_orderkey | source_sql_span:from
+	customer,
+	orders,
+	lineitem | positive_sql_span:join (
+    select
+        o_orderkey,
+        o_custkey,
+        o_orderdate,
+        o_shippriority
+    from orders
+    where o_orderdate < date '1995-03-27'
+) orders_filtered
+  on customer_filtered.c_custkey = orders_filtered.o_custkey
+join lineitem
+  on orders_filtered.o_orderkey = lineitem.l_orderkey | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_0f453be1c185,PERF_0013,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,,,malformed_json,not_run,,malformed_json,retry_annotation,true,false
+pocr_review_11015387a864,CONS_0036,CONS,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,candidate_sql_span:WHERE NAME = 'Charlie' | candidate_sql_span:COUNT(*) AS C | positive_sql_span:WHERE NAME = 'Charlie' GROUP BY NAME | source_candidate_diff:changed,transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_18374821fd4c,PERF_0062,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,semantic_guard_atom,implemented,lint_only,"candidate_sql_span:WHERE d.d_year = 2001
+  AND (
+    (cd.cd_marital_status = 'D'
+     AND cd.cd_education_status = '2 yr Degree'
+     AND ss.ss_sales_price BETWEEN 100.00 AND 150.00
+     AND hd.hd_dep_count = 3)
+    OR
+    (cd.cd_marital_status = 'S'
+     AND cd.cd_education_status = 'Secondary'
+     AND ss.ss_sales_price BETWEEN 50.00 AND 100.00
+     AND hd.hd_dep_count = 1)
+    OR
+    (cd.cd_marital_status = 'W'
+     AND cd.cd_education_status = 'Advanced Degree'
+     AND ss.ss_sales_price BETWEEN 150.00 AND 200.00
+     AND hd.hd_dep_count = 1)
+  )
+  AND (
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('CO', 'IL', 'MN')
+     AND ss.ss_net_profit BETWEEN 100 AND 200)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('OH', 'MT', 'NM')
+     AND ss.ss_net_profit BETWEEN 150 AND 300)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('TX', 'MO', 'MI')
+     AND ss.ss_net_profit BETWEEN 50 AND 250)
+  )",evidence_ref_linter:evidence_ref_too_long:warning,inspect_candidate_source_diff,true,false
+pocr_review_19abc6fef83d,PERF_0056,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:FROM customer_address a
+JOIN customer c
+  ON a.ca_address_sk = c.c_current_addr_sk
+JOIN store_sales s
+  ON c.c_customer_sk = s.ss_customer_sk
+JOIN date_dim d
+  ON s.ss_sold_date_sk = d.d_date_sk
+JOIN item i
+  ON s.ss_item_sk = i.i_item_sk | positive_sql_span:from customer_address a
+join customer c on a.ca_address_sk = c.c_current_addr_sk
+join store_sales s on c.c_customer_sk = s.ss_customer_sk
+join date_dim d on s.ss_sold_date_sk = d.d_date_sk
+join item i on s.ss_item_sk = i.i_item_sk | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_1c3e452a471b,PERF_0033,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,,,malformed_json,not_run,,malformed_json,retry_annotation,true,false
+pocr_review_1ccf35609ceb,CONS_0036,CONS,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,source_sql_span:HAVING NAME = 'Charlie' | candidate_sql_span:WHERE NAME = 'Charlie' | positive_sql_span:WHERE NAME = 'Charlie' | source_candidate_diff:changed,transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_20e19519e35c,LONGTAIL_0013,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,candidate_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value | candidate_sql_span:LEFT JOIN RankedPosts rp | candidate_sql_span:AND rp.rank_value = 1 | candidate_sql_span:LEFT JOIN Posts bp | positive_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value | source_candidate_diff:changed,possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_22428f702edd,PERF_0017,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,,,timeout,not_run,,timeout,retry_annotation,true,false
+pocr_review_2ef04beea420,PERF_0019,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%' | positive_sql_span:left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%' | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_365b8281a9e1,PERF_0056,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:SELECT a.ca_state AS state, COUNT(*) AS cnt | candidate_sql_span:GROUP BY a.ca_state | positive_sql_span:select a.ca_state state, count(*) cnt | positive_sql_span:group by a.ca_state | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_371a69f2908c,PERF_0019,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"candidate_sql_span:SELECT
+    c_orders.c_count,
+    COUNT(*) AS custdist
+FROM
+    (
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count | candidate_sql_span:GROUP BY
+    c_orders.c_count | positive_sql_span:select
+    customer_order_counts.c_count,
+    count(*) as custdist
+from (
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count | positive_sql_span:group by
+    customer_order_counts.c_count | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_39d87c219410,CONS_0009,CONS,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"candidate_sql_span:WHERE t0a < (
+  SELECT COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)
+  FROM t1
+  WHERE t1a = t0.t0a
+) | candidate_sql_span:AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ) | positive_sql_span:WHERE t0.t0a < CASE | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_41233e4c4ea5,PERF_0054,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,source_candidate_diff:changed | candidate_sql_span:SUM(ss.ss_ext_sales_price) AS sum_agg | positive_sql_span:sum(ss_ext_sales_price) sum_agg,transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_475ae58c0c19,PORT_0025,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_49e3e5a9941a,LONGTAIL_0022,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId | positive_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_51b1250824f6,LONGTAIL_0012,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,,,malformed_json,not_run,,malformed_json,retry_annotation,true,false
+pocr_review_530db6fcebc3,PORT_0025,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,candidate_sql_span:EXTRACT(YEAR FROM t2.account_date) = 1993 | positive_sql_span:EXTRACT(YEAR FROM CAST(t2.account_date AS TIMESTAMP)) = 1993 | source_candidate_diff:changed,transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_5344fcd2e6d6,LONGTAIL_0011,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_5656a198fdb2,LONGTAIL_0022,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:FROM (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId
+) AS cs
+JOIN Posts p | positive_sql_span:JOIN (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId
+) AS comment_stats ON comment_stats.PostId = p.Id | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_63c8ec86617e,PERF_0062,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:FROM store_sales ss
+JOIN store s
+  ON s.s_store_sk = ss.ss_store_sk
+JOIN date_dim d
+  ON ss.ss_sold_date_sk = d.d_date_sk
+JOIN customer_demographics cd
+  ON cd.cd_demo_sk = ss.ss_cdemo_sk
+JOIN household_demographics hd
+  ON hd.hd_demo_sk = ss.ss_hdemo_sk
+JOIN customer_address ca
+  ON ca.ca_address_sk = ss.ss_addr_sk | positive_sql_span:from store_sales
+join store on s_store_sk = ss_store_sk
+join date_dim on ss_sold_date_sk = d_date_sk
+join household_demographics on ss_hdemo_sk = hd_demo_sk
+join customer_demographics on cd_demo_sk = ss_cdemo_sk
+join customer_address on ss_addr_sk = ca_address_sk | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_6c98296d41e5,PORT_0025,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_74b359276921,PERF_0019,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:(
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count
+        FROM
+            customer AS c
+            LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%'
+        GROUP BY
+            c.c_custkey
+    ) AS c_orders | positive_sql_span:(
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count
+    from customer
+    left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%'
+    group by
+        customer.c_custkey
+) customer_order_counts | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_77182bf3ec92,PERF_0062,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:SELECT
+  AVG(ss.ss_quantity),
+  AVG(ss.ss_ext_sales_price),
+  AVG(ss.ss_ext_wholesale_cost),
+  SUM(ss.ss_ext_wholesale_cost) | positive_sql_span:select avg(ss_quantity),
+       avg(ss_ext_sales_price),
+       avg(ss_ext_wholesale_cost),
+       sum(ss_ext_wholesale_cost) | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_7912093a1b12,PERF_0082,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id
+JOIN company_type AS ct
+  ON ct.id = mc.company_type_id
+JOIN info_type AS it
+  ON it.id = mi.info_type_id | positive_sql_span:FROM company_type AS ct
+JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_7b61bf9cd35a,PERF_0082,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:JOIN movie_info AS mi
+  ON t.id = mi.movie_id | candidate_sql_span:JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id | candidate_sql_span:JOIN company_type AS ct
+  ON ct.id = mc.company_type_id | candidate_sql_span:JOIN info_type AS it
+  ON it.id = mi.info_type_id | positive_sql_span:JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_7c1d95e80eae,LONGTAIL_0024,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"candidate_sql_span:HAVING
+        COUNT(*) >= 2 | candidate_sql_span:ORDER BY
+    hs.revision_count DESC,
+    hs.last_revision_at DESC,
+    p.Id | positive_sql_span:WHERE
+    history_stats.revision_count >= 2
+ORDER BY
+    history_stats.revision_count DESC,
+    history_stats.last_revision_at DESC,
+    p.Id | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_8122c3734e99,PORT_0003,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,candidate_sql_span:LIMIT 1,evidence_ref_linter:candidate_sql_span_only:warning,inspect_candidate_source_diff,true,false
+pocr_review_8165dd54b60a,LONGTAIL_0022,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:WHERE cs.comment_count >= 3
+ORDER BY
+    cs.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id; | positive_sql_span:WHERE
+    comment_stats.comment_count >= 3
+ORDER BY
+    comment_stats.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id; | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_81a3191c7633,PERF_0077,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id | positive_sql_span:JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_81b8b9e42eaf,PORT_0003,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_81db62109f7e,PORT_0004,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_86e0cd8d8193,PORT_0013,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_89d1b698af14,PORT_0008,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,candidate_sql_span:EXTRACT(YEAR FROM t2.opendate) BETWEEN 2009 AND 2010 | positive_sql_span:YEAR(CAST(t2.opendate AS DATE)) BETWEEN 2009 AND 2010 | source_candidate_diff:changed,possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_9776748fc83f,PORT_0008,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:SELECT t2.admemail1, t2.admemail2 | candidate_sql_span:FROM frpm AS t1
+INNER JOIN schools AS t2
+  ON t1.cdscode = t2.cdscode | positive_sql_span:SELECT admemail1, admemail2 FROM frpm AS t1 INNER JOIN schools AS t2 ON t1.cdscode = t2.cdscode | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_9d5f815e136f,LONGTAIL_0024,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+    HAVING
+        COUNT(*) >= 2
+) hs | positive_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+) AS history_stats ON history_stats.PostId = p.Id | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_9f67941f4d3a,PERF_0035,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | positive_sql_span:avg(sum(cs_sales_price)) over ( | candidate_sql_span:avg(sum_sales) over (
+            partition by i_category, i_brand, cc_name, d_year
+        ) as avg_monthly_sales",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_a2203a6253f6,PORT_0024,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,candidate_sql_span:istextless = 0 AND isstoryspotlight = 1 | candidate_sql_span:COUNT(id) FROM cards | positive_sql_span:istextless = 0 AND isstoryspotlight = 1 | source_candidate_diff:changed,possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_a92077e0b0d3,PORT_0012,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_a9e3e916db32,LONGTAIL_0023,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) o | candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) i | positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) AS outbound_links ON outbound_links.PostId = p.Id | positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) AS inbound_links ON inbound_links.PostId = p.Id | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_b0b1bbf309ba,PERF_0024,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:from supplier s
+join nation n
+    on s.s_nationkey = n.n_nationkey | positive_sql_span:from
+    supplier
+    join nation
+        on supplier.s_nationkey = nation.n_nationkey | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_b3ade736291e,PORT_0022,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_b4ea203ecde2,PORT_0008,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,"candidate_sql_span:WHERE t2.county = 'San Bernardino'
+  AND t2.city = 'San Bernardino'
+  AND CAST(t2.doc AS integer) = 54 | candidate_sql_span:AND CAST(t2.soc AS integer) = 62; | positive_sql_span:WHERE t2.county = 'San Bernardino' AND t2.city = 'San Bernardino' AND (t2.doc * 1) = 54 | positive_sql_span:AND (t2.soc * 1) = 62 | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_c40a4a072912,PORT_0013,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_c75629f05b18,PORT_0012,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"candidate_sql_span:EXTRACT(YEAR FROM ""birthday"") = 1980 | positive_sql_span:YEAR(CAST(birthday AS DATE)) = 1980 | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_d024d2f0860c,LONGTAIL_0023,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:COALESCE(o.outbound_count, 0) + COALESCE(i.inbound_count, 0) AS total_links | positive_sql_span:COALESCE(outbound_links.outbound_count, 0) + COALESCE(inbound_links.inbound_count, 0) AS total_links | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_d51abd6c25c6,PERF_0054,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:FROM date_dim AS dt
+JOIN store_sales AS ss
+  ON dt.d_date_sk = ss.ss_sold_date_sk
+JOIN item AS i
+  ON ss.ss_item_sk = i.i_item_sk | positive_sql_span:from date_dim dt
+join store_sales on dt.d_date_sk = store_sales.ss_sold_date_sk
+join item on store_sales.ss_item_sk = item.i_item_sk",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_dee33d6ec407,LONGTAIL_0024,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at | positive_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_df4aca6aa229,PERF_0052,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,,,timeout,not_run,,timeout,retry_annotation,true,false
+pocr_review_e39d3a35b213,PERF_0062,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,semantic_guard_atom,implemented,lint_only,"source_sql_span:and d_year = 2001
+  and ((ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'D'
+        and cd_education_status = '2 yr Degree'
+        and ss_sales_price between 100.00 and 150.00
+        and hd_dep_count = 3)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'S'
+        and cd_education_status = 'Secondary'
+        and ss_sales_price between 50.00 and 100.00
+        and hd_dep_count = 1)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'W'
+        and cd_education_status = 'Advanced Degree'
+        and ss_sales_price between 150.00 and 200.00
+        and hd_dep_count = 1))
+  and ((ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('CO', 'IL', 'MN')
+        and ss_net_profit between 100 and 200)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('OH', 'MT', 'NM')
+        and ss_net_profit between 150 and 300)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('TX', 'MO', 'MI')
+        and ss_net_profit between 50 and 250))",evidence_ref_linter:evidence_ref_too_long:warning,inspect_candidate_source_diff,true,false
+pocr_review_e8afcb07f243,PERF_0024,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:and exists (
+      select 1
+      from partsupp ps
+      where ps.ps_suppkey = s.s_suppkey
+        and exists (
+            select 1
+            from part p
+            where p.p_partkey = ps.ps_partkey
+              and p.p_name like 'pale%'
+        ) | positive_sql_span:and exists (
+        select
+            1
+        from
+            partsupp
+            join part
+                on partsupp.ps_partkey = part.p_partkey
+        where
+            partsupp.ps_suppkey = supplier.s_suppkey
+            and part.p_name like 'pale%' | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_e9ebb3c98bea,PERF_0024,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,lint_only,,evidence_ref_linter:missing_source_candidate_diff:warning,inspect_candidate_source_diff,true,false
+pocr_review_ece42779dbdc,LONGTAIL_0023,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,"candidate_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId | candidate_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId | positive_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId | positive_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId | source_candidate_diff:changed",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_f07b01b12425,CONS_0009,CONS,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0) | candidate_sql_span:NOT EXISTS (SELECT 1 FROM t1 WHERE t1a = t0.t0a)
+  AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ) | positive_sql_span:ELSE COALESCE(s1.sum_t1c, 0) + COALESCE(s2.sum_t2c, 0) | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_f415dfc37b4a,CONS_0011,CONS,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A1,operation_atom,implemented,transformation_supported,"source_candidate_diff:changed | candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  ) | positive_sql_span:LEFT JOIN bonus b
+    ON d.dname = b.ename
+   AND b.job = e1.job
+  WHERE b.ename IS NULL",transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_f6f574877ba3,LONGTAIL_0013,LONGTAIL,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A3,operation_atom,implemented,transformation_supported,candidate_sql_span:VoteAgg AS ( | candidate_sql_span:BadgeAgg AS ( | candidate_sql_span:QuestionAgg AS ( | candidate_sql_span:LEFT JOIN VoteAgg va ON u.Id = va.UserId | candidate_sql_span:LEFT JOIN BadgeAgg ba ON u.Id = ba.UserId | candidate_sql_span:LEFT JOIN QuestionAgg qa ON u.Id = qa.UserId | positive_sql_span:LEFT JOIN ( | source_candidate_diff:changed,transformation_supported_atom,inspect_candidate_source_diff,true,false
+pocr_review_f8706fbf59d4,PERF_0035,PERF,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,insufficient_transformation_evidence,"source_candidate_diff:changed | positive_sql_span:sum(cs_sales_price) as sum_sales | candidate_sql_span:sum(cs.cs_sales_price) as sum_sales | candidate_sql_span:group by i.i_category, i.i_brand, cc.cc_name, d.d_year, d.d_moy",possible_under_accept,inspect_candidate_source_diff,true,false
+pocr_review_fa7b785cb0ba,PORT_0005,PORT,postgres,direct_llm_repair_1,direct_llm_repair_1_pg40_pocr_diagnostic,A2,operation_atom,implemented,transformation_supported,"candidate_sql_span:""dob"" IS NOT NULL | positive_sql_span:NOT `dob` IS NULL | source_candidate_diff:changed",transformation_supported_atom,inspect_candidate_source_diff,true,false

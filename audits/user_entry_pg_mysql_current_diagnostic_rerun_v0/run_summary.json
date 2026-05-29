@@ -1,0 +1,83 @@
+{
+  "branch": "feature/case-package-v2-external-schema",
+  "case_membership_changed": false,
+  "denominator_changed": false,
+  "environment": {
+    "mysql_probe_result": "ok",
+    "postgres_probe_result": "ok",
+    "spark_status": "deferred/fail-closed"
+  },
+  "global_leaderboard_created": false,
+  "interpretation": {
+    "exact_counts_are_not_official_accuracy": true,
+    "noop_adapter_source_like": true,
+    "not_40x2_official_metric_output": true,
+    "port_controlled_target_reference_exactness_audited_separately": true
+  },
+  "official_metrics_computed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "reports_results_updated": false,
+  "runs": {
+    "mysql": {
+      "candidate_executable_rows": 36,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "checker_attempted_rows": 36,
+      "diagnostic_mode_counts": {
+        "cross_dialect_reference": 4,
+        "same_engine": 36
+      },
+      "exact_rows": 36,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 4,
+        "none": 36
+      },
+      "local_diagnostic_only": true,
+      "mismatch_rows": 0,
+      "run_output_path": "runs/user/bounded_mysql_noop_db_checker_current/",
+      "selected_rows": 40,
+      "source_executable_rows": 40,
+      "source_like_rows": 40,
+      "source_reference_engine_counts": {
+        "mysql": 36,
+        "postgres": 4
+      },
+      "target_candidate_engine_counts": {
+        "mysql": 40
+      },
+      "timed_rows": 0
+    },
+    "postgres": {
+      "candidate_executable_rows": 35,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "checker_attempted_rows": 35,
+      "diagnostic_mode_counts": {
+        "cross_dialect_reference": 5,
+        "same_engine": 35
+      },
+      "exact_rows": 35,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 5,
+        "none": 35
+      },
+      "local_diagnostic_only": true,
+      "mismatch_rows": 0,
+      "run_output_path": "runs/user/bounded_pg_noop_db_checker_current/",
+      "selected_rows": 40,
+      "source_executable_rows": 40,
+      "source_like_rows": 40,
+      "source_reference_engine_counts": {
+        "mysql": 5,
+        "postgres": 35
+      },
+      "target_candidate_engine_counts": {
+        "postgres": 40
+      },
+      "timed_rows": 0
+    }
+  },
+  "schema_version": "user_entry_pg_mysql_current_diagnostic_rerun_v0",
+  "timing_or_speedup_computed": false
+}

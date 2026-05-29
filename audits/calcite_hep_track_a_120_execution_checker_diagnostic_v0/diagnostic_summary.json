@@ -1,0 +1,263 @@
+{
+  "by_engine": {
+    "mysql": {
+      "candidate_executable_rows": 33,
+      "candidate_execution_failed_rows": 0,
+      "candidate_generated_rows": 33,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 8,
+        "calcite_rel_to_sql": 25,
+        "no_candidate": 7
+      },
+      "checker_attempted_rows": 33,
+      "exact_rows": 26,
+      "exact_status_counts": {
+        "exact": 26,
+        "mismatch": 7,
+        "not_evaluated_non_db_mvp": 7
+      },
+      "fail_closed_rows": 7,
+      "failure_bucket_counts": {
+        "mismatch": 7,
+        "no_candidate_sql": 7,
+        "none": 26
+      },
+      "mismatch_rows": 7,
+      "no_candidate_rows": 7,
+      "planned_rows": 40,
+      "selected_rows": 40,
+      "source_executable_rows": 33,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 0
+    },
+    "postgres": {
+      "candidate_executable_rows": 32,
+      "candidate_execution_failed_rows": 1,
+      "candidate_generated_rows": 33,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 4,
+        "calcite_rel_to_sql": 29,
+        "no_candidate": 7
+      },
+      "checker_attempted_rows": 32,
+      "exact_rows": 25,
+      "exact_status_counts": {
+        "exact": 25,
+        "mismatch": 7,
+        "not_evaluated_non_db_mvp": 7,
+        "not_exact_due_to_execution_failure": 1
+      },
+      "fail_closed_rows": 7,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 1,
+        "mismatch": 7,
+        "no_candidate_sql": 7,
+        "none": 25
+      },
+      "mismatch_rows": 7,
+      "no_candidate_rows": 7,
+      "planned_rows": 40,
+      "selected_rows": 40,
+      "source_executable_rows": 33,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 0
+    },
+    "spark": {
+      "candidate_executable_rows": 30,
+      "candidate_execution_failed_rows": 2,
+      "candidate_generated_rows": 33,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 29,
+        "calcite_rel_to_sql": 4,
+        "no_candidate": 7
+      },
+      "checker_attempted_rows": 30,
+      "exact_rows": 30,
+      "exact_status_counts": {
+        "exact": 30,
+        "not_evaluated_non_db_mvp": 7,
+        "not_exact_due_to_execution_failure": 3
+      },
+      "fail_closed_rows": 7,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 2,
+        "no_candidate_sql": 7,
+        "none": 30,
+        "unsupported_engine": 1
+      },
+      "mismatch_rows": 0,
+      "no_candidate_rows": 7,
+      "planned_rows": 40,
+      "selected_rows": 40,
+      "source_executable_rows": 32,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 1
+    }
+  },
+  "by_pool": {
+    "CONS": {
+      "candidate_executable_rows": 27,
+      "candidate_execution_failed_rows": 0,
+      "candidate_generated_rows": 27,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 7,
+        "calcite_rel_to_sql": 20
+      },
+      "checker_attempted_rows": 27,
+      "exact_rows": 25,
+      "exact_status_counts": {
+        "exact": 25,
+        "mismatch": 2
+      },
+      "fail_closed_rows": 0,
+      "failure_bucket_counts": {
+        "mismatch": 2,
+        "none": 25
+      },
+      "mismatch_rows": 2,
+      "no_candidate_rows": 0,
+      "planned_rows": 27,
+      "selected_rows": 27,
+      "source_executable_rows": 27,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 0
+    },
+    "LONGTAIL": {
+      "candidate_executable_rows": 18,
+      "candidate_execution_failed_rows": 0,
+      "candidate_generated_rows": 18,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 12,
+        "calcite_rel_to_sql": 6
+      },
+      "checker_attempted_rows": 18,
+      "exact_rows": 12,
+      "exact_status_counts": {
+        "exact": 12,
+        "mismatch": 6
+      },
+      "fail_closed_rows": 0,
+      "failure_bucket_counts": {
+        "mismatch": 6,
+        "none": 12
+      },
+      "mismatch_rows": 6,
+      "no_candidate_rows": 0,
+      "planned_rows": 18,
+      "selected_rows": 18,
+      "source_executable_rows": 18,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 0
+    },
+    "PERF": {
+      "candidate_executable_rows": 47,
+      "candidate_execution_failed_rows": 1,
+      "candidate_generated_rows": 48,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 19,
+        "calcite_rel_to_sql": 29
+      },
+      "checker_attempted_rows": 47,
+      "exact_rows": 43,
+      "exact_status_counts": {
+        "exact": 43,
+        "mismatch": 4,
+        "not_exact_due_to_execution_failure": 1
+      },
+      "fail_closed_rows": 0,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 1,
+        "mismatch": 4,
+        "none": 43
+      },
+      "mismatch_rows": 4,
+      "no_candidate_rows": 0,
+      "planned_rows": 48,
+      "selected_rows": 48,
+      "source_executable_rows": 48,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 0
+    },
+    "PORT": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 2,
+      "candidate_generated_rows": 6,
+      "candidate_origin_counts": {
+        "calcite_parse_only": 3,
+        "calcite_rel_to_sql": 3,
+        "no_candidate": 21
+      },
+      "checker_attempted_rows": 3,
+      "exact_rows": 1,
+      "exact_status_counts": {
+        "exact": 1,
+        "mismatch": 2,
+        "not_evaluated_non_db_mvp": 21,
+        "not_exact_due_to_execution_failure": 3
+      },
+      "fail_closed_rows": 21,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 2,
+        "mismatch": 2,
+        "no_candidate_sql": 21,
+        "none": 1,
+        "unsupported_engine": 1
+      },
+      "mismatch_rows": 2,
+      "no_candidate_rows": 21,
+      "planned_rows": 27,
+      "selected_rows": 27,
+      "source_executable_rows": 5,
+      "source_execution_failed_rows": 0,
+      "unsupported_rows": 1
+    }
+  },
+  "compute_local_metrics_run": false,
+  "engine_scope": [
+    "postgres",
+    "mysql",
+    "spark"
+  ],
+  "leaderboard_output_created": false,
+  "method_id": "calcite_hep_fail_closed",
+  "official_metric_input": false,
+  "overall": {
+    "candidate_executable_rows": 95,
+    "candidate_execution_failed_rows": 3,
+    "candidate_generated_rows": 99,
+    "candidate_origin_counts": {
+      "calcite_parse_only": 41,
+      "calcite_rel_to_sql": 58,
+      "no_candidate": 21
+    },
+    "checker_attempted_rows": 95,
+    "exact_rows": 81,
+    "exact_status_counts": {
+      "exact": 81,
+      "mismatch": 14,
+      "not_evaluated_non_db_mvp": 21,
+      "not_exact_due_to_execution_failure": 4
+    },
+    "fail_closed_rows": 21,
+    "failure_bucket_counts": {
+      "candidate_execution_failed": 3,
+      "mismatch": 14,
+      "no_candidate_sql": 21,
+      "none": 81,
+      "unsupported_engine": 1
+    },
+    "mismatch_rows": 14,
+    "no_candidate_rows": 21,
+    "planned_rows": 120,
+    "selected_rows": 120,
+    "source_executable_rows": 98,
+    "source_execution_failed_rows": 0,
+    "unsupported_rows": 1
+  },
+  "paper_result": false,
+  "route_id": "calcite_hep_fail_closed",
+  "run_id_prefix": "calcite_hep_track_a_120_execution_checker_v0",
+  "task": "calcite_hep_track_a_120_execution_checker_diagnostic_v0",
+  "timing_collected": false,
+  "verifiers_run": false
+}

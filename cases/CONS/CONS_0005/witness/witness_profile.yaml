@@ -1,0 +1,14 @@
+case_id: CONS_0005
+witness_model: source_as_oracle
+source_as_oracle_policy: runtime_source_result_is_oracle_for_local_checker
+dataset_id: calcite_core_sql_tests_cons0005_v0
+required_tables:
+  - table1
+  - table2
+positive_expectation: positive_rewrite_should_match_source_result_under_same_schema
+negative_expectation: hard_negative_expected_to_diverge_or_be_rejected
+static_reference_status: static_correct_result_not_materialized
+runtime_oracle_status: source_sql_result_required_for_runtime_checker
+notes:
+  - Existing retained evidence records engine-local witness behavior; no new static correct_result.csv was fabricated.
+  - No DB/checker execution or official metric computation was performed while creating this profile.

@@ -1,0 +1,34 @@
+{
+  "candidate_executable_rows": 35,
+  "candidate_execution_attempted_rows": 40,
+  "candidate_generated_rows": 40,
+  "candidate_preflight_passed_rows": 40,
+  "checker_attempted_rows": 35,
+  "db_execution_enabled_rows": 40,
+  "diagnostic_mode_counts": {
+    "cross_dialect_reference": 5,
+    "same_engine": 35
+  },
+  "exact_rows": 35,
+  "failure_bucket_counts": {
+    "candidate_execution_failed": 5,
+    "none": 35
+  },
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "mismatch_rows": 0,
+  "official_metrics_computed": false,
+  "reports_results_updated": false,
+  "selected_rows": 40,
+  "source_executable_rows": 40,
+  "source_execution_attempted_rows": 40,
+  "source_like_rows": 40,
+  "source_reference_engine_counts": {
+    "mysql": 5,
+    "postgres": 35
+  },
+  "target_candidate_engine_counts": {
+    "postgres": 40
+  },
+  "timing_or_speedup_computed": false
+}

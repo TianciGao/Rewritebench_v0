@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+- Full Common-core run: no.
+- All 120 Track-A rows run: no.
+- MySQL/Spark run: no.
+- Direct LLM or Repair-1 run: no.
+- SQLSolver or VeriEQL run: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- Timing collected: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Calcite vendored or committed: no.
+- Runtime artifacts committed: no.
+- PostgreSQL-only candidate postprocess implemented: yes.
+- Targeted rows validated: yes.
+- DATETIME/TIMESTAMP, PORT source-role, schema-fallback, and mismatch semantics deferred: yes.

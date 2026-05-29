@@ -1,0 +1,1 @@
+java -jar [external_sqlsolver_jar] -sql1=[sql1_input] -sql2=[sql2_input] -schema=[schema_input] -output=[sqlsolver_output]

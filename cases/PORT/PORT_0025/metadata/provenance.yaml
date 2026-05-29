@@ -1,9 +1,0 @@
-case_id: PORT_0025
-pool: PORT
-source_family: PARROT
-source_id: SRC_009
-source_entry_pointer: datasets/raw/parrot/PARROT/benchmark/BIRD/mysql_res.json[47]
-legacy_case_path: cases/PORT/PORT_0025
-legacy_repo_modified: false
-copy_first_migration: true
-evidence_regenerated: false

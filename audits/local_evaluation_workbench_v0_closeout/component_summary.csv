@@ -1,0 +1,13 @@
+component,status,evidence,local_only_boundary,notes
+user_entry_adapter_capture,completed,src/sql_rewrite_bench/user_run.py and audits/real_user_adapter_evaluation_plan_v0,true,Adapter command invocation and candidate capture are available for local diagnostic runs.
+tri_engine_local_execution,completed,audits/tri_engine_user_entry_local_diagnostic_closeout_v0,true,PostgreSQL MySQL and Spark local diagnostic paths are live for supported roles.
+port_controlled_routes,completed,audits/tri_engine_user_entry_local_diagnostic_closeout_v0,true,PG target 5/5 MySQL target 4/4 Spark target 4/4 with Spark unsupported 5 fail-closed.
+sqlglot_noop_common_core_snapshot,completed_with_fail_visible_limitations,audits/sqlglot_noop_common_core_local_diagnostic_closeout_v0,true,PostgreSQL/MySQL prior snapshots plus updated Spark post statement-boundary patch snapshot.
+checker_failure_explanations,completed,audits/common_core_sqlglot_noop_failure_triage_v0 and audits/spark_sqlglot_noop_statement_preflight_triage_v0,true,Fail-visible rows are separated by adapter behavior backend/preflight issue checker mismatch and unsupported role.
+strict_label_policy,completed,docs/user_entry_checker_policy.md,true,Labels remain strict; label-only diagnostics are visibility only and do not change exactness.
+label_only_diagnostics,completed,audits/checker_label_only_diagnostics_patch_v0,true,value_exact label_exact and label_only_mismatch fields are available for post-patch runs.
+exact_gated_local_timing,completed,audits/exact_gated_local_timing_diagnostic_v0,true,Opt-in timing writes local artifacts only and is disabled by default.
+non_official_local_metrics_calculator,completed,audits/non_official_local_metrics_calculator_v0,true,Implements D033 local diagnostic Generation Execution Coverage Result Consistency and exact+timed Performance only.
+common_core_local_metrics_projection,completed_with_fail_visible_limitations,audits/common_core_sqlglot_noop_local_metrics_projection_v0,true,Projected existing Common-core SQLGlot noop snapshots; performance N.A. because no timing artifacts in those snapshots.
+pocr_skill_adapter,deferred,audits/metrics_timing_skill_adapter_decision_record_v0,true,No skill folders or operation atoms until external script/schema is stable.
+official_metrics_retained_evidence_paper,deferred,project_control/DECISION_LOG.md D032 D033,true,Official metrics retained-evidence promotion paper rendering reports/results and leaderboard remain unauthorized.

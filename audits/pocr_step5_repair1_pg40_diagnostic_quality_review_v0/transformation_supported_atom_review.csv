@@ -1,0 +1,315 @@
+case_id,pool,atom_id,atom_description_or_type,observed_status,evidence_refs,stage_b_status,transformation_supported,reviewer_risk_label,risk_reason,recommendation
+CONS_0009,CONS,A2,Candidate recomposes `SUM(c)` using the grouped sums with `COALESCE` and null-aware handling. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0) | candidate_sql_span:NOT EXISTS (SELECT 1 FROM t1 WHERE t1a = t0.t0a)
+  AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ) | positive_sql_span:ELSE COALESCE(s1.sum_t1c, 0) + COALESCE(s2.sum_t2c, 0) | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+CONS_0009,CONS,A3,Candidate rebinds the `t0a < aggregate` comparison predicate to the factored aggregate result. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:WHERE t0a < (
+  SELECT COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)
+  FROM t1
+  WHERE t1a = t0.t0a
+) | candidate_sql_span:AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ) | positive_sql_span:WHERE t0.t0a < CASE | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+CONS_0011,CONS,A1,"Candidate rewrites `EXISTS` over an outer join into an equivalent count, semijoin, or preserved exists test. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"source_candidate_diff:changed | candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  ) | positive_sql_span:LEFT JOIN bonus b
+    ON d.dname = b.ename
+   AND b.job = e1.job
+  WHERE b.ename IS NULL",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+CONS_0036,CONS,A1,Candidate pushes `HAVING NAME = 'Charlie'` into a pre-aggregation `WHERE` filter or staged relation. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,source_sql_span:HAVING NAME = 'Charlie' | candidate_sql_span:WHERE NAME = 'Charlie' | positive_sql_span:WHERE NAME = 'Charlie' | source_candidate_diff:changed,transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+CONS_0036,CONS,A2,Candidate computes `COUNT(*)` after applying the pushed `NAME` filter. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,candidate_sql_span:WHERE NAME = 'Charlie' | candidate_sql_span:COUNT(*) AS C | positive_sql_span:WHERE NAME = 'Charlie' GROUP BY NAME | source_candidate_diff:changed,transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+LONGTAIL_0013,LONGTAIL,A3,"Candidate rebinds bounty, badge, and question-count aggregates to the user-level result. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,candidate_sql_span:VoteAgg AS ( | candidate_sql_span:BadgeAgg AS ( | candidate_sql_span:QuestionAgg AS ( | candidate_sql_span:LEFT JOIN VoteAgg va ON u.Id = va.UserId | candidate_sql_span:LEFT JOIN BadgeAgg ba ON u.Id = ba.UserId | candidate_sql_span:LEFT JOIN QuestionAgg qa ON u.Id = qa.UserId | positive_sql_span:LEFT JOIN ( | source_candidate_diff:changed,transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+LONGTAIL_0022,LONGTAIL,A1,Candidate rewrites the `CommentStats` CTE into an equivalent derived aggregate relation joined to `Posts`. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:FROM (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId
+) AS cs
+JOIN Posts p | positive_sql_span:JOIN (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId
+) AS comment_stats ON comment_stats.PostId = p.Id | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+LONGTAIL_0023,LONGTAIL,A1,Candidate rewrites outbound and inbound link CTEs into equivalent derived aggregates joined to `Posts`. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) o | candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) i | positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) AS outbound_links ON outbound_links.PostId = p.Id | positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) AS inbound_links ON inbound_links.PostId = p.Id | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+LONGTAIL_0024,LONGTAIL,A1,Candidate rewrites the `HistoryStats` CTE into an equivalent derived aggregate relation joined to `Posts`. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+    HAVING
+        COUNT(*) >= 2
+) hs | positive_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+) AS history_stats ON history_stats.PostId = p.Id | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+LONGTAIL_0024,LONGTAIL,A3,"Candidate rebinds revision filters, ordering, and limit logic to the preaggregated history stats. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"candidate_sql_span:HAVING
+        COUNT(*) >= 2 | candidate_sql_span:ORDER BY
+    hs.revision_count DESC,
+    hs.last_revision_at DESC,
+    p.Id | positive_sql_span:WHERE
+    history_stats.revision_count >= 2
+ORDER BY
+    history_stats.revision_count DESC,
+    history_stats.last_revision_at DESC,
+    p.Id | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0008,PERF,A3,"Candidate rewrites comma joins into explicit joins over customer, orders, and lineitem keys. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"candidate_sql_span:FROM orders o
+JOIN customer c
+    ON c.c_custkey = o.o_custkey
+JOIN lineitem l
+    ON l.l_orderkey = o.o_orderkey | source_sql_span:from
+	customer,
+	orders,
+	lineitem | positive_sql_span:join (
+    select
+        o_orderkey,
+        o_custkey,
+        o_orderdate,
+        o_shippriority
+    from orders
+    where o_orderdate < date '1995-03-27'
+) orders_filtered
+  on customer_filtered.c_custkey = orders_filtered.o_custkey
+join lineitem
+  on orders_filtered.o_orderkey = lineitem.l_orderkey | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0019,PERF,A1,Candidate maintains or normalizes the derived relation that counts orders per customer. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:(
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count
+        FROM
+            customer AS c
+            LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%'
+        GROUP BY
+            c.c_custkey
+    ) AS c_orders | positive_sql_span:(
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count
+    from customer
+    left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%'
+    group by
+        customer.c_custkey
+) customer_order_counts | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0019,PERF,A2,Candidate keeps the `o_comment NOT LIKE` predicate in the left-join condition so zero-order customers remain represented. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%' | positive_sql_span:left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%' | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0019,PERF,A3,Candidate groups by customer order count and computes the customer distribution. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:SELECT
+    c_orders.c_count,
+    COUNT(*) AS custdist
+FROM
+    (
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count | candidate_sql_span:GROUP BY
+    c_orders.c_count | positive_sql_span:select
+    customer_order_counts.c_count,
+    count(*) as custdist
+from (
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count | positive_sql_span:group by
+    customer_order_counts.c_count | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0024,PERF,A1,Candidate rewrites supplier/nation comma join into an explicit join. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:from supplier s
+join nation n
+    on s.s_nationkey = n.n_nationkey | positive_sql_span:from
+    supplier
+    join nation
+        on supplier.s_nationkey = nation.n_nationkey | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0024,PERF,A2,"Candidate rewrites nested `IN` predicates over partsupp, part, lineitem, and supplier into equivalent `EXISTS` or semijoin logic. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"candidate_sql_span:and exists (
+      select 1
+      from partsupp ps
+      where ps.ps_suppkey = s.s_suppkey
+        and exists (
+            select 1
+            from part p
+            where p.p_partkey = ps.ps_partkey
+              and p.p_name like 'pale%'
+        ) | positive_sql_span:and exists (
+        select
+            1
+        from
+            partsupp
+            join part
+                on partsupp.ps_partkey = part.p_partkey
+        where
+            partsupp.ps_suppkey = supplier.s_suppkey
+            and part.p_name like 'pale%' | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0034,PERF,A1,Candidate factors selected item colors into a shared staged relation. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:with filtered_items as (
+    select i_item_sk, i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+) | positive_sql_span:with selected_items as (
+    select
+        i_item_sk,
+        i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+) | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0035,PERF,A3,Candidate preserves the window average over sales partitions used by the source ranking logic. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"source_candidate_diff:changed | positive_sql_span:avg(sum(cs_sales_price)) over ( | candidate_sql_span:avg(sum_sales) over (
+            partition by i_category, i_brand, cc_name, d_year
+        ) as avg_monthly_sales",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0054,PERF,A1,"Candidate rewrites date_dim, store_sales, and item comma joins into explicit joins. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"source_candidate_diff:changed | candidate_sql_span:FROM date_dim AS dt
+JOIN store_sales AS ss
+  ON dt.d_date_sk = ss.ss_sold_date_sk
+JOIN item AS i
+  ON ss.ss_item_sk = i.i_item_sk | positive_sql_span:from date_dim dt
+join store_sales on dt.d_date_sk = store_sales.ss_sold_date_sk
+join item on store_sales.ss_item_sk = item.i_item_sk",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0054,PERF,A2,Candidate computes `sum(ss_ext_sales_price)` over the normalized join result. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,source_candidate_diff:changed | candidate_sql_span:SUM(ss.ss_ext_sales_price) AS sum_agg | positive_sql_span:sum(ss_ext_sales_price) sum_agg,transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0056,PERF,A1,"Candidate converts customer_address, customer, store_sales, date_dim, and item joins to explicit join structure. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"candidate_sql_span:FROM customer_address a
+JOIN customer c
+  ON a.ca_address_sk = c.c_current_addr_sk
+JOIN store_sales s
+  ON c.c_customer_sk = s.ss_customer_sk
+JOIN date_dim d
+  ON s.ss_sold_date_sk = d.d_date_sk
+JOIN item i
+  ON s.ss_item_sk = i.i_item_sk | positive_sql_span:from customer_address a
+join customer c on a.ca_address_sk = c.c_current_addr_sk
+join store_sales s on c.c_customer_sk = s.ss_customer_sk
+join date_dim d on s.ss_sold_date_sk = d.d_date_sk
+join item i on s.ss_item_sk = i.i_item_sk | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0056,PERF,A2,Candidate computes state-level count over the normalized filtered join result. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:SELECT a.ca_state AS state, COUNT(*) AS cnt | candidate_sql_span:GROUP BY a.ca_state | positive_sql_span:select a.ca_state state, count(*) cnt | positive_sql_span:group by a.ca_state | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0062,PERF,A1,Candidate converts store_sales and dimension table predicates into explicit joins. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:FROM store_sales ss
+JOIN store s
+  ON s.s_store_sk = ss.ss_store_sk
+JOIN date_dim d
+  ON ss.ss_sold_date_sk = d.d_date_sk
+JOIN customer_demographics cd
+  ON cd.cd_demo_sk = ss.ss_cdemo_sk
+JOIN household_demographics hd
+  ON hd.hd_demo_sk = ss.ss_hdemo_sk
+JOIN customer_address ca
+  ON ca.ca_address_sk = ss.ss_addr_sk | positive_sql_span:from store_sales
+join store on s_store_sk = ss_store_sk
+join date_dim on ss_sold_date_sk = d_date_sk
+join household_demographics on ss_hdemo_sk = hd_demo_sk
+join customer_demographics on cd_demo_sk = ss_cdemo_sk
+join customer_address on ss_addr_sk = ca_address_sk | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0062,PERF,A2,Candidate computes averages and sum over the normalized filtered join result. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:SELECT
+  AVG(ss.ss_quantity),
+  AVG(ss.ss_ext_sales_price),
+  AVG(ss.ss_ext_wholesale_cost),
+  SUM(ss.ss_ext_wholesale_cost) | positive_sql_span:select avg(ss_quantity),
+       avg(ss_ext_sales_price),
+       avg(ss_ext_wholesale_cost),
+       sum(ss_ext_wholesale_cost) | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0077,PERF,A1,"Candidate converts keyword, movie_info, movie_keyword, and title comma joins into explicit inner joins. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"source_candidate_diff:changed | candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id | positive_sql_span:FROM movie_info AS mi
+JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0077,PERF,A2,Candidate binds movie_id/title/movie_keyword keys in join clauses while preserving the source join graph. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"source_candidate_diff:changed | candidate_sql_span:ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id | positive_sql_span:JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0082,PERF,A1,"Candidate converts company_type, movie_companies, movie_info, info_type, and title relationships into explicit inner joins. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"source_candidate_diff:changed | candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id
+JOIN company_type AS ct
+  ON ct.id = mc.company_type_id
+JOIN info_type AS it
+  ON it.id = mi.info_type_id | positive_sql_span:FROM company_type AS ct
+JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PERF_0082,PERF,A2,"Candidate preserves company type, movie company, info type, and title join keys in `JOIN ... ON` clauses. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"source_candidate_diff:changed | candidate_sql_span:JOIN movie_info AS mi
+  ON t.id = mi.movie_id | candidate_sql_span:JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id | candidate_sql_span:JOIN company_type AS ct
+  ON ct.id = mc.company_type_id | candidate_sql_span:JOIN info_type AS it
+  ON it.id = mi.info_type_id | positive_sql_span:JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PORT_0005,PORT,A2,Candidate preserves the target-normalized `dob IS NOT NULL` predicate. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:""dob"" IS NOT NULL | positive_sql_span:NOT `dob` IS NULL | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PORT_0008,PORT,A3,"Candidate preserves county, city, `doc`, and `soc` filters in the target-normalized predicate form. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.",implemented,"candidate_sql_span:WHERE t2.county = 'San Bernardino'
+  AND t2.city = 'San Bernardino'
+  AND CAST(t2.doc AS integer) = 54 | candidate_sql_span:AND CAST(t2.soc AS integer) = 62; | positive_sql_span:WHERE t2.county = 'San Bernardino' AND t2.city = 'San Bernardino' AND (t2.doc * 1) = 54 | positive_sql_span:AND (t2.soc * 1) = 62 | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PORT_0012,PORT,A1,Candidate uses target-normalized year extraction for `birthday` and preserves comparison to `1980`. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,"candidate_sql_span:EXTRACT(YEAR FROM ""birthday"") = 1980 | positive_sql_span:YEAR(CAST(birthday AS DATE)) = 1980 | source_candidate_diff:changed",transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review
+PORT_0025,PORT,A1,Candidate preserves target-normalized year extraction for account date and comparison to `1993`. Positive-control basis: `pos_baseline.sql` and `rewrite_pos_01.sql`; semantic boundary: `rewrite_neg_01.sql`.,implemented,candidate_sql_span:EXTRACT(YEAR FROM t2.account_date) = 1993 | positive_sql_span:EXTRACT(YEAR FROM CAST(t2.account_date AS TIMESTAMP)) = 1993 | source_candidate_diff:changed,transformation_supported,true,likely_reasonable,Stage B accepted only with source_candidate_diff:changed plus atom-specific span evidence,keep_as_diagnostic_count_with_manual_spot_review

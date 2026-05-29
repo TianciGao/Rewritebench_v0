@@ -1,0 +1,145 @@
+{
+  "schema_version": "sqlglot_noop_common_core_local_diagnostic_closeout_v0",
+  "verdict": "closed_with_fail_visible_limitations",
+  "branch": "feature/case-package-v2-external-schema",
+  "route": "sqlglot_noop",
+  "adapter_command": "python baselines/sqlglot/sqlglot_user_adapter.py --route noop",
+  "case_set": "common_core_v0",
+  "current_snapshot_sources": {
+    "postgres": "audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0",
+    "mysql": "audits/common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0",
+    "spark": "audits/common_core_spark_sqlglot_noop_after_statement_patch_v0"
+  },
+  "current_by_engine": {
+    "postgres": {
+      "selected_rows": 40,
+      "candidate_generated_rows": 35,
+      "candidate_preflight_passed_rows": 35,
+      "source_executable_rows": 35,
+      "candidate_executable_rows": 35,
+      "checker_attempted_rows": 35,
+      "exact_rows": 35,
+      "mismatch_rows": 0,
+      "failure_bucket_counts": {
+        "adapter_failed": 5,
+        "none": 35
+      }
+    },
+    "mysql": {
+      "selected_rows": 40,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "source_executable_rows": 40,
+      "candidate_executable_rows": 39,
+      "checker_attempted_rows": 39,
+      "exact_rows": 31,
+      "mismatch_rows": 8,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 1,
+        "mismatch": 8,
+        "none": 31
+      }
+    },
+    "spark": {
+      "selected_rows": 40,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "source_executable_rows": 35,
+      "candidate_executable_rows": 33,
+      "checker_attempted_rows": 33,
+      "exact_rows": 31,
+      "mismatch_rows": 2,
+      "non_port_same_engine_exact_rows": 31,
+      "non_port_same_engine_total_rows": 31,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 2,
+        "mismatch": 2,
+        "none": 31,
+        "unsupported_engine": 5
+      }
+    }
+  },
+  "combined_current_funnel": {
+    "selected_rows": 120,
+    "candidate_generated_rows": 115,
+    "candidate_preflight_passed_rows": 115,
+    "source_executable_rows": 110,
+    "candidate_executable_rows": 107,
+    "checker_attempted_rows": 107,
+    "exact_rows": 97,
+    "mismatch_rows": 10,
+    "source_like_rows": 6,
+    "unsupported_fail_closed_rows": 5,
+    "failure_bucket_counts": {
+      "adapter_failed": 5,
+      "candidate_execution_failed": 3,
+      "mismatch": 10,
+      "none": 97,
+      "unsupported_engine": 5
+    }
+  },
+  "spark_statement_boundary_resolution": {
+    "non_port_spark_clean": true,
+    "non_port_spark_exact": "31/31",
+    "resolved_rows": [
+      "PERF_0008",
+      "PERF_0013",
+      "PERF_0017",
+      "PERF_0019",
+      "PERF_0024",
+      "PERF_0082"
+    ],
+    "remaining_spark_failures_are_port_or_unsupported": true
+  },
+  "remaining_failure_classes": {
+    "postgres_port_adapter_parse_emit_failures": [
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ],
+    "mysql_port_real_adapter_failures": [
+      "PORT_0003",
+      "PORT_0005",
+      "PORT_0008",
+      "PORT_0012"
+    ],
+    "mysql_label_only_checker_normalization_candidates": [
+      "PERF_0062",
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024"
+    ],
+    "spark_port_real_adapter_failures": [
+      "PORT_0003",
+      "PORT_0004",
+      "PORT_0005",
+      "PORT_0013"
+    ],
+    "spark_explicit_unsupported_fail_closed_roles": [
+      "PORT_0008",
+      "PORT_0012",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ]
+  },
+  "boundaries": {
+    "local_diagnostic_only": true,
+    "official_metrics_computed": false,
+    "timing_or_speedup_computed": false,
+    "reports_results_updated": false,
+    "retained_evidence_promoted": false,
+    "global_leaderboard_created": false,
+    "denominator_changed": false,
+    "paper_results_changed": false,
+    "case_membership_changed": false,
+    "raw_retained_evidence_changed": false,
+    "release_export_tag_created": false,
+    "runs_user_outputs_committed": false,
+    "code_checker_backend_patched_in_this_task": false,
+    "sqlglot_optimize_run": false
+  }
+}

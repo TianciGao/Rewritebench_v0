@@ -2,20 +2,25 @@ case_id: LONGTAIL_0011
 pool: LONGTAIL
 compare_config_version: canonical_static_summary_v1
 source_outputs:
-  postgres: evidence/retained_controls/postgres/source.tsv
-  mysql: evidence/retained_controls/mysql/source.tsv
-  spark: evidence/retained_controls/spark/source.tsv
+  postgres: runtime_source_result
+  mysql: runtime_source_result
+  spark: runtime_source_result
 positive_outputs:
-  postgres: evidence/retained_controls/postgres/rewrite_pos_01.tsv
-  mysql: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  spark: evidence/retained_controls/spark/rewrite_pos_01.tsv
+  postgres: runtime_positive_result
+  mysql: runtime_positive_result
+  spark: runtime_positive_result
 negative_outputs:
-  postgres: evidence/hard_negative/postgres/rewrite_neg_01.tsv
-  mysql: evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  spark: evidence/hard_negative/spark/rewrite_neg_01.tsv
+  postgres: runtime_negative_result
+  mysql: runtime_negative_result
+  spark: runtime_negative_result
 expected_checks:
   source_positive_equal: true
   source_negative_different: true
 claim_boundaries:
   generated_summary_only: true
   db_validation_run: false
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

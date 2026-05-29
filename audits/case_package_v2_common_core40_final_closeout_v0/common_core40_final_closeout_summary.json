@@ -1,0 +1,33 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "common_core40_final_closeout": true,
+  "common_core_cases_reviewed": 40,
+  "validators_passed_count": 40,
+  "clean_template_minimal_passed_count": 35,
+  "manifest_semantic_contract_passed_count": 40,
+  "validation_three_file_contract_passed_count": 40,
+  "dialect_variant_cases_retained": [
+    "PORT_0003",
+    "PORT_0004",
+    "PORT_0005",
+    "PORT_0013"
+  ],
+  "remaining_blockers_count": 15,
+  "perf0077_perf0082_followup_required": true,
+  "ready_for_source_path_followup": true,
+  "ready_for_release_closeout_after_source_path_followup": false,
+  "case_files_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Run a narrow writable cleanup for leftover empty pilot compatibility directories (notes/, sql/positives/, sql/negatives/) in PERF_0006, PERF_0007, CONS_0005, PORT_0003, and LONGTAIL_0011; rerun this final closeout; then perform the PERF_0077/PERF_0082 source-path provenance follow-up before public release closeout."
+}

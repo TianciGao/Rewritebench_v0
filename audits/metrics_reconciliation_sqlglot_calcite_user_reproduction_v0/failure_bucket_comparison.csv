@@ -1,0 +1,17 @@
+route_label,bucket,prior_count,new_count,match_status,notes
+SQLGlot no-op,adapter_failed,5,5,match,same vocabulary bucket
+SQLGlot no-op,candidate_execution_failed,3,3,match,same vocabulary bucket
+SQLGlot no-op,mismatch,10,10,match,same vocabulary bucket
+SQLGlot no-op,none,97,97,match,same vocabulary bucket
+SQLGlot no-op,unsupported_engine,5,5,match,same vocabulary bucket
+SQLGlot optimize schema-aware,adapter_failed,14,14,match,same vocabulary bucket
+SQLGlot optimize schema-aware,candidate_execution_failed,9,9,match,same vocabulary bucket
+SQLGlot optimize schema-aware,mismatch,25,25,match,same vocabulary bucket
+SQLGlot optimize schema-aware,no_candidate_sql,1,1,match,same vocabulary bucket
+SQLGlot optimize schema-aware,none,66,66,match,same vocabulary bucket
+SQLGlot optimize schema-aware,unsupported_engine,5,5,match,same vocabulary bucket
+Calcite HEP fail-closed,candidate_execution_failed,3,0,diff,count differs; inspect route-specific findings
+Calcite HEP fail-closed,mismatch,14,0,diff,count differs; inspect route-specific findings
+Calcite HEP fail-closed,no_candidate_sql,21,120,diff,count differs; inspect route-specific findings
+Calcite HEP fail-closed,none,81,0,diff,count differs; inspect route-specific findings
+Calcite HEP fail-closed,unsupported_engine,1,0,diff,count differs; inspect route-specific findings

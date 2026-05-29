@@ -1,0 +1,12 @@
+risk_category,risk_level,description,blocker_for_fake_adapter,blocker_for_live_smoke,blocker_for_track_a_120,mitigation,notes
+RAG/index availability,high,Official R-Bot uses retrieval evidence and Chroma indexes; recovered substrate is not frozen,no,yes,yes,Start with no-retrieval adapted GPT-5.4 smoke and record retrieval_used=false,Do not build RAG index in scaffold
+evidence contamination,high,Legacy retrieval corpus and old outputs could contaminate new evidence if reused,no,yes,yes,Use legacy evidence only for design clues,Do not copy logs/candidates/metrics
+GPTSAPI provider conversion,medium,Official stack expects OpenAI-style config while adapted route must use GPTSAPI/openai_compatible policy,no,yes,yes,Use Direct LLM env-only provider policy,Live calls not implemented here
+prompt template compatibility,medium,Official prompt/retrieval flow is not recovered as a stable D035 adapter,no,yes,yes,Freeze a future adapted prompt template before live smoke,Scaffold records placeholder id only
+output SQL extraction,medium,LLM output can include prose or multiple statements,no,yes,yes,Single SELECT/WITH extraction with fail-closed behavior,Fixture tests cover failure forms
+schema context conversion,medium,R-Bot prompt quality depends on schema context,no,yes,yes,Require schema context and fail closed when missing,No schema mutation
+CalciteRewrite dependency,high,Official R-Bot can use CalciteRewrite after rule selection,no,yes,yes,Do not invoke CalciteRewrite in adapted scaffold,Metadata records calcite_rewrite_used=false
+PostgreSQL substrate,medium,Legacy R-Bot evidence is PostgreSQL-oriented,no,yes,yes,Keep first live smoke PostgreSQL-only,MySQL/Spark unsupported in scaffold
+denominator compatibility,high,Legacy evidence is bounded/mixed and not complete Track A 120,no,yes,yes,Keep adapted route denominator-aware and local diagnostic only,No metrics computed here
+old evidence reuse risk,high,Old logs/candidates must not become new canonical outputs,no,yes,yes,Do not copy old artifacts; rerun through user facade for future evidence,Audit boundary records this
+secret safety,high,Live API keys must never be printed/written/staged,no,yes,yes,Metadata records env names/presence only,Fixture secret hygiene test passed

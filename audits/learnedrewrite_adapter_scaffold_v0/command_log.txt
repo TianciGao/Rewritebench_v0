@@ -1,0 +1,36 @@
+Commands used for this implementation task.
+
+Read-only context commands:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD`
+- `sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 100 project_control/MIGRATION_STATUS.md`
+- `tail -n 140 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,260p' project_control/DECISION_LOG.md`
+- `sed -n '1,260p' repository_spec/metrics_contract_v1.md`
+- `sed -n '1,260p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_adapter_design.md`
+- `sed -n '1,260p' audits/learnedrewrite_external_wrapper_design_v0/learnedrewrite_wrapper_contract.md`
+- `sed -n '1,260p' baselines/learnedrewrite/README.md`
+- `sed -n ... tests/user_entry/test_direct_llm_adapter.py`
+- `sed -n ... tests/user_entry/test_direct_llm_repair_1_adapter.py`
+- `sed -n ... baselines/direct_llm_original/adapter.py`
+- `sed -n ... baselines/calcite_hep_fail_closed/adapter.py`
+- `sed -n ... src/sql_rewrite_bench/adapter_runner.py`
+
+Implementation validation commands:
+
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`
+- `python -m py_compile baselines/learnedrewrite/adapter.py`
+- CSV parse and Markdown/text non-empty checks using a local Python one-shot over `audits/learnedrewrite_adapter_scaffold_v0/`.
+- `git diff --check`
+- changed-file secret scan over the allowed changed paths.
+- upstream artifact-copy check for source/JAR/dependency/checkpoint-like extensions under the allowed LearnedRewrite paths.
+- `git status -sb`
+
+No-prohibited-command check:
+
+- No real LearnedRewrite Java runtime command was run.
+- No Java server or JAR was run.
+- No R-Bot or LLM-R2 command was run.
+- No live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, or Track A 120 command was run.

@@ -1,0 +1,4 @@
+pair_id,case_id,pool,guard_category,support_scope_verdict,source_identity_verdict,candidate_identity_verdict,actual_verdict,excluded_from_decidable_denominator,notes
+sqlglot_noop__postgres__LONGTAIL_0011,LONGTAIL_0011,LONGTAIL,unsupported_sql_feature,no_verifier_support,no_verifier_support,no_verifier_support,no_verifier_support,true,"guarded known unsupported SQLSolver family; verifier limitation, not rewrite-method failure"
+sqlglot_noop__postgres__PORT_0003,PORT_0003,PORT,unsupported_postgres_dialect,no_verifier_support,no_verifier_support,no_verifier_support,no_verifier_support,true,"guarded known unsupported SQLSolver family; verifier limitation, not rewrite-method failure"
+sqlglot_noop__postgres__PORT_0005,PORT_0005,PORT,unsupported_postgres_dialect,no_verifier_support,no_verifier_support,no_verifier_support,no_verifier_support,true,"guarded known unsupported SQLSolver family; verifier limitation, not rewrite-method failure"

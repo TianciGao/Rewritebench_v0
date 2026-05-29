@@ -1,0 +1,13 @@
+path,file_type,purpose,created_or_updated,policy_source,local_only,official_metric,paper_output,notes
+LICENSE,license,Repository-level Apache-2.0 license skeleton,created,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,no,no,no,Uses SQL-RewriteBench contributors as placeholder-safe holder
+CITATION.cff,citation,Placeholder-safe citation metadata,created,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,no,no,no,No DOI or individual author metadata invented
+CONTRIBUTING.md,contribution_policy,Conservative contribution policy,created,project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,no,no,no,Protects membership denominators metrics reports/results retained evidence and claims
+.gitignore,output_hygiene,Root ignore rules for local caches and runs/user only,created,audits/release_surface_metadata_readiness_v0/low_risk_skeleton_plan.md,no,no,no,Does not ignore all of runs/
+benchmark_spec/README.md,benchmark_spec_index,Index for public v0 benchmark spec skeleton,created,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,no,no,no,Does not compute metrics
+benchmark_spec/scope.md,benchmark_spec_scope,Public v0 benchmark scope and non-goals,created,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,no,no,no,Preserves Common-core v0 and Track A planned denominator
+benchmark_spec/case_package_contract.md,benchmark_spec_contract,Public case package surface contract,created,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,no,no,no,Does not add new required implemented files
+benchmark_spec/denominator_policy.md,benchmark_spec_policy,Common-core and Track A denominator policy,created,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,no,no,no,Membership governed by case_sets
+benchmark_spec/reporting_policy.md,benchmark_spec_policy,Reporting and claim boundaries,created,audits/release_surface_metadata_readiness_v0/benchmark_spec_skeleton_outline.md,no,no,no,No global leaderboard
+reports/README.md,boundary_readme,Reports boundary placeholder,created,audits/release_surface_metadata_readiness_v0/reports_results_boundary_note.md,no,no,no,No report generation or migration
+results/README.md,boundary_readme,Results boundary placeholder,created,audits/release_surface_metadata_readiness_v0/reports_results_boundary_note.md,no,no,no,No official metric computation
+docs/README.md,docs_index,Documentation index,created,audits/release_surface_metadata_readiness_v0/low_risk_skeleton_plan.md,no,no,no,Links existing user-facing docs only

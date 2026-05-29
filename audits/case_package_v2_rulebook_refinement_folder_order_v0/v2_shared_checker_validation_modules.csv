@@ -1,0 +1,11 @@
+module_or_script,status,responsibility,called_by,case_local_or_shared,clean_v2_policy,notes
+src/sql_rewrite_bench/local_result_checker.py,existing,Compare local source and candidate result JSONL artifacts,validation wrappers or user runner,shared,Use as shared result checker implementation,Not an official semantic-equivalence metric engine
+src/sql_rewrite_bench/sql_shape_validator.py,planned,Perform static SQL shape and consistency checks,validation/run_validation.sh,shared,Future shared module only,Do not create in this task
+src/sql_rewrite_bench/plan_artifact_validator.py,planned,Validate plan and evidence artifacts referenced by evidence_ref,validation/run_plan_collection.sh,shared,Future shared module only,Do not create in this task
+validation/run_validation.sh,target wrapper,Stable case-local validation entrypoint,user or maintainer,case_local,Thin wrapper only,Must call shared logic and avoid case-local runs output by default
+validation/run_plan_collection.sh,target wrapper,Stable case-local plan collection entrypoint,user or maintainer,case_local,Thin wrapper only,Must resolve manifest schema_ref and evidence_ref
+template check_results.py,compatibility_or_template,Legacy or template result check logic,old validation scripts,case_local,Not clean v2 implementation,Move logic to shared module before cleanup
+template check_sql_consistency.py,compatibility_or_template,Legacy or template SQL consistency checks,old validation scripts,case_local,Not clean v2 implementation,Future sql_shape_validator.py owns this responsibility
+template check_plan_artifacts.py,compatibility_or_template,Legacy or template plan artifact checks,old validation scripts,case_local,Not clean v2 implementation,Future plan_artifact_validator.py owns this responsibility
+template run_engine_queries.py,compatibility_or_template,Legacy or template engine query execution,old validation scripts,case_local,Not clean v2 implementation,Future engine_query_runner.py may own this responsibility
+template run_checks.sh,compatibility_or_template,Legacy aggregate shell checker,old validation scripts,case_local,Not clean v2 implementation,Replace with thin wrappers after shared logic exists

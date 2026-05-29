@@ -2,12 +2,15 @@
 
 This directory contains optional non-DB SQLGlot adapters for the B-line user-entry runner.
 
-The adapters expose two candidate-generation routes:
+The adapters expose three candidate-generation routes:
 
 - `sqlglot_noop`: invoked as `--route noop`
 - `sqlglot_optimize`: invoked as `--route optimize`
+- `sqlglot_optimize_schema_aware`: invoked as `--route optimize_schema_aware`
 
-Both routes read the source SQL path provided by the user-entry runner, use the selected engine to infer a SQLGlot dialect, and write candidate SQL to `SQLRB_CANDIDATE_SQL_PATH`.
+All routes read the source SQL path provided by the user-entry runner, use the
+selected engine to infer a SQLGlot dialect, and write candidate SQL to
+`SQLRB_CANDIDATE_SQL_PATH`.
 
 ## Usage
 
@@ -23,7 +26,55 @@ or:
 python baselines/sqlglot/sqlglot_user_adapter.py --route optimize
 ```
 
-These commands are intended to be passed through `--adapter-command` on `python -m sql_rewrite_bench.user_run`.
+or:
+
+```bash
+python baselines/sqlglot/sqlglot_user_adapter.py --route optimize_schema_aware
+```
+
+These commands are intended to be passed through `--adapter-command` on the
+public facade, `sqlrb user evaluate` or `python -m cli.main user evaluate`.
+The lower-level `python -m sql_rewrite_bench.user_run` path remains an internal
+implementation path.
+
+## Optimize Route Policy
+
+`--route noop`, `--route optimize`, and `--route optimize_schema_aware` are
+separate user-entry adapter routes. Do not merge their local diagnostic outcomes
+into a single SQLGlot score.
+
+The current `--route optimize` implementation is context-free: it reads the source SQL, parses it using the selected engine dialect, calls SQLGlot `optimize(expression)` without case schema or catalog context, and emits candidate SQL.
+
+Because it has no case schema/catalog context, context-free optimize may emit invalid qualification for some correlated subqueries. A bounded local diagnostic found this on `CONS_0005`, where SQLGlot emitted invalid three-part references:
+
+- PostgreSQL: `"table1"."table2"."i"`
+- MySQL/Spark: `` `table1`.`table2`.`i` ``
+
+That failure is fail-visible adapter behavior. It is not a database backend failure, checker failure, timing issue, official metric, or benchmark code failure.
+
+`--route optimize_schema_aware` is the explicit schema-aware route. It resolves
+the selected case's per-engine DDL from the manifest/schema profile, builds the
+simple table/column schema mapping expected by SQLGlot, and calls
+`optimize(expression, schema=..., dialect=...)`. If schema context cannot be
+resolved or parsed, it fails closed with one of:
+
+- `schema_context_unavailable`
+- `sqlglot_schema_parse_failed`
+- `sqlglot_optimize_failed`
+- `candidate_generation_failed`
+- `mysql_unsupported_array_any`
+- `sqlglot_unsupported_mysql_lambda`
+
+For MySQL only, schema-aware optimize also fails closed before DB execution if
+SQLGlot emits known MySQL-unsupported `ARRAY_ANY` or lambda-style output. The
+adapter retains the unsupported generated SQL in the local workspace as
+`unsupported_candidate.sql` for traceability, but it does not write it to
+`SQLRB_CANDIDATE_SQL_PATH`.
+
+Users should not interpret bounded local diagnostic SQLGlot route results as
+official retained baseline evidence. Schema-aware optimize changes route
+semantics and comparability, so it must be reported under its separate
+`sqlglot_optimize_schema_aware` route id.
 
 ## Boundaries
 
@@ -37,7 +88,8 @@ These commands are intended to be passed through `--adapter-command` on `python 
 - It does not update reports or results.
 - It does not change denominators or case membership.
 - It does not create global leaderboard output.
-- Outputs belong under local `runs/user/<run_id>/` directories created by the user-entry runner.
+- User-facing exported output belongs under `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/`.
+- The current implementation may create `runs/user/<run_id>/` as internal transitional staging before export; that path is not the public output contract.
 
 ## Dependency
 

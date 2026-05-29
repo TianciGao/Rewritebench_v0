@@ -1,0 +1,45 @@
+case_id,dialect_variant_path,exists,retained_as_semantic_asset,deletion_allowed,blocker,notes
+PERF_0006,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0007,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0008,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0013,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0017,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0019,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0024,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0033,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0034,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0035,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0052,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0054,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0056,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0062,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0077,,false,false,not_applicable,false,no dialect variants present or required
+PERF_0082,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0005,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0007,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0009,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0010,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0011,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0012,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0024,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0036,,false,false,not_applicable,false,no dialect variants present or required
+CONS_0037,,false,false,not_applicable,false,no dialect variants present or required
+PORT_0003,sql/dialect_variants/spark/neg_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0003,sql/dialect_variants/spark/pos_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0004,sql/dialect_variants/spark/neg_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0004,sql/dialect_variants/spark/pos_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0005,sql/dialect_variants/spark/neg_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0005,sql/dialect_variants/spark/pos_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0008,,false,false,not_applicable,false,no dialect variants present or required
+PORT_0012,,false,false,not_applicable,false,no dialect variants present or required
+PORT_0013,sql/dialect_variants/spark/neg_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0013,sql/dialect_variants/spark/pos_02_spark.sql,true,true,false,false,retained documented semantic PORT asset
+PORT_0022,,false,false,not_applicable,false,no dialect variants present or required
+PORT_0024,,false,false,not_applicable,false,no dialect variants present or required
+PORT_0025,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0011,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0012,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0013,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0022,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0023,,false,false,not_applicable,false,no dialect variants present or required
+LONGTAIL_0024,,false,false,not_applicable,false,no dialect variants present or required

@@ -1,0 +1,26 @@
+# Boundary Checklist
+
+- [x] Branch confirmed as `feature/case-package-v2-external-schema`.
+- [x] Required prior Direct LLM adapter commit is contained in branch.
+- [x] D033, D034, and D035 exist.
+- [x] Direct LLM original adapter exists.
+- [x] Live environment checked without printing secrets.
+- [x] Live provider was not called because required env was incomplete.
+- [x] User-facade D035 gate smoke used `python -m cli.main user evaluate`.
+- [x] Planned bounded scope was 2 cases x 3 engines = 6 rows.
+- [x] All 6 rows failed closed before network request.
+- [x] No Track A 120 run.
+- [x] No timing.
+- [x] No verifier run.
+- [x] No local metrics computation.
+- [x] No official metrics.
+- [x] No official SER.
+- [x] No formal Regression@20.
+- [x] No paper reports/results update.
+- [x] No retained-evidence promotion.
+- [x] No leaderboard output.
+- [x] No denominator change.
+- [x] No case membership change.
+- [x] No source, adapter, test, case, schema, or inventory change.
+- [x] No runtime artifacts staged.
+- [x] No secrets staged.

@@ -1,0 +1,5 @@
+pool,rows,expected_operation_atoms,transformation_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,schema_invalid_rows,notes
+PERF,16,43,18,1,12,4,diagnostic pool summary only; no route-level POCR score
+CONS,9,21,5,0,16,0,diagnostic pool summary only; no route-level POCR score
+PORT,9,26,4,8,14,0,diagnostic pool summary only; no route-level POCR score
+LONGTAIL,6,17,5,1,8,1,diagnostic pool summary only; no route-level POCR score

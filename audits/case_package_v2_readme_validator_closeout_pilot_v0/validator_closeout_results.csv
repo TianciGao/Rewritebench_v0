@@ -1,0 +1,6 @@
+case_id,validator_status,direct_sql_paths_ok,schema_profile_ok,schema_ref_ok,checker_refs_ok,validation_wrappers_ok,witness_policy_ok,evidence_ref_ok,forbidden_paths_or_outputs_found,notes
+PERF_0006,pass,yes,yes,yes,yes,yes,yes,yes,no,"Static validator passed; reference_rows=24; internal_checks=34; format_findings=1; no DB/checker execution."
+PERF_0007,pass,yes,yes,yes,yes,yes,yes,yes,no,"Static validator passed; reference_rows=22; internal_checks=35; format_findings=1; no DB/checker execution."
+CONS_0005,pass,yes,yes,yes,yes,yes,yes,yes,no,"Static validator passed; reference_rows=22; internal_checks=31; format_findings=1; no DB/checker execution."
+PORT_0003,pass,yes,yes,yes,yes,yes,yes,yes,no,"Static validator passed; reference_rows=22; internal_checks=30; format_findings=1; no DB/checker execution."
+LONGTAIL_0011,pass,yes,yes,yes,yes,yes,yes,yes,no,"Static validator passed; reference_rows=22; internal_checks=31; format_findings=1; no DB/checker execution."

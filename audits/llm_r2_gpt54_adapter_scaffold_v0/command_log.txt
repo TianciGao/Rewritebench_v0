@@ -1,0 +1,87 @@
+# Command Log
+
+Read-only project-control and policy reads:
+
+```bash
+git branch --show-current && git status --short
+sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md
+sed -n '1,220p' project_control/MIGRATION_STATUS.md
+sed -n '1,220p' project_control/DECISION_LOG.md
+tail -n 220 project_control/MIGRATION_RUN_LOG.md
+sed -n '1,240p' repository_spec/metrics_contract_v1.md
+```
+
+Read-only adapter/facade convention reads:
+
+```bash
+sed -n '1,260p' baselines/rbot/adapter.py
+sed -n '620,1040p' baselines/rbot/adapter.py
+sed -n '1,220p' baselines/rbot/README.md
+sed -n '1,260p' tests/user_entry/test_rbot_adapter.py
+sed -n '1,260p' baselines/direct_llm_original/adapter.py
+sed -n '1,260p' baselines/direct_llm_repair_1/adapter.py
+sed -n '90,370p' src/cli/main.py
+sed -n '1,240p' src/sql_rewrite_bench/user_run.py
+sed -n '240,560p' src/sql_rewrite_bench/user_run.py
+sed -n '1,220p' src/sql_rewrite_bench/adapter_runner.py
+```
+
+Prior-method audit reads:
+
+```bash
+find audits/prior_methods_onboarding_feasibility_v0 -maxdepth 1 -type f -print | sort
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/README.md
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/method_source_inventory.csv
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/method_runtime_entrypoints.csv
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/legacy_repo_evidence_inventory.csv
+```
+
+Legacy repo read-only searches and reads:
+
+```bash
+rg -n -i "LLM-R2|LLM_R2|llm_r2|llmr2|recovered|recovered-output|PG9|PG6|rule sequence|rewrite rule|LLM_R2.py|simcse|selector|demonstration|checkpoint|prior_method|bounded|logs" /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0
+find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean -path '*/.git' -prune -o -iregex '.*\(llm.r2\|llm_r2\|llmr2\|simcse\|selector\|checkpoint\|LLM_R2.py\).*' -print
+sed -n '1,180p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/llm_r2_pg9_bounded_evidence_reconciliation_v1.md
+sed -n '1,180p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/llm_r2_recovered_extraction_pg6_bounded_evidence_review_v1.md
+sed -n '1,160p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/llm_r2_supported_pg3_pg_execution_checker_review_v1.md
+sed -n '1,120p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/llm_r2_120_runner_recovery_inventory_v1.json
+sed -n '1,120p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/llm_r2_120_dependency_matrix_v1.csv
+```
+
+Official and online references reviewed:
+
+- `https://github.com/DAMO-NLP-SG/LLM-R2`
+- `https://arxiv.org/abs/2404.12872`
+- `https://github.com/TianciGao/sql-rewrite-bench/tree/artifact/case-package-contract-alignment-clean/reports/evaluation/common_core_v0`
+
+Implementation and validation commands:
+
+```bash
+mkdir -p baselines/llm_r2 tests/user_entry audits/llm_r2_gpt54_adapter_scaffold_v0
+pytest tests/user_entry/test_llm_r2_adapter.py -q
+python -m py_compile baselines/llm_r2/adapter.py
+python - <<'PY'
+import csv
+from pathlib import Path
+for p in [Path('audits/llm_r2_gpt54_adapter_scaffold_v0/substrate_risk_matrix.csv'), Path('audits/llm_r2_gpt54_adapter_scaffold_v0/fixture_test_matrix.csv')]:
+    with p.open(newline='', encoding='utf-8') as f:
+        rows=list(csv.DictReader(f))
+    if not rows:
+        raise SystemExit(f'{p} has no rows')
+print('csv_parse_ok', 2)
+PY
+git diff --check
+```
+
+Fake user-facade smoke:
+
+```bash
+printf 'PERF_0006\nCONS_0036\n' > /tmp/sqlrb_llm_r2_fake_smoke_cases.txt
+SQLRB_LLM_R2_MODE=fake SQLRB_LLM_R2_FAKE_SQL='SELECT 1 AS llm_r2_fake_candidate' PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --case-list /tmp/sqlrb_llm_r2_fake_smoke_cases.txt --adapter-command "python baselines/llm_r2/adapter.py" --output-root /tmp/sqlrb_llm_r2_gpt54_adapter_scaffold_v0/output --run-id llm_r2_gpt54_fake_user_facade_smoke_v0 --adapter-timeout 30
+rm -rf runs/user/llm_r2_gpt54_fake_user_facade_smoke_v0 /tmp/sqlrb_llm_r2_gpt54_adapter_scaffold_v0 /tmp/sqlrb_llm_r2_fake_smoke_cases.txt
+```
+
+No live LLM/API, official LLM-R2 runtime, Java/rule-system, checkpoint,
+demonstration selector, DB/checker/timing, local_metrics, verifier, official
+metrics, paper rendering, retained evidence promotion, leaderboard, or Track A
+120 command was run.

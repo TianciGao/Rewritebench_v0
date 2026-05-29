@@ -1,0 +1,13 @@
+spark_status,failure_bucket,stage,local_only,official_metric,notes
+spark_not_configured,unsupported_engine,environment,true,false,Spark local diagnostics not explicitly enabled or required env absent; no SQL executed.
+spark_client_missing,unsupported_engine,environment,true,false,pyspark/Spark runtime unavailable; no SQL executed.
+spark_session_failed,source_execution_failed,session_start,true,false,Session could not start before source execution; checker skipped.
+spark_schema_missing,source_execution_failed,schema_resolution,true,false,Same-engine source side cannot be set up because Spark DDL/load metadata is missing.
+spark_schema_setup_failed,source_execution_failed,schema_setup,true,false,DDL/load execution failed before source query; checker skipped.
+spark_source_execution_failed,source_execution_failed,source_execution,true,false,Source SQL failed; candidate and checker skipped for same-engine rows.
+spark_candidate_execution_failed,candidate_execution_failed,candidate_execution,true,false,Candidate SQL failed after source success; checker skipped.
+spark_result_export_failed,internal_runner_error,result_export,true,false,Spark executed but backend could not safely serialize JSONL; no exactness claim.
+spark_timeout,execution_timeout,startup_or_execution,true,false,Timeout is local diagnostic only; not a timing metric or speedup sample.
+spark_internal_error,internal_runner_error,backend_internal,true,false,Unexpected backend error after redaction.
+spark_target_schema_missing,candidate_execution_failed,cross_dialect_target_schema,true,false,Future Spark target-candidate role lacks Spark schema assets; source artifact may exist.
+spark_target_candidate_execution_failed,candidate_execution_failed,cross_dialect_target_execution,true,false,Future Spark target-candidate execution failed after source-reference success.

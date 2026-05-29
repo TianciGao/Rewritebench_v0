@@ -1,0 +1,22 @@
+artifact_path,exists,file_type,contains_command,contains_stdout_stderr,contains_exit_code,contains_row_manifest,contains_annotation_jsonl,notes
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/README.md,true,md,false,true,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/annotation_generation_manifest.csv,true,csv,false,true,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/annotation_schema_validation_summary.csv,true,csv,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/command_log.md,true,md,true,false,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/diagnostic_boundary_review.md,true,md,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/live_annotation_not_run.md,true,md,false,false,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/malformed_or_schema_invalid_review.md,true,md,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/protected_path_review.md,true,md,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/provider_call_manifest_safe.csv,true,csv,false,true,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_command.md,true,md,false,false,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_diagnostic_rows_summary.csv,true,csv,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_diagnostic_summary_by_pool_copy.csv,true,csv,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/replay_mapping_validation.csv,true,csv,false,false,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/secret_scan_notes.md,true,md,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/selected_candidate_root.md,true,md,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/selected_cases.csv,true,csv,false,false,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/step5_plan.md,true,md,false,true,false,false,false,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/temp_output_tree.txt,true,txt,false,false,false,false,true,previous fail-closed audit artifact
+audits/pocr_step5_direct_llm_repair1_pg40_annotation_replay_v0/transformation_stage_b_summary.csv,true,csv,false,false,false,false,false,previous fail-closed audit artifact
+output/results/pocr_annotation_direct_llm_repair1_pg40_v0/pocr/annotations/direct_llm_repair_1/direct_llm_repair_1_pg40_pocr_diagnostic/postgres/safe_annotation_outputs.jsonl,false,jsonl,false,false,false,false,true,expected live output missing after interrupted attempt
+output/results/pocr_annotation_direct_llm_repair1_pg40_v0/pocr/annotations/direct_llm_repair_1/direct_llm_repair_1_pg40_pocr_diagnostic/postgres/annotation_manifest.csv,false,csv,false,false,false,false,false,expected live output missing after interrupted attempt

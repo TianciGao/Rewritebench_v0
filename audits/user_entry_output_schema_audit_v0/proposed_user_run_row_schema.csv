@@ -1,0 +1,55 @@
+proposed_field,field_group,type,required_for_smoke,required_for_db_checker,required_for_preflight,required_for_quality_report,required_for_tag_slices,required_for_timing_later,proposed_owner_module,description,official_metric_input,notes
+run_id,identity,string,yes,yes,yes,yes,yes,yes,user_run.py,Stable run id,false,Existing
+case_id,identity,string,yes,yes,yes,yes,yes,yes,case_selection.py,Case id,false,Existing
+pool,identity,enum,yes,yes,yes,yes,yes,yes,case_selection.py,Pool,false,Existing
+engine,identity,enum,yes,yes,yes,yes,yes,yes,case_selection.py,Selected engine,false,Existing
+denominator_id,identity,string,yes,yes,yes,yes,yes,yes,case_selection.py,Track A planned row id,false,Existing
+case_path,identity,path,yes,yes,yes,no,yes,no,case_package_resolver.py,Resolved case package path,false,Currently only selected_cases.csv
+source_sql_path,identity,path,yes,yes,yes,no,yes,no,case_package_resolver.py,Resolved source SQL path,false,Currently only selected_cases.csv
+manifest_path,identity,path,no,yes,yes,no,yes,no,case_package_resolver.py,Resolved manifest path,false,Needed for tags and schema/checker resolution
+selected,selection,boolean,yes,yes,yes,yes,yes,yes,case_selection.py,Selected row flag,false,Existing
+planned,selection,boolean,yes,yes,yes,yes,yes,yes,case_selection.py,Planned denominator flag,false,Existing as string
+adapter_invoked,adapter,boolean,yes,yes,yes,yes,yes,no,adapter_runner.py,Adapter invoked flag,false,Existing
+adapter_exit_code,adapter,integer nullable,yes,yes,yes,no,no,no,adapter_runner.py,Adapter process exit,false,Existing
+adapter_timeout,adapter,boolean,no,no,yes,yes,no,no,adapter_runner.py,Adapter timeout flag,false,Currently encoded as failure bucket
+candidate_generated,candidate,boolean,yes,yes,yes,yes,yes,no,adapter_runner.py,Candidate captured flag,false,Existing
+candidate_sql_path,candidate,path nullable,yes,yes,yes,no,yes,no,adapter_runner.py,Canonical candidate path,false,Existing
+extraction_status,candidate,enum,yes,yes,yes,yes,no,no,adapter_runner.py,Candidate capture status,false,Existing
+candidate_preflight_attempted,preflight,boolean,no,no,yes,yes,yes,no,candidate_preflight.py,Preflight attempted flag,false,Missing
+candidate_preflight_passed,preflight,boolean nullable,no,no,yes,yes,yes,no,candidate_preflight.py,Preflight pass flag,false,Missing
+candidate_preflight_status,preflight,enum,no,no,yes,yes,yes,no,candidate_preflight.py,Preflight status,false,Missing
+preflight_failure_class,preflight,string nullable,no,no,yes,yes,yes,no,candidate_preflight.py,Reason preflight failed,false,Missing
+source_like_status,preflight,enum,no,no,yes,yes,yes,no,candidate_preflight.py,Source-like or no-op diagnostic,false,Missing
+nontrivial_candidate,preflight,boolean nullable,no,no,yes,yes,yes,no,candidate_preflight.py,Nontrivial candidate flag,false,Missing
+execution_enabled,execution,boolean,yes,yes,no,yes,no,no,engine_execution.py,DB execution option flag,false,Existing
+db_execution_attempted,execution,boolean,no,yes,no,yes,no,no,engine_execution.py,Any DB execution attempted,false,Missing
+execution_status,execution,enum,yes,yes,no,yes,no,no,engine_execution.py,Overall execution status,false,Existing
+source_execution_status,execution,enum,yes,yes,no,yes,no,no,engine_execution.py,Source execution status,false,Existing
+candidate_execution_status,execution,enum,yes,yes,no,yes,no,no,engine_execution.py,Candidate execution status,false,Existing
+source_executable,execution,boolean nullable,no,yes,no,yes,no,no,engine_execution.py,Source execution success flag,false,Missing
+candidate_executable,execution,boolean nullable,no,yes,no,yes,no,no,engine_execution.py,Candidate execution success flag,false,Missing
+source_result_path,execution,path nullable,no,yes,no,no,no,no,engine_execution.py,Source result artifact,false,Existing
+candidate_result_path,execution,path nullable,no,yes,no,no,no,no,engine_execution.py,Candidate result artifact,false,Existing
+source_error_path,execution,path nullable,no,yes,no,no,no,no,engine_execution.py,Source error artifact,false,Missing
+candidate_error_path,execution,path nullable,no,yes,no,no,no,no,engine_execution.py,Candidate error artifact,false,Missing
+execution_artifact_dir,execution,path nullable,no,yes,no,no,no,no,engine_execution.py,Engine artifact directory,false,Current db_artifact_dir
+schema_setup_status,execution,enum,no,yes,no,yes,no,no,engine_execution.py,Schema setup status,false,Missing
+engine_version,execution,string nullable,no,no,no,no,no,yes,engine_execution.py,Engine version string,false,Future
+checker_enabled,checker,boolean,yes,yes,no,yes,no,no,local_result_checker.py,Checker option flag,false,Existing
+checker_attempted,checker,boolean,no,yes,no,yes,no,no,local_result_checker.py,Checker attempted flag,false,Missing
+checker_status,checker,enum,yes,yes,no,yes,no,no,local_result_checker.py,Checker status,false,Existing
+exact_status,checker,enum,yes,yes,no,yes,yes,no,local_result_checker.py,Local exact status,false,Existing
+checker_failure_class,checker,string nullable,no,yes,no,yes,no,no,local_result_checker.py,Checker failure class,false,Existing
+mismatch_artifact_path,checker,path nullable,no,yes,no,no,no,no,local_result_checker.py,Mismatch artifact,false,Existing
+failure_bucket,failure,enum,yes,yes,yes,yes,yes,yes,user_ledger.py,Primary failure bucket,false,Existing but priority not formalized
+failure_priority_rank,failure,integer,no,no,yes,yes,yes,no,user_ledger.py,Applied failure priority,false,Missing
+artifact_path,artifact,path,yes,yes,yes,no,no,no,user_ledger.py,Per-row artifact path,false,Existing
+notes,artifact,string,yes,yes,yes,no,no,no,user_ledger.py,Human-readable notes,false,Existing
+tag_axes,tags,string-list,no,no,no,no,yes,no,tag_slices.py,Joined taxonomy/tag axes,false,Missing
+tag_values,tags,string-list,no,no,no,no,yes,no,tag_slices.py,Joined tag values,false,Missing
+timing_attempted,timing,boolean,no,no,no,no,no,yes,timing_diagnostic.py,Timing attempted flag,false,Future
+timed_status,timing,enum,yes,yes,no,yes,no,yes,timing_diagnostic.py,Timing status,false,Existing placeholder
+raw_timing_artifact_path,timing,path nullable,no,no,no,no,no,yes,timing_diagnostic.py,Raw timing samples path,false,Future
+local_execution_only,boundary,boolean,yes,yes,yes,yes,yes,yes,user_ledger.py,Local-only boundary,false,Existing
+official_metric_input,boundary,boolean,yes,yes,yes,yes,yes,yes,user_ledger.py,Official metric exclusion flag,false,Existing false
+retained_evidence_input,boundary,boolean,yes,yes,yes,yes,yes,yes,user_ledger.py,Retained evidence exclusion flag,false,Existing false

@@ -1,0 +1,35 @@
+case_id: PERF_0006
+witness_profile_version: case_package_v2_external_schema_pilot
+schema_id: tpch_common_core_v0
+source_family: TPC-H
+dataset_id: pg_minimal_witness_v1
+required_tables:
+- lineitem
+row_counts:
+  lineitem: 4
+data_source:
+  source_id: SRC_001
+  source_name: TPC-H
+  seed_id: TPC-H-Q1
+  retained_witness_loads:
+    postgres: schemas/tpch_common_core_v0/postgres/load.sql
+    mysql: schemas/tpch_common_core_v0/mysql/load.sql
+    spark: schemas/tpch_common_core_v0/spark/load.sql
+correct_result:
+  path: witness/correct_result.csv
+  status: materialized_from_retained_postgres_source_reference
+  source_retained_output: runtime_source_result_regenerated_by_source_as_oracle_policy
+  generated_by_db_execution_during_pilot: false
+claim_boundary:
+  no_new_data_generation: true
+  no_db_validation_run_during_pilot: true
+  no_official_metrics_computed: true
+  no_paper_results_changed: true
+  local_runner_outputs_not_case_local_runs: true
+notes:
+- v2 witness profile created from existing public-safe PERF_0006 witness metadata and retained source output.
+- correct_result.csv is a static materialization of the retained PostgreSQL source reference output, not a new DB run.
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

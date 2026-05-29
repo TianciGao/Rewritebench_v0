@@ -1,0 +1,14 @@
+funnel_stage,current_field_or_status,current_support,missing_field_needed,blocking_for_quality_report_v0,blocking_for_tag_slices_v0,proposed_owner_module,notes
+selected,"selected; planned; selected_cases.csv",explicit,none,no,no,src/sql_rewrite_bench/case_selection.py,Already metadata-driven through case_sets
+adapter_invoked,"adapter_invoked; adapter_exit_code",explicit,none,no,no,proposed src/sql_rewrite_bench/adapter_runner.py,Good U2 split candidate
+candidate_generated,"candidate_generated; candidate_sql_path; extraction_status",explicit,none,no,no,proposed src/sql_rewrite_bench/adapter_runner.py,Preflight must stay separate from generation
+candidate_preflight_passed,none,missing,"candidate_preflight_status; candidate_preflight_passed; preflight_failure_class",yes,yes,proposed src/sql_rewrite_bench/candidate_preflight.py,Required before U3/U4 quality funnel
+db_execution_attempted,"execution_enabled; execution_status",implicit,db_execution_attempted,yes,no,proposed src/sql_rewrite_bench/engine_execution.py,Enabled does not prove attempted
+source_executable,source_execution_status,implicit,source_executable,yes,no,src/sql_rewrite_bench/postgres_execution.py and future engine modules,Status exists but boolean/count field missing
+candidate_executable,candidate_execution_status,implicit,candidate_executable,yes,no,src/sql_rewrite_bench/postgres_execution.py and future engine modules,Status exists but boolean/count field missing
+checker_attempted,"checker_enabled; checker_status",implicit,checker_attempted,yes,no,src/sql_rewrite_bench/local_result_checker.py plus user_ledger.py,Enabled does not prove attempted
+exact / mismatch,"exact_status; checker_status; failure_bucket=mismatch",explicit,none,no,no,src/sql_rewrite_bench/local_result_checker.py,Local only and not official semantic equivalence
+source_like / nontrivial flag,none,missing,"source_like_status; nontrivial_candidate",yes,yes,proposed src/sql_rewrite_bench/candidate_preflight.py,Needed to separate no-op/source-like diagnostics
+timed later,timed_status,placeholder,"timing_attempted; timed; raw_timing_artifact_path",no,no,future src/sql_rewrite_bench/timing_diagnostic.py,Deferred until timing protocol approval
+quality report,summary.json and report.md,partial,"quality_summary.json; quality_report.md",yes,no,proposed src/sql_rewrite_bench/user_quality_report.py,Current report is basic local summary
+tag-aware slices,none,missing,tag_slices.csv,no,yes,proposed src/sql_rewrite_bench/tag_slices.py,Requires manifest/taxonomy joins

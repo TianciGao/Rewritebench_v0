@@ -1,0 +1,4 @@
+file_path,role,implemented_status,db_execution_performed,output_policy,notes
+src/sql_rewrite_bench/validation/__init__.py,shared validation package marker,created,false,no outputs,package for shared validation entrypoints
+src/sql_rewrite_bench/validation/engine_query_runner.py,shared engine-query runner CLI,fail_closed_stub,false,requires explicit --out and rejects case-local runs/,parses case/engine/target/out and validates manifest/schema paths; does not execute SQL
+src/sql_rewrite_bench/validation/plan_collection_runner.py,shared plan-collection entrypoint,fail_closed_stub_delegating_to_engine_runner_mode,false,inherits engine runner output policy,plan collection mode remains non-executing until separately authorized

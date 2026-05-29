@@ -1,0 +1,48 @@
+{
+  "task_completed": true,
+  "task_title": "Resolve narrow PERF_0077/PERF_0082 source-path provenance follow-up",
+  "branch_name": "feature/case-package-v2-external-schema",
+  "target_cases_reviewed": [
+    "PERF_0077",
+    "PERF_0082"
+  ],
+  "source_path_repairs_made": [],
+  "manifest_files_modified": [],
+  "source_path_caveats_before": {
+    "PERF_0077": "source_path=manual_review_required; source_path_not_recovered",
+    "PERF_0082": "source_path=manual_review_required; source_path_not_recovered"
+  },
+  "source_path_caveats_after": {
+    "PERF_0077": "retained as explicit nonblocking provenance uncertainty; exact source_path not claimed",
+    "PERF_0082": "retained as explicit nonblocking provenance uncertainty; exact source_path not claimed"
+  },
+  "safe_for_public_source_path_closeout": true,
+  "evidence_sources_checked": [
+    "current target manifests",
+    "current target source SQL comments",
+    "branch-history manifests at 42ef246^",
+    "branch-history metadata/provenance.yaml at 42ef246^",
+    "audits/case_package_v2_manifest_caveat_closeout_v0/",
+    "audits/case_package_v2_common_core40_wave_c_manual_review_plan_v0/perf0077_perf0082_source_path_followup_plan.csv",
+    "audits/case_package_v2_common_core40_final_closeout_rerun_v0/common_core40_final_rerun_source_path_followup.csv",
+    "inventory/case_registry.csv",
+    "inventory/source_registry.csv",
+    "case_sets/common_core_v0/cases.csv"
+  ],
+  "case_files_modified": false,
+  "readme_files_modified": false,
+  "sql_schema_checker_validation_files_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Proceed to final public-release closeout planning with PERF_0077 and PERF_0082 source_path recorded as retained nonblocking provenance uncertainty; do not claim exact JOB source paths."
+}

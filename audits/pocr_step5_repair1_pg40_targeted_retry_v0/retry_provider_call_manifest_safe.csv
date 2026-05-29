@@ -1,0 +1,6 @@
+case_id,provider_label,model_label,call_timestamp_utc,call_status,error_type,token_counts_if_available,api_key_env_name,api_key_value_recorded,notes
+LONGTAIL_0012,openai_compatible,gpt-5.4,2026-05-26T14:22:06.558923+00:00,schema_valid,,"{""completion_tokens"": 1090, ""prompt_tokens"": 2662, ""total_tokens"": 3752}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0013,openai_compatible,gpt-5.4,2026-05-26T14:20:48.302984+00:00,schema_valid,,"{""completion_tokens"": 1199, ""prompt_tokens"": 2284, ""total_tokens"": 3483}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0017,openai_compatible,gpt-5.4,2026-05-26T14:21:13.272180+00:00,schema_valid,,"{""completion_tokens"": 996, ""prompt_tokens"": 2395, ""total_tokens"": 3391}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0033,openai_compatible,gpt-5.4,2026-05-26T14:21:33.432727+00:00,schema_valid,,"{""completion_tokens"": 714, ""prompt_tokens"": 2010, ""total_tokens"": 2724}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0052,openai_compatible,gpt-5.4,2026-05-26T14:21:48.476882+00:00,schema_valid,,"{""completion_tokens"": 868, ""prompt_tokens"": 2275, ""total_tokens"": 3143}",SQLRB_LLM_API_KEY,false,schema_valid

@@ -4,16 +4,23 @@ checker_version: canonical_static_summary_v1
 comparison_model:
   source_reference: sql/source.sql
   positive_rewrites:
-    - sql/positives/pos_01.sql
+  - sql/pos_01.sql
   hard_negatives:
-    - sql/negatives/neg_01.sql
+  - sql/neg_01.sql
+  compatibility_positive_rewrites:
+  - sql/pos_01.sql
+  compatibility_hard_negatives:
+  - sql/neg_01.sql
 retained_evidence:
-  postgres_result_check: evidence/retained_controls/postgres/result_check.json
-  mysql_result_check: evidence/retained_controls/mysql/result_check.json
-  spark_result_check: evidence/retained_controls/spark/result_check.json
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
 expected_behavior:
   source_positive_equal: true
   source_negative_different: true
 execution_policy:
   db_validation_run_during_migration: false
   evidence_regenerated: false
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

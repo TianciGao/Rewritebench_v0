@@ -1,0 +1,5 @@
+final_candidate_source,count,notes
+original,102,Original Direct LLM exact candidate replayed as final route candidate.
+repaired,13,One live Repair-1 attempt produced the final candidate.
+unsupported_or_none,5,Unsupported boundary rows; no Repair-1 attempt.
+fail_closed,0,Rows with no final candidate after route assembly.

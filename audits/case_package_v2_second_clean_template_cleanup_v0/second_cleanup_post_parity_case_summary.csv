@@ -1,0 +1,6 @@
+case_id,clean_required_assets_present,remaining_extra_paths_count,remaining_blockers_count,clean_template_minimal_status,functional_v2_status,notes
+PERF_0006,true,0,0,clean_template_minimal,functional_v2_pass,All blocking compatibility paths removed
+PERF_0007,true,0,0,clean_template_minimal,functional_v2_pass,All blocking compatibility paths removed
+CONS_0005,true,0,0,clean_template_minimal,functional_v2_pass,All blocking compatibility paths removed
+PORT_0003,true,1 optional dialect-variant path group,0,clean_template_minimal_with_optional_dialect_variant,functional_v2_pass,All blocking compatibility paths removed; dialect variants retained as optional semantic asset
+LONGTAIL_0011,true,0,0,clean_template_minimal,functional_v2_pass,All blocking compatibility paths removed

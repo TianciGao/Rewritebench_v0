@@ -1,0 +1,33 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "reference_cleanup_plan": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "skipped_candidates_reviewed": 15,
+  "live_reference_blockers_found": 50,
+  "historical_references_excluded": 30,
+  "deletion_ready_after_reference_update_count": 10,
+  "deletion_ready_after_retention_mapping_count": 5,
+  "candidates_remaining_manual_review": 0,
+  "cases_modified": false,
+  "schemas_modified": false,
+  "evidence_modified": false,
+  "runs_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_reference_cleanup_execution_v0 to update live compatibility references and delete only candidates classified as deletion_ready_after_reference_update, while keeping retained evidence, schema engine files, metadata source-of-truth files, data fixtures, validation engine-specific scripts, DB/checker execution, official metrics, reports/results, denominator, paper results, and leaderboard output out of scope."
+}

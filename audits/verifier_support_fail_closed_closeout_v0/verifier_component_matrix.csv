@@ -1,0 +1,9 @@
+component,status,role,real_tool_available,real_tool_run,official_metric_input,notes
+verifier_pair_validation,exists,shared_output_contract,n/a,no,no,Validates verifier_pairs.csv fields pair types tools and local-only flags.
+verdict_normalization,exists,shared_output_contract,n/a,no,no,Normalizes equivalent non_equivalent unknown timeout unsupported tool_error and not_attempted.
+semantic_equivalence_summary,exists,shared_summary,n/a,no,no,Computes local summary only from verifier verdict rows and never from local_result_checker exactness.
+synthetic_fixture_support,exists,test_fixture,n/a,no,no,Uses temporary D035-shaped outputs in tests and does not invoke real verifier tools.
+verieql_wrapper,exists,verifier_support,false,no,no,Detects command and writes fail-closed not_attempted rows when unavailable.
+sqlsolver_wrapper,exists,verifier_support,false,no,no,Detects command and writes fail-closed not_attempted rows when unavailable.
+cli_verifier_flags,fail_closed,user_facade,n/a,no,no,sqlrb user evaluate rejects verifier flags until broad verifier integration is separately implemented.
+output_contract,exists,local_output_contract,n/a,no,no,Uses output/results/<run_id>/verifier output/logs/<run_id>/verifier.log and output/reports/<run_id>/verifier_summary.md.

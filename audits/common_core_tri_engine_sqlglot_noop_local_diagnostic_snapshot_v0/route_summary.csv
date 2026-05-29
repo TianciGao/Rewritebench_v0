@@ -1,0 +1,2 @@
+route,engines_attempted,selected_rows,adapter_invoked_rows,candidate_generated_rows,candidate_preflight_passed_rows,source_executable_rows,candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,source_like_noop_rows,unsupported_fail_closed_rows,local_diagnostic_only,notes
+sqlglot_noop,postgres;mysql;spark,120,120,115,115,110,101,101,91,10,6,5,true,Common-core v0 tri-engine SQLGlot noop local diagnostic snapshot; not official metrics or retained baseline evidence.

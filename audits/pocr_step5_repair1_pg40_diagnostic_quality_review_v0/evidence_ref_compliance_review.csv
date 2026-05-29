@@ -1,0 +1,1329 @@
+case_id,pool,atom_id,atom_type,observed_status,evidence_ref,supported_prefix,d037_compliant,issue_type,notes
+CONS_0005,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A1,operation_atom,not_implemented,"positive_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM table2 AS t2
+  WHERE t2.j = t1.i
+    AND (t2.i = t1.j OR t2.i IS NULL)
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A2,operation_atom,not_implemented,"positive_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM table2 AS t2
+  WHERE t2.j = t1.i
+    AND (t2.i = t1.j OR t2.i IS NULL)
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A3,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A3,operation_atom,not_implemented,positive_sql_span:AND (t2.i = t1.j OR t2.i IS NULL),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A3,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0005,CONS,A4,semantic_guard_atom,implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0005,CONS,A4,semantic_guard_atom,implemented,"source_sql_span:WHERE table1.j NOT IN (
+  SELECT i
+  FROM table2
+  WHERE table1.i = table2.j
+)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0005,CONS,A5,semantic_guard_atom,implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0005,CONS,A5,semantic_guard_atom,implemented,"source_sql_span:WHERE table1.j NOT IN (
+  SELECT i
+  FROM table2
+  WHERE table1.i = table2.j
+)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0007,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A1,operation_atom,not_implemented,"source_sql_span:WHERE EXISTS (
+  SELECT *
+  FROM (
+    SELECT e2.deptno
+    FROM tmp_emps e2
+    WHERE e2.commission = e1.commission
+  ) AS table3
+  WHERE table3.deptno <> e1.deptno
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A1,operation_atom,not_implemented,"positive_sql_span:JOIN (
+  SELECT DISTINCT e2.commission
+  FROM tmp_emps e2
+  JOIN tmp_emps e3
+    ON e2.commission = e3.commission
+   AND e2.deptno <> e3.deptno
+) AS good_commissions
+  ON e1.commission = good_commissions.commission",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A2,operation_atom,not_implemented,"positive_sql_span:SELECT DISTINCT e2.commission
+  FROM tmp_emps e2
+  JOIN tmp_emps e3
+    ON e2.commission = e3.commission
+   AND e2.deptno <> e3.deptno",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A3,operation_atom,not_implemented,"candidate_sql_span:FROM tmp_emps e1
+WHERE EXISTS (
+  SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A3,operation_atom,not_implemented,positive_sql_span:ON e1.commission = good_commissions.commission,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A3,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0007,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:e2.deptno <> e1.deptno,true,true,none,semantic guard candidate_sql_span exists
+CONS_0007,CONS,A5,semantic_guard_atom,implemented,candidate_sql_span:e2.commission = e1.commission,true,true,none,semantic guard candidate_sql_span exists
+CONS_0009,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:SELECT COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)
+  FROM t1
+  WHERE t1a = t0.t0a",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0009,CONS,A1,operation_atom,not_implemented,"positive_sql_span:LEFT JOIN (SELECT t1a, SUM(t1c) AS sum_t1c FROM t1 GROUP BY t1a) AS s1",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0009,CONS,A1,operation_atom,not_implemented,"positive_sql_span:LEFT JOIN (SELECT t2b, SUM(t2c) AS sum_t2c FROM t2 GROUP BY t2b) AS s2",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0009,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0009,CONS,A2,operation_atom,implemented,"candidate_sql_span:COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A2,operation_atom,implemented,"candidate_sql_span:NOT EXISTS (SELECT 1 FROM t1 WHERE t1a = t0.t0a)
+  AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  )",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A2,operation_atom,implemented,"positive_sql_span:ELSE COALESCE(s1.sum_t1c, 0) + COALESCE(s2.sum_t2c, 0)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A3,operation_atom,implemented,"candidate_sql_span:WHERE t0a < (
+  SELECT COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)
+  FROM t1
+  WHERE t1a = t0.t0a
+)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A3,operation_atom,implemented,"candidate_sql_span:AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  )",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A3,operation_atom,implemented,positive_sql_span:WHERE t0.t0a < CASE,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0009,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:WHERE t1a = t0.t0a,true,true,none,semantic guard candidate_sql_span exists
+CONS_0009,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:WHERE t2b = t0.t0b,true,true,none,semantic guard candidate_sql_span exists
+CONS_0009,CONS,A5,semantic_guard_atom,implemented,"candidate_sql_span:OR (
+  NOT EXISTS (SELECT 1 FROM t1 WHERE t1a = t0.t0a)
+  AND t0a < (
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  )
+)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0009,CONS,A5,semantic_guard_atom,implemented,"candidate_sql_span:COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)",true,true,none,semantic guard candidate_sql_span exists
+CONS_0009,CONS,A5,semantic_guard_atom,implemented,positive_sql_span:WHEN s1.sum_t1c IS NULL AND s2.sum_t2c IS NULL THEN NULL,true,true,none,semantic guard candidate_sql_span exists
+CONS_0010,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM emp E2
+  CROSS JOIN bonus B
+  WHERE E2.SAL = E1.SAL
+    AND B.JOB = E1.JOB
+    AND E2.EMPNO <> E1.EMPNO
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A1,operation_atom,not_implemented,"positive_sql_span:WHERE NOT (
+  EXISTS (
+    SELECT 1
+    FROM emp e2
+    WHERE e2.sal = e1.sal
+      AND e2.empno <> e1.empno
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM bonus b
+    WHERE b.job = e1.job
+  )
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM emp E2
+  CROSS JOIN bonus B
+  WHERE E2.SAL = E1.SAL
+    AND B.JOB = E1.JOB
+    AND E2.EMPNO <> E1.EMPNO
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A2,operation_atom,not_implemented,"positive_sql_span:WHERE NOT (
+  EXISTS (
+    SELECT 1
+    FROM emp e2
+    WHERE e2.sal = e1.sal
+      AND e2.empno <> e1.empno
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM bonus b
+    WHERE b.job = e1.job
+  )
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0010,CONS,A3,semantic_guard_atom,implemented,candidate_sql_span:E2.EMPNO <> E1.EMPNO,true,true,none,semantic guard candidate_sql_span exists
+CONS_0010,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:E2.SAL = E1.SAL,true,true,none,semantic guard candidate_sql_span exists
+CONS_0010,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:B.JOB = E1.JOB,true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0011,CONS,A1,operation_atom,implemented,"candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  )",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0011,CONS,A1,operation_atom,implemented,"positive_sql_span:LEFT JOIN bonus b
+    ON d.dname = b.ename
+   AND b.job = e1.job
+  WHERE b.ename IS NULL",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0011,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0011,CONS,A2,operation_atom,not_implemented,"source_sql_span:LEFT JOIN bonus B
+    ON D.DNAME = B.ENAME
+   AND B.JOB = E1.JOB
+  WHERE B.ENAME IS NULL",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0011,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  )",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0011,CONS,A3,semantic_guard_atom,implemented,"candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  )",true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A3,semantic_guard_atom,implemented,"source_sql_span:LEFT JOIN bonus B
+    ON D.DNAME = B.ENAME
+   AND B.JOB = E1.JOB
+  WHERE B.ENAME IS NULL",true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A3,semantic_guard_atom,implemented,"positive_sql_span:LEFT JOIN bonus b
+    ON d.dname = b.ename
+   AND b.job = e1.job
+  WHERE b.ename IS NULL",true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:AND B.JOB = E1.JOB,true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A4,semantic_guard_atom,implemented,source_sql_span:AND B.JOB = E1.JOB,true,true,none,semantic guard candidate_sql_span exists
+CONS_0011,CONS,A4,semantic_guard_atom,implemented,positive_sql_span:AND b.job = e1.job,true,true,none,semantic guard candidate_sql_span exists
+CONS_0012,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM emp e
+  WHERE e.deptno = d.deptno
+  OFFSET 2
+  LIMIT 1
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A1,operation_atom,not_implemented,"positive_sql_span:JOIN (
+  SELECT deptno
+  FROM emp
+  GROUP BY deptno
+  HAVING COUNT(*) >= 3
+) AS enough_rows",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM emp e
+  WHERE e.deptno = d.deptno
+  OFFSET 2
+  LIMIT 1
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A2,operation_atom,not_implemented,"positive_sql_span:JOIN (
+  SELECT deptno
+  FROM emp
+  GROUP BY deptno
+  HAVING COUNT(*) >= 3
+) AS enough_rows
+  ON enough_rows.deptno = d.deptno;",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0012,CONS,A3,semantic_guard_atom,implemented,"candidate_sql_span:OFFSET 2
+  LIMIT 1",true,true,none,semantic guard candidate_sql_span exists
+CONS_0012,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:WHERE e.deptno = d.deptno,true,true,none,semantic guard candidate_sql_span exists
+CONS_0024,CONS,A1,operation_atom,not_implemented,candidate_sql_span:LEFT JOIN (,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A1,operation_atom,not_implemented,positive_sql_span:FROM emp AS e;,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:SELECT e2.deptno
+  FROM emp AS e2
+  GROUP BY e2.deptno
+  HAVING SUM(e2.sal) > 1000000",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A2,operation_atom,not_implemented,"source_sql_span:AND EXISTS (
+   SELECT e2.deptno
+   FROM emp AS e2
+   WHERE e2.deptno = d.deptno
+   GROUP BY e2.deptno
+   HAVING SUM(e2.sal) > 1000000
+ );",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A2,operation_atom,not_implemented,positive_sql_span:FROM emp AS e;,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0024,CONS,A3,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN (,true,true,none,semantic guard candidate_sql_span exists
+CONS_0024,CONS,A3,semantic_guard_atom,implemented,candidate_sql_span:ON d.deptno = e.deptno;,true,true,none,semantic guard candidate_sql_span exists
+CONS_0024,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:SELECT e.empno,true,true,none,semantic guard candidate_sql_span exists
+CONS_0036,CONS,A1,operation_atom,implemented,source_sql_span:HAVING NAME = 'Charlie',true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A1,operation_atom,implemented,candidate_sql_span:WHERE NAME = 'Charlie',true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A1,operation_atom,implemented,positive_sql_span:WHERE NAME = 'Charlie',true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A2,operation_atom,implemented,candidate_sql_span:WHERE NAME = 'Charlie',true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A2,operation_atom,implemented,candidate_sql_span:COUNT(*) AS C,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A2,operation_atom,implemented,positive_sql_span:WHERE NAME = 'Charlie' GROUP BY NAME,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+CONS_0036,CONS,A3,semantic_guard_atom,implemented,source_sql_span:NAME = 'Charlie',true,true,none,semantic guard source_sql_span exists
+CONS_0036,CONS,A3,semantic_guard_atom,implemented,candidate_sql_span:NAME = 'Charlie',true,true,none,semantic guard source_sql_span exists
+CONS_0036,CONS,A3,semantic_guard_atom,implemented,positive_sql_span:NAME = 'Charlie',true,true,none,semantic guard source_sql_span exists
+CONS_0036,CONS,A4,semantic_guard_atom,implemented,source_sql_span:COUNT(*) AS C FROM DEPT GROUP BY NAME,true,true,none,semantic guard source_sql_span exists
+CONS_0036,CONS,A4,semantic_guard_atom,implemented,"candidate_sql_span:COUNT(*) AS C
+FROM DEPT
+WHERE NAME = 'Charlie'
+GROUP BY NAME;",true,true,none,semantic guard source_sql_span exists
+CONS_0036,CONS,A4,semantic_guard_atom,implemented,positive_sql_span:COUNT(*) AS C FROM (SELECT NAME AS NAME FROM DEPT) AS t3 WHERE NAME = 'Charlie' GROUP BY NAME,true,true,none,semantic guard source_sql_span exists
+CONS_0037,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A1,operation_atom,not_implemented,positive_sql_span:EMP AS EMP0 LEFT JOIN DEPT AS DEPT0,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A1,operation_atom,not_implemented,candidate_sql_span:FROM EMP LEFT JOIN DEPT,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A2,operation_atom,not_implemented,candidate_sql_span:COUNT(DISTINCT DEPT.NAME),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A2,operation_atom,not_implemented,positive_sql_span:COUNT(DISTINCT DEPT0.NAME),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A2,operation_atom,not_implemented,source_sql_span:COUNT(DISTINCT DEPT.NAME),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+CONS_0037,CONS,A3,semantic_guard_atom,implemented,candidate_sql_span:EMP LEFT JOIN DEPT ON DEPT.DEPTNO = EMP.DEPTNO,true,true,none,semantic guard candidate_sql_span exists
+CONS_0037,CONS,A4,semantic_guard_atom,implemented,candidate_sql_span:COUNT(DISTINCT DEPT.NAME),true,true,none,semantic guard candidate_sql_span exists
+CONS_0037,CONS,A4,semantic_guard_atom,implemented,positive_sql_span:COUNT(DISTINCT DEPT0.NAME),true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A1,operation_atom,implemented,candidate_sql_span:DENSE_RANK() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS PostRank,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+LONGTAIL_0011,LONGTAIL,A1,operation_atom,implemented,"positive_sql_span:DENSE_RANK() OVER (
+            PARTITION BY p.OwnerUserId
+            ORDER BY p.Score DESC
+        ) AS PostRank",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,"source_sql_span:MaxRank AS (
+    SELECT
+        OwnerDisplayName,
+        MAX(PostRank) AS MaxPostRank
+    FROM
+        RankedPosts
+    GROUP BY
+        OwnerDisplayName
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,"source_sql_span:JOIN
+    MaxRank mr ON rp.OwnerDisplayName = mr.OwnerDisplayName",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,"positive_sql_span:MaxRank AS (
+    SELECT
+        OwnerDisplayName,
+        MAX(PostRank) AS MaxPostRank
+    FROM RankedPosts
+    GROUP BY OwnerDisplayName
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE rp.PostRank = (
+    SELECT MAX(rp2.PostRank)
+    FROM RankedPosts rp2
+    WHERE rp2.OwnerDisplayName = rp.OwnerDisplayName
+)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0011,LONGTAIL,A3,semantic_guard_atom,implemented,candidate_sql_span:DENSE_RANK() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS PostRank,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A3,semantic_guard_atom,implemented,"positive_sql_span:DENSE_RANK() OVER (
+            PARTITION BY p.OwnerUserId
+            ORDER BY p.Score DESC
+        ) AS PostRank",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:PARTITION BY p.OwnerUserId ORDER BY p.Score DESC,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:WHERE p.PostTypeId = 1
+      AND p.CreationDate >= '2022-01-01'",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:WHERE rp2.OwnerDisplayName = rp.OwnerDisplayName,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:SELECT
+    rp.Title,
+    rp.CreationDate,
+    rp.Score,
+    rp.ViewCount,
+    rp.OwnerDisplayName",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY
+    rp.Score DESC,
+    rp.ViewCount DESC",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A1,operation_atom,not_implemented,candidate_sql_span:WITH RankedPosts AS (,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0013,LONGTAIL,A1,operation_atom,not_implemented,candidate_sql_span:UserStats AS (,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0013,LONGTAIL,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,candidate_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,candidate_sql_span:LEFT JOIN RankedPosts rp,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,candidate_sql_span:AND rp.rank_value = 1,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,candidate_sql_span:LEFT JOIN Posts bp,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,positive_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:VoteAgg AS (,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:BadgeAgg AS (,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:QuestionAgg AS (,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:LEFT JOIN VoteAgg va ON u.Id = va.UserId,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:LEFT JOIN BadgeAgg ba ON u.Id = ba.UserId,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,candidate_sql_span:LEFT JOIN QuestionAgg qa ON u.Id = qa.UserId,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,positive_sql_span:LEFT JOIN (,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN VoteAgg va ON u.Id = va.UserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN BadgeAgg ba ON u.Id = ba.UserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN QuestionAgg qa ON u.Id = qa.UserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN RankedPosts rp,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,candidate_sql_span:LEFT JOIN Posts bp,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:COALESCE(va.TotalBounty, 0) AS TotalBounty",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:COALESCE(qa.QuestionCount, 0) AS QuestionCount",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:GROUP BY v.UserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:GROUP BY b.UserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:GROUP BY p.OwnerUserId,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:GROUP BY
+    u.DisplayName,
+    us.TotalBounty,
+    us.GoldBadges,
+    us.QuestionCount,
+    bp.Body",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0022,LONGTAIL,A1,operation_atom,implemented,"candidate_sql_span:FROM (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId
+) AS cs
+JOIN Posts p",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0022,LONGTAIL,A1,operation_atom,implemented,"positive_sql_span:JOIN (
+    SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId
+) AS comment_stats ON comment_stats.PostId = p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0022,LONGTAIL,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0022,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A2,operation_atom,implemented,"positive_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:WHERE cs.comment_count >= 3
+ORDER BY
+    cs.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id;",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A3,operation_atom,implemented,"positive_sql_span:WHERE
+    comment_stats.comment_count >= 3
+ORDER BY
+    comment_stats.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id;",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A3,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0022,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0022,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:COUNT(DISTINCT c.UserId) AS distinct_commenters,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0022,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:LEFT JOIN Users u
+    ON u.Id = p.OwnerUserId",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A1,operation_atom,implemented,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) o",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0023,LONGTAIL,A1,operation_atom,implemented,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) i",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0023,LONGTAIL,A1,operation_atom,implemented,"positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) AS outbound_links ON outbound_links.PostId = p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0023,LONGTAIL,A1,operation_atom,implemented,"positive_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) AS inbound_links ON inbound_links.PostId = p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0023,LONGTAIL,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,"positive_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,"positive_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:COALESCE(o.outbound_count, 0) + COALESCE(i.inbound_count, 0) AS total_links",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A3,operation_atom,implemented,"positive_sql_span:COALESCE(outbound_links.outbound_count, 0) + COALESCE(inbound_links.inbound_count, 0) AS total_links",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A3,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0023,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId
+) o
+    ON o.PostId = p.Id",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:LEFT JOIN (
+    SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId
+) i
+    ON i.PostId = p.Id",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:COALESCE(o.outbound_count, 0) AS outbound_count",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0023,LONGTAIL,A5,semantic_guard_atom,implemented,"candidate_sql_span:COALESCE(i.inbound_count, 0) AS inbound_count",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0024,LONGTAIL,A1,operation_atom,implemented,"candidate_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+    HAVING
+        COUNT(*) >= 2
+) hs",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A1,operation_atom,implemented,"positive_sql_span:JOIN (
+    SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at
+    FROM
+        PostHistory ph
+    GROUP BY
+        ph.PostId
+) AS history_stats ON history_stats.PostId = p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0024,LONGTAIL,A2,operation_atom,implemented,"positive_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0024,LONGTAIL,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+LONGTAIL_0024,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:HAVING
+        COUNT(*) >= 2",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:ORDER BY
+    hs.revision_count DESC,
+    hs.last_revision_at DESC,
+    p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A3,operation_atom,implemented,"positive_sql_span:WHERE
+    history_stats.revision_count >= 2
+ORDER BY
+    history_stats.revision_count DESC,
+    history_stats.last_revision_at DESC,
+    p.Id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+LONGTAIL_0024,LONGTAIL,A4,semantic_guard_atom,implemented,"candidate_sql_span:GROUP BY
+        ph.PostId",true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0024,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:COUNT(DISTINCT ph.UserId) AS distinct_editors,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0024,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:MIN(ph.CreationDate) AS first_revision_at,true,true,none,semantic guard candidate_sql_span exists
+LONGTAIL_0024,LONGTAIL,A5,semantic_guard_atom,implemented,candidate_sql_span:MAX(ph.CreationDate) AS last_revision_at,true,true,none,semantic guard candidate_sql_span exists
+PERF_0006,PERF,A1,operation_atom,not_implemented,"source_sql_span:from
+	lineitem
+where",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A1,operation_atom,not_implemented,"candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A1,operation_atom,not_implemented,positive_sql_span:) as filtered_lineitem,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A2,operation_atom,not_implemented,"candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A2,operation_atom,not_implemented,"positive_sql_span:select
+			l_returnflag,
+			l_linestatus,
+			l_quantity,
+			l_extendedprice,
+			l_discount,
+			l_tax",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A3,operation_atom,not_implemented,"candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A3,operation_atom,not_implemented,"positive_sql_span:from
+	(
+		select",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A3,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0006,PERF,A4,semantic_guard_atom,implemented,source_sql_span:l_shipdate <= date '1998-08-27',true,true,none,semantic guard source_sql_span exists
+PERF_0006,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_shipdate < date '1998-08-28',true,true,none,semantic guard source_sql_span exists
+PERF_0006,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:group by
+	l_returnflag,
+	l_linestatus
+order by
+	l_returnflag,
+	l_linestatus;",true,true,none,semantic guard source_sql_span exists
+PERF_0006,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:group by l_returnflag, l_linestatus
+order by l_returnflag, l_linestatus;",true,true,none,semantic guard source_sql_span exists
+PERF_0006,PERF,A5,semantic_guard_atom,implemented,source_sql_span:count(*) as count_order,true,true,none,semantic guard source_sql_span exists
+PERF_0006,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:count(*) as count_order,true,true,none,semantic guard source_sql_span exists
+PERF_0007,PERF,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A1,operation_atom,not_implemented,"positive_sql_span:from
+	(
+		select",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A1,operation_atom,not_implemented,"candidate_sql_span:from
+	lineitem
+where",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A2,operation_atom,not_implemented,positive_sql_span:l_extendedprice * l_discount as extended_discounted_price,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A2,operation_atom,not_implemented,candidate_sql_span:sum(l_extendedprice * l_discount) as revenue,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A3,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A3,operation_atom,not_implemented,positive_sql_span:sum(extended_discounted_price) as revenue,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A3,operation_atom,not_implemented,candidate_sql_span:sum(l_extendedprice * l_discount) as revenue,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A3,operation_atom,not_implemented,"candidate_sql_span:from
+	lineitem",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_shipdate >= date '1995-01-01',true,true,none,semantic guard candidate_sql_span exists
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_shipdate < date '1996-01-01',true,true,none,semantic guard candidate_sql_span exists
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_discount >= 0.08,true,true,none,semantic guard candidate_sql_span exists
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_discount <= 0.10,true,true,none,semantic guard candidate_sql_span exists
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l_quantity < 25,true,true,none,semantic guard candidate_sql_span exists
+PERF_0007,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:sum(l_extendedprice * l_discount) as revenue,true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A1,operation_atom,not_implemented,candidate_sql_span:WHERE c.c_mktsegment = 'MACHINERY',true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A1,operation_atom,not_implemented,"positive_sql_span:from (
+    select
+        c_custkey
+    from customer
+    where c_mktsegment = 'MACHINERY'
+) customer_filtered",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A2,operation_atom,not_implemented,candidate_sql_span:AND o.o_orderdate < DATE '1995-03-27',true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A2,operation_atom,not_implemented,"positive_sql_span:join (
+    select
+        o_orderkey,
+        o_custkey,
+        o_orderdate,
+        o_shippriority
+    from orders
+    where o_orderdate < date '1995-03-27'
+) orders_filtered",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0008,PERF,A3,operation_atom,implemented,"candidate_sql_span:FROM orders o
+JOIN customer c
+    ON c.c_custkey = o.o_custkey
+JOIN lineitem l
+    ON l.l_orderkey = o.o_orderkey",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0008,PERF,A3,operation_atom,implemented,"source_sql_span:from
+	customer,
+	orders,
+	lineitem",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0008,PERF,A3,operation_atom,implemented,"positive_sql_span:join (
+    select
+        o_orderkey,
+        o_custkey,
+        o_orderdate,
+        o_shippriority
+    from orders
+    where o_orderdate < date '1995-03-27'
+) orders_filtered
+  on customer_filtered.c_custkey = orders_filtered.o_custkey
+join lineitem
+  on orders_filtered.o_orderkey = lineitem.l_orderkey",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0008,PERF,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:c.c_mktsegment = 'MACHINERY',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:o.o_orderdate < DATE '1995-03-27',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:l.l_shipdate > DATE '1995-03-27',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,source_sql_span:c_mktsegment = 'MACHINERY',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,source_sql_span:o_orderdate < date '1995-03-27',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,source_sql_span:l_shipdate > date '1995-03-27',true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:SUM(l.l_extendedprice * (1 - l.l_discount)) AS revenue,true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:GROUP BY
+    l.l_orderkey,
+    o.o_orderdate,
+    o.o_shippriority",true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY
+    revenue DESC,
+    o.o_orderdate",true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:LIMIT 10,true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,source_sql_span:sum(l_extendedprice * (1 - l_discount)) as revenue,true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:group by
+	l_orderkey,
+	o_orderdate,
+	o_shippriority",true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:order by
+	revenue desc,
+	o_orderdate",true,true,none,semantic guard candidate_sql_span exists
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,source_sql_span:limit 10,true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A1,operation_atom,implemented,"candidate_sql_span:(
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count
+        FROM
+            customer AS c
+            LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%'
+        GROUP BY
+            c.c_custkey
+    ) AS c_orders",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A1,operation_atom,implemented,"positive_sql_span:(
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count
+    from customer
+    left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%'
+    group by
+        customer.c_custkey
+) customer_order_counts",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A2,operation_atom,implemented,"candidate_sql_span:LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%'",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A2,operation_atom,implemented,"positive_sql_span:left join orders
+      on customer.c_custkey = orders.o_custkey
+     and orders.o_comment not like '%express%deposits%'",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A3,operation_atom,implemented,"candidate_sql_span:SELECT
+    c_orders.c_count,
+    COUNT(*) AS custdist
+FROM
+    (
+        SELECT
+            c.c_custkey,
+            COUNT(o.o_orderkey) AS c_count",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A3,operation_atom,implemented,"candidate_sql_span:GROUP BY
+    c_orders.c_count",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A3,operation_atom,implemented,"positive_sql_span:select
+    customer_order_counts.c_count,
+    count(*) as custdist
+from (
+    select
+        customer.c_custkey,
+        count(orders.o_orderkey) as c_count",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A3,operation_atom,implemented,"positive_sql_span:group by
+    customer_order_counts.c_count",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0019,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:o.o_comment NOT LIKE '%express%deposits%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A4,semantic_guard_atom,implemented,source_sql_span:and o_comment not like '%express%deposits%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:LEFT JOIN orders AS o
+                ON c.c_custkey = o.o_custkey
+               AND o.o_comment NOT LIKE '%express%deposits%'",true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:COUNT(o.o_orderkey) AS c_count,true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:customer left outer join orders on
+                c_custkey = o_custkey
+                and o_comment not like '%express%deposits%'",true,true,none,semantic guard candidate_sql_span exists
+PERF_0019,PERF,A5,semantic_guard_atom,implemented,source_sql_span:count(o_orderkey),true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A1,operation_atom,implemented,"candidate_sql_span:from supplier s
+join nation n
+    on s.s_nationkey = n.n_nationkey",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A1,operation_atom,implemented,"positive_sql_span:from
+    supplier
+    join nation
+        on supplier.s_nationkey = nation.n_nationkey",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A2,operation_atom,implemented,"candidate_sql_span:and exists (
+      select 1
+      from partsupp ps
+      where ps.ps_suppkey = s.s_suppkey
+        and exists (
+            select 1
+            from part p
+            where p.p_partkey = ps.ps_partkey
+              and p.p_name like 'pale%'
+        )",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A2,operation_atom,implemented,"positive_sql_span:and exists (
+        select
+            1
+        from
+            partsupp
+            join part
+                on partsupp.ps_partkey = part.p_partkey
+        where
+            partsupp.ps_suppkey = supplier.s_suppkey
+            and part.p_name like 'pale%'",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0024,PERF,A3,operation_atom,implemented,"candidate_sql_span:and ps.ps_availqty > (
+            select 0.5 * sum(l.l_quantity)
+            from lineitem l
+            where l.l_partkey = ps.ps_partkey
+              and l.l_suppkey = ps.ps_suppkey
+              and l.l_shipdate >= date '1997-01-01'
+              and l.l_shipdate < date '1997-01-01' + interval '1 year'
+        )",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PERF_0024,PERF,A3,operation_atom,implemented,"source_sql_span:and ps_availqty > (
+                select
+                    0.5 * sum(l_quantity)
+                from
+                    lineitem
+                where
+                    l_partkey = ps_partkey
+                    and l_suppkey = ps_suppkey
+                    and l_shipdate >= date '1997-01-01'
+                    and l_shipdate < date '1997-01-01' + interval '1' year
+            )",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PERF_0024,PERF,A3,operation_atom,implemented,"positive_sql_span:and partsupp.ps_availqty > (
+                select
+                    0.5 * sum(lineitem.l_quantity)
+                from
+                    lineitem
+                where
+                    lineitem.l_partkey = partsupp.ps_partkey
+                    and lineitem.l_suppkey = partsupp.ps_suppkey
+                    and lineitem.l_shipdate >= date '1997-01-01'
+                    and lineitem.l_shipdate < date '1997-01-01' + interval '1' year
+            )",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PERF_0024,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:where n.n_name = 'BRAZIL',true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:and p.p_name like 'pale%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A4,semantic_guard_atom,implemented,positive_sql_span:nation.n_name = 'BRAZIL',true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A4,semantic_guard_atom,implemented,positive_sql_span:and part.p_name like 'pale%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:select
+    s.s_name,
+    s.s_address",true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:where ps.ps_suppkey = s.s_suppkey,true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:on s.s_nationkey = n.n_nationkey,true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:select
+    s_name,
+    s_address",true,true,none,semantic guard candidate_sql_span exists
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,source_sql_span:and s_nationkey = n_nationkey,true,true,none,semantic guard candidate_sql_span exists
+PERF_0034,PERF,A1,operation_atom,implemented,"candidate_sql_span:with filtered_items as (
+    select i_item_sk, i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0034,PERF,A1,operation_atom,implemented,"positive_sql_span:with selected_items as (
+    select
+        i_item_sk,
+        i_item_id
+    from item
+    where i_color in ('orchid', 'chiffon', 'lace')
+)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0034,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0034,PERF,A2,operation_atom,not_implemented,"candidate_sql_span:where d.d_year = 2000
+      and d.d_moy = 1
+      and ca.ca_gmt_offset = -8",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A2,operation_atom,not_implemented,"positive_sql_span:selected_dates as (
+    select d_date_sk
+    from date_dim
+    where d_year = 2000
+      and d_moy = 1
+),",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A2,operation_atom,not_implemented,"positive_sql_span:selected_addresses as (
+    select ca_address_sk
+    from customer_address
+    where ca_gmt_offset = -8
+),",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A3,operation_atom,not_implemented,candidate_sql_span:union all,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A3,operation_atom,not_implemented,"candidate_sql_span:sum(ext_sales_price) as total_sales
+from all_sales
+group by i_item_id",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A3,operation_atom,not_implemented,positive_sql_span:sum(ss.ss_ext_sales_price) as total_sales,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A3,operation_atom,not_implemented,"positive_sql_span:group by si.i_item_id
+    union all",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A3,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0034,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:where i_color in ('orchid', 'chiffon', 'lace')",true,true,none,semantic guard candidate_sql_span exists
+PERF_0034,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:where d.d_year = 2000
+      and d.d_moy = 1
+      and ca.ca_gmt_offset = -8",true,true,none,semantic guard candidate_sql_span exists
+PERF_0034,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:union all,true,true,none,semantic guard candidate_sql_span exists
+PERF_0034,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:select
+    i_item_id,
+    sum(ext_sales_price) as total_sales
+from all_sales
+group by i_item_id
+order by total_sales, i_item_id
+limit 100;",true,true,none,semantic guard candidate_sql_span exists
+PERF_0034,PERF,A5,semantic_guard_atom,implemented,"source_sql_span:select
+    i_item_id,
+    sum(total_sales) as total_sales
+from (
+    select * from ss
+    union all
+    select * from cs
+    union all
+    select * from ws
+) tmp1
+group by i_item_id
+order by total_sales, i_item_id
+limit 100;",true,true,none,semantic guard candidate_sql_span exists
+PERF_0035,PERF,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0035,PERF,A1,operation_atom,not_implemented,positive_sql_span:with base_sales as (,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0035,PERF,A1,operation_atom,not_implemented,candidate_sql_span:with v1 as (,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PERF_0035,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PERF_0035,PERF,A2,operation_atom,implemented,positive_sql_span:sum(cs_sales_price) as sum_sales,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PERF_0035,PERF,A2,operation_atom,implemented,candidate_sql_span:sum(cs.cs_sales_price) as sum_sales,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PERF_0035,PERF,A2,operation_atom,implemented,"candidate_sql_span:group by i.i_category, i.i_brand, cc.cc_name, d.d_year, d.d_moy",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PERF_0035,PERF,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0035,PERF,A3,operation_atom,implemented,positive_sql_span:avg(sum(cs_sales_price)) over (,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0035,PERF,A3,operation_atom,implemented,"candidate_sql_span:avg(sum_sales) over (
+            partition by i_category, i_brand, cc_name, d_year
+        ) as avg_monthly_sales",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0035,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:on cs.cs_item_sk = i.i_item_sk,true,true,none,semantic guard candidate_sql_span exists
+PERF_0035,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:on cs.cs_sold_date_sk = d.d_date_sk,true,true,none,semantic guard candidate_sql_span exists
+PERF_0035,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:on cc.cc_call_center_sk = cs.cs_call_center_sk,true,true,none,semantic guard candidate_sql_span exists
+PERF_0035,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:where d.d_year = 2000
+       or (d.d_year = 1999 and d.d_moy = 12)
+       or (d.d_year = 2001 and d.d_moy = 1)",true,true,none,semantic guard candidate_sql_span exists
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,source_candidate_diff:changed,true,true,none,semantic guard source_candidate_diff:changed confirmed
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,candidate_sql_span:where d_year = 2000,true,true,none,semantic guard source_candidate_diff:changed confirmed
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:lag(sum_sales) over (
+            partition by i_category, i_brand, cc_name
+            order by d_year, d_moy
+        ) as psum",true,true,none,semantic guard source_candidate_diff:changed confirmed
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:lead(sum_sales) over (
+            partition by i_category, i_brand, cc_name
+            order by d_year, d_moy
+        ) as nsum",true,true,none,semantic guard source_candidate_diff:changed confirmed
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,"candidate_sql_span:and psum is not null
+  and nsum is not null",true,true,none,semantic guard source_candidate_diff:changed confirmed
+PERF_0054,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A1,operation_atom,implemented,"candidate_sql_span:FROM date_dim AS dt
+JOIN store_sales AS ss
+  ON dt.d_date_sk = ss.ss_sold_date_sk
+JOIN item AS i
+  ON ss.ss_item_sk = i.i_item_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A1,operation_atom,implemented,"positive_sql_span:from date_dim dt
+join store_sales on dt.d_date_sk = store_sales.ss_sold_date_sk
+join item on store_sales.ss_item_sk = item.i_item_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A2,operation_atom,implemented,candidate_sql_span:SUM(ss.ss_ext_sales_price) AS sum_agg,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A2,operation_atom,implemented,positive_sql_span:sum(ss_ext_sales_price) sum_agg,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0054,PERF,A3,semantic_guard_atom,not_implemented,candidate_sql_span:AND dt.d_moy = 12,true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:dt.d_year,",true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:i.i_brand_id AS brand_id,",true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:i.i_brand AS brand,",true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:GROUP BY
+  dt.d_year,
+  i.i_brand_id,
+  i.i_brand",true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY
+  dt.d_year,
+  sum_agg DESC,
+  brand_id",true,true,none,semantic guard candidate_sql_span exists
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:LIMIT 100,true,true,none,semantic guard candidate_sql_span exists
+PERF_0056,PERF,A1,operation_atom,implemented,"candidate_sql_span:FROM customer_address a
+JOIN customer c
+  ON a.ca_address_sk = c.c_current_addr_sk
+JOIN store_sales s
+  ON c.c_customer_sk = s.ss_customer_sk
+JOIN date_dim d
+  ON s.ss_sold_date_sk = d.d_date_sk
+JOIN item i
+  ON s.ss_item_sk = i.i_item_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A1,operation_atom,implemented,"positive_sql_span:from customer_address a
+join customer c on a.ca_address_sk = c.c_current_addr_sk
+join store_sales s on c.c_customer_sk = s.ss_customer_sk
+join date_dim d on s.ss_sold_date_sk = d.d_date_sk
+join item i on s.ss_item_sk = i.i_item_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A2,operation_atom,implemented,"candidate_sql_span:SELECT a.ca_state AS state, COUNT(*) AS cnt",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A2,operation_atom,implemented,candidate_sql_span:GROUP BY a.ca_state,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A2,operation_atom,implemented,"positive_sql_span:select a.ca_state state, count(*) cnt",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A2,operation_atom,implemented,positive_sql_span:group by a.ca_state,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0056,PERF,A3,semantic_guard_atom,contradicted,"source_sql_span:and d.d_month_seq = (
+      select distinct d_month_seq
+      from date_dim
+      where d_year = 2000
+        and d_moy = 2
+  )",true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A3,semantic_guard_atom,contradicted,"source_sql_span:and i.i_current_price > 1.2 * (
+      select avg(j.i_current_price)
+      from item j
+      where j.i_category = i.i_category
+  )",true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A3,semantic_guard_atom,contradicted,"candidate_sql_span:WHERE d_year = 2000
+    AND d_moy = 2",true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A3,semantic_guard_atom,contradicted,candidate_sql_span:WHERE i.i_current_price > 1.2 * ia.avg_price,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,source_sql_span:group by a.ca_state,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,source_sql_span:having count(*) >= 10,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,"source_sql_span:order by cnt, a.ca_state",true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,source_sql_span:limit 100,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:GROUP BY a.ca_state,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:HAVING COUNT(*) >= 10,true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY cnt, a.ca_state",true,true,none,semantic guard source_sql_span exists
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:LIMIT 100,true,true,none,semantic guard source_sql_span exists
+PERF_0062,PERF,A1,operation_atom,implemented,"candidate_sql_span:FROM store_sales ss
+JOIN store s
+  ON s.s_store_sk = ss.ss_store_sk
+JOIN date_dim d
+  ON ss.ss_sold_date_sk = d.d_date_sk
+JOIN customer_demographics cd
+  ON cd.cd_demo_sk = ss.ss_cdemo_sk
+JOIN household_demographics hd
+  ON hd.hd_demo_sk = ss.ss_hdemo_sk
+JOIN customer_address ca
+  ON ca.ca_address_sk = ss.ss_addr_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A1,operation_atom,implemented,"positive_sql_span:from store_sales
+join store on s_store_sk = ss_store_sk
+join date_dim on ss_sold_date_sk = d_date_sk
+join household_demographics on ss_hdemo_sk = hd_demo_sk
+join customer_demographics on cd_demo_sk = ss_cdemo_sk
+join customer_address on ss_addr_sk = ca_address_sk",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+  AVG(ss.ss_quantity),
+  AVG(ss.ss_ext_sales_price),
+  AVG(ss.ss_ext_wholesale_cost),
+  SUM(ss.ss_ext_wholesale_cost)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A2,operation_atom,implemented,"positive_sql_span:select avg(ss_quantity),
+       avg(ss_ext_sales_price),
+       avg(ss_ext_wholesale_cost),
+       sum(ss_ext_wholesale_cost)",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0062,PERF,A3,semantic_guard_atom,implemented,"candidate_sql_span:WHERE d.d_year = 2001
+  AND (
+    (cd.cd_marital_status = 'D'
+     AND cd.cd_education_status = '2 yr Degree'
+     AND ss.ss_sales_price BETWEEN 100.00 AND 150.00
+     AND hd.hd_dep_count = 3)
+    OR
+    (cd.cd_marital_status = 'S'
+     AND cd.cd_education_status = 'Secondary'
+     AND ss.ss_sales_price BETWEEN 50.00 AND 100.00
+     AND hd.hd_dep_count = 1)
+    OR
+    (cd.cd_marital_status = 'W'
+     AND cd.cd_education_status = 'Advanced Degree'
+     AND ss.ss_sales_price BETWEEN 150.00 AND 200.00
+     AND hd.hd_dep_count = 1)
+  )
+  AND (
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('CO', 'IL', 'MN')
+     AND ss.ss_net_profit BETWEEN 100 AND 200)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('OH', 'MT', 'NM')
+     AND ss.ss_net_profit BETWEEN 150 AND 300)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('TX', 'MO', 'MI')
+     AND ss.ss_net_profit BETWEEN 50 AND 250)
+  )",true,true,none,semantic guard candidate_sql_span exists
+PERF_0062,PERF,A3,semantic_guard_atom,implemented,"source_sql_span:and d_year = 2001
+  and ((ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'D'
+        and cd_education_status = '2 yr Degree'
+        and ss_sales_price between 100.00 and 150.00
+        and hd_dep_count = 3)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'S'
+        and cd_education_status = 'Secondary'
+        and ss_sales_price between 50.00 and 100.00
+        and hd_dep_count = 1)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'W'
+        and cd_education_status = 'Advanced Degree'
+        and ss_sales_price between 150.00 and 200.00
+        and hd_dep_count = 1))
+  and ((ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('CO', 'IL', 'MN')
+        and ss_net_profit between 100 and 200)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('OH', 'MT', 'NM')
+        and ss_net_profit between 150 and 300)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('TX', 'MO', 'MI')
+        and ss_net_profit between 50 and 250))",true,true,none,semantic guard candidate_sql_span exists
+PERF_0062,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:SELECT
+  AVG(ss.ss_quantity),
+  AVG(ss.ss_ext_sales_price),
+  AVG(ss.ss_ext_wholesale_cost),
+  SUM(ss.ss_ext_wholesale_cost)",true,true,none,semantic guard candidate_sql_span exists
+PERF_0062,PERF,A4,semantic_guard_atom,implemented,"source_sql_span:select avg(ss_quantity),
+       avg(ss_ext_sales_price),
+       avg(ss_ext_wholesale_cost),
+       sum(ss_ext_wholesale_cost)",true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A1,operation_atom,implemented,"candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A1,operation_atom,implemented,"positive_sql_span:FROM movie_info AS mi
+JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A2,operation_atom,implemented,"candidate_sql_span:ON t.id = mi.movie_id
+JOIN movie_keyword AS mk
+  ON t.id = mk.movie_id
+ AND mk.movie_id = mi.movie_id
+JOIN keyword AS k
+  ON k.id = mk.keyword_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A2,operation_atom,implemented,"positive_sql_span:JOIN movie_keyword AS mk ON mk.movie_id = mi.movie_id
+JOIN keyword AS k ON k.id = mk.keyword_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mk.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0077,PERF,A3,semantic_guard_atom,implemented,candidate_sql_span:WHERE k.keyword LIKE '%sequel%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A3,semantic_guard_atom,implemented,source_sql_span:WHERE k.keyword like '%sequel%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A3,semantic_guard_atom,implemented,positive_sql_span:WHERE k.keyword like '%sequel%',true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:SELECT MIN(t.title) AS movie_title,true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:mi.info IN ('Sweden', 'Norway', 'Germany', 'Denmark', 'Swedish', 'Denish', 'Norwegian', 'German')",true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A4,semantic_guard_atom,implemented,source_sql_span:SELECT min(t.title) AS movie_title,true,true,none,semantic guard candidate_sql_span exists
+PERF_0077,PERF,A4,semantic_guard_atom,implemented,"source_sql_span:mi.info IN ('Sweden',
+                  'Norway',
+                  'Germany',
+                  'Denmark',
+                  'Swedish',
+                  'Denish',
+                  'Norwegian',
+                  'German')",true,true,none,semantic guard candidate_sql_span exists
+PERF_0082,PERF,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A1,operation_atom,implemented,"candidate_sql_span:FROM title AS t
+JOIN movie_info AS mi
+  ON t.id = mi.movie_id
+JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id
+JOIN company_type AS ct
+  ON ct.id = mc.company_type_id
+JOIN info_type AS it
+  ON it.id = mi.info_type_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A1,operation_atom,implemented,"positive_sql_span:FROM company_type AS ct
+JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,"candidate_sql_span:JOIN movie_info AS mi
+  ON t.id = mi.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,"candidate_sql_span:JOIN movie_companies AS mc
+  ON t.id = mc.movie_id
+ AND mc.movie_id = mi.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,"candidate_sql_span:JOIN company_type AS ct
+  ON ct.id = mc.company_type_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,"candidate_sql_span:JOIN info_type AS it
+  ON it.id = mi.info_type_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A2,operation_atom,implemented,"positive_sql_span:JOIN movie_companies AS mc ON ct.id = mc.company_type_id
+JOIN movie_info AS mi ON mc.movie_id = mi.movie_id
+JOIN title AS t ON t.id = mi.movie_id AND t.id = mc.movie_id",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PERF_0082,PERF,A3,semantic_guard_atom,implemented,source_sql_span:ct.kind = 'production companies',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A3,semantic_guard_atom,implemented,candidate_sql_span:ct.kind = 'production companies',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A3,semantic_guard_atom,implemented,source_sql_span:it.id = mi.info_type_id,true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A3,semantic_guard_atom,implemented,candidate_sql_span:it.id = mi.info_type_id,true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,source_sql_span:SELECT min(t.title) AS typical_european_movie,true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:SELECT min(t.title) AS typical_european_movie,true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,source_sql_span:mc.note like '%(theatrical)%',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:mc.note LIKE '%(theatrical)%',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,source_sql_span:mc.note like '%(France)%',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:mc.note LIKE '%(France)%',true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,"source_sql_span:mi.info IN ('Sweden',
+                  'Norway',
+                  'Germany',
+                  'Denmark',
+                  'Swedish',
+                  'Denish',
+                  'Norwegian',
+                  'German')",true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,"candidate_sql_span:mi.info IN ('Sweden', 'Norway', 'Germany', 'Denmark', 'Swedish', 'Denish', 'Norwegian', 'German')",true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,source_sql_span:t.production_year > 2005,true,true,none,semantic guard source_sql_span exists
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,candidate_sql_span:t.production_year > 2005,true,true,none,semantic guard source_sql_span exists
+PORT_0003,PORT,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,"source_sql_span:""gsoffered""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,"source_sql_span:""schools""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,"source_sql_span:""longitude""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,positive_sql_span:`gsoffered`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,positive_sql_span:`schools`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A1,operation_atom,not_implemented,positive_sql_span:`longitude`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A2,operation_atom,not_implemented,"candidate_sql_span:ORDER BY ABS(""longitude"") DESC NULLS LAST",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A2,operation_atom,not_implemented,"source_sql_span:ORDER BY ABS( ""longitude"" ) DESC NULLS LAST",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A2,operation_atom,not_implemented,positive_sql_span:ORDER BY ABS(`longitude`) DESC,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0003,PORT,A3,operation_atom,implemented,candidate_sql_span:LIMIT 1,true,false,presence_only,candidate is source-like/no-op; cited span proves presence only
+PORT_0003,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY ABS(""longitude"") DESC NULLS LAST",true,true,none,semantic guard candidate_sql_span exists
+PORT_0003,PORT,A4,semantic_guard_atom,implemented,positive_sql_span:ORDER BY ABS(`longitude`) DESC,true,true,none,semantic guard candidate_sql_span exists
+PORT_0003,PORT,A5,semantic_guard_atom,implemented,"candidate_sql_span:SELECT ""gsoffered"" FROM ""schools""",true,true,none,semantic guard candidate_sql_span exists
+PORT_0003,PORT,A5,semantic_guard_atom,implemented,"candidate_sql_span:ABS(""longitude"")",true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A1,operation_atom,implemented,candidate_sql_span:CAST(SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS DOUBLE PRECISION) * 100,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0004,PORT,A1,operation_atom,implemented,"positive_sql_span:CAST( SUM( CASE WHEN ""sex"" = 'F' THEN 1 ELSE 0 END ) AS DOUBLE PRECISION ) * 100",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0004,PORT,A2,operation_atom,not_implemented,"candidate_sql_span:TO_CHAR(CAST(birthday AS TIMESTAMP), 'YYYY') = '1980'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0004,PORT,A2,operation_atom,not_implemented,"positive_sql_span:EXTRACT(YEAR FROM CAST( ""birthday"" AS TIMESTAMP )) = '1980'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0004,PORT,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0004,PORT,A3,operation_atom,not_implemented,candidate_sql_span:/ COUNT(id),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0004,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:'1980',true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A4,semantic_guard_atom,implemented,source_sql_span:'1980',true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:diagnosis = 'RA',true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END),true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:COUNT(id),true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:CAST(SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS DOUBLE PRECISION) * 100 / COUNT(id),true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,source_sql_span:`diagnosis` = 'RA',true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,source_sql_span:SUM( CASE WHEN `sex` = 'F' THEN 1 ELSE 0 END ),true,true,none,semantic guard candidate_sql_span exists
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,source_sql_span:COUNT( `id` ),true,true,none,semantic guard candidate_sql_span exists
+PORT_0005,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:""nationality""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:""drivers""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:""dob""",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A1,operation_atom,not_implemented,positive_sql_span:`nationality`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A1,operation_atom,not_implemented,positive_sql_span:`drivers`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A1,operation_atom,not_implemented,positive_sql_span:`dob`,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A2,operation_atom,implemented,"candidate_sql_span:""dob"" IS NOT NULL",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0005,PORT,A2,operation_atom,implemented,positive_sql_span:NOT `dob` IS NULL,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0005,PORT,A2,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0005,PORT,A3,operation_atom,not_implemented,"candidate_sql_span:ORDER BY ""dob"" ASC NULLS FIRST LIMIT 1",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A3,operation_atom,not_implemented,positive_sql_span:`dob` ASC LIMIT 1,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0005,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:""dob"" IS NOT NULL",true,true,none,semantic guard candidate_sql_span exists
+PORT_0005,PORT,A5,semantic_guard_atom,implemented,"candidate_sql_span:ORDER BY ""dob"" ASC NULLS FIRST LIMIT 1",true,true,none,semantic guard candidate_sql_span exists
+PORT_0008,PORT,A1,operation_atom,implemented,"candidate_sql_span:SELECT t2.admemail1, t2.admemail2",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A1,operation_atom,implemented,"candidate_sql_span:FROM frpm AS t1
+INNER JOIN schools AS t2
+  ON t1.cdscode = t2.cdscode",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A1,operation_atom,implemented,"positive_sql_span:SELECT admemail1, admemail2 FROM frpm AS t1 INNER JOIN schools AS t2 ON t1.cdscode = t2.cdscode",true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A1,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A2,operation_atom,implemented,candidate_sql_span:EXTRACT(YEAR FROM t2.opendate) BETWEEN 2009 AND 2010,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A2,operation_atom,implemented,positive_sql_span:YEAR(CAST(t2.opendate AS DATE)) BETWEEN 2009 AND 2010,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0008,PORT,A3,operation_atom,implemented,"candidate_sql_span:WHERE t2.county = 'San Bernardino'
+  AND t2.city = 'San Bernardino'
+  AND CAST(t2.doc AS integer) = 54",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0008,PORT,A3,operation_atom,implemented,candidate_sql_span:AND CAST(t2.soc AS integer) = 62;,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0008,PORT,A3,operation_atom,implemented,positive_sql_span:WHERE t2.county = 'San Bernardino' AND t2.city = 'San Bernardino' AND (t2.doc * 1) = 54,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0008,PORT,A3,operation_atom,implemented,positive_sql_span:AND (t2.soc * 1) = 62,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0008,PORT,A3,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0008,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:WHERE t2.county = 'San Bernardino'
+  AND t2.city = 'San Bernardino'
+  AND CAST(t2.doc AS integer) = 54
+  AND EXTRACT(YEAR FROM t2.opendate) BETWEEN 2009 AND 2010
+  AND CAST(t2.soc AS integer) = 62;",true,true,none,semantic guard candidate_sql_span exists
+PORT_0008,PORT,A5,semantic_guard_atom,implemented,"candidate_sql_span:SELECT t2.admemail1, t2.admemail2",true,true,none,semantic guard candidate_sql_span exists
+PORT_0008,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:ON t1.cdscode = t2.cdscode,true,true,none,semantic guard candidate_sql_span exists
+PORT_0012,PORT,A1,operation_atom,implemented,"candidate_sql_span:EXTRACT(YEAR FROM ""birthday"") = 1980",true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0012,PORT,A1,operation_atom,implemented,positive_sql_span:YEAR(CAST(birthday AS DATE)) = 1980,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0012,PORT,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0012,PORT,A2,operation_atom,not_implemented,"candidate_sql_span:CAST(SUM(CASE WHEN ""sex"" = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / NULLIF(COUNT(""id""), 0)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0012,PORT,A2,operation_atom,not_implemented,"positive_sql_span:CAST(SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS DOUBLE) * 100 / NULLIF(COUNT(id), 0)",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0012,PORT,A3,operation_atom,implemented,"candidate_sql_span:NULLIF(COUNT(""id""), 0)",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0012,PORT,A3,operation_atom,implemented,"positive_sql_span:NULLIF(COUNT(id), 0)",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0012,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:""diagnosis"" = 'RA'",true,true,none,semantic guard candidate_sql_span exists
+PORT_0012,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:EXTRACT(YEAR FROM ""birthday"") = 1980",true,true,none,semantic guard candidate_sql_span exists
+PORT_0012,PORT,A4,semantic_guard_atom,implemented,"candidate_sql_span:CASE WHEN ""sex"" = 'F' THEN 1 ELSE 0 END",true,true,none,semantic guard candidate_sql_span exists
+PORT_0012,PORT,A5,semantic_guard_atom,implemented,"candidate_sql_span:NULLIF(COUNT(""id""), 0)",true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A1,operation_atom,not_implemented,candidate_sql_span:SUM(CASE WHEN t2.gender = 'F' THEN 1 ELSE 0 END),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0013,PORT,A1,operation_atom,not_implemented,positive_sql_span:COUNT(CASE WHEN t2.gender = 'F' THEN 1 END),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0013,PORT,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0013,PORT,A2,operation_atom,implemented,candidate_sql_span:* 100 / COUNT(t2.client_id),true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0013,PORT,A2,operation_atom,implemented,positive_sql_span:* 100 / COUNT(t2.client_id),true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0013,PORT,A3,operation_atom,implemented,candidate_sql_span:INNER JOIN client AS t2 ON t1.district_id = t2.district_id,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0013,PORT,A3,operation_atom,implemented,positive_sql_span:INNER JOIN client AS t2 ON t1.district_id = t2.district_id,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0013,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:t2.gender = 'F',true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A4,semantic_guard_atom,implemented,positive_sql_span:t2.gender = 'F',true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:WHERE t1.a11 > 10000,true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:COUNT(t2.client_id),true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A5,semantic_guard_atom,implemented,positive_sql_span:WHERE t1.a11 > 10000,true,true,none,semantic guard candidate_sql_span exists
+PORT_0013,PORT,A5,semantic_guard_atom,implemented,positive_sql_span:COUNT(t2.client_id),true,true,none,semantic guard candidate_sql_span exists
+PORT_0022,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:TO_CHAR(t1.creationdate::timestamp, 'YYYY') = '2010'",true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A1,operation_atom,not_implemented,positive_sql_span:EXTRACT(YEAR FROM CAST(t1.creationdate AS TIMESTAMP)) = 2010,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A2,operation_atom,not_implemented,candidate_sql_span:CAST(COUNT(t1.id) AS DOUBLE PRECISION) / 12,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A2,operation_atom,not_implemented,positive_sql_span:1.0 * COUNT(t1.id) / 12,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A2,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0022,PORT,A3,operation_atom,implemented,candidate_sql_span:INNER JOIN posts AS t2 ON t1.postid = t2.id,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0022,PORT,A3,operation_atom,implemented,positive_sql_span:INNER JOIN posts AS t2 ON t1.postid = t2.id,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0022,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:'2010',true,true,none,semantic guard candidate_sql_span exists
+PORT_0022,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:t2.answercount <= 2,true,true,none,semantic guard candidate_sql_span exists
+PORT_0022,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:/ 12,true,true,none,semantic guard candidate_sql_span exists
+PORT_0024,PORT,A1,operation_atom,not_implemented,candidate_sql_span:CAST(SUM(CASE WHEN istextless = 0 AND isstoryspotlight = 1 THEN 1 ELSE 0 END) AS DOUBLE PRECISION) * 100 / COUNT(id),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0024,PORT,A1,operation_atom,not_implemented,positive_sql_span:100.0 * SUM(CASE WHEN istextless = 0 AND isstoryspotlight = 1 THEN 1 ELSE 0 END) / COUNT(id),true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0024,PORT,A1,operation_atom,not_implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented
+PORT_0024,PORT,A2,operation_atom,implemented,candidate_sql_span:istextless = 0 AND isstoryspotlight = 1,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0024,PORT,A2,operation_atom,implemented,candidate_sql_span:COUNT(id) FROM cards,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0024,PORT,A2,operation_atom,implemented,positive_sql_span:istextless = 0 AND isstoryspotlight = 1,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0024,PORT,A2,operation_atom,implemented,source_candidate_diff:changed,true,false,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span
+PORT_0024,PORT,A3,semantic_guard_atom,implemented,candidate_sql_span:istextless = 0 AND isstoryspotlight = 1,true,true,none,semantic guard candidate_sql_span exists
+PORT_0024,PORT,A3,semantic_guard_atom,implemented,source_sql_span:`istextless` = 0 AND `isstoryspotlight` = 1,true,true,none,semantic guard candidate_sql_span exists
+PORT_0024,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:COUNT(id) FROM cards,true,true,none,semantic guard candidate_sql_span exists
+PORT_0024,PORT,A4,semantic_guard_atom,implemented,source_sql_span:COUNT( `id` ) FROM `cards`,true,true,none,semantic guard candidate_sql_span exists
+PORT_0025,PORT,A1,operation_atom,implemented,candidate_sql_span:EXTRACT(YEAR FROM t2.account_date) = 1993,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0025,PORT,A1,operation_atom,implemented,positive_sql_span:EXTRACT(YEAR FROM CAST(t2.account_date AS TIMESTAMP)) = 1993,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0025,PORT,A1,operation_atom,implemented,source_candidate_diff:changed,true,true,none,candidate-specific or positive-aligned span is paired with source_candidate_diff:changed
+PORT_0025,PORT,A2,operation_atom,implemented,"candidate_sql_span:INNER JOIN account AS t2
+  ON t1.account_id = t2.account_id",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0025,PORT,A2,operation_atom,implemented,positive_sql_span:INNER JOIN account AS t2 ON t1.account_id = t2.account_id,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0025,PORT,A3,operation_atom,implemented,"candidate_sql_span:ORDER BY t1.amount DESC
+LIMIT 1",true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0025,PORT,A3,operation_atom,implemented,positive_sql_span:ORDER BY t1.amount DESC LIMIT 1,true,false,presence_only,cited span exists but does not establish a transformation relative to source
+PORT_0025,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:EXTRACT(YEAR FROM t2.account_date) = 1993,true,true,none,semantic guard candidate_sql_span exists
+PORT_0025,PORT,A4,semantic_guard_atom,implemented,candidate_sql_span:t1.duration > 12,true,true,none,semantic guard candidate_sql_span exists
+PORT_0025,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:ORDER BY t1.amount DESC,true,true,none,semantic guard candidate_sql_span exists
+PORT_0025,PORT,A5,semantic_guard_atom,implemented,candidate_sql_span:LIMIT 1,true,true,none,semantic guard candidate_sql_span exists

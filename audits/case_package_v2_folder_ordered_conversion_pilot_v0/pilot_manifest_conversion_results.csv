@@ -1,0 +1,6 @@
+case_id,manifest_path,canonical_sql_shape,schema_ref_profile_first,compatibility_block_present,old_shape_retained_in_compatibility,status,notes
+PERF_0006,cases/PERF/PERF_0006/manifest.yaml,true,true,true,true,converted_profile_first_validator_gap,"schema_ref now has schema_id/profile only; previous engine paths retained under compatibility."
+PERF_0007,cases/PERF/PERF_0007/manifest.yaml,true,true,true,true,converted_profile_first_validator_gap,"Old SQL mapping, case-local schema refs, checker legacy key, validation refs, and batch id retained under compatibility."
+CONS_0005,cases/CONS/CONS_0005/manifest.yaml,true,true,true,true,converted_profile_first_validator_gap,"Old SQL mapping, case-local schema refs, checker legacy key, validation refs, and source context retained under compatibility."
+PORT_0003,cases/PORT/PORT_0003/manifest.yaml,true,true,true,true,converted_profile_first_validator_gap,"Old SQL mapping, dialect variants, case-local schema refs, checker legacy key, validation refs, and portability context retained under compatibility."
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/manifest.yaml,true,true,true,true,converted_profile_first_validator_gap,"Old SQL mapping, case-local schema refs, checker legacy key, validation refs, and longtail context retained under compatibility."

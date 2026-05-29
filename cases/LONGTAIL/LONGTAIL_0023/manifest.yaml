@@ -1,157 +1,93 @@
 case_id: LONGTAIL_0023
 pool: LONGTAIL
-status: canonical_full_case_migration_batch
-canonical_layout: true
+primary_pool: LONGTAIL
+package_path: cases/LONGTAIL/LONGTAIL_0023
 source_family: Stack Queries
-source_workload: superuser_dump_substrate
-source_query_identity: manual_postlinks_graph_anchor
-source_path_reference: datasets/raw/stack_queries/staged/superuser/
-draft_origin: LONGTAIL_STACK_SUBSTRATE_DRAFT_0002
-legacy_official_case_status: case_local_constructed_not_registry_admitted
-benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: LONGTAIL_0023_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-  workload_frequency_claim_created: false
-  production_frequency_claim_created: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  postgres:
-    role: retained_source_positive_negative_evidence
-    retained_control_evidence: evidence/retained_controls/postgres/result_check.json
-    retained_plan_evidence: evidence/retained_plans/postgres/plan_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
-  mysql:
-    role: retained_source_positive_negative_evidence
-    retained_control_evidence: evidence/retained_controls/mysql/result_check.json
-    retained_plan_evidence: evidence/retained_plans/mysql/plan_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
-  spark:
-    role: retained_source_positive_negative_evidence
-    retained_control_evidence: evidence/retained_controls/spark/result_check.json
-    retained_plan_evidence: evidence/retained_plans/spark/plan_check.json
-    validation_assets: legacy_validation_asset_not_run_during_migration
+source_workload:
+  source_family: Stack Queries
+  source_name: Stack Queries
+  source_seed: manual_postlinks_graph_anchor
+  source_workload: superuser_dump_substrate
+based_benchmark: Stack Queries
+source_query_identity:
+  source_name: Stack Queries
+  source_seed: manual_postlinks_graph_anchor
+  identity: manual_postlinks_graph_anchor
+source_path: datasets/raw/stack_queries/staged/superuser/
+draft_origin:
+  recovery_status: recovered
+  origin_id: LONGTAIL_STACK_SUBSTRATE_DRAFT_0002
+  origin_type: explicit_draft_origin
+  recovery_sources:
+  - current_manifest
+  - branch_history_provenance
+  - branch_history_taxonomy
+  - inventory_case_registry
+taxonomy:
+  sql_feature:
+    primary:
+    - cte
+    - outer_join
+    - aggregation
+    - directed_relation
+    - sort
+    secondary: []
+  rewrite_opportunity:
+    primary: []
+    secondary: []
+  portability:
+    confirmed: []
+    suspected: []
+  longtail_focus:
+    structures_present:
+    - cte
+    - outer_join
+    - aggregation
+    - directed_relation
+    - sort
+    semantic_risk_type:
+    - set_relation_direction_changed
+    - aggregation_input_boundary
+    - row_preservation
+    interpretation_policy: structural_robustness_only
 sql:
   source: sql/source.sql
-  positives:
+  positive_rewrites:
   - id: pos_01
-    path: sql/positives/pos_01.sql
-    source_legacy_path: cases/LONGTAIL/LONGTAIL_0023/rewrite_pos_01.sql
-    role: positive_rewrite
-  negatives:
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
   - id: neg_01
-    path: sql/negatives/neg_01.sql
-    source_legacy_path: cases/LONGTAIL/LONGTAIL_0023/rewrite_neg_01.sql
-    role: hard_negative
-    expected_rejection: checker/expected_rejections.yaml
-    expected_behavior: directed_postlink_inbound_outbound_semantics_collapsed
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
 schema:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
   profile: schema/schema_profile.yaml
+  external_profile: schemas/stack_queries_longtail0023_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
   checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
-  postgres_validation: validation/run_postgres_validation.sh
-  mysql_validation: validation/run_mysql_validation.sh
-  spark_validation: validation/run_spark_validation.sh
-  postgres_plan_collection: validation/run_postgres_plan_collection.sh
-  mysql_plan_collection: validation/run_mysql_plan_collection.sh
-  spark_plan_collection: validation/run_spark_plan_collection.sh
-  execution_policy: not_run_during_migration
-  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
-evidence:
-  runs_retention: evidence/runs_retention.yaml
-  retained_controls:
-  - evidence/retained_controls/postgres/result_check.json
-  - evidence/retained_controls/postgres/source.tsv
-  - evidence/retained_controls/postgres/rewrite_pos_01.tsv
-  - evidence/retained_controls/mysql/result_check.json
-  - evidence/retained_controls/mysql/source.tsv
-  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  - evidence/retained_controls/spark/result_check.json
-  - evidence/retained_controls/spark/source.tsv
-  - evidence/retained_controls/spark/rewrite_pos_01.tsv
-  retained_plans:
-  - evidence/retained_plans/postgres/plan_check.json
-  - evidence/retained_plans/postgres/source.json
-  - evidence/retained_plans/postgres/rewrite_pos_01.json
-  - evidence/retained_plans/postgres/rewrite_neg_01.json
-  - evidence/retained_plans/mysql/plan_check.json
-  - evidence/retained_plans/mysql/source.json
-  - evidence/retained_plans/mysql/rewrite_pos_01.json
-  - evidence/retained_plans/mysql/rewrite_neg_01.json
-  - evidence/retained_plans/spark/plan_check.json
-  - evidence/retained_plans/spark/source.sanitized.txt
-  - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
-  - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
-  hard_negative:
-  - evidence/hard_negative/postgres/rewrite_neg_01.tsv
-  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/hard_negative/spark/rewrite_neg_01.tsv
-  - evidence/hard_negative/hard_negative_summary.json
-  package_validation_summary: evidence/package_validation_summary.json
-metadata:
-  provenance: metadata/provenance.yaml
-  taxonomy: metadata/taxonomy.yaml
-  engine_support: metadata/engine_support.yaml
-  denominator_eligibility: metadata/denominator_eligibility.yaml
-  artifact_paths: metadata/artifact_paths.yaml
-notes:
-  witness_design_notes: notes/witness_design_notes.md
-  risk_notes: notes/risk_notes.md
-  schema_notes: notes/schema_notes.md
-  promotion_checklist: notes/promotion_checklist.md
-  migration_notes: notes/migration_notes.md
-artifact_paths:
-  legacy_case_root: cases/LONGTAIL/LONGTAIL_0023
-  public_release_case_root: cases/LONGTAIL/LONGTAIL_0023
-  raw_legacy_runs_root: cases/LONGTAIL/LONGTAIL_0023/runs
-  raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
-longtail_structure_boundary:
-  structural_case: true
-  workload_frequency_claim_created: false
-  production_frequency_claim_created: false
-  structures_present:
-  - cte
-  - outer_join
-  - aggregation
-  - directed_relation
-  - sort
-  interpretation_policy: structural_robustness_only
-claim_boundaries:
-  actual_migration_performed: true
-  full_case_package_migrated: true
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
+  run_engine_queries: validation/run_engine_queries.py
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
+status: repaired_v2_manifest_contract
+known_caveats: []
+artifact_warning:
+  case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
-  common_core_membership_changed: false
-  raw_legacy_evidence_changed: false
-  case_sets_changed: false
-  reports_changed: false
-  results_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
-  workload_frequency_claim_created: false
-  production_frequency_claim_created: false
-  timing_evidence_created: false
-  speedup_claim_created: false
-  migration_scope: LONGTAIL_0023 only
+  official_metrics_computed: false
+  db_checker_execution_run: false
+  global_leaderboard_created: false
+  static_evidence_required: false

@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- [x] Branch checked: `feature/case-package-v2-external-schema`
+- [x] Commit `2290122f72fd0fddd4b0cdb71e7698d875a4f1ec` present in branch history.
+- [x] Prior schema-aware route-design audit exists.
+- [x] Adapter remains under `baselines/sqlglot/`.
+- [x] Planned rows limited to 9.
+- [x] No full Track A 120 run.
+- [x] No all-Common-core run.
+- [x] No context-free optimize rerun except prior audit reference.
+- [x] No SQLGlot noop, Calcite, Direct LLM, Repair-1, SQLSolver, or VeriEQL run.
+- [x] No timing.
+- [x] No verifier pass.
+- [x] No official metrics.
+- [x] No Semantic Equivalence Rate.
+- [x] No formal Regression@20.
+- [x] No top-level reports/results update.
+- [x] No retained-evidence promotion.
+- [x] No leaderboard output.
+- [x] No denominator or case-membership change.
+- [x] Runtime artifacts kept under `/tmp`.

@@ -1,0 +1,6 @@
+case_id,validator_status,details
+PERF_0006,pass,"overall_status=pass; reference_rows=24; internal_checks=34; format_findings=1; profile_first_schema_ref_supported=true; no DB/checker execution."
+PERF_0007,pass,"overall_status=pass; reference_rows=22; internal_checks=35; format_findings=1; profile_first_schema_ref_supported=true; no DB/checker execution."
+CONS_0005,pass,"overall_status=pass; reference_rows=22; internal_checks=31; format_findings=1; profile_first_schema_ref_supported=true; no DB/checker execution."
+PORT_0003,pass,"overall_status=pass; reference_rows=22; internal_checks=30; format_findings=1; profile_first_schema_ref_supported=true; no DB/checker execution."
+LONGTAIL_0011,pass,"overall_status=pass; reference_rows=22; internal_checks=31; format_findings=1; profile_first_schema_ref_supported=true; no DB/checker execution."

@@ -1,27 +1,37 @@
+schema_profile_version: case_schema_profile_v2
 case_id: PERF_0035
-schema_profile_version: canonical_case_package_layout_v1
+pool: PERF
+schema_ref:
+  schema_id: tpcds_perf0035_v0
+  profile: schemas/tpcds_perf0035_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
 source_family: TPC-DS
-required_tables:
-- item
-- catalog_sales
-- date_dim
-- call_center
-row_counts_from_legacy_data_profile:
-  item: 1
-  catalog_sales: 4
-  date_dim: 4
-  call_center: 1
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-witness_scope: case_local_minimal_witness
-claim_boundary:
-  summarizes_existing_witness_only: true
-  db_validation_run_during_migration: false
+tables:
+- name: item
+  columns:
+  - i_item_sk
+  - i_category
+  - i_brand
+  row_count: 1
+- name: catalog_sales
+  columns:
+  - cs_item_sk
+  - cs_sold_date_sk
+  - cs_call_center_sk
+  - cs_sales_price
+  row_count: 4
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  - d_moy
+  row_count: 4
+- name: call_center
+  columns:
+  - cc_call_center_sk
+  - cc_name
+  row_count: 1
+engine_assets:
+  postgres: schemas/tpcds_perf0035_v0/postgres/ddl.sql
+  mysql: schemas/tpcds_perf0035_v0/mysql/ddl.sql
+  spark: schemas/tpcds_perf0035_v0/spark/ddl.sql

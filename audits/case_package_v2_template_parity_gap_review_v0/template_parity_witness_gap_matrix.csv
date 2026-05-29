@@ -1,0 +1,6 @@
+case_id,witness_profile_exists,data_profile_exists,correct_result_exists,source_as_oracle_policy_present,static_witness_required,gap_status,recommended_action,notes
+PERF_0006,yes,yes,yes,yes,no,no_gap,"retain optional static witness until separate witness cleanup policy","Static data_profile and correct_result are present but optional; they were not fabricated."
+PERF_0007,yes,no,no,yes,no,no_gap,"leave static witness absent; do not fabricate correct_result.csv","Source-as-oracle policy is present and static witness files are optional."
+CONS_0005,yes,no,no,yes,no,no_gap,"leave static witness absent; do not fabricate correct_result.csv","Source-as-oracle policy is present and static witness files are optional."
+PORT_0003,yes,no,no,yes,no,no_gap,"leave static witness absent; do not fabricate correct_result.csv","Source-as-oracle policy is present; data/fixtures remain compatibility material."
+LONGTAIL_0011,yes,no,no,yes,no,no_gap,"leave static witness absent; do not fabricate correct_result.csv","Source-as-oracle policy is present; data/fixtures remain compatibility material."

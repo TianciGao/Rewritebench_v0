@@ -1,0 +1,6 @@
+stage,selected_pairs,identity_passed,identity_unknown_unclassified,identity_no_verifier_support,actual_attempted,actual_equivalent,actual_non_equivalent,ready_for_next_scope,notes
+original_bounded_pass,8,3,5,0,3,3,0,false,Initial same-8 benchmark pass; five identity UNKNOWN rows required modeling-gap triage.
+modeling_gap_triage,8,3,5,0,3,3,0,false,Audit-only triage classified five UNKNOWN identity rows; broader pass remained blocked.
+canonicalization_canaries,5,6,4,0,0,0,0,false,Non-benchmark canary identity checks only; four canary identity checks remained UNKNOWN.
+support_scope_guard_canaries,5,6,0,4,0,0,0,true,Non-benchmark canary identity checks only; known blockers became explicit no_verifier_support.
+same8_after_guards_rerun,8,2,3,3,2,2,0,false,Same 8 benchmark pairs; stability gate failed due three residual unclassified identity blockers.

@@ -1,0 +1,11 @@
+metric_name,paper_facing,local_v0_computed,requires_verifier,requires_timing,requires_external_skill_adapter,official_metric_authorized,current_status
+Generation Rate,true,true,false,false,false,false,local diagnostic computed when run evidence exists
+Execution Coverage Rate,true,true,false,false,false,false,local diagnostic computed when run evidence exists
+Result Consistency Rate,true,true,false,false,false,false,local diagnostic computed when checker evidence exists
+Semantic Equivalence Rate,true,false,true,false,false,false,computed only if formal verifier evidence exists; otherwise N.A. or coverage_limited
+GM Speedup Ratio,true,true,false,true,false,false,computed only on strict exact + timed rows
+Speedup Ratio Percentiles,true,true,false,true,false,false,computed only on strict exact + timed rows
+Positive Operation Coverage Rate,true,false,false,false,true,false,deferred/N.A.; external collaborator script required
+Cross-Engine Execution Coverage Rate,true,false,false,false,false,false,N.A. unless approved cross-engine execution evidence exists
+Cross-Engine Result Consistency Rate,true,false,false,false,false,false,N.A. unless approved cross-engine checker evidence exists
+Cross-Engine GM Speedup Ratio,true,false,false,true,false,false,N.A. unless target-engine paired timing exists

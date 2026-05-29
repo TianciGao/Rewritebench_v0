@@ -1,0 +1,23 @@
+case_id,manifest_path,canonical_top_level_shape,canonical_sql_shape,profile_first_schema_ref,canonical_checker_refs,canonical_validation_refs,canonical_witness_policy,evidence_policy_present,evidence_ref_absent_or_non_required,forbidden_deleted_refs_absent,absolute_paths_absent,status,notes
+PERF_0033,cases/PERF/PERF_0033/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0034,cases/PERF/PERF_0034/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0035,cases/PERF/PERF_0035/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0052,cases/PERF/PERF_0052/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0054,cases/PERF/PERF_0054/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0056,cases/PERF/PERF_0056/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0062,cases/PERF/PERF_0062/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0077,cases/PERF/PERF_0077/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+PERF_0082,cases/PERF/PERF_0082/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0007,cases/CONS/CONS_0007/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0009,cases/CONS/CONS_0009/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0010,cases/CONS/CONS_0010/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0011,cases/CONS/CONS_0011/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0012,cases/CONS/CONS_0012/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0024,cases/CONS/CONS_0024/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0036,cases/CONS/CONS_0036/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+CONS_0037,cases/CONS/CONS_0037/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+LONGTAIL_0012,cases/LONGTAIL/LONGTAIL_0012/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+LONGTAIL_0013,cases/LONGTAIL/LONGTAIL_0013/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+LONGTAIL_0022,cases/LONGTAIL/LONGTAIL_0022/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+LONGTAIL_0023,cases/LONGTAIL/LONGTAIL_0023/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs
+LONGTAIL_0024,cases/LONGTAIL/LONGTAIL_0024/manifest.yaml,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape; no evidence_ref or deleted compatibility refs

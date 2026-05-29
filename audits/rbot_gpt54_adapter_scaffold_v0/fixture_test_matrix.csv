@@ -1,0 +1,13 @@
+test_name,fixture_type,expected_behavior,actual_result,passed,notes
+test_adapter_help_works,cli_help,adapter help exits 0,passed,true,--dry-run-status visible
+test_fake_runtime_json_returns_one_sql_candidate,fake_json,one SQL candidate generated,passed,true,metadata route/provider/model flags checked
+test_fake_runtime_safe_sql_fence_succeeds,fake_sql_fence,one fenced SQL candidate generated,passed,true,WITH statement accepted
+test_multiple_sql_fail_closed,fake_json,multiple statements fail closed,passed,true,fail_closed_reason=multiple_sql_statements
+test_prose_empty_and_ambiguous_markdown_fail_closed,fake_json,prose/empty/ambiguous markdown fail closed,passed,true,subtests passed
+test_malformed_json_fails_closed,fake_json,malformed fake response fail closed,passed,true,fail_closed_reason=malformed_json
+test_missing_source_and_schema_fail_closed,env_fixture,missing source/schema fail closed,passed,true,both guards covered
+test_unsupported_engine_fails_closed_before_runtime,env_fixture,mysql fake row blocked before runtime,passed,true,runtime_status=not_attempted
+test_live_mode_without_gate_or_api_key_fails_closed_without_call,env_fixture,live mode fails closed without gate/key,passed,true,no live_call
+test_retrieval_required_without_index_fails_closed,env_fixture,retrieval-required mode fails closed,passed,true,retrieval_used=false
+test_extraction_helper_rejects_multiple_blocks,module_helper,multiple SQL blocks rejected,passed,true,helper-only guard
+tiny_user_facade_fake_smoke,user_facade,2 PostgreSQL rows generate fake candidates,passed,true,no DB/checker/timing/local_metrics/verifier

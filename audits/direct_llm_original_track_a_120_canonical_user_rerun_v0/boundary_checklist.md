@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+```text
+local_diagnostic_only=true
+track_a_120_local_diagnostic=true
+repair_1_run=false
+sqlsolver_run=false
+verieql_run=false
+official_metrics_computed=false
+official_ser_computed=false
+formal_regression_at_20_computed=false
+pocr_computed=false
+top_level_reports_updated=false
+top_level_results_updated=false
+retained_evidence_promoted=false
+leaderboard_created=false
+denominator_changed=false
+case_membership_changed=false
+paper_results_changed=false
+secrets_printed=false
+runtime_artifacts_committed=false
+```

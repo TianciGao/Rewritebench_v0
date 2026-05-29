@@ -1,0 +1,6 @@
+case_id,runs_dir_exists,classification,tracked_files_count,retained_evidence_present,sensitive_or_private_trace_present,deletion_performed,future_cleanup_action,notes
+PERF_0006,true,placeholder_only,1,false,false,false,remove_empty_runs_after_approval,Only tracked file is runs/README.md; no deletion performed.
+PERF_0007,true,placeholder_only,1,false,false,false,remove_empty_runs_after_approval,Only tracked file is runs/README.md; no deletion performed.
+CONS_0005,true,placeholder_only,1,false,false,false,remove_empty_runs_after_approval,Only tracked file is runs/README.md; no deletion performed.
+PORT_0003,true,placeholder_only,1,false,false,false,remove_empty_runs_after_approval,Only tracked file is runs/README.md; no deletion performed.
+LONGTAIL_0011,true,placeholder_only,1,false,false,false,remove_empty_runs_after_approval,Only tracked file is runs/README.md; no deletion performed.

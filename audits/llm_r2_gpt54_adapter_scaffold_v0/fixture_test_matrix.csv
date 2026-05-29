@@ -1,0 +1,16 @@
+test_name,fixture_type,expected_behavior,actual_result,passed,notes
+test_adapter_help_works,cli_help,help exits 0,passed,true,no runtime invoked
+test_fake_runtime_json_returns_one_sql_candidate,fake_json,one SQL candidate generated,passed,true,metadata and secret hygiene checked
+test_fake_rule_sequence_plus_sql_success,fake_json_rule_sequence,rule metadata plus SQL extracts candidate,passed,true,rule sequence present in metadata
+test_fake_runtime_safe_sql_fence_succeeds,fake_sql_fence,one fenced SQL candidate generated,passed,true,code fence accepted
+test_multiple_sql_fail_closed,fake_json_multiple_sql,no candidate and multiple_sql_statements reason,passed,true,fail closed
+test_prose_empty_and_ambiguous_markdown_fail_closed,fake_bad_outputs,no candidate for prose empty or bad markdown,passed,true,subtests passed
+test_malformed_json_fails_closed,fake_malformed_json,no candidate and malformed_json reason,passed,true,fail closed
+test_rule_only_response_without_sql_fails_closed,fake_rule_only,no candidate and response_not_sql reason,passed,true,rule-only output rejected
+test_missing_source_and_schema_fail_closed,fixture_missing_context,no candidate for missing source or schema,passed,true,subtests passed
+test_unsupported_engine_fails_closed_before_runtime,fixture_mysql,no runtime and unsupported_engine reason,passed,true,PostgreSQL-only scaffold
+test_live_mode_without_gate_or_api_key_fails_closed_without_call,live_placeholder,no live call and fail closed,passed,true,subtests passed
+test_live_mode_with_gate_still_fails_closed_without_call,live_placeholder_complete_config,no live call and live_not_implemented,passed,true,scaffold intentionally no-live
+test_rule_system_required_but_unavailable_fails_closed,rule_system_placeholder,no rule runtime and fail closed,passed,true,no Java invoked
+test_checkpoint_and_demo_selector_required_fail_closed,checkpoint_demo_placeholder,no checkpoint or demo selector and fail closed,passed,true,subtests passed
+test_extraction_helper_rejects_multiple_blocks,unit_extraction,multiple SQL blocks rejected,passed,true,no runtime invoked

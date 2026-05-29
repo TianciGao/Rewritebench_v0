@@ -1,0 +1,2 @@
+case_id,engine,pool,selection_reason,case_path,source_sql_path,used_in_smoke,notes
+CONS_0036,postgres,CONS,PostgreSQL row with simple schema/query shape validated as safe for first external-runtime e2e smoke,cases/CONS/CONS_0036,cases/CONS/CONS_0036/sql/source.sql,true,PERF_0006 deferred because TPC-H date/comment-heavy SQL needs a separate bounded diagnostic

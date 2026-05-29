@@ -1,0 +1,5 @@
+path,source_reference_engine,target_candidate_engine,selected_rows,source_reference_executable_rows,target_candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,failure_summary,status,source_audit,notes
+MySQL-source to PostgreSQL-target,mysql,postgres,5,5,5,5,5,0,none=5,closed,audits/port_bidirectional_cross_dialect_closeout_v0,"Controlled PostgreSQL target-reference adapter route."
+PostgreSQL-source to MySQL-target,postgres,mysql,4,4,4,4,4,0,none=4,closed,audits/port_bidirectional_cross_dialect_closeout_v0,"Controlled MySQL target-reference adapter route."
+MySQL/PostgreSQL-source to Spark-target,mixed,spark,4,4,4,4,4,0,none=4,closed,audits/port_spark_numeric_normalization_v0,"Manifest-declared Spark target-reference roles for PORT_0003, PORT_0004, PORT_0005, and PORT_0013."
+Spark unsupported PORT roles,,spark,5,0,0,0,0,0,unsupported_engine=5,explicit_fail_closed,audits/port_spark_numeric_normalization_v0,"PORT_0008, PORT_0012, PORT_0022, PORT_0024, and PORT_0025 remain unsupported because no safe Spark target reference is declared."

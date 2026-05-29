@@ -1,0 +1,5 @@
+case_id,target_candidate_engine,attempted,execution_status,executable,failure_bucket,execution_failure_class,candidate_result_path,notes
+PORT_0003,mysql,yes,candidate_execution_success,yes,none,,runs/user/port_mysql_target_reference_controlled/workspaces/PORT_0003/mysql/execution/mysql_target/candidate_result.jsonl,MySQL target-candidate artifact written
+PORT_0005,mysql,yes,candidate_execution_success,yes,none,,runs/user/port_mysql_target_reference_controlled/workspaces/PORT_0005/mysql/execution/mysql_target/candidate_result.jsonl,MySQL target-candidate artifact written
+PORT_0008,mysql,yes,candidate_execution_success,yes,none,,runs/user/port_mysql_target_reference_controlled/workspaces/PORT_0008/mysql/execution/mysql_target/candidate_result.jsonl,MySQL target-candidate artifact written
+PORT_0012,mysql,yes,candidate_execution_success,yes,none,,runs/user/port_mysql_target_reference_controlled/workspaces/PORT_0012/mysql/execution/mysql_target/candidate_result.jsonl,MySQL target-candidate artifact written

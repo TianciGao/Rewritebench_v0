@@ -1,28 +1,43 @@
-case_id: CONS_0005
-schema_profile_version: v1
-tables:
-  - name: table1
-    columns:
-      - {name: i, logical_type: integer, nullable: true}
-      - {name: j, logical_type: integer, nullable: true}
-  - name: table2
-    columns:
-      - {name: i, logical_type: integer, nullable: true}
-      - {name: j, logical_type: integer, nullable: true}
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-witness_summary:
-  table1_rows: 2
-  table2_rows: 2
-  discriminator: table2.i contains NULL
+schema_id: calcite_core_sql_tests_cons0005_v0
+external_schema_profile: schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml
+source_family: Calcite core SQL tests
+relevant_tables:
+- table1
+- table2
+columns:
+  table1:
+  - i
+  - j
+  table2:
+  - i
+  - j
+column_types:
+  table1:
+    i: integer
+    j: integer
+  table2:
+    i: integer nullable
+    j: integer
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Spark DDL includes USING parquet; Postgres and MySQL use standard integer columns.
+engine_support:
+  postgres: supported
+  mysql: supported
+  spark: supported
+fixture_notes:
+- Two-row fixtures; table2.i includes NULL to exercise NOT IN/NOT EXISTS semantics.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: true
+  case_local_engine_files_deleted: false
+  notes: Case-local per-engine ddl/load files are retained as compatibility copies for this pilot.
 claim_boundary:
   db_validation_run_during_migration: false
-  evidence_regenerated: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

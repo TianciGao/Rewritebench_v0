@@ -1,0 +1,33 @@
+# Command Log
+
+Read-only commands used:
+
+```bash
+git status -sb
+sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md
+tail -n 60 project_control/MIGRATION_STATUS.md
+tail -n 120 project_control/MIGRATION_RUN_LOG.md
+tail -n 120 project_control/DECISION_LOG.md
+rg -n "Result Consistency|Semantic Equivalence|POCR|leaderboard|official|Generation Rate|Execution Coverage" repository_spec/metrics_contract_v1.md
+sed -n '1,180p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/README.md
+sed -n '1,180p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/bounded_diagnostic_report.md
+cat audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/bounded_diagnostic_summary.json
+sed -n '1,120p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/local_metrics_summary_review.md
+sed -n '1,220p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/adapter_output_review.csv
+sed -n '1,220p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/db_checker_timing_review.csv
+sed -n '1,180p' audits/learnedrewrite_pg40_bounded_local_diagnostic_v0/source_like_review.md
+sed -n '1,180p' audits/prior_methods_onboarding_feasibility_v0/README.md
+```
+
+Validation/closeout commands:
+
+```bash
+python - <<'PY'
+# parse/check generated Markdown and copied metric values
+PY
+git diff --check
+git diff --cached --check
+git diff --cached --name-only
+```
+
+No LearnedRewrite runtime, MySQL, Spark, Track A 120, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, or leaderboard command was run.

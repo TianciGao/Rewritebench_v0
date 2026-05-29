@@ -1,0 +1,6 @@
+case_id,skipped_surface,skipped_path,skip_reason,required_future_action,notes
+PERF_0006,case_local_evidence,cases/PERF/PERF_0006/evidence/,already_absent,none,No case-local evidence directory existed before this task.
+PERF_0007,case_local_evidence,cases/PERF/PERF_0007/evidence/,already_absent,none,No case-local evidence directory existed before this task.
+CONS_0005,case_local_evidence,cases/CONS/CONS_0005/evidence/,already_absent,none,No case-local evidence directory existed before this task.
+PORT_0003,case_local_evidence,cases/PORT/PORT_0003/evidence/,already_absent,none,No case-local evidence directory existed before this task.
+LONGTAIL_0011,case_local_evidence,cases/LONGTAIL/LONGTAIL_0011/evidence/,already_absent,none,No case-local evidence directory existed before this task.

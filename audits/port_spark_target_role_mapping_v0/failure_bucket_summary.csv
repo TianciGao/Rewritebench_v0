@@ -1,0 +1,4 @@
+failure_bucket,count,affected_cases,likely_layer,notes
+none,2,PORT_0003;PORT_0005,not_failure,Controlled Spark target diagnostic exact rows.
+mismatch,2,PORT_0004;PORT_0013,checker_normalization,Source and Spark target executed; mismatch is numeric string versus numeric float under current checker normalization.
+unsupported_engine,5,PORT_0008;PORT_0012;PORT_0022;PORT_0024;PORT_0025,manifest_role_fail_closed,No safe Spark target reference declared; rows failed closed without source/target/checker execution.

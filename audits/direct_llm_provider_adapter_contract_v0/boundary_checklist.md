@@ -1,0 +1,25 @@
+# Boundary Checklist
+
+- [x] Direct LLM original adapter scaffold created.
+- [x] Provider/env contract uses environment variables only.
+- [x] GPTSAPI-compatible endpoint documented without committing secrets.
+- [x] Default model id is `gpt-5.4`.
+- [x] Prompt template contract documented.
+- [x] SQL extraction policy documented.
+- [x] Missing API key fails closed.
+- [x] Live API call is disabled unless `SQLRB_LLM_ALLOW_LIVE=1`.
+- [x] Fake-provider smoke passed.
+- [x] No live API call was made.
+- [x] Repair-1 not implemented.
+- [x] Repair-1 future contract documented as a separate route.
+- [x] Route-specific code stayed under `baselines/`.
+- [x] No `src/` route-specific LLM code was added.
+- [x] No full Track A 120 run.
+- [x] No local metrics computation.
+- [x] No verifier run.
+- [x] No official metrics.
+- [x] No paper reports/results update.
+- [x] No retained-evidence promotion.
+- [x] No leaderboard output.
+- [x] No denominator or case membership change.
+- [x] No runtime artifacts staged.

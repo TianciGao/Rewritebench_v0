@@ -1,0 +1,102 @@
+{
+  "schema_version": "tri_engine_user_entry_local_diagnostic_closeout_v0",
+  "verdict": "closed_for_current_user_entry_phase",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "paper_results_changed": false,
+  "denominator_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "retained_evidence_promoted": false,
+  "global_leaderboard_created": false,
+  "release_export_tag_created": false,
+  "reruns_performed_for_closeout": false,
+  "postgres_noop_snapshot": {
+    "selected_rows": 40,
+    "source_executable_rows": 40,
+    "target_candidate_executable_rows": 35,
+    "checker_attempted_rows": 35,
+    "exact_rows": 35,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 35,
+      "candidate_execution_failed": 5
+    }
+  },
+  "mysql_noop_snapshot": {
+    "selected_rows": 40,
+    "source_executable_rows": 40,
+    "target_candidate_executable_rows": 36,
+    "checker_attempted_rows": 36,
+    "exact_rows": 36,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 36,
+      "candidate_execution_failed": 4
+    }
+  },
+  "spark_same_engine_snapshot": {
+    "selected_rows": 40,
+    "source_executable_rows": 31,
+    "candidate_executable_rows": 31,
+    "checker_attempted_rows": 31,
+    "exact_rows": 31,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 31,
+      "unsupported_engine": 9
+    },
+    "note": "Snapshot predates Spark PORT target-role mapping and is retained as the non-PORT same-engine Spark baseline."
+  },
+  "port_controlled_paths": {
+    "postgres_target": {
+      "selected_rows": 5,
+      "source_reference_executable_rows": 5,
+      "target_candidate_executable_rows": 5,
+      "checker_attempted_rows": 5,
+      "exact_rows": 5,
+      "mismatch_rows": 0
+    },
+    "mysql_target": {
+      "selected_rows": 4,
+      "source_reference_executable_rows": 4,
+      "target_candidate_executable_rows": 4,
+      "checker_attempted_rows": 4,
+      "exact_rows": 4,
+      "mismatch_rows": 0
+    },
+    "spark_target_after_numeric_fix": {
+      "selected_rows": 4,
+      "source_reference_executable_rows": 4,
+      "target_candidate_executable_rows": 4,
+      "checker_attempted_rows": 4,
+      "exact_rows": 4,
+      "mismatch_rows": 0
+    },
+    "spark_unsupported_fail_closed": {
+      "selected_rows": 5,
+      "source_reference_executable_rows": 0,
+      "target_candidate_executable_rows": 0,
+      "checker_attempted_rows": 0,
+      "failure_bucket_counts": {
+        "unsupported_engine": 5
+      }
+    }
+  },
+  "deferred": [
+    "real_user_adapter_evaluation",
+    "timing_speedup",
+    "official_metrics",
+    "paper_rendering",
+    "reports_results_migration",
+    "retained_evidence_integration",
+    "release_export_tag"
+  ],
+  "previous_task_metadata_correction": {
+    "task": "port_spark_numeric_normalization_v0",
+    "final_commit_hash": "8f7b2f8",
+    "push_result": "pushed to origin/feature/case-package-v2-external-schema"
+  }
+}

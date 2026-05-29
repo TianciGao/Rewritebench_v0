@@ -1,0 +1,19 @@
+{
+  "adapted_gpt54_local_diagnostic": true,
+  "candidate_executable": 38,
+  "candidate_execution_failed": 2,
+  "candidate_generated": 40,
+  "compute_local_metrics_run": true,
+  "exact": 37,
+  "fail_closed_rows": 0,
+  "local_diagnostic_only": true,
+  "mismatch": 1,
+  "official_metric": false,
+  "official_rbot_stack": false,
+  "original_paper_reproduction": false,
+  "postgres_only": true,
+  "selected_rows": 40,
+  "source_like_rows": 0,
+  "timed": 33,
+  "track_a_120": false
+}

@@ -1,0 +1,22 @@
+# Boundary Checklist
+
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Raw legacy evidence changed: no.
+- Reports/results changed: no.
+- Raw retained evidence changed: no.
+- SQLSolver source/JAR/libs committed: no.
+- Full Common-core run performed: no.
+- All 120 Track-A rows run: no.
+- MySQL/Spark rows run: no.
+- VeriEQL run performed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Local diagnostic SQLSolver PG noop SER computed: yes, local-only over corrected decidable rows.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.

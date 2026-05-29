@@ -1,31 +1,51 @@
+schema_profile_version: case_schema_profile_v2
 case_id: PERF_0034
-schema_profile_version: canonical_case_package_layout_v1
+pool: PERF
+schema_ref:
+  schema_id: tpcds_perf0034_v0
+  profile: schemas/tpcds_perf0034_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
 source_family: TPC-DS
-required_tables:
-- store_sales
-- catalog_sales
-- web_sales
-- date_dim
-- customer_address
-- item
-row_counts_from_legacy_data_profile:
-  store_sales: 2
-  catalog_sales: 1
-  web_sales: 1
-  date_dim: 1
-  customer_address: 2
-  item: 2
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-witness_scope: case_local_minimal_witness
-claim_boundary:
-  summarizes_existing_witness_only: true
-  db_validation_run_during_migration: false
+tables:
+- name: item
+  columns:
+  - i_item_sk
+  - i_item_id
+  - i_color
+  row_count: 2
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  - d_moy
+  row_count: 1
+- name: customer_address
+  columns:
+  - ca_address_sk
+  - ca_gmt_offset
+  row_count: 2
+- name: store_sales
+  columns:
+  - ss_item_sk
+  - ss_sold_date_sk
+  - ss_addr_sk
+  - ss_ext_sales_price
+  row_count: 2
+- name: catalog_sales
+  columns:
+  - cs_item_sk
+  - cs_sold_date_sk
+  - cs_bill_addr_sk
+  - cs_ext_sales_price
+  row_count: 1
+- name: web_sales
+  columns:
+  - ws_item_sk
+  - ws_sold_date_sk
+  - ws_bill_addr_sk
+  - ws_ext_sales_price
+  row_count: 1
+engine_assets:
+  postgres: schemas/tpcds_perf0034_v0/postgres/ddl.sql
+  mysql: schemas/tpcds_perf0034_v0/mysql/ddl.sql
+  spark: schemas/tpcds_perf0034_v0/spark/ddl.sql

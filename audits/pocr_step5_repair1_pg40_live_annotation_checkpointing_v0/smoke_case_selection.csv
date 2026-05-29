@@ -1,0 +1,3 @@
+case_id,pool,engine,candidate_path,candidate_sha256,skills_md_path,selected,notes
+PERF_0006,PERF,postgres,runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql/PERF_0006__postgres.sql,f3707ac2438756792cca9bd5badd445f24001ec2b173525135fbda00d7cccab8,cases/PERF/PERF_0006/skills.md,true,preferred smoke case present in selected candidate root
+CONS_0005,CONS,postgres,runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql/CONS_0005__postgres.sql,007bb252e0cbce5c7068f72b43c4929582420d7b3dc8b3748084cb39c9958444,cases/CONS/CONS_0005/skills.md,true,preferred smoke case present in selected candidate root

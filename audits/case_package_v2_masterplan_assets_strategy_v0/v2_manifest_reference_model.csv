@@ -1,0 +1,12 @@
+manifest_ref_key,purpose,example_value,points_to_case_local_asset,points_to_external_asset,required_for_v2,compatibility_note
+sql.source,Canonical source SQL,sql/source.sql,true,false,true,Same as v1.
+sql.positives,Approved positive rewrite SQL,sql/pos_01.sql,true,false,when_positive_exists,May keep legacy_compatibility_path during branch adoption.
+sql.negatives,Hard-negative SQL,sql/neg_01.sql,true,false,when_negative_exists,May keep legacy_compatibility_path during branch adoption.
+schema_ref,Reusable external schema reference,schemas/tpch_common_core_v0/postgres/ddl.sql,false,true,true,Runner and validator compatibility pending.
+checker.config,Checker config path,checker/checker.yaml,true,false,true,Case-local by default.
+checker.normalization,Normalization config path,checker/normalization.yaml,true,false,true,Required when checker runs.
+checker.compare_config,Compare config path,checker/compare_config.yaml,true,false,true,Required when checker runs.
+checker.expected_rejections,Expected rejection config,checker/expected_rejections.yaml,true,false,when_negative_exists,Hard negatives are controls not method failures.
+evidence_ref,External evidence root and artifacts,evidence/cases/PERF/PERF_0006,false,true,false,Policy recorded but resolver not implemented.
+witness.mode,Witness availability and runtime oracle policy,source_as_oracle,true,true,true,Static correct_result optional.
+validation.entrypoints,Stable validation wrapper paths,validation/run_validation.sh,true,false,true,Engine-specific scripts remain compatibility assets.

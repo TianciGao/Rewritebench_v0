@@ -1,0 +1,2 @@
+total_rows,annotation_missing_rows,schema_valid_rows,schema_invalid_rows,route_mismatch_rows,candidate_mismatch_rows,transformation_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,rejected_noop_equivalent_atoms,diagnostic_only,official_pocr_computed,route_level_pocr_aggregated,paper_metric_promoted
+0,0,0,0,0,0,0,0,0,0,true,false,false,false

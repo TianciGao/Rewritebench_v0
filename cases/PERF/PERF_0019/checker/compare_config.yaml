@@ -1,20 +1,26 @@
 case_id: PERF_0019
-compare_config_version: canonical_case_package_layout_v1
-source_reference_engine: pg
-target_engines:
-- mysql
-- spark
-retained_outputs:
-  postgres_source: evidence/retained_controls/postgres/source.tsv
-  mysql_positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  spark_positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
-  mysql_negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  spark_negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
-checks:
-  mysql_positive_equals_pg_source: true
-  mysql_negative_differs_from_pg_source: true
-  spark_positive_equals_pg_source: true
-  spark_negative_differs_from_pg_source: true
+compare_config_version: canonical_case_package_layout_v2
+reference_engine: postgres
+reference_output: runtime_source_result
+positive_checks:
+- engine: mysql
+  output: runtime_positive_result
+  expected: equals_reference
+- engine: spark
+  output: runtime_positive_result
+  expected: equals_reference
+negative_checks:
+- engine: mysql
+  output: runtime_negative_result
+  expected: differs_from_reference
+- engine: spark
+  output: runtime_negative_result
+  expected: differs_from_reference
 claim_boundary:
-  compared_existing_outputs_only: true
-  not_rerun_during_migration: true
+  compared_existing_outputs_only: false
+  db_validation_run_during_migration: false
+  static_evidence_dependency_removed: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

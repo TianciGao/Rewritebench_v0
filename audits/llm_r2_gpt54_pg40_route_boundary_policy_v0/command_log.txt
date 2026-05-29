@@ -1,0 +1,32 @@
+Commands used for this policy-only packet:
+
+- `sed -n '1,220p' audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/local_metrics_summary_review.md`
+- `sed -n '1,220p' audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/bounded_diagnostic_report.md`
+- `sed -n '1,220p' audits/rbot_gpt54_pg40_route_boundary_policy_v0/README.md`
+- `sed -n '1,220p' audits/learnedrewrite_pg40_route_boundary_policy_v0/README.md`
+- `sed -n '1,220p' audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/source_like_review.md`
+- `sed -n '1,220p' audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0/bounded_diagnostic_summary.json`
+- `sed -n '1,180p' audits/prior_methods_onboarding_feasibility_v0/README.md`
+- `sed -n '1,220p' audits/llm_r2_gpt54_bounded_live_e2e_smoke_v0/live_e2e_report.md`
+- `sed -n '1,180p' project_control/MIGRATION_STATUS.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `git status --short`
+- `pwd && git branch --show-current`
+- `mkdir -p audits/llm_r2_gpt54_pg40_route_boundary_policy_v0`
+- `python - <<'PY' ... markdown_non_empty_ok ... PY`
+- `python - <<'PY' ... source_audit_existence_ok ... PY`
+- `python - <<'PY' ... copied_metric_values_ok ... PY`
+- `python - <<'PY' ... csv_json_not_applicable_ok ... PY`
+- `python - <<'PY' ... no_prohibited_command_in_exact_log_ok ... PY`
+- `git diff --name-only`
+- `git diff --check`
+- `python - <<'PY' ... protected_path_review_ok ... PY`
+- `rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" audits/llm_r2_gpt54_pg40_route_boundary_policy_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md || true`
+- `find audits/llm_r2_gpt54_pg40_route_boundary_policy_v0 -maxdepth 1 -type f -printf '%f\\n' | sort`
+- `git add audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/README.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/pg40_metric_boundary.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/llm_r2_route_placement.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/failure_frontier_policy.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/source_like_boundary.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/track_a_120_readiness.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/comparison_context.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/next_step_recommendation.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/no_official_boundary.md audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/command_log.txt audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/validation_notes.md project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md`
+- `git diff --cached --name-only`
+- `git diff --cached --check`
+- `git diff --cached --name-only | rg -n '^(reports/|results/|runs/user/|baselines/|src/|cases/|schemas/|case_sets/|inventory/|retained|paper|env)' || true`
+- `git diff --cached --name-only | xargs -r rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" || true`
+
+No LLM-R2 run, live LLM call, official LLM-R2 runtime, `python src/LLM_R2.py`, Java/rule-system execution, checkpoint inference, demonstration selector, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LearnedRewrite, MySQL, Spark, Track A 120, official metrics, paper rendering, retained evidence promotion, or leaderboard command was run.

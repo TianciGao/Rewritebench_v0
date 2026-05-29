@@ -1,0 +1,6 @@
+case_id,witness_policy_present,witness_mode,witness_profile_exists,data_profile_exists,correct_result_exists,correct_result_fabricated,runtime_source_as_oracle,status,notes
+PERF_0006,true,source_as_oracle,true,true,true,false,true,converted,Existing static data_profile and correct_result retained as optional compatibility/static witness files; runtime checker remains source-as-oracle.
+PERF_0007,true,source_as_oracle,true,false,false,false,true,converted,Lightweight witness_profile created; no correct_result.csv fabricated.
+CONS_0005,true,source_as_oracle,true,false,false,false,true,converted,Lightweight witness_profile created; no correct_result.csv fabricated.
+PORT_0003,true,source_as_oracle,true,false,false,false,true,converted,Lightweight witness_profile created; no correct_result.csv fabricated.
+LONGTAIL_0011,true,source_as_oracle,true,false,false,false,true,converted,Lightweight witness_profile created; no correct_result.csv fabricated.

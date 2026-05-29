@@ -1,0 +1,15 @@
+check_name,status,details
+only target five PORT cases modified,pass,"Diff under cases/ is limited to PORT_0008, PORT_0012, PORT_0022, PORT_0024, and PORT_0025."
+PORT_0004 unchanged,pass,No diff under cases/PORT/PORT_0004.
+PORT_0013 unchanged,pass,No diff under cases/PORT/PORT_0013.
+PORT_0005 unchanged,pass,No diff under cases/PORT/PORT_0005.
+pilot/Wave A/Wave B unchanged,pass,"No diffs under pilot, Wave A, or Wave B case paths."
+no case_sets changed,pass,No files under case_sets/ changed.
+no inventory changed,pass,No files under inventory/ changed.
+no reports/results changed,pass,No files under reports/ or results/ changed.
+no denominator changed,pass,No denominator files or values changed.
+no paper results changed,pass,No paper-result artifacts changed.
+no official metrics computed,pass,No metric computation was run.
+no DB/checker execution,pass,Only static validators and unit tests were run.
+no global leaderboard,pass,No leaderboard output was created.
+no evidence/cases created,pass,No evidence/cases/PORT/* package was created.

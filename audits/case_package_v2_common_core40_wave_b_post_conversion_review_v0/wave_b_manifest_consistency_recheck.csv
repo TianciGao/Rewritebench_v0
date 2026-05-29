@@ -1,0 +1,23 @@
+case_id,canonical_top_level_shape,canonical_sql_shape,profile_first_schema_ref,canonical_checker_refs,canonical_validation_refs,canonical_witness_policy,evidence_policy_present,mandatory_evidence_ref_absent,forbidden_deleted_refs_absent,absolute_paths_absent,status,notes
+PERF_0033,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0034,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0035,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0052,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0054,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0056,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0062,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0077,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+PERF_0082,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0007,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0009,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0010,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0011,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0012,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0024,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0036,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+CONS_0037,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+LONGTAIL_0012,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+LONGTAIL_0013,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+LONGTAIL_0022,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+LONGTAIL_0023,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy
+LONGTAIL_0024,true,true,true,true,true,true,true,true,true,true,pass,canonical v2 manifest shape with regeneration-first evidence policy

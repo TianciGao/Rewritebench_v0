@@ -1,13 +1,19 @@
+checker_version: canonical_case_package_layout_v2
 case_id: PERF_0082
-checker_version: canonical_case_package_layout_v1
-validation_type: retained_witness_result_comparison
-inputs:
+pool: PERF
+sql:
   source: sql/source.sql
-  positive_rewrite: sql/positives/pos_01.sql
-  negative_rewrite: sql/negatives/neg_01.sql
-expected:
-  source_positive_equal: true
-  source_negative_different: true
+  positives:
+  - sql/pos_01.sql
+  negatives:
+  - sql/neg_01.sql
+schema_ref:
+  schema_id: job_imdb_perf0082_v0
+  profile: schemas/job_imdb_perf0082_v0/schema_profile.yaml
 execution_policy:
-  db_validation_run_during_migration: false
-  retained_evidence_only: true
+  runtime_oracle: source_sql_result
+  static_case_evidence: not_required
+  official_metrics_computed: false
+implementation:
+  shared_module: src/sql_rewrite_bench/
+  per_case_python_checker: not_present

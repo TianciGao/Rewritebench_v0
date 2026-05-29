@@ -1,22 +1,19 @@
+checker_version: canonical_case_package_layout_v2
 case_id: PERF_0033
-checker_version: canonical_case_package_layout_v1
-checker_type: value_normalized_result_equivalence_checker
-status: retained_static_evidence_summary
-inputs:
+pool: PERF
+sql:
   source: sql/source.sql
-  positive_rewrite: sql/positives/pos_01.sql
-  negative_rewrite: sql/negatives/neg_01.sql
-expectations:
-  equal:
-  - source
-  - pos_01
-  not_equal:
-  - source
-  - neg_01
-retained_evidence:
-  result_check: evidence/retained_controls/result_check.json
-  expected_rejections: checker/expected_rejections.yaml
-  hard_negative_summary: evidence/hard_negative/hard_negative_summary.json
-claim_boundary:
-  not_executed_during_migration: true
-  does_not_create_new_validation_claim: true
+  positives:
+  - sql/pos_01.sql
+  negatives:
+  - sql/neg_01.sql
+schema_ref:
+  schema_id: tpcds_perf0033_v0
+  profile: schemas/tpcds_perf0033_v0/schema_profile.yaml
+execution_policy:
+  runtime_oracle: source_sql_result
+  static_case_evidence: not_required
+  official_metrics_computed: false
+implementation:
+  shared_module: src/sql_rewrite_bench/
+  per_case_python_checker: not_present

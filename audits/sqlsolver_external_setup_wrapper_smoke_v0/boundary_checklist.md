@@ -1,0 +1,23 @@
+# Boundary Checklist
+
+- SQLSolver source cloned externally: yes.
+- SQLSolver built externally: yes.
+- SQLSolver source/JAR/libs committed: no.
+- SQLSolver wrapper implemented: yes.
+- Synthetic SQLSolver EQ smoke passed: yes.
+- Synthetic SQLSolver NEQ smoke passed: yes.
+- Real benchmark rows verified by SQLSolver: no.
+- Common-core run performed: no.
+- All 120 Track-A rows run: no.
+- Official Semantic Equivalence Rate computed: no.
+- Official metrics computed: no.
+- Paper reports/results updated: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Local result checker exactness used as verifier equivalence: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.

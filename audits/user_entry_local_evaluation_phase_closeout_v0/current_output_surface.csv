@@ -1,0 +1,12 @@
+output_path,produced_by,purpose,local_diagnostic_only,official_metric,paper_output,notes
+runs/user/{run_name}/config.yaml,user_run.py,Run configuration and boundary flags,true,false,false,Local run metadata only.
+runs/user/{run_name}/selected_cases.csv,case_selection plus user_run.py,Selected case-engine rows,true,false,false,Selection comes from case-set CSV files.
+runs/user/{run_name}/candidate_sql/,adapter_runner.py,Captured candidate SQL files,true,false,false,Adapter output capture only.
+runs/user/{run_name}/workspaces/,adapter_runner.py,Per-row adapter workspace and stdout/stderr,true,false,false,Local diagnostic workspace only.
+runs/user/{run_name}/ledger.csv,user_ledger.py,One local diagnostic row per selected case-engine row,true,false,false,Contains adapter preflight optional execution checker and boundary fields.
+runs/user/{run_name}/failures.csv,user_ledger.py,Subset of ledger rows with non-none local failure bucket,true,false,false,Local failure accounting only.
+runs/user/{run_name}/summary.json,user_run.py,Basic local run counts and boundary flags,true,false,false,Not official metrics.
+runs/user/{run_name}/report.md,user_run.py,Human-readable local run report,true,false,false,Not a paper table.
+runs/user/{run_name}/quality_summary.json,user_quality_report.py,Denominator-aware local diagnostic funnel summary,true,false,false,Derived from ledger.csv only.
+runs/user/{run_name}/quality_report.md,user_quality_report.py,Human-readable local quality report,true,false,false,Not a paper table or official metric output.
+runs/user/{run_name}/tag_slices.csv,tag_slices.py,Local diagnostic slices by retained manifest taxonomy tags,true,false,false,No tag score ranking or leaderboard.

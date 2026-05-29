@@ -1,17 +1,36 @@
-case_id: PORT_0003
-profile_version: v1
-source: generated from legacy DDL and manifest during migration
-tables:
+schema_id: parrot_bird_port0003_v0
+external_schema_profile: schemas/parrot_bird_port0003_v0/schema_profile.yaml
+source_family: PARROT/BIRD
+relevant_tables:
 - schools
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-db_validation_run_during_migration: false
-evidence_regenerated: false
+columns:
+  schools:
+  - gsoffered
+  - longitude
+column_types:
+  schools:
+    gsoffered: text/string
+    longitude: double precision/double
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres uses DOUBLE PRECISION; MySQL and Spark use DOUBLE; Spark text columns use STRING.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Draft four-row schools fixture; not evidence of fresh DB validation.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/parrot_bird_port0003_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: true
+  case_local_engine_files_deleted: false
+  notes: Case-local per-engine ddl/load files are retained as compatibility copies for this pilot.
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

@@ -1,0 +1,60 @@
+manifest_name,field_name,required,description,example_value,notes
+annotation_manifest.csv,run_id,yes,D035 run identifier,direct_llm_original_track_a_120_canonical_v0,Must match candidate manifest
+annotation_manifest.csv,case_set_id,yes,Case set identifier,common_core_v0,Denominator-aware
+annotation_manifest.csv,case_id,yes,Case identifier,PERF_0006,Exact replay key
+annotation_manifest.csv,pool,yes,Pool identifier,PERF,For summary grouping
+annotation_manifest.csv,engine,yes,Engine identifier,postgres,Exact replay key
+annotation_manifest.csv,method_id,yes,Method identifier,direct_llm_original,Exact replay key
+annotation_manifest.csv,route_id,yes,Route identifier,direct_llm_original_pg40_pocr_diagnostic,Exact replay key
+annotation_manifest.csv,candidate_rel_path,yes,Candidate SQL relative path,candidate_sql/direct_llm_original/route/postgres/PERF_0006__postgres.sql,Must bind to candidate SQL contract
+annotation_manifest.csv,candidate_sha256,yes,Candidate SQL SHA-256,012345abcdef,Must fail closed on mismatch
+annotation_manifest.csv,annotation_jsonl_rel_path,yes,Annotation JSONL relative path,pocr/annotations/direct_llm_original/route/postgres/safe_annotation_outputs.jsonl,Under output/results run root
+annotation_manifest.csv,annotation_status,yes,Annotation row status,schema_valid,Use status vocabulary
+annotation_manifest.csv,annotation_schema_version,yes,Annotation schema version,pocr_candidate_annotation_v1,Required for replay
+annotation_manifest.csv,prompt_template_id,yes,Prompt template identifier,pocr_stage_a_annotation_prompt,Prompt traceability
+annotation_manifest.csv,prompt_template_version,yes,Prompt template version,v1,Prompt traceability
+annotation_manifest.csv,provider_label,yes,Safe provider label,openai_compatible,No secrets
+annotation_manifest.csv,model_label,yes,Safe model label,gpt-5.4,No secrets
+annotation_manifest.csv,call_timestamp_utc,yes,UTC call timestamp,2026-05-26T12:00:00Z,Safe metadata
+annotation_manifest.csv,live_api_used,yes,Whether live API was used,true,Diagnostic metadata only
+annotation_manifest.csv,diagnostic_only,yes,Diagnostic-only flag,true,Must remain true unless separately promoted
+annotation_manifest.csv,official_pocr_computed,yes,Official POCR flag,false,Must remain false for diagnostic artifacts
+annotation_manifest.csv,paper_metric_promoted,yes,Paper metric promotion flag,false,Must remain false unless separately authorized
+annotation_manifest.csv,notes,no,Notes,route-bound annotation row,No secrets
+annotation_schema_validation.csv,run_id,yes,D035 run identifier,direct_llm_original_track_a_120_canonical_v0,Validation row key
+annotation_schema_validation.csv,case_id,yes,Case identifier,PERF_0006,Validation row key
+annotation_schema_validation.csv,engine,yes,Engine identifier,postgres,Validation row key
+annotation_schema_validation.csv,method_id,yes,Method identifier,direct_llm_original,Validation row key
+annotation_schema_validation.csv,route_id,yes,Route identifier,direct_llm_original_pg40_pocr_diagnostic,Validation row key
+annotation_schema_validation.csv,candidate_sha256,yes,Candidate SQL SHA-256,012345abcdef,Used for fail-closed candidate identity
+annotation_schema_validation.csv,row_number,yes,JSONL row number,1,Trace malformed rows
+annotation_schema_validation.csv,validation_status,yes,Schema validation status,schema_valid,Use schema_valid or schema_invalid-like status
+annotation_schema_validation.csv,error_type,no,Validation error type,route_mismatch,Fail-closed classification
+annotation_schema_validation.csv,error_message,no,Validation error message,annotation route_id mismatch,Do not include secrets
+annotation_schema_validation.csv,fail_closed,yes,Fail-closed flag,true,True for invalid or mismatched rows
+annotation_schema_validation.csv,notes,no,Notes,malformed JSON retained as invalid,No secrets
+prompt_manifest.csv,run_id,yes,D035 run identifier,direct_llm_original_track_a_120_canonical_v0,Prompt provenance
+prompt_manifest.csv,prompt_template_id,yes,Prompt template identifier,pocr_stage_a_annotation_prompt,Prompt provenance
+prompt_manifest.csv,prompt_template_version,yes,Prompt template version,v1,Prompt provenance
+prompt_manifest.csv,prompt_hash,yes,Hash of rendered prompt,promptsha256,Do not store raw secrets
+prompt_manifest.csv,skills_contract_hash,yes,Hash of skills contract,skillsha256,Detect contract drift
+prompt_manifest.csv,input_fields,yes,Input field names,source_sql;candidate_sql;skills_contract,Trace prompt inputs
+prompt_manifest.csv,system_message_hash,yes,System message hash,systemsha256,Do not store raw secrets
+prompt_manifest.csv,boundary_instructions_present,yes,Boundary instruction flag,true,Must include no-invention/no-runtime boundaries
+prompt_manifest.csv,notes,no,Notes,deterministic prompt render,No secrets
+provider_call_manifest.csv,run_id,yes,D035 run identifier,direct_llm_original_track_a_120_canonical_v0,Safe call metadata
+provider_call_manifest.csv,case_id,yes,Case identifier,PERF_0006,Safe call metadata
+provider_call_manifest.csv,engine,yes,Engine identifier,postgres,Safe call metadata
+provider_call_manifest.csv,method_id,yes,Method identifier,direct_llm_original,Safe call metadata
+provider_call_manifest.csv,route_id,yes,Route identifier,direct_llm_original_pg40_pocr_diagnostic,Safe call metadata
+provider_call_manifest.csv,provider_label,yes,Safe provider label,openai_compatible,No secrets
+provider_call_manifest.csv,model_label,yes,Safe model label,gpt-5.4,No secrets
+provider_call_manifest.csv,call_timestamp_utc,yes,UTC call timestamp,2026-05-26T12:00:00Z,Safe metadata
+provider_call_manifest.csv,temperature,no,Temperature,0,Safe decoding metadata
+provider_call_manifest.csv,max_tokens,no,Max tokens,2048,Safe decoding metadata
+provider_call_manifest.csv,response_format,no,Response format,json_object,Safe response metadata
+provider_call_manifest.csv,token_counts_if_available,no,Token counts,1000/500,Optional safe metadata
+provider_call_manifest.csv,call_status,yes,Call status,success,Use failure status if provider failed
+provider_call_manifest.csv,error_type,no,Provider error type,timeout,No raw secret traces
+provider_call_manifest.csv,diagnostic_only,yes,Diagnostic-only flag,true,Must remain true for this layer
+provider_call_manifest.csv,notes,no,Notes,safe provider metadata only,No secrets

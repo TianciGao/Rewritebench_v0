@@ -1,0 +1,37 @@
+Commands used:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD`
+- `git log -1 --oneline`
+- `test -f /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar && stat -c '%n %s bytes' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`
+- `sed -n '1,180p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -80 project_control/MIGRATION_STATUS.md`
+- `tail -80 project_control/DECISION_LOG.md`
+- `tail -120 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,260p' baselines/learnedrewrite/adapter.py`
+- `sed -n '1,180p' baselines/learnedrewrite/README.md`
+- `sed -n '1,200p' audits/learnedrewrite_legacy_runtime_recovery_v0/README.md`
+- `sed -n '1,180p' audits/learnedrewrite_legacy_runtime_recovery_v0/runtime_unavailable_blockers.md`
+- `sha256sum /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`
+- `jar tf /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar | sed -n '1,80p'`
+- `unzip -p /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar META-INF/MANIFEST.MF | sed -n '1,120p'`
+- `timeout 8s java -jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar --help`
+- `ps -ef | rg 'rewriter_java\\.jar' | rg -v rg || true`
+- `ss -ltnp 2>/dev/null | rg ':6336\\b|:26336\\b' || true`
+- Diagnostic startup with custom port flag from a temp workdir:
+  - `java -jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar --server.port=26336`
+  - result: no listener on port `26336`; no POST sent.
+- Diagnostic startup with default port from a temp workdir:
+  - `java -jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`
+  - result: listener observed on port `6336`; no POST sent during this diagnostic.
+- Synthetic preflight startup:
+  - `cd /tmp/sqlrb_learnedrewrite_external_runtime_synthetic_preflight_v0/runtime_preflight`
+  - `java -jar /tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar`
+- Exactly one synthetic POST:
+  - `curl -sS --max-time 30 -X POST http://127.0.0.1:6336/rewriter -H 'Content-Type: application/json' --data-binary @/tmp/sqlrb_learnedrewrite_external_runtime_synthetic_preflight_v0/synthetic_request.json`
+- Runtime shutdown:
+  - `kill <temporary_learnedrewrite_server_pid>`
+
+No Common-core SQL, DB/checker/timing, `compute-local-metrics`, SQLSolver, VeriEQL, R-Bot, LLM-R2, live LLM, official metrics, paper rendering, retained-evidence promotion, leaderboard, or Track A 120 command was run.
+
+No upstream JAR/source/dependency/request log was copied into the release repo.

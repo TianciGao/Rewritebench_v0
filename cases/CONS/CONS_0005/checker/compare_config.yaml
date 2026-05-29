@@ -2,17 +2,21 @@ case_id: CONS_0005
 compare_config_version: v1
 engines:
   postgres:
-    source: evidence/retained_controls/postgres/source.tsv
-    positive: evidence/retained_controls/postgres/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/postgres/rewrite_neg_01.tsv
+    source: runtime_source_result
+    positive: runtime_positive_result
+    negative: runtime_negative_result
   mysql:
-    source: evidence/retained_controls/mysql/source.tsv
-    positive: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/mysql/rewrite_neg_01.tsv
+    source: runtime_source_result
+    positive: runtime_positive_result
+    negative: runtime_negative_result
   spark:
-    source: evidence/retained_controls/spark/source.tsv
-    positive: evidence/retained_controls/spark/rewrite_pos_01.tsv
-    negative: evidence/hard_negative/spark/rewrite_neg_01.tsv
+    source: runtime_source_result
+    positive: runtime_positive_result
+    negative: runtime_negative_result
 expected:
   source_equals_positive: true
   source_differs_from_negative: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

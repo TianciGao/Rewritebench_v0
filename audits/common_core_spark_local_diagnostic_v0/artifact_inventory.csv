@@ -1,0 +1,23 @@
+path,exists,purpose,committed,notes
+audits/common_core_spark_local_diagnostic_v0/README.md,true,audit overview,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/environment_check.md,true,environment readiness summary without secrets,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/run_summary.json,true,structured run summary,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/funnel_counts.csv,true,funnel counts,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/failure_bucket_summary.csv,true,failure bucket summary,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/case_outcome_matrix.csv,true,case-level outcome matrix,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/tag_slice_summary.csv,true,high-level tag slice summary,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/artifact_inventory.csv,true,artifact inventory,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/interpretation_boundary.md,true,local-only interpretation boundary,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/protected_surface_check.md,true,protected surface check,yes,committed audit artifact
+audits/common_core_spark_local_diagnostic_v0/command_log.md,true,command log,yes,committed audit artifact
+runs/user/common_core_spark_noop_db_checker/selected_cases.csv,true,local selected rows,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/ledger.csv,true,local row ledger,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/failures.csv,true,local failure rows,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/summary.json,true,local runner summary,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/report.md,true,local runner report,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/quality_summary.json,true,local quality summary,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/quality_report.md,true,local quality report,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/tag_slices.csv,true,local tag slices,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/candidate_sql/,true,40 captured no-op candidate SQL files,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/workspaces/,true,per-row adapter/execution/checker artifacts,no,ignored local diagnostic output
+runs/user/common_core_spark_noop_db_checker/workspaces/CONS_0011/spark/checker/mismatch_summary.json,true,local mismatch details for CONS_0011,no,ignored local diagnostic output

@@ -1,0 +1,7 @@
+validator,scope,result,notes
+case_package_v2_resolver,top_level_key_whitelist,passed,local_diagnostic is now an approved optional top-level manifest key.
+case_package_v2_resolver,schema_version_validation,passed,Requires port_cross_dialect_diagnostic_v0 when local_diagnostic is present.
+case_package_v2_resolver,diagnostic_mode_validation,passed,Allows same_engine and cross_dialect_reference.
+case_package_v2_resolver,role_engine_path_validation,passed,Validates source_reference target_candidate optional target_reference checker comparison and boundary flags.
+case_package_v2_resolver,all_9_common_core_port_manifests,passed,PORT_0003 PORT_0004 PORT_0005 PORT_0008 PORT_0012 PORT_0013 PORT_0022 PORT_0024 PORT_0025 passed.
+case_package_v2_resolver,all_40_common_core_static_validation,passed,All Common-core v2 reference validators passed after P3.

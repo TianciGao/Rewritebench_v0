@@ -1,0 +1,42 @@
+Commands used for this audit-only packet:
+
+- `git branch --show-current && git status --short`
+- `find audits/learnedrewrite_pg40_bounded_local_diagnostic_v0 audits/rbot_gpt54_pg40_bounded_local_diagnostic_rerun_with_metrics_v0 audits/llm_r2_gpt54_pg40_bounded_local_diagnostic_v0 -maxdepth 1 -type f -printf '%p\n' | sort`
+- `sed -n '1,220p' src/sql_rewrite_bench/tag_slices.py`
+- `find cases -maxdepth 3 -type f \( -name 'manifest.yaml' -o -name 'metadata.yaml' -o -name '*.yaml' -o -name '*.json' \) | head -120`
+- `python - <<'PY' ... inspect prior PG40 audit CSV headers and sample rows ... PY`
+- `sed -n '1,220p' case_sets/common_core_v0/cases.csv`
+- `sed -n '1,220p' cases/PERF/PERF_0006/manifest.yaml && sed -n '1,180p' cases/LONGTAIL/LONGTAIL_0011/manifest.yaml`
+- `sed -n '1,220p' audits/track_a_120_tag_failure_slices_v0/README.md && find audits/track_a_120_tag_failure_slices_v0 -maxdepth 1 -type f -printf '%f\n' | sort`
+- `rg -n "plan_operator|workload_realism|portability_focus|portability:" cases/*/*/manifest.yaml | head -80`
+- `sed -n '220,520p' src/sql_rewrite_bench/tag_slices.py`
+- `sed -n '1,220p' audits/learnedrewrite_pg40_route_boundary_policy_v0/failure_frontier_policy.md && sed -n '1,180p' audits/rbot_gpt54_pg40_route_boundary_policy_v0/failure_frontier_policy.md && sed -n '1,180p' audits/llm_r2_gpt54_pg40_route_boundary_policy_v0/failure_frontier_policy.md`
+- `sed -n '1,160p' project_control/MIGRATION_MASTER_PLAN.md && sed -n '1,120p' project_control/DECISION_LOG.md`
+- `python - <<'PY' ... generate prior_methods_pg40_tag_failure_slices_v0 audit files from existing CSV/JSON/YAML artifacts ... PY`
+- `find audits/prior_methods_pg40_tag_failure_slices_v0 -maxdepth 1 -type f -printf '%f\\n' | sort`
+- `python - <<'PY' ... inspect generated method row counts and non-exact frontiers ... PY`
+- `sed -n '1,120p' audits/prior_methods_pg40_tag_failure_slices_v0/README.md && sed -n '1,220p' audits/prior_methods_pg40_tag_failure_slices_v0/longtail_0011_cross_method_note.md`
+- `python - <<'PY' ... inspect generated CSV headers and samples ... PY`
+- `tail -n 80 project_control/MIGRATION_RUN_LOG.md`
+- `sed -n '1,80p' project_control/MIGRATION_STATUS.md`
+- `python - <<'PY' ... inspect route_failure_by_axis summaries ... PY`
+- `python - <<'PY' ... inspect selected frontier tag joins ... PY`
+- `python - <<'PY' ... CSV parse checks ... PY`
+- `python - <<'PY' ... Markdown non-empty checks ... PY`
+- `python - <<'PY' ... source audit existence checks ... PY`
+- `python - <<'PY' ... case tag source checks ... PY`
+- `python - <<'PY' ... row count sanity checks ... PY`
+- `python - <<'PY' ... method frontier and source-like checks ... PY`
+- `python - <<'PY' ... no prohibited exact command check ... PY`
+- `git diff --check`
+- `rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" audits/prior_methods_pg40_tag_failure_slices_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md || true`
+- `git diff --name-only`
+- `python - <<'PY' ... protected_path_review_ok ... PY`
+- `git status --short`
+- `git add audits/prior_methods_pg40_tag_failure_slices_v0/README.md audits/prior_methods_pg40_tag_failure_slices_v0/source_artifact_inventory.csv audits/prior_methods_pg40_tag_failure_slices_v0/pg40_case_tag_matrix.csv audits/prior_methods_pg40_tag_failure_slices_v0/method_pg40_failure_rows.csv audits/prior_methods_pg40_tag_failure_slices_v0/route_failure_by_tag.csv audits/prior_methods_pg40_tag_failure_slices_v0/route_failure_by_axis.csv audits/prior_methods_pg40_tag_failure_slices_v0/non_exact_frontier_by_tag.csv audits/prior_methods_pg40_tag_failure_slices_v0/source_like_by_tag.csv audits/prior_methods_pg40_tag_failure_slices_v0/cross_method_tag_failure_hotspots.md audits/prior_methods_pg40_tag_failure_slices_v0/longtail_0011_cross_method_note.md audits/prior_methods_pg40_tag_failure_slices_v0/diagnostic_boundary.md audits/prior_methods_pg40_tag_failure_slices_v0/command_log.txt audits/prior_methods_pg40_tag_failure_slices_v0/validation_notes.md project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md`
+- `git diff --cached --name-only`
+- `git diff --cached --check`
+- `git diff --cached --name-only | rg -n '^(reports/|results/|runs/user/|baselines/|src/|cases/|schemas/|case_sets/|inventory/|retained|paper|env)' || true`
+- `git diff --cached --name-only | xargs -r rg -n --pcre2 "(?i)(sk-[A-Za-z0-9_-]{20,}|api[_-]?key\\s*[:=]\\s*['\\\"]?[A-Za-z0-9_./+=-]{20,}|bearer\\s+[A-Za-z0-9_./+=-]{20,}|gptsapi[_-]?key\\s*[:=])" || true`
+
+No LearnedRewrite, R-Bot, LLM-R2, live LLM call, DB execution, checker execution, timing, `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, leaderboard generation, Track A 120, MySQL, or Spark command was run.

@@ -1,9 +1,0 @@
-case_id: PORT_0012
-profile_version: v1
-data_role: draft witness context migrated from legacy package
-fixtures: []
-witness_loads:
-  postgres: schema/postgres/load.sql
-  mysql: schema/mysql/load.sql
-  spark: schema/spark/load.sql
-new_data_generated_during_migration: false

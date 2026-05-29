@@ -1,0 +1,207 @@
+{
+  "adapter_behavior_changed": false,
+  "adapter_command": "python baselines/sqlglot/sqlglot_user_adapter.py --route noop",
+  "case_membership_changed": false,
+  "case_set": "common_core_v0",
+  "denominator_changed": false,
+  "engine_readiness": {
+    "mysql_probe": "ok",
+    "postgres_probe": "ok",
+    "spark_backend_status": "live local diagnostic backend available through PySpark"
+  },
+  "engines": [
+    "postgres",
+    "mysql",
+    "spark"
+  ],
+  "failure_cases_by_engine_and_bucket": {
+    "mysql": {
+      "candidate_execution_failed": [
+        "PORT_0008"
+      ],
+      "mismatch": [
+        "PERF_0062",
+        "PORT_0003",
+        "PORT_0004",
+        "PORT_0005",
+        "PORT_0012",
+        "PORT_0013",
+        "PORT_0022",
+        "PORT_0024"
+      ]
+    },
+    "postgres": {
+      "adapter_failed": [
+        "PORT_0004",
+        "PORT_0013",
+        "PORT_0022",
+        "PORT_0024",
+        "PORT_0025"
+      ]
+    },
+    "spark": {
+      "candidate_execution_failed": [
+        "PERF_0008",
+        "PERF_0013",
+        "PERF_0017",
+        "PERF_0019",
+        "PERF_0024",
+        "PERF_0082",
+        "PORT_0003",
+        "PORT_0013"
+      ],
+      "mismatch": [
+        "PORT_0004",
+        "PORT_0005"
+      ],
+      "unsupported_engine": [
+        "PORT_0008",
+        "PORT_0012",
+        "PORT_0022",
+        "PORT_0024",
+        "PORT_0025"
+      ]
+    }
+  },
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "overall": {
+    "adapter_failed_rows": 5,
+    "adapter_invoked_rows": 120,
+    "candidate_executable_rows": 101,
+    "candidate_execution_failed_rows": 9,
+    "candidate_generated_rows": 115,
+    "candidate_preflight_passed_rows": 115,
+    "checker_attempted_rows": 101,
+    "exact_rows": 91,
+    "mismatch_rows": 10,
+    "selected_rows": 120,
+    "source_executable_rows": 110,
+    "source_like_noop_rows": 6,
+    "unsupported_fail_closed_rows": 5
+  },
+  "overall_failure_bucket_counts": {
+    "adapter_failed": 5,
+    "candidate_execution_failed": 9,
+    "mismatch": 10,
+    "none": 91,
+    "unsupported_engine": 5
+  },
+  "paper_results_changed": false,
+  "per_engine": {
+    "mysql": {
+      "adapter_failed_rows": 0,
+      "adapter_invoked_rows": 40,
+      "candidate_executable_rows": 39,
+      "candidate_execution_failed_rows": 1,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "checker_attempted_rows": 39,
+      "diagnostic_mode_counts": {
+        "cross_dialect_reference": 4,
+        "same_engine": 36
+      },
+      "engine": "mysql",
+      "exact_rows": 31,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 1,
+        "mismatch": 8,
+        "none": 31
+      },
+      "mismatch_rows": 8,
+      "run_path": "runs/user/common_core_sqlglot_noop_mysql_snapshot",
+      "selected_rows": 40,
+      "source_executable_rows": 40,
+      "source_like_noop_rows": 2,
+      "source_like_status_counts": {
+        "changed": 38,
+        "source_like": 2
+      },
+      "unsupported_fail_closed_rows": 0
+    },
+    "postgres": {
+      "adapter_failed_rows": 5,
+      "adapter_invoked_rows": 40,
+      "candidate_executable_rows": 35,
+      "candidate_execution_failed_rows": 0,
+      "candidate_generated_rows": 35,
+      "candidate_preflight_passed_rows": 35,
+      "checker_attempted_rows": 35,
+      "diagnostic_mode_counts": {
+        "cross_dialect_reference": 5,
+        "same_engine": 35
+      },
+      "engine": "postgres",
+      "exact_rows": 35,
+      "failure_bucket_counts": {
+        "adapter_failed": 5,
+        "none": 35
+      },
+      "mismatch_rows": 0,
+      "run_path": "runs/user/common_core_sqlglot_noop_postgres_snapshot",
+      "selected_rows": 40,
+      "source_executable_rows": 35,
+      "source_like_noop_rows": 2,
+      "source_like_status_counts": {
+        "changed": 33,
+        "not_checked": 5,
+        "source_like": 2
+      },
+      "unsupported_fail_closed_rows": 0
+    },
+    "spark": {
+      "adapter_failed_rows": 0,
+      "adapter_invoked_rows": 40,
+      "candidate_executable_rows": 27,
+      "candidate_execution_failed_rows": 8,
+      "candidate_generated_rows": 40,
+      "candidate_preflight_passed_rows": 40,
+      "checker_attempted_rows": 27,
+      "diagnostic_mode_counts": {
+        "cross_dialect_reference": 4,
+        "same_engine": 31,
+        "unsupported": 5
+      },
+      "engine": "spark",
+      "exact_rows": 25,
+      "failure_bucket_counts": {
+        "candidate_execution_failed": 8,
+        "mismatch": 2,
+        "none": 25,
+        "unsupported_engine": 5
+      },
+      "mismatch_rows": 2,
+      "run_path": "runs/user/common_core_sqlglot_noop_spark_snapshot",
+      "selected_rows": 40,
+      "source_executable_rows": 35,
+      "source_like_noop_rows": 2,
+      "source_like_status_counts": {
+        "changed": 38,
+        "source_like": 2
+      },
+      "unsupported_fail_closed_rows": 5
+    }
+  },
+  "planned_surface_rows": 120,
+  "raw_retained_evidence_changed": false,
+  "release_export_tag_created": false,
+  "reports_results_updated": false,
+  "retained_evidence_promoted": false,
+  "route": "sqlglot_noop",
+  "run_paths": {
+    "mysql": "runs/user/common_core_sqlglot_noop_mysql_snapshot",
+    "postgres": "runs/user/common_core_sqlglot_noop_postgres_snapshot",
+    "spark": "runs/user/common_core_sqlglot_noop_spark_snapshot"
+  },
+  "runs_user_outputs_committed": false,
+  "schema_version": "common_core_tri_engine_sqlglot_noop_local_diagnostic_snapshot_v0",
+  "sqlglot_dependency": {
+    "available": true,
+    "version": "30.2.1"
+  },
+  "sqlglot_optimize_route_run": false,
+  "tag_slices_generated": true,
+  "timing_or_speedup_computed": false,
+  "verdict": "completed_with_failures"
+}

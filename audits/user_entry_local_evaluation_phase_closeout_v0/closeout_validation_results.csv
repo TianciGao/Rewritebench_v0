@@ -1,0 +1,14 @@
+check_id,command,status,notes
+diff_check,git diff --check,passed,No whitespace errors before closeout packet creation.
+module_help,PYTHONPATH=src python -m sql_rewrite_bench.user_run --help,passed,Module CLI help available.
+wrapper_help,python scripts/user/run_user_benchmark.py --help,passed,Wrapper help available.
+list_cases,PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --list-cases,passed,Listed 40 Common-core cases.
+explain_selection,PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --explain-selection,passed,Reported 2 selected rows and no run outputs.
+show_output_schema,PYTHONPATH=src python -m sql_rewrite_bench.user_run --show-output-schema,passed,Printed local output schema and boundaries.
+smoke_dry_run,PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command "python examples/user/noop_adapter.py" --out runs/user/phase_closeout_dry_run --dry-run,passed,Selected 2 rows and generated 0 candidates.
+smoke_adapter_capture,PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command "python examples/user/noop_adapter.py" --out runs/user/phase_closeout_dummy_adapter,passed,Selected 2 rows and generated 2 candidates.
+quality_output_inspection,runs/user/phase_closeout_*/quality_summary.json and quality_report.md,passed,Quality outputs existed for dry-run and adapter-capture smoke.
+tag_slice_output_inspection,runs/user/phase_closeout_*/tag_slices.csv,passed,tag_slices.csv existed with 7 rows for both smoke outputs.
+user_entry_tests,PYTHONPATH=src pytest tests/user_entry,passed,70 passed and 1 skipped.
+protected_surface_check,git changed-file protected-surface check,passed,Only audit packet and project-control files changed after closeout writeback.
+run_output_cleanup,rm -rf runs/user/phase_closeout_dry_run runs/user/phase_closeout_dummy_adapter,passed,Smoke outputs removed before commit.

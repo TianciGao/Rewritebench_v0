@@ -1,0 +1,79 @@
+{
+  "schema_version": "port_spark_target_role_mapping_audit_v0",
+  "local_diagnostic_only": true,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_retained_evidence_changed": false,
+  "role_coverage": {
+    "common_core_port_rows": 9,
+    "spark_target_reference_roles": 4,
+    "spark_unsupported_fail_closed_roles": 5
+  },
+  "controlled_spark_target_diagnostic": {
+    "run_output_path": "runs/user/port_spark_target_reference_controlled",
+    "selected_rows": 4,
+    "candidate_generated_rows": 4,
+    "candidate_preflight_passed_rows": 4,
+    "source_reference_executable_rows": 4,
+    "spark_target_candidate_executable_rows": 4,
+    "checker_attempted_rows": 4,
+    "exact_rows": 2,
+    "mismatch_rows": 2,
+    "failure_bucket_counts": {
+      "none": 2,
+      "mismatch": 2
+    },
+    "mismatch_cases": {
+      "PORT_0004": "MySQL source string numeric value compared to Spark float value; checker reported value_mismatch.",
+      "PORT_0013": "MySQL source string numeric value compared to Spark float value; checker reported value_mismatch."
+    }
+  },
+  "unsupported_spark_role_check": {
+    "run_output_path": "runs/user/port_spark_unsupported_role_check",
+    "selected_rows": 5,
+    "candidate_generated_rows": 5,
+    "candidate_preflight_passed_rows": 5,
+    "source_reference_executable_rows": 0,
+    "spark_target_candidate_executable_rows": 0,
+    "checker_attempted_rows": 0,
+    "exact_rows": 0,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "unsupported_engine": 5
+    }
+  },
+  "behavior_preservation": {
+    "postgres_target_route": {
+      "run_output_path": "runs/user/port_pg_forward_preservation_after_spark_roles",
+      "selected_rows": 5,
+      "source_reference_executable_rows": 5,
+      "target_candidate_executable_rows": 5,
+      "checker_attempted_rows": 5,
+      "exact_rows": 5,
+      "mismatch_rows": 0
+    },
+    "mysql_target_route": {
+      "run_output_path": "runs/user/port_mysql_reverse_preservation_after_spark_roles",
+      "selected_rows": 4,
+      "source_reference_executable_rows": 4,
+      "target_candidate_executable_rows": 4,
+      "checker_attempted_rows": 4,
+      "exact_rows": 4,
+      "mismatch_rows": 0
+    },
+    "non_port_spark_two_case": {
+      "run_output_path": "runs/user/spark_two_case_regression_after_port_spark_roles",
+      "selected_rows": 2,
+      "source_executable_rows": 2,
+      "candidate_executable_rows": 2,
+      "checker_attempted_rows": 2,
+      "exact_rows": 2,
+      "mismatch_rows": 0
+    }
+  }
+}

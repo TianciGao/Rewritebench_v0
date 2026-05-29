@@ -1,12 +1,19 @@
+checker_version: canonical_case_package_layout_v2
 case_id: LONGTAIL_0013
 pool: LONGTAIL
-checker_type: retained_result_equivalence_with_hard_negative_guard
-source_sql: sql/source.sql
-positive_sql: sql/positives/pos_01.sql
-negative_sql: sql/negatives/neg_01.sql
-expected_rejections: checker/expected_rejections.yaml
-retained_result_checks:
-- evidence/retained_controls/postgres/result_check.json
-- evidence/retained_controls/mysql/result_check.json
-- evidence/retained_controls/spark/result_check.json
-migration_execution_policy: static_retained_evidence_only
+sql:
+  source: sql/source.sql
+  positives:
+  - sql/pos_01.sql
+  negatives:
+  - sql/neg_01.sql
+schema_ref:
+  schema_id: sqlstorm_stackoverflow_longtail0013_v0
+  profile: schemas/sqlstorm_stackoverflow_longtail0013_v0/schema_profile.yaml
+execution_policy:
+  runtime_oracle: source_sql_result
+  static_case_evidence: not_required
+  official_metrics_computed: false
+implementation:
+  shared_module: src/sql_rewrite_bench/
+  per_case_python_checker: not_present

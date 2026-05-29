@@ -1,0 +1,35 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: sqlstorm_stackoverflow_longtail0012_v0
+case_ids:
+- LONGTAIL_0012
+source_family: SQLStorm
+engines:
+  postgres:
+    ddl: schemas/sqlstorm_stackoverflow_longtail0012_v0/postgres/ddl.sql
+    load: schemas/sqlstorm_stackoverflow_longtail0012_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/sqlstorm_stackoverflow_longtail0012_v0/mysql/ddl.sql
+    load: schemas/sqlstorm_stackoverflow_longtail0012_v0/mysql/load.sql
+  spark:
+    ddl: schemas/sqlstorm_stackoverflow_longtail0012_v0/spark/ddl.sql
+    load: schemas/sqlstorm_stackoverflow_longtail0012_v0/spark/load.sql
+tables:
+- name: Users
+  columns:
+  - Id
+  - DisplayName
+  - Reputation
+  - Views
+- name: Posts
+  columns:
+  - Id
+  - OwnerUserId
+  - PostTypeId
+  - Title
+  - CreationDate
+- name: Votes
+  columns:
+  - Id
+  - PostId
+  - VoteTypeId
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

@@ -1,0 +1,2 @@
+case_id,schema_id,external_schema_profile,external_ddl_load_verified,case_local_engine_schema_deleted,status,notes
+PORT_0005,parrot_bird_port0005_v0,schemas/parrot_bird_port0005_v0/schema_profile.yaml,true,true,pass,per-case external schema copied before deleting case-local engine directories

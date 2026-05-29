@@ -1,0 +1,30 @@
+variable_name,required_for_live,default_allowed,used_by,description,secret_value,record_in_manifest,compatibility_alias,notes
+SQLRB_LLM_PROVIDER,no,yes,all_llm_routes_and_pocr,Preferred provider label such as openai_compatible,no,yes,no,Public SQLRB namespace preferred.
+SQLRB_LLM_BASE_URL,yes_for_live,yes_if_provider_default_allowed,all_llm_routes_and_pocr,OpenAI-compatible base URL,no,domain_or_env_name_only,no,May record host/domain when safe.
+SQLRB_LLM_API_KEY,yes_for_live,no,all_llm_routes_and_pocr,Preferred environment variable holding API key value,yes,env_name_only,no,API key values must never be printed.
+SQLRB_LLM_API_KEY_ENV,yes_for_live,no,future_cli_config,Name of environment variable that holds the API key,no,yes,no,Allows CLI to name key env without reading value in replay modes.
+SQLRB_LLM_MODEL,yes_for_live,yes,all_llm_routes_and_pocr,Model label such as gpt-5.4,no,yes,no,Public SQLRB namespace preferred.
+SQLRB_LLM_TIMEOUT_SECONDS,no,yes,future_shared_config,Timeout seconds for provider call,no,yes,SQLRB_LLM_TIMEOUT,Preferred future name; existing code often uses SQLRB_LLM_TIMEOUT.
+SQLRB_LLM_MAX_TOKENS,no,yes,all_llm_routes_and_pocr,Max completion tokens,no,yes,no,Already used by current adapters.
+SQLRB_LLM_TEMPERATURE,no,yes,all_llm_routes_and_pocr,Sampling temperature,no,yes,no,Already used by current adapters.
+SQLRB_LLM_RESPONSE_FORMAT,no,yes,future_shared_config,Provider response format such as json_object,no,yes,no,Future common flag/config value.
+SQLRB_LLM_TOP_P,no,yes,current_baseline_adapters,Top-p sampling parameter,no,yes,no,Existing adapter option; not required by minimal future contract.
+SQLRB_LLM_ALLOW_LIVE,yes_for_current_live,no,current_baseline_adapters_and_pocr_audit_helpers,Current environment gate for live calls,no,yes,no,Future CLI may use --enable-live-llm plus route-specific live flags.
+SQLRB_LLM_AUTH_HEADER,no,yes,current_baseline_adapters_and_pocr,Authorization header style authorization_bearer or x-api-key,no,yes,no,Header value type only; never store actual Authorization header.
+SQLRB_LLM_SAVE_RAW_RESPONSE,no,yes,current_baseline_adapters,Optional raw response save flag,no,yes,no,Raw response storage must remain explicitly authorized and scrubbed.
+GPTSAPI_API_KEY,yes_for_compat_live,no,current_baseline_adapters_and_pocr_audit_helpers,Compatibility API key alias,yes,env_name_only,SQLRB_LLM_API_KEY,Preserve only as compatibility alias if already implemented.
+GPTSAPI_BASE_URL,no,yes,current_baseline_adapters_and_pocr_audit_helpers,Compatibility base URL alias,no,domain_or_env_name_only,SQLRB_LLM_BASE_URL,Preserve only as compatibility alias if already implemented.
+GPTSAPI_MODEL,no,yes,current_baseline_adapters_and_pocr_audit_helpers,Compatibility model alias,no,yes,SQLRB_LLM_MODEL,Preserve only as compatibility alias if already implemented.
+OPENAI_API_KEY,yes_for_compat_live,no,future_compatibility,Common OpenAI SDK API key alias,yes,env_name_only,SQLRB_LLM_API_KEY,Documented as possible compatibility alias; not observed in current code path.
+VECTOR_ENGINE_API_KEY,yes_for_compat_live,no,future_compatibility,Legacy/vector-engine style API key alias,yes,env_name_only,SQLRB_LLM_API_KEY,Documented as possible compatibility alias if already implemented elsewhere.
+VECTOR_ENGINE_BASE_URL,no,yes,future_compatibility,Legacy/vector-engine base URL alias,no,domain_or_env_name_only,SQLRB_LLM_BASE_URL,Documented as possible compatibility alias if already implemented elsewhere.
+VECTOR_ENGINE_MODEL,no,yes,future_compatibility,Legacy/vector-engine model alias,no,yes,SQLRB_LLM_MODEL,Documented as possible compatibility alias if already implemented elsewhere.
+SQLRB_RBOT_MODE,yes_for_rbot_live,no,rbot_adapted_route,Route-specific mode selecting fake/live behavior,no,yes,no,Must remain route-specific and not affect POCR.
+SQLRB_RBOT_FAKE_RESPONSE,no,yes,rbot_adapted_tests,Fake response for tests,no,no,no,Do not treat as live config.
+SQLRB_RBOT_FAKE_SQL,no,yes,rbot_adapted_tests,Fake SQL for tests,no,no,no,Do not treat as live config.
+SQLRB_LLM_R2_MODE,yes_for_llm_r2_live,no,llm_r2_adapted_route,Route-specific mode selecting fake/live behavior,no,yes,no,Must remain route-specific and not affect POCR.
+SQLRB_LLM_R2_FAKE_RESPONSE,no,yes,llm_r2_adapted_tests,Fake JSON response for tests,no,no,no,Do not treat as live config.
+SQLRB_LLM_R2_FAKE_SQL,no,yes,llm_r2_adapted_tests,Fake SQL for tests,no,no,no,Do not treat as live config.
+SQLRB_LLM_R2_RULE_SYSTEM_CMD,no,yes,llm_r2_official_runtime_gap,Optional official rule-system command path,no,yes,no,Route-specific prior-method runtime metadata.
+SQLRB_LLM_R2_CHECKPOINT_PATH,no,yes,llm_r2_official_runtime_gap,Optional checkpoint path,no,yes,no,Local path metadata must be safe if recorded.
+SQLRB_LLM_R2_DEMO_SELECTOR_PATH,no,yes,llm_r2_official_runtime_gap,Optional demo selector path,no,yes,no,Local path metadata must be safe if recorded.

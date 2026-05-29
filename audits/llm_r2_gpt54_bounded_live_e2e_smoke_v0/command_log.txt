@@ -1,0 +1,24 @@
+Commands run (secrets redacted; no secret values printed):
+
+- sed -n '1,260p' baselines/llm_r2/adapter.py
+- sed -n '260,620p' baselines/llm_r2/adapter.py
+- sed -n '620,980p' baselines/llm_r2/adapter.py
+- sed -n '1,360p' tests/user_entry/test_llm_r2_adapter.py
+- sed -n '360,720p' tests/user_entry/test_llm_r2_adapter.py
+- python -m py_compile baselines/llm_r2/adapter.py
+- pytest tests/user_entry/test_llm_r2_adapter.py -q
+- python - <<'PY' ... provider preflight with boolean/env-presence output only ... PY
+- printf '%s
+' PERF_0006 CONS_0036 PERF_0007 CONS_0005 CONS_0007 LONGTAIL_0011 > /tmp/sqlrb_llm_r2_live_e2e_cases.txt
+- SQLRB_LLM_R2_MODE=live PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --case-list /tmp/sqlrb_llm_r2_live_e2e_cases.txt --adapter-command "python baselines/llm_r2/adapter.py" --output-root /tmp/sqlrb_llm_r2_gpt54_bounded_live_e2e_smoke_v0/output --run-id llm_r2_gpt54_bounded_live_e2e_smoke_v0 --enable-db-execution --enable-checker --collect-timing --timing-repetitions 2 --timing-timeout 30
+- find runs/user/llm_r2_gpt54_bounded_live_e2e_smoke_v0 -maxdepth 3 -type f | sort
+- python - <<'PY' ... parse summary/ledger/status files for audit summaries ... PY
+
+Commands intentionally not run:
+
+- compute-local-metrics
+- SQLSolver or VeriEQL
+- official LLM-R2 runtime, python src/LLM_R2.py, Java/rule-system execution, checkpoint inference, demonstration selector
+- MySQL/Spark runs
+- Track A 120
+- official metrics, paper rendering, retained evidence promotion, leaderboard generation

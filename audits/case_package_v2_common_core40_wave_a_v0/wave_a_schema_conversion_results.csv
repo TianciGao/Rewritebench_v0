@@ -1,0 +1,6 @@
+case_id,schema_id,case_local_schema_profile,external_schema_profile,external_ddl_load_verified,case_local_engine_schema_deleted,status,notes
+PERF_0008,tpch_perf0008_v0,true,true,true,true,pass,case-specific schema used because Wave A DDL/load assets differ across cases
+PERF_0013,tpch_perf0013_v0,true,true,true,true,pass,case-specific schema used because Wave A DDL/load assets differ across cases
+PERF_0017,tpch_perf0017_v0,true,true,true,true,pass,case-specific schema used because Wave A DDL/load assets differ across cases
+PERF_0019,tpch_perf0019_v0,true,true,true,true,pass,case-specific schema used because Wave A DDL/load assets differ across cases
+PERF_0024,tpch_perf0024_v0,true,true,true,true,pass,case-specific schema used because Wave A DDL/load assets differ across cases

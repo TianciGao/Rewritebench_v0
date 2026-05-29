@@ -1,0 +1,56 @@
+schema_id: parrot_bird_port0004_v0
+schema_profile_version: case_package_v2_wave_c_final_dialect_ports
+source_family: PARROT/BIRD
+public_release_status: external_schema_copy_first_wave_c_final_dialect_ports
+used_by_cases:
+- PORT_0004
+engines:
+  postgres:
+    ddl: schemas/parrot_bird_port0004_v0/postgres/ddl.sql
+    load: schemas/parrot_bird_port0004_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/parrot_bird_port0004_v0/mysql/ddl.sql
+    load: schemas/parrot_bird_port0004_v0/mysql/load.sql
+  spark:
+    ddl: schemas/parrot_bird_port0004_v0/spark/ddl.sql
+    load: schemas/parrot_bird_port0004_v0/spark/load.sql
+relevant_tables:
+- patient
+columns:
+  patient:
+  - id
+  - sex
+  - diagnosis
+  - birthday
+column_types:
+  patient:
+    id: integer/int
+    sex: text/string
+    diagnosis: text/string
+    birthday: timestamp/datetime/date-compatible
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres uses quoted identifiers, DOUBLE PRECISION, and EXTRACT(YEAR FROM TIMESTAMP);
+  MySQL uses backticks and DATE_FORMAT; Spark uses unquoted identifiers and YEAR(CAST(...
+  AS DATE)).
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Draft four-row patient fixture copied from case-local schema load files.
+- Source/positive compute female-patient percentage for diagnosis RA in birth year
+  1980; hard negative changes the year literal to 1981.
+adoption_mode: copy_first_external_schema_wave_c_final_dialect_ports
+claim_boundary:
+  source_case_schema_deleted: true
+  db_validation_run: false
+  timing_collected: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false
+notes:
+- External execution context for PORT_0004 v2 clean-template conversion.
+- Copied from case-local schema assets before deleting case-local per-engine schema
+  directories.

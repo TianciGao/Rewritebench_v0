@@ -1,0 +1,5 @@
+pool,rows_resolved,schema_valid_annotations,malformed_or_schema_invalid_annotations,expected_operation_atoms,transformation_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_operation_atoms,rejected_noop_equivalent_operation_atoms,diagnostic_only,official_pocr_computed
+PERF,16,0,0,43,0,0,0,0,true,false
+CONS,9,0,0,21,0,0,0,0,true,false
+PORT,9,0,0,26,0,0,0,0,true,false
+LONGTAIL,6,0,0,17,0,0,0,0,true,false

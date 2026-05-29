@@ -1,0 +1,32 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "clean_template_gap_closure_execution": true,
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "pre_task_extra_paths_count": 61,
+  "deleted_paths_count": 10,
+  "skipped_paths_count": 51,
+  "post_task_extra_paths_count": 51,
+  "post_task_blockers_count": 51,
+  "clean_template_minimal_achieved": false,
+  "cases_modified": true,
+  "retained_evidence_deleted": false,
+  "unsafe_evidence_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Run a second targeted cleanup/planning task for checker/witness evidence references and legacy validation script migration before deleting case-local evidence or schema engine directories; otherwise proceed with Common-core 40 planning only with explicit blockers accepted."
+}

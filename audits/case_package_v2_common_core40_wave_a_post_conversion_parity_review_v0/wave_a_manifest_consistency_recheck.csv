@@ -1,0 +1,6 @@
+case_id,manifest_path,canonical_top_level_shape,direct_sql_paths,profile_first_schema_ref,canonical_checker_refs,canonical_validation_refs,source_as_oracle_witness_policy,regeneration_first_evidence_policy,mandatory_evidence_ref_absent,manifest_deleted_path_refs_absent,absolute_paths_absent,status,notes
+PERF_0008,cases/PERF/PERF_0008/manifest.yaml,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,Canonical v2 core shape matches accepted pilot pattern.
+PERF_0013,cases/PERF/PERF_0013/manifest.yaml,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,Canonical v2 core shape matches accepted pilot pattern.
+PERF_0017,cases/PERF/PERF_0017/manifest.yaml,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,Canonical v2 core shape matches accepted pilot pattern.
+PERF_0019,cases/PERF/PERF_0019/manifest.yaml,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,Canonical v2 core shape matches accepted pilot pattern.
+PERF_0024,cases/PERF/PERF_0024/manifest.yaml,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes,pass,Canonical v2 core shape matches accepted pilot pattern.

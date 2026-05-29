@@ -1,0 +1,54 @@
+schema_id: tpch_perf0017_v0
+source_family: TPC-H
+case_ids:
+- PERF_0017
+schema_profile_version: case_package_v2_external_schema_v1
+source_schema_basis: cases/PERF/PERF_0017/schema/<engine>/ddl.sql copied during Common-core
+  Wave A conversion
+required_tables:
+- customer
+- orders
+- lineitem
+- nation
+required_columns:
+  customer:
+  - c_custkey
+  - c_name
+  - c_address
+  - c_nationkey
+  - c_phone
+  - c_acctbal
+  - c_comment
+  orders:
+  - o_orderkey
+  - o_custkey
+  - o_orderdate
+  lineitem:
+  - l_orderkey
+  - l_extendedprice
+  - l_discount
+  - l_returnflag
+  nation:
+  - n_nationkey
+  - n_name
+row_counts:
+  customer: 2
+  orders: 3
+  lineitem: 3
+  nation: 2
+engines:
+  postgres:
+    ddl: schemas/tpch_perf0017_v0/postgres/ddl.sql
+    load: schemas/tpch_perf0017_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpch_perf0017_v0/mysql/ddl.sql
+    load: schemas/tpch_perf0017_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpch_perf0017_v0/spark/ddl.sql
+    load: schemas/tpch_perf0017_v0/spark/load.sql
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

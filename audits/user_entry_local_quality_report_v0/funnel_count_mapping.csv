@@ -1,0 +1,15 @@
+funnel_count,source_field_or_rule,derivation,local_diagnostic_only,official_metric,notes
+selected_rows,selected,Count true-like selected values,true,false,Uses current ledger rows only
+adapter_invoked_rows,adapter_invoked,Count true-like adapter_invoked values,true,false,No adapter success claim implied
+candidate_generated_rows,candidate_generated,Count true-like candidate_generated values,true,false,Local candidate capture only
+candidate_missing_rows,"failure_bucket; candidate_generated; candidate_sql_path; adapter_invoked",Count no_candidate_sql bucket or invoked rows with no generated candidate/path,true,false,Local failure accounting only
+candidate_preflight_passed_rows,"candidate_preflight_status; candidate_preflight_passed",Count passed status or true-like pass flag,true,false,Preflight is not semantic correctness
+candidate_preflight_failed_rows,"candidate_preflight_status; failure_bucket",Count failed status or candidate_preflight_failed bucket,true,false,Preflight failure is DB-before local diagnostic
+db_execution_attempted_rows,execution_status,Count rows where execution_status is neither non-DB nor not-enabled,true,false,Conservative implicit derivation
+source_executable_rows,source_execution_status,Count source_execution_success,true,false,Local DB diagnostic only
+candidate_executable_rows,candidate_execution_status,Count candidate_execution_success,true,false,Local DB diagnostic only
+checker_attempted_rows,checker_status,Count rows where checker_status is neither non-DB nor not-enabled,true,false,Conservative implicit derivation
+exact_rows,exact_status,Count exact,true,false,Local checker exact only; not official semantic equivalence metric
+mismatch_rows,"exact_status; failure_bucket",Count mismatch exact_status or mismatch failure bucket,true,false,Local diagnostic mismatch only
+source_like_rows,source_like_status,Count source_like,true,false,Diagnostic no-op/source-like flag only
+timed_rows,timed_status,Count timed_status values other than not_timed_non_db_mvp,true,false,U4 does not collect timing; normally zero

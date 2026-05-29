@@ -1,0 +1,8 @@
+case_id,pool,engine,schema_validation_status,json_parse_status,issue_codes,provider_status,error,notes
+PERF_0006,PERF,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 1333 (char 1332)",fail-closed schema/provider row; not POCR numerator
+PERF_0007,PERF,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 715 (char 714)",fail-closed schema/provider row; not POCR numerator
+PERF_0033,PERF,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 674 (char 673)",fail-closed schema/provider row; not POCR numerator
+CONS_0009,CONS,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 731 (char 730)",fail-closed schema/provider row; not POCR numerator
+CONS_0012,CONS,postgres,fail,fail,provider_or_parse_failure,annotation_failed,The read operation timed out,fail-closed schema/provider row; not POCR numerator
+PORT_0005,PORT,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 780 (char 779)",fail-closed schema/provider row; not POCR numerator
+LONGTAIL_0012,LONGTAIL,postgres,fail,fail,provider_or_parse_failure,annotation_failed,"Expecting ',' delimiter: line 1 column 688 (char 687)",fail-closed schema/provider row; not POCR numerator

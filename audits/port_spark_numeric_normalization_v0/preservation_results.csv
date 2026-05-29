@@ -1,0 +1,6 @@
+check,run_output_path,selected_rows,source_executable_rows,target_or_candidate_executable_rows,checker_attempted_rows,exact_rows,mismatch_rows,failure_bucket_summary,result
+spark_port_controlled,runs/user/port_spark_target_reference_controlled_after_numeric_fix,4,4,4,4,4,0,none=4,passed
+spark_port_unsupported_fail_closed,runs/user/port_spark_unsupported_role_check_after_numeric_fix,5,0,0,0,0,0,unsupported_engine=5,passed
+postgres_port_target_route,runs/user/port_pg_forward_preservation_after_numeric_fix,5,5,5,5,5,0,none=5,passed
+mysql_port_target_route,runs/user/port_mysql_reverse_preservation_after_numeric_fix,4,4,4,4,4,0,none=4,passed
+non_port_spark_two_case,runs/user/spark_two_case_regression_after_numeric_fix,2,2,2,2,2,0,none=2,passed

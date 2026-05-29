@@ -1,0 +1,6 @@
+case_id,checker_yaml_exists,normalization_yaml_exists,compare_config_yaml_exists,expected_rejections_yaml_exists,per_case_checker_scripts_present,per_case_checker_scripts_added,canonical_checker_refs,status,notes
+PERF_0006,true,true,true,true,false,false,true,verified_existing,"Checker config already used canonical manifest refs and direct v2 SQL paths."
+PERF_0007,true,true,true,true,false,false,true,converted,"Checker inputs and expected rejection negative path aligned to direct v2 SQL paths; legacy nested paths retained as compatibility metadata."
+CONS_0005,true,true,true,true,false,false,true,converted,"Expected rejection positive/negative paths aligned to direct v2 SQL paths; legacy nested paths retained as compatibility metadata."
+PORT_0003,true,true,true,true,false,false,true,converted,"Checker, compare config, and expected rejection SQL paths aligned to direct v2 SQL paths; legacy nested paths retained as compatibility metadata."
+LONGTAIL_0011,true,true,true,true,false,false,true,converted,"Checker comparison model and expected rejection SQL paths aligned to direct v2 SQL paths; legacy nested paths retained as compatibility metadata."

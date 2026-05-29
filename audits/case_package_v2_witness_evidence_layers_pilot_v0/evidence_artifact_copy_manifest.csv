@@ -1,0 +1,26 @@
+case_id,source_path,target_path,artifact_type,public_safe,copied,skipped_reason,notes
+PERF_0006,cases/PERF/PERF_0006/evidence/package_validation_summary.json,evidence/cases/PERF/PERF_0006/package_validation_summary.json,package_validation_summary,true,true,,Copied from case-local curated evidence.
+PERF_0006,cases/PERF/PERF_0006/evidence/runs_retention.yaml,evidence/cases/PERF/PERF_0006/runs_retention.yaml,runs_retention,true,true,,Copied from case-local curated evidence.
+PERF_0006,cases/PERF/PERF_0006/evidence/retained_controls/,evidence/cases/PERF/PERF_0006/retained_controls/,retained_controls,true,true,,Copied from case-local curated evidence.
+PERF_0006,cases/PERF/PERF_0006/evidence/hard_negative/,evidence/cases/PERF/PERF_0006/hard_negative/,hard_negative,true,true,,Copied from case-local curated evidence.
+PERF_0006,cases/PERF/PERF_0006/evidence/retained_plans/,evidence/cases/PERF/PERF_0006/plans/,plans,true,true,,Copied sanitized/public-safe plan evidence.
+PERF_0007,cases/PERF/PERF_0007/evidence/package_validation_summary.json,evidence/cases/PERF/PERF_0007/package_validation_summary.json,package_validation_summary,true,true,,Copied from case-local curated evidence.
+PERF_0007,cases/PERF/PERF_0007/evidence/runs_retention.yaml,evidence/cases/PERF/PERF_0007/runs_retention.yaml,runs_retention,true,true,,Copied from case-local curated evidence.
+PERF_0007,cases/PERF/PERF_0007/evidence/retained_controls/,evidence/cases/PERF/PERF_0007/retained_controls/,retained_controls,true,true,,Copied from case-local curated evidence.
+PERF_0007,cases/PERF/PERF_0007/evidence/hard_negative/,evidence/cases/PERF/PERF_0007/hard_negative/,hard_negative,true,true,,Copied from case-local curated evidence.
+PERF_0007,cases/PERF/PERF_0007/evidence/retained_plans/,evidence/cases/PERF/PERF_0007/plans/,plans,true,true,,Copied sanitized/public-safe plan evidence.
+CONS_0005,cases/CONS/CONS_0005/evidence/package_validation_summary.json,evidence/cases/CONS/CONS_0005/package_validation_summary.json,package_validation_summary,true,true,,Copied from case-local curated evidence.
+CONS_0005,cases/CONS/CONS_0005/evidence/runs_retention.yaml,evidence/cases/CONS/CONS_0005/runs_retention.yaml,runs_retention,true,true,,Copied from case-local curated evidence.
+CONS_0005,cases/CONS/CONS_0005/evidence/retained_controls/,evidence/cases/CONS/CONS_0005/retained_controls/,retained_controls,true,true,,Copied from case-local curated evidence.
+CONS_0005,cases/CONS/CONS_0005/evidence/hard_negative/,evidence/cases/CONS/CONS_0005/hard_negative/,hard_negative,true,true,,Copied from case-local curated evidence.
+CONS_0005,cases/CONS/CONS_0005/evidence/retained_plans/,evidence/cases/CONS/CONS_0005/plans/,plans,true,true,,Copied sanitized/public-safe plan evidence.
+PORT_0003,cases/PORT/PORT_0003/evidence/package_validation_summary.json,evidence/cases/PORT/PORT_0003/package_validation_summary.json,package_validation_summary,true,true,,Copied from case-local curated evidence.
+PORT_0003,cases/PORT/PORT_0003/evidence/runs_retention.yaml,evidence/cases/PORT/PORT_0003/runs_retention.yaml,runs_retention,true,true,,Copied from case-local curated evidence.
+PORT_0003,cases/PORT/PORT_0003/evidence/retained_controls/,evidence/cases/PORT/PORT_0003/retained_controls/,retained_controls,true,true,,Copied from case-local curated evidence.
+PORT_0003,cases/PORT/PORT_0003/evidence/hard_negative/,evidence/cases/PORT/PORT_0003/hard_negative/,hard_negative,true,true,,Copied from case-local curated evidence.
+PORT_0003,cases/PORT/PORT_0003/evidence/retained_plans/,evidence/cases/PORT/PORT_0003/plans/,plans,true,true,,Copied sanitized/public-safe plan evidence.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/evidence/package_validation_summary.json,evidence/cases/LONGTAIL/LONGTAIL_0011/package_validation_summary.json,package_validation_summary,true,true,,Copied from case-local curated evidence.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/evidence/runs_retention.yaml,evidence/cases/LONGTAIL/LONGTAIL_0011/runs_retention.yaml,runs_retention,true,true,,Copied from case-local curated evidence.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/evidence/retained_controls/,evidence/cases/LONGTAIL/LONGTAIL_0011/retained_controls/,retained_controls,true,true,,Copied from case-local curated evidence.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/evidence/hard_negative/,evidence/cases/LONGTAIL/LONGTAIL_0011/hard_negative/,hard_negative,true,true,,Copied from case-local curated evidence.
+LONGTAIL_0011,cases/LONGTAIL/LONGTAIL_0011/evidence/retained_plans/,evidence/cases/LONGTAIL/LONGTAIL_0011/plans/,plans,true,true,,Copied sanitized/public-safe plan evidence.

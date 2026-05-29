@@ -1,0 +1,6 @@
+case_id,evidence_ref_present,external_evidence_dir,package_validation_summary_copied,runs_retention_copied,retained_controls_copied,hard_negative_copied,plans_copied,unsafe_artifacts_skipped,case_local_evidence_deleted,case_local_runs_deleted,status,notes
+PERF_0006,true,evidence/cases/PERF/PERF_0006,true,true,true,true,true,false,false,false,converted,Public-safe evidence copied first; case-local evidence and runs preserved.
+PERF_0007,true,evidence/cases/PERF/PERF_0007,true,true,true,true,true,false,false,false,converted,Public-safe evidence copied first; case-local evidence and runs preserved.
+CONS_0005,true,evidence/cases/CONS/CONS_0005,true,true,true,true,true,false,false,false,converted,Public-safe evidence copied first; case-local evidence and runs preserved.
+PORT_0003,true,evidence/cases/PORT/PORT_0003,true,true,true,true,true,false,false,false,converted,Public-safe evidence copied first; case-local evidence and runs preserved.
+LONGTAIL_0011,true,evidence/cases/LONGTAIL/LONGTAIL_0011,true,true,true,true,true,false,false,false,converted,Public-safe evidence copied first; case-local evidence and runs preserved.

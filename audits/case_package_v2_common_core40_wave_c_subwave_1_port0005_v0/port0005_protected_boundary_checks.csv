@@ -1,0 +1,14 @@
+check_name,status,details
+only PORT_0005 modified,pass,case diff limited to cases/PORT/PORT_0005
+pilot/Wave A/Wave B unchanged,pass,32 converted cases unchanged except read-only validators
+other Wave C cases unchanged,pass,no other Wave C case paths changed
+no case_sets changed,pass,case_sets unchanged
+no inventory changed,pass,inventory unchanged
+no reports/results changed,pass,reports/results unchanged
+no denominator changed,pass,denominator file unchanged
+no paper results changed,pass,paper-facing reports/results unchanged
+no official metrics computed,pass,no metric computation command run
+no DB/checker execution,pass,only static validator and unit tests run
+no global leaderboard,pass,no leaderboard output created
+dialect variants retained,pass,sql/dialect_variants/spark/neg_02_spark.sql;sql/dialect_variants/spark/pos_02_spark.sql
+no evidence/cases created,pass,top-level evidence/cases/PORT/PORT_0005 absent

@@ -1,0 +1,3 @@
+case_id,pool,engine,candidate_generated,preflight_status,source_execution_status,candidate_execution_status,checker_status,exact_status,failure_bucket,notes
+PERF_0006,PERF,spark,true,passed,source_execution_success,candidate_execution_success,checker_success,exact,none,Spark source and candidate executed through PySpark; checker exact; row_counts source=2 candidate=2; no timing or metrics
+CONS_0005,CONS,spark,true,passed,source_execution_success,candidate_execution_success,checker_success,exact,none,Spark source and candidate executed through PySpark; checker exact on empty result; row_counts source=0 candidate=0; no timing or metrics

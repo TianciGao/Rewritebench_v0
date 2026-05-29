@@ -1,0 +1,19 @@
+surface,path,status,required_for_public_v0,blocker,nonblocking_caveat,evidence_checked,recommended_action,notes
+top_level_readme,README.md,ready,yes,no,Chinese on construction branch; English or bilingual entrypoint required before final public artifact,README and D030 language policy,review in final closeout planning,Describes Common-core v0 smoke commands local diagnostics and boundaries
+license,LICENSE,ready,yes,no,none,LICENSE and polish packet,keep,Apache-2.0 with SQL-RewriteBench contributors
+citation,CITATION.cff,ready_with_placeholder,yes,no,DOI and individual author metadata omitted until final,CITATION.cff YAML parse and policy packet,finalize metadata when paper details are available,Placeholder-safe and valid YAML
+contributing,CONTRIBUTING.md,ready,yes,no,none,CONTRIBUTING.md,keep,Conservative contribution policy protects benchmark surfaces
+gitignore,.gitignore,ready,yes,no,none,.gitignore policy check,keep,Ignores runs/user but not all runs
+benchmark_spec,benchmark_spec/,ready,yes,no,none,benchmark_spec markdown files,review in final closeout planning,Documents public v0 scope contract denominator and reporting policy
+docs,docs/,ready,yes,no,dev docs remain construction/reference material,docs index and user-entry docs,review public doc split in final closeout,User benchmark guide and data-flow docs present
+examples,examples/,ready,yes,no,none,examples/user/noop_adapter.py,keep,Public noop adapter supports smoke path
+user_entry,src/ scripts/ tests/,ready,yes,no,local diagnostics only not paper reproduction,user-entry closeout and current files,keep deferred boundaries,Supports smoke readability local quality and tag slices
+reports_boundary,reports/README.md,ready,yes,no,boundary only no curated reports generated,reports/README.md,keep until reporting is authorized,No paper tables generated
+results_boundary,results/README.md,ready,yes,no,boundary only no curated results generated,results/README.md,keep until results migration is authorized,No official metrics computed
+case_sets,case_sets/common_core_v0/,ready,yes,no,none,cases.csv denominator_same_engine_120.csv controls_360.csv,keep governed membership,40 cases and 120 Track A planned rows confirmed
+common_core_readmes,cases/*/*/README.md,ready,yes,no,PERF_0077 and PERF_0082 retain nonblocking source-path uncertainty,case-set rows and README existence check,review in final closeout,40 of 40 Common-core READMEs present
+schemas,schemas/,ready,yes,no,external schema docs are split across profiles and benchmark docs,schema package inventory,keep,40 external schema packages observed
+tests_ci,tests/ .github/workflows/,ready,yes,no,CI status not rerun by this metadata audit,workflow files and prior audit packets,observe CI after push,User-entry and ledger smoke workflows present
+retained_evidence_runs,runs/ and policies,ready_with_caveats,yes,no,retained evidence promotion remains deferred,DECISION_LOG D027 D028 docs and gitignore,keep protected boundaries,runs/user local outputs ignored but whole runs not ignored
+metrics_paper_reporting,repository_spec/ reports/ results/,deferred,yes,no,official metrics and paper rendering unauthorized,project_control and boundary READMEs,do not implement without separate approval,No metrics paper tables or reports/results migration
+release_mechanics,git branch/tag state,not_started,yes,no,no tag or export branch yet,git branch and tag checks,authorize only after final closeout,Ready for planning not release creation

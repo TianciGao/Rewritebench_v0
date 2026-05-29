@@ -1,0 +1,2 @@
+status,count,notes
+not_run_candidate_root_incomplete,1,SQLGlot optimize PG40 annotation generation stopped before live API

@@ -1,0 +1,6 @@
+role_class,row_scope,status,representative_counts,notes
+same_engine_local_diagnostic,PERF/CONS/LONGTAIL and same-engine PORT rows,available,"PostgreSQL exact 35/35; MySQL exact 36/36; Spark same-engine snapshot exact 31/31","Local harness evidence only; no official metrics or paper-result claims."
+cross_dialect_controlled_target_reference,Manifest-declared PORT target-reference routes,available,"PG target 5/5; MySQL target 4/4; Spark target 4/4","Controlled adapters copy manifest-declared target references and are not real user methods."
+unsupported_fail_closed,Spark PORT rows without safe Spark target reference,available,"Spark unsupported 5","Fail-closed rows do not execute wrong-engine SQL or silently fall back."
+noop_adapter_limitation,Cross-dialect PORT rows under source-like no-op adapter,documented,"PostgreSQL no-op candidate_execution_failed=5; MySQL no-op candidate_execution_failed=4","No-op validates harness plumbing but does not generate target-dialect SQL."
+real_user_adapter_evaluation,User-provided rewrite adapters,deferred,not_run,"Requires a separately authorized evaluation task."

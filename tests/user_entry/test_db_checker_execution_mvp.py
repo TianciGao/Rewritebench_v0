@@ -8,6 +8,7 @@ from argparse import Namespace
 from pathlib import Path
 
 from sql_rewrite_bench.local_result_checker import run_local_checker
+from sql_rewrite_bench.postgres_execution import execute_postgres_case, resolve_postgres_schema_assets
 from sql_rewrite_bench.user_run import run_user_benchmark, validate_output_root
 from sql_rewrite_bench.user_run_schema import (
     CHECKER_STATUS_CONFIG_MISSING,
@@ -45,6 +46,7 @@ def _args(out: Path, case_list: Path, *, enable_checker: bool = False) -> Namesp
         pool="PERF",
         engine="postgres",
         case_list=case_list,
+        smoke=False,
         adapter_command=f"{sys.executable} {adapter}",
         out=out,
         run_id=None,
@@ -124,6 +126,82 @@ class DbCheckerExecutionMvpTests(unittest.TestCase):
         self.assertIn("checker_mismatch", CHECKER_STATUS_VALUES)
         self.assertIn("exact", EXACT_STATUS_VALUES)
         self.assertIn(FAILURE_MISMATCH, FAILURE_BUCKET_VALUES)
+
+    def test_postgres_schema_resolution_uses_external_profile(self) -> None:
+        from sql_rewrite_bench.case_selection import resolve_common_core_selection
+
+        row = resolve_common_core_selection(
+            repo_root=REPO_ROOT,
+            case_set="common_core_v0",
+            pool="PERF",
+            engine="postgres",
+        )[0]
+        assets = resolve_postgres_schema_assets(repo_root=REPO_ROOT, row=row)
+        self.assertTrue(assets.external_profile_path.as_posix().endswith("schemas/tpch_common_core_v0/schema_profile.yaml"))
+        self.assertTrue(assets.ddl_path.as_posix().endswith("schemas/tpch_common_core_v0/postgres/ddl.sql"))
+        self.assertTrue(assets.load_path.as_posix().endswith("schemas/tpch_common_core_v0/postgres/load.sql"))
+        self.assertTrue(assets.ddl_path.exists())
+        self.assertTrue(assets.load_path.exists())
+
+    def test_postgres_schema_resolution_fails_closed_without_external_profile(self) -> None:
+        from sql_rewrite_bench.case_selection import SelectedCaseEngineRow
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            case_dir = root / "cases" / "PERF" / "PERF_TEST"
+            case_dir.mkdir(parents=True)
+            (case_dir / "manifest.yaml").write_text(
+                "case_id: PERF_TEST\nschema:\n  profile: schema/schema_profile.yaml\n",
+                encoding="utf-8",
+            )
+            row = SelectedCaseEngineRow(
+                denominator_id="TEST__postgres",
+                case_id="PERF_TEST",
+                pool="PERF",
+                engine="postgres",
+                planned="true",
+                case_path="cases/PERF/PERF_TEST",
+                source_sql_path="cases/PERF/PERF_TEST/sql/source.sql",
+            )
+            with self.assertRaisesRegex(ValueError, "schema.external_profile"):
+                resolve_postgres_schema_assets(repo_root=root, row=row)
+
+    def test_db_execution_fails_closed_when_external_schema_metadata_missing(self) -> None:
+        from sql_rewrite_bench.case_selection import SelectedCaseEngineRow
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            case_dir = root / "cases" / "PERF" / "PERF_TEST"
+            sql_dir = case_dir / "sql"
+            sql_dir.mkdir(parents=True)
+            (sql_dir / "source.sql").write_text("select 1;\n", encoding="utf-8")
+            (case_dir / "manifest.yaml").write_text(
+                "case_id: PERF_TEST\nschema:\n  profile: schema/schema_profile.yaml\n",
+                encoding="utf-8",
+            )
+            candidate = root / "runs" / "user" / "test" / "candidate.sql"
+            candidate.parent.mkdir(parents=True)
+            candidate.write_text("select 1;\n", encoding="utf-8")
+            row = SelectedCaseEngineRow(
+                denominator_id="TEST__postgres",
+                case_id="PERF_TEST",
+                pool="PERF",
+                engine="postgres",
+                planned="true",
+                case_path="cases/PERF/PERF_TEST",
+                source_sql_path="cases/PERF/PERF_TEST/sql/source.sql",
+            )
+            result = execute_postgres_case(
+                repo_root=root,
+                run_id="test",
+                row=row,
+                candidate_sql_path=candidate,
+                workspace_dir=root / "runs" / "user" / "test" / "workspace",
+                timeout_sec=1,
+                schema_prefix="sqlrb_user",
+            )
+        self.assertEqual(result.execution_failure_class, "external_schema_resolution_failed")
+        self.assertIn("schema.external_profile", result.notes)
 
     def test_local_checker_exact_comparison(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

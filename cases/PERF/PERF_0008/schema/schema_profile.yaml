@@ -1,14 +1,11 @@
-case_id: PERF_0008
-schema_profile_version: canonical_case_package_layout_v1
-source_legacy_files:
-  postgres: cases/PERF/PERF_0008/schema/ddl_pg.sql
-  mysql: cases/PERF/PERF_0008/schema/ddl_mysql.sql
-  spark: cases/PERF/PERF_0008/schema/ddl_spark.sql
-required_tables:
+schema_id: tpch_perf0008_v0
+external_schema_profile: schemas/tpch_perf0008_v0/schema_profile.yaml
+source_family: TPC-H
+relevant_tables:
 - customer
 - orders
 - lineitem
-required_columns:
+columns:
   customer:
   - c_custkey
   - c_mktsegment
@@ -22,20 +19,23 @@ required_columns:
   - l_extendedprice
   - l_discount
   - l_shipdate
-engine_paths:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-witness_row_count:
-  customer: 3
-  orders: 3
-  lineitem: 3
+column_types: {}
+primary_keys: {}
+foreign_keys: {}
+dialect_differences: []
+engine_support:
+  postgres: supported
+  mysql: supported
+  spark: supported
+fixture_notes:
+- Minimal witness rows are represented by the external schema load files.
+- Runtime checker oracle is source SQL result under source-as-oracle policy.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/tpch_perf0008_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
 claim_boundary:
-  summarizes_existing_witness_context_only: true
   db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

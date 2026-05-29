@@ -1,0 +1,13 @@
+milestone,audit_or_commit_evidence,status,notes
+PORT source-execution failure triage,audits/user_entry_port_pg_source_failure_triage_v0/README.md,completed,"Five PostgreSQL source failures were classified as MySQL-like PORT source SQL being executed by PostgreSQL."
+PORT cross-dialect diagnostic execution plan,audits/port_cross_dialect_diagnostic_execution_plan_v0/README.md,completed,"Execution plan recorded explicit role metadata, MySQL requirement, Spark deferral, and same-engine protection."
+Manifest role metadata design,audits/port_cross_dialect_manifest_role_design_v0/README.md,completed,"All 9 PORT cases classified; 4 same-engine and 5 cross-dialect-reference-required."
+Manifest metadata patch,audits/port_cross_dialect_manifest_metadata_patch_v0/README.md,completed,"All 9 PORT manifests received additive local_diagnostic metadata."
+Runner and validator metadata consumption,audits/port_cross_dialect_runner_metadata_consumption_v0/README.md,completed,"Resolver and runner consume diagnostic_mode and avoid cross-dialect PostgreSQL source execution."
+MySQL source-reference backend,audits/port_cross_dialect_mysql_backend_v0/README.md,completed,"Backend implemented for manifest-declared cross-dialect source-reference execution."
+MySQL live local diagnostic,audits/port_cross_dialect_mysql_live_diagnostic_v0/README.md,completed,"Five selected cross-dialect rows reached MySQL source-reference executable 5/5."
+Controlled PostgreSQL target diagnostic,audits/port_cross_dialect_pg_target_reference_diagnostic_v0/README.md,completed,"Five selected rows reached PostgreSQL target-candidate executable 5/5 with checker attempted 5 and initial mismatch 4."
+Checker normalization mismatch audit,audits/port_cross_dialect_checker_normalization_audit_v0/README.md,completed,"Mismatch causes identified as column-label and decimal-string normalization gaps."
+Opt-in checker normalization implementation,audits/port_cross_dialect_checker_normalization_v0/README.md,completed,"Cross-dialect normalization implemented under explicit manifest/checker comparison gating."
+Controlled normalized rerun,audits/port_cross_dialect_checker_normalization_v0/controlled_rerun_summary.json,completed,"Five selected rows reached exact 5/5 and mismatch 0."
+Closeout audit,audits/port_cross_dialect_local_diagnostic_closeout_v0/README.md,completed,"PORT cross-dialect local diagnostic path is closed for the current user-entry phase."

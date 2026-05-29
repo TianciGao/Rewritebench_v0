@@ -1,0 +1,39 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: tpcds_perf0052_v0
+case_ids:
+- PERF_0052
+source_family: TPC-DS
+engines:
+  postgres:
+    ddl: schemas/tpcds_perf0052_v0/postgres/ddl.sql
+    load: schemas/tpcds_perf0052_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpcds_perf0052_v0/mysql/ddl.sql
+    load: schemas/tpcds_perf0052_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpcds_perf0052_v0/spark/ddl.sql
+    load: schemas/tpcds_perf0052_v0/spark/load.sql
+tables:
+- name: store_returns
+  columns:
+  - sr_customer_sk
+  - sr_store_sk
+  - sr_returned_date_sk
+  - sr_fee
+  row_count: 2
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  row_count: 1
+- name: store
+  columns:
+  - s_store_sk
+  - s_state
+  row_count: 1
+- name: customer
+  columns:
+  - c_customer_sk
+  - c_customer_id
+  row_count: 2
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

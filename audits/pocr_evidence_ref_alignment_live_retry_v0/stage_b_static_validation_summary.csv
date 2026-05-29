@@ -1,0 +1,5 @@
+case_id,pool,engine,schema_valid,stage_b_status,evidence_status_counts,static_validated_operation_atoms_count,static_rejected_operation_atoms_count,insufficient_evidence_atoms_count,expected_operation_atoms_count,semantic_guard_validated_static_span_count,semantic_guard_count,official_pocr_computed,route_level_pocr_aggregated,notes
+PERF_0006,PERF,postgres,true,static_evidence_partial,"{""rejected_missing_span"": 1, ""validated_static_span"": 4}",3,0,0,3,1,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+CONS_0005,CONS,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+PORT_0003,PORT,postgres,true,static_evidence_partial,"{""validated_static_span"": 5}",3,0,0,3,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.
+LONGTAIL_0011,LONGTAIL,postgres,true,static_evidence_partial,"{""validated_static_span"": 4}",2,0,0,2,2,2,false,false,Static Stage B diagnostics only; no official POCR or route aggregation.

@@ -1,0 +1,12 @@
+check_name,status,details
+no case_sets changed,pass,No writes under case_sets/ were performed.
+no inventory changed,pass,No writes under inventory/ were performed.
+no reports/results changed,pass,No writes under reports/ or results/ were performed.
+no denominator changed,pass,No denominator files or values were changed.
+no paper results changed,pass,No paper-result files were changed or rendered.
+no official metrics computed,pass,Only static validators and unit tests were run.
+no DB/checker execution,pass,No DB engines or checker execution were run.
+no global leaderboard,pass,No leaderboard output was created.
+no retained evidence deleted,pass,Case-local compatibility copies were removed only after byte-for-byte external evidence verification; retained evidence remains under evidence/cases/.
+no unsafe evidence deleted,pass,No unsafe/raw/private evidence was identified or deleted.
+no dialect variants deleted,pass,PORT_0003/sql/dialect_variants/ remains present and unchanged.

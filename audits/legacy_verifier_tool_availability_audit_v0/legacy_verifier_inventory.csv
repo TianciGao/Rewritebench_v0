@@ -1,0 +1,18 @@
+surface,path_or_signal,exists,status,details,reuse_as_command
+release_repo,/home/tianci_gao/code/Rewritebench_v0,yes,clean_release_repo,"Branch feature/case-package-v2-external-schema was clean before edits; D034/D035 and verifier wrappers/facade exist.",no
+legacy_repo,/home/tianci_gao/code/sql-rewrite-bench-artifact-clean,yes,present_dirty_preexisting,"Branch artifact/case-package-contract-alignment-clean matched origin at 428e74514b87956edd3289d40a6ebf15113f119c; unrelated pre-existing modified report/script files were observed and left untouched.",no
+github_reference,https://github.com/TianciGao/sql-rewrite-bench/tree/artifact/case-package-contract-alignment-clean,yes,reference_checked,"GitHub branch page opened; git ls-remote reported commit 428e74514b87956edd3289d40a6ebf15113f119c.",no
+legacy_repo,*.jar search,no,no_jars_found,"find . -iname '*.jar' returned no files in the legacy checkout.",no
+legacy_repo,datasets/raw/verieql/staged/VeriEQL,no,not_present,"Historical docs mention this older staged VeriEQL tree, but it is absent from sql-rewrite-bench-artifact-clean.",no
+tmp_path,/tmp/verieql-probe-venv,no,not_present,"Historical VeriEQL probe environment path is absent.",no
+tmp_path,/tmp/rewritebench_sqlsolver_audit/candidate,no,not_present,"Historical SQLSolver acquisition/build path is absent.",no
+release_path,verieql PATH command,no,not_found,"command -v verieql and command -v VeriEQL returned no command.",no
+release_path,sqlsolver PATH command,no,not_found,"command -v sqlsolver and command -v SQLSolver returned no command.",no
+release_env,VERIEQL/SQLSOLVER/JAVA_HOME/LD_LIBRARY_PATH/Z3 env,no,not_found,"No matching environment variables were visible.",no
+legacy_docs,docs/_scratch/VERIEQL_SUPPORT_*.md,yes,historical_notes,"Docs record prior bootstrap/dependency/canary work and constraint-sensitive canary output, not a current reusable command.",no
+legacy_docs,docs/_scratch/SQLSOLVER_*.md,yes,historical_notes,"Docs record prior upstream acquisition, /tmp build, and smoke notes, but no current checked-in source/jar/wrapper.",no
+legacy_reports,reports/evaluation/common_core_v0/00_PAPER_EVIDENCE_FREEZE_V1/table9_verifier_support_v1.csv,yes,historical_support_summary,"Contains SQLSolver and VeriEQL support-table summaries with bounded/caveated claim boundaries.",no
+legacy_reports,reports/evaluation/common_core_v0/00_PAPER_EVIDENCE_FREEZE_V1/verifier_support_artifact_audit_v1.csv,yes,historical_support_summary,"Contains retained support evidence audit rows, not executable tools.",no
+legacy_reports,reports/evaluation/common_core_v0/12_PORT_VERIFIER_ARTIFACT_MAP_V1/verifier_support_pair_ledger_v1.csv,yes,historical_support_ledger,"Maps SQLSolver smoke and VeriEQL canary as verifier support only, not same-engine rewrite evidence.",no
+legacy_cases,cases/CONS/CONS_0003/provenance/verieql_calcite_397_159_raw.json,yes,provenance_artifact,"Calcite/VeriEQL-origin raw provenance for a case package, not a runnable verifier output for the new wrapper.",no
+legacy_cases,cases/CONS/CONS_0004/provenance/verieql_calcite_397_362_raw.json,yes,provenance_artifact,"Calcite/VeriEQL-origin raw provenance for a case package, not a runnable verifier output for the new wrapper.",no

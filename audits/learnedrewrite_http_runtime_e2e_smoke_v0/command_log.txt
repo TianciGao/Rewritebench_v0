@@ -1,0 +1,60 @@
+Commands used:
+
+- `git status -sb`
+- `git branch --show-current`
+- `sed -n ... project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n ... project_control/MIGRATION_STATUS.md`
+- `tail -n ... project_control/DECISION_LOG.md`
+- `tail -n ... project_control/MIGRATION_RUN_LOG.md`
+- `rg -n ... repository_spec/metrics_contract_v1.md`
+- `sed -n ... baselines/learnedrewrite/adapter.py`
+- `sed -n ... baselines/learnedrewrite/README.md`
+- `sed -n ... tests/user_entry/test_learnedrewrite_adapter.py`
+- `find cases/PERF/PERF_0006 cases/CONS/CONS_0036 -maxdepth 3 -type f`
+- `python -m cli.main user explain-selection --case-set common_core_v0 --engines postgres --case-list <temp case list>`
+- `pytest tests/user_entry/test_learnedrewrite_adapter.py -q`
+- `python -m py_compile baselines/learnedrewrite/adapter.py`
+
+Runtime staging and server startup:
+
+```bash
+BASE=/tmp/sqlrb_learnedrewrite_http_runtime_e2e_smoke_v0
+STAGE="$BASE/runtime_staging"
+SRC=/tmp/sqlrb_prior_methods_sources/LearnedRewrite
+JAR="$SRC/rewriter_java.jar"
+cp -a "$SRC/rules_for_selected" "$STAGE/rules_for_selected"
+cd "$STAGE"
+java -jar "$JAR"
+```
+
+User-facade smoke command:
+
+```bash
+SQLRB_LEARNEDREWRITE_MODE=http \
+SQLRB_LEARNEDREWRITE_ALLOW_RUNTIME=1 \
+SQLRB_LEARNEDREWRITE_URL=http://127.0.0.1:6336/rewriter \
+SQLRB_LEARNEDREWRITE_TIMEOUT=30 \
+python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --engines postgres \
+  --case-list /tmp/sqlrb_learnedrewrite_http_runtime_e2e_smoke_v0/cases.txt \
+  --adapter-command "python baselines/learnedrewrite/adapter.py" \
+  --output-root /tmp/sqlrb_learnedrewrite_http_runtime_e2e_smoke_v0/output \
+  --run-id learnedrewrite_http_runtime_e2e_smoke_v0 \
+  --adapter-timeout 60 \
+  --enable-db-execution \
+  --enable-checker \
+  --collect-timing \
+  --timing-repetitions 2 \
+  --timing-timeout 30
+```
+
+Runtime shutdown:
+
+```bash
+kill <temporary_learnedrewrite_server_pid>
+```
+
+No `compute-local-metrics`, verifier, LLM, official metrics, paper rendering,
+retained-evidence promotion, leaderboard, Track A 120, MySQL, or Spark command
+was run.

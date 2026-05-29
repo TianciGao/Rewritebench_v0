@@ -1,0 +1,8 @@
+metric,before_retry,after_retry,notes
+schema_valid_rows,35,40,targeted retry converted five fail-closed rows to schema-valid
+fail_closed_rows,5,0,remaining fail-closed annotation rows after retry
+transformation_supported_operation_atoms,32,41,diagnostic count only; not official numerator
+presence_only_operation_atoms,10,11,diagnostic Stage B classification
+insufficient_transformation_evidence_atoms,50,55,diagnostic Stage B classification
+route_mismatch_rows,0,0,route binding remained stable
+candidate_mismatch_rows,0,0,candidate SHA binding remained stable

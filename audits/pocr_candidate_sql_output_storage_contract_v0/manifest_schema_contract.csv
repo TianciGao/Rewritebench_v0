@@ -1,0 +1,40 @@
+manifest_name,field_name,required,description,example_value,notes
+candidate_sql_manifest.csv,run_id,yes,User-run identifier that owns this candidate artifact set.,direct_llm_repair_1_pg40_v0,Binds candidate identity to one run.
+candidate_sql_manifest.csv,case_set_id,yes,Case set used for denominator membership.,common_core_v0,Must match row membership source.
+candidate_sql_manifest.csv,case_id,yes,Case identifier.,PERF_0006,Must match filename and case manifest.
+candidate_sql_manifest.csv,pool,yes,Case pool.,PERF,Usually resolved from case set or case path.
+candidate_sql_manifest.csv,engine,yes,Target engine for the candidate.,postgres,Expected values are route-defined; Common-core Track A uses mysql/postgres/spark.
+candidate_sql_manifest.csv,method_id,yes,Normalized method identifier.,direct_llm_repair_1,Required for route binding.
+candidate_sql_manifest.csv,route_id,yes,Normalized route identifier.,direct_llm_repair_1_pg40,Required for annotation JSONL replay.
+candidate_sql_manifest.csv,candidate_rel_path,yes,Path relative to output/results/<run_id>.,candidate_sql/direct_llm_repair_1/direct_llm_repair_1_pg40/postgres/PERF_0006__postgres.sql,Do not use absolute local paths in portable manifests.
+candidate_sql_manifest.csv,candidate_filename,yes,Candidate SQL filename.,PERF_0006__postgres.sql,Must include case ID and engine.
+candidate_sql_manifest.csv,candidate_present,yes,Whether a candidate file exists for this denominator row.,true,Boolean string true/false.
+candidate_sql_manifest.csv,candidate_status,yes,Artifact status vocabulary value.,candidate_present,Not correctness or execution status.
+candidate_sql_manifest.csv,generated_status,yes,Generation-layer status if known.,generated,"May be generated, fail_closed, or legacy_unknown."
+candidate_sql_manifest.csv,extraction_status,yes,Extraction-layer status if known.,single_sql_extracted,May be extraction_failed or not_applicable.
+candidate_sql_manifest.csv,source_run_id,yes,Original run ID if copied or referenced from legacy/source root.,direct_llm_repair_1_track_a_120_canonical_v0__postgres,Reference-only unless a future copy task is authorized.
+candidate_sql_manifest.csv,source_candidate_root,yes,Source candidate root if legacy/source referenced.,runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql,Read-only local/user-run surface.
+candidate_sql_manifest.csv,sha256,yes,SHA-256 hash of candidate SQL file.,0123456789abcdef,Required when candidate_present=true.
+candidate_sql_manifest.csv,size_bytes,yes,Candidate file size in bytes.,1234,Required when candidate_present=true.
+candidate_sql_manifest.csv,created_by,yes,Producer or adapter label.,sqlrb user evaluate,Documents artifact source.
+candidate_sql_manifest.csv,diagnostic_only,yes,Whether candidate artifact is diagnostic-only.,true,Does not imply official retained evidence.
+candidate_sql_manifest.csv,retained_evidence,yes,Whether candidate artifact is promoted retained evidence.,false,Default false unless separately authorized.
+candidate_sql_manifest.csv,notes,yes,Free-form notes.,PG40 diagnostic candidate,No secrets or local API keys.
+candidate_root_manifest.csv,run_id,yes,User-run identifier that owns this candidate root.,direct_llm_repair_1_pg40_v0,Binds root to D035 output.
+candidate_root_manifest.csv,method_id,yes,Normalized method identifier.,direct_llm_repair_1,Required for route binding.
+candidate_root_manifest.csv,route_id,yes,Normalized route identifier.,direct_llm_repair_1_pg40,Required for annotation replay.
+candidate_root_manifest.csv,engine_scope,yes,Engine scope for this root.,postgres,Use mysql;postgres;spark for Track A 120.
+candidate_root_manifest.csv,denominator_scope,yes,Denominator label.,PG40,"Examples: PG40, TrackA120."
+candidate_root_manifest.csv,case_set_id,yes,Case set used for denominator membership.,common_core_v0,Must match expected count.
+candidate_root_manifest.csv,candidate_root_rel_path,yes,Root path relative to output/results/<run_id>.,candidate_sql/direct_llm_repair_1/direct_llm_repair_1_pg40,Do not use absolute local paths for new output.
+candidate_root_manifest.csv,candidate_count,yes,Number of candidate files present.,40,"Artifact count, not correctness."
+candidate_root_manifest.csv,expected_count,yes,Expected denominator row count for this root.,40,Track A 120 expected count is 120 across engines.
+candidate_root_manifest.csv,complete,yes,Whether candidate_count matches expected_count under the declared policy.,true,Boolean string true/false.
+candidate_root_manifest.csv,legacy_source_root,yes,Legacy root referenced if applicable.,runs/user/direct_llm_repair_1_track_a_120_canonical_v0__postgres/candidate_sql,Reference-only unless future copy authorized.
+candidate_root_manifest.csv,migration_policy,yes,Policy for source root.,reference_only,Other future value may be copied_with_hash_preservation.
+candidate_root_manifest.csv,notes,yes,Free-form notes.,PG40 diagnostic root,No secrets or local API keys.
+candidate_sha256_manifest.csv,run_id,yes,User-run identifier that owns this manifest.,direct_llm_repair_1_pg40_v0,Binds hash list to one run.
+candidate_sha256_manifest.csv,candidate_rel_path,yes,Path relative to output/results/<run_id>.,candidate_sql/direct_llm_repair_1/direct_llm_repair_1_pg40/postgres/PERF_0006__postgres.sql,Must match candidate_sql_manifest.csv when present.
+candidate_sha256_manifest.csv,sha256,yes,SHA-256 hash of candidate SQL file.,0123456789abcdef,Required for route-bound candidate identity.
+candidate_sha256_manifest.csv,size_bytes,yes,Candidate file size in bytes.,1234,Required for hash manifest.
+candidate_sha256_manifest.csv,notes,yes,Free-form notes.,hash recorded after candidate write,No secrets or local API keys.

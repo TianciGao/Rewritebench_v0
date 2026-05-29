@@ -1,0 +1,10 @@
+engine,failure_bucket,count,affected_cases,notes
+postgres,adapter_failed,5,PORT_0004;PORT_0013;PORT_0022;PORT_0024;PORT_0025,SQLGlot noop adapter exited nonzero before candidate generation.
+postgres,none,35,,Rows reached local exact status.
+mysql,candidate_execution_failed,1,PORT_0008,Candidate SQL generated and preflight-passed but failed on the selected local engine.
+mysql,mismatch,8,PERF_0062;PORT_0003;PORT_0004;PORT_0005;PORT_0012;PORT_0013;PORT_0022;PORT_0024,Source/candidate execution completed and local checker reported mismatch.
+mysql,none,31,,Rows reached local exact status.
+spark,candidate_execution_failed,8,PERF_0008;PERF_0013;PERF_0017;PERF_0019;PERF_0024;PERF_0082;PORT_0003;PORT_0013,Candidate SQL generated and preflight-passed but failed on the selected local engine.
+spark,mismatch,2,PORT_0004;PORT_0005,Source/candidate execution completed and local checker reported mismatch.
+spark,none,25,,Rows reached local exact status.
+spark,unsupported_engine,5,PORT_0008;PORT_0012;PORT_0022;PORT_0024;PORT_0025,Manifest-driven unsupported/fail-closed role; no fallback execution attempted.

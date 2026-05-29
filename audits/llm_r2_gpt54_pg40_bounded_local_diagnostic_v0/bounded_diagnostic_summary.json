@@ -1,0 +1,22 @@
+{
+  "adapted_gpt54_local_diagnostic": true,
+  "candidate_executable": 39,
+  "candidate_execution_failed": 1,
+  "candidate_generated": 40,
+  "checkpoint_used": false,
+  "compute_local_metrics_run": true,
+  "demonstration_selector_used": false,
+  "exact": 39,
+  "fail_closed_rows": 0,
+  "local_diagnostic_only": true,
+  "mismatch": 0,
+  "official_llm_r2_stack": false,
+  "official_metric": false,
+  "original_paper_reproduction": false,
+  "postgres_only": true,
+  "rule_system_runtime_used": false,
+  "selected_rows": 40,
+  "source_like_rows": 1,
+  "timed": 34,
+  "track_a_120": false
+}

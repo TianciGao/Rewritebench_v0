@@ -1,0 +1,23 @@
+# Boundary Checklist
+
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Reports/results changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- New local diagnostic metrics computed: no; existing bounded local metrics outputs were reviewed only.
+- Route-level paper metrics computed: no.
+- Timing/speedup newly computed: no.
+- Metrics calculator changed: no.
+- POCR implemented: no.
+- Skill folders created: no.
+- Operation atoms inferred: no.
+- Paper tables rendered: no.
+- Leaderboard created: no.
+- Release/export/tag created: no.
+- Retained evidence promoted: no.
+- `runs/user/` outputs committed: no.
+- Common-core rerun performed: no.
+- Calculator formulas changed: no.
+- Source/test/script changes: no.

@@ -1,164 +1,154 @@
 # SQL-RewriteBench User Benchmark Guide
 
-This guide covers the current B-line user-entry MVP. The MVP is a non-DB adapter-capture runner: it lets a user run a SQL rewrite adapter over selected Common-core v0 case-engine rows and stores local experiment outputs under `runs/user/<run_id>/`.
+This guide covers the current B-line user-facing local workbench. The public
+facade is `src/cli/`, exposed as `sqlrb user ...` after installation or as
+`PYTHONPATH=src python -m cli.main user ...` from a checkout.
 
-The MVP does not score a full benchmark run. It does not execute SQL, run checkers, collect timing, compute official metrics, update paper results, update retained evidence, or create a leaderboard.
+User-facing local diagnostic output is exported to the D035 shape:
 
-## Installation And Imports
+- `output/results/<run_id>/`
+- `output/logs/<run_id>/`
+- `output/reports/<run_id>/`
 
-For local development, use the repository root as the working directory.
+The current implementation also creates internal transitional staging under
+`runs/user/<run_id>/` before export. That staging path is not the public output
+contract and should not be committed.
 
-With editable packaging:
+These commands do not compute official metrics, update paper results, promote
+retained evidence, or create leaderboard output.
+
+## Install And Import
+
+From the repository root:
 
 ```bash
 python -m pip install -e .
-python -m sql_rewrite_bench.user_run --help
+sqlrb user show-output-schema
 ```
 
 Without installation:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run --help
+PYTHONPATH=src python -m cli.main user show-output-schema
 ```
 
-The thin wrapper is also available:
+## Minimal Adapter Run
 
-```bash
-python scripts/user/run_user_benchmark.py --help
-```
-
-## Minimal Command
-
-Create a text file containing Common-core case ids, for example:
+Create a text file containing Common-core case ids:
 
 ```text
 PERF_0006
 PERF_0007
 ```
 
-Run an adapter over those selected rows:
+Run an adapter over the selected PostgreSQL rows and export D035 local output:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
   --pool PERF \
-  --engine postgres \
+  --engines postgres \
   --case-list path/to/case_ids.txt \
   --adapter-command "python my_rewriter.py" \
-  --out runs/user/demo_run
+  --output-root output \
+  --run-id demo_run
 ```
 
-Equivalent wrapper command:
+The same command works as `sqlrb user evaluate ...` after editable install.
+
+## Dry Run
+
+Dry-run parses the selected rows and writes local diagnostic output, but does
+not invoke the adapter:
 
 ```bash
-python scripts/user/run_user_benchmark.py \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
   --pool PERF \
-  --engine postgres \
+  --engines postgres \
   --case-list path/to/case_ids.txt \
   --adapter-command "python my_rewriter.py" \
-  --out runs/user/demo_run
-```
-
-## Dry-run Example
-
-Dry-run resolves selected rows and writes the local run files without invoking the adapter:
-
-```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
-  --case-set common_core_v0 \
-  --pool PERF \
-  --engine postgres \
-  --case-list path/to/case_ids.txt \
-  --adapter-command "python my_rewriter.py" \
-  --out runs/user/demo_dry_run \
+  --output-root output \
+  --run-id demo_dry_run \
   --dry-run
 ```
 
-Dry-run ledger rows use:
+Dry-run ledger rows keep candidate generation and execution statuses visibly
+skipped. They are not official metric inputs.
 
-- `adapter_invoked=false`
-- `candidate_generated=false`
-- `extraction_status=skipped_dry_run`
-- `execution_status=not_run_non_db_mvp`
-- `checker_status=not_run_non_db_mvp`
-- `exact_status=not_evaluated_non_db_mvp`
-- `timed_status=not_timed_non_db_mvp`
-- `failure_bucket=none`
+## Public Smoke
 
-## Dummy Adapter Example
+`--smoke` selects the deterministic tiny subset `PERF_0006` and `CONS_0005`
+for the requested engine.
 
-The test fixture adapter writes deterministic candidate SQL to the path supplied by the runner:
+Dry-run smoke:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
-  --pool PERF \
-  --engine postgres \
-  --case-list path/to/case_ids.txt \
-  --adapter-command "python tests/user_entry/fixtures/dummy_adapter.py" \
-  --out runs/user/demo_dummy_adapter
-```
-
-Adapters can produce candidate SQL in either of two ways:
-
-- Write candidate SQL to the file path in `SQLRB_CANDIDATE_SQL_PATH`.
-- Print candidate SQL to stdout.
-
-If both are present, workspace `candidate.sql` takes precedence over stdout.
-
-## Optional SQLGlot Adapter Examples
-
-The repository includes optional SQLGlot user-entry adapters for candidate generation only. They do not execute SQL, run checkers, collect timing, compute official metrics, update paper results, update retained evidence, or create a leaderboard.
-
-Dry-run does not require SQLGlot because the adapter is not invoked:
-
-```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
-  --case-set common_core_v0 \
-  --pool PERF \
-  --engine postgres \
-  --case-list path/to/case_ids.txt \
-  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
-  --out runs/user/sqlglot_noop_dry_run \
+  --engines postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --output-root output \
+  --run-id smoke_dry_run \
   --dry-run
 ```
 
-Install optional SQLGlot support before running the real adapter routes:
+Adapter-capture smoke:
 
 ```bash
-python -m pip install -e ".[sqlglot]"
-```
-
-SQLGlot no-op route:
-
-```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user evaluate \
   --case-set common_core_v0 \
-  --pool PERF \
-  --engine postgres \
-  --case-list path/to/case_ids.txt \
-  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
-  --out runs/user/sqlglot_noop_demo
+  --engines postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --output-root output \
+  --run-id smoke_dummy_adapter
 ```
 
-SQLGlot optimize route:
+The example adapter copies source SQL to the candidate path. The smoke output
+is still local diagnostic output only.
+
+## Readability Commands
+
+These commands do not call adapters, execute databases, run checkers, compute
+official metrics, update top-level `reports/` or `results/`, or create
+leaderboard output.
+
+List Common-core cases:
 
 ```bash
-PYTHONPATH=src python -m sql_rewrite_bench.user_run \
+PYTHONPATH=src python -m cli.main user list-cases \
   --case-set common_core_v0 \
-  --pool PERF \
-  --engine postgres \
-  --case-list path/to/case_ids.txt \
-  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize" \
-  --out runs/user/sqlglot_optimize_demo
+  --engines postgres
 ```
 
-Both routes write candidate SQL to the per-row user-run workspace path supplied by `SQLRB_CANDIDATE_SQL_PATH`. If SQLGlot is unavailable or parsing fails, the adapter exits nonzero instead of silently falling back to raw source SQL.
+Explain the smoke selection:
 
-## Adapter Environment Variables
+```bash
+PYTHONPATH=src python -m cli.main user explain-selection \
+  --case-set common_core_v0 \
+  --engines postgres \
+  --smoke
+```
 
-The runner provides these variables to each adapter invocation:
+Show the output schema:
+
+```bash
+PYTHONPATH=src python -m cli.main user show-output-schema
+```
+
+Show the local-only boundary:
+
+```bash
+PYTHONPATH=src python -m cli.main user show-boundary \
+  --output-root output \
+  --run-id smoke_dummy_adapter
+```
+
+## Adapter Contract
+
+The runner provides these environment variables to each adapter invocation:
 
 - `SQLRB_RUN_ID`
 - `SQLRB_CASE_ID`
@@ -169,46 +159,117 @@ The runner provides these variables to each adapter invocation:
 - `SQLRB_WORKSPACE_DIR`
 - `SQLRB_CANDIDATE_SQL_PATH`
 
-The adapter command is invoked with `shell=False` using `shlex.split`. The subprocess working directory is the repository root.
+Adapters should read source SQL from `SQLRB_SOURCE_SQL_PATH` and write candidate
+SQL to `SQLRB_CANDIDATE_SQL_PATH`. Candidate SQL printed to stdout is also
+captured, but a workspace `candidate.sql` file takes precedence.
 
-## Output Directory Rule
+Route-specific baseline adapters belong under `baselines/`. Public examples
+belong under `examples/`. Core reusable implementation remains under
+`src/sql_rewrite_bench/`.
 
-The output root must be under:
+## SQLGlot Adapter Example
 
-```text
-runs/user/<run_id>/
+SQLGlot adapters are optional candidate-generation routes. They do not execute
+SQL, run checkers, collect timing, compute official metrics, update retained
+evidence, or create leaderboard output.
+
+Install optional SQLGlot support:
+
+```bash
+python -m pip install -e ".[sqlglot]"
 ```
 
-The runner rejects case-local paths, `reports/`, `results/`, absolute paths, and parent-relative paths such as `../demo`.
+SQLGlot no-op route:
 
-User-run outputs are local experiment outputs only. They are not retained paper evidence and should not be committed.
+```bash
+PYTHONPATH=src python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engines postgres \
+  --case-list path/to/case_ids.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route noop" \
+  --output-root output \
+  --run-id sqlglot_noop_demo
+```
 
-## Output Files
+SQLGlot optimize route:
 
-Each run writes:
+```bash
+PYTHONPATH=src python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --pool PERF \
+  --engines postgres \
+  --case-list path/to/case_ids.txt \
+  --adapter-command "python baselines/sqlglot/sqlglot_user_adapter.py --route optimize" \
+  --output-root output \
+  --run-id sqlglot_optimize_demo
+```
 
-- `config.yaml`: command arguments, selected scope, output policy flags, and no-leaderboard/no-paper boundary flags.
-- `selected_cases.csv`: the selected Common-core case-engine rows after metadata resolution.
-- `candidate_sql/`: captured user-generated candidate SQL, when produced.
-- `workspaces/`: per-row adapter stdout/stderr diagnostics and workspace files.
-- `ledger.csv`: one local diagnostic row per selected case-engine row.
-- `summary.json`: local diagnostic counts and boundary flags.
-- `failures.csv`: rows whose `failure_bucket` is not `none`.
-- `report.md`: local report with selected scope, diagnostic funnel, failure buckets, artifact links, and warnings.
+If SQLGlot is unavailable or parsing fails, the adapter exits nonzero rather
+than silently falling back to raw source SQL.
 
-## Current Limitations
+## Optional PostgreSQL Diagnostics
 
-- No DB execution.
-- No checker execution.
-- No timing collection.
-- No official benchmark metrics.
-- No paper table rendering.
-- No paper result updates.
-- No retained evidence updates.
-- No leaderboard.
-- SQLGlot adapters are candidate-generation only and optional.
-- No Calcite or R-Bot baseline adapter implementation.
-- No paper reproduction CLI.
-- No non-Common-core selection in the MVP.
+PostgreSQL DB/checker diagnostics are opt-in:
 
-User-run outputs must not be written into `cases/`, case-local `runs/`, `case_sets/`, `inventory/`, `reports/`, or `results/`.
+```bash
+PYTHONPATH=src python -m cli.main user evaluate \
+  --case-set common_core_v0 \
+  --engines postgres \
+  --smoke \
+  --adapter-command "python examples/user/noop_adapter.py" \
+  --output-root output \
+  --run-id postgres_local_diagnostic \
+  --enable-db-execution \
+  --enable-checker
+```
+
+This path resolves PostgreSQL DDL/load files through each case manifest's
+`schema.external_profile` and the current `schemas/` directory. Missing schema
+metadata fails closed. Configure PostgreSQL with `SQLRB_POSTGRES_DSN` or
+standard libpq environment variables.
+
+DB/checker diagnostics are local-only. They do not update top-level
+`reports/`, top-level `results/`, retained evidence, paper outputs, or
+leaderboard rows.
+
+## Output Directories
+
+The public output contract is:
+
+```text
+output/results/<run_id>/
+output/logs/<run_id>/
+output/reports/<run_id>/
+```
+
+The current runner uses `runs/user/<run_id>/` as internal transitional staging
+before export. That staging path may contain source-run ledgers, candidate SQL,
+workspaces, and summaries. It is not the public output root.
+
+Top-level `reports/` and top-level `results/` are official/paper surfaces and
+must not be updated by ordinary user-run tasks.
+
+## Current Physical Layout Boundary
+
+The final D035 public layout targets `benchmarks/` for benchmark data, but the
+physical migration is not complete. Current working paths remain valid until a
+separate migration task:
+
+- `cases/`
+- `case_sets/`
+- `schemas/`
+- `inventory/`
+
+Do not move those directories as part of normal user-run work.
+
+## Current Limits
+
+- Default adapter-capture runs do not execute database queries.
+- DB/checker diagnostics are opt-in local diagnostics.
+- Timing is opt-in and exact-gated.
+- There are no official benchmark metrics in this path.
+- Semantic Equivalence Rate is not computed by user adapter runs.
+- No paper tables are rendered.
+- No retained evidence is updated or promoted.
+- No global leaderboard is created.

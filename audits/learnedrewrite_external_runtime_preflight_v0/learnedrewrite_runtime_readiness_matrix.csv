@@ -1,0 +1,10 @@
+check,status,evidence,blocker,recommended_action,notes
+java_available,pass,"Java found: openjdk version ""17.0.18"" 2026-01-20",none,keep Java version recorded for future runtime smoke,"Read-only java -version check only"
+runtime_command_configured,missing,SQLRB_LEARNEDREWRITE_CMD present=false,no command wrapper configured,configure an external command wrapper only if source hygiene is acceptable,"Value was not printed"
+runtime_url_configured,missing,SQLRB_LEARNEDREWRITE_URL present=false,no external runtime URL configured,configure a local LearnedRewrite /rewriter endpoint before synthetic preflight,"Value was not printed"
+runtime_reachable,not_attempted,no configured command or URL,no runtime configured,rerun availability probe after command or URL is configured,"No arbitrary localhost probing was performed"
+synthetic_request_attempted,no,no runtime configured,no safe configured endpoint or command,attempt one synthetic non-benchmark request only after runtime is configured,"No Common-core SQL used"
+synthetic_response_parseable,N.A.,synthetic request not attempted,no response available,validate JSON response shape during future synthetic preflight,"Expected rewritten_sql or documented equivalent"
+single_sql_extractable,N.A.,synthetic request not attempted,no response available,apply single-SQL extraction to future synthetic response,"Reject prose empty output and multiple statements"
+common_core_runtime_authorized,no,preflight incomplete,runtime availability and synthetic contract not proven,do not send Common-core SQL to real runtime yet,"Common-core case SQL sent=false"
+track_a_120_ready,no,no runtime configured and no synthetic preflight,no external-runtime smoke has passed,do not run Track A 120,"Use bounded staged preflight first"

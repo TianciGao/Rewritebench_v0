@@ -1,0 +1,72 @@
+# Command Log
+
+Commands used for read-only preflight and source review:
+
+```bash
+git status -sb
+git branch --show-current
+rg -n "direct_llm_repair_1_live_13_actionable|direct_llm_repair_1_no_live_13|Repair-1|SER|POCR|local_metrics|Result Consistency|Generation Rate|Execution Coverage" project_control/MIGRATION_MASTER_PLAN.md project_control/MIGRATION_STATUS.md project_control/DECISION_LOG.md project_control/MIGRATION_RUN_LOG.md repository_spec/metrics_contract_v1.md
+rg -n "route_id|method_id|repair|feedback|unsupported|fake|live|SQLRB|User-Agent|local_diagnostic|extraction" baselines/direct_llm_original/adapter.py baselines/direct_llm_repair_1/adapter.py baselines/direct_llm_repair_1/README.md
+sed -n '1,220p' audits/direct_llm_repair_1_live_13_actionable_diagnostic_v0/live_13_diagnostic_summary.json
+sed -n '1,220p' audits/direct_llm_repair_1_live_13_actionable_diagnostic_v0/live_13_diagnostic_report.md
+sed -n '1,260p' audits/direct_llm_original_non_exact_frontier_review_v0/frontier_table.csv
+sed -n '1,220p' audits/direct_llm_repair_1_no_live_13_frontier_dry_run_v0/repair1_13_actionable_frontier_manifest.csv
+sed -n '1,220p' audits/direct_llm_repair_1_no_live_13_frontier_dry_run_v0/unsupported_exclusion_manifest.csv
+sed -n '1,220p' audits/user_output_verifier_status_integration_v0/verifier_output_contract.md
+sed -n '1,220p' audits/sqlsolver_coverage_limited_boundary_v0/verifier_status_recommendation.md
+sed -n '1,220p' audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/local_metrics_summary_review.md
+sed -n '1,220p' audits/direct_llm_original_track_a_120_canonical_user_rerun_v0/provider_call_summary.md
+sed -n '1,180p' audits/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/live_e2e_report.md
+tail -60 project_control/MIGRATION_STATUS.md
+tail -80 project_control/MIGRATION_RUN_LOG.md
+find audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0 -maxdepth 1 -type f -print 2>/dev/null || true
+mkdir -p audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0
+```
+
+Validation commands are recorded in `validation_notes.md`.
+
+Validation commands used:
+
+```bash
+python - <<'PY'
+import csv
+from pathlib import Path
+base=Path('audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0')
+for path in base.glob('*.csv'):
+    with path.open(newline='', encoding='utf-8') as f:
+        rows=list(csv.DictReader(f))
+    if not rows:
+        raise SystemExit(f'{path} has no rows')
+    print(f'{path.name}: {len(rows)} rows')
+PY
+python - <<'PY'
+from pathlib import Path
+base=Path('audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0')
+empty=[str(p) for p in base.glob('*') if p.is_file() and p.suffix.lower() in {'.md','.txt'} and not p.read_text(encoding='utf-8').strip()]
+if empty:
+    raise SystemExit('\n'.join(empty))
+print('markdown_text_nonempty_ok')
+PY
+python - <<'PY'
+import json, re
+from pathlib import Path
+summary=json.loads(Path('audits/direct_llm_repair_1_live_13_actionable_diagnostic_v0/live_13_diagnostic_summary.json').read_text())
+expected={'selected_rows':13,'unsupported_excluded_rows':5,'live_calls':13,'repaired_candidates_generated':13,'candidate_executable':13,'exact':9,'mismatch':4,'candidate_execution_failed':0,'timed':9}
+for k,v in expected.items():
+    if summary.get(k)!=v:
+        raise SystemExit(f'summary mismatch {k}: {summary.get(k)} != {v}')
+text=Path('audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0/expected_boundary_from_13_diagnostic.md').read_text()
+for needle in ['selected rows: 13','unsupported excluded rows: 5','exact: 9','mismatch: 4','candidate execution failed after repair: 0','timed exact rows: 9']:
+    if needle not in text:
+        raise SystemExit(f'missing copied count: {needle}')
+unsupported=Path('audits/direct_llm_repair_1_track_a_120_route_assembly_policy_v0/unsupported_rows_policy.md').read_text()
+if len(re.findall(r'PORT_\d{4}', unsupported)) != 5:
+    raise SystemExit('unsupported row count in policy is not 5')
+print('copied_count_checks_ok')
+PY
+git diff --check
+git status -sb
+find runs/user -maxdepth 1 -type d -name 'direct_llm_repair_1_track_a_120_canonical_v0*' -print
+```
+
+No live LLM, DB execution, checker execution, timing collection, `compute-local-metrics`, SQLSolver, VeriEQL, official metric, paper rendering, Track A 120, full Repair-1 route, or leaderboard command was run.

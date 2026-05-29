@@ -1,0 +1,29 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "major_decision_recorded": true,
+  "b_line_user_entry_development_frozen": true,
+  "case_package_v2_external_schema_pilot": true,
+  "pilot_case_ids": [
+    "PERF_0006"
+  ],
+  "cases_modified": [
+    "PERF_0006"
+  ],
+  "schemas_created": [
+    "schemas/tpch_common_core_v0"
+  ],
+  "external_schema_refs_added": true,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Review the PERF_0006 v2 external-schema branch pilot. If accepted, authorize a branch-only expansion to PERF_0007, CONS_0005, PORT_0003, and LONGTAIL_0011 without merging to main until validators and runner schema_ref compatibility are explicitly approved."
+}

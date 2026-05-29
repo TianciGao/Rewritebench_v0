@@ -1,0 +1,42 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "writable_conversion_pilot": true,
+  "converted_layers": [
+    "witness",
+    "evidence"
+  ],
+  "pilot_case_ids": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_converted": [
+    "PERF_0006",
+    "PERF_0007",
+    "CONS_0005",
+    "PORT_0003",
+    "LONGTAIL_0011"
+  ],
+  "cases_deferred": [],
+  "witness_modified": true,
+  "evidence_ref_modified": true,
+  "external_evidence_created": true,
+  "metadata_modified": false,
+  "notes_modified": false,
+  "runs_deleted": false,
+  "case_local_evidence_deleted": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_metadata_notes_runs_layers_pilot_v0 to handle only metadata, notes, and runs cleanup for the same five pilot cases, branch-only, with no DB/checker execution, evidence deletion without mapping, reports/results updates, denominator changes, paper-result changes, case_sets/inventory changes, official metrics, or leaderboard output."
+}

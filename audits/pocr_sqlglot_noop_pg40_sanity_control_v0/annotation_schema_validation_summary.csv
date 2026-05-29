@@ -1,0 +1,4 @@
+status,count,notes
+malformed_json,5,checkpointed annotation schema validation status; diagnostic only
+provider_call_failed,1,checkpointed annotation schema validation status; diagnostic only
+schema_valid,34,checkpointed annotation schema validation status; diagnostic only

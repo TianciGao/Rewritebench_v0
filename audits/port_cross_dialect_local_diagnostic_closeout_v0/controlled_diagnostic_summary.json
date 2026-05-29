@@ -1,0 +1,24 @@
+{
+  "schema_version": "port_cross_dialect_local_diagnostic_closeout_v0",
+  "branch": "feature/case-package-v2-external-schema",
+  "verdict": "closed_for_current_user_entry_phase",
+  "case_ids": [
+    "PORT_0004",
+    "PORT_0013",
+    "PORT_0022",
+    "PORT_0024",
+    "PORT_0025"
+  ],
+  "selected_rows": 5,
+  "mysql_source_reference_executable_rows": 5,
+  "postgres_target_candidate_executable_rows": 5,
+  "checker_attempted_rows": 5,
+  "exact_rows": 5,
+  "mismatch_rows": 0,
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "source_evidence": "audits/port_cross_dialect_checker_normalization_v0/controlled_rerun_summary.json"
+}

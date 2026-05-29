@@ -1,0 +1,15 @@
+check_name,status,details
+branch_check,pass,On feature/case-package-v2-external-schema.
+no_case_sets_changed,pass,No files under case_sets/ changed.
+no_inventory_changed,pass,No inventory files changed.
+no_reports_results_changed,pass,No reports/ or results/ files changed.
+no_denominator_changed,pass,No denominator files changed.
+no_paper_results_changed,pass,No paper result files changed.
+no_official_metrics_computed,pass,No official metrics were computed.
+no_db_checker_execution,pass,No DB/checker execution was run.
+no_global_leaderboard,pass,No leaderboard output was created.
+no_case_local_runs_deleted,pass,Case-local runs/ directories remain intact.
+no_case_local_evidence_deleted,pass,Case-local evidence/ directories remain intact.
+no_metadata_notes_runs_converted,pass,Metadata, notes, and runs cleanup was not performed in this task.
+no_raw_unsafe_evidence_copied,pass,Only curated public-safe evidence was copied; raw stdout/stderr/debug/prompt/API traces were not copied.
+git_diff_check,pass,git diff --check passed.

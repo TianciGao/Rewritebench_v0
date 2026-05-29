@@ -1,0 +1,86 @@
+{
+  "schema_version": "user_entry_engine_backend_closeout_v0",
+  "verdict": "engine_backend_phase_closed_with_deferred_items",
+  "postgres_common_core_noop_latest": {
+    "evidence_source": "audits/user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0/postgres_run_summary.json",
+    "selected_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "source_executable_rows": 40,
+    "candidate_executable_rows": 35,
+    "checker_attempted_rows": 35,
+    "exact_rows": 35,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "candidate_execution_failed": 5,
+      "none": 35
+    },
+    "diagnostic_mode_counts": {
+      "cross_dialect_reference": 5,
+      "same_engine": 35
+    },
+    "interpretation": "Local no-op diagnostic only; the five failures are expected PORT cross-dialect target-candidate failures."
+  },
+  "mysql_common_core_noop_latest": {
+    "evidence_source": "audits/user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0/mysql_run_summary.json",
+    "selected_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "source_executable_rows": 40,
+    "candidate_executable_rows": 36,
+    "checker_attempted_rows": 36,
+    "exact_rows": 36,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "candidate_execution_failed": 4,
+      "none": 36
+    },
+    "diagnostic_mode_counts": {
+      "cross_dialect_reference": 4,
+      "same_engine": 36
+    },
+    "interpretation": "Local no-op diagnostic only; the four failures are expected PORT reverse cross-dialect target-candidate failures."
+  },
+  "port_forward_controlled": {
+    "evidence_source": "audits/port_bidirectional_cross_dialect_closeout_v0/controlled_diagnostic_summary.json",
+    "source_engine": "mysql",
+    "target_engine": "postgres",
+    "cases": 5,
+    "exact_rows": 5,
+    "mismatch_rows": 0,
+    "controlled_diagnostic_only": true
+  },
+  "port_reverse_controlled": {
+    "evidence_source": "audits/port_bidirectional_cross_dialect_closeout_v0/controlled_diagnostic_summary.json",
+    "source_engine": "postgres",
+    "target_engine": "mysql",
+    "cases": 4,
+    "exact_rows": 4,
+    "mismatch_rows": 0,
+    "controlled_diagnostic_only": true
+  },
+  "spark_fail_closed": {
+    "evidence_source": "audits/spark_fail_closed_skeleton_v0/README.md",
+    "backend_status": "fail_closed_skeleton",
+    "live_execution_implemented": false,
+    "smoke_selected_rows": 2,
+    "smoke_candidate_generated_rows": 2,
+    "smoke_failure_bucket_counts": {
+      "unsupported_engine": 2
+    },
+    "checker_attempted_rows": 0
+  },
+  "quality_outputs_available": {
+    "quality_summary_json": true,
+    "quality_report_md": true,
+    "tag_slices_csv": true
+  },
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false
+}

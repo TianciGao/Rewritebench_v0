@@ -1,0 +1,16 @@
+{
+  "verdict": "ready_for_final_closeout_planning",
+  "blocker_count": 0,
+  "nonblocking_caveat_count": 5,
+  "release_tag_created": false,
+  "export_branch_created": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "case_membership_changed": false,
+  "raw_legacy_evidence_changed": false,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "reports_results_migrated": false,
+  "global_leaderboard_created": false,
+  "next_safe_action": "run final public-release closeout planning before any release tag or export branch"
+}

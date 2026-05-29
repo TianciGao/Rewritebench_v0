@@ -1,0 +1,36 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: tpcds_perf0033_v0
+case_ids:
+- PERF_0033
+source_family: TPC-DS
+engines:
+  postgres:
+    ddl: schemas/tpcds_perf0033_v0/postgres/ddl.sql
+    load: schemas/tpcds_perf0033_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpcds_perf0033_v0/mysql/ddl.sql
+    load: schemas/tpcds_perf0033_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpcds_perf0033_v0/spark/ddl.sql
+    load: schemas/tpcds_perf0033_v0/spark/load.sql
+tables:
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_moy
+  - d_year
+  row_count: 1
+- name: item
+  columns:
+  - i_item_sk
+  - i_manager_id
+  - i_brand_id
+  - i_brand
+  row_count: 2
+- name: store_sales
+  columns:
+  - ss_sold_date_sk
+  - ss_item_sk
+  - ss_ext_sales_price
+  row_count: 2
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

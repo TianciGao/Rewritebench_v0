@@ -1,0 +1,5 @@
+case_id,dialect_variant_path,retained,reason,deletion_allowed,notes
+PORT_0004,sql/dialect_variants/spark/pos_02_spark.sql,true,semantic_portability_variant_precleared_for_retention,false,"Retained as optional semantic v2 asset, not a dirty compatibility path."
+PORT_0004,sql/dialect_variants/spark/neg_02_spark.sql,true,semantic_portability_variant_precleared_for_retention,false,"Retained as optional semantic v2 asset, not a dirty compatibility path."
+PORT_0013,sql/dialect_variants/spark/pos_02_spark.sql,true,semantic_portability_variant_precleared_for_retention,false,"Retained as optional semantic v2 asset, not a dirty compatibility path."
+PORT_0013,sql/dialect_variants/spark/neg_02_spark.sql,true,semantic_portability_variant_precleared_for_retention,false,"Retained as optional semantic v2 asset, not a dirty compatibility path."

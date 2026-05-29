@@ -1,30 +1,52 @@
+schema_profile_version: case_schema_profile_v2
 case_id: PERF_0062
-profile_version: canonical_case_package_layout_v1
-source_kind: generated_from_legacy_schema_and_witness
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-required_tables:
-- store_sales
-- store
-- customer_demographics
-- household_demographics
-- customer_address
-- date_dim
-row_counts_from_legacy_witness:
-  store_sales: 1
-  store: 1
-  customer_demographics: 1
-  household_demographics: 1
-  customer_address: 1
-  date_dim: 1
-claim_boundary:
-  db_validation_run_during_migration: false
-  new_experimental_claim_created: false
+pool: PERF
+schema_ref:
+  schema_id: tpcds_perf0062_v0
+  profile: schemas/tpcds_perf0062_v0/schema_profile.yaml
+runtime_policy: profile_first_external_schema
+source_family: TPC-DS
+tables:
+- name: store_sales
+  columns:
+  - ss_store_sk
+  - ss_sold_date_sk
+  - ss_cdemo_sk
+  - ss_hdemo_sk
+  - ss_addr_sk
+  - ss_quantity
+  - ss_ext_sales_price
+  - ss_ext_wholesale_cost
+  - ss_sales_price
+  - ss_net_profit
+  row_count: 1
+- name: store
+  columns:
+  - s_store_sk
+  row_count: 1
+- name: customer_demographics
+  columns:
+  - cd_demo_sk
+  - cd_marital_status
+  - cd_education_status
+  row_count: 1
+- name: household_demographics
+  columns:
+  - hd_demo_sk
+  - hd_dep_count
+  row_count: 1
+- name: customer_address
+  columns:
+  - ca_address_sk
+  - ca_country
+  - ca_state
+  row_count: 1
+- name: date_dim
+  columns:
+  - d_date_sk
+  - d_year
+  row_count: 1
+engine_assets:
+  postgres: schemas/tpcds_perf0062_v0/postgres/ddl.sql
+  mysql: schemas/tpcds_perf0062_v0/mysql/ddl.sql
+  spark: schemas/tpcds_perf0062_v0/spark/ddl.sql

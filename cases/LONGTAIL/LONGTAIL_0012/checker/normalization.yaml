@@ -1,6 +1,15 @@
+normalization_version: canonical_case_package_layout_v2
 case_id: LONGTAIL_0012
 pool: LONGTAIL
-normalization_policy: retained_legacy_result_checks
-row_order: respect_order_when_result_check_requires_ordered_outputs
-null_handling: engine_retained_outputs_are_not_recomputed
-numeric_tolerance: not_recomputed_during_migration
+sql_paths:
+  source: sql/source.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
+rules:
+  ignore_whitespace: true
+  ignore_case_for_keywords: true
+  normalize_numeric_literals: false
+  preserve_semantic_operators: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts

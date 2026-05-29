@@ -1,0 +1,8 @@
+path,tracked,type,classification,notes
+project_control/DECISION_LOG.md,yes,file,ACTIVE_CORE,"durable policy and roadmap decisions"
+project_control/MIGRATION_MASTER_PLAN.md,yes,file,ACTIVE_CORE,"stable global migration rules"
+project_control/MIGRATION_RUN_LOG.md,yes,file,ACTIVE_CORE,"chronological execution history"
+project_control/MIGRATION_STATUS.md,yes,file,ACTIVE_CORE,"current snapshot and next safe action"
+project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md,yes,file,COMPLETED_ARCHIVE,"PORT cross-dialect diagnostic plan completed and superseded by D031 plus later PORT closeout audits"
+project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,yes,file,SUPERSEDED_ARCHIVE,"release-surface decisions captured durably in D030 and later status/run-log entries"
+project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md,yes,file,COMPLETED_ARCHIVE,"user-entry local diagnostic architecture completed by local evaluation workbench v0 closeout"

@@ -1,0 +1,8 @@
+area,command_or_check,status,notes
+PostgreSQL behavior,two-case DB/checker smoke,passed,"PERF_0006 and CONS_0005 selected; source executable 2; candidate executable 2; checker exact 2; mismatch 0"
+MySQL behavior,two-case DB/checker smoke,passed,"PERF_0006 and CONS_0005 selected; source executable 2; candidate executable 2; checker exact 2; mismatch 0"
+PORT bidirectional behavior,user-entry unittest suite,passed,"PORT metadata and controlled-adapter tests passed"
+Spark no-env behavior,fail-closed smoke,passed,"--engine spark smoke generated local outputs and failed closed without checker artifacts"
+Case-package validators,40 Common-core validator loop,passed,"40/40 Common-core static v2 validators passed"
+Reports/results surface,protected-surface diff check,passed,"No reports/results files changed"
+Timing/speedup surface,code and output review,passed,"No timing or speedup fields introduced"

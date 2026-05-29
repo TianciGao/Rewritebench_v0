@@ -1,9 +1,16 @@
+normalization_version: canonical_case_package_layout_v2
 case_id: CONS_0011
-normalization_version: canonical_case_package_layout_v1
-comparison_model: tabular_result_set_equivalence
+pool: CONS
+sort_rows: true
+sql_paths:
+  source: sql/source.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
 rules:
-- compare retained TSV outputs as captured
-- do not infer performance from result equality
-- hard negative must differ from source on retained witness evidence
-null_handling: retained output representation
-ordering: retained output ordering as captured unless checker summary states sorted comparison
+  ignore_whitespace: true
+  ignore_case_for_keywords: true
+  normalize_numeric_literals: false
+  preserve_semantic_operators: true
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts

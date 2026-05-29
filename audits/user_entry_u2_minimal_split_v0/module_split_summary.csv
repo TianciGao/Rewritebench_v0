@@ -1,0 +1,6 @@
+module_or_file,change_type,responsibility_after_split,behavior_preserved,notes
+"src/sql_rewrite_bench/case_package_resolver.py","added","Resolve selected case package assets including manifest, source SQL, schema profile, external schema profile, checker configs, and read-only taxonomy metadata.","yes","Does not infer membership or scan cases to choose rows."
+"src/sql_rewrite_bench/adapter_runner.py","added","Invoke adapter with existing environment contract, shell=False, repo-root cwd, stdout/stderr capture, timeout handling, and candidate capture priority.","yes","Workspace candidate.sql still wins over stdout."
+"src/sql_rewrite_bench/user_ledger.py","added","Construct current ledger rows, dry-run rows, failure rows, and write ledger.csv/failures.csv with existing columns.","yes","No new ledger fields added."
+"src/sql_rewrite_bench/user_run.py","modified","CLI/orchestrator; delegates resolver, adapter runner, and ledger writer responsibilities while retaining config, selected_cases.csv, DB/checker orchestration, summary, and report.","yes","Summary/report generation intentionally not moved."
+"tests/user_entry/test_u2_module_split.py","added","Behavior-preservation tests for resolver, adapter runner, ledger writer, and public smoke dry-run.","yes","Complements existing user-entry tests."

@@ -1,0 +1,18 @@
+case_id,reference_group,field,observed_value,resolved_path,path_base,required,exists,safety_status,status,notes
+PERF_0006,sql,sql.source,sql/source.sql,cases/PERF/PERF_0006/sql/source.sql,case,true,true,safe,pass,
+PERF_0006,sql,sql.positives[1],sql/pos_01.sql,cases/PERF/PERF_0006/sql/pos_01.sql,case,true,true,safe,pass,compatibility object with path
+PERF_0006,sql,sql.negatives[1],sql/neg_01.sql,cases/PERF/PERF_0006/sql/neg_01.sql,case,true,true,safe,pass,compatibility object with path
+PERF_0006,checker,checker.config,checker/checker.yaml,cases/PERF/PERF_0006/checker/checker.yaml,case,true,true,safe,pass,compatibility fallback from checker.checker
+PERF_0006,checker,checker.normalization,checker/normalization.yaml,cases/PERF/PERF_0006/checker/normalization.yaml,case,true,true,safe,pass,
+PERF_0006,checker,checker.compare_config,checker/compare_config.yaml,cases/PERF/PERF_0006/checker/compare_config.yaml,case,true,true,safe,pass,
+PERF_0006,checker,checker.expected_rejections,checker/expected_rejections.yaml,cases/PERF/PERF_0006/checker/expected_rejections.yaml,case,true,true,safe,pass,
+PERF_0006,schema_ref,schema_ref.engines.postgres.ddl,schemas/tpch_common_core_v0/postgres/ddl.sql,schemas/tpch_common_core_v0/postgres/ddl.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,schema_ref,schema_ref.engines.postgres.load,schemas/tpch_common_core_v0/postgres/load.sql,schemas/tpch_common_core_v0/postgres/load.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,schema_ref,schema_ref.engines.mysql.ddl,schemas/tpch_common_core_v0/mysql/ddl.sql,schemas/tpch_common_core_v0/mysql/ddl.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,schema_ref,schema_ref.engines.mysql.load,schemas/tpch_common_core_v0/mysql/load.sql,schemas/tpch_common_core_v0/mysql/load.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,schema_ref,schema_ref.engines.spark.ddl,schemas/tpch_common_core_v0/spark/ddl.sql,schemas/tpch_common_core_v0/spark/ddl.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,schema_ref,schema_ref.engines.spark.load,schemas/tpch_common_core_v0/spark/load.sql,schemas/tpch_common_core_v0/spark/load.sql,repo,true,true,safe,pass,compatibility fallback from schema_ref.<engine>
+PERF_0006,witness,witness.data_profile,witness/data_profile.yaml,cases/PERF/PERF_0006/witness/data_profile.yaml,case,false,true,safe,pass,
+PERF_0006,witness,witness.correct_result,witness/correct_result.csv,cases/PERF/PERF_0006/witness/correct_result.csv,case,false,true,safe,pass,
+PERF_0006,validation,validation.run_validation,validation/run_validation.sh,cases/PERF/PERF_0006/validation/run_validation.sh,case,true,true,safe,pass,
+PERF_0006,validation,validation.run_plan_collection,validation/run_plan_collection.sh,cases/PERF/PERF_0006/validation/run_plan_collection.sh,case,true,true,safe,pass,

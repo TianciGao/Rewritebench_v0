@@ -1,0 +1,24 @@
+# Boundary Checklist
+
+- [x] PostgreSQL only.
+- [x] Common-core v0 PostgreSQL selected rows only.
+- [x] SQLGlot noop route only.
+- [x] Candidate generation/capture run locally.
+- [x] Execution/checker run only for generated candidates.
+- [x] Timing restricted to exact/result-consistent rows.
+- [x] Selected-row denominator kept visible.
+- [x] Non-exact/no-candidate frontier preserved.
+- [x] Runtime output kept under `/tmp`.
+- [x] No `runs/user` artifacts committed.
+- [x] No repository-level `output` artifacts committed.
+- [x] No top-level `reports` or `results` modified.
+- [x] No Calcite rerun.
+- [x] No MySQL/Spark run.
+- [x] No Direct LLM or Repair-1 run.
+- [x] No SQLSolver or VeriEQL run.
+- [x] No official metrics computed.
+- [x] No Semantic Equivalence Rate computed.
+- [x] No formal Regression@20 computed.
+- [x] No paper reports/results updated.
+- [x] No retained evidence promoted.
+- [x] No leaderboard output created.

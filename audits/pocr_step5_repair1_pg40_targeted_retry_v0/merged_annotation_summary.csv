@@ -1,0 +1,2 @@
+total_rows,original_full_run_rows,retry_success_rows,retry_failed_preserved_rows,schema_valid_rows,schema_invalid_or_failclosed_rows,notes
+40,35,5,0,40,0,merged JSONL has exactly 40 unique case rows; no official POCR computed

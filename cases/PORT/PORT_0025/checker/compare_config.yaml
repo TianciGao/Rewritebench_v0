@@ -1,6 +1,18 @@
 case_id: PORT_0025
-pool: PORT
-source_reference_output: evidence/retained_controls/mysql/source.tsv
-positive_outputs_must_match_reference: true
-hard_negative_outputs_must_diverge: true
+inputs:
+  source: sql/source.sql
+  positive: sql/pos_01.sql
+  negative: sql/neg_01.sql
+  compatibility_positive: sql/pos_01.sql
+  compatibility_negative: sql/neg_01.sql
+expected:
+  source_equals_positive: true
+  source_differs_from_negative: true
+retained_evidence:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
 db_validation_run: false
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none

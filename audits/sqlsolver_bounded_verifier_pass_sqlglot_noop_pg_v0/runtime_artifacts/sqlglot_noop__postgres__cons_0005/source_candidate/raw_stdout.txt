@@ -1,0 +1,3 @@
+Verifying pair 1
+Verification time: 102 ms
+1 EQ

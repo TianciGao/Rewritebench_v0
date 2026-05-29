@@ -1,0 +1,24 @@
+# Boundary Checklist
+
+- [x] Inventory-only task.
+- [x] No broad physical migration.
+- [x] No `cases/` move.
+- [x] No `case_sets/` move.
+- [x] No `schemas/` move.
+- [x] No `inventory/` move.
+- [x] No `scripts/dev` move.
+- [x] No source code changes.
+- [x] No test changes.
+- [x] No experiments run.
+- [x] No Common-core run.
+- [x] No verifier run.
+- [x] No official metrics computed.
+- [x] No Semantic Equivalence Rate computed.
+- [x] No paper tables updated.
+- [x] No reports/results update.
+- [x] No retained evidence promoted.
+- [x] No leaderboard output created.
+- [x] No denominator change.
+- [x] No case membership change.
+- [x] No paper result change.
+- [x] No `runs/user`, repository-level `output`, top-level `reports`, or `results` artifacts staged.

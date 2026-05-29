@@ -28,12 +28,14 @@ def _args(
     *,
     dry_run: bool = False,
     adapter_timeout: int = 30,
+    smoke: bool = False,
 ) -> Namespace:
     return Namespace(
         case_set="common_core_v0",
-        pool="PERF",
+        pool="all" if smoke else "PERF",
         engine="postgres",
-        case_list=case_list,
+        case_list=None if smoke else case_list,
+        smoke=smoke,
         adapter_command=f"{sys.executable} {adapter}",
         out=out,
         run_id=None,
@@ -79,15 +81,18 @@ class UserRunOutputTests(unittest.TestCase):
         for option in [
             "--case-set",
             "--pool",
-            "--engine",
+            "--engines",
             "--case-list",
             "--adapter-command",
-            "--out",
+            "--output-root",
+            "--run-id",
             "--dry-run",
         ]:
             self.assertIn(option, guide)
-        self.assertIn("python -m sql_rewrite_bench.user_run", guide)
-        self.assertIn("python scripts/user/run_user_benchmark.py", guide)
+        self.assertIn("python -m cli.main user evaluate", guide)
+        self.assertIn("sqlrb user evaluate", guide)
+        self.assertIn("output/results/<run_id>/", guide)
+        self.assertIn("runs/user/<run_id>/", guide)
 
         parsed = parse_args(
             [
@@ -110,6 +115,22 @@ class UserRunOutputTests(unittest.TestCase):
         self.assertEqual(parsed.pool, "PERF")
         self.assertEqual(parsed.engine, "postgres")
         self.assertTrue(parsed.dry_run)
+
+        smoke_parsed = parse_args(
+            [
+                "--case-set",
+                "common_core_v0",
+                "--engine",
+                "postgres",
+                "--smoke",
+                "--adapter-command",
+                "python examples/user/noop_adapter.py",
+                "--out",
+                "runs/user/smoke_dry_run",
+                "--dry-run",
+            ]
+        )
+        self.assertTrue(smoke_parsed.smoke)
 
     def test_output_root_guard_accepts_only_runs_user(self) -> None:
         resolved = validate_output_root(Path("runs/user/demo"), REPO_ROOT)
@@ -194,6 +215,23 @@ class UserRunOutputTests(unittest.TestCase):
             self.assertEqual(list(csv.DictReader(f)), [])
         report = (out_dir / "report.md").read_text(encoding="utf-8")
         self.assertIn("Dry-run mode: `True`", report)
+
+    def test_public_smoke_noop_adapter_writes_only_runs_user(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            case_list = _case_list(Path(temp_dir), "IGNORED_FOR_SMOKE")
+            out = _unique_out("unittest_public_smoke")
+            adapter = REPO_ROOT / "examples" / "user" / "noop_adapter.py"
+            summary = run_user_benchmark(_args(out, case_list, adapter, smoke=True), REPO_ROOT)
+        self.assertEqual(summary["selected_rows"], 2)
+        self.assertEqual(summary["candidate_generated_rows"], 2)
+        out_dir = REPO_ROOT / out
+        with (out_dir / "selected_cases.csv").open(newline="", encoding="utf-8") as f:
+            selected = list(csv.DictReader(f))
+        self.assertEqual([row["case_id"] for row in selected], ["PERF_0006", "CONS_0005"])
+        with (out_dir / "ledger.csv").open(newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        self.assertTrue(all(row["candidate_sql_path"].startswith("runs/user/") for row in rows))
+        self.assertEqual({row["extraction_status"] for row in rows}, {"captured_from_candidate_file"})
 
     def test_stdout_adapter_records_stdout_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

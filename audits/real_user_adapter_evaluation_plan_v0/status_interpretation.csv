@@ -1,0 +1,15 @@
+status_or_stage,meaning,real_adapter_interpretation,not_allowed_interpretation,notes
+selected,Row selected from case_set and filters,Planned local diagnostic row,Official denominator success,Selection does not imply adapter or engine success.
+adapter_invoked,Adapter command was started,Adapter attempted to generate candidate SQL,Method correctness,Invocation is separate from candidate quality.
+adapter_failed,Adapter exited non-zero,Adapter command failure,SQL semantic mismatch,Do not execute candidate SQL after adapter failure.
+adapter_timeout,Adapter exceeded timeout,Adapter command timeout,SQL execution timeout,Record stdout/stderr artifacts if available.
+candidate_generated,Non-empty candidate SQL captured,Adapter produced SQL text,Executable or semantically correct SQL,Candidate may still fail preflight or DB execution.
+candidate_preflight_passed,Candidate passed local SQL safety/readiness checks,Eligible for DB execution,Semantic equivalence,Unsafe/multi-statement/unsupported candidates stop here.
+source_executable,Reference/source query executed,Source side available for comparison,Candidate success,Source failure blocks checker comparison.
+candidate_executable,Candidate SQL executed on selected target engine,Candidate produced local result artifacts,Semantic equivalence,Checker still decides exact/mismatch.
+checker_attempted,Checker compared source and candidate artifacts,Result comparison attempted,Official metric computation,Checker is local diagnostic only.
+exact,Checker found exact local result match,Local diagnostic exact row,Official metric or paper result,Exact rows are not timed unless separately authorized.
+mismatch,Checker found local result difference,Potential semantic or normalization issue needing triage,Adapter infrastructure failure,Classify before broadening scope.
+source_like,Generated SQL is source-like/no-op,Adapter may be copying source SQL,Target-dialect success for PORT,Useful diagnostic flag especially for PORT.
+unsupported_fail_closed,Metadata or backend says selected route is unsupported,Intentional local diagnostic boundary,Engine failure or method failure,No wrong-engine fallback.
+timed_absent,No timing status beyond not timed,Timing not authorized,Missing required metric,Timing/speedup must remain absent.

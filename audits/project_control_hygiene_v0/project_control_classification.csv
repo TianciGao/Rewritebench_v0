@@ -1,0 +1,8 @@
+path,classification,action,reason
+project_control/DECISION_LOG.md,ACTIVE_CORE,keep,"durable policy and roadmap decisions"
+project_control/MIGRATION_MASTER_PLAN.md,ACTIVE_CORE,keep,"stable global migration rules; not modified"
+project_control/MIGRATION_RUN_LOG.md,ACTIVE_CORE,keep,"chronological execution history"
+project_control/MIGRATION_STATUS.md,ACTIVE_CORE,keep,"current snapshot and next safe action"
+project_control/PORT_CROSS_DIALECT_DIAGNOSTIC_EXECUTION_PLAN.md,COMPLETED_ARCHIVE,archive,"PORT role metadata and controlled diagnostics are complete for current local-diagnostic phase; active policy is in D031/D034 and related audits"
+project_control/RELEASE_SURFACE_POLICY_DECISIONS.md,SUPERSEDED_ARCHIVE,archive,"release-surface policy decisions are recorded in D030; file is no longer an active control surface"
+project_control/USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md,COMPLETED_ARCHIVE,archive,"user-entry local evaluation workbench v0 is closed; active next-phase order is now D034"

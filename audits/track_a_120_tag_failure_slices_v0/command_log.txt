@@ -1,0 +1,31 @@
+# Command Log
+
+Exact read-only inspection commands used for source discovery and boundary review:
+
+```bash
+git status -sb
+git branch --show-current
+sed -n '1,160p' audits/track_a_120_existing_baseline_evidence_inventory_v0/baseline_artifact_presence.csv
+sed -n '1,160p' audits/track_a_120_existing_baseline_evidence_inventory_v0/tag_slice_presence_by_route.csv
+sed -n '1,160p' audits/track_a_120_existing_baseline_evidence_inventory_v0/failure_bucket_by_route.csv
+rg -n "tag_slices|failure bucket|diagnostic|POCR|SER|leaderboard|local metrics|Result Consistency|computed" repository_spec/metrics_contract_v1.md src/sql_rewrite_bench/tag_slices.py src/sql_rewrite_bench/local_metrics.py project_control/MIGRATION_MASTER_PLAN.md project_control/MIGRATION_STATUS.md project_control/DECISION_LOG.md project_control/MIGRATION_RUN_LOG.md
+sed -n '1,60p' runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/tag_slices.csv
+sed -n '1,80p' runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/failures.csv
+sed -n '1,5p' runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/ledger.csv
+sed -n '1,5p' runs/user/direct_llm_original_track_a_120_canonical_v0/ledger.csv
+find runs/user/direct_llm_original_track_a_120_canonical_v0__postgres -maxdepth 2 -type f | sort | sed -n '1,120p'
+rg -n "portability_risk|rewrite_opportunity|sql_feature|taxonomy|tags" runs/user/direct_llm_original_track_a_120_canonical_v0__postgres runs/user/direct_llm_original_track_a_120_canonical_v0 --glob '*.csv' --glob '*.json' --glob '*.md'
+sed -n '1,8p' runs/user/direct_llm_original_track_a_120_canonical_v0__postgres/selected_cases.csv
+sed -n '1,220p' src/sql_rewrite_bench/tag_slices.py
+```
+
+Generation command:
+
+```bash
+python - <<'PYGENEOF'
+# Generated audit CSV/Markdown outputs from existing ledgers, failures.csv, tag_slices.csv,
+# selected_cases.csv, and retained case manifest taxonomy metadata referenced by selected_cases.csv.
+PYGENEOF
+```
+
+No adapter command, database execution, checker execution, timing collection, LLM call, SQLSolver run, VeriEQL run, local-metrics computation, official metric computation, paper rendering, run artifact modification, or repository reports/results update was run.

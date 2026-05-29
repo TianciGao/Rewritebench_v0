@@ -1,0 +1,52 @@
+Commands used, with secrets redacted:
+
+Read/review commands:
+- `sed -n '1,260p' baselines/rbot/adapter.py`
+- `sed -n '261,620p' baselines/rbot/adapter.py`
+- `sed -n '620,980p' baselines/rbot/adapter.py`
+- `sed -n '1,280p' tests/user_entry/test_rbot_adapter.py`
+- `sed -n '1,220p' baselines/rbot/README.md`
+- `rg -n "urlopen|chat/completions|SQLRB_LLM_ALLOW_LIVE|SQLRB_LLM_BASE_URL|SQLRB_LLM_AUTH_HEADER|SAVE_RAW" baselines/direct_llm_original/adapter.py`
+- `rg -n "urlopen|chat/completions|SQLRB_LLM_ALLOW_LIVE|SQLRB_LLM_BASE_URL|SQLRB_LLM_AUTH_HEADER|SAVE_RAW" baselines/direct_llm_repair_1/adapter.py`
+- `python -m cli.main user evaluate --help`
+- safe environment probe for live gate/provider/base host/model/API-key presence, without printing key values
+
+Implementation/test commands:
+- `pytest tests/user_entry/test_rbot_adapter.py -q`
+- `python -m py_compile baselines/rbot/adapter.py`
+
+Case-list setup:
+- wrote `/tmp/sqlrb_rbot_gpt54_bounded_live_e2e_smoke_cases.txt` with `PERF_0006`, `CONS_0036`, `PERF_0007`, `CONS_0005`, `CONS_0007`, and `LONGTAIL_0011`
+
+Bounded live smoke command:
+- `SQLRB_RBOT_MODE=live SQLRB_LLM_SAVE_RAW_RESPONSE=0 python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --case-list /tmp/sqlrb_rbot_gpt54_bounded_live_e2e_smoke_cases.txt --adapter-command "python baselines/rbot/adapter.py" --output-root /tmp/sqlrb_rbot_gpt54_bounded_live_e2e_smoke_v0/output --run-id rbot_gpt54_bounded_live_e2e_smoke_v0 --adapter-timeout 180 --enable-db-execution --enable-checker --collect-timing --timing-repetitions 2 --timing-timeout 30`
+
+Runtime cleanup:
+- `rm -rf runs/user/rbot_gpt54_bounded_live_e2e_smoke_v0 /tmp/sqlrb_rbot_gpt54_bounded_live_e2e_smoke_v0 /tmp/sqlrb_rbot_gpt54_bounded_live_e2e_smoke_cases.txt`
+
+Validation commands:
+- CSV parse and row-count checks for `selected_live_e2e_rows.csv` and `live_e2e_outputs.csv`
+- Markdown/text non-empty checks for this audit packet
+- runtime reconciliation checks against `ledger.csv`, `quality_summary.json`, and `timing_summary.json` before runtime cleanup
+- runtime-output absence check after cleanup
+- `git diff --check`
+- changed-file secret scan for high-risk API-key/token patterns
+- protected-path review over changed and newly created files
+
+Not run:
+- official R-Bot runtime
+- RAG index build
+- Chroma
+- CalciteRewrite runtime
+- MySQL
+- Spark
+- `compute-local-metrics`
+- SQLSolver
+- VeriEQL
+- LearnedRewrite
+- LLM-R2
+- official metrics
+- paper rendering
+- retained evidence promotion
+- leaderboard generation
+- Track A 120

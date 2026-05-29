@@ -1,41 +1,63 @@
 # PORT_0022
 
-## Purpose
+## What this case tests
 
-PORT_0022 is a portability-focused SQL rewrite case package. Provenance is recorded in `metadata/provenance.yaml`; source-family metadata currently records `PARROT`.
+PORT_0022 is a dialect and engine portability case from the `PORT` pool. It exercises a PARROT query
+with declared dialect adaptation pressure around date/time semantics and type coercion. The package
+provides the source query, a reference rewrite, executable context, checker configuration, and
+validation entrypoints so that candidate SQL can be evaluated as a statement-level rewrite, not as
+an isolated SQL string.
 
-The package is organized as a benchmark case package, not as a standalone SQL string. It includes SQL assets, schema context, checker configuration, retained-evidence indexing, and denominator-eligibility metadata.
+## SQL pattern overview
 
-## Release Scope
+- Source query: The source query reads over `postlinks` and `posts` and uses joins, aggregation, and date/time or type expressions.
+- Reference rewrite: `sql/pos_01.sql` adapts identifiers, functions, or expression forms for the target dialect/context while keeping the visible query role.
+- Portability focus: The case concentrates on date/time semantics and type coercion across dialect/engine contexts.
 
-- Common-core v0 member: yes.
-- Track A same-engine denominator member: yes.
-- Common-core membership is governed by `case_sets/`, not by this README.
-- Denominator role is governed by denominator and case-set files, not by this README.
-- Paper-result contributor: governed by official metric/report artifacts, not this README.
-- Metrics computed in this package: no.
-- Public release role: Common-core v0 canonical case package.
+## Benchmark role
 
-## Package Contents
+- Pool: `PORT`
+- Common-core member: yes
+- Benchmark unit: case package
+- Primary pressure: `dialect / engine portability pressure`
+- Main rewrite opportunity: `dialect_adaptation`
+- Main semantic / portability / robustness risk: date/time semantics and type coercion
+- Evaluation scope: governed by `case_sets/common_core_v0/` and `manifest.yaml`
+- Reporting principle: results should be interpreted with role-aware and denominator-aware reporting
 
-- `manifest.yaml` is the package index.
-- `sql/` contains the source SQL and approved rewrite SQL assets for this case.
-- `schema/` contains engine-specific DDL/load assets and schema profile metadata where available.
-- `checker/` contains comparison, normalization, and expected-rejection configuration where applicable.
-- `evidence/` contains retained-evidence indexes and public-safe evidence summaries.
-- `metadata/` contains provenance, taxonomy, engine support, denominator eligibility, and artifact-path metadata.
-- `validation/` contains retained validation entrypoints where available; these are package assets, not evidence that a new validation run has been performed.
+## Package files
 
-## Evidence Boundary
+- Package index: `manifest.yaml`
+- Source query: `sql/source.sql`
+- Reference rewrite: `sql/pos_01.sql`
+- Hard negative: `sql/neg_01.sql`
+- Schema profile: `schema/schema_profile.yaml`
+- Checker configuration: `checker/`
+- Validation entrypoints:
+  - `validation/run_validation.sh`
+  - `validation/run_plan_collection.sh`
 
-Retained evidence is indexed through `evidence/runs_retention.yaml`. Raw legacy runs are not copied wholesale by default; unsafe raw logs, stdout/stderr/debug payloads, token/API/model traces, and private runtime artifacts are not part of the public package surface.
+Executable schema and data details are described by the schema profile and repository-level schema
+contracts. Source-family, provenance, taxonomy, checker, and denominator-eligibility details are
+recorded in `manifest.yaml`.
 
-New public runner outputs should not write into case-local legacy `runs/` directories by default. Generated outputs belong in an explicitly authorized external output root.
+## How to use this case
 
-## Benchmark Boundary
+Run validation and reproduction commands from the repository root using the documented
+repository-level workflow. The case-local validation scripts are entrypoints for this package, but
+new user or experiment outputs should be written to the documented top-level output location, not
+committed into the case package.
 
-This README does not create or change Common-core membership, denominator values, paper results, metric outputs, case-set membership, or leaderboard claims. Reports must remain role-aware and denominator-aware.
+This README is a human-readable guide. It does not compute metrics, define official paper results,
+or change denominator membership.
 
-## Notes / Future Review Status
+## Interpretation boundary
 
-Common-core v0 package; future reports must use denominator-aware artifacts rather than README text.
+This case includes a hard negative. Hard negatives are checker controls: they test whether the
+benchmark validation path rejects plausible but non-equivalent SQL. They are not method-generated
+candidates.
+
+Common-core membership, denominator values, metric definitions, and paper-facing results are
+governed by repository-level case-set, benchmark-spec, ledger, and report artifacts. This README
+does not define a leaderboard, winner, speedup claim, full portability closure, transfer-speed
+claim, or general SQL-equivalence claim.

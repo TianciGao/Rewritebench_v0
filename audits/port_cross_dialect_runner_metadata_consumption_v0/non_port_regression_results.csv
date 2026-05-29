@@ -1,0 +1,6 @@
+case_id,pool,expected_mode,resolver_result,behavior_result,notes
+PERF_0006,PERF,same_engine,passed,unaffected,Resolver defaults metadata-absent case to selected engine same-engine behavior.
+CONS_0005,CONS,same_engine,passed,unaffected,Resolver defaults metadata-absent case to selected engine same-engine behavior.
+LONGTAIL_0011,LONGTAIL,same_engine,passed,unaffected,Resolver defaults metadata-absent case to selected engine same-engine behavior.
+public_smoke_dry_run,mixed,same_engine,passed,unaffected,Existing two-row smoke dry-run behavior preserved.
+public_smoke_adapter_capture,mixed,same_engine,passed,unaffected,Existing two-row smoke adapter-capture behavior preserved.

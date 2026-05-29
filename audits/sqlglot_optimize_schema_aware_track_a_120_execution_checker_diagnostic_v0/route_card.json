@@ -1,0 +1,23 @@
+{
+  "candidate_executable_rows": "91",
+  "candidate_execution_failed_rows": "9",
+  "candidate_generated_rows": "105",
+  "checker_attempted_rows": "91",
+  "engine_scope": "postgres,mysql,spark",
+  "exact_rows": "66",
+  "fail_closed_rows": "20",
+  "label_only_mismatch_count": "16",
+  "leaderboard_output_created": "false",
+  "method_id": "sqlglot",
+  "mismatch_rows": "25",
+  "no_candidate_rows": "15",
+  "official_metric_input": "false",
+  "paper_result": "false",
+  "planned_rows": "120",
+  "route_id": "sqlglot_optimize_schema_aware",
+  "selected_rows": "120",
+  "semantic_mismatch_count": "9",
+  "source_executable_rows": "108",
+  "source_execution_failed_rows": "0",
+  "unsupported_rows": "5"
+}

@@ -1,0 +1,45 @@
+{
+  "candidate_executable_rows": 35,
+  "candidate_generated_rows": 40,
+  "candidate_preflight_failed_rows": 0,
+  "candidate_preflight_passed_rows": 40,
+  "checker_attempted_rows": 35,
+  "command_completed": true,
+  "connection_source": "libpq_env",
+  "db_execution_enabled_rows": 40,
+  "db_execution_attempted_rows": 35,
+  "db_execution_attempted_rows_note": "The user run enabled DB execution for all 40 rows. The current quality summary derives db_execution_attempted_rows from candidate execution status, so the five source_execution_failed rows are not counted in that derived field.",
+  "exact_rows": 35,
+  "failed_cases": [
+    "PORT_0004",
+    "PORT_0013",
+    "PORT_0022",
+    "PORT_0024",
+    "PORT_0025"
+  ],
+  "failure_bucket_counts": {
+    "none": 35,
+    "source_execution_failed": 5
+  },
+  "failure_note": "Five PORT rows failed during source execution with PostgreSQL syntax errors on backtick-quoted dialect SQL; checker was not attempted for those rows.",
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "mismatch_rows": 0,
+  "official_metrics_computed": false,
+  "paper_tables_rendered": false,
+  "postgres_environment_ready": true,
+  "psql_available": true,
+  "reports_results_updated": false,
+  "run_id": "common_core_pg_noop_db_checker",
+  "selected_rows": 40,
+  "source_executable_rows": 35,
+  "source_like_rows": 40,
+  "tag_slice_axes": {
+    "portability_risk": 21,
+    "rewrite_opportunity": 10,
+    "sql_feature": 26
+  },
+  "tag_slice_rows": 57,
+  "timed_rows": 0,
+  "timing_or_speedup_computed": false
+}

@@ -1,0 +1,85 @@
+case_id,current_path,current_asset_type,current_status,proposed_v2_location,proposed_manifest_ref,action,automatic_safe,deletion_allowed_after,manual_review_required,notes
+PERF_0006,README.md,readme,present,README.md,none,keep,true,not_applicable,false,Already updated for normalized v2 status.
+PERF_0006,manifest.yaml,manifest,present_canonical,manifest.yaml,root,keep,true,not_applicable,false,Canonical v2 shape already present.
+PERF_0006,sql/source.sql,source_sql,present,sql/source.sql,sql.source,keep,true,not_applicable,false,Required source SQL.
+PERF_0006,sql/pos_01.sql,positive_sql,present_direct,sql/pos_01.sql,sql.positives,keep,true,not_applicable,false,Canonical direct path exists.
+PERF_0006,sql/neg_01.sql,negative_sql,present_direct,sql/neg_01.sql,sql.negatives,keep,true,not_applicable,false,Canonical direct path exists.
+PERF_0006,sql/positives/,legacy_sql_dir,present,compatibility.sql_legacy,compatibility.sql_legacy,retain_until_cleanup,false,after_direct_refs_and_validator_accepted,false,Compatibility copy only.
+PERF_0006,sql/negatives/,legacy_sql_dir,present,compatibility.sql_legacy,compatibility.sql_legacy,retain_until_cleanup,false,after_direct_refs_and_validator_accepted,false,Compatibility copy only.
+PERF_0006,schema/,case_local_schema,present,schemas/tpch_common_core_v0/,schema_ref,retain_compatibility_copy,false,after_runner_validator_schema_ref_approval,false,External schema exists.
+PERF_0006,checker/,checker_assets,present_canonical_refs,checker/,checker.*,keep,true,not_applicable,false,Canonical refs present.
+PERF_0006,witness/,witness_assets,present_optional,witness/,witness.*,optional_keep,false,after_source_as_oracle_policy_review,false,Lightweight witness retained.
+PERF_0006,data/,data_assets,present,evidence/cases/PERF/PERF_0006/notes/,witness.data_profile_status,externalize_or_manifest_merge,false,after_external_mapping,true,Not required case-local v2 content.
+PERF_0006,evidence/,case_local_evidence,present,evidence/cases/PERF/PERF_0006/,evidence_ref,copy_first_externalize,false,after_retention_mapping,false,No deletion in this task.
+PERF_0006,runs/,case_local_runs,placeholder_readme_only,none,none,delete_after_audit_later,false,after_cleanup_authorization,false,Only policy README present.
+PERF_0006,metadata/,metadata,present,manifest.yaml,metadata_or_compatibility,manifest_merge,false,after_manifest_merge_review,false,Already referenced in manifest.
+PERF_0006,notes/,notes,present,evidence/cases/PERF/PERF_0006/notes/,compatibility.metadata,copy_or_manifest_merge,false,after_public_hygiene_review,false,Stable notes only.
+PERF_0006,validation/run_validation.sh,validation_wrapper,present,validation/run_validation.sh,validation.run_validation,keep,true,not_applicable,false,Generic wrapper exists.
+PERF_0006,validation/run_plan_collection.sh,validation_wrapper,present,validation/run_plan_collection.sh,validation.run_plan_collection,keep,true,not_applicable,false,Generic wrapper exists.
+PERF_0006,validation/run_*_validation.sh,engine_validation_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs.
+PERF_0006,validation/run_*_plan_collection.sh,engine_plan_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs or records legacy plans.
+PERF_0007,README.md,readme,present,README.md,none,keep,true,not_applicable,false,Update only when writable conversion is authorized.
+PERF_0007,manifest.yaml,manifest,present_v1_compatible,manifest.yaml,root,manifest_normalize,false,after_validation_not_delete,true,Needs canonical v2 shape.
+PERF_0007,sql/source.sql,source_sql,present,sql/source.sql,sql.source,keep,true,not_applicable,false,Required source SQL.
+PERF_0007,sql/positives/pos_01.sql,positive_sql,present_nested,sql/pos_01.sql,sql.positives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated in writable task.
+PERF_0007,sql/negatives/neg_01.sql,negative_sql,present_nested,sql/neg_01.sql,sql.negatives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated in writable task.
+PERF_0007,schema/,case_local_schema,present,schemas/tpch_perf0007_v0/,schema_ref,copy_first_externalize,false,after_schema_ref_approval,true,Differs from PERF_0006 external schema.
+PERF_0007,checker/,checker_assets,present_noncanonical_manifest_refs,checker/,checker.*,keep,true,not_applicable,false,Manifest must switch checker.checker to checker.config.
+PERF_0007,data/,data_assets,present,evidence/cases/PERF/PERF_0007/notes/,witness.data_profile_status,externalize_or_manifest_merge,false,after_external_mapping,true,Not required case-local v2 content.
+PERF_0007,evidence/,case_local_evidence,present,evidence/cases/PERF/PERF_0007/,evidence_ref,copy_first_externalize,false,after_retention_mapping,true,Public hygiene review needed.
+PERF_0007,runs/,case_local_runs,placeholder_readme_only,none,none,delete_after_audit_later,false,after_cleanup_authorization,false,Only policy README present.
+PERF_0007,metadata/,metadata,present,manifest.yaml,metadata_or_compatibility,manifest_merge,false,after_manifest_merge_review,true,Governance metadata should be preserved.
+PERF_0007,notes/,notes,present,evidence/cases/PERF/PERF_0007/notes/,compatibility.metadata,copy_or_manifest_merge,false,after_public_hygiene_review,true,Stable notes only.
+PERF_0007,validation/run_validation.sh,validation_wrapper,missing,validation/run_validation.sh,validation.run_validation,create_wrapper,false,not_applicable,true,Wrapper creation required.
+PERF_0007,validation/run_plan_collection.sh,validation_wrapper,missing,validation/run_plan_collection.sh,validation.run_plan_collection,create_wrapper,false,not_applicable,true,Wrapper creation required.
+PERF_0007,validation/run_*_validation.sh,engine_validation_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs and invokes engines.
+PERF_0007,validation/run_*_plan_collection.sh,engine_plan_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs or plans.
+CONS_0005,README.md,readme,present,README.md,none,keep,true,not_applicable,false,Update only when writable conversion is authorized.
+CONS_0005,manifest.yaml,manifest,present_v1_compatible,manifest.yaml,root,manifest_normalize,false,after_validation_not_delete,true,Needs canonical v2 shape.
+CONS_0005,sql/source.sql,source_sql,present,sql/source.sql,sql.source,keep,true,not_applicable,false,Required source SQL.
+CONS_0005,sql/positives/pos_01.sql,positive_sql,present_nested,sql/pos_01.sql,sql.positives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+CONS_0005,sql/negatives/neg_01.sql,negative_sql,present_nested,sql/neg_01.sql,sql.negatives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+CONS_0005,schema/,case_local_schema,present,schemas/calcite_core_sql_tests_cons0005_v0/,schema_ref,copy_first_externalize,false,after_schema_ref_approval,true,External schema id needs review.
+CONS_0005,checker/,checker_assets,present_noncanonical_manifest_refs,checker/,checker.*,keep,true,not_applicable,false,Manifest must switch checker.checker to checker.config.
+CONS_0005,data/,data_assets,present,evidence/cases/CONS/CONS_0005/notes/,witness.data_profile_status,externalize_or_manifest_merge,false,after_external_mapping,true,Not required case-local v2 content.
+CONS_0005,evidence/,case_local_evidence,present,evidence/cases/CONS/CONS_0005/,evidence_ref,copy_first_externalize,false,after_retention_mapping,true,Public hygiene review needed.
+CONS_0005,runs/,case_local_runs,placeholder_readme_only,none,none,delete_after_audit_later,false,after_cleanup_authorization,false,Only policy README present.
+CONS_0005,metadata/,metadata,present,manifest.yaml,metadata_or_compatibility,manifest_merge,false,after_manifest_merge_review,true,Governance metadata should be preserved.
+CONS_0005,notes/,notes,present,evidence/cases/CONS/CONS_0005/notes/,compatibility.metadata,copy_or_manifest_merge,false,after_public_hygiene_review,true,Stable notes only.
+CONS_0005,validation/run_validation.sh,validation_wrapper,missing,validation/run_validation.sh,validation.run_validation,create_wrapper,false,not_applicable,true,Wrapper creation required.
+CONS_0005,validation/run_plan_collection.sh,validation_wrapper,missing,validation/run_plan_collection.sh,validation.run_plan_collection,create_wrapper,false,not_applicable,true,Wrapper creation required.
+CONS_0005,validation/run_*_validation.sh,engine_validation_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Engine logic must be reviewed.
+CONS_0005,validation/run_*_plan_collection.sh,engine_plan_scripts,present_unique_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Engine logic must be reviewed.
+PORT_0003,README.md,readme,present,README.md,none,keep,true,not_applicable,false,Update only when writable conversion is authorized.
+PORT_0003,manifest.yaml,manifest,present_v1_compatible_with_dialect_variants,manifest.yaml,root,manifest_normalize,false,after_validation_not_delete,true,Dialect variants need compatibility policy.
+PORT_0003,sql/source.sql,source_sql,present,sql/source.sql,sql.source,keep,true,not_applicable,false,Required source SQL.
+PORT_0003,sql/positives/pos_01.sql,positive_sql,present_nested,sql/pos_01.sql,sql.positives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+PORT_0003,sql/negatives/neg_01.sql,negative_sql,present_nested,sql/neg_01.sql,sql.negatives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+PORT_0003,sql/dialect_variants/spark/,dialect_variant_sql,present,compatibility.sql_dialect_variants,compatibility.sql_dialect_variants,retain_until_policy,false,after_dialect_variant_policy,true,Spark variants are portability-specific.
+PORT_0003,schema/,case_local_schema,present,schemas/parrot_bird_port0003_v0/,schema_ref,copy_first_externalize,false,after_schema_ref_approval,true,External schema id needs review.
+PORT_0003,checker/,checker_assets,present_noncanonical_manifest_refs,checker/,checker.*,keep,true,not_applicable,false,Manifest must switch checker.checker to checker.config.
+PORT_0003,data/,data_assets,present,evidence/cases/PORT/PORT_0003/notes/,witness.data_profile_status,externalize_or_manifest_merge,false,after_external_mapping,true,Includes fixture witness rows.
+PORT_0003,evidence/,case_local_evidence,present,evidence/cases/PORT/PORT_0003/,evidence_ref,copy_first_externalize,false,after_retention_mapping,true,Includes Spark variant retained outputs.
+PORT_0003,runs/,case_local_runs,placeholder_readme_only,none,none,delete_after_audit_later,false,after_cleanup_authorization,false,Only policy README present.
+PORT_0003,metadata/,metadata,present,manifest.yaml,metadata_or_compatibility,manifest_merge,false,after_manifest_merge_review,true,Portability metadata should be preserved.
+PORT_0003,notes/,notes,present,evidence/cases/PORT/PORT_0003/notes/,compatibility.metadata,copy_or_manifest_merge,false,after_public_hygiene_review,true,Stable notes only.
+PORT_0003,validation/run_validation.sh,validation_wrapper,missing,validation/run_validation.sh,validation.run_validation,create_wrapper,false,not_applicable,true,Wrapper creation required.
+PORT_0003,validation/run_plan_collection.sh,validation_wrapper,missing,validation/run_plan_collection.sh,validation.run_plan_collection,create_wrapper,false,not_applicable,true,Wrapper creation required.
+PORT_0003,validation/run_*_validation.sh,engine_validation_scripts,present_unique_portability_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Uses dialect variants and target-specific logic.
+PORT_0003,validation/run_*_plan_collection.sh,engine_plan_scripts,present_unique_portability_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Uses dialect variants and target-specific plans.
+LONGTAIL_0011,README.md,readme,present,README.md,none,keep,true,not_applicable,false,Update only when writable conversion is authorized.
+LONGTAIL_0011,manifest.yaml,manifest,present_v1_compatible_with_structural_metadata,manifest.yaml,root,manifest_normalize,false,after_validation_not_delete,true,Structural metadata must be preserved.
+LONGTAIL_0011,sql/source.sql,source_sql,present,sql/source.sql,sql.source,keep,true,not_applicable,false,Required source SQL.
+LONGTAIL_0011,sql/positives/pos_01.sql,positive_sql,present_nested,sql/pos_01.sql,sql.positives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+LONGTAIL_0011,sql/negatives/neg_01.sql,negative_sql,present_nested,sql/neg_01.sql,sql.negatives,copy_first,true,after_direct_refs_validate,false,Direct copy can be generated.
+LONGTAIL_0011,schema/,case_local_schema,present,schemas/sqlstorm_stackoverflow_longtail0011_v0/,schema_ref,copy_first_externalize,false,after_schema_ref_approval,true,External schema id needs review.
+LONGTAIL_0011,checker/,checker_assets,present_noncanonical_manifest_refs,checker/,checker.*,keep,true,not_applicable,false,Manifest must switch checker.checker to checker.config.
+LONGTAIL_0011,data/,data_assets,present,evidence/cases/LONGTAIL/LONGTAIL_0011/notes/,witness.data_profile_status,externalize_or_manifest_merge,false,after_external_mapping,true,Not required case-local v2 content.
+LONGTAIL_0011,evidence/,case_local_evidence,present,evidence/cases/LONGTAIL/LONGTAIL_0011/,evidence_ref,copy_first_externalize,false,after_retention_mapping,true,Rich retained controls and plans need public hygiene.
+LONGTAIL_0011,runs/,case_local_runs,placeholder_readme_only,none,none,delete_after_audit_later,false,after_cleanup_authorization,false,Only policy README present.
+LONGTAIL_0011,metadata/,metadata,present,manifest.yaml,metadata_or_compatibility,manifest_merge,false,after_manifest_merge_review,true,Structural metadata should be preserved.
+LONGTAIL_0011,notes/,notes,present,evidence/cases/LONGTAIL/LONGTAIL_0011/notes/,compatibility.metadata,copy_or_manifest_merge,false,after_public_hygiene_review,true,Stable notes only.
+LONGTAIL_0011,validation/run_validation.sh,validation_wrapper,missing,validation/run_validation.sh,validation.run_validation,create_wrapper,false,not_applicable,true,Wrapper creation required.
+LONGTAIL_0011,validation/run_plan_collection.sh,validation_wrapper,missing,validation/run_plan_collection.sh,validation.run_plan_collection,create_wrapper,false,not_applicable,true,Wrapper creation required.
+LONGTAIL_0011,validation/run_*_validation.sh,engine_validation_scripts,present_unique_structural_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs and encodes structural checks.
+LONGTAIL_0011,validation/run_*_plan_collection.sh,engine_plan_scripts,present_unique_structural_logic,compatibility.validation_legacy,compatibility.validation_legacy,retain_until_shared_logic,false,after_wrapper_shared_logic_approval,true,Writes case-local runs or plans.

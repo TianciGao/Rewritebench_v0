@@ -1,0 +1,21 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "evidence_surface_policy_revision": true,
+  "static_evidence_required_for_clean_v2": false,
+  "case_local_evidence_deletion_performed": false,
+  "top_level_evidence_deletion_performed": false,
+  "validator_policy_updated": true,
+  "tests_updated": true,
+  "case_files_modified": false,
+  "evidence_deleted": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize case_package_v2_evidence_reference_removal_execution_v0 to replace live static evidence references with evidence_policy and delete only unreferenced static evidence surfaces after protected-boundary checks."
+}

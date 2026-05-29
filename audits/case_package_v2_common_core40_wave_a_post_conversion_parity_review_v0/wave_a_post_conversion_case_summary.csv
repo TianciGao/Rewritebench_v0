@@ -1,0 +1,6 @@
+case_id,pool,validator_status,clean_required_assets_present,clean_template_minimal,manifest_consistency,schema_policy_ok,remaining_gap_count,remaining_gaps,ready_for_wave_b,notes
+PERF_0008,PERF,pass,yes,yes,yes,yes,0,none,yes,Clean-template-minimal v2 case with source-as-oracle witness and regeneration-first evidence policy.
+PERF_0013,PERF,pass,yes,yes,yes,yes,0,none,yes,Clean-template-minimal v2 case with source-as-oracle witness and regeneration-first evidence policy.
+PERF_0017,PERF,pass,yes,yes,yes,yes,0,none,yes,Clean-template-minimal v2 case with source-as-oracle witness and regeneration-first evidence policy.
+PERF_0019,PERF,pass,yes,yes,yes,yes,0,none,yes,Clean-template-minimal v2 case with source-as-oracle witness and regeneration-first evidence policy.
+PERF_0024,PERF,pass,yes,yes,yes,yes,0,none,yes,Clean-template-minimal v2 case with source-as-oracle witness and regeneration-first evidence policy.

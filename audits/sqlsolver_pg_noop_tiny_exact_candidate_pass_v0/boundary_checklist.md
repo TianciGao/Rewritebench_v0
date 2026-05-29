@@ -1,0 +1,23 @@
+# Boundary Checklist
+
+- SQLSolver external source inspected/read: yes.
+- SQLSolver external source modified: no.
+- SQLSolver source/JAR/libs committed: no.
+- VeriEQL run performed: no.
+- MySQL/Spark run performed: no.
+- Full Common-core run performed: no.
+- All 35 PostgreSQL exact rows run: no.
+- All 120 Track-A rows run: no.
+- Official Semantic Equivalence Rate computed: no.
+- Local diagnostic SQLSolver tiny SER computed: yes.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Local result checker exactness used as verifier equivalence: no.
+- `runs/user` outputs committed: no.
+- Repository-level `output` runtime artifacts committed: no.

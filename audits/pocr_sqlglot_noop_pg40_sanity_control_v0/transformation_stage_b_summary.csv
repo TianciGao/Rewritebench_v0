@@ -1,0 +1,5 @@
+pool,rows,expected_operation_atoms,transformation_supported_operation_atoms,presence_only_operation_atoms,insufficient_transformation_evidence_atoms,schema_invalid_rows,notes
+PERF,16,43,0,4,27,4,"SQLGlot no-op sanity/control; diagnostic counts only, no official numerator."
+CONS,9,21,0,2,17,1,"SQLGlot no-op sanity/control; diagnostic counts only, no official numerator."
+PORT,9,26,0,9,17,0,"SQLGlot no-op sanity/control; diagnostic counts only, no official numerator."
+LONGTAIL,6,17,0,0,14,1,"SQLGlot no-op sanity/control; diagnostic counts only, no official numerator."

@@ -1,0 +1,30 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "wave_c_subwave2_post_conversion_review": true,
+  "reviewed_case_ids": [
+    "PORT_0008",
+    "PORT_0012",
+    "PORT_0022",
+    "PORT_0024",
+    "PORT_0025"
+  ],
+  "validator_passed_count": 5,
+  "clean_template_minimal_passed_count": 5,
+  "manifest_consistency_passed": true,
+  "validation_three_file_contract_passed": true,
+  "ready_for_final_dialect_variant_ports": true,
+  "case_files_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a bounded writable final Wave C dialect-variant PORT conversion for PORT_0004 and PORT_0013, preserving dialect variants and protected boundaries."
+}

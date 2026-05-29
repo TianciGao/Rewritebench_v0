@@ -1,0 +1,4 @@
+case_id,dialect_variant_path,exists,retained_as_semantic_asset,deletion_allowed,blocker,notes
+PORT_0005,sql/dialect_variants/spark/,true,true,false,false,"Spark dialect variant directory is retained and is not a clean-template blocker."
+PORT_0005,sql/dialect_variants/spark/pos_02_spark.sql,true,true,false,false,"Positive Spark dialect variant retained as optional semantic PORT asset."
+PORT_0005,sql/dialect_variants/spark/neg_02_spark.sql,true,true,false,false,"Hard-negative Spark dialect variant retained as optional semantic PORT asset."

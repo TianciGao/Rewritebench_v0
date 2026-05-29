@@ -1,0 +1,11 @@
+check_id,area,question,status,evidence,notes
+C01,roles,source.sql used as transformation origin,pass,src/sql_rewrite_bench/pocr/candidate_resolver.py and user_facade.py,source SQL is resolved/read separately
+C02,roles,positive SQL is reference evidence not atom source,pass_with_boundary,src/sql_rewrite_bench/pocr/prompt_builder.py and operation_evidence_policy.py,optional wording improvement recommended
+C03,roles,skills.md is the only operation-atom source,pass,src/sql_rewrite_bench/pocr/skills_parser.py and user_facade.py,expected operation atoms use contract.operation_atoms
+C04,roles,candidate SQL is method output under evaluation,pass,src/sql_rewrite_bench/pocr/candidate_resolver.py,candidate_root supplies method output only
+C05,no_op,SQLGlot no-op is candidate/control not reference,pass,audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/no_op_overaccept_review.md,no-op support count is zero
+C06,stage_b,positive_sql_span alone is not operation support,pass,src/sql_rewrite_bench/pocr/operation_evidence_policy.py,requires source_candidate_diff plus candidate-specific or positive-aligned span
+C07,stage_b,candidate/source/positive span presence alone is not operation support,pass,src/sql_rewrite_bench/pocr/operation_evidence_policy.py,presence-only status retained
+C08,exporter,row metrics do not infer atoms from SQL,pass,src/sql_rewrite_bench/pocr/stage_b_row_metrics.py,uses diagnostic row Stage B counts
+C09,aggregator,aggregator does not infer atoms from SQL or no-op controls,pass,src/sql_rewrite_bench/pocr/pocr_aggregator.py,reads row metrics only
+C10,reporting,PG40 values remain diagnostic only,pass_with_boundary,audits/pocr_pg40_official_pilot_annotation_replay_aggregation_v0/,future promotion freeze still separately gated

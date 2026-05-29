@@ -1,0 +1,33 @@
+{
+  "adapter_command": "python examples/user/noop_adapter.py",
+  "candidate_generated_rows": 40,
+  "candidate_preflight_passed_rows": 40,
+  "case_set": "common_core_v0",
+  "checker_attempted_rows": 31,
+  "cross_dialect_target_unsupported_rows": 5,
+  "db_execution_enabled_rows": 40,
+  "diagnostic_mode_counts": {
+    "cross_dialect_reference": 5,
+    "same_engine": 35
+  },
+  "engine": "mysql",
+  "exact_rows": 31,
+  "failure_bucket_counts": {
+    "none": 31,
+    "source_execution_failed": 4,
+    "unsupported_engine": 5
+  },
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true,
+  "mismatch_rows": 0,
+  "mysql_candidate_executable_rows": 31,
+  "mysql_candidate_execution_attempted_rows": 31,
+  "mysql_source_executable_rows": 31,
+  "mysql_source_execution_attempted_rows": 35,
+  "official_metrics_computed": false,
+  "reports_results_updated": false,
+  "run_output_path": "runs/user/common_core_mysql_noop_db_checker/",
+  "selected_rows": 40,
+  "source_like_rows": 40,
+  "timing_or_speedup_computed": false
+}

@@ -1,0 +1,25 @@
+# Boundary Checklist
+
+- PostgreSQL Common-core v0 slice only: yes.
+- MySQL/Spark run: no.
+- Full Track-A 120 run: no.
+- Candidate SQL generated/captured only: yes.
+- Candidate SQL executed: no.
+- Source/candidate database execution run: no.
+- Result checker run: no.
+- Timing/speedup collected: no.
+- Verifier pass run: no.
+- Generation Rate computed as official metric: no.
+- Execution Coverage computed as official metric: no.
+- Result Consistency computed as official metric: no.
+- Semantic Equivalence Rate computed: no.
+- Top-level reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Paper results changed: no.
+- Calcite vendored into release repo: no.
+- `runs/user/` artifacts committed: no.
+- Repository-level `output/` artifacts committed: no.
+- Runtime artifacts limited to `/tmp`: yes.

@@ -1,0 +1,19 @@
+check_id,command_or_check,status,notes
+V01,git status -sb,passed,Worktree clean before editing
+V02,git branch --show-current,passed,Branch feature/case-package-v2-external-schema
+V03,git log --oneline -20,passed,Recent history inspected
+V04,project-control and final readiness packet read,passed,Required control and audit packets read
+V05,release surface inspection,passed,README metadata benchmark_spec docs examples cases schemas workflows reports/results inspected
+V06,user_run module help,passed,PYTHONPATH=src python -m sql_rewrite_bench.user_run --help
+V07,user wrapper help,passed,python scripts/user/run_user_benchmark.py --help
+V08,explain-selection smoke readability,passed,Selected 2 rows and created no run outputs
+V09,show-output-schema readability,passed,Printed local-only output schema boundaries
+V10,user-entry tests,passed,70 passed and 1 skipped
+V11,legacy canonical-case validator advisory,not_applicable_expected_fail,validate_case_package.py v0.3 checks older v1 canonical layout and fails current v2 clean-template packages
+V12,v2 reference validator for Common-core 40,passed,40 cases checked and 0 failures
+V13,git diff --check,passed,Run after audit packet creation
+V14,CITATION.cff YAML validation,passed,CFF YAML parsed and Apache-2.0/no-DOI placeholders checked
+V15,Markdown sanity checks,passed,Public metadata and new audit markdown headings plus placeholder path checks passed
+V16,CSV/JSON parse checks,passed,New audit CSV and JSON files parsed successfully
+V17,.gitignore policy check,passed,runs/user/ ignored and whole runs/ not ignored
+V18,protected-surface diff check,passed,Only v1 audit packet and project-control status/log changed

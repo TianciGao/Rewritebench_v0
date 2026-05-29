@@ -1,0 +1,102 @@
+{
+  "by_case": {
+    "CONS_0005": {
+      "candidate_executable_rows": 2,
+      "candidate_execution_failed_rows": 1,
+      "checker_attempted_rows": 2,
+      "exact_rows": 1,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 1,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "CONS_0036": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 2,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 1,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "PERF_0006": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 3,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    }
+  },
+  "by_engine": {
+    "mysql": {
+      "candidate_executable_rows": 2,
+      "candidate_execution_failed_rows": 1,
+      "checker_attempted_rows": 2,
+      "exact_rows": 2,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "postgres": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 3,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 0,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    },
+    "spark": {
+      "candidate_executable_rows": 3,
+      "candidate_execution_failed_rows": 0,
+      "checker_attempted_rows": 3,
+      "exact_rows": 1,
+      "generated_candidate_rows": 3,
+      "mismatch_rows": 2,
+      "planned_rows": 3,
+      "preflight_passed_rows": 3,
+      "source_executable_rows": 3,
+      "source_execution_failed_rows": 0
+    }
+  },
+  "candidate_executable_rows": 8,
+  "candidate_execution_failed_rows": 1,
+  "checker_attempted_rows": 8,
+  "exact_rows": 6,
+  "failure_buckets": {
+    "candidate_execution_failed": 1,
+    "mismatch": 2,
+    "none": 6
+  },
+  "generated_candidate_rows": 9,
+  "invalid_cons0005_qualification_rows": 0,
+  "method_id": "sqlglot",
+  "mismatch_rows": 2,
+  "mysql_array_any_warning_rows": 1,
+  "official_metric_input": false,
+  "paper_result": false,
+  "planned_rows": 9,
+  "preflight_passed_rows": 9,
+  "route_id": "sqlglot_optimize_schema_aware",
+  "source_executable_rows": 9,
+  "source_execution_failed_rows": 0,
+  "task": "sqlglot_optimize_schema_aware_bounded_tri_engine_execution_checker_v0",
+  "timing_collected": false,
+  "verifier_run": false
+}

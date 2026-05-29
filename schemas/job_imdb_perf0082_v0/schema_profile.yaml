@@ -1,0 +1,46 @@
+schema_profile_version: external_schema_contract_v1
+schema_id: job_imdb_perf0082_v0
+case_ids:
+- PERF_0082
+source_family: JOB/IMDB
+engines:
+  postgres:
+    ddl: schemas/job_imdb_perf0082_v0/postgres/ddl.sql
+    load: schemas/job_imdb_perf0082_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/job_imdb_perf0082_v0/mysql/ddl.sql
+    load: schemas/job_imdb_perf0082_v0/mysql/load.sql
+  spark:
+    ddl: schemas/job_imdb_perf0082_v0/spark/ddl.sql
+    load: schemas/job_imdb_perf0082_v0/spark/load.sql
+tables:
+- name: company_type
+  columns:
+  - id
+  - kind
+  row_count: 2
+- name: info_type
+  columns:
+  - id
+  row_count: 1
+- name: movie_companies
+  columns:
+  - id
+  - company_type_id
+  - movie_id
+  - note
+  row_count: 3
+- name: movie_info
+  columns:
+  - id
+  - info_type_id
+  - info
+  - movie_id
+  row_count: 3
+- name: title
+  columns:
+  - id
+  - production_year
+  - title
+  row_count: 3
+notes: Wave B case-specific external schema package; grouping was not reused because exact DDL/load assets differ by case.

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: SQL-RewriteBench
+message: "If you use SQL-RewriteBench, please cite this repository and the associated paper when available."
+type: software
+authors:
+  - name: "SQL-RewriteBench contributors"
+repository-code: "https://github.com/TianciGao/Rewritebench_v0"
+license: "Apache-2.0"
+version: "TBD"
+abstract: "SQL-RewriteBench is a public workbench for statement-level SQL rewrite benchmarking."

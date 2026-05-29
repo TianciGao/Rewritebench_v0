@@ -1,0 +1,9 @@
+case_id,path,exists_in_tracked_branch,exists_in_worktree,path_type,clean_template_status,current_role,counts_as_remaining_extra_path,blocker,next_action,notes
+PERF_0006,none,false,false,no_tracked_gap,clean_template_minimal,no extra tracked path,false,false,no_action,All required tracked assets present.
+PERF_0007,none,false,false,no_tracked_gap,clean_template_minimal,no extra tracked path,false,false,no_action,All required tracked assets present.
+CONS_0005,none,false,false,no_tracked_gap,clean_template_minimal,no extra tracked path,false,false,no_action,All required tracked assets present.
+PORT_0003,sql/dialect_variants/spark/,true,true,tracked_optional_semantic_asset,v2_optional,retained Spark dialect variants,true,false,retain_as_optional_v2_asset,Contains pos_02_spark.sql and neg_02_spark.sql; not a blocker.
+LONGTAIL_0011,none,false,false,no_tracked_gap,clean_template_minimal,no extra tracked path,false,false,no_action,All required tracked assets present.
+ALL_PILOT_CASES,sql/positives/; sql/negatives/; notes/,false,true,local_empty_untracked_directories,not_public_branch_surface,empty local directories after previous tracked-file deletion,false,false,no_branch_action,These directories contain zero files and are not tracked by git; they do not affect branch/public parity.
+ALL_PILOT_CASES,evidence/cases/<POOL>/<CASE_ID>/,false,false,deleted_static_evidence_surface,not_required_by_clean_v2,removed by prior evidence-reference cleanup,false,false,no_action,The five pilot top-level static evidence packages are absent.
+ALL_PILOT_CASES,cases/<POOL>/<CASE_ID>/evidence/,false,false,absent_case_local_evidence,not_required_by_clean_v2,already absent,false,false,no_action,No case-local evidence directories remain for the five pilot cases.

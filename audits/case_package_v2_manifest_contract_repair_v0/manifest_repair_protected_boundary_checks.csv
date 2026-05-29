@@ -1,0 +1,12 @@
+check_name,status,details
+no_case_sets_changed,pass,git diff contains no case_sets/ paths
+no_inventory_changed,pass,git diff contains no inventory/ paths
+no_reports_changed,pass,git diff contains no reports/ paths
+no_results_changed,pass,git diff contains no results/ paths
+no_denominator_changed,pass,denominator files not modified
+no_paper_results_changed,pass,paper result files not modified
+no_official_metrics_computed,pass,no metric computation command run
+no_db_checker_execution,pass,only static validators and unit tests run
+no_global_leaderboard,pass,no leaderboard output created
+no_legacy_repo_modified,pass,only release repo branch inspected/modified
+no_deleted_compatibility_dirs_restored,pass,manifests repaired only; no schema/evidence/runs/metadata/notes/data directories restored

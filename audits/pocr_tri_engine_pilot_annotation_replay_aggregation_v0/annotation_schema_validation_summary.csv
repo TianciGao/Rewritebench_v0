@@ -1,0 +1,7 @@
+annotation_run_id,total_rows,schema_valid_rows,schema_invalid_rows,malformed_json_rows,provider_call_failed_rows,timeout_rows,fail_closed_rows,notes
+pocr_annotation_tri_engine_pilot_repair1_postgres_v0,5,2,0,3,0,0,3,fail-closed rows remain visible and diagnostic-only
+pocr_annotation_tri_engine_pilot_repair1_mysql_v0,5,5,0,0,0,0,0,all annotation rows schema-valid
+pocr_annotation_tri_engine_pilot_repair1_spark_v0,5,3,0,2,0,0,2,fail-closed rows remain visible and diagnostic-only
+pocr_annotation_tri_engine_pilot_sqlglot_noop_postgres_v0,5,3,0,2,0,0,2,fail-closed rows remain visible and diagnostic-only
+pocr_annotation_tri_engine_pilot_sqlglot_noop_mysql_v0,5,3,0,1,1,0,2,fail-closed rows remain visible and diagnostic-only
+pocr_annotation_tri_engine_pilot_sqlglot_noop_spark_v0,5,5,0,0,0,0,0,all annotation rows schema-valid

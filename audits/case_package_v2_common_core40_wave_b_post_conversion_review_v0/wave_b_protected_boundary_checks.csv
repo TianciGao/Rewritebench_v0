@@ -1,0 +1,11 @@
+check_name,status,details
+no case files modified,pass,review writes are limited to audit outputs and project-control files
+no schemas modified,pass,schema tree was inspected only
+no case_sets changed,pass,case_sets/ unchanged
+no inventory changed,pass,inventory/ unchanged
+no reports/results changed,pass,reports/ and results/ unchanged
+no denominator changed,pass,denominator files unchanged
+no paper results changed,pass,paper-facing results unchanged
+no official metrics computed,pass,only static validators and unit tests were run
+no DB/checker execution,pass,no database or checker execution command was run
+no global leaderboard,pass,no leaderboard output created

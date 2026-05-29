@@ -1,0 +1,66 @@
+schema_id: parrot_bird_port0008_v0
+schema_profile_version: case_package_v2_wave_c_subwave_2_remaining_ports
+source_family: PARROT/BIRD
+public_release_status: external_schema_copy_first_wave_c_subwave_2
+used_by_cases:
+- PORT_0008
+engines:
+  postgres:
+    ddl: schemas/parrot_bird_port0008_v0/postgres/ddl.sql
+    load: schemas/parrot_bird_port0008_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/parrot_bird_port0008_v0/mysql/ddl.sql
+    load: schemas/parrot_bird_port0008_v0/mysql/load.sql
+  spark:
+    ddl: schemas/parrot_bird_port0008_v0/spark/ddl.sql
+    load: schemas/parrot_bird_port0008_v0/spark/load.sql
+relevant_tables:
+- frpm
+- schools
+columns:
+  frpm:
+  - cdscode
+  schools:
+  - cdscode
+  - county
+  - city
+  - doc
+  - opendate
+  - soc
+  - admemail1
+  - admemail2
+column_types:
+  frpm:
+    cdscode: text
+  schools:
+    cdscode: text
+    county: text
+    city: text
+    doc: text
+    opendate: date
+    soc: text
+    admemail1: text
+    admemail2: text
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres, MySQL, and Spark DDL/load assets are represented by the external schema package.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Fixture/load assets were copied from case-local schema files; they are not evidence of fresh
+  DB validation.
+- Runtime checking follows source-as-oracle policy.
+adoption_mode: copy_first_external_schema_wave_c_subwave_2
+claim_boundary:
+  source_case_schema_deleted: true
+  db_validation_run: false
+  timing_collected: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false
+notes:
+- External execution context for PORT_0008 v2 clean-template conversion.
+- Copied from case-local schema assets before deleting case-local per-engine schema directories.

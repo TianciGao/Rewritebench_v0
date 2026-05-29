@@ -1,31 +1,56 @@
-case_id: PORT_0008
-schema_profile_version: v1
-status: generated_from_legacy_schema_notes_and_ddl
-source_notes: cases/PORT/PORT_0008/schema_notes.md
-tables:
-  - name: frpm
-    columns:
-      - {name: cdscode, logical_type: text, role: join_key}
-  - name: schools
-    columns:
-      - {name: cdscode, logical_type: text, role: join_key}
-      - {name: county, logical_type: text, role: filter}
-      - {name: city, logical_type: text, role: filter}
-      - {name: doc, logical_type: text, role: type_coercion_filter}
-      - {name: opendate, logical_type: date, role: year_filter}
-      - {name: soc, logical_type: text, role: type_coercion_filter}
-      - {name: admemail1, logical_type: text, role: output}
-      - {name: admemail2, logical_type: text, role: output}
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-notes:
-  - Minimal witness schema copied from the legacy package.
-  - DDL and load files were not executed during migration.
+schema_id: parrot_bird_port0008_v0
+source_family: PARROT/BIRD
+relevant_tables:
+- frpm
+- schools
+columns:
+  frpm:
+  - cdscode
+  schools:
+  - cdscode
+  - county
+  - city
+  - doc
+  - opendate
+  - soc
+  - admemail1
+  - admemail2
+column_types:
+  frpm:
+    cdscode: text
+  schools:
+    cdscode: text
+    county: text
+    city: text
+    doc: text
+    opendate: date
+    soc: text
+    admemail1: text
+    admemail2: text
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres, MySQL, and Spark DDL/load assets are represented by the external schema package.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Fixture/load assets were copied from case-local schema files; they are not evidence of fresh
+  DB validation.
+- Runtime checking follows source-as-oracle policy.
+external_schema_profile: schemas/parrot_bird_port0008_v0/schema_profile.yaml
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/parrot_bird_port0008_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: false
+  case_local_engine_files_deleted: true
+  notes: Case-local per-engine ddl/load files were removed after copy-first external schema
+    verification.
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

@@ -1,0 +1,48 @@
+# Command Log
+
+Read-only/project inspection:
+
+```bash
+git status -sb
+sed -n '1,180p' project_control/MIGRATION_MASTER_PLAN.md
+sed -n '1,220p' project_control/MIGRATION_STATUS.md
+sed -n '1,220p' project_control/DECISION_LOG.md
+tail -n 140 project_control/MIGRATION_RUN_LOG.md
+sed -n '1,220p' repository_spec/metrics_contract_v1.md
+sed -n '1,260p' baselines/learnedrewrite/adapter.py
+sed -n '1,240p' tests/user_entry/test_learnedrewrite_adapter.py
+sed -n '1,220p' baselines/direct_llm_original/adapter.py
+sed -n '1,220p' baselines/direct_llm_repair_1/adapter.py
+rg -n "adapter-command|SQLRB_CANDIDATE_SQL_PATH|case-list|user evaluate" src/cli src/sql_rewrite_bench tests/user_entry -g '*.py'
+ls -la audits/prior_methods_onboarding_feasibility_v0
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/README.md
+sed -n '1,220p' audits/prior_methods_onboarding_feasibility_v0/method_source_inventory.csv
+find /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0 -maxdepth 2 -iname '*r*bot*' -o -iname '*llm4rewrite*' -o -iname '*my_rewriter*'
+rg -n -i "R-Bot|rbot|LLM4Rewrite|my_rewriter|logs_gpt3|logs_llm_only|logs_learned_rewrite|r_bot|RBot|rbot candidate|R-Bot result|PG15|mixed-scope|formal 120|bounded" /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0
+sed -n '1,120p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/r_bot_120_preflight_v1.md
+sed -n '1,140p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/r_bot_formal_protocol/r_bot_common_core_v0_40_same_engine_protocol.md
+sed -n '1,120p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/r_bot_common_core_120_evidence_reconciliation_v1.csv
+sed -n '1,120p' /home/tianci_gao/code/sql-rewrite-bench-artifact-clean/reports/evaluation/common_core_v0/r_bot_upstream_runner_alignment_audit_v1.md
+```
+
+Web/source references:
+
+- `https://github.com/curtis-sun/LLM4Rewrite`
+- `https://github.com/TianciGao/sql-rewrite-bench/tree/artifact/case-package-contract-alignment-clean/reports/evaluation/common_core_v0`
+- `https://www.vldb.org/pvldb/vol18/p5031-li.pdf`
+
+Implementation and validation:
+
+```bash
+mkdir -p baselines/rbot tests/user_entry audits/rbot_gpt54_adapter_scaffold_v0
+pytest tests/user_entry/test_rbot_adapter.py -q
+python -m py_compile baselines/rbot/adapter.py
+SQLRB_RBOT_MODE=fake SQLRB_RBOT_FAKE_SQL='SELECT 1 AS rbot_fake_candidate' python -m cli.main user evaluate --case-set common_core_v0 --engines postgres --case-list /tmp/sqlrb_rbot_gpt54_adapter_scaffold_cases.txt --adapter-command "python baselines/rbot/adapter.py" --output-root /tmp/sqlrb_rbot_gpt54_adapter_scaffold_v0/output --run-id rbot_gpt54_fake_user_facade_smoke_v0
+rm -rf /tmp/sqlrb_rbot_gpt54_adapter_scaffold_v0 runs/user/rbot_gpt54_fake_user_facade_smoke_v0 /tmp/sqlrb_rbot_gpt54_adapter_scaffold_cases.txt
+git diff --check
+git status --porcelain=v1
+```
+
+Additional Python one-liners were used for CSV parse checks, Markdown/text non-empty checks, protected-path review, changed-file secret scan, fake-smoke ledger review, and runtime-output cleanup verification.
+
+No live LLM/API, official R-Bot runtime, RAG index build, Chroma, CalciteRewrite, DB/checker/timing, local_metrics, verifier, official metrics, paper rendering, retained evidence promotion, leaderboard, or Track A 120 command was run.

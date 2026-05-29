@@ -1,0 +1,57 @@
+schema_id: tpch_common_core_v0
+schema_profile_version: case_package_v2_folder_ordered_conversion_pilot
+source_family: TPC-H
+public_release_status: external_reusable_schema_copy_first_pilot
+pilot_case_ids:
+- PERF_0006
+engines:
+  postgres:
+    ddl: schemas/tpch_common_core_v0/postgres/ddl.sql
+    load: schemas/tpch_common_core_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/tpch_common_core_v0/mysql/ddl.sql
+    load: schemas/tpch_common_core_v0/mysql/load.sql
+  spark:
+    ddl: schemas/tpch_common_core_v0/spark/ddl.sql
+    load: schemas/tpch_common_core_v0/spark/load.sql
+relevant_tables:
+- lineitem
+columns:
+  lineitem:
+  - l_returnflag
+  - l_linestatus
+  - l_quantity
+  - l_extendedprice
+  - l_discount
+  - l_tax
+  - l_shipdate
+column_types:
+  lineitem:
+    l_returnflag: char/string
+    l_linestatus: char/string
+    l_quantity: numeric/decimal
+    l_extendedprice: numeric/decimal
+    l_discount: numeric/decimal
+    l_tax: numeric/decimal
+    l_shipdate: date
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Spark DDL uses string-compatible text columns where needed; numeric precision is represented with DECIMAL where supported.
+engine_support:
+  postgres: supported
+  mysql: supported
+  spark: supported
+fixture_notes:
+- Four-row lineitem fixture retained from pilot schema copy.
+adoption_mode: copy_first_external_schema_pilot
+claim_boundary:
+  source_case_schema_deleted: false
+  db_validation_run: false
+  timing_collected: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false
+notes:
+- External reusable execution context for the case-package v2 folder-ordered branch pilot.
+- Copied from case-local schema assets; case-local per-engine schema files retained for compatibility.

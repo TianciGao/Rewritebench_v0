@@ -1,0 +1,41 @@
+case_id,pool,validator_status,clean_template_minimal,manifest_semantic_contract,taxonomy_status,schema_policy_status,validation_three_file_contract,evidence_policy_status,dialect_variant_status,remaining_caveats,closeout_status,notes
+PERF_0006,PERF,pass,fail,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,blocked_by_clean_template_gaps,notes; sql/positives; sql/negatives
+PERF_0007,PERF,pass,fail,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,blocked_by_clean_template_gaps,notes; sql/positives; sql/negatives
+PERF_0008,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0013,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0017,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0019,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0024,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0033,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0034,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0035,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0052,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0054,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0056,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0062,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking,pass,no case-package blocker
+PERF_0077,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,source_path_not_recovered; draft_origin_not_explicitly_recovered_nonblocking,pass_with_separate_source_path_followup,separate source_path provenance follow-up required
+PERF_0082,PERF,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,source_path_not_recovered; draft_origin_not_explicitly_recovered_nonblocking,pass_with_separate_source_path_followup,separate source_path provenance follow-up required
+CONS_0005,CONS,pass,fail,pass,pass,pass,pass,pass,not_present_not_required,none,blocked_by_clean_template_gaps,notes; sql/positives; sql/negatives
+CONS_0007,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0009,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0010,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0011,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0012,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0024,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0036,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+CONS_0037,CONS,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+PORT_0003,PORT,pass,fail,pass,pass,pass,pass,pass,retained_semantic_asset,draft_origin_not_explicitly_recovered_nonblocking,blocked_by_clean_template_gaps,notes; sql/positives; sql/negatives
+PORT_0004,PORT,pass,pass,pass,pass,pass,pass,pass,retained_semantic_asset,spark_dialect_variants_retained_for_portability_review; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0005,PORT,pass,pass,pass,pass,pass,pass,pass,retained_semantic_asset,draft_origin_not_explicitly_recovered_nonblocking; spark_dialect_variants_retained_for_portability_review; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0008,PORT,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0012,PORT,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0013,PORT,pass,pass,pass,pass,pass,pass,pass,retained_semantic_asset,draft_origin_not_explicitly_recovered_nonblocking; spark_dialect_variants_retained_for_portability_review; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0022,PORT,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0024,PORT,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking; static_inference_requires_future_execution_review,pass,no case-package blocker
+PORT_0025,PORT,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,draft_origin_not_explicitly_recovered_nonblocking; static_inference_requires_future_execution_review,pass,no case-package blocker
+LONGTAIL_0011,LONGTAIL,pass,fail,pass,pass,pass,pass,pass,not_present_not_required,none,blocked_by_clean_template_gaps,notes; sql/positives; sql/negatives
+LONGTAIL_0012,LONGTAIL,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+LONGTAIL_0013,LONGTAIL,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+LONGTAIL_0022,LONGTAIL,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+LONGTAIL_0023,LONGTAIL,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker
+LONGTAIL_0024,LONGTAIL,pass,pass,pass,pass,pass,pass,pass,not_present_not_required,none,pass,no case-package blocker

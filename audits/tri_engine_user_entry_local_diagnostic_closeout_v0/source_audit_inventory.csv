@@ -1,0 +1,8 @@
+source_path,used_for,committed_evidence_summary,notes
+audits/user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0/README.md,PostgreSQL/MySQL no-op snapshots,"PostgreSQL 35/35 exact; MySQL 36/36 exact","No-op PORT cross-dialect failures are adapter limitations."
+audits/user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0/postgres_run_summary.json,PostgreSQL machine-readable counts,"selected=40; source=40; candidate=35; exact=35; mismatch=0","Local diagnostic only."
+audits/user_entry_pg_mysql_bounded_local_diagnostic_rerun_v0/mysql_run_summary.json,MySQL machine-readable counts,"selected=40; source=40; candidate=36; exact=36; mismatch=0","Local diagnostic only."
+audits/port_bidirectional_cross_dialect_closeout_v0/controlled_diagnostic_summary.json,PG/MySQL PORT controlled paths,"forward exact=5/5; reverse exact=4/4","Local controlled adapters only."
+audits/port_spark_target_role_mapping_v0/targeted_diagnostic_summary.json,Spark role coverage and pre-fix diagnostic,"Spark target roles=4; unsupported=5; pre-fix exact=2 mismatch=2","Numeric normalization fixed later."
+audits/port_spark_numeric_normalization_v0/diagnostic_rerun_summary.json,Spark target after numeric fix,"Spark target exact=4/4; unsupported=5","Previous task final commit hash is 8f7b2f8."
+audits/port_spark_numeric_normalization_v0/preservation_results.csv,Preservation checks,"PG route 5/5; MySQL route 4/4; non-PORT Spark smoke 2/2","Confirms numeric fix remained narrow."

@@ -1,0 +1,103 @@
+{
+  "postgres_common_core_diagnostic": {
+    "source": "audits/user_entry_common_core_pg_local_diagnostic_v0/",
+    "case_set": "common_core_v0",
+    "engine": "postgres",
+    "adapter_type": "noop_adapter",
+    "selected_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "db_execution_enabled_rows": 40,
+    "source_executable_rows": 35,
+    "candidate_executable_rows": 35,
+    "checker_attempted_rows": 35,
+    "exact_rows": 35,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 35,
+      "source_execution_failed": 5
+    },
+    "local_diagnostic_only": true
+  },
+  "mysql_same_engine_backend_smoke": {
+    "source": "audits/mysql_same_engine_backend_v0/",
+    "engine": "mysql",
+    "adapter_type": "noop_adapter",
+    "selected_cases": [
+      "PERF_0006",
+      "CONS_0005"
+    ],
+    "selected_rows": 2,
+    "mysql_source_executable_rows": 2,
+    "mysql_candidate_executable_rows": 2,
+    "checker_attempted_rows": 2,
+    "exact_rows": 2,
+    "mismatch_rows": 0,
+    "local_diagnostic_only": true
+  },
+  "mysql_common_core_diagnostic": {
+    "source": "audits/common_core_mysql_local_diagnostic_v0/",
+    "case_set": "common_core_v0",
+    "engine": "mysql",
+    "adapter_type": "noop_adapter",
+    "selected_rows": 40,
+    "candidate_generated_rows": 40,
+    "candidate_preflight_passed_rows": 40,
+    "mysql_source_execution_attempted_rows": 35,
+    "mysql_source_executable_rows": 31,
+    "mysql_candidate_execution_attempted_rows": 31,
+    "mysql_candidate_executable_rows": 31,
+    "checker_attempted_rows": 31,
+    "exact_rows": 31,
+    "mismatch_rows": 0,
+    "failure_bucket_counts": {
+      "none": 31,
+      "source_execution_failed": 4,
+      "unsupported_engine": 5
+    },
+    "diagnostic_mode_counts": {
+      "same_engine": 35,
+      "cross_dialect_reference": 5
+    },
+    "local_diagnostic_only": true
+  },
+  "port_forward_controlled_summary": {
+    "source": "audits/port_cross_dialect_checker_normalization_v0/",
+    "direction": "mysql_source_reference_to_postgres_target_candidate",
+    "cases": [
+      "PORT_0004",
+      "PORT_0013",
+      "PORT_0022",
+      "PORT_0024",
+      "PORT_0025"
+    ],
+    "selected_rows": 5,
+    "source_executable_rows": 5,
+    "target_executable_rows": 5,
+    "checker_attempted_rows": 5,
+    "exact_rows": 5,
+    "mismatch_rows": 0,
+    "local_diagnostic_only": true
+  },
+  "port_reverse_controlled_summary": {
+    "source": "audits/port_reverse_cross_dialect_mysql_target_diagnostic_v0/",
+    "direction": "postgres_source_reference_to_mysql_target_candidate",
+    "cases": [
+      "PORT_0003",
+      "PORT_0005",
+      "PORT_0008",
+      "PORT_0012"
+    ],
+    "selected_rows": 4,
+    "source_executable_rows": 4,
+    "target_executable_rows": 4,
+    "checker_attempted_rows": 4,
+    "exact_rows": 4,
+    "mismatch_rows": 0,
+    "local_diagnostic_only": true
+  },
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false
+}

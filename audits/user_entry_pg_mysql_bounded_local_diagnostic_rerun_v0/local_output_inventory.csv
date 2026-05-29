@@ -1,0 +1,3 @@
+run_name,path,exists,purpose,committed,notes
+bounded_pg_noop_db_checker_current,runs/user/bounded_pg_noop_db_checker_current/,false,PostgreSQL Common-core v0 no-op local diagnostic output used to extract audit summaries.,false,"Created and inspected during this task, then removed before commit after audit extraction."
+bounded_mysql_noop_db_checker_current,runs/user/bounded_mysql_noop_db_checker_current/,false,MySQL Common-core v0 no-op local diagnostic output used to extract audit summaries.,false,"Created and inspected during this task, then removed before commit after audit extraction."

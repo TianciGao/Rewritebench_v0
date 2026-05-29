@@ -36,6 +36,7 @@ class CheckerResult:
     mismatch_artifact_path: Path | None
     failure_bucket: str
     notes: str
+    details: dict[str, object]
 
 
 def _read_jsonl(path: Path) -> list[dict[str, object]]:
@@ -109,12 +110,200 @@ def _normalize_rows(rows: list[dict[str, object]], normalization_path: Path) -> 
     return normalized
 
 
+def _decimal_string_equal(left: object, right: object) -> bool:
+    if not isinstance(left, str) or not isinstance(right, str):
+        return False
+    try:
+        return Decimal(left.strip()) == Decimal(right.strip())
+    except (InvalidOperation, ValueError):
+        return False
+
+
+def _safe_decimal(value: object) -> Decimal | None:
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, Decimal):
+        decimal = value
+    elif isinstance(value, (int, float)):
+        try:
+            decimal = Decimal(str(value))
+        except (InvalidOperation, ValueError):
+            return None
+    elif isinstance(value, str):
+        stripped = value.strip()
+        if not stripped:
+            return None
+        try:
+            decimal = Decimal(stripped)
+        except (InvalidOperation, ValueError):
+            return None
+    else:
+        return None
+    if not decimal.is_finite():
+        return None
+    return decimal
+
+
+def _mixed_numeric_equal(left: object, right: object) -> bool:
+    left_is_string = isinstance(left, str)
+    right_is_string = isinstance(right, str)
+    if left_is_string == right_is_string:
+        return False
+    left_decimal = _safe_decimal(left)
+    right_decimal = _safe_decimal(right)
+    if left_decimal is None or right_decimal is None:
+        return False
+    return left_decimal == right_decimal
+
+
+def _cross_dialect_compare(
+    source_rows: list[dict[str, object]],
+    candidate_rows: list[dict[str, object]],
+    *,
+    enable_mixed_numeric_equivalence: bool = False,
+) -> tuple[bool, dict[str, object]]:
+    details: dict[str, object] = {
+        "cross_dialect_normalization_active": True,
+        "positional_column_comparison_used": True,
+        "decimal_string_equivalence_used": False,
+        "mixed_numeric_equivalence_enabled": enable_mixed_numeric_equivalence,
+        "mixed_numeric_equivalence_used": False,
+        "mismatch_reason": "",
+    }
+    if len(source_rows) != len(candidate_rows):
+        details["mismatch_reason"] = "row_count_mismatch"
+        return False, details
+
+    for row_index, (source_row, candidate_row) in enumerate(
+        zip(source_rows, candidate_rows, strict=True)
+    ):
+        source_values = list(source_row.values())
+        candidate_values = list(candidate_row.values())
+        if len(source_values) != len(candidate_values):
+            details["mismatch_reason"] = "column_count_mismatch"
+            details["mismatch_row_index"] = row_index
+            details["source_column_count"] = len(source_values)
+            details["candidate_column_count"] = len(candidate_values)
+            return False, details
+        for column_index, (source_value, candidate_value) in enumerate(
+            zip(source_values, candidate_values, strict=True)
+        ):
+            if source_value == candidate_value:
+                continue
+            if _decimal_string_equal(source_value, candidate_value):
+                details["decimal_string_equivalence_used"] = True
+                continue
+            if enable_mixed_numeric_equivalence and _mixed_numeric_equal(
+                source_value, candidate_value
+            ):
+                details["mixed_numeric_equivalence_used"] = True
+                continue
+            details["mismatch_reason"] = "value_mismatch"
+            details["mismatch_row_index"] = row_index
+            details["mismatch_column_index"] = column_index
+            return False, details
+
+    details["mismatch_reason"] = "none"
+    return True, details
+
+
+def _strict_label_value_details(
+    source_rows: list[dict[str, object]], candidate_rows: list[dict[str, object]]
+) -> dict[str, object]:
+    details: dict[str, object] = {
+        "value_exact": False,
+        "label_exact": False,
+        "label_only_mismatch": False,
+        "label_policy": "strict",
+        "label_mismatch_class": "none",
+        "value_mismatch_reason": "none",
+    }
+    if len(source_rows) != len(candidate_rows):
+        details["value_mismatch_reason"] = "row_count_mismatch"
+        return details
+
+    label_exact = True
+    for source_row, candidate_row in zip(source_rows, candidate_rows, strict=True):
+        source_labels = list(source_row.keys())
+        candidate_labels = list(candidate_row.keys())
+        if len(source_labels) != len(candidate_labels):
+            details["value_mismatch_reason"] = "column_count_mismatch"
+            return details
+        if source_labels != candidate_labels:
+            label_exact = False
+        if list(source_row.values()) != list(candidate_row.values()):
+            details["label_exact"] = label_exact
+            details["value_mismatch_reason"] = "value_mismatch"
+            return details
+
+    details["value_exact"] = True
+    details["label_exact"] = label_exact
+    details["label_only_mismatch"] = not label_exact
+    if not label_exact:
+        details["label_mismatch_class"] = "unclassified_label_difference"
+    return details
+
+
+def _comparison_details(*, cross_dialect_active: bool) -> dict[str, object]:
+    return {
+        "cross_dialect_normalization_active": cross_dialect_active,
+        "positional_column_comparison_used": False,
+        "decimal_string_equivalence_used": False,
+        "mixed_numeric_equivalence_enabled": False,
+        "mixed_numeric_equivalence_used": False,
+        "mismatch_reason": "none",
+        "value_exact": False,
+        "label_exact": False,
+        "label_only_mismatch": False,
+        "label_policy": "strict",
+        "label_mismatch_class": "none",
+        "value_mismatch_reason": "none",
+    }
+
+
+def _notes_suffix(
+    *,
+    unknown_keys: list[str],
+    details: dict[str, object],
+) -> str:
+    parts: list[str] = []
+    if details.get("cross_dialect_normalization_active"):
+        parts.append("cross-dialect normalization active")
+    if details.get("positional_column_comparison_used"):
+        parts.append("positional column comparison used")
+    if details.get("decimal_string_equivalence_used"):
+        parts.append("decimal string equivalence used")
+    if details.get("mixed_numeric_equivalence_used"):
+        parts.append("mixed numeric equivalence used")
+    if details.get("label_only_mismatch"):
+        parts.append(
+            "label-only mismatch diagnostic: value_exact=true, "
+            "label_exact=false, label_only_mismatch=true"
+        )
+    if unknown_keys:
+        parts.append(f"unknown normalization keys recorded: {unknown_keys}")
+    return ("; " + "; ".join(parts)) if parts else ""
+
+
+def _label_diagnostics(details: dict[str, object]) -> dict[str, object]:
+    return {
+        "value_exact": bool(details.get("value_exact")),
+        "label_exact": bool(details.get("label_exact")),
+        "label_only_mismatch": bool(details.get("label_only_mismatch")),
+        "label_policy": str(details.get("label_policy", "strict")),
+        "label_mismatch_class": str(details.get("label_mismatch_class", "none")),
+        "value_mismatch_reason": str(details.get("value_mismatch_reason", "none")),
+    }
+
+
 def run_local_checker(
     *,
     case_dir: Path,
     source_result_path: Path,
     candidate_result_path: Path,
     checker_dir: Path,
+    enable_cross_dialect_normalization: bool = False,
+    enable_mixed_numeric_equivalence: bool = False,
 ) -> CheckerResult:
     """Compare local source and candidate JSONL results using case-local configs."""
 
@@ -136,6 +325,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_CONFIG_MISSING,
             notes="checker.yaml or compare_config.yaml is missing",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")
@@ -149,6 +339,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_CONFIG_MISSING,
             notes="normalization.yaml is missing",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")
@@ -179,7 +370,29 @@ def run_local_checker(
         }
         unknown_keys = sorted(_simple_yaml_keys(normalization_config) - known_keys)
 
-        if normalized_source == normalized_candidate:
+        details = _comparison_details(
+            cross_dialect_active=enable_cross_dialect_normalization
+        )
+        strict_label_details = _strict_label_value_details(
+            normalized_source, normalized_candidate
+        )
+        details.update(strict_label_details)
+        exact_match = normalized_source == normalized_candidate
+        if not exact_match and enable_cross_dialect_normalization:
+            cross_exact_match, cross_details = _cross_dialect_compare(
+                normalized_source,
+                normalized_candidate,
+                enable_mixed_numeric_equivalence=enable_mixed_numeric_equivalence,
+            )
+            exact_match = cross_exact_match
+            cross_details.update(strict_label_details)
+            if exact_match:
+                cross_details["value_exact"] = True
+                cross_details["value_mismatch_reason"] = "none"
+                cross_details["label_only_mismatch"] = False
+            details = cross_details
+
+        if exact_match:
             result = CheckerResult(
                 checker_status=CHECKER_STATUS_SUCCESS,
                 exact_status=EXACT_STATUS_EXACT,
@@ -187,10 +400,13 @@ def run_local_checker(
                 mismatch_artifact_path=None,
                 failure_bucket=FAILURE_NONE,
                 notes="local checker exact match"
-                + (f"; unknown normalization keys recorded: {unknown_keys}" if unknown_keys else ""),
+                + _notes_suffix(unknown_keys=unknown_keys, details=details),
+                details=details,
             )
         else:
             mismatch_payload = {
+                "cross_dialect_normalization": details,
+                "label_diagnostics": _label_diagnostics(details),
                 "source_row_count": len(normalized_source),
                 "candidate_row_count": len(normalized_candidate),
                 "source_preview": normalized_source[:5],
@@ -205,7 +421,8 @@ def run_local_checker(
                 mismatch_artifact_path=mismatch_path,
                 failure_bucket=FAILURE_MISMATCH,
                 notes="local checker mismatch"
-                + (f"; unknown normalization keys recorded: {unknown_keys}" if unknown_keys else ""),
+                + _notes_suffix(unknown_keys=unknown_keys, details=details),
+                details=details,
             )
 
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
@@ -219,6 +436,7 @@ def run_local_checker(
             mismatch_artifact_path=None,
             failure_bucket=FAILURE_CHECKER_FAILED,
             notes=f"local checker failed: {exc}",
+            details=_comparison_details(cross_dialect_active=False),
         )
         checker_result_path.write_text(json.dumps(result.__dict__, default=str, indent=2) + "\n")
         checker_log.write_text(result.notes + "\n", encoding="utf-8")

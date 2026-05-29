@@ -1,0 +1,2 @@
+case_id,skipped_path,candidate_type,skip_reason,required_future_action,notes
+PORT_0003,sql/dialect_variants/,dialect_variant,not readiness-marked for deletion; semantically retained optional v2 portability asset,future portability review only if maintainer wants dialect variant cleanup,Protected by task boundary and v2 optional dialect policy

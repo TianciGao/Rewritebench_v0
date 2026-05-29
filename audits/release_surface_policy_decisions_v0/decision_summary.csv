@@ -1,0 +1,9 @@
+policy_area,decision,implementation_allowed_now,requires_future_task,protected_boundary,notes
+license,Apache-2.0 selected as initial repository-level public release license,no,yes,Do not create LICENSE in this task,Use one repo-level LICENSE unless a later maintainer decision adopts dual licensing
+citation,CITATION.cff may use safe placeholders until final paper metadata exists,no,yes,Do not invent DOI author order or institutional metadata,Project title is SQL-RewriteBench
+contribution,CONTRIBUTING.md should use a conservative contribution policy,no,yes,Do not allow silent changes to membership denominators metrics reports results retained evidence or claims,New cases metrics denominators and results require maintainer approval
+readme_language,Chinese README may remain on construction branch but English or bilingual entrypoint is required before final public artifact,no,yes,Do not rewrite README in this task,Public artifact language posture remains a release-surface follow-up
+benchmark_spec,Future benchmark_spec skeleton is limited to public v0 scope,no,yes,Do not create benchmark_spec in this task,Must preserve Common-core v0 40 cases Track A 120 planned rows and no leaderboard
+reports_results,Future reports/results README files should document boundaries only,no,yes,Do not create or modify reports or results in this task,No paper result migration regeneration or rendering
+release_mechanics,No release tag or export branch yet,no,yes,Do not create tags branches or rewrite history,Final release mechanics wait for final public-release closeout
+timing_metrics_reproduction,U8 timing official metrics paper rendering retained-evidence integration and leaderboard remain unauthorized,no,yes,Do not compute metrics render paper tables or create leaderboard,Separate authorization required

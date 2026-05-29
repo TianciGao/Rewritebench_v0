@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- Track A 120 local diagnostic run through user facade: yes.
+- Metrics computed through `src/sql_rewrite_bench/local_metrics.py`: yes.
+- Audit helper metrics computation: no.
+- Old helper route card used as metric source: no.
+- SQLGlot optimize rerun: no.
+- Calcite rerun: no.
+- Direct LLM or Repair-1 run: no.
+- SQLSolver or VeriEQL run: no.
+- Official metrics computed: no.
+- Official Semantic Equivalence Rate computed: no.
+- Formal Regression@20 computed: no.
+- POCR computed: no.
+- Paper reports/results updated: no.
+- Retained evidence promoted: no.
+- Leaderboard output created: no.
+- Denominator changed: no.
+- Case membership changed: no.
+- Source/test/baseline/case/schema/inventory modified: no.
+- Repository-level `output/`, top-level `reports/`, top-level `results`, or committed `runs/user` artifacts staged: no.

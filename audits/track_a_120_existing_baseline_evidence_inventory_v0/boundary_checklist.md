@@ -1,0 +1,24 @@
+# Boundary Checklist
+
+- [x] Reviewed project-control files.
+- [x] Reviewed `repository_spec/metrics_contract_v1.md`.
+- [x] Reviewed local metrics, tag slices, and verifier-support implementation surfaces.
+- [x] Reviewed canonical audit packets for the four Track A 120 routes.
+- [x] Copied existing canonical local metrics values only.
+- [x] Inventoried failure buckets from existing artifacts only.
+- [x] Inventoried tag_slices presence from existing artifacts only.
+- [x] Inventoried verifier-pair eligibility without running verifiers.
+- [x] Did not run adapters.
+- [x] Did not run DB execution.
+- [x] Did not run checker execution.
+- [x] Did not run timing collection.
+- [x] Did not run LLM calls.
+- [x] Did not run SQLSolver.
+- [x] Did not run VeriEQL.
+- [x] Did not compute official metrics.
+- [x] Did not render paper tables.
+- [x] Did not modify `runs/user/`.
+- [x] Denominator unchanged.
+- [x] Paper results unchanged.
+- [x] Case membership unchanged.
+- [x] Raw legacy evidence unchanged.

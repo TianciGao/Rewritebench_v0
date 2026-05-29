@@ -1,0 +1,8 @@
+classification,case_count,percent_of_cases,deletion_policy,retention_mapping_required,notes
+absent,1,1.00,no_deletion_needed,false,No case-local runs directory exists.
+empty_directory,0,0.00,delete_allowed_after_policy_acceptance_and_boundary_check,false,Empty directory is not retained evidence.
+placeholder_only,99,99.00,delete_allowed_after_policy_acceptance_and_boundary_check,false,Only README/marker placeholders; not retained evidence unless explicitly documenting retained artifacts elsewhere.
+retained_evidence_present,0,0.00,delete_forbidden_until_retention_mapping,true,"Contains result, plan, checker/control, method, timing, or execution artifacts."
+local_or_private_trace_present,0,0.00,public_delete_or_copy_forbidden_until_private_archive_mapping,true,Contains local/private/path/secret/prompt indicators.
+raw_log_or_debug_trace_present,0,0.00,public_delete_or_copy_forbidden_until_private_archive_mapping,true,Contains raw logs/debug/stdout/stderr/trace indicators.
+manual_review_required,0,0.00,delete_forbidden_until_manual_review,unknown,Classification uncertain.

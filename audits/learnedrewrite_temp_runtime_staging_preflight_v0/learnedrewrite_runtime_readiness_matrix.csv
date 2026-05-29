@@ -1,0 +1,15 @@
+check,status,evidence,blocker,recommended_action,notes
+java_available,pass,OpenJDK 17.0.18 observed,none,keep Java external,No Java files copied
+jar_candidate_exists,pass,/tmp/sqlrb_prior_methods_sources/LearnedRewrite/rewriter_java.jar exists,none,keep external JAR path,Release repo did not vendor JAR
+rules_for_selected_found,pass,/tmp/sqlrb_prior_methods_sources/LearnedRewrite/rules_for_selected exists,none,use temp staging,Relative runtime asset dependency confirmed
+standard_txt_found,pass,standard.txt sha256 364dcbfffd1b5b1e1297f9ec20d98fed94fc83c13deef521c1d6c929e4e7f0b2,none,stage only under /tmp,Asset not copied into release repo
+temp_staging_used,pass,/tmp/sqlrb_learnedrewrite_runtime_staging_v0,none,keep staging outside repo,Only rules_for_selected support files staged
+runtime_started,pass,local listener on port 6336 observed,none,shut down after request,No server left running
+synthetic_preflight_attempted,pass,one POST to /rewriter,none,no more preflights in this task,Exactly one synthetic request
+synthetic_preflight_succeeded,pass,status true message SUCCESS,none,proceed to adapter HTTP design,Synthetic only
+synthetic_response_parseable,pass,JSON response parsed,none,target data.rewritten_sql,HTTP 200
+single_sql_extractable,pass,data.rewritten_sql contained one SELECT statement,none,use single-SQL extraction,No metrics computed
+wrapper_compatible,partial,response shape compatible but adapter real HTTP hook fail-closed,current adapter lacks real HTTP invocation,authorize narrow HTTP adapter implementation,Do not run Common-core yet
+ready_for_external_runtime_user_facade_smoke,no,response contract is ready but adapter hook missing,adapter implementation required,implement HTTP mode then smoke,Smoke should be 1-2 PostgreSQL rows without DB/checker/timing
+ready_for_common_core_smoke,no,no benchmark SQL sent and schema mapping not proven,needs adapter and schema serialization tests,run bounded user-facade smoke first,PostgreSQL-only initially
+ready_for_track_a_120,no,no Common-core smoke or metrics path validated,too early,complete bounded smoke sequence first,No Track A 120 authorized

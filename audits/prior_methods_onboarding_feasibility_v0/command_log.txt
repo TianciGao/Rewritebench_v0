@@ -1,0 +1,58 @@
+Commands and references used for this audit.
+
+Release repo read-only commands:
+
+- `git status -sb && git rev-parse --abbrev-ref HEAD && git log -1 --oneline`
+- `sed -n '1,220p' project_control/MIGRATION_MASTER_PLAN.md`
+- `sed -n '1,260p' project_control/MIGRATION_STATUS.md`
+- `sed -n '1,240p' project_control/DECISION_LOG.md`
+- `tail -n 220 project_control/MIGRATION_RUN_LOG.md`
+- `find baselines -maxdepth 3 -type f | sort`
+- `rg -n "adapter|route_id|method_id|metadata|user evaluate|compute-local-metrics|adapter-command" src/cli src/sql_rewrite_bench baselines -g '*.py' -g '*.md'`
+- `sed -n '1,260p' repository_spec/metrics_contract_v1.md`
+- `sed -n '1,260p' baselines/direct_llm_original/adapter.py`
+- `sed -n '1,260p' baselines/direct_llm_repair_1/adapter.py`
+
+Read-only temporary clones:
+
+- `git clone --depth 1 --branch artifact/case-package-contract-alignment-clean https://github.com/TianciGao/sql-rewrite-bench.git /tmp/sqlrb_prior_methods/legacy`
+- `git clone --depth 1 https://github.com/curtis-sun/LLM4Rewrite.git /tmp/sqlrb_prior_methods_sources/LLM4Rewrite`
+- `git clone --depth 1 https://github.com/DAMO-NLP-SG/LLM-R2.git /tmp/sqlrb_prior_methods_sources/LLM-R2`
+- `git clone --depth 1 https://github.com/XuanheZhou/LearnedRewrite.git /tmp/sqlrb_prior_methods_sources/LearnedRewrite`
+
+Legacy repo searches:
+
+- `rg -n -i "R-Bot|rbot|LLM-R2|LLM_R2|LearnedRewrite|learned_rewrite|learnedrewrite|R-Bot logs|LLM-R2 logs|LearnedRewrite logs" /tmp/sqlrb_prior_methods/legacy`
+- `find /tmp/sqlrb_prior_methods/legacy/reports/evaluation/common_core_v0 -maxdepth 2 -type f | rg -i "r_bot|llm_r2|learnedrewrite|learned"`
+- `find /tmp/sqlrb_prior_methods/legacy/reports/evaluation/common_core_v0/runs -maxdepth 3 -type f | rg -i "r_bot|llm_r2|learned|rbot|llmr2|learnedrewrite"`
+- `find /tmp/sqlrb_prior_methods/legacy/docs/_scratch -maxdepth 1 -type f | rg -i "rbot|llmr2|llm.?r2|learned"`
+
+Official source inspection:
+
+- `sed -n '1,260p' /tmp/sqlrb_prior_methods_sources/LLM4Rewrite/README.md`
+- `sed -n '1,260p' /tmp/sqlrb_prior_methods_sources/LLM-R2/README.md`
+- `sed -n '1,260p' /tmp/sqlrb_prior_methods_sources/LearnedRewrite/README.md`
+- `find ... -iname 'LICENSE*' -o -iname 'COPYING*'`
+- `sed -n '1,120p' /tmp/sqlrb_prior_methods_sources/LLM4Rewrite/LICENSE`
+- targeted `rg` and `sed` over official source entrypoint files.
+
+Web/source references inspected:
+
+- R-Bot arXiv: `https://arxiv.org/abs/2412.01661`
+- R-Bot PVLDB PDF: `https://www.vldb.org/pvldb/vol18/p5031-li.pdf`
+- R-Bot official source: `https://github.com/curtis-sun/LLM4Rewrite`
+- LLM-R2 arXiv: `https://arxiv.org/abs/2404.12872`
+- LLM-R2 official source: `https://github.com/DAMO-NLP-SG/LLM-R2`
+- LearnedRewrite official source: `https://github.com/XuanheZhou/LearnedRewrite`
+- LearnedRewrite paper PDF: `https://dbgroup.cs.tsinghua.edu.cn/ligl/papers/vldb22-query-rewrite.pdf`
+
+Prohibited command check:
+
+- No R-Bot, LLM-R2, LearnedRewrite, live LLM, DB execution, checker execution, timing, local_metrics, SQLSolver, VeriEQL, official metrics, paper rendering, retained evidence promotion, or leaderboard command was run.
+
+Validation commands:
+
+- CSV parse and Markdown/text non-empty checks using a local Python one-shot over `audits/prior_methods_onboarding_feasibility_v0/`.
+- `git diff --check`
+- `git diff --name-only`
+- Changed-file secret scan over `audits/prior_methods_onboarding_feasibility_v0/`, `project_control/MIGRATION_STATUS.md`, and `project_control/MIGRATION_RUN_LOG.md`.

@@ -1,0 +1,2 @@
+case_id,removed_path,path_type,removal_reason,retention_mapping_required,retention_mapping_present,notes
+NONE,NONE,none,no_removal_performed,no,no,"All ready cleanup candidates were skipped because live compatibility references remain; no files were removed."

@@ -1,0 +1,45 @@
+Commands used:
+
+- `git rev-parse --abbrev-ref HEAD && git status --short`
+- `test -d runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0 && find runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0 -maxdepth 2 -type f | sort | sed -n '1,80p' || echo 'MISSING_SOURCE_RUN_DIR'`
+- `sed -n '1,120p' project_control/MIGRATION_MASTER_PLAN.md`
+- `tail -n 50 project_control/MIGRATION_STATUS.md`
+- `tail -n 80 project_control/DECISION_LOG.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `rg -n "compute-local-metrics|aggregate-run-id|run-id-prefix|--run-id" src/cli/main.py src/sql_rewrite_bench/local_metrics.py`
+- `sed -n '360,410p' src/cli/main.py`
+- `rg -n "local_diagnostic_only|official_metric|paper_result|leaderboard|SER|POCR|Semantic" src/sql_rewrite_bench/local_metrics.py`
+- read-only review of `audits/rbot_gpt54_pg40_bounded_local_diagnostic_v0/`
+- `sed -n '1,220p' project_control/MIGRATION_STATUS.md`
+- `tail -n 120 project_control/MIGRATION_RUN_LOG.md`
+- `find audits/rbot_gpt54_pg40_local_metrics_recovery_v0 -maxdepth 1 -type f | sort`
+- `rg -n "R-Bot|rbot_gpt54|Next safe action|Current Status Summary" project_control/MIGRATION_STATUS.md`
+- `tail -n 80 project_control/MIGRATION_STATUS.md`
+- `python - <<'PY' ... csv parse check for source_artifact_check.csv ... PY`
+- `python - <<'PY' ... Markdown/text non-empty check ... PY`
+- `git diff --check`
+- `git diff --name-only`
+- `git ls-files --others --exclude-standard audits/rbot_gpt54_pg40_local_metrics_recovery_v0 project_control/MIGRATION_STATUS.md project_control/MIGRATION_RUN_LOG.md`
+- `test ! -d runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0 && echo source_run_missing_fail_closed`
+- `python - <<'PY' ... changed-file secret value scan ... PY`
+- `python - <<'PY' ... protected-path review ... PY`
+- `git status --short`
+- `git diff --stat`
+
+Not run:
+
+- live LLM calls
+- R-Bot adapter
+- `python -m cli.main user evaluate`
+- DB execution
+- checker execution
+- timing
+- `python -m cli.main user compute-local-metrics`
+- SQLSolver
+- VeriEQL
+- official metrics
+- paper rendering
+- leaderboard
+- Track A 120
+
+Reason the metrics command was not run: `runs/user/rbot_gpt54_pg40_bounded_diagnostic_v0` was missing.

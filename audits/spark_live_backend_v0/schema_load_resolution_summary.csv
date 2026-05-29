@@ -1,0 +1,6 @@
+case_id,pool,external_profile,spark_ddl,spark_load,asset_status,notes
+PERF_0006,PERF,schemas/tpch_common_core_v0/schema_profile.yaml,schemas/tpch_common_core_v0/spark/ddl.sql,schemas/tpch_common_core_v0/spark/load.sql,present,"Representative TPC-H Spark DDL/load assets"
+CONS_0005,CONS,schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml,schemas/calcite_core_sql_tests_cons0005_v0/spark/ddl.sql,schemas/calcite_core_sql_tests_cons0005_v0/spark/load.sql,present,"Representative Calcite Spark DDL/load assets"
+PORT_0003,PORT,schemas/parrot_bird_port0003_v0/schema_profile.yaml,schemas/parrot_bird_port0003_v0/spark/ddl.sql,schemas/parrot_bird_port0003_v0/spark/load.sql,present,"PORT Spark role remains unsupported unless manifest declares a selected Spark role"
+PORT_0004,PORT,schemas/parrot_bird_port0004_v0/schema_profile.yaml,schemas/parrot_bird_port0004_v0/spark/ddl.sql,schemas/parrot_bird_port0004_v0/spark/load.sql,present,"PORT target-engine metadata currently marks Spark as unsupported/fail-closed"
+LONGTAIL_0011,LONGTAIL,schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml,schemas/sqlstorm_stackoverflow_longtail0011_v0/spark/ddl.sql,schemas/sqlstorm_stackoverflow_longtail0011_v0/spark/load.sql,present,"Representative LONGTAIL Spark DDL/load assets"

@@ -1,0 +1,48 @@
+schema_id: parrot_bird_port0005_v0
+schema_profile_version: case_package_v2_wave_c_subwave_1_port0005
+source_family: PARROT/BIRD
+public_release_status: external_schema_copy_first_wave_c_port0005
+used_by_cases:
+- PORT_0005
+engines:
+  postgres:
+    ddl: schemas/parrot_bird_port0005_v0/postgres/ddl.sql
+    load: schemas/parrot_bird_port0005_v0/postgres/load.sql
+  mysql:
+    ddl: schemas/parrot_bird_port0005_v0/mysql/ddl.sql
+    load: schemas/parrot_bird_port0005_v0/mysql/load.sql
+  spark:
+    ddl: schemas/parrot_bird_port0005_v0/spark/ddl.sql
+    load: schemas/parrot_bird_port0005_v0/spark/load.sql
+relevant_tables:
+- drivers
+columns:
+  drivers:
+  - nationality
+  - dob
+column_types:
+  drivers:
+    nationality: text/string
+    dob: timestamp/datetime
+primary_keys: []
+foreign_keys: []
+dialect_differences:
+- Postgres uses TEXT and TIMESTAMP; MySQL uses TEXT and DATETIME; Spark uses STRING and TIMESTAMP.
+engine_support:
+  postgres: supported_by_legacy_assets
+  mysql: supported_by_legacy_assets
+  spark: supported_by_legacy_assets
+fixture_notes:
+- Draft four-row drivers fixture copied from case-local schema load files.
+- Source/positive select the earliest non-null dob; hard negative changes ordering direction.
+adoption_mode: copy_first_external_schema_wave_c_subwave_1
+claim_boundary:
+  source_case_schema_deleted: true
+  db_validation_run: false
+  timing_collected: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false
+notes:
+- External execution context for PORT_0005 v2 clean-template conversion.
+- Copied from case-local schema assets before deleting case-local per-engine schema directories.

@@ -1,0 +1,11 @@
+check_name,status,details
+no case_sets changed,pass,No writes under case_sets/ were made.
+no inventory changed,pass,No writes under inventory/ were made.
+no reports/results changed,pass,No writes under reports/ or results/ were made.
+no denominator changed,pass,No denominator values or case membership were changed.
+no paper results changed,pass,No paper result artifacts were changed.
+no official metrics computed,pass,No metric computation commands were run.
+no DB/checker execution,pass,Only static validators and unit tests were run.
+no global leaderboard,pass,No leaderboard output was created.
+no retained evidence deleted,pass,Case-local evidence/ was retained; no retained evidence deleted.
+no unsafe evidence copied or deleted,pass,No evidence copy/delete operation was performed in this task.

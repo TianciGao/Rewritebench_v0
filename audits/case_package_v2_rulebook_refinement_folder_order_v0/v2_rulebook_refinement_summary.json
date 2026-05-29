@@ -1,0 +1,20 @@
+{
+  "task_completed": true,
+  "branch_name": "feature/case-package-v2-external-schema",
+  "schema_profile_only_policy_recorded": true,
+  "shared_checker_validation_plan_recorded": true,
+  "folder_order_conversion_sequence_recorded": true,
+  "case_files_modified": false,
+  "schemas_modified": false,
+  "case_sets_changed": false,
+  "inventory_changed": false,
+  "reports_changed": false,
+  "results_changed": false,
+  "denominator_changed": false,
+  "paper_results_changed": false,
+  "official_metrics_computed": false,
+  "db_checker_execution_run": false,
+  "global_leaderboard_created": false,
+  "legacy_repo_modified": false,
+  "next_safe_action": "Authorize a branch-only folder-ordered writable pilot that starts with manifest and SQL layers, then adds schema/schema_profile.yaml plus external schema references before converting later layers."
+}

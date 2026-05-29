@@ -1,0 +1,156 @@
+case_id,path,path_type,exists,expected_state,gap_status,notes
+PERF_0008,README.md,required_clean_v2_asset,yes,present,present,
+PERF_0008,manifest.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,sql/source.sql,required_clean_v2_asset,yes,present,present,
+PERF_0008,sql/pos_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0008,sql/neg_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0008,schema/schema_profile.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,checker/checker.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,checker/normalization.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,checker/compare_config.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,checker/expected_rejections.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0008,validation/run_validation.sh,required_clean_v2_asset,yes,present,present,
+PERF_0008,validation/run_plan_collection.sh,required_clean_v2_asset,yes,present,present,
+PERF_0008,evidence,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,runs,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,metadata,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,notes,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,data,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,schema/postgres,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,schema/mysql,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,schema/spark,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,sql/positives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,sql/negatives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0008,validation/run_postgres_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,validation/run_mysql_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,validation/run_spark_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,validation/run_postgres_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,validation/run_mysql_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,validation/run_spark_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0008,checker/*.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case Python checker scripts allowed.
+PERF_0008,run_engine_queries.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case engine runner allowed.
+PERF_0008,__pycache__/,forbidden_generated_or_per_case_code,no,absent,absent_clean,Generated Python caches are not part of case package.
+PERF_0013,README.md,required_clean_v2_asset,yes,present,present,
+PERF_0013,manifest.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,sql/source.sql,required_clean_v2_asset,yes,present,present,
+PERF_0013,sql/pos_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0013,sql/neg_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0013,schema/schema_profile.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,checker/checker.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,checker/normalization.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,checker/compare_config.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,checker/expected_rejections.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0013,validation/run_validation.sh,required_clean_v2_asset,yes,present,present,
+PERF_0013,validation/run_plan_collection.sh,required_clean_v2_asset,yes,present,present,
+PERF_0013,evidence,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,runs,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,metadata,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,notes,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,data,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,schema/postgres,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,schema/mysql,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,schema/spark,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,sql/positives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,sql/negatives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0013,validation/run_postgres_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,validation/run_mysql_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,validation/run_spark_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,validation/run_postgres_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,validation/run_mysql_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,validation/run_spark_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0013,checker/*.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case Python checker scripts allowed.
+PERF_0013,run_engine_queries.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case engine runner allowed.
+PERF_0013,__pycache__/,forbidden_generated_or_per_case_code,no,absent,absent_clean,Generated Python caches are not part of case package.
+PERF_0017,README.md,required_clean_v2_asset,yes,present,present,
+PERF_0017,manifest.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,sql/source.sql,required_clean_v2_asset,yes,present,present,
+PERF_0017,sql/pos_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0017,sql/neg_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0017,schema/schema_profile.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,checker/checker.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,checker/normalization.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,checker/compare_config.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,checker/expected_rejections.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0017,validation/run_validation.sh,required_clean_v2_asset,yes,present,present,
+PERF_0017,validation/run_plan_collection.sh,required_clean_v2_asset,yes,present,present,
+PERF_0017,evidence,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,runs,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,metadata,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,notes,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,data,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,schema/postgres,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,schema/mysql,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,schema/spark,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,sql/positives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,sql/negatives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0017,validation/run_postgres_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,validation/run_mysql_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,validation/run_spark_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,validation/run_postgres_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,validation/run_mysql_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,validation/run_spark_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0017,checker/*.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case Python checker scripts allowed.
+PERF_0017,run_engine_queries.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case engine runner allowed.
+PERF_0017,__pycache__/,forbidden_generated_or_per_case_code,no,absent,absent_clean,Generated Python caches are not part of case package.
+PERF_0019,README.md,required_clean_v2_asset,yes,present,present,
+PERF_0019,manifest.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,sql/source.sql,required_clean_v2_asset,yes,present,present,
+PERF_0019,sql/pos_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0019,sql/neg_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0019,schema/schema_profile.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,checker/checker.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,checker/normalization.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,checker/compare_config.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,checker/expected_rejections.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0019,validation/run_validation.sh,required_clean_v2_asset,yes,present,present,
+PERF_0019,validation/run_plan_collection.sh,required_clean_v2_asset,yes,present,present,
+PERF_0019,evidence,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,runs,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,metadata,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,notes,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,data,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,schema/postgres,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,schema/mysql,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,schema/spark,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,sql/positives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,sql/negatives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0019,validation/run_postgres_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,validation/run_mysql_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,validation/run_spark_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,validation/run_postgres_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,validation/run_mysql_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,validation/run_spark_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0019,checker/*.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case Python checker scripts allowed.
+PERF_0019,run_engine_queries.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case engine runner allowed.
+PERF_0019,__pycache__/,forbidden_generated_or_per_case_code,no,absent,absent_clean,Generated Python caches are not part of case package.
+PERF_0024,README.md,required_clean_v2_asset,yes,present,present,
+PERF_0024,manifest.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,sql/source.sql,required_clean_v2_asset,yes,present,present,
+PERF_0024,sql/pos_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0024,sql/neg_01.sql,required_clean_v2_asset,yes,present,present,
+PERF_0024,schema/schema_profile.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,checker/checker.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,checker/normalization.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,checker/compare_config.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,checker/expected_rejections.yaml,required_clean_v2_asset,yes,present,present,
+PERF_0024,validation/run_validation.sh,required_clean_v2_asset,yes,present,present,
+PERF_0024,validation/run_plan_collection.sh,required_clean_v2_asset,yes,present,present,
+PERF_0024,evidence,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,runs,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,metadata,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,notes,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,data,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,schema/postgres,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,schema/mysql,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,schema/spark,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,sql/positives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,sql/negatives,forbidden_case_local_compatibility_path,no,absent,absent_clean,Not part of clean-template-minimal v2 case surface.
+PERF_0024,validation/run_postgres_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,validation/run_mysql_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,validation/run_spark_validation.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,validation/run_postgres_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,validation/run_mysql_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,validation/run_spark_plan_collection.sh,old_engine_specific_validation_script,no,absent,absent_clean,V2 uses two thin wrappers only.
+PERF_0024,checker/*.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case Python checker scripts allowed.
+PERF_0024,run_engine_queries.py,forbidden_generated_or_per_case_code,no,absent,absent_clean,No per-case engine runner allowed.
+PERF_0024,__pycache__/,forbidden_generated_or_per_case_code,no,absent,absent_clean,Generated Python caches are not part of case package.

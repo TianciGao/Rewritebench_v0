@@ -1,0 +1,13 @@
+check_name,status,details
+no case files modified,pass,Review writes are limited to audit outputs and project-control files; no case package edits were made.
+no schemas modified,pass,Review writes did not touch schemas/.
+no case_sets changed,pass,No files under case_sets/ changed.
+no inventory changed,pass,No files under inventory/ changed.
+no reports/results changed,pass,No files under reports/ or results/ changed.
+no denominator changed,pass,No denominator files or values changed.
+no paper results changed,pass,No paper-result artifacts changed.
+no official metrics computed,pass,Only static validators and tests were run.
+no DB/checker execution,pass,No DB or checker execution commands were run.
+no global leaderboard,pass,No leaderboard output was created.
+no evidence/cases created,pass,No evidence/cases/ paths were created.
+PORT_0004 and PORT_0013 untouched,pass,No case or schema writes were made for the final dialect-variant PORT cases.

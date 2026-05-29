@@ -1,0 +1,9 @@
+requirement,status_in_baseline_smoke,status_in_adjacent_notes,reuse_implication
+SQLSolver runner,missing,Historical temporary jar/build path noted outside baseline_smoke,Need explicit external command path before any new smoke.
+VeriEQL runner,missing,Staged source path and module-mode batch CLI noted outside baseline_smoke,Need SQLRB_VERIEQL_ROOT-style adapter and dependencies.
+SMT solver dependency,missing,SQLSolver notes mention bundled Z3 in temporary build; VeriEQL notes mention Python z3 dependency,Do not assume availability in release repo.
+schema constraint extraction,missing,VeriEQL notes show empty constraints and one uniqueness-bridge experiment,Need explicit constraint-bridge policy before stronger claims.
+subset policy,missing,Readiness notes classify supported subsets by static SQL shape,Need frozen subset policy before broad verifier route.
+timeout policy,missing,Adjacent notes mention VeriEQL 600s and SQLSolver 60s wall timeout / Z3 10000 ms,Can reuse as planning defaults only.
+raw stdout/stderr retention,missing in baseline_smoke,Adjacent VeriEQL JSONL outputs exist but not stdout/stderr logs,New D035 verifier output should retain raw stdout/stderr under output/results/<run_id>/verifier/tools/.
+official evidence mapping,missing,Historical support summaries exist outside baseline_smoke,Requires separate retained-evidence mapping before any official use.

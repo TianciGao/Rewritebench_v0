@@ -1,0 +1,2 @@
+case_id,provider_label,model_label,call_timestamp_utc,call_status,error_type,token_counts_if_available,api_key_env_name,api_key_value_recorded,notes
+,,,,not_run,candidate_root_incomplete,,,false,No SQLGlot live API call was made

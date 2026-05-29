@@ -1,0 +1,6 @@
+case_id,manifest_path,canonical_top_level_shape,canonical_sql_shape,profile_first_schema_ref,canonical_checker_refs,canonical_validation_refs,canonical_witness_policy,evidence_policy_present,evidence_ref_absent_or_non_required,forbidden_deleted_refs_absent,absolute_paths_absent,status,notes
+PERF_0008,cases/PERF/PERF_0008/manifest.yaml,true,true,true,true,true,true,true,true,true,false,pass,canonical v2 manifest shape matches accepted pilot requirements
+PERF_0013,cases/PERF/PERF_0013/manifest.yaml,true,true,true,true,true,true,true,true,true,false,pass,canonical v2 manifest shape matches accepted pilot requirements
+PERF_0017,cases/PERF/PERF_0017/manifest.yaml,true,true,true,true,true,true,true,true,true,false,pass,canonical v2 manifest shape matches accepted pilot requirements
+PERF_0019,cases/PERF/PERF_0019/manifest.yaml,true,true,true,true,true,true,true,true,true,false,pass,canonical v2 manifest shape matches accepted pilot requirements
+PERF_0024,cases/PERF/PERF_0024/manifest.yaml,true,true,true,true,true,true,true,true,true,false,pass,canonical v2 manifest shape matches accepted pilot requirements

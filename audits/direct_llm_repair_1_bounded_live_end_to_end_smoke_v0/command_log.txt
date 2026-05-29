@@ -1,0 +1,29 @@
+Commands run for this task:
+
+- `git status -sb`
+- `git rev-parse --abbrev-ref HEAD && git rev-parse HEAD`
+- Presence-only live/provider env review using a Python script; no values printed.
+- Read project-control files, `repository_spec/metrics_contract_v1.md`, Repair-1 adapter/README, and prior Repair-1/frontier audit packets.
+- Safe provider health check: one `GET /v1/models` request with secret headers redacted by construction; only status/model-listed boolean printed.
+- `python - <<'PY' ... PY` to create temporary live context fixtures under `/tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0`.
+- `python -m py_compile /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/repair1_live_context_wrapper.py`
+- `PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --case-list /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/case_list_postgres.txt --engines postgres --adapter-command "python /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/repair1_live_context_wrapper.py" --output-root /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/output --run-id direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__postgres --enable-db-execution --enable-checker --collect-timing --adapter-timeout 120`
+- `PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --case-list /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/case_list_mysql.txt --engines mysql --adapter-command "python /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/repair1_live_context_wrapper.py" --output-root /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/output --run-id direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__mysql --enable-db-execution --enable-checker --collect-timing --adapter-timeout 120`
+- `PYTHONPATH=src python -m cli.main user evaluate --case-set common_core_v0 --case-list /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/case_list_spark.txt --engines spark --adapter-command "python /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/repair1_live_context_wrapper.py" --output-root /tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/output --run-id direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__spark --enable-db-execution --enable-checker --collect-timing --adapter-timeout 120`
+- Read-only runtime review commands over `/tmp/sqlrb_direct_llm_repair_1_bounded_live_end_to_end_smoke_v0/output` and `runs/user/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__*`.
+- `python - <<'PY' ... PY` to create this audit packet from runtime metadata.
+
+
+- `rm -rf runs/user/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__postgres runs/user/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__mysql runs/user/direct_llm_repair_1_bounded_live_end_to_end_smoke_v0__spark`
+- `pytest tests/user_entry/test_direct_llm_repair_1_adapter.py -q`
+- `python -m py_compile baselines/direct_llm_repair_1/adapter.py`
+- CSV parse/count validation commands for generated audit CSVs.
+- Markdown/text non-empty validation commands for generated audit Markdown/text files.
+
+
+- `git diff --check`
+- Changed-file secret scan over the new audit packet and added project-control diff lines.
+- Protected-path review over changed files and the new audit packet.
+- `git status -sb`
+
+No `compute-local-metrics`, SQLSolver, VeriEQL, official metrics, paper rendering, Track A 120, full Repair-1 route, top-level reports/results update, or retained-evidence promotion command was run.

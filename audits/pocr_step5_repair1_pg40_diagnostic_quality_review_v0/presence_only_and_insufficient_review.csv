@@ -1,0 +1,353 @@
+case_id,pool,atom_id,atom_type,observed_status,evidence_refs,stage_b_status,reason_not_transformation_supported,likely_expected_behavior,improvement_suggestion
+CONS_0005,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+) | source_candidate_diff:changed | positive_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM table2 AS t2
+  WHERE t2.j = t1.i
+    AND (t2.i = t1.j OR t2.i IS NULL)
+)",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0005,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+) | source_candidate_diff:changed | positive_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM table2 AS t2
+  WHERE t2.j = t1.i
+    AND (t2.i = t1.j OR t2.i IS NULL)
+)",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0005,CONS,A3,operation_atom,not_implemented,"candidate_sql_span:WHERE table1.j NOT IN (
+  SELECT table2.i
+  FROM table2
+  WHERE table2.j = table1.i
+) | positive_sql_span:AND (t2.i = t1.j OR t2.i IS NULL) | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0007,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno
+) | source_sql_span:WHERE EXISTS (
+  SELECT *
+  FROM (
+    SELECT e2.deptno
+    FROM tmp_emps e2
+    WHERE e2.commission = e1.commission
+  ) AS table3
+  WHERE table3.deptno <> e1.deptno
+) | positive_sql_span:JOIN (
+  SELECT DISTINCT e2.commission
+  FROM tmp_emps e2
+  JOIN tmp_emps e3
+    ON e2.commission = e3.commission
+   AND e2.deptno <> e3.deptno
+) AS good_commissions
+  ON e1.commission = good_commissions.commission | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0007,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno | positive_sql_span:SELECT DISTINCT e2.commission
+  FROM tmp_emps e2
+  JOIN tmp_emps e3
+    ON e2.commission = e3.commission
+   AND e2.deptno <> e3.deptno | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0007,CONS,A3,operation_atom,not_implemented,"candidate_sql_span:FROM tmp_emps e1
+WHERE EXISTS (
+  SELECT 1
+  FROM tmp_emps e2
+  WHERE e2.commission = e1.commission
+    AND e2.deptno <> e1.deptno
+) | positive_sql_span:ON e1.commission = good_commissions.commission | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0009,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:SELECT COALESCE(SUM(t1c), 0) + COALESCE((
+    SELECT SUM(t2c)
+    FROM t2
+    WHERE t2b = t0.t0b
+  ), 0)
+  FROM t1
+  WHERE t1a = t0.t0a | positive_sql_span:LEFT JOIN (SELECT t1a, SUM(t1c) AS sum_t1c FROM t1 GROUP BY t1a) AS s1 | positive_sql_span:LEFT JOIN (SELECT t2b, SUM(t2c) AS sum_t2c FROM t2 GROUP BY t2b) AS s2 | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0010,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM emp E2
+  CROSS JOIN bonus B
+  WHERE E2.SAL = E1.SAL
+    AND B.JOB = E1.JOB
+    AND E2.EMPNO <> E1.EMPNO
+) | positive_sql_span:WHERE NOT (
+  EXISTS (
+    SELECT 1
+    FROM emp e2
+    WHERE e2.sal = e1.sal
+      AND e2.empno <> e1.empno
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM bonus b
+    WHERE b.job = e1.job
+  )
+) | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0010,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE NOT EXISTS (
+  SELECT 1
+  FROM emp E2
+  CROSS JOIN bonus B
+  WHERE E2.SAL = E1.SAL
+    AND B.JOB = E1.JOB
+    AND E2.EMPNO <> E1.EMPNO
+) | positive_sql_span:WHERE NOT (
+  EXISTS (
+    SELECT 1
+    FROM emp e2
+    WHERE e2.sal = e1.sal
+      AND e2.empno <> e1.empno
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM bonus b
+    WHERE b.job = e1.job
+  )
+) | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0011,CONS,A2,operation_atom,not_implemented,"source_candidate_diff:changed | source_sql_span:LEFT JOIN bonus B
+    ON D.DNAME = B.ENAME
+   AND B.JOB = E1.JOB
+  WHERE B.ENAME IS NULL | candidate_sql_span:WHERE NOT EXISTS (
+    SELECT 1
+    FROM bonus B
+    WHERE D.DNAME = B.ENAME
+      AND B.JOB = E1.JOB
+  )",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0012,CONS,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM emp e
+  WHERE e.deptno = d.deptno
+  OFFSET 2
+  LIMIT 1
+) | positive_sql_span:JOIN (
+  SELECT deptno
+  FROM emp
+  GROUP BY deptno
+  HAVING COUNT(*) >= 3
+) AS enough_rows | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0012,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:WHERE EXISTS (
+  SELECT 1
+  FROM emp e
+  WHERE e.deptno = d.deptno
+  OFFSET 2
+  LIMIT 1
+) | positive_sql_span:JOIN (
+  SELECT deptno
+  FROM emp
+  GROUP BY deptno
+  HAVING COUNT(*) >= 3
+) AS enough_rows
+  ON enough_rows.deptno = d.deptno; | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0024,CONS,A1,operation_atom,not_implemented,candidate_sql_span:LEFT JOIN ( | positive_sql_span:FROM emp AS e; | source_candidate_diff:changed,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0024,CONS,A2,operation_atom,not_implemented,"candidate_sql_span:SELECT e2.deptno
+  FROM emp AS e2
+  GROUP BY e2.deptno
+  HAVING SUM(e2.sal) > 1000000 | source_sql_span:AND EXISTS (
+   SELECT e2.deptno
+   FROM emp AS e2
+   WHERE e2.deptno = d.deptno
+   GROUP BY e2.deptno
+   HAVING SUM(e2.sal) > 1000000
+ ); | positive_sql_span:FROM emp AS e; | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0037,CONS,A1,operation_atom,not_implemented,source_candidate_diff:changed | positive_sql_span:EMP AS EMP0 LEFT JOIN DEPT AS DEPT0 | candidate_sql_span:FROM EMP LEFT JOIN DEPT,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+CONS_0037,CONS,A2,operation_atom,not_implemented,candidate_sql_span:COUNT(DISTINCT DEPT.NAME) | positive_sql_span:COUNT(DISTINCT DEPT0.NAME) | source_sql_span:COUNT(DISTINCT DEPT.NAME),insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+LONGTAIL_0011,LONGTAIL,A1,operation_atom,implemented,"candidate_sql_span:DENSE_RANK() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS PostRank | positive_sql_span:DENSE_RANK() OVER (
+            PARTITION BY p.OwnerUserId
+            ORDER BY p.Score DESC
+        ) AS PostRank",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+LONGTAIL_0011,LONGTAIL,A2,operation_atom,not_implemented,"source_candidate_diff:changed | source_sql_span:MaxRank AS (
+    SELECT
+        OwnerDisplayName,
+        MAX(PostRank) AS MaxPostRank
+    FROM
+        RankedPosts
+    GROUP BY
+        OwnerDisplayName
+) | source_sql_span:JOIN
+    MaxRank mr ON rp.OwnerDisplayName = mr.OwnerDisplayName | positive_sql_span:MaxRank AS (
+    SELECT
+        OwnerDisplayName,
+        MAX(PostRank) AS MaxPostRank
+    FROM RankedPosts
+    GROUP BY OwnerDisplayName
+) | candidate_sql_span:WHERE rp.PostRank = (
+    SELECT MAX(rp2.PostRank)
+    FROM RankedPosts rp2
+    WHERE rp2.OwnerDisplayName = rp.OwnerDisplayName
+)",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+LONGTAIL_0013,LONGTAIL,A1,operation_atom,not_implemented,candidate_sql_span:WITH RankedPosts AS ( | candidate_sql_span:UserStats AS ( | source_candidate_diff:changed,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+LONGTAIL_0013,LONGTAIL,A2,operation_atom,implemented,candidate_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value | candidate_sql_span:LEFT JOIN RankedPosts rp | candidate_sql_span:AND rp.rank_value = 1 | candidate_sql_span:LEFT JOIN Posts bp | positive_sql_span:ROW_NUMBER() OVER (PARTITION BY p.OwnerUserId ORDER BY p.Score DESC) AS rank_value | source_candidate_diff:changed,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+LONGTAIL_0022,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM Comments c
+    GROUP BY c.PostId | positive_sql_span:SELECT
+        c.PostId,
+        COUNT(*) AS comment_count,
+        COUNT(DISTINCT c.UserId) AS distinct_commenters
+    FROM
+        Comments c
+    GROUP BY
+        c.PostId | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+LONGTAIL_0022,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:WHERE cs.comment_count >= 3
+ORDER BY
+    cs.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id; | positive_sql_span:WHERE
+    comment_stats.comment_count >= 3
+ORDER BY
+    comment_stats.distinct_commenters DESC,
+    p.Score DESC,
+    p.Id; | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+LONGTAIL_0023,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId | candidate_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId | positive_sql_span:SELECT
+        pl.PostId,
+        COUNT(*) AS outbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.PostId | positive_sql_span:SELECT
+        pl.RelatedPostId AS PostId,
+        COUNT(*) AS inbound_count
+    FROM
+        PostLinks pl
+    GROUP BY
+        pl.RelatedPostId | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+LONGTAIL_0023,LONGTAIL,A3,operation_atom,implemented,"candidate_sql_span:COALESCE(o.outbound_count, 0) + COALESCE(i.inbound_count, 0) AS total_links | positive_sql_span:COALESCE(outbound_links.outbound_count, 0) + COALESCE(inbound_links.inbound_count, 0) AS total_links | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+LONGTAIL_0024,LONGTAIL,A2,operation_atom,implemented,"candidate_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at | positive_sql_span:SELECT
+        ph.PostId,
+        COUNT(*) AS revision_count,
+        COUNT(DISTINCT ph.UserId) AS distinct_editors,
+        MIN(ph.CreationDate) AS first_revision_at,
+        MAX(ph.CreationDate) AS last_revision_at | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+PERF_0006,PERF,A1,operation_atom,not_implemented,"source_sql_span:from
+	lineitem
+where | candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28' | positive_sql_span:) as filtered_lineitem | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0006,PERF,A2,operation_atom,not_implemented,"candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28' | positive_sql_span:select
+			l_returnflag,
+			l_linestatus,
+			l_quantity,
+			l_extendedprice,
+			l_discount,
+			l_tax | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0006,PERF,A3,operation_atom,not_implemented,"candidate_sql_span:from lineitem
+where l_shipdate < date '1998-08-28' | positive_sql_span:from
+	(
+		select | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0007,PERF,A1,operation_atom,not_implemented,"source_candidate_diff:changed | positive_sql_span:from
+	(
+		select | candidate_sql_span:from
+	lineitem
+where",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0007,PERF,A2,operation_atom,not_implemented,source_candidate_diff:changed | positive_sql_span:l_extendedprice * l_discount as extended_discounted_price | candidate_sql_span:sum(l_extendedprice * l_discount) as revenue,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0007,PERF,A3,operation_atom,not_implemented,"source_candidate_diff:changed | positive_sql_span:sum(extended_discounted_price) as revenue | candidate_sql_span:sum(l_extendedprice * l_discount) as revenue | candidate_sql_span:from
+	lineitem",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0008,PERF,A1,operation_atom,not_implemented,"candidate_sql_span:WHERE c.c_mktsegment = 'MACHINERY' | positive_sql_span:from (
+    select
+        c_custkey
+    from customer
+    where c_mktsegment = 'MACHINERY'
+) customer_filtered | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0008,PERF,A2,operation_atom,not_implemented,"candidate_sql_span:AND o.o_orderdate < DATE '1995-03-27' | positive_sql_span:join (
+    select
+        o_orderkey,
+        o_custkey,
+        o_orderdate,
+        o_shippriority
+    from orders
+    where o_orderdate < date '1995-03-27'
+) orders_filtered | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0024,PERF,A3,operation_atom,implemented,"candidate_sql_span:and ps.ps_availqty > (
+            select 0.5 * sum(l.l_quantity)
+            from lineitem l
+            where l.l_partkey = ps.ps_partkey
+              and l.l_suppkey = ps.ps_suppkey
+              and l.l_shipdate >= date '1997-01-01'
+              and l.l_shipdate < date '1997-01-01' + interval '1 year'
+        ) | source_sql_span:and ps_availqty > (
+                select
+                    0.5 * sum(l_quantity)
+                from
+                    lineitem
+                where
+                    l_partkey = ps_partkey
+                    and l_suppkey = ps_suppkey
+                    and l_shipdate >= date '1997-01-01'
+                    and l_shipdate < date '1997-01-01' + interval '1' year
+            ) | positive_sql_span:and partsupp.ps_availqty > (
+                select
+                    0.5 * sum(lineitem.l_quantity)
+                from
+                    lineitem
+                where
+                    lineitem.l_partkey = partsupp.ps_partkey
+                    and lineitem.l_suppkey = partsupp.ps_suppkey
+                    and lineitem.l_shipdate >= date '1997-01-01'
+                    and lineitem.l_shipdate < date '1997-01-01' + interval '1' year
+            )",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PERF_0034,PERF,A2,operation_atom,not_implemented,"candidate_sql_span:where d.d_year = 2000
+      and d.d_moy = 1
+      and ca.ca_gmt_offset = -8 | positive_sql_span:selected_dates as (
+    select d_date_sk
+    from date_dim
+    where d_year = 2000
+      and d_moy = 1
+), | positive_sql_span:selected_addresses as (
+    select ca_address_sk
+    from customer_address
+    where ca_gmt_offset = -8
+), | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0034,PERF,A3,operation_atom,not_implemented,"candidate_sql_span:union all | candidate_sql_span:sum(ext_sales_price) as total_sales
+from all_sales
+group by i_item_id | positive_sql_span:sum(ss.ss_ext_sales_price) as total_sales | positive_sql_span:group by si.i_item_id
+    union all | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0035,PERF,A1,operation_atom,not_implemented,source_candidate_diff:changed | positive_sql_span:with base_sales as ( | candidate_sql_span:with v1 as (,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PERF_0035,PERF,A2,operation_atom,implemented,"source_candidate_diff:changed | positive_sql_span:sum(cs_sales_price) as sum_sales | candidate_sql_span:sum(cs.cs_sales_price) as sum_sales | candidate_sql_span:group by i.i_category, i.i_brand, cc.cc_name, d.d_year, d.d_moy",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+PORT_0003,PORT,A1,operation_atom,not_implemented,"source_candidate_diff:changed | source_sql_span:""gsoffered"" | source_sql_span:""schools"" | source_sql_span:""longitude"" | positive_sql_span:`gsoffered` | positive_sql_span:`schools` | positive_sql_span:`longitude`",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0003,PORT,A2,operation_atom,not_implemented,"source_candidate_diff:changed | candidate_sql_span:ORDER BY ABS(""longitude"") DESC NULLS LAST | source_sql_span:ORDER BY ABS( ""longitude"" ) DESC NULLS LAST | positive_sql_span:ORDER BY ABS(`longitude`) DESC",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0003,PORT,A3,operation_atom,implemented,candidate_sql_span:LIMIT 1,presence_only,candidate is source-like/no-op; cited span proves presence only,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0004,PORT,A1,operation_atom,implemented,"candidate_sql_span:CAST(SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS DOUBLE PRECISION) * 100 | positive_sql_span:CAST( SUM( CASE WHEN ""sex"" = 'F' THEN 1 ELSE 0 END ) AS DOUBLE PRECISION ) * 100",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0004,PORT,A2,operation_atom,not_implemented,"candidate_sql_span:TO_CHAR(CAST(birthday AS TIMESTAMP), 'YYYY') = '1980' | positive_sql_span:EXTRACT(YEAR FROM CAST( ""birthday"" AS TIMESTAMP )) = '1980' | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0004,PORT,A3,operation_atom,not_implemented,candidate_sql_span:/ COUNT(id),insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0005,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:""nationality"" | candidate_sql_span:""drivers"" | candidate_sql_span:""dob"" | positive_sql_span:`nationality` | positive_sql_span:`drivers` | positive_sql_span:`dob`",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0005,PORT,A3,operation_atom,not_implemented,"candidate_sql_span:ORDER BY ""dob"" ASC NULLS FIRST LIMIT 1 | positive_sql_span:`dob` ASC LIMIT 1",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0008,PORT,A1,operation_atom,implemented,"candidate_sql_span:SELECT t2.admemail1, t2.admemail2 | candidate_sql_span:FROM frpm AS t1
+INNER JOIN schools AS t2
+  ON t1.cdscode = t2.cdscode | positive_sql_span:SELECT admemail1, admemail2 FROM frpm AS t1 INNER JOIN schools AS t2 ON t1.cdscode = t2.cdscode | source_candidate_diff:changed",insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+PORT_0008,PORT,A2,operation_atom,implemented,candidate_sql_span:EXTRACT(YEAR FROM t2.opendate) BETWEEN 2009 AND 2010 | positive_sql_span:YEAR(CAST(t2.opendate AS DATE)) BETWEEN 2009 AND 2010 | source_candidate_diff:changed,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+PORT_0012,PORT,A2,operation_atom,not_implemented,"candidate_sql_span:CAST(SUM(CASE WHEN ""sex"" = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / NULLIF(COUNT(""id""), 0) | positive_sql_span:CAST(SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS DOUBLE) * 100 / NULLIF(COUNT(id), 0)",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0012,PORT,A3,operation_atom,implemented,"candidate_sql_span:NULLIF(COUNT(""id""), 0) | positive_sql_span:NULLIF(COUNT(id), 0)",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0013,PORT,A1,operation_atom,not_implemented,candidate_sql_span:SUM(CASE WHEN t2.gender = 'F' THEN 1 ELSE 0 END) | positive_sql_span:COUNT(CASE WHEN t2.gender = 'F' THEN 1 END) | source_candidate_diff:changed,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0013,PORT,A2,operation_atom,implemented,candidate_sql_span:* 100 / COUNT(t2.client_id) | positive_sql_span:* 100 / COUNT(t2.client_id),presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0013,PORT,A3,operation_atom,implemented,candidate_sql_span:INNER JOIN client AS t2 ON t1.district_id = t2.district_id | positive_sql_span:INNER JOIN client AS t2 ON t1.district_id = t2.district_id,presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0022,PORT,A1,operation_atom,not_implemented,"candidate_sql_span:TO_CHAR(t1.creationdate::timestamp, 'YYYY') = '2010' | positive_sql_span:EXTRACT(YEAR FROM CAST(t1.creationdate AS TIMESTAMP)) = 2010 | source_candidate_diff:changed",insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0022,PORT,A2,operation_atom,not_implemented,candidate_sql_span:CAST(COUNT(t1.id) AS DOUBLE PRECISION) / 12 | positive_sql_span:1.0 * COUNT(t1.id) / 12 | source_candidate_diff:changed,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0022,PORT,A3,operation_atom,implemented,candidate_sql_span:INNER JOIN posts AS t2 ON t1.postid = t2.id | positive_sql_span:INNER JOIN posts AS t2 ON t1.postid = t2.id,presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0024,PORT,A1,operation_atom,not_implemented,candidate_sql_span:CAST(SUM(CASE WHEN istextless = 0 AND isstoryspotlight = 1 THEN 1 ELSE 0 END) AS DOUBLE PRECISION) * 100 / COUNT(id) | positive_sql_span:100.0 * SUM(CASE WHEN istextless = 0 AND isstoryspotlight = 1 THEN 1 ELSE 0 END) / COUNT(id) | source_candidate_diff:changed,insufficient_transformation_evidence,Stage A did not mark the operation atom implemented,expected_fail_closed_for_non_implemented_stage_a_judgment,no retry needed unless manual review finds candidate implements the atom
+PORT_0024,PORT,A2,operation_atom,implemented,candidate_sql_span:istextless = 0 AND isstoryspotlight = 1 | candidate_sql_span:COUNT(id) FROM cards | positive_sql_span:istextless = 0 AND isstoryspotlight = 1 | source_candidate_diff:changed,insufficient_transformation_evidence,source_candidate_diff:changed is not atom-specific without a candidate/positive span,possible_under_accept_or_bad_span; Stage B rejected because cited spans did not satisfy conservative text checks,tighten evidence_ref span quoting or add targeted fail-closed retry/manual review
+PORT_0025,PORT,A2,operation_atom,implemented,"candidate_sql_span:INNER JOIN account AS t2
+  ON t1.account_id = t2.account_id | positive_sql_span:INNER JOIN account AS t2 ON t1.account_id = t2.account_id",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed
+PORT_0025,PORT,A3,operation_atom,implemented,"candidate_sql_span:ORDER BY t1.amount DESC
+LIMIT 1 | positive_sql_span:ORDER BY t1.amount DESC LIMIT 1",presence_only,cited span exists but does not establish a transformation relative to source,expected_presence_only_boundary,ask provider to pair specific candidate/positive evidence with source_candidate_diff:changed

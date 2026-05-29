@@ -1,0 +1,31 @@
+{
+  "SER_status": "coverage_limited",
+  "actual_attempted_pairs": 3,
+  "boundary_notes": [
+    "bounded SQLSolver verifier-support evidence only",
+    "not official SER",
+    "not paper metrics",
+    "not retained evidence promotion",
+    "local checker exactness is not SER evidence",
+    "SQLSolver limitations are not rewrite-method failures"
+  ],
+  "bounded_SER_if_decidable": 1.0,
+  "decidable_pairs": 3,
+  "engine": "postgres",
+  "equivalent": 3,
+  "identity_guard_failed": 5,
+  "identity_guard_passed_pairs": 3,
+  "no_verifier_support": 0,
+  "non_equivalent": 0,
+  "not_attempted": 0,
+  "not_implemented": 0,
+  "official_SER": false,
+  "route_id": "sqlglot_noop",
+  "run_id": "sqlglot_noop_track_a_120_canonical_v0",
+  "selected_pairs": 8,
+  "timeout": 0,
+  "tool": "SQLSolver",
+  "tool_error": 0,
+  "unknown": 0,
+  "unsupported": 0
+}

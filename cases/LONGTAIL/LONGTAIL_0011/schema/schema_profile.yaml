@@ -1,35 +1,54 @@
-case_id: LONGTAIL_0011
-pool: LONGTAIL
-schema_profile_version: v1
-source: generated_from_legacy_schema_and_witness_files
-engines:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
-tables:
+schema_id: sqlstorm_stackoverflow_longtail0011_v0
+external_schema_profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
+source_family: SQLStorm StackOverflow
+relevant_tables:
+- Users
+- Posts
+columns:
   Users:
-    columns:
-      - {name: Id, role: user_identifier}
-      - {name: DisplayName, role: display_name}
+  - Id
+  - DisplayName
   Posts:
-    columns:
-      - {name: Id, role: post_identifier}
-      - {name: Title, role: projected_title}
-      - {name: CreationDate, role: filter_and_output_date}
-      - {name: Score, role: ranking_metric}
-      - {name: ViewCount, role: output_ordering_metric}
-      - {name: OwnerUserId, role: join_key_to_users}
-      - {name: PostTypeId, role: question_filter}
-witness_basis:
-  row_count_users: 2
-  row_count_posts: 5
-  discriminator: two Alice question posts have tied worst score and distinguish DENSE_RANK from ROW_NUMBER
-claim_boundaries:
-  db_validation_run: false
-  evidence_regenerated: false
+  - Id
+  - Title
+  - CreationDate
+  - Score
+  - ViewCount
+  - OwnerUserId
+  - PostTypeId
+column_types:
+  Users:
+    Id: integer
+    DisplayName: text/string
+  Posts:
+    Id: integer
+    Title: text/string
+    CreationDate: text/string
+    Score: integer
+    ViewCount: integer
+    OwnerUserId: integer
+    PostTypeId: integer
+primary_keys: []
+foreign_keys:
+- Posts.OwnerUserId -> Users.Id (logical fixture relationship, not declared in DDL)
+dialect_differences:
+- Postgres/MySQL use TEXT for string fields; Spark uses STRING.
+engine_support:
+  postgres: supported
+  mysql: supported
+  spark: supported
+fixture_notes:
+- Users and Posts fixture distinguishes DENSE_RANK from ROW_NUMBER under tied scores.
+case_local_profile_policy: case_facing_schema_summary_only_not_executable_ddl_load
+external_schema_resolution:
+  profile: schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml
+  ddl_load_source: external_schema_package
+compatibility:
+  case_local_engine_files_retained: true
+  case_local_engine_files_deleted: false
+  notes: Case-local per-engine ddl/load files are retained as compatibility copies for this pilot.
+claim_boundary:
+  db_validation_run_during_migration: false
+  official_metrics_computed: false
+  paper_results_changed: false
+  denominator_changed: false

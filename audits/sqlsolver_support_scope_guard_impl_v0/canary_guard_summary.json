@@ -1,0 +1,20 @@
+{
+  "attempted_canaries": 10,
+  "blockers": [],
+  "boundary_notes": [
+    "non-benchmark SQLSolver canary guard rerun only",
+    "no benchmark pair verified",
+    "guarded families excluded from decidable SER denominator",
+    "no official SER produced"
+  ],
+  "guard_blocked_checks": 4,
+  "identity_equivalent": 6,
+  "identity_timeout": 0,
+  "identity_tool_error": 0,
+  "identity_unknown_unclassified": 0,
+  "identity_unsupported": 0,
+  "no_verifier_support": 4,
+  "ready_to_rerun_same_8_pairs": true,
+  "selected_canaries": 5,
+  "sqlsolver_invoked_checks": 6
+}

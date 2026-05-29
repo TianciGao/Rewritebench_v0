@@ -1,0 +1,41 @@
+{
+  "candidate_executable_rows": 23,
+  "candidate_execution_failed_rows": 8,
+  "candidate_origin_counts": {
+    "calcite_parse_only_schema_fallback": 4,
+    "calcite_rel_to_sql": 29,
+    "no_candidate": 7
+  },
+  "checker_attempted_rows": 23,
+  "db_execution_engine": "postgres",
+  "exact_rows": 20,
+  "execution_attempted_rows": 33,
+  "failure_bucket_counts": {
+    "candidate_execution_failed": 8,
+    "mismatch": 3,
+    "no_candidate_sql": 7,
+    "none": 20,
+    "source_execution_failed": 2
+  },
+  "generated_candidate_rows": 33,
+  "input_candidate_csv": "audits/calcite_hep_pg_bounded_candidate_generation_v0/per_row_candidate_status.csv",
+  "local_only": true,
+  "local_result_consistency_rate_diagnostic": 0.5,
+  "mismatch_rows": 3,
+  "no_candidate_rows": 7,
+  "not_attempted_manual_review_rows": 0,
+  "not_attempted_no_candidate_rows": 7,
+  "official_metric_input": false,
+  "paper_result": false,
+  "run_id": "calcite_hep_pg_execution_checker",
+  "schema_fallback_exact_rows": 0,
+  "schema_fallback_failed_rows": 4,
+  "schema_fallback_rows": 4,
+  "schema_version": "calcite_pg_execution_checker_diagnostic_summary_v0",
+  "selected_rows": 40,
+  "source_candidate_generation_audit": "audits/calcite_hep_pg_bounded_candidate_generation_v0/",
+  "source_executable_rows": 31,
+  "source_execution_failed_rows": 2,
+  "timing_collected": false,
+  "verifier_run": false
+}

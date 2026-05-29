@@ -1,141 +1,85 @@
 case_id: PERF_0019
 pool: PERF
-status: canonical_full_case_migration_batch_pilot
-canonical_layout: true
-batch_id: perf_wave_2_sanitized_plan_batch_002
+primary_pool: PERF
+package_path: cases/PERF/PERF_0019
 source_family: TPC-H
-source_id: SRC_001
-source_name: TPC-H
-source_seed: TPC-H-Q13
-source_entry: ''
-source_materialization: manual_freeze_from_tpc_h_reference_substitution
-benchmark_scope:
-  benchmark_unit: case_package
-  migration_scope: PERF_0019_only
-  common_core_v0_membership_reference: case_sets/common_core_v0.yaml
-  common_core_membership_changed: false
-  case_admission_status_changed: false
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
-denominator_eligibility:
-  track_a_same_engine_candidate: true
-  denominator_changed: false
-  paper_results_changed: false
-  no_global_leaderboard: true
-engine_support:
-  postgres:
-    supported: true
-    role: source_reference_engine
-    retained_evidence: evidence/retained_controls/postgres/source.tsv
-  mysql:
-    supported: true
-    role: target_positive_and_negative_engine
-    retained_positive_evidence: evidence/retained_controls/mysql/rewrite_pos_01.tsv
-    retained_negative_evidence: evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  spark:
-    supported: true
-    role: target_positive_and_negative_engine
-    retained_positive_evidence: evidence/retained_controls/spark/rewrite_pos_01.tsv
-    retained_negative_evidence: evidence/hard_negative/spark/rewrite_neg_01.tsv
-    retained_plan_evidence: evidence/retained_plans/spark/
-sql:
-  source: sql/source.sql
-  positives:
-  - id: pos_01
-    path: sql/positives/pos_01.sql
-    source_legacy_path: cases/PERF/PERF_0019/rewrite_pos_01.sql
-    role: positive_rewrite
-    rewrite_pressure:
+source_workload:
+  source_family: TPC-H
+  source_id: SRC_001
+  source_name: TPC-H
+  source_seed: TPC-H-Q13
+  source_workload: TPC-H
+  source_materialization: manual_freeze_from_tpc_h_reference_substitution
+based_benchmark: TPC-H
+source_query_identity:
+  source_id: SRC_001
+  source_name: TPC-H
+  source_seed: TPC-H-Q13
+source_path: datasets/raw/tpch/TPC-H V3.0.1/dbgen/queries/13.sql
+draft_origin:
+  recovery_status: accepted_non_blocking_release_caveat
+  origin_id: TPC-H-Q13
+  origin_type: source_query_identity_fallback
+  recovery_sources:
+  - current_manifest
+  - branch_history_provenance
+  - branch_history_taxonomy
+  - inventory_case_registry
+taxonomy:
+  sql_feature:
+    primary:
+    - outer_join
+    - subquery_in_from
+    secondary: []
+  rewrite_opportunity:
+    primary:
     - materialization_strategy
     - predicate_pushdown
-  negatives:
+    secondary: []
+  portability:
+    confirmed: []
+    suspected: []
+  performance_focus:
+    performance_sensitive: true
+sql:
+  source: sql/source.sql
+  positive_rewrites:
+  - id: pos_01
+    path: sql/pos_01.sql
+    status: recovered_from_v1_positive_rewrite
+  hard_negatives:
   - id: neg_01
-    path: sql/negatives/neg_01.sql
-    source_legacy_path: cases/PERF/PERF_0019/rewrite_neg_01.sql
-    role: hard_negative
-    expected_rejection: checker/expected_rejections.yaml
-    expected_behavior: result_divergence_from_source_reference
+    path: sql/neg_01.sql
+    status: recovered_from_v1_hard_negative
 schema:
-  postgres:
-    ddl: schema/postgres/ddl.sql
-    load: schema/postgres/load.sql
-  mysql:
-    ddl: schema/mysql/ddl.sql
-    load: schema/mysql/load.sql
-  spark:
-    ddl: schema/spark/ddl.sql
-    load: schema/spark/load.sql
   profile: schema/schema_profile.yaml
+  external_profile: schemas/tpch_perf0019_v0/schema_profile.yaml
+witness:
+  mode: source_as_oracle
+  data_profile_status: external_or_generated
+  correct_result_status: not_required_for_runtime_checker
+  witness_profile: witness/witness_profile.yaml
 checker:
   checker: checker/checker.yaml
   normalization: checker/normalization.yaml
   compare_config: checker/compare_config.yaml
   expected_rejections: checker/expected_rejections.yaml
 validation:
-  postgres_validation: validation/run_postgres_validation.sh
-  mysql_validation: validation/run_mysql_validation.sh
-  spark_validation: validation/run_spark_validation.sh
-  postgres_plan_collection: validation/run_postgres_plan_collection.sh
-  mysql_plan_collection: validation/run_mysql_plan_collection.sh
-  spark_plan_collection: validation/run_spark_plan_collection.sh
-  execution_policy: not_run_during_migration
-  output_policy: future_public_runner_outputs_must_not_write_to_case_local_runs_by_default
-evidence:
-  runs_retention: evidence/runs_retention.yaml
-  retained_controls:
-  - evidence/retained_controls/result_check.json
-  - evidence/retained_controls/postgres/source.tsv
-  - evidence/retained_controls/mysql/rewrite_pos_01.tsv
-  - evidence/retained_controls/spark/rewrite_pos_01.tsv
-  retained_plans:
-  - evidence/retained_plans/plan_check.json
-  - evidence/retained_plans/postgres/source.json
-  - evidence/retained_plans/mysql/rewrite_pos_01.json
-  - evidence/retained_plans/mysql/rewrite_neg_01.json
-  - evidence/retained_plans/spark/rewrite_pos_01.sanitized.txt
-  - evidence/retained_plans/spark/rewrite_neg_01.sanitized.txt
-  hard_negative:
-  - evidence/hard_negative/mysql/rewrite_neg_01.tsv
-  - evidence/hard_negative/spark/rewrite_neg_01.tsv
-  - evidence/hard_negative/hard_negative_summary.json
-  timing_evidence: []
-  package_validation_summary: evidence/package_validation_summary.json
-metadata:
-  provenance: metadata/provenance.yaml
-  taxonomy: metadata/taxonomy.yaml
-  engine_support: metadata/engine_support.yaml
-  denominator_eligibility: metadata/denominator_eligibility.yaml
-  artifact_paths: metadata/artifact_paths.yaml
-notes:
-  witness_design_notes: notes/witness_design_notes.md
-  risk_notes: notes/risk_notes.md
-  schema_notes: notes/schema_notes.md
-  promotion_checklist: notes/promotion_checklist.md
-  migration_notes: notes/migration_notes.md
-artifact_paths:
-  legacy_case_root: cases/PERF/PERF_0019
-  public_release_case_root: cases/PERF/PERF_0019
-  raw_legacy_runs_root: cases/PERF/PERF_0019/runs
-  raw_runs_publication_policy: do_not_copy_raw_runs_wholesale
-performance_boundary:
-  performance_sensitive_case: true
-  timing_evidence_created: false
-  speedup_claim_created: false
-  retained_timing_artifacts_present: false
-  interpretation_policy: retained denominator-aware paper evidence only
-claim_boundaries:
-  actual_migration_performed: true
-  preview_only: false
-  full_case_package_migrated: true
+  run_validation: validation/run_validation.sh
+  run_plan_collection: validation/run_plan_collection.sh
+  run_engine_queries: validation/run_engine_queries.py
+evidence_policy:
+  static_case_evidence: not_required
+  regeneration_policy: regenerable_by_validation_and_report_scripts
+  retained_static_artifacts: none
+status: repaired_v2_manifest_contract_with_nonblocking_provenance_caveat
+known_caveats:
+- draft_origin_not_explicitly_recovered_nonblocking
+artifact_warning:
+  case_membership_changed: false
   denominator_changed: false
   paper_results_changed: false
-  common_core_membership_changed: false
-  case_membership_changed: false
-  raw_legacy_evidence_changed: false
-  no_global_leaderboard: true
-  db_validation_run: false
-  evidence_regenerated: false
-  speedup_claim_created: false
-  timing_evidence_created: false
-  migration_scope: PERF_0019 only
+  official_metrics_computed: false
+  db_checker_execution_run: false
+  global_leaderboard_created: false
+  static_evidence_required: false

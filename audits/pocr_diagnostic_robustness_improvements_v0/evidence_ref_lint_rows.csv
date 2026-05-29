@@ -1,0 +1,143 @@
+case_id,pool,atom_id,atom_type,observed_status,evidence_ref,lint_status,issue_type,severity,recommendation
+CONS_0005,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0005,CONS,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0007,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0007,CONS,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0009,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0009,CONS,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0010,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0010,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0011,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0011,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0012,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0012,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0024,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0024,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0036,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0036,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0037,CONS,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+CONS_0037,CONS,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0011,LONGTAIL,A1,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+LONGTAIL_0011,LONGTAIL,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0011,LONGTAIL,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0013,LONGTAIL,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0013,LONGTAIL,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0022,LONGTAIL,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0022,LONGTAIL,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0023,LONGTAIL,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0023,LONGTAIL,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0024,LONGTAIL,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+LONGTAIL_0024,LONGTAIL,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0006,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0006,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0007,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0007,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0008,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0008,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0019,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0019,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0024,PERF,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PERF_0024,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0024,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0034,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0034,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0035,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0035,PERF,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0054,PERF,A3,semantic_guard_atom,not_implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0054,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0056,PERF,A3,semantic_guard_atom,contradicted,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0056,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0062,PERF,A3,semantic_guard_atom,implemented,"candidate_sql_span:WHERE d.d_year = 2001
+  AND (
+    (cd.cd_marital_status = 'D'
+     AND cd.cd_education_status = '2 yr Degree'
+     AND ss.ss_sales_price BETWEEN 100.00 AND 150.00
+     AND hd.hd_dep_count = 3)
+    OR
+    (cd.cd_marital_status = 'S'
+     AND cd.cd_education_status = 'Secondary'
+     AND ss.ss_sales_price BETWEEN 50.00 AND 100.00
+     AND hd.hd_dep_count = 1)
+    OR
+    (cd.cd_marital_status = 'W'
+     AND cd.cd_education_status = 'Advanced Degree'
+     AND ss.ss_sales_price BETWEEN 150.00 AND 200.00
+     AND hd.hd_dep_count = 1)
+  )
+  AND (
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('CO', 'IL', 'MN')
+     AND ss.ss_net_profit BETWEEN 100 AND 200)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('OH', 'MT', 'NM')
+     AND ss.ss_net_profit BETWEEN 150 AND 300)
+    OR
+    (ca.ca_country = 'United States'
+     AND ca.ca_state IN ('TX', 'MO', 'MI')
+     AND ss.ss_net_profit BETWEEN 50 AND 250)
+  )",issue,evidence_ref_too_long,warning,shorten the cited span to the atom-specific fragment
+PERF_0062,PERF,A3,semantic_guard_atom,implemented,"source_sql_span:and d_year = 2001
+  and ((ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'D'
+        and cd_education_status = '2 yr Degree'
+        and ss_sales_price between 100.00 and 150.00
+        and hd_dep_count = 3)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'S'
+        and cd_education_status = 'Secondary'
+        and ss_sales_price between 50.00 and 100.00
+        and hd_dep_count = 1)
+       or (ss_hdemo_sk = hd_demo_sk
+        and cd_demo_sk = ss_cdemo_sk
+        and cd_marital_status = 'W'
+        and cd_education_status = 'Advanced Degree'
+        and ss_sales_price between 150.00 and 200.00
+        and hd_dep_count = 1))
+  and ((ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('CO', 'IL', 'MN')
+        and ss_net_profit between 100 and 200)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('OH', 'MT', 'NM')
+        and ss_net_profit between 150 and 300)
+       or (ss_addr_sk = ca_address_sk
+        and ca_country = 'United States'
+        and ca_state in ('TX', 'MO', 'MI')
+        and ss_net_profit between 50 and 250))",issue,evidence_ref_too_long,warning,shorten the cited span to the atom-specific fragment
+PERF_0062,PERF,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0062,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0077,PERF,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0077,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0082,PERF,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PERF_0082,PERF,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0003,PORT,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0003,PORT,A3,operation_atom,implemented,candidate_sql_span:LIMIT 1,issue,candidate_sql_span_only,warning,span presence alone is not transformation evidence; add diff plus atom-specific support
+PORT_0003,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0003,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0004,PORT,A1,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0004,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0004,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0005,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0005,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0008,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0008,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0012,PORT,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0012,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0012,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0013,PORT,A2,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0013,PORT,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0013,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0013,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0022,PORT,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0022,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0022,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0024,PORT,A3,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0024,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0025,PORT,A2,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0025,PORT,A3,operation_atom,implemented,,issue,missing_source_candidate_diff,warning,pair operation evidence with source_candidate_diff:changed
+PORT_0025,PORT,A4,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator
+PORT_0025,PORT,A5,semantic_guard_atom,implemented,,issue,semantic_guard_not_operation_numerator,info,keep semantic guard review separate from operation coverage numerator

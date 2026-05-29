@@ -1,0 +1,18 @@
+{
+  "candidate_executable": 13,
+  "candidate_execution_failed": 0,
+  "exact": 9,
+  "extraction_passed": 13,
+  "fail_closed_rows": 0,
+  "live_calls": 13,
+  "local_diagnostic_only": true,
+  "mismatch": 4,
+  "official_metric": false,
+  "paper_result": false,
+  "preflight_passed": 13,
+  "repaired_candidates_generated": 13,
+  "selected_rows": 13,
+  "source_executable": 13,
+  "timed": 9,
+  "unsupported_excluded_rows": 5
+}

@@ -1,0 +1,13 @@
+check_name,status,details
+only five pilot cases modified,pass,15 empty candidate directories removed under target cases; tracked case file diff entries: none
+no schemas modified,pass,no git diff entries
+no case_sets changed,pass,no git diff entries
+no inventory changed,pass,no git diff entries
+no reports/results changed,pass,no git diff entries
+no denominator changed,pass,no git diff entries
+no paper results changed,pass,no git diff entries
+no evidence/cases created,pass,no git diff entries
+no official metrics computed,pass,not performed by this cleanup task
+no DB/checker execution,pass,not performed by this cleanup task
+no global leaderboard,pass,not performed by this cleanup task
+no dialect variants deleted,pass,PORT_0003 dialect variant files still exist; no dialect variant path was targeted

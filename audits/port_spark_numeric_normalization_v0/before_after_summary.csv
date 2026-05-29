@@ -1,0 +1,5 @@
+case_id,before_checker_status,before_exact_status,before_observed_gap,after_checker_status,after_exact_status,after_notes
+PORT_0003,checker_success,exact,not_affected,checker_success,exact,Already exact before and after.
+PORT_0004,checker_mismatch,mismatch,MySQL string numeric 50 vs Spark numeric 50.0,checker_success,exact,Mixed numeric equivalence used under mysql_to_spark role gate.
+PORT_0005,checker_success,exact,not_affected,checker_success,exact,Already exact before and after.
+PORT_0013,checker_mismatch,mismatch,MySQL string numeric 66.66666666666667 vs Spark numeric 66.66666666666667,checker_success,exact,Mixed numeric equivalence used under mysql_to_spark role gate.

@@ -1,0 +1,7 @@
+case_id,engine,pool,source_sql_path,schema_ref,selection_reason,expected_risk,notes
+PERF_0006,postgres,PERF,cases/PERF/PERF_0006/sql/source.sql,schemas/tpch_common_core_v0/schema_profile.yaml,required smoke row; PERF coverage,TPC-H/date/comment-heavy shape observed in prior-method work,PostgreSQL-only bounded live e2e smoke row
+CONS_0036,postgres,CONS,cases/CONS/CONS_0036/sql/source.sql,schemas/verieql_cons0036_v0/schema_profile.yaml,required smoke row; CONS coverage,small consistency row; low smoke risk,PostgreSQL-only bounded live e2e smoke row
+PERF_0007,postgres,PERF,cases/PERF/PERF_0007/sql/source.sql,schemas/tpch_perf0007_v0/schema_profile.yaml,additional PERF row,PERF rewrite/execution variance risk,PostgreSQL-only bounded live e2e smoke row
+CONS_0005,postgres,CONS,cases/CONS/CONS_0005/sql/source.sql,schemas/calcite_core_sql_tests_cons0005_v0/schema_profile.yaml,additional CONS row,CONS semantic-preservation smoke risk,PostgreSQL-only bounded live e2e smoke row
+CONS_0007,postgres,CONS,cases/CONS/CONS_0007/sql/source.sql,schemas/calcite_core_sql_tests_cons0007_v0/schema_profile.yaml,additional CONS row,CONS semantic-preservation smoke risk,PostgreSQL-only bounded live e2e smoke row
+LONGTAIL_0011,postgres,LONGTAIL,cases/LONGTAIL/LONGTAIL_0011/sql/source.sql,schemas/sqlstorm_stackoverflow_longtail0011_v0/schema_profile.yaml,optional LONGTAIL row with higher execution-risk coverage,LONGTAIL nested/window shape; execution-risk row,PostgreSQL-only bounded live e2e smoke row

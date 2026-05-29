@@ -1,0 +1,8 @@
+Local output state for this task:
+
+- Planned annotation JSONL path: output/results/pocr_annotation_direct_llm_repair1_pg40_v0/pocr/annotations/direct_llm_repair_1/direct_llm_repair_1_pg40_pocr_diagnostic/postgres/safe_annotation_outputs.jsonl
+- Result: file not produced.
+- Planned replay output root: /tmp/sqlrb_pocr_user_replay_direct_llm_repair1_pg40_v0/output
+- Result: replay not run, root absent unless created outside this task.
+
+The repository-level output/ directory is local and untracked; it is not staged or committed.

@@ -1,0 +1,12 @@
+{
+  "method_id": "sqlglot",
+  "mysql_perf0006_exact": true,
+  "official_metric_input": false,
+  "paper_result": false,
+  "postgres_cons0005_exact": true,
+  "route_id": "sqlglot_optimize_schema_aware",
+  "smoke_rows": 4,
+  "spark_cons0005_remains_mismatch": true,
+  "target_mysql_array_any_fail_closed": true,
+  "task": "sqlglot_optimize_schema_aware_mysql_array_any_fail_closed_v0"
+}

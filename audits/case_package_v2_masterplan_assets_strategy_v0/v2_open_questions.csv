@@ -1,0 +1,9 @@
+question_id,question,recommended_default,decision_needed_before,risk_if_unresolved,notes
+Q001,When can case-local schema be deleted,Do not delete until schema_ref runner and validator compatibility pass plus cleanup approval,Any schema cleanup task,Broken DB/checker execution or validator paths,Copy-first remains default.
+Q002,When can case-local evidence be deleted,Do not delete without evidence_ref mapping and retention approval,Any evidence cleanup task,Loss of retained evidence traceability,Retained evidence is not user-run output.
+Q003,Does witness/ remain required,No static witness directory is optional unless case-specific policy requires it,V2 validator enforcement,Overblocking source-as-oracle runtime checks,Runtime oracle should be source SQL result.
+Q004,How should external evidence_ref be validated,Require path existence role classification and public hygiene checks,Runner validator compatibility task,Stale or unsafe evidence references,Do not parse raw private evidence by default.
+Q005,How to handle large retained result artifacts,Keep external and curated with mapping not case-local by default,Evidence externalization task,Repository bloat or unsafe publication,Use copy-first public-safe references.
+Q006,How to support MySQL/Spark schema_ref,Validate engine-specific refs but implement execution separately,Any MySQL or Spark execution work,Unsupported engine execution drift,Postgres remains the only DB/checker MVP engine.
+Q007,How to keep user-run outputs separate,Keep output-root guard under runs/user and do not promote automatically,Any runner or evidence integration work,Accidental retained-evidence contamination,User-run output is local diagnostic only.
+Q008,How to clean-export construction audits,Classify audits and project-control files before public v0 export,Clean export task,Overexposing construction artifacts,Construction repo can retain audits.

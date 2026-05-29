@@ -1,0 +1,2 @@
+case_id,validator_status,direct_sql_ok,schema_ref_ok,manifest_semantic_contract_ok,checker_refs_ok,validation_three_file_contract_ok,witness_policy_ok,evidence_policy_ok,clean_template_minimal_ok,notes
+PORT_0005,pass,true,true,true,true,true,true,true,true,static v2 validator passed; DB/checker execution not run

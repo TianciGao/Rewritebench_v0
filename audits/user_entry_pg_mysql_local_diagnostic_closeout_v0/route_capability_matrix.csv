@@ -1,0 +1,7 @@
+route,cases_or_scope,adapter_type,source_engine,target_engine,source_executable,target_executable,checker_status,exact_status,local_diagnostic_only,notes
+postgres_same_engine_common_core_noop,common_core_v0 postgres selected rows,noop_adapter,postgres,postgres,35_of_40,35_of_40,35_attempted,35_exact_0_mismatch,yes,Five PORT rows failed in the original trial before target-engine-aware PORT repair.
+mysql_same_engine_smoke,PERF_0006;CONS_0005,noop_adapter,mysql,mysql,2_of_2,2_of_2,2_attempted,2_exact_0_mismatch,yes,Bounded live smoke for the MySQL same-engine backend.
+mysql_same_engine_common_core_noop,common_core_v0 mysql selected rows,noop_adapter,mysql,mysql,31_of_35_attempted,31_of_31_attempted,31_attempted,31_exact_0_mismatch,yes,Original trial had four PORT source failures and five unsupported cross-dialect rows before bidirectional PORT route closeout.
+port_forward_mysql_to_postgres,PORT_0004;PORT_0013;PORT_0022;PORT_0024;PORT_0025,controlled_target_reference_adapter,mysql,postgres,5_of_5,5_of_5,5_attempted,5_exact_0_mismatch,yes,Controlled adapter is diagnostic only and not a benchmark baseline.
+port_reverse_postgres_to_mysql,PORT_0003;PORT_0005;PORT_0008;PORT_0012,controlled_target_reference_adapter,postgres,mysql,4_of_4,4_of_4,4_attempted,4_exact_0_mismatch,yes,Controlled adapter is diagnostic only and not a benchmark baseline.
+spark_any_route,common_core_v0 spark selected rows,none,spark,spark,not_supported,not_supported,not_attempted,not_applicable,yes,Spark remains deferred and fail-closed.

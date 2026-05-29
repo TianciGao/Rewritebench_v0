@@ -1,0 +1,13 @@
+engine,pool,selected,candidate_generated,generation_rate,preflight_passed,source_executable,candidate_executable,execution_coverage_rate,exact,result_consistency_rate,mismatch,label_only_mismatch,unsupported_fail_closed,timed,speedup_denominator,gm_speedup_ratio,performance_na_reason
+postgres,CONS,9,9,1.0,9,9,9,1.0,9,1.0,0,0,0,0,0,,no_exact_timed_rows
+postgres,LONGTAIL,6,6,1.0,6,6,6,1.0,6,1.0,0,0,0,0,0,,no_exact_timed_rows
+postgres,PERF,16,16,1.0,16,16,16,1.0,16,1.0,0,0,0,0,0,,no_exact_timed_rows
+postgres,PORT,9,4,0.4444444444444444,4,4,4,0.4444444444444444,4,0.4444444444444444,0,0,0,0,0,,no_exact_timed_rows
+mysql,CONS,9,9,1.0,9,9,9,1.0,9,1.0,0,0,0,0,0,,no_exact_timed_rows
+mysql,LONGTAIL,6,6,1.0,6,6,6,1.0,6,1.0,0,0,0,0,0,,no_exact_timed_rows
+mysql,PERF,16,16,1.0,16,16,16,1.0,15,0.9375,1,0,0,0,0,,no_exact_timed_rows
+mysql,PORT,9,9,1.0,9,9,8,0.8888888888888888,1,0.1111111111111111,7,0,0,0,0,,no_exact_timed_rows
+spark,CONS,9,9,1.0,9,9,9,1.0,9,1.0,0,0,0,0,0,,no_exact_timed_rows
+spark,LONGTAIL,6,6,1.0,6,6,6,1.0,6,1.0,0,0,0,0,0,,no_exact_timed_rows
+spark,PERF,16,16,1.0,16,16,16,1.0,16,1.0,0,0,0,0,0,,no_exact_timed_rows
+spark,PORT,9,9,1.0,9,4,2,0.2222222222222222,0,0.0,2,0,5,0,0,,no_exact_rows

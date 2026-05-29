@@ -1,0 +1,22 @@
+# Wave A Conversion Command Log
+
+- `pwd` -> `/home/tianci_gao/code/Rewritebench_v0`.
+- `git branch --show-current` -> `feature/case-package-v2-external-schema`.
+- `git remote -v` -> origin GitHub remote.
+- `git status -sb` -> clean at task start.
+- `git log --oneline -5` -> latest branch commits reviewed.
+- Read project-control, Common-core plan, accepted pilot outputs, v2 specs, validator, pilot case shape, and Wave A case packages.
+- Inspected Wave A case trees and manifests.
+- `sha256sum` over Wave A schema DDL/load files -> confirmed case-local schema assets differ by case, so case-specific external schemas were created.
+- Applied structured conversion pass for five Wave A cases without deleting compatibility paths.
+- Ran static v2 validator for each Wave A case -> all passed before deletion.
+- Deleted only Wave A compatibility paths after validator pass: nested SQL dirs, case-local engine schema dirs, static evidence, metadata, notes, data, and old engine-specific validation scripts.
+- Ran static v2 validator for each Wave A case again -> all passed after deletion.
+- Generated Wave A audit outputs and project-control writeback.
+- Ran static v2 validator for five accepted pilot cases -> all passed; pilot paths were not modified.
+- Ran `PYTHONPATH=src python -m unittest discover -s tests/case_package_v2 -v` -> 11 tests passed.
+- Ran summary JSON assertion -> passed.
+- Ran CSV parse/header smoke -> passed for seven audit CSV files.
+- Ran protected boundary path checks -> no `case_sets/`, inventory, reports/results, or non-Wave-A case changes detected.
+- Ran `git diff --check` -> passed.
+- Ran final pre-stage `git status -sb` -> only intended Wave A case, schema, audit, and project-control changes were present.

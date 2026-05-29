@@ -1,0 +1,8 @@
+check,expected,result,notes
+same_engine_postgres_router,postgres_dispatch_preserved,passed,Existing router test confirms PostgreSQL dispatch remains delegated to postgres_execution.
+mysql_stub,fail_closed_no_postgres_fallback,passed,Existing fail-closed stub behavior preserved.
+spark_stub,fail_closed_no_postgres_fallback,passed,Existing fail-closed stub behavior preserved.
+quality_summary,new_status_tolerated,passed,quality_summary.json records cross_dialect_backend_missing failure bucket.
+tag_slices,new_status_tolerated,passed,tag_slices.csv counts backend-missing rows as execution_failed_rows and remains local diagnostic only.
+reports_results,no_changes,passed,No reports/results files changed.
+case_sets,no_changes,passed,case_sets unchanged.

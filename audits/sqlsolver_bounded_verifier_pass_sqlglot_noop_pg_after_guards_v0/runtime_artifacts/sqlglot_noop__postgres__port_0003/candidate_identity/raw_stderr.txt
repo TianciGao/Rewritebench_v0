@@ -1,0 +1,1 @@
+source SQL family quoted_identifier_null_ordering blocked before SQLSolver invocation: quoted_identifier_null_ordering_outside_current_sqlsolver_support_scope; local diagnostic verifier-support boundary only

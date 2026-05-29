@@ -1,0 +1,5 @@
+annotation_run_id,total_rows,schema_valid_rows,schema_invalid_rows,malformed_json_rows,provider_call_failed_rows,timeout_rows,fail_closed_rows,reused_existing,notes
+pocr_real_route_direct_llm_pg40_diagnostic_v0,40,33,7,6,0,1,7,true,schema/fail-closed counts are from replay row metrics; SQLGlot optimize total excludes six no-candidate planned rows from annotation JSONL
+pocr_annotation_direct_llm_repair1_pg40_targeted_retry_v0,40,40,0,0,0,0,0,true,schema/fail-closed counts are from replay row metrics; SQLGlot optimize total excludes six no-candidate planned rows from annotation JSONL
+pocr_annotation_sqlglot_noop_pg40_sanity_control_v0,40,34,6,5,1,0,6,true,schema/fail-closed counts are from replay row metrics; SQLGlot optimize total excludes six no-candidate planned rows from annotation JSONL
+pocr_annotation_pg40_sqlglot_optimize_pilot_v0,34,29,11,1,4,0,11,false,schema/fail-closed counts are from replay row metrics; SQLGlot optimize total excludes six no-candidate planned rows from annotation JSONL

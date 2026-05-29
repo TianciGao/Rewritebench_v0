@@ -1,0 +1,13 @@
+risk_category,risk_level,description,blocker_for_fake_adapter,blocker_for_live_smoke,blocker_for_track_a_120,mitigation,notes
+provider conversion to GPTSAPI/gpt-5.4,medium,Official LLM-R2 code uses its own provider assumptions and legacy OpenAI-style calls,no,yes,yes,Use Direct LLM provider policy and env-only secrets,Live path remains disabled in scaffold
+rule-system/runtime availability,high,Official route can require Java/rule-system application of selected rules,no,yes,yes,Separate runtime contract and preflight before execution,Fake mode records rule_system_runtime_used=false
+checkpoint/provenance availability,high,Selector checkpoint provenance and compatibility must be frozen,no,yes,yes,Require checkpoint inventory before official-stack work,Fake mode records checkpoint_used=false
+demonstration selector availability,high,Demo selector runtime and corpus are not D035 row-scoped,no,yes,yes,Define selector input/output and contamination policy separately,Fake mode records demonstration_selector_used=false
+prompt/template compatibility,medium,Adapted GPT-5.4 prompts are not original paper prompts,no,yes,yes,Label adapted_gpt54_local_diagnostic and original_paper_reproduction=false,No live prompt used in scaffold
+output SQL extraction,high,Legacy PG9 failures include malformed missing-leading-SELECT outputs,no,yes,yes,Single-SQL extraction guard rejects prose empty and multiple SQL,Tests cover failure modes
+rule-sequence-only output risk,medium,Rule sequence metadata may be present without executable SQL,no,yes,yes,Rule-only responses fail closed,Rule sequence is metadata only
+schema context conversion,medium,Official inputs require dataset-specific schema JSON/CSV context,no,yes,yes,Use current schema DDL context for facade compatibility first,PostgreSQL fake smoke only
+PostgreSQL-only limitation,high,Legacy evidence is PG-only and MySQL/Spark are unrecovered,no,yes,yes,Require engine support policy before broader route,Fake smoke uses PostgreSQL only
+denominator compatibility,high,Legacy PG9/PG6 evidence is not Track A 120,no,yes,yes,Keep bounded evidence separate from tri-engine tables,No denominator change
+old recovered-output evidence risk,high,Recovered extraction is a separate route and must not overwrite original route,no,yes,yes,Keep legacy evidence as design clues only,No old outputs copied
+secret safety,high,Future live calls require API keys,no,yes,yes,Env-only secrets and metadata redaction,Tests check secret hygiene

@@ -1,0 +1,13 @@
+case_id: PERF_0006
+witness_model: source_as_oracle
+source_as_oracle_policy: runtime_source_result_is_oracle_for_local_checker
+dataset_id: tpch_common_core_v0
+required_tables:
+  - lineitem
+positive_expectation: positive_rewrite_should_match_source_result_under_same_schema
+negative_expectation: hard_negative_expected_to_diverge_from_source_reference
+static_reference_status: retained_correct_result_present_but_not_required_for_runtime_checker
+runtime_oracle_status: source_sql_result_required_for_runtime_checker
+notes:
+  - Static correct_result.csv is retained from the pilot but is not fabricated or required for runtime source-as-oracle checking.
+  - No DB/checker execution or official metric computation was performed while creating this profile.

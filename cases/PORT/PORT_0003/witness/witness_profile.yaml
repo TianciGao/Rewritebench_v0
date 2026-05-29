@@ -1,0 +1,13 @@
+case_id: PORT_0003
+witness_model: source_as_oracle
+source_as_oracle_policy: runtime_source_result_is_oracle_for_local_checker
+dataset_id: parrot_bird_port0003_v0
+required_tables:
+  - schools
+positive_expectation: positive_rewrite_should_match_source_result_under_same_schema
+negative_expectation: hard_negative_expected_to_diverge_from_source_reference
+static_reference_status: static_correct_result_not_materialized
+runtime_oracle_status: source_sql_result_required_for_runtime_checker
+notes:
+  - Portability-specific retained evidence remains externalized by copy-first mapping only.
+  - No DB/checker execution or official metric computation was performed while creating this profile.

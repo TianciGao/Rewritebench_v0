@@ -1,0 +1,12 @@
+check_name,status,details
+no case_sets changed,pass,"git status shows no case_sets/ changes."
+no inventory changed,pass,"git status shows no inventory/ changes."
+no reports/results changed,pass,"git status shows no reports/ or results/ changes."
+no denominator changed,pass,"No denominator files changed."
+no paper results changed,pass,"No reports/results or paper-result surfaces changed."
+no official metrics computed,pass,"No metric computation command was run."
+no DB/checker execution,pass,"Only static validator and unit tests were run."
+no global leaderboard,pass,"No leaderboard output was created."
+no case-local runs deleted,pass,"No runs/ files were deleted; each pilot case still has runs/README.md only."
+no evidence deleted,pass,"No case-local or top-level evidence files were deleted."
+no structural layers reconverted,pass,"Only README files, audit outputs, and project-control files are changed."

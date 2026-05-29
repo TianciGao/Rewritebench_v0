@@ -1,0 +1,12 @@
+field,required_for_case_local_profile,meaning,example,source_of_truth,notes
+schema_id,true,Stable reusable schema identifier,tpch_common_core_v0,manifest schema_ref schema_id,Must match external schema package id
+external_schema_profile,true,Repository-relative path to external schema profile,schemas/tpch_common_core_v0/schema_profile.yaml,external schema package,Links case-facing profile to executable schema package
+source_family,true,Source dataset or benchmark family,tpch,provenance or schema profile,Used for grouping shared schemas
+relevant_tables,true,Tables used or relevant for the case,orders;lineitem,source SQL and DDL,May be a list
+columns,true,Columns relevant to the case,o_orderkey;l_orderkey,DDL and source SQL,May be grouped by table
+column_types,true,Column type summary,o_orderkey: integer,DDL and schema profile,Dialect caveats go under dialect_differences
+primary_keys,true,Primary key summary,orders.o_orderkey,DDL and schema profile,Use empty list if no declared key
+foreign_keys,true,Foreign key summary,lineitem.l_orderkey -> orders.o_orderkey,DDL and schema profile,Use empty list if no declared foreign key
+dialect_differences,true,Differences across postgres mysql spark,date function or type differences,external schema profile,Must not hide unsupported engines
+engine_support,true,Supported engines and status,postgres: supported; mysql: supported; spark: supported,external schema profile,Validator should compare to schema_ref engines
+fixture_notes,false,Fixture data notes when relevant,small deterministic fixture load,load scripts or retained notes,Optional but useful for generated fixtures

@@ -1,0 +1,41 @@
+field_group,field,observed_value,expected_shape,status,notes
+top_level,artifact_paths,artifact_paths,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,canonical_layout,canonical_layout,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,engine_support,engine_support,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,evidence,evidence,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,performance_boundary,performance_boundary,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,schema,schema,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,source_entry,source_entry,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,source_materialization,source_materialization,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,source_seed,source_seed,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+top_level,status,status,approved v2 top-level key or documented compatibility key,pass,compatibility top-level key retained during branch adoption
+sql,sql.source,sql/source.sql,sql/source.sql,pass,source SQL should use direct v2 path
+sql,sql.positives[1],sql/pos_01.sql,sql/pos_NN.sql as direct case-local path,pass,compatibility object with path
+sql,sql.positives[1].entry_shape,mapping,string path in canonical v2,warn,mapping form retained for metadata/legacy compatibility
+sql,sql.negatives[1],sql/neg_01.sql,sql/neg_NN.sql as direct case-local path,pass,compatibility object with path
+sql,sql.negatives[1].entry_shape,mapping,string path in canonical v2,warn,mapping form retained for metadata/legacy compatibility
+checker,checker.config,checker/checker.yaml,checker/checker.yaml,warn,canonical field missing; compatibility value resolves
+checker,checker.normalization,checker/normalization.yaml,checker/normalization.yaml,pass,
+checker,checker.compare_config,checker/compare_config.yaml,checker/compare_config.yaml,pass,
+checker,checker.expected_rejections,checker/expected_rejections.yaml,checker/expected_rejections.yaml,pass,
+schema_ref,schema_ref.schema_id,tpch_common_core_v0,non-empty lowercase schema id,pass,schema id identifies external schema package
+schema_ref,schema_ref.engines,missing,schema_ref.engines.<engine>.ddl/load,warn,compatibility top-level engine shape is accepted for read-only branch recheck
+schema_ref,schema_ref.engines.postgres.ddl,schemas/tpch_common_core_v0/postgres/ddl.sql,schemas/<SCHEMA_ID>/postgres/ddl.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+schema_ref,schema_ref.engines.postgres.load,schemas/tpch_common_core_v0/postgres/load.sql,schemas/<SCHEMA_ID>/postgres/load.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+schema_ref,schema_ref.engines.mysql.ddl,schemas/tpch_common_core_v0/mysql/ddl.sql,schemas/<SCHEMA_ID>/mysql/ddl.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+schema_ref,schema_ref.engines.mysql.load,schemas/tpch_common_core_v0/mysql/load.sql,schemas/<SCHEMA_ID>/mysql/load.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+schema_ref,schema_ref.engines.spark.ddl,schemas/tpch_common_core_v0/spark/ddl.sql,schemas/<SCHEMA_ID>/spark/ddl.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+schema_ref,schema_ref.engines.spark.load,schemas/tpch_common_core_v0/spark/load.sql,schemas/<SCHEMA_ID>/spark/load.sql,warn,canonical engines nesting missing; resolved through compatibility fallback
+evidence_ref,evidence_ref,missing,evidence_ref.package_validation_summary and evidence_ref.runs_retention,warn,policy recorded but not yet added to PERF_0006 manifest
+witness,witness.mode,,source_as_oracle | static_reference | external_reference,warn,missing or non-canonical witness policy field
+witness,witness.data_profile_status,,optional | generated | external | materialized | unavailable,warn,missing or non-canonical witness policy field
+witness,witness.correct_result_status,materialized_from_retained_postgres_source_reference,optional | generated | external | materialized | unavailable,pass,missing or non-canonical witness policy field
+validation,validation.run_validation,validation/run_validation.sh,validation/run_validation.sh,pass,v2 validation entrypoint
+validation,validation.run_plan_collection,validation/run_plan_collection.sh,validation/run_plan_collection.sh,pass,v2 validation entrypoint
+validation,validation.mysql_plan_collection,validation/run_mysql_plan_collection.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+validation,validation.mysql_validation,validation/run_mysql_validation.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+validation,validation.postgres_plan_collection,validation/run_postgres_plan_collection.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+validation,validation.postgres_validation,validation/run_postgres_validation.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+validation,validation.spark_plan_collection,validation/run_spark_plan_collection.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+validation,validation.spark_validation,validation/run_spark_validation.sh,canonical wrappers plus explicit compatibility assets,warn,engine-specific validation entrypoint retained as compatibility asset
+readme,README section order,Purpose > Release Scope > Package Contents > Evidence Boundary > Benchmark Boundary > Notes / Future Review Status,Purpose > Release Scope > Package Contents > Evidence Boundary > Benchmark Boundary > Notes / Future Review Status,pass,README should follow v2/public template section order

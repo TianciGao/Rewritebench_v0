@@ -1,0 +1,13 @@
+check_name,status,details
+module_help,passed,PYTHONPATH=src python -m sql_rewrite_bench.user_run --help
+wrapper_help,passed,python scripts/user/run_user_benchmark.py --help
+public_smoke_dry_run,passed,selected_rows=2 candidate_generated_rows=0 tag_slices.csv present
+public_smoke_adapter_capture,passed,selected_rows=2 candidate_generated_rows=2 tag_slices.csv present
+quality_summary_boundary,passed,tag_slices_included=true local diagnostic boundary preserved
+tag_slice_boundaries,passed,local_diagnostic_only=true official_metric=false leaderboard_input=false
+tag_score_or_ranking,passed,no tag score or ranking fields created
+timing_speedup,passed,no timing or speedup fields created
+reports_results,passed,no reports/results updates
+user_entry_tests,passed,59 passed and 1 skipped
+protected_surface,passed,only allowed U5 source/test/audit/project-control files changed
+run_output_cleanup,passed,u5 smoke outputs removed before commit

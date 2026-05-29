@@ -1,0 +1,2 @@
+case_id,semantic_contract_complete,taxonomy_present,source_provenance_present_or_caveated,sql_object_form,schema_contract_ok,checker_contract_ok,validation_three_file_contract_ok,evidence_policy_present,forbidden_refs_absent,absolute_paths_absent,status,notes
+PORT_0005,true,true,true,true,true,true,true,true,true,true,pass,"Manifest includes semantic v2 fields, object-form SQL rewrites, schema.profile/schema.external_profile, checker paths, three validation entrypoints, source-as-oracle witness policy, and regeneration-first evidence_policy."

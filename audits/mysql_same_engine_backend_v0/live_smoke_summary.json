@@ -1,0 +1,26 @@
+{
+  "run_output_path": "runs/user/mysql_same_engine_smoke/",
+  "live_smoke_run": true,
+  "adapter_command": "python examples/user/noop_adapter.py",
+  "case_set": "common_core_v0",
+  "engine": "mysql",
+  "selected_cases": [
+    "PERF_0006",
+    "CONS_0005"
+  ],
+  "selected_rows": 2,
+  "candidate_generated_rows": 2,
+  "mysql_source_executable_rows": 2,
+  "mysql_candidate_executable_rows": 2,
+  "checker_attempted_rows": 2,
+  "exact_rows": 2,
+  "mismatch_rows": 0,
+  "failure_bucket_counts": {
+    "none": 2
+  },
+  "official_metrics_computed": false,
+  "timing_or_speedup_computed": false,
+  "reports_results_updated": false,
+  "global_leaderboard_created": false,
+  "local_diagnostic_only": true
+}

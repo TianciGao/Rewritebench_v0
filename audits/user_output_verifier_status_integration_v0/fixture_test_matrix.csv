@@ -1,0 +1,4 @@
+test_name,target_behavior,fixture_file,expected_behavior,actual_result,passed,notes
+test_missing_optional_artifacts_create_na_reports,N.A. verifier placeholder,tests/user_entry/test_user_output.py,No verifier artifacts writes verifier_status.json with N.A. and formal_verifier_evidence_missing,pytest passed,true,Preserves existing N.A. placeholder wording
+test_export_preserves_coverage_limited_verifier_status,coverage_limited verifier export,tests/user_entry/test_user_output.py,Coverage-limited SQLSolver status is exported and summarized without changing metrics or tag slices,pytest passed,true,no_verifier_support remains separate from failure buckets
+test_show_output_schema_prints_local_only_schema_without_outputs,output schema wording,tests/user_entry/test_readability_commands.py,Schema command prints local-only output contract including verifier status wording,pytest passed,true,No output artifacts created

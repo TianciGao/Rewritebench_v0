@@ -1,0 +1,17 @@
+output_file_or_dir,produced_by_dry_run,produced_by_adapter_capture,purpose,local_diagnostic_only,future_relevance,notes
+runs/user/{run_name}/,yes,yes,Run output root,yes,Required output boundary,Must remain outside cases reports results and case_sets
+runs/user/{run_name}/config.yaml,yes,yes,Run configuration and boundary flags,yes,Keep and expand if output schema changes,Contains no official metric output
+runs/user/{run_name}/selected_cases.csv,yes,yes,Selected case-engine rows,yes,Needed for denominator-aware summaries,Includes denominator_id case_path and source_sql_path
+runs/user/{run_name}/candidate_sql/,yes,yes,Canonical candidate SQL capture directory,yes,Needed for generated candidate artifacts,Empty in dry-run smoke
+runs/user/{run_name}/candidate_sql/{CASE_ID}__{engine}.sql,no,yes,Captured candidate SQL file,yes,Needed for DB execution and preflight,Produced only when adapter emits SQL
+runs/user/{run_name}/workspaces/,yes,yes,Per-row adapter workspace root,yes,Needed for local diagnostics,Contains empty per-row dirs in dry-run
+runs/user/{run_name}/workspaces/{CASE_ID}/{engine}/,yes,yes,Per-row workspace,yes,Needed for adapter logs and future execution/checker dirs,Path appears as artifact_path in ledger
+runs/user/{run_name}/workspaces/{CASE_ID}/{engine}/candidate.sql,no,yes,Adapter-provided candidate file,yes,Needed for capture precedence,Workspace candidate.sql is preferred over stdout
+runs/user/{run_name}/workspaces/{CASE_ID}/{engine}/adapter_stdout.txt,no,yes,Adapter stdout capture,yes,Useful for debug and capture fallback,Not a retained evidence artifact
+runs/user/{run_name}/workspaces/{CASE_ID}/{engine}/adapter_stderr.txt,no,yes,Adapter stderr capture,yes,Useful for debug and failure buckets,Must remain local diagnostic
+runs/user/{run_name}/ledger.csv,yes,yes,Per selected row local diagnostic ledger,yes,Core U1/U2 schema surface,Current 35 fields
+runs/user/{run_name}/failures.csv,yes,yes,Rows with non-none failure_bucket,yes,Needed for failure accounting,Header-only in successful smoke runs
+runs/user/{run_name}/summary.json,yes,yes,Run-level diagnostic counts and boundary flags,yes,Seed for future quality_summary.json,Current 27 keys
+runs/user/{run_name}/report.md,yes,yes,Human-readable local report,yes,Seed for future quality_report.md,Current report is not a paper table
+runs/user/{run_name}/execution/,no,no,Future engine execution artifacts,yes,Needed for DB diagnostics and timing later,Created only when DB execution path writes artifacts
+runs/user/{run_name}/checker/,no,no,Future checker aggregate artifacts,yes,Possible future normalized location,Current checker artifacts are under per-row workspace when enabled

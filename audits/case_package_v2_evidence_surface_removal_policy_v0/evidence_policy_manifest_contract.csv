@@ -1,0 +1,11 @@
+field_path,required_for_v2,allowed_values,meaning,validator_behavior,notes
+evidence_policy,true for clean v2 target,mapping,Regeneration-first evidence policy block,Accepted as approved top-level manifest key,Future pilot manifests should replace mandatory evidence_ref with this block.
+evidence_policy.static_case_evidence,true,not_required|optional_retained,Declares whether committed static case evidence is needed,Pass when value is one of the allowed values,not_required is the clean public target.
+evidence_policy.regeneration_policy,true when static_case_evidence is not_required,regenerable_by_validation_and_report_scripts,States how evidence rows are regenerated,Pass when not_required uses the canonical regeneration policy,Execution remains separately authorized.
+evidence_policy.retained_static_artifacts,true,none|list of artifact descriptors,Lists optional retained static artifacts if deliberately kept,Pass when none or list,Static retained artifacts are optional and not required clean surface.
+evidence_ref,false,mapping when present,Compatibility metadata for retained static evidence paths,Missing evidence_ref is accepted; present evidence_ref paths are still statically checked,This field is not the final clean v2 requirement.
+evidence_ref.package_validation_summary,false,repository-relative path,Optional retained package validation summary,Checked only when evidence_ref is present,Not required when evidence_policy is not_required.
+evidence_ref.runs_retention,false,repository-relative path,Optional retained runs/evidence mapping,Checked only when evidence_ref is present,Not required when evidence_policy is not_required.
+evidence_ref.retained_controls,false,repository-relative path,Optional retained controls directory,Checked only when evidence_ref is present,Migration artifact only.
+evidence_ref.hard_negative,false,repository-relative path,Optional hard-negative retained artifacts,Checked only when evidence_ref is present,Migration artifact only.
+evidence_ref.plans,false,repository-relative path,Optional retained plan artifacts,Checked only when evidence_ref is present,Migration artifact only.

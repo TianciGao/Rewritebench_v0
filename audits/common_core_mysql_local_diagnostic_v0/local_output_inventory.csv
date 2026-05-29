@@ -1,0 +1,11 @@
+path,exists,purpose,committed,notes
+runs/user/common_core_mysql_noop_db_checker/selected_cases.csv,true,selected case-engine rows,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/ledger.csv,true,row-level local diagnostic ledger,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/failures.csv,true,non-none failure rows,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/summary.json,true,local run summary,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/report.md,true,human-readable local run report,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/quality_summary.json,true,denominator-aware local quality summary,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/quality_report.md,true,human-readable local quality report,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/tag_slices.csv,true,local diagnostic tag slices,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/candidate_sql,true,captured candidate SQL files,false,local run output; ignored/untracked and not staged
+runs/user/common_core_mysql_noop_db_checker/workspaces,true,per-row adapter/execution/checker artifacts,false,local run output; ignored/untracked and not staged

@@ -1,0 +1,21 @@
+# Boundary Checklist
+
+- Denominator changed: no.
+- Paper results changed: no.
+- Case membership changed: no.
+- Reports/results changed: no.
+- Raw retained evidence changed: no.
+- Official metrics computed: no.
+- Timing/speedup computed: no.
+- Leaderboard created: no.
+- Release/export/tag created: no.
+- Retained evidence promoted: no.
+- `runs/user/` outputs committed: no.
+- Checker behavior changed: no.
+- Exact counts changed: no.
+- Common-core rerun performed: no.
+- Source code modified: no.
+- Tests modified: no.
+- Checker configs modified: no.
+- Cases/SQL/baselines modified: no.
+- `case_sets/` changed: no.

@@ -35,7 +35,7 @@
 - PORT bounded evidence 不能写成 full PORT9；
 - SpeedupTransferRate 当前不计算；
 - verifier support 不是 rewrite-generation baseline；
-- runs/ 是 legacy retained evidence，不能无 retention mapping 删除。
+- case-local runs/ 需要按内容分类；empty/placeholder-only 不是 retained evidence，non-empty/uncertain runs/ 不能无 retention/archive mapping 删除。
 
 ## 3. 已知 legacy facts
 
@@ -78,6 +78,13 @@
 
 ## 5. 目标 public release layout 标记
 
+Status update:
+
+- D035 is the current authoritative final public repository layout decision.
+- The older top-level layout with active `cases/`, `case_sets/`, `schemas/`, `inventory/`, and `scripts/` entries is superseded as the final public target.
+- Physical migration is deferred. Current working paths remain valid until a separate layout migration/export task updates resolvers, validators, tests, docs, and references.
+- Future output and CLI work must align with `output/results/<run_id>/`, `output/logs/<run_id>/`, `output/reports/<run_id>/`, and `src/cli`.
+
 标记说明：
 
 - [MUST] v1 公开版必须有；
@@ -90,32 +97,42 @@
 目标顶层结构：
 
 ```text
-sql-rewrite-bench/
-  README.md                         [MUST]
-  LICENSE                           [MUST]
-  .gitignore                        [MUST]
-  CITATION.cff                      [SHOULD]
-  CONTRIBUTING.md                   [SHOULD]
-  pyproject.toml                    [SHOULD]
-  Makefile                          [OPTIONAL]
-
-  benchmark_spec/                   [MUST]
-  taxonomy/                         [MUST]
-  inventory/                        [MUST]
-  case_sets/                        [MUST]
+.github/                            [SHOULD]
+benchmarks/                         [MUST]
   cases/                            [MUST]
-  scripts/                          [MUST]
-  docs/                             [MUST]
-  reports/                          [MUST]
-  results/                          [SHOULD]
-  baselines/                        [SHOULD]
-  tests/                            [SHOULD]
-  src/                              [SHOULD]
-
-  runs/                             [LOCAL]
-  repository_spec/                  [SHOULD]
-  .github/                          [SHOULD]
+  case_sets/                        [MUST]
+  schemas/                          [MUST]
+  inventory/                        [MUST]
+baselines/                          [SHOULD]
+docs/                               [MUST]
+  guide/                            [MUST]
+  spec/                             [MUST]
+  templates/                        [SHOULD]
+examples/                           [SHOULD]
+output/                             [LOCAL]
+  results/                          [LOCAL]
+  logs/                             [LOCAL]
+  reports/                          [LOCAL]
+src/                                [SHOULD]
+  sql_rewrite_bench/                [SHOULD]
+  cli/                              [SHOULD]
+  dev/                              [SHOULD]
+CITATION.cff                        [SHOULD]
+CONTRIBUTING.md                     [SHOULD]
+LICENSE                             [MUST]
+README.md                           [MUST]
+pyproject.toml                      [SHOULD]
 ```
+
+D035 layout interpretation:
+
+- `benchmarks/` is the final public target for cases, case sets, schemas, and inventory.
+- Current working paths `cases/`, `case_sets/`, `schemas/`, and `inventory/` remain valid until a separately authorized migration/export task physically moves them.
+- Existing `scripts/` remain valid during transition. The final public target splits user-facing CLI into `src/cli` and development/validation tools into `src/dev`.
+- `src/sql_rewrite_bench` remains the internal implementation package.
+- `output/results/<run_id>/`, `output/logs/<run_id>/`, and `output/reports/<run_id>/` are local user-run output surfaces and must remain distinct from top-level `reports/` and `results/`.
+- Top-level `reports/` and `results/`, when present or later authorized, remain official/paper/release-facing surfaces and must not be updated by local user-run tasks.
+- This plan update records the target only. It does not create `benchmarks/`, `output/`, `src/dev`, or perform any physical migration.
 
 ## 6. case package 目标原则
 
@@ -139,22 +156,131 @@ cases/<POOL>/<CASE_ID>/
 其中：
 
 manifest.yaml 是主索引；
-runs/ 是 legacy retained evidence；
-evidence/runs_retention.yaml 用于解释 runs/；
+case-local runs/ 需要按内容分类；
+empty 或 placeholder-only runs/ 不是 retained evidence；
+non-empty 或不确定 runs/ 在没有 retention mapping 前继续按 legacy retained evidence 保护；
+evidence/runs_retention.yaml 用于解释 retained 或 archived runs 状态；
 新运行输出不再写入 case-local runs/；
 Common-core membership 由 case_sets/ 控制，不通过物理目录复制 case。
 
+## 6A. Case package v2 target addendum
+
+case package v1 was the prior migration target and remains compatibility context. Case package v2 is the new branch-adoption target on:
+
+`feature/case-package-v2-external-schema`
+
+v2 is not merged to `main` until the branch pilot, validator compatibility, and runner compatibility are explicitly approved.
+
+v2 does not change Common-core membership, denominators, paper results, reports/results, retained evidence, or no-global-leaderboard policy.
+
+Target v2 case-local structure:
+
+```text
+cases/<POOL>/<CASE_ID>/
+  README.md
+  manifest.yaml
+  sql/source.sql
+  sql/pos_01.sql
+  sql/neg_01.sql
+  schema/schema_profile.yaml
+  checker/
+  validation/
+  witness/  # optional lightweight policy/static witness metadata
+```
+
+Case-local `schema/` remains in clean v2 only for `schema/schema_profile.yaml`. This file is a case-facing schema profile and summary, not executable DDL or load data. It records the `schema_id`, external schema profile linkage, source family, relevant tables, columns, column types, primary keys, foreign keys, dialect differences, fixture/data notes when needed, and engine support summary.
+
+External schema structure:
+
+```text
+schemas/<SCHEMA_ID>/
+  schema_profile.yaml
+  postgres/ddl.sql
+  postgres/load.sql
+  mysql/ddl.sql
+  mysql/load.sql
+  spark/ddl.sql
+  spark/load.sql
+```
+
+External evidence structure:
+
+`evidence/cases/<POOL>/<CASE_ID>/` is a migration-time or optional retained-artifact surface only. It is not required in the final clean v2 public case surface. Benchmark evidence rows should be regenerated from case SQL, schema profiles, checker configuration, validation wrappers, baselines, scripts, reports, and results only when those reporting surfaces are separately authorized.
+
+Manifest reference policy:
+
+- `schema_ref` points from a case manifest to reusable `schemas/<SCHEMA_ID>/` executable DDL/load assets and becomes the source of truth after validator and runner compatibility are implemented.
+- The case manifest also references case-local `schema/schema_profile.yaml`; that profile links back to the external schema profile and executable DDL/load paths.
+- `evidence_policy` records whether static case evidence is required. Clean v2 uses `static_case_evidence: not_required` and `regeneration_policy: regenerable_by_validation_and_report_scripts`.
+- `evidence_ref` is optional compatibility metadata only when retained static artifacts are deliberately kept during migration.
+- `sql.source`, `sql.positives`, and `sql.negatives` point to direct case-local SQL files under `sql/`.
+- Checker paths remain case-local by default under `checker/`.
+- Validation entrypoints converge to `validation/run_validation.sh` and `validation/run_plan_collection.sh`.
+
+Folder-ordered v2 conversion sequence:
+
+`manifest -> sql -> schema -> checker -> validation -> witness -> evidence -> metadata -> notes -> runs -> README/validator`
+
+1. `manifest`: normalize canonical v2 references and compatibility blocks first.
+2. `sql`: create direct `sql/source.sql`, `sql/pos_01.sql`, and `sql/neg_01.sql` paths.
+3. `schema`: create/update case-local `schema/schema_profile.yaml` and external `schemas/<SCHEMA_ID>/<engine>/ddl.sql` and `load.sql` references.
+4. `checker`: retain case-local checker configuration only.
+5. `validation`: add thin `run_validation.sh` and `run_plan_collection.sh` wrappers.
+6. `witness`: record source-as-oracle and optional/generated witness policy.
+7. `evidence`: record regeneration-first `evidence_policy`; use `evidence_ref` only for optional retained static artifacts.
+8. `metadata`: merge stable governance metadata into manifest or compatibility blocks.
+9. `notes`: classify notes for README, manifest notes, or external evidence notes.
+10. `runs`: classify case-local runs as legacy retained evidence; never write new outputs there.
+11. `README/validator`: update package documentation and run static validator checks after the structural layers are stable.
+
+Runtime witness/source-as-oracle policy:
+
+- User-run DB/checker execution should default to comparing runtime source SQL results against candidate SQL results.
+- `data_profile.yaml` is optional, generated, or external.
+- `correct_result.csv` is optional and not required for runtime checker execution when source-as-oracle execution is available.
+- Missing static witness files must fail closed only when source execution or checker configuration is unavailable.
+
+Artifact boundary policy:
+
+- `runs/user/<run_id>/` is local user-run output only. It is not retained paper evidence, not `results/retained/`, and not a leaderboard input.
+- case-local `runs/` must be classified by content. Empty or placeholder-only case-local `runs/` is not retained evidence; non-empty, uncertain, retained-evidence-present, sensitive/private, or raw-trace `runs/` remains protected and must not receive new user-run output.
+- `results/retained/` is a curated retained-evidence/reporting surface only after separate authorization.
+- `evidence/cases/` is optional retained case evidence/reference material during migration, not a required final public surface, user-run output, or paper table output.
+
+Branch-only adoption roadmap:
+
+1. Record v2 master plan and repository specs on `feature/case-package-v2-external-schema`.
+2. Implement non-destructive validator and runner compatibility for `schema_ref` and regeneration-first `evidence_policy`; retain `evidence_ref` only as optional compatibility.
+3. Recheck `PERF_0006` without modifying additional cases.
+4. Expand branch-only pilot to `PERF_0007`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011` if authorized.
+5. Plan Common-core 40 conversion only after validator/runner compatibility and pilot review pass.
+6. Externalize evidence copy-first and keep compatibility mappings.
+7. Clean up case-local compatibility assets only after explicit retention mapping and approval.
+8. Align the clean public export surface after v2 package boundaries are stable.
+
 ## 7. runs/ 政策
 
-runs/ 在迁移期定义为 legacy retained evidence surface。
+case-local runs/ 在迁移期必须按内容分类，而不是自动视为 retained evidence。
+
+当前 v2 branch reality audit 显示：current release branch 中大多数 case-local runs/ 只是 README placeholder，未包含 retained evidence payload。因此 v2 cleanup policy 区分：
+
+- absent runs/: 无需 cleanup；
+- empty runs/: 不是 retained evidence；
+- placeholder-only runs/: 不是 retained evidence，除非 placeholder 明确说明 retained artifacts 存在于该目录内；
+- non-empty runs/: 删除前必须分类；
+- retained-evidence-present runs/: 删除前必须有 retention mapping；
+- sensitive/private/local-path/raw-trace runs/: 不得 public-copy，需要 private/archive mapping；
+- manual-review runs/: 人工复核前不得删除。
+
+D005 仍适用于 non-empty、uncertain、retained-evidence-present、sensitive/private/raw-trace runs candidates。
 
 没有 retention mapping 前，不允许：
 
-删除 runs/；
-清空 runs/；
-批量移动 runs/；
-全部外迁 runs/；
-静默改写 runs/；
+删除 non-empty/uncertain retained-evidence runs/；
+清空 non-empty/uncertain retained-evidence runs/；
+批量移动 non-empty/uncertain retained-evidence runs/；
+全部外迁 non-empty/uncertain retained-evidence runs/；
+静默改写 non-empty/uncertain retained-evidence runs/；
 隐藏 failed / unsupported / mismatch / timing-missing evidence。
 
 每个迁移后的 case 应逐步增加：

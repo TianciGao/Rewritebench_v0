@@ -1,0 +1,7 @@
+engine,axis,slice_count,selected_rows_total,exact_rows_total,mismatch_rows_total,execution_failed_rows_total,notes
+postgres,portability_risk,21,41,17,0,24,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.
+postgres,rewrite_opportunity,10,44,38,0,6,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.
+postgres,sql_feature,26,100,99,0,1,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.
+mysql,portability_risk,21,41,28,0,13,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.
+mysql,rewrite_opportunity,10,44,35,0,9,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.
+mysql,sql_feature,26,100,96,0,4,Tag slices are local diagnostic slices and may overlap across tags; totals are not a denominator.

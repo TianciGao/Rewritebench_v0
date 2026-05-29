@@ -1,0 +1,27 @@
+# Validation Notes
+
+- Branch gate: `feature/case-package-v2-external-schema` confirmed before edits.
+- POCR module compile check: passed with `python -m py_compile` for all files under `src/sql_rewrite_bench/pocr/`.
+- Test suite: `pytest tests/pocr -q` passed, 55 tests.
+- Common-core skills parser inventory: passed for all 40 root-level `skills.md` files.
+- Pool split: PERF 16, CONS 9, PORT 9, LONGTAIL 6.
+- Candidate resolver check: existing PG no-op root `runs/user/common_core_pg_noop_db_checker/candidate_sql/` resolved 40/40 candidate rows.
+- Fixture positive controls: `sql/pos_01.sql` exists for `PERF_0006`, `CONS_0005`, `PORT_0003`, and `LONGTAIL_0011`.
+- Live calibration calls: 8 maximum authorized calls attempted, 6 provider successes and 2 timeout failures.
+- Annotation schema validation: 6 pass, 2 provider/parse failures recorded as schema-invalid.
+- Stage B static validation by class: reported for all 8 candidate-class rows.
+- Positive-control static validated operation atoms: 8.
+- No-op-control static validated operation atoms: 8.
+- Static rejected operation atoms: 0.
+- Insufficient-evidence operation atoms: 0.
+- Calibration risks: `presence_not_rewrite_risk` 4 rows, `low` 2 rows, `positive_control_no_validated_atoms` 2 rows.
+- CSV parse checks: passed for all audit CSV files.
+- JSONL parse check: passed for `safe_annotation_outputs.jsonl` with 8 records.
+- Markdown non-empty checks: passed for audit Markdown files.
+- Official POCR computation check: every calibration comparison row has `official_pocr_computed=false`.
+- Route-level aggregation check: every calibration comparison row has `route_level_pocr_aggregated=false`; no route-level POCR output was produced.
+- Protected-path review: no `cases/`, root-level `skills.md`, `skill/` folders, `output/`, top-level `reports/`, top-level `results/`, or `runs/` files were modified.
+- Boundary check: no DB/checker/timing run, baseline rerun, `compute-local-metrics`, verifier, official metrics, paper rendering, retained-evidence promotion, leaderboard generation, denominator change, case membership change, paper result change, or raw legacy evidence change occurred.
+- Secret handling: API keys were read from environment only; raw prompt/response bodies and API key values were not written to audit files.
+- Changed-file secret scan: passed.
+- `git diff --check`: passed.

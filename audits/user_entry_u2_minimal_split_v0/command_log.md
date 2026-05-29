@@ -1,0 +1,25 @@
+# Command Log
+
+- `git status -sb`: clean on `feature/case-package-v2-external-schema` before edits.
+- `git branch --show-current`: `feature/case-package-v2-external-schema`.
+- `git log --oneline -10`: reviewed latest branch history.
+- Read project-control files including `USER_ENTRY_LOCAL_EVALUATION_ARCHITECTURE_PLAN.md`.
+- Read U1 audit packet files under `audits/user_entry_output_schema_audit_v0/`.
+- Read U2 design packet files under `audits/user_entry_module_split_design_v0/`.
+- Read current user-entry implementation and tests.
+- Added `case_package_resolver.py`, `adapter_runner.py`, and `user_ledger.py`.
+- Updated `user_run.py` only to delegate existing behavior to the new modules.
+- Added `tests/user_entry/test_u2_module_split.py`.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --help`: passed.
+- `python scripts/user/run_user_benchmark.py --help`: passed.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command "python examples/user/noop_adapter.py" --out runs/user/u2_split_dry_run --dry-run`: passed with `selected_rows=2`, `candidate_generated_rows=0`.
+- `PYTHONPATH=src python -m sql_rewrite_bench.user_run --case-set common_core_v0 --engine postgres --smoke --adapter-command "python examples/user/noop_adapter.py" --out runs/user/u2_split_dummy_adapter`: passed with `selected_rows=2`, `candidate_generated_rows=2`.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest tests/user_entry -q`: passed with 39 tests passed and 1 skipped.
+- Removed `runs/user/u2_split_dry_run` and `runs/user/u2_split_dummy_adapter`.
+- No DB/checker execution was run.
+- No official metrics, paper tables, reports/results updates, retained-evidence parsing, or global leaderboard were produced.
+- `git diff --check`: passed.
+- CSV parse checks: passed for 2 new CSV files.
+- Markdown sanity checks: passed for 4 new audit Markdown files.
+- Protected-surface diff check: passed.
+- Run-output cleanup check: passed; required U2 smoke output directories were absent before commit.

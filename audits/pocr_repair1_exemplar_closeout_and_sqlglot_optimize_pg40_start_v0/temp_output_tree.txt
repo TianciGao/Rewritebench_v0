@@ -1,0 +1,5 @@
+
+No SQLGlot optimize `/tmp` replay output was created by this task because Phase B stopped before live annotation and replay.
+
+Existing Repair-1 `/tmp` replay output from the prior targeted retry was read only for evidence indexing:
+`/tmp/sqlrb_pocr_user_replay_direct_llm_repair1_pg40_targeted_retry_v0/output/`.

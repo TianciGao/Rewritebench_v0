@@ -1,0 +1,81 @@
+case_id,pool,candidate_class,engine,live_call_attempted,json_parse_status,schema_validation_status,issue_codes,atom_count,expected_atom_count,operation_atom_count,semantic_guard_atom_count,missing_atom_count,duplicate_atom_count,invalid_atom_count,notes
+PERF_0006,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0006,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0007,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0007,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0008,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0008,PERF,noop_control,postgres,true,fail,fail,provider_or_parse_failure,0,5,0,0,5,0,0,"Expecting ',' delimiter: line 1 column 654 (char 653)"
+PERF_0013,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0013,PERF,noop_control,postgres,true,fail,fail,provider_or_parse_failure,0,5,0,0,5,0,0,"Expecting ',' delimiter: line 1 column 616 (char 615)"
+PERF_0017,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0017,PERF,noop_control,postgres,true,fail,fail,provider_or_parse_failure,0,5,0,0,5,0,0,"Expecting ',' delimiter: line 1 column 651 (char 650)"
+PERF_0019,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0019,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0024,PERF,positive_control,postgres,true,fail,fail,provider_or_parse_failure,0,5,0,0,5,0,0,"Expecting ',' delimiter: line 1 column 581 (char 580)"
+PERF_0024,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0033,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0033,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0034,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0034,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0035,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0035,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0052,PERF,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0052,PERF,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0054,PERF,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0054,PERF,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0056,PERF,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0056,PERF,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0062,PERF,positive_control,postgres,true,fail,fail,provider_or_parse_failure,0,4,0,0,4,0,0,The read operation timed out
+PERF_0062,PERF,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0077,PERF,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0077,PERF,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0082,PERF,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PERF_0082,PERF,noop_control,postgres,true,fail,fail,provider_or_parse_failure,0,4,0,0,4,0,0,"Expecting ',' delimiter: line 1 column 600 (char 599)"
+CONS_0005,CONS,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0005,CONS,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0007,CONS,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0007,CONS,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0009,CONS,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0009,CONS,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0010,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0010,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0011,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0011,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0012,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0012,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0024,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0024,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0036,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0036,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0037,CONS,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+CONS_0037,CONS,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0003,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0003,PORT,noop_control,postgres,true,fail,fail,provider_or_parse_failure,0,5,0,0,5,0,0,The read operation timed out
+PORT_0004,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0004,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0005,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0005,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0008,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0008,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0012,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0012,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0013,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0013,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0022,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0022,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0024,PORT,positive_control,postgres,true,fail,fail,provider_or_parse_failure,0,4,0,0,4,0,0,The read operation timed out
+PORT_0024,PORT,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0025,PORT,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+PORT_0025,PORT,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0011,LONGTAIL,positive_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0011,LONGTAIL,noop_control,postgres,true,pass,pass,,4,4,2,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0012,LONGTAIL,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0012,LONGTAIL,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0013,LONGTAIL,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0013,LONGTAIL,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0022,LONGTAIL,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0022,LONGTAIL,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0023,LONGTAIL,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0023,LONGTAIL,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0024,LONGTAIL,positive_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator
+LONGTAIL_0024,LONGTAIL,noop_control,postgres,true,pass,pass,,5,5,3,2,0,0,0,Stage A schema validation only; no POCR numerator

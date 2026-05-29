@@ -1,0 +1,41 @@
+case_id,provider_label,model_label,call_timestamp_utc,call_status,error_type,token_counts_if_available,api_key_env_name,api_key_value_recorded,notes
+CONS_0005,openai_compatible,gpt-5.4,2026-05-26T12:59:38.551401+00:00,schema_valid,,"{""completion_tokens"": 785, ""prompt_tokens"": 1540, ""total_tokens"": 2325}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0007,openai_compatible,gpt-5.4,2026-05-26T12:59:39.364377+00:00,schema_valid,,"{""completion_tokens"": 785, ""prompt_tokens"": 1573, ""total_tokens"": 2358}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0009,openai_compatible,gpt-5.4,2026-05-26T12:59:57.799220+00:00,schema_valid,,"{""completion_tokens"": 1056, ""prompt_tokens"": 1890, ""total_tokens"": 2946}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0010,openai_compatible,gpt-5.4,2026-05-26T13:00:18.747913+00:00,schema_valid,,"{""completion_tokens"": 679, ""prompt_tokens"": 1531, ""total_tokens"": 2210}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0011,openai_compatible,gpt-5.4,2026-05-26T13:00:33.033586+00:00,schema_valid,,"{""completion_tokens"": 658, ""prompt_tokens"": 1488, ""total_tokens"": 2146}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0012,openai_compatible,gpt-5.4,2026-05-26T13:00:47.132968+00:00,schema_valid,,"{""completion_tokens"": 551, ""prompt_tokens"": 1437, ""total_tokens"": 1988}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0024,openai_compatible,gpt-5.4,2026-05-26T13:00:59.384375+00:00,schema_valid,,"{""completion_tokens"": 522, ""prompt_tokens"": 1490, ""total_tokens"": 2012}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0036,openai_compatible,gpt-5.4,2026-05-26T13:01:10.871930+00:00,schema_valid,,"{""completion_tokens"": 653, ""prompt_tokens"": 1343, ""total_tokens"": 1996}",SQLRB_LLM_API_KEY,false,schema_valid
+CONS_0037,openai_compatible,gpt-5.4,2026-05-26T13:01:24.537674+00:00,schema_valid,,"{""completion_tokens"": 446, ""prompt_tokens"": 1418, ""total_tokens"": 1864}",SQLRB_LLM_API_KEY,false,schema_valid
+LONGTAIL_0011,openai_compatible,gpt-5.4,2026-05-26T13:03:32.604753+00:00,schema_valid,,"{""completion_tokens"": 757, ""prompt_tokens"": 2114, ""total_tokens"": 2871}",SQLRB_LLM_API_KEY,false,schema_valid
+LONGTAIL_0012,openai_compatible,gpt-5.4,2026-05-26T13:03:49.769684+00:00,malformed_json,JSONDecodeError,,SQLRB_LLM_API_KEY,false,provider response was malformed JSON; fail-closed diagnostic row
+LONGTAIL_0013,openai_compatible,gpt-5.4,2026-05-26T13:04:08.862452+00:00,schema_valid,,"{""completion_tokens"": 821, ""prompt_tokens"": 3155, ""total_tokens"": 3976}",SQLRB_LLM_API_KEY,false,schema_valid
+LONGTAIL_0022,openai_compatible,gpt-5.4,2026-05-26T13:04:25.785789+00:00,schema_valid,,"{""completion_tokens"": 782, ""prompt_tokens"": 1926, ""total_tokens"": 2708}",SQLRB_LLM_API_KEY,false,schema_valid
+LONGTAIL_0023,openai_compatible,gpt-5.4,2026-05-26T13:04:41.883394+00:00,schema_valid,,"{""completion_tokens"": 1033, ""prompt_tokens"": 2150, ""total_tokens"": 3183}",SQLRB_LLM_API_KEY,false,schema_valid
+LONGTAIL_0024,openai_compatible,gpt-5.4,2026-05-26T13:05:05.558514+00:00,schema_valid,,"{""completion_tokens"": 872, ""prompt_tokens"": 2011, ""total_tokens"": 2883}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0006,openai_compatible,gpt-5.4,2026-05-26T12:53:31.342068+00:00,schema_valid,,"{""completion_tokens"": 670, ""prompt_tokens"": 2210, ""total_tokens"": 2880}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0007,openai_compatible,gpt-5.4,2026-05-26T12:53:32.226038+00:00,schema_valid,,"{""completion_tokens"": 583, ""prompt_tokens"": 1880, ""total_tokens"": 2463}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0008,openai_compatible,gpt-5.4,2026-05-26T12:53:46.171736+00:00,schema_valid,,"{""completion_tokens"": 942, ""prompt_tokens"": 2277, ""total_tokens"": 3219}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0013,openai_compatible,gpt-5.4,2026-05-26T12:54:05.918135+00:00,malformed_json,JSONDecodeError,,SQLRB_LLM_API_KEY,false,provider response was malformed JSON; fail-closed diagnostic row
+PERF_0017,openai_compatible,gpt-5.4,2026-05-26T12:54:31.987596+00:00,timeout,TimeoutError,,SQLRB_LLM_API_KEY,false,provider call timed out; fail-closed diagnostic row
+PERF_0019,openai_compatible,gpt-5.4,2026-05-26T12:55:32.251570+00:00,schema_valid,,"{""completion_tokens"": 893, ""prompt_tokens"": 2012, ""total_tokens"": 2905}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0024,openai_compatible,gpt-5.4,2026-05-26T12:55:51.259852+00:00,schema_valid,,"{""completion_tokens"": 1036, ""prompt_tokens"": 2333, ""total_tokens"": 3369}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0033,openai_compatible,gpt-5.4,2026-05-26T12:56:12.524165+00:00,malformed_json,JSONDecodeError,,SQLRB_LLM_API_KEY,false,provider response was malformed JSON; fail-closed diagnostic row
+PERF_0034,openai_compatible,gpt-5.4,2026-05-26T12:56:30.102839+00:00,schema_valid,,"{""completion_tokens"": 860, ""prompt_tokens"": 3250, ""total_tokens"": 4110}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0035,openai_compatible,gpt-5.4,2026-05-26T12:56:48.792890+00:00,schema_valid,,"{""completion_tokens"": 782, ""prompt_tokens"": 3406, ""total_tokens"": 4188}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0052,openai_compatible,gpt-5.4,2026-05-26T12:57:05.168324+00:00,timeout,TimeoutError,,SQLRB_LLM_API_KEY,false,provider call timed out; fail-closed diagnostic row
+PERF_0054,openai_compatible,gpt-5.4,2026-05-26T12:58:05.517967+00:00,schema_valid,,"{""completion_tokens"": 566, ""prompt_tokens"": 1941, ""total_tokens"": 2507}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0056,openai_compatible,gpt-5.4,2026-05-26T12:58:20.108647+00:00,schema_valid,,"{""completion_tokens"": 766, ""prompt_tokens"": 2187, ""total_tokens"": 2953}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0062,openai_compatible,gpt-5.4,2026-05-26T12:58:36.411439+00:00,schema_valid,,"{""completion_tokens"": 1410, ""prompt_tokens"": 2935, ""total_tokens"": 4345}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0077,openai_compatible,gpt-5.4,2026-05-26T12:59:04.329368+00:00,schema_valid,,"{""completion_tokens"": 741, ""prompt_tokens"": 1829, ""total_tokens"": 2570}",SQLRB_LLM_API_KEY,false,schema_valid
+PERF_0082,openai_compatible,gpt-5.4,2026-05-26T12:59:20.057117+00:00,schema_valid,,"{""completion_tokens"": 886, ""prompt_tokens"": 2061, ""total_tokens"": 2947}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0003,openai_compatible,gpt-5.4,2026-05-26T13:01:34.684826+00:00,schema_valid,,"{""completion_tokens"": 545, ""prompt_tokens"": 1525, ""total_tokens"": 2070}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0004,openai_compatible,gpt-5.4,2026-05-26T13:01:47.544073+00:00,schema_valid,,"{""completion_tokens"": 662, ""prompt_tokens"": 1730, ""total_tokens"": 2392}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0005,openai_compatible,gpt-5.4,2026-05-26T13:02:02.631588+00:00,schema_valid,,"{""completion_tokens"": 512, ""prompt_tokens"": 1533, ""total_tokens"": 2045}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0008,openai_compatible,gpt-5.4,2026-05-26T13:02:14.992090+00:00,schema_valid,,"{""completion_tokens"": 749, ""prompt_tokens"": 1758, ""total_tokens"": 2507}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0012,openai_compatible,gpt-5.4,2026-05-26T13:02:30.494511+00:00,schema_valid,,"{""completion_tokens"": 618, ""prompt_tokens"": 1575, ""total_tokens"": 2193}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0013,openai_compatible,gpt-5.4,2026-05-26T13:02:43.674126+00:00,schema_valid,,"{""completion_tokens"": 591, ""prompt_tokens"": 1599, ""total_tokens"": 2190}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0022,openai_compatible,gpt-5.4,2026-05-26T13:02:57.643279+00:00,schema_valid,,"{""completion_tokens"": 549, ""prompt_tokens"": 1597, ""total_tokens"": 2146}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0024,openai_compatible,gpt-5.4,2026-05-26T13:03:09.422196+00:00,schema_valid,,"{""completion_tokens"": 530, ""prompt_tokens"": 1404, ""total_tokens"": 1934}",SQLRB_LLM_API_KEY,false,schema_valid
+PORT_0025,openai_compatible,gpt-5.4,2026-05-26T13:03:20.743489+00:00,schema_valid,,"{""completion_tokens"": 550, ""prompt_tokens"": 1587, ""total_tokens"": 2137}",SQLRB_LLM_API_KEY,false,schema_valid

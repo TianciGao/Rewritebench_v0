@@ -1,0 +1,13 @@
+check_name,status,details
+no case files modified,pass,no git diff entries
+no schemas modified,pass,no git diff entries
+no case_sets changed,pass,no git diff entries
+no inventory changed,pass,no git diff entries
+no reports/results changed,pass,no git diff entries
+no denominator changed,pass,no git diff entries
+no paper results changed,pass,no git diff entries
+no official metrics computed,pass,not performed by this read-only audit task
+no DB/checker execution,pass,not performed by this read-only audit task
+no global leaderboard,pass,not performed by this read-only audit task
+no evidence/cases created,pass,no git diff entries
+no dialect variants deleted,pass,no git diff entries
