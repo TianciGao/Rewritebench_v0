@@ -28142,3 +28142,56 @@ Boundary:
 
 Next safe action:
 - Collaborators may run `bash scripts/setup_dev_env_ubuntu.sh` and `bash scripts/check_dev_env.sh` on Ubuntu / WSL Ubuntu, keeping local `output/` reports uncommitted.
+
+Task: `baseline_quick_deploy_scripts_github_v0`
+
+Branch: `feature/case-package-v2-external-schema`
+
+Push result: pending during audit closeout
+
+Mode:
+- Create GitHub-hosted baseline deployment/check scripts and concise English/Russian documentation for new online machines. No offline deployment mode, vendoring of third-party runtimes, official upstream source/JAR/checkpoint/model upload, baseline rerun, Track A 120 run, DB/checker/timing run, live API call, POCR annotation/replay/aggregation run, official POCR computation, paper metric promotion, top-level reports/results update, retained-evidence promotion, or leaderboard output was authorized.
+
+Legacy repo modified: no
+
+Release repo modified: yes
+
+Files created:
+- `scripts/setup_baseline_adapters.sh`
+- `scripts/check_baseline_adapters.sh`
+- `docs/baseline_deployment_en_ru.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/README.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/implementation_summary.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/profile_matrix.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/validation_summary.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/protected_path_review.md`
+- `audits/baseline_quick_deploy_scripts_github_v0/command_log.md`
+
+Files modified:
+- `project_control/MIGRATION_STATUS.md`
+- `project_control/MIGRATION_RUN_LOG.md`
+
+Summary:
+- Added `setup_baseline_adapters.sh` with `core`, `calcite`, `prior-adapted`, and `all-safe` profiles, `--repo-root`, `--no-install`, and optional Calcite runtime root/archive support.
+- Added `check_baseline_adapters.sh` with the same profiles and local report output under `output/reports/baseline_env_check_<timestamp>/baseline_report.txt`.
+- Added concise English/Russian deployment documentation for online machines, including adapter/runtime distinction, baseline status, profile use, output policy, and troubleshooting.
+- Incorporated old-machine inventory facts: SQLGlot is a Python package route; Calcite HEP has an optional external runtime tree; R-Bot, LLM-R2, and LearnedRewrite official upstream runtimes are not confirmed; bulk `output/` / `runs/user` copy is not the deployment default.
+
+Validation result:
+- Shell syntax checks, `check_baseline_adapters.sh --profile all-safe`, `setup_baseline_adapters.sh --profile all-safe --no-install`, POCR tests, required user-entry tests, Markdown checks, required phrase checks, protected-path checks, secret scans, and `git diff --check` are run during closeout.
+
+Boundary:
+- No baseline rerun occurred.
+- No Track A 120 run occurred.
+- No live API call occurred.
+- No DB/checker/timing run occurred.
+- No POCR annotation/replay/aggregation run occurred.
+- No official POCR was computed.
+- No paper metric was promoted.
+- No top-level reports/results update occurred.
+- No official upstream runtime was vendored.
+- No output artifact was staged or committed.
+- No denominator, case membership, paper result, raw legacy evidence, retained evidence, or leaderboard output changed.
+
+Next safe action:
+- Test the scripts on the new online machine and review `output/reports/baseline_env_check_<timestamp>/baseline_report.txt` before enabling any actual baseline execution.
